@@ -69,12 +69,12 @@ void() zombie_dead_cruc1 = [$cruc_1, zombie_dead_cruc1] {self.nextthink = time +
 void() zombie_stand1   =[      $paine11,       zombie_stand2  ]
 {
 	self.solid = SOLID_NOT;
-	if (self.pos1 == 0)  //dumptruck_ds -- pos1 value > 0 to leave the zombie sleeping until triggered!
+	if (self.count == 0)  //dumptruck_ds -- count value > 0 to leave the zombie sleeping until triggered!
 		ai_stand();
 };
 void() zombie_stand2   =[      $paine11,       zombie_stand1  ]
 {
-	if (self.pos1 == 0)
+	if (self.count == 0)
 		ai_stand();
 };
 
@@ -512,15 +512,15 @@ void() zombie_decide =  // stand up if orig. lying down, else just start running
 void() zombie_use =   // wake up a sleeping zombie!
 
 {
-	self.pos1 = 0;
+	self.count = 0;
 	//attacker = other;
 	monster_use();
 };
 
 void() zombie_start =  // determine if zombie is to be lying down, or standing
 {
-	self.pos1 = 1; //dumptruck_ds -- Don't start zombie_stand1 yet!
-	self.use = zombie_use; //dumptruck_ds -- makes self.pos1 = 0 so zombie_stand1 is called
+	self.count = 1; //dumptruck_ds -- Don't start zombie_stand1 yet!
+	self.use = zombie_use; //dumptruck_ds -- makes self.count = 0 so zombie_stand1 is called
 
 	if (self.spawnflags & SPAWN_SLEEPING)
 
