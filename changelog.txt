@@ -1,0 +1,36 @@
+RC1 (omitted)
+
+RC2 2018-9-15
+
+* added trigger_setgravity from Hipnotic
+* added trigger_usekey from Hipnotic
+* added func_new_plat from Rogue
+* revised dtsounds.qc to avoid crashes when noise values were missing
+* updated manual
+* "new" test map to illustrate additions
+
+RC 3
+
+* removed unused spawnflags from fgd
+* revised progs_dump_100 map
+* reverted trigger_hurt, trigger_push to id1 code
+
+RC 4
+
+* added tele_fog //thanks Khreathor!
+* added FireAmbient to fgd
+* revisions to progs_dump_100 sample map.
+
+1.0.0 (omitted)
+
+1.1.0
+
+* added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for new start maps!)
+* added classnames to "bonus item fell out of level" and "monster stuck in wall" errors when developer is set to 1.
+* Add entities for Thunder, Water and Sky sounds. Use these when you want to hand place these instead of having VIS.exe add them automatically.
+* Fixed door unlock sound not playing (id software bug)
+* Added ladders
+* Added breakables (WIP)
+* Added spawn_angry key/value for use with Trigger Spawned monsters
+* Added meat_shower (regular or large, triggerable, silent or random gib sounds)
+* Added trigger_void

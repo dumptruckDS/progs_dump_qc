@@ -1,0 +1,44 @@
+../progs.dat
+
+defs.qc //added fields, see comments for details
+subs.qc //modified targets, triggers and killtargets
+fight.qc
+ai.qc
+combat.qc
+items.qc
+weapons.qc
+world.qc
+client.qc
+player.qc
+monsters.qc //modified by dumptruck_ds from Preach's spawning tutorial | fish count fixed
+doors.qc
+buttons.qc
+triggers.qc //added trigger_push_custom based on Hipnotic
+plats.qc
+misc.qc
+
+ogre.qc
+demon.qc
+shambler.qc
+knight.qc
+soldier.qc
+wizard.qc
+dog.qc
+zombie.qc //modified version of Ace_Dave's zombies from Rubicon2 source
+boss.qc
+
+tarbaby.qc		// registered
+hknight.qc		// registered
+fish.qc			// registered
+shalrath.qc		// registered
+enforcer.qc		// registered
+oldone.qc		// registered
+
+dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
+math.qc // Code by Joshua Skelton
+misc_model.qc // Code by Joshua Skelton
+hiptrig.qc //Hipnotic triggers qc
+doeplats.qc //Rogue MP newplats.qc
+elevatr.qc //Rogue elevator code
+rubicon2.qc //selections from Rubicon2 QC
+dtquake.qc //triggerable earthquake from Zer cutscenes
