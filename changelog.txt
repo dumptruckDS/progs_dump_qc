@@ -30,7 +30,9 @@ RC 4
 * Add entities for Thunder, Water and Sky sounds. Use these when you want to hand place these instead of having VIS.exe add them automatically.
 * Fixed door unlock sound not playing (id software bug)
 * Added ladders
-* Added breakables (WIP)
+* Added breakables
 * Added spawn_angry key/value for use with Trigger Spawned monsters
 * Added meat_shower (regular or large, triggerable, silent or random gib sounds)
 * Added trigger_void
+* Added trigger_shake (earthquake)
+* renamed dtsounds.qc to dtmisc.qc

@@ -336,11 +336,12 @@ void () func_breakable = {
 	setmodel (self, self.model);
 	self.mdl_debris = "progs/debris.mdl";
 	precache_model (self.mdl_debris);
+	precache_sound ("blob/hit1.wav");
 
 	if (self.noise1 != "") precache_sound(self.noise1);
 
 	else
-		objerror("noise1 not set in entity");
+		(self.noise1 = "blob/hit1.wav");
 
 	if (!self.health)
 		self.health = 20;
