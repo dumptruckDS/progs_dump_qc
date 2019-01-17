@@ -166,7 +166,7 @@ void() tele_fog =
   self.use = play_tfog;
 }
 
-void () play_meatspray = //-- dumptruck_ds
+void () play_meatspray = //-- dumptruck_ds -- thanks to Spike for helping with errors
 {
   if (self.style == 1)
   {
@@ -202,7 +202,11 @@ void() meat_shower =
 }
 /* misc gore */
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
-
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+deadstuff version 1.0 - tony collen - manero@canweb.net - EfNet IRC #QuakeEd or #Trinity
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
 void() gib_head_demon =
 {

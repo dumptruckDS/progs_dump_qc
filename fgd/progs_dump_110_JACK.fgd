@@ -230,6 +230,270 @@ If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand 
 		16 : "Spawn Sleeping" : 0
 	]
 ]
+//start deadstuff entries -- dumptruck_ds
+
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/demon.mdl","skin" : skin, "frame" : 53}) = monster_dead_demon : "Demon Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/shambler.mdl","skin" : skin, "frame" : 93}) = monster_dead_shambler : "Shambler Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/soldier.mdl","skin" : skin, "frame" : 28}) = monster_dead_army : "Soldier Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+2 : "Face Up" : 0
+]
+]
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 40) studio({ "path": ":progs/dog.mdl","skin" : skin, "frame" : 16}) = monster_dead_dog : "Dog Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/enforcer.mdl","skin" : skin, "frame" : 54}) = monster_dead_enforcer : "Enforcer Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+2 : "Face Up" : 0
+]
+]
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/ogre.mdl","skin" : skin, "frame" : 135}) = monster_dead_ogre : "Ogre Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+2 : "Face Up" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/knight.mdl","skin" : skin, "frame" : 96}) = monster_dead_knight : "Knight Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+2 : "On Side" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/hknight.mdl","skin" : skin, "frame" : 62}) = monster_dead_hell_knight : "Hellknight Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/shalrath.mdl","skin" : skin, "frame" : 22}) = monster_dead_shalrath : "Shalrath Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/wizard.mdl","skin" : skin, "frame" : 53}) = monster_dead_wizard : "Scrag Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 49}) = player_dead_axe: "Player Corpse Axe" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 102}) = player_dead_on_side: "Player Corpse on Side" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 84}) = player_dead_face_down: "Player Corpse Face Down" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_demon.mdl","skin" : skin, "frame" : 0}) = gib_head_demon : "Demon Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_dog.mdl","skin" : skin, "frame" : 0}) = gib_head_dog : "Dog Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_guard.mdl","skin" : skin, "frame" : 0}) = gib_head_army : "Grunt Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_hellkn.mdl","skin" : skin, "frame" : 0}) = gib_head_hell_knight : "Hellnight Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_knight.mdl","skin" : skin, "frame" : 0}) = gib_head_knight : "Knight Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_mega.mdl","skin" : skin, "frame" : 0}) = gib_head_enforcer : "Enforcer Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_ogre.mdl","skin" : skin, "frame" : 0}) = gib_head_ogre : "Orge Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_player.mdl","skin" : skin, "frame" : 0}) = gib_head_player : "Player Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_shal.mdl","skin" : skin, "frame" : 0}) = gib_head_shalrath : "Shalrath Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_shams.mdl","skin" : skin, "frame" : 0}) = gib_head_shambler : "Shambler Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_wizard.mdl","skin" : skin, "frame" : 0}) = gib_head_wizard : "Wizard Head" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/gib1.mdl","skin" : skin, "frame" : 0}) = gib_misc_1 : "Gib 1" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/gib2.mdl","skin" : skin, "frame" : 0}) = gib_misc_2 : "Gib 2" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/gib3.mdl","skin" : skin, "frame" : 0}) = gib_misc_3 : "Gib 3" //dumptruck_ds
+[
+angles(integer)
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+// end of deadstuff -- dumptruck_ds
 
 //
 // lights

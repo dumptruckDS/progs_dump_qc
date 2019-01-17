@@ -1,17 +1,46 @@
-
+void (vector org) spawn_tfog;
 void() W_SetCurrentAmmo;
 /* ALL LIGHTS SHOULD BE 0 1 0 IN COLOR ALL OTHER ITEMS SHOULD
 BE .8 .3 .4 IN COLOR */
-
 
 void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
-	sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
-	setorigin (self, self.origin);
+	if (!(self.spawnflags & 16384)) 			// SILENT, gb
+		{spawn_tfog (self.origin);}
+	else
+{	sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
+}	setorigin (self, self.origin);
 };
 
+// Supa, Quoth respawning items support Respawn item like in DM if 'ritem' TRUE,
+// override respawn time with 'respawndelay' if set, inc 'cnt' with each respawn
+// and if 'respawncount' is set we'll remove the item if cnt > respawncount
+// remember that SUB_Regen is already set on every item that can respawn, all we
+// need to do is give a nextthink time in order to trigger it
+.float	ritem,
+		respawndelay,
+		respawncount;
+
+void(entity whatitem, float defaultdelay) CheckItemRespawn =
+{
+	if (!whatitem.ritem)	// respawn item if true, otherwise abort
+		return;
+
+	whatitem.cnt = whatitem.cnt + 1;	// inc before check to account for zero indexing
+
+	if (whatitem.respawncount)	// limited respawns
+	if (whatitem.respawncount < whatitem.cnt)
+		return;
+
+	// okay, we're clear to set up a respawn
+
+	if (whatitem.respawndelay)	// custom respawn delay?
+		whatitem.nextthink = time + whatitem.respawndelay;
+	else
+		whatitem.nextthink = time + defaultdelay;
+};
 
 
 /*QUAKED noclass (0 0 0) (-8 -8 -8) (8 8 8)
@@ -25,7 +54,66 @@ void() noclass =
 	remove (self);
 };
 
+/*
+============
+DelaySpawnItem //this is from rmq-items.qc
 
+Makes a SPAWNED item ready for pickup on a trigger event - modified a bit -- dumptruck_ds
+============
+*/
+void() DelaySpawnItem =
+{
+	self.solid = SOLID_TRIGGER;
+	setmodel (self, self.mdl);
+	setsize (self, self.pos1, self.pos2);
+
+	if (!(self.spawnflags & 32)) 			// SILENT, gb
+		// sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);
+		spawn_tfog (self.origin);
+
+	self.use = SUB_Null;
+};
+
+
+// Supa, restore old hull and lock movement
+void() RefreshHull =
+{
+	setsize (self, self.dest, self.dest2);
+
+	self.movetype = MOVETYPE_NONE;
+	self.velocity = '0 0 0';
+};
+
+
+// /*
+// ============
+// PlaceItem  //old func replaced by rmq-items -- dumptruck_ds
+//
+// plants the object on the floor
+// ============
+// */
+// void() PlaceItem =
+// {
+// 	local float	oldz;
+//
+// 	self.mdl = self.model;		// so it can be restored on respawn
+// 	self.flags = FL_ITEM;		// make extra wide
+// 	self.solid = SOLID_TRIGGER;
+// 	self.movetype = MOVETYPE_TOSS;
+// 	self.velocity = '0 0 0';
+// 	self.origin_z = self.origin_z + 6;
+// 	oldz = self.origin_z;
+// 	if (!droptofloor())
+// 	{
+// 		dprint ("\n\n");
+// 		dprint (self.classname); //dumptruck_ds
+// 		dprint (" fell out of level at ");
+// 		dprint (vtos(self.origin));
+// 		dprint ("\n\n");
+// 		remove(self);
+// 		return;
+// 	}
+// };
 
 /*
 ============
@@ -36,26 +124,57 @@ plants the object on the floor
 */
 void() PlaceItem =
 {
-	local float	oldz;
+	// local float	oldz;
 
-	self.mdl = self.model;		// so it can be restored on respawn
-	self.flags = FL_ITEM;		// make extra wide
-	self.solid = SOLID_TRIGGER;
-	self.movetype = MOVETYPE_TOSS;
-	self.velocity = '0 0 0';
-	self.origin_z = self.origin_z + 6;
-	oldz = self.origin_z;
-	if (!droptofloor())
+	if ((self.spawnflags & 128))  //ijed Don't drop spawnflag
 	{
-		dprint ("\n\n");
-		dprint (self.classname); //dumptruck_ds
-		dprint (" fell out of level at ");
-		dprint (vtos(self.origin));
-		dprint ("\n\n");
-		remove(self);
-		return;
+		self.mdl = self.model;		// so it can be restored on respawn
+		self.flags = FL_ITEM;		// make extra wide
+		self.solid = SOLID_TRIGGER;
+		self.movetype = MOVETYPE_FLY;
+		self.velocity = '0 0 0';
+	}
+	else
+	{
+			if (self.classname == "item_health")	// Supa, CTF
+			{
+
+			// hacking around hull issues..
+			setsize (self, '0 0 0',  '0 0 0');	// void hull for now
+
+			self.think = RefreshHull;
+			self.nextthink = time + 0.2;
+			}
+
+		self.mdl = self.model;		// so it can be restored on respawn
+		self.flags = FL_ITEM;		// make extra wide
+		self.solid = SOLID_TRIGGER;
+		self.movetype = MOVETYPE_TOSS;
+		self.velocity = '0 0 0';
+
+		setorigin (self, self.origin + '0 0 6');
+
+//		oldz = self.origin_z;
+		if (!droptofloor())
+		{
+			print_self ("bonus item", "fell out of level");
+			remove(self);
+			return;
+		}
+	}
+
+	if ((self.spawnflags & 64))		// SPAWNED, gb
+	{
+		self.pos1 = self.mins;
+		self.pos2 = self.maxs;
+
+		self.model = "";
+		self.solid = SOLID_NOT;
+
+		self.use = DelaySpawnItem;
 	}
 };
+
 
 /*
 ============
@@ -66,7 +185,7 @@ Sets the clipping size and plants the object on the floor
 */
 void() StartItem =
 {
-	self.nextthink = time + 0.2;	// items start after other solids
+	self.nextthink = time + 0.3;	// items start after other solids || was 0.2 -- dumptruck_ds
 	self.think = PlaceItem;
 };
 
@@ -193,14 +312,23 @@ void() health_touch =
 		self.owner = other;
 	}
 	else
+	// {  // replace by Khreathor's extras_r5 below
+	// 	if (deathmatch != 2)		// deathmatch 2 is the silly old rules
+	// 	{
+	// 		if (deathmatch)
+	// 			self.nextthink = time + 20;
+	// 		self.think = SUB_regen;
+	// 	}
+	// }
 	{
-		if (deathmatch != 2)		// deathmatch 2 is the silly old rules
-		{
-			if (deathmatch)
-				self.nextthink = time + 20;
-			self.think = SUB_regen;
-		}
+		//if (deathmatch != 2)		// deathmatch 2 is the silly old rules
+		//{
+		//	if (deathmatch)
+		if (!deathmatch)
+			CheckItemRespawn(self, 30);
+		self.think = SUB_regen;
 	}
+
 
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
@@ -221,11 +349,19 @@ void() item_megahealth_rot =
 // just blindly subtract the flag off
 	other.items = other.items - (other.items & IT_SUPERHEALTH);
 
-	if (deathmatch == 1)	// deathmatch 2 is silly old rules
-	{
-		self.nextthink = time + 20;
-		self.think = SUB_regen;
-	}
+// replace by Khreathor's extras_r5 below
+// 	if (deathmatch == 1)	// deathmatch 2 is silly old rules
+// 	{
+// 		self.nextthink = time + 20;
+// 		self.think = SUB_regen;
+// 	}
+// };
+//if (deathmatch == 1)	// deathmatch 2 is silly old rules
+// if(self.wait && self.wait > 0)
+// {
+// 	self.nextthink = time + self.wait;
+// 	self.think = SUB_regen;
+// }
 };
 
 /*
@@ -274,9 +410,14 @@ void() armor_touch =
 
 	self.solid = SOLID_NOT;
 	self.model = string_null;
-	if (deathmatch == 1)
-		self.nextthink = time + 20;
+	// if (deathmatch == 1) Khreathor stuff
+	// 	self.nextthink = time + 20;
+	// self.think = SUB_regen;
+	// Supa, SP respawning items support
+	if (!deathmatch)
+		CheckItemRespawn(self, 30);
 	self.think = SUB_regen;
+
 
 	sprint(other, "You got armor\n");
 // armor touch sound
@@ -496,6 +637,10 @@ void() weapon_touch =
 	self.solid = SOLID_NOT;
 	if (deathmatch == 1)
 		self.nextthink = time + 30;
+		// Supa, SP respawning items support
+		if (!deathmatch)
+			CheckItemRespawn(self, 30);
+
 	self.think = SUB_regen;
 
 	activator = other;
@@ -675,9 +820,11 @@ local float		best;
 // remove it in single player, or setup for respawning in deathmatch
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-	if (deathmatch == 1)
-		self.nextthink = time + 30;
+	// if (deathmatch == 1)
+	if (!deathmatch)
+		CheckItemRespawn(self, 30);
 	self.think = SUB_regen;
+
 
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
@@ -1084,17 +1231,39 @@ void() powerup_touch =
 	sprint (other, self.netname);
 	sprint (other,"\n");
 
-	if (deathmatch)
+	// if (deathmatch)
+	// {
+	// 	self.mdl = self.model;
+	//
+	// 	if ((self.classname == "item_artifact_invulnerability") ||
+	// 		(self.classname == "item_artifact_invisibility"))
+	// 		self.nextthink = time + 60*5;
+	// 	else
+	// 		self.nextthink = time + 60;
+	//
+	// 	self.think = SUB_regen;
+	// }
+
+	// Supa, SP respawning items support
+	self.mdl	= self.model;
+	self.think	= SUB_regen;
+
+	if (!deathmatch)
 	{
-		self.mdl = self.model;
+		local float spawndelay;
 
+		if		(self.classname == "item_artifact_invulnerability"	||
+				 self.classname == "item_artifact_invisibility"		)	spawndelay = 300;
+		// else if (self.classname == "item_grappling_hook"			)	spawndelay = 30;
+		else															spawndelay = 60;
+
+		CheckItemRespawn(self, spawndelay);
+	}
+	else
+	{
 		if ((self.classname == "item_artifact_invulnerability") ||
-			(self.classname == "item_artifact_invisibility"))
+		    (self.classname == "item_artifact_invisibility"))
 			self.nextthink = time + 60*5;
-		else
-			self.nextthink = time + 60;
-
-		self.think = SUB_regen;
 	}
 
 	sound (other, CHAN_VOICE, self.noise, 1, ATTN_NORM);

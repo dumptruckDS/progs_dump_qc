@@ -4,7 +4,7 @@ void () W_WeaponFrame;
 void() W_SetCurrentAmmo;
 void() player_pain;
 void() player_stand1;
-void (vector org) spawn_tfog;
+//void (vector org) spawn_tfog; //moved to items.qc -- dumptruck_ds
 void (vector org, entity death_owner) spawn_tdeath;
 
 float	modelindex_eyes, modelindex_player;

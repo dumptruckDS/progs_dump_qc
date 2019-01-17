@@ -753,3 +753,19 @@ float BREAKABLE_NO_MONSTERS = 1;
 .string break_template4_e;
 .string break_template5_e;
 .string find_brk_template_model;
+
+//from remakequake
+
+.vector		dest, dest1, dest2;
+
+void(string type, string text) print_self =
+{
+	dprint (type);
+	dprint (" '");
+	dprint (self.classname);
+	dprint ("' ");
+	dprint (text);
+	dprint (" at ");
+	dprint (vtos(self.origin));
+	dprint ("\n");
+};
