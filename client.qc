@@ -357,7 +357,7 @@ void() trigger_changelevel =
 {
 	self.use = dt_exit_toggle; //dumptruck_ds
 	if (!self.map)
-		objerror ("chagnelevel trigger doesn't have map");
+		objerror ("changelevel trigger doesn't have map");
 
 	if ( self.spawnflags & DT_EXITOFF ) //dumptruck_ds
 		 {
@@ -1005,7 +1005,7 @@ if (self.onladder)
 }
 else
 {
-	self.gravity = 1;
+	self.wantedgravity = 1;
 	if (self.button2)
 		PlayerJump ();
 	else

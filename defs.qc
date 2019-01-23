@@ -742,6 +742,7 @@ johnfitz new defs from Rubicon2
 ============================================================================*/
 float BREAKABLE_NO_MONSTERS = 1;
 
+.float 		wantedgravity; // thanks Spike!
 .float		onladder;
 .float		ladder_step_finished;
 
@@ -754,7 +755,7 @@ float BREAKABLE_NO_MONSTERS = 1;
 .string break_template5_e;
 .string find_brk_template_model;
 
-//from remakequake
+//from remakequake -- dumptruck_ds
 
 .vector		dest, dest1, dest2;
 

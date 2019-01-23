@@ -178,9 +178,16 @@ void() trigger_gravity_touch =
 //	if (other.classname != "player")
 //		return;
 	if (self.gravity == -1)
+	{
 		other.gravity = 1.0;
+		other.wantedgravity = other.gravity;
+	}
+
 	else
+	{
 		other.gravity = self.gravity;
+		other.wantedgravity = other.gravity;
+	}
 };
 
 /*QUAKED trigger_setgravity (.5 .5 .5) ?
@@ -189,6 +196,7 @@ set the gravity of a player
  - 0 (default) normal gravity
  - 1 no gravity
  - 2 almost no gravity
+ - 10 is a good setting
  - ...
  - 101 normal gravity
  - 102 slightly higher gravity

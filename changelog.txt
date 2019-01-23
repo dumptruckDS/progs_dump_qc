@@ -36,3 +36,4 @@ RC 4
 * Added trigger_void
 * Added trigger_shake (earthquake)
 * renamed dtsounds.qc to dtmisc.qc
+* Fixed trigger_ladder conflict with trigger_setgravity
