@@ -25,8 +25,8 @@ RC 4
 
 1.1.0
 
-* added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for new start maps!)
-* added classnames to "bonus item fell out of level" and "monster stuck in wall" errors when developer is set to 1.
+* Added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for new start maps!)
+* Added classnames to "bonus item fell out of level" and "monster stuck in wall" errors when developer is set to 1.
 * Add entities for Thunder, Water and Sky sounds. Use these when you want to hand place these instead of having VIS.exe add them automatically.
 * Fixed door unlock sound not playing (id software bug)
 * Added ladders
@@ -35,5 +35,9 @@ RC 4
 * Added meat_shower (regular or large, triggerable, silent or random gib sounds)
 * Added trigger_void
 * Added trigger_shake (earthquake)
-* renamed dtsounds.qc to dtmisc.qc
+* Renamed dtsounds.qc to dtmisc.qc
+* Added ritem (items respawn)
+* Added trigger spawning to items
+* Added items suspended flag
 * Fixed trigger_ladder conflict with trigger_setgravity
+* Revised FGDs
