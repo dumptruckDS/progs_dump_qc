@@ -383,6 +383,42 @@ void(string matchstring) SUB_UseName =
 };
 // ### end of Custents triggering code
 
+//
+// pain_target //dumptruck_ds
+//
+void() SUB_UsePain =
+
+{
+local entity t, stemp, otemp, act;
+
+if (self.pain_target)
+{
+	act = activator;
+	t = world;
+	do
+	{
+		t = find (t, targetname, self.pain_target);
+		if (!t)
+		{
+			return;
+		}
+		stemp = self;
+		otemp = other;
+		self = t;
+		other = stemp;
+		if (self.use != SUB_Null)
+		{
+			if (self.use)
+			self.use ();
+		}
+		self = stemp;
+		other = otemp;
+		activator = act;
+	} while ( 1 );
+}
+self.pain_target = ""; //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
+};
+
 /*
 
 in nightmare mode, all attack_finished times become 0

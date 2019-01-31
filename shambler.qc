@@ -278,6 +278,9 @@ void(entity attacker, float damage)	sham_pain =
 	if (self.health <= 0)
 		return;		// allready dying, don't go into pain frame
 
+	if (self.health <= self.pain_threshold) //dumptruck_ds
+		monster_pain_use();
+
 	if (random()*400 > damage)
 		return;		// didn't flinch
 

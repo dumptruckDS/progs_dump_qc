@@ -123,6 +123,10 @@ void()	demon1_pain6	=[	$pain6,		demon1_run1	] {};
 
 void(entity attacker, float damage)	demon1_pain =
 {
+
+  if (self.health <= self.pain_threshold) //dumptruck_ds
+  monster_pain_use();
+
 	if (self.touch == Demon_JumpTouch)
 		return;
 
@@ -131,7 +135,7 @@ void(entity attacker, float damage)	demon1_pain =
 
 	self.pain_finished = time + 1;
     sound (self, CHAN_VOICE, "demon/dpain1.wav", 1, ATTN_NORM);
-
+    return;		// allready dying, don't go into pain frame
 	if (random()*200 > damage)
 		return;		// didn't flinch
 

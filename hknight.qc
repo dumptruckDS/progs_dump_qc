@@ -357,6 +357,10 @@ void() hk_idle_sound =
 
 void(entity attacker, float damage)	hknight_pain =
 {
+
+	if (self.health <= self.pain_threshold) //dumptruck_ds
+	monster_pain_use();
+			
 	if (self.pain_finished > time)
 		return;
 

@@ -146,6 +146,10 @@ void()	knight_painb11	=[	$painb11,	knight_run1	] {};
 
 void(entity attacker, float damage)	knight_pain =
 {
+
+	if (self.health <= self.pain_threshold) //dumptruck_ds
+	monster_pain_use();
+			
 	local float r;
 
 	if (self.pain_finished > time)

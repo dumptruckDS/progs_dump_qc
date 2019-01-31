@@ -220,6 +220,10 @@ void()	army_cdie11	=[	$deathc11,	army_cdie11	] {};
 
 void() army_die =
 {
+
+	if (self.health <= self.pain_threshold) //dumptruck_ds
+	monster_pain_use();
+
 // check for gib
 	if (self.health < -35)
 	{

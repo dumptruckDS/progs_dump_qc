@@ -125,6 +125,22 @@ void() monster_death_use =
 	SUB_UseTargets ();
 };
 
+/*
+================
+monster_pain_use //dumptruck_ds
+
+When a monster reaches pain_threshold, it fires all of its pain_targets
+with the current enemy as activator.
+================
+*/
+void() monster_pain_use =
+{
+	if (!self.pain_target)
+		return;
+
+	activator = self.enemy;
+	SUB_UsePain ();
+};
 
 //============================================================================
 

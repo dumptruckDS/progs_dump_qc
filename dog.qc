@@ -197,6 +197,10 @@ void() dog_painb16	=[	$painb16 ,	dog_run1	] {};
 
 void() dog_pain =
 {
+
+  if (self.health <= self.pain_threshold) //dumptruck_ds
+  monster_pain_use();
+
 	sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
 
 	if (random() > 0.5)

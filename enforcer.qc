@@ -213,6 +213,10 @@ void()	enf_paind19	=[	$paind19,	enf_run1	] {};
 
 void(entity attacker, float damage)	enf_pain =
 {
+
+  if (self.health <= self.pain_threshold) //dumptruck_ds
+  monster_pain_use();
+
 	local float r;
 
 	r = random ();

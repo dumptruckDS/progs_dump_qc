@@ -89,6 +89,10 @@ void() shal_death7      =[      $death7,        shal_death7    ] {};
 
 void() shalrath_pain =
 {
+
+  if (self.health <= self.pain_threshold) //dumptruck_ds
+  monster_pain_use();
+			
 	if (self.pain_finished > time)
 		return;
 

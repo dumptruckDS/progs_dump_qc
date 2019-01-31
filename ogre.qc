@@ -314,6 +314,10 @@ void()	ogre_paine15=[	$paine15,	ogre_run1	] {};
 
 void(entity attacker, float damage)	ogre_pain =
 {
+	
+  if (self.health <= self.pain_threshold) //dumptruck_ds
+  monster_pain_use();
+
 	local float	r;
 
 // don't make multiple pain sounds right after each other
