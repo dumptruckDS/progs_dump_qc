@@ -316,11 +316,13 @@ void() sham_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
+		monster_pain_use();
 		return;
 	}
 
 // regular death
 	sound (self, CHAN_VOICE, "shambler/sdeath.wav", 1, ATTN_NORM);
+	monster_pain_use();
 	sham_death1 ();
 };
 

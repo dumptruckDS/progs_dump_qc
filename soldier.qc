@@ -144,6 +144,10 @@ void()	army_painc13=[	$painc13,	army_run1] {};
 
 void(entity attacker, float damage)	army_pain =
 {
+
+	if (self.health <= self.pain_threshold) //dumptruck_ds
+	monster_pain_use();
+
 	local float r;
 
 	if (self.pain_finished > time)
@@ -220,10 +224,6 @@ void()	army_cdie11	=[	$deathc11,	army_cdie11	] {};
 
 void() army_die =
 {
-
-	if (self.health <= self.pain_threshold) //dumptruck_ds
-	monster_pain_use();
-
 // check for gib
 	if (self.health < -35)
 	{
@@ -232,6 +232,7 @@ void() army_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
+		monster_pain_use(); //too fast? do it anyway -- dumptruck_ds
 		return;
 	}
 

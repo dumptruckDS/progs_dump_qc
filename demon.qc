@@ -164,6 +164,7 @@ void() demon_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib1.mdl", self.health);
+    monster_pain_use();
 		return;
 	}
 

@@ -314,7 +314,7 @@ void()	ogre_paine15=[	$paine15,	ogre_run1	] {};
 
 void(entity attacker, float damage)	ogre_pain =
 {
-	
+
   if (self.health <= self.pain_threshold) //dumptruck_ds
   monster_pain_use();
 
@@ -395,6 +395,7 @@ void() ogre_die =
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
+		monster_pain_use();
 		return;
 	}
 

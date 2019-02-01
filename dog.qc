@@ -240,6 +240,7 @@ void() dog_die =
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowHead ("progs/h_dog.mdl", self.health);
+		monster_pain_use();
 		return;
 	}
 

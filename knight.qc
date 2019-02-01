@@ -149,7 +149,7 @@ void(entity attacker, float damage)	knight_pain =
 
 	if (self.health <= self.pain_threshold) //dumptruck_ds
 	monster_pain_use();
-			
+
 	local float r;
 
 	if (self.pain_finished > time)
@@ -225,6 +225,7 @@ void() knight_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
+		monster_pain_use(); //too fast? do it anyway -- dumptruck_ds
 		return;
 	}
 

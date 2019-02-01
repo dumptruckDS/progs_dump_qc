@@ -348,6 +348,7 @@ void() wiz_die =
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
+		monster_pain_use();
 		return;
 	}
 
