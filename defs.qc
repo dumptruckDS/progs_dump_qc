@@ -774,3 +774,4 @@ void(string type, string text) print_self =
 void() SUB_UsePain; //dumptruck_ds
 .float 		pain_threshold; //dumptruck_ds
 .string 	pain_target; //dumptruck_ds
+.float color; //Hipnotic

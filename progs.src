@@ -37,6 +37,8 @@ oldone.qc		// registered
 dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
 math.qc // Code by Joshua Skelton
 misc_model.qc // Code by Joshua Skelton
+hipcount.qc //Hipnotic counter
+hippart.qc //Hipnotic particlefield and func_togglewall
 hiptrig.qc //Hipnotic triggers qc
 doeplats.qc //Rogue MP newplats.qc
 elevatr.qc //Rogue elevator code

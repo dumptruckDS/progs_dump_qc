@@ -919,6 +919,43 @@ targetname = Must be triggered"
 
 @SolidClass base(Appearflags, Targetname) = func_wall : "Wall, starts animation when triggered (if supporting texture)" []
 
+@SolidClass base(Appearflags, Targetname) = func_togglewall : "Creates a invisible wall that can be toggled on and off.
+
+START_OFF wall doesn't block until triggered.
+
+noise is the sound to play when wall is turned off.
+noise1 is the sound to play when wall is blocking.
+dmg is the amount of damage to cause when touched."
+[
+	noise(string) : "Power off sound"
+	noise1(string) : "Sound when touched"
+	dmg(integer) : "Amount of damage when touched" : 0
+	spawnflags(flags) =
+	[
+		1 : "Start Off" : 0
+	]
+]
+@SolidClass base(Appearflags, Targetname) = func_particlefield : "Creates a brief particle flash roughly the size of the defining
+brush each time it is triggered.
+
+USE_COUNT when the activator is a func_counter, the field will only activate when count is equal to cnt.  Same as using a func_oncount to trigger.
+
+cnt is the count to activate on when USE_COUNT is set.
+color is the color of the particles.  Default is 192 (yellow).
+count is the density of the particles.  Default is 2.
+noise is the sound to play when triggered.  Do not use a looping sound here.
+dmg is the amount of damage to cause when touched."
+[
+	cnt(integer) : "Number to activate" : 0
+	color(integer) : "Palette index for color" : 192
+	count(integer) : "Density of particles" : 2
+	dmg(integer) : "Amount of damage when touched" : 0
+	spawnflags(flags) =
+	[
+		1 : "Use Count" : 0
+	]
+]
+
 @SolidClass base(Angle, Appearflags, Targetname, Target) = func_button : "Button" //modified by dumptruck_ds to add Target
 [
 	speed(integer) : "Speed" : 40
@@ -1305,7 +1342,53 @@ Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 	    brk_obj_count4(integer) : "Template 4 spawn count"
 	    brk_obj_count5(integer) : "Template 5 spawn count"
 ]
+@PointClass size(16 14 24) color(255 128 0) base(Targetname, Target, Appearflags) = func_counter : "Activation Counter
 
+TOGGLE causes the counter to switch between an on and off state
+each time the counter is triggered.
+
+LOOP causes the counter to repeat infinitely.  The count resets to zero
+after reaching the value in count.
+
+STEP causes the counter to only increment when triggered.  Effectively,
+this turns the counter into a relay with counting abilities.
+
+RESET causes the counter to reset to 0 when restarted.
+
+RANDOM causes the counter to generate random values in the range 1 to count
+at the specified interval.
+
+FINISHCOUNT causes the counter to continue counting until it reaches count
+before shutting down even after being set to an off state.
+
+START_ON causes the counter to be on when the level starts.
+
+count specifies how many times to repeat the event.  If LOOP is set,
+it specifies how high to count before resetting to zero.  Default is 10.
+
+wait  the length of time between each trigger event. Default is 1 second.
+
+delay how much time to wait before firing after being switched on."
+[
+	spawnflags(flags) =
+	[
+		1 : "Togglable" : 0
+		2 : "Looping" : 1
+		4 : "Step" : 0
+		8 : "Reset" : 0
+		16 : "Random" : 0
+		32 : "Finishcount" : 0
+		64 : "Start On" : 1
+	]
+	count(integer) : "Repeat event #" : 10
+	wait(string) : "Sec. between each triggering" : "1"
+	delay(string) : "Delay before first trigger"
+]
+@PointClass size(16 14 24) color(255 175 0) base(Targetname, Target) = func_oncount : "Target for func_counter"
+[
+	count(integer) : "Repeat event #" : 1
+	delay(string) : "Delay before first trigger"
+]
 
 //////////////////////
 // end dumptruck_ds //

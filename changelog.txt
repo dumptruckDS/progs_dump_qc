@@ -41,3 +41,4 @@ RC 4
 * Added items suspended flag
 * Fixed trigger_ladder conflict with trigger_setgravity
 * Revised FGDs
+* Added func_togglewall, func_counter, func_oncount and func_particlefield from Hipnotic

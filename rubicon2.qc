@@ -285,8 +285,10 @@ void () func_breakable_die = {
 
 		if (self.spawnflags & BREAK_CUSTOM) {
 			make_breakable_templates_debris ();
+			remove (self);
 		} else {
 			make_breakable_debris ();
+			remove (self);
 		}
 	}
 };
