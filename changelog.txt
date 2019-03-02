@@ -36,9 +36,14 @@ RC 4
 * Added trigger_void
 * Added trigger_shake (earthquake)
 * Renamed dtsounds.qc to dtmisc.qc
+* Added deadstuff entities
 * Added ritem (items respawn)
 * Added trigger spawning to items
 * Added items suspended flag
 * Fixed trigger_ladder conflict with trigger_setgravity
 * Revised FGDs
+* Added pain_target and pain_threshold
 * Added func_togglewall, func_counter, func_oncount and func_particlefield from Hipnotic
+* Added pd_ladders test level
+* Fixed H_MEGA respawn bug
+* Added pd_zombies and pd_meat maps

@@ -172,7 +172,7 @@
 
 @PointClass
     size(0 0 0, 32 32 56)
-    base(Appearflags)
+		base(Item, Appearflags, Itemflags)
     model(
         {{
             spawnflags & 2 ->   ":maps/b_bh100.bsp",

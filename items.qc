@@ -312,24 +312,11 @@ void() health_touch =
 		self.owner = other;
 	}
 	else
-	// {  // replace by Khreathor's extras_r5 below
-	// 	if (deathmatch != 2)		// deathmatch 2 is the silly old rules
-	// 	{
-	// 		if (deathmatch)
-	// 			self.nextthink = time + 20;
-	// 		self.think = SUB_regen;
-	// 	}
-	// }
 	{
-		//if (deathmatch != 2)		// deathmatch 2 is the silly old rules
-		//{
-		//	if (deathmatch)
 		if (!deathmatch)
-			CheckItemRespawn(self, 30);
+		CheckItemRespawn(self, 30);
 		self.think = SUB_regen;
 	}
-
-
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
 };
@@ -344,24 +331,19 @@ void() item_megahealth_rot =
 		self.nextthink = time + 1;
 		return;
 	}
-
+	if (!deathmatch)
+	{
+		if (other.health <= other.max_health)
+		{
+			CheckItemRespawn(self, 30);
+			self.nextthink = time + self.respawndelay;
+			self.think = SUB_regen;
+		}
+	}
 // it is possible for a player to die and respawn between rots, so don't
 // just blindly subtract the flag off
 	other.items = other.items - (other.items & IT_SUPERHEALTH);
 
-// replace by Khreathor's extras_r5 below
-// 	if (deathmatch == 1)	// deathmatch 2 is silly old rules
-// 	{
-// 		self.nextthink = time + 20;
-// 		self.think = SUB_regen;
-// 	}
-// };
-//if (deathmatch == 1)	// deathmatch 2 is silly old rules
-// if(self.wait && self.wait > 0)
-// {
-// 	self.nextthink = time + self.wait;
-// 	self.think = SUB_regen;
-// }
 };
 
 /*
