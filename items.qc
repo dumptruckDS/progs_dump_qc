@@ -1152,6 +1152,26 @@ void() sigil_touch =
 	SUB_UseTargets();				// fire all targets / killtargets
 };
 
+void() sigil_touch2 = //replacement for Skill Select Rune hack -- uses info_player_start2 if spawnflag 16 -- dumptruck_ds
+{
+	if (other.classname != "player")
+		return;
+	if (other.health <= 0)
+		return;
+
+	// centerprint (other, "You got the rune!");
+
+	// sound (other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
+	// stuffcmd (other, "bf\n");
+	self.solid = SOLID_NOT;
+	self.model = string_null;
+	serverflags = serverflags | (self.spawnflags & 16);
+	self.classname = "";		// so rune doors won't find it
+
+	activator = other;
+	// SUB_UseTargets();				// fire all targets / killtargets
+};
+
 
 /*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4
 End of level sigil, pick up to end episode and return to jrstart.

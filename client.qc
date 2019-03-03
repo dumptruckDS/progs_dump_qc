@@ -309,12 +309,17 @@ void() changelevel_touch =
 	nextmap = self.map;
 
 	SUB_UseTargets ();
+	if ( (self.spawnflags & 16) && (deathmatch == 0) ) //use info_player_start2 -- dumptruck_ds
+	{
+	sigil_touch2();
+	}
 
 	if ( (self.spawnflags & 1) && (deathmatch == 0) )
 	{	// NO_INTERMISSION
 		GotoNextMap();
 		return;
 	}
+
 
 	self.touch = SUB_Null;
 
