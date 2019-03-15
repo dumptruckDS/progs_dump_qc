@@ -25,7 +25,7 @@ RC 4
 
 1.1.0
 
-* Added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for new start maps!)
+* Added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for custom start maps!)
 * Added classnames to "bonus item fell out of level" and "monster stuck in wall" errors when developer is set to 1.
 * Add entities for Thunder, Water and Sky sounds. Use these when you want to hand place these instead of having VIS.exe add them automatically.
 * Fixed door unlock sound not playing (id software bug)
@@ -47,3 +47,5 @@ RC 4
 * Added pd_ladders test level
 * Fixed H_MEGA respawn bug
 * Added pd_zombies and pd_meat maps
+* Added Persistent Key behavior (cnt = 1) to func_door and trigger_usekey
+* Added candle.mdl from Rogue and light_candle qc from Honey

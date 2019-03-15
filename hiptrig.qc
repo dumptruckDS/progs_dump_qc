@@ -50,6 +50,7 @@ void() keytrigger_use =
 		return;
 	}
 
+	if (!self.cnt) //dumptruck_ds thanks RennyC -- set cnt 1 to leave key in player inventory
 	activator.items = activator.items - self.items;
 
 	// we can't just remove (self) here, because this is a touch function

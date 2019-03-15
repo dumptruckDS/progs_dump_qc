@@ -159,6 +159,36 @@ void() light_flame_small_white =
 	makestatic (self);
 };
 
+/*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) START_OFF //dumptruck_ds taken from honey (originally from Rogue)
+White candle
+*/
+void() light_candle =
+{
+	precache_model ("progs/candle.mdl");
+	setmodel (self, "progs/candle.mdl");
+	makestatic (self);
+};
+
+void() model_candle_think =
+{
+	self.frame = self.frame + 1;
+	if (self.frame > 3)
+		self.frame = 0;
+	self.nextthink = time + 0.1;
+};
+
+void() model_candle =
+{
+
+	precache_model ("progs/candle.mdl");
+
+	setmodel (self, "progs/candle.mdl");
+
+	//self.think = model_candle_think;
+	//self.nextthink = time + 0.1;
+};
+
+
 //============================================================================
 
 

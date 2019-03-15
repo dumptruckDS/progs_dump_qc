@@ -122,6 +122,7 @@
 	respawncount(integer) : "How many respawns?"
 
 ]
+
 @baseclass size(0 0 0, 32 32 56) color(80 0 200) base(Item) = Ammo
 [
 	spawnflags(flags) =
@@ -254,11 +255,21 @@
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
 		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/w_s_key.mdl" }) =
-	item_key1 : "Silver key" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) model({ "path": ":progs/w_g_key.mdl" }) =
-	item_key2 : "Gold key" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) model({ "path": ":progs/end1.mdl" }) =
+@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/w_s_key.mdl" }) =
+	item_key1 : "Silver key" [spawnflags(flags) =
+		[
+			32 : "Spawn silent" : 0
+			64 : "Trigger Spawned" : 0
+			128 : "Suspended in air" : 0
+		]]
+@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/w_g_key.mdl" }) =
+	item_key2 : "Gold key" [spawnflags(flags) =
+		[
+			32 : "Spawn silent" : 0
+			64 : "Trigger Spawned" : 0
+			128 : "Suspended in air" : 0
+		]]
+@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/end1.mdl" }) =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =
@@ -728,6 +739,11 @@ spawnflags(Flags) =
 	[
 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
+@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/candle.mdl" }) = //dumptruck_ds
+	light_candle : "Candle"
+	[
+		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
+	]
 @PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame2.mdl" }) =
 	light_flame_small_yellow : "Small yellow flame"
 	[
@@ -917,7 +933,19 @@ spawnflags(Flags) =
 // 	]
 // ]
 
-@SolidClass base(Appearflags, Targetname) = func_wall : "Wall, starts animation when triggered (if supporting texture)" []
+@SolidClass base(Appearflags, Targetname) = func_wall : "Wall, starts animation when triggered (if supporting texture) " []
+
+@SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox.
+
+Keys:
+
+health default 20
+
+dmg default 100"
+[
+health(integer) : "Health" : 20
+dmg(integer) : "Damage" : 100
+]
 
 @SolidClass base(Appearflags, Targetname) = func_togglewall : "Creates a invisible wall that can be toggled on and off.
 

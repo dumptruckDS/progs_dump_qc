@@ -253,7 +253,7 @@ void() door_touch =
 		}
 		return;
 	}
-
+if (!self.cnt) //dumptruck_ds thanks RennyC -- set cnt 1 to leave key in player inventory
 	other.items = other.items - self.items;
 	self.touch = SUB_Null;
 	if (self.enemy)
