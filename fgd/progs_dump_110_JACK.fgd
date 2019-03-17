@@ -31,6 +31,8 @@
 // base marker definitions
 //
 
+@baseclass = Angle [ angle(integer) : "Direction" ]
+
 @baseclass = Appearflags [
 	spawnflags(Flags) =
 	[
@@ -133,68 +135,25 @@
 	]
 ]
 
-@PointClass
-    base(Ammo)
-    model(
-        {{
-            spawnflags & 1 ->   ":maps/b_batt1.bsp",
-                                ":maps/b_batt0.bsp"
-        }}
-    ) =
-    item_cells : "Thunderbolt ammo" []
+@PointClass base(Ammo) studio("maps/b_batt0.bsp") = item_cells : "Thunderbolt ammo" []
+@PointClass base(Ammo) studio("maps/b_rock0.bsp") = item_rockets : "Rockets" []
+@PointClass base(Ammo) studio("maps/b_shell0.bsp") = item_shells : "Shells" []
+@PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
-@PointClass
-    base(Ammo)
-    model(
-        {{
-            spawnflags & 1 ->   ":maps/b_rock1.bsp",
-                                ":maps/b_rock0.bsp"
-        }}
-    ) =
-    item_rockets : "Rockets" []
-
-@PointClass
-    base(Ammo)
-    model(
-        {{
-            spawnflags & 1 ->   ":maps/b_shell1.bsp",
-                                ":maps/b_shell0.bsp"
-        }}
-    ) = item_shells : "Shells" []
-
-@PointClass
-    base(Ammo)
-    model(
-        {{
-            spawnflags & 1 ->   ":maps/b_nail1.bsp",
-                                ":maps/b_nail0.bsp"
-        }}
-    ) = item_spikes : "Nailgun/Perforator ammo" []
-
-@PointClass
-    size(0 0 0, 32 32 56)
-		base(Item, Appearflags, Itemflags)
-    model(
-        {{
-            spawnflags & 2 ->   ":maps/b_bh100.bsp",
-            spawnflags & 1 ->   ":maps/b_bh10.bsp",
-                                ":maps/b_bh25.bsp"
-        }}
-    ) =
-    item_health : "Health pack"
+@PointClass size(-16 -16 0, 16 16 16) base(Appearflags) studio("maps/b_bh25.bsp") = item_health : "Health pack"
 [
 	spawnflags(flags) =
 	[
-		1 : "Rotten" : 0
-		2 : "Megahealth" : 0
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
+	1 : "Rotten" : 0
+	2 : "Megahealth" : 0
+	32 : "Spawn silent" : 0
+	64 : "Trigger Spawned" : 0
+	128 : "Suspended in air" : 0
+	16384 : "Respawn DM style" : 0
 	]
 ]
 
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/suit.mdl" }) =
+@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/suit.mdl") =
 	item_artifact_envirosuit : "Environmental protection suit" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
@@ -203,70 +162,78 @@
 			16384 : "Respawn DM style" : 0
 		]
 ]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/quaddama.mdl" }) =
+@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/quaddama.mdl") =
 	item_artifact_super_damage : "Quad damage" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/invulner.mdl" }) =
+		]
+	]
+@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/invulner.mdl") =
 	item_artifact_invulnerability : "Pentagram of Protection" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/invisibl.mdl" }) =
+		]
+	]
+@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/invisibl.mdl") =
 	item_artifact_invisibility : "Ring of Shadows" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
-		]]
+		]
+	]
 
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags, Itemflags) model({ "path": ":progs/armor.mdl", "skin": 2 }) =
+@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
 	item_armorInv : "Red armor (200%)" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags, Itemflags) model({ "path": ":progs/armor.mdl", "skin": 1 }) =
+		]
+	]
+@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
 	item_armor2 : "Yellow armor (150%)" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags, Itemflags) model({ "path": ":progs/armor.mdl" }) =
+		]
+	]
+@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
 	item_armor1 : "Green armor (100%)" [	spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
 			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/w_s_key.mdl" }) =
+		]
+	]
+@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/w_s_key.mdl") =
 	item_key1 : "Silver key" [spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/w_g_key.mdl" }) =
+		]
+	]
+@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/w_g_key.mdl") =
 	item_key2 : "Gold key" [spawnflags(flags) =
 		[
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/end1.mdl" }) =
+		]
+	]
+@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/end1.mdl") =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =
@@ -284,48 +251,54 @@
 
 @baseclass size(-16 -16 0, 16 16 56) color(0 0 200) base(Item, Appearflags) = Weapon []
 
-@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) = weapon_supershotgun : "Double-barrelled shotgun" [spawnflags(flags) =
+@PointClass base(Weapon) studio("progs/g_shot.mdl") = weapon_supershotgun : "Double-barrelled shotgun" [spawnflags(flags) =
 	[
 		32 : "Spawn silent" : 0
 		64 : "Trigger Spawned" : 0
 		128 : "Suspended in air" : 0
 		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_nail.mdl" }) = weapon_nailgun : "Nailgun" [spawnflags(flags) =
+	]
+]
+@PointClass base(Weapon) studio("progs/g_nail.mdl") = weapon_nailgun : "Nailgun" [spawnflags(flags) =
 	[
 		32 : "Spawn silent" : 0
 		64 : "Trigger Spawned" : 0
 		128 : "Suspended in air" : 0
 		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_nail2.mdl" }) = weapon_supernailgun : "Super nailgun" [spawnflags(flags) =
+	]
+]
+@PointClass base(Weapon) studio("progs/g_nail2.mdl") = weapon_supernailgun : "Super nailgun" [spawnflags(flags) =
 	[
 		32 : "Spawn silent" : 0
 		64 : "Trigger Spawned" : 0
 		128 : "Suspended in air" : 0
 		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_rock.mdl" }) = weapon_grenadelauncher : "Grenade launcher" [spawnflags(flags) =
+	]
+]
+@PointClass base(Weapon) studio("progs/g_rock.mdl") = weapon_grenadelauncher : "Grenade launcher" [spawnflags(flags) =
 	[
 		32 : "Spawn silent" : 0
 		64 : "Trigger Spawned" : 0
 		128 : "Suspended in air" : 0
 		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_rock2.mdl" }) = weapon_rocketlauncher : "Rocket launcher" [spawnflags(flags) =
+	]
+]
+@PointClass base(Weapon) studio("progs/g_rock2.mdl") = weapon_rocketlauncher : "Rocket launcher" [spawnflags(flags) =
 	[
 		32 : "Spawn silent" : 0
 		64 : "Trigger Spawned" : 0
 		128 : "Suspended in air" : 0
 		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_light.mdl" }) = weapon_lightning : "Thunderbolt" [spawnflags(flags) =
+	]
+]
+@PointClass base(Weapon) studio("progs/g_light.mdl") = weapon_lightning : "Thunderbolt" [spawnflags(flags) =
 	[
 		32 : "Spawn silent" : 0
 		64 : "Trigger Spawned" : 0
 		128 : "Suspended in air" : 0
 		16384 : "Respawn DM style" : 0
-	]]
+	]
+]
 
 //
 // badasses
@@ -356,54 +329,24 @@
 	spawn_angry(integer)
 ]
 //dumptruck_ds
-@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
-
-Default health = 30" []
-@PointClass base(Monster) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
-
-Default health = 25" []
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
-
-Default health = 200" []
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre_marksman : "Ogre marksman
-
-Default health = 200
-
+//@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 40) studio("progs/dog.mdl") = monster_dog : "Nasty Doggie Default health 25" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre : "Ogre Default health = 200" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre_marksman : "Ogre marksman Default health = 200
 The monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres)." []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
-
-Default heath = 75" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl" }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
-
-Default health = 250" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
-
-Default health = 80" []
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
-
-Default heath = 300" []
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
-
-Default health = 600" []
-@PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl" }) = monster_enforcer : "Enforcer
-
-Default health = 80" []
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
-
-Default health = 400" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/tarbaby.mdl" }) = monster_tarbaby : "Spawn
-
-Default health = 80" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
-
-Default health = 25" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 32) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/zombie.mdl","skin" : skin, "frame" : frame}) = monster_zombie : "Zombie
-
-Default health = 60
-
-If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/knight.mdl") = monster_knight : "Knight Default heath = 75" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight Default health = 250" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/wizard.mdl") = monster_wizard : "Scrag a.k.a Wizard Default health = 80" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/demon.mdl") = monster_demon1 : "Fiend Default heath = 300" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/shambler.mdl") = monster_shambler : "Shambler Default health = 600" []
+@PointClass base(Monster) size(-128 -128 -24, 128 128 256) studio("progs/boss.mdl") = monster_boss : "Chthon" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_enforcer : "Enforcer Default health = 80" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath Default health = 400" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_tarbaby : "Spawn Default health = 80" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 24) studio("progs/fish.mdl") = monster_fish : "Rotfish Default health = 25" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio("progs/oldone.mdl") = monster_oldone : "Shub-Niggurath" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie Default health = 60 If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
 [
 	spawnflags(Flags) =
 	[
@@ -415,7 +358,7 @@ If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand 
 ]
 //start deadstuff entries -- dumptruck_ds
 
-@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/demon.mdl","skin" : skin, "frame" : 53}) = monster_dead_demon : "Demon Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio("progs/demon.mdl") = monster_dead_demon : "Demon Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -424,7 +367,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/shambler.mdl","skin" : skin, "frame" : 93}) = monster_dead_shambler : "Shambler Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio("progs/shambler.mdl") = monster_dead_shambler : "Shambler Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -433,26 +376,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/soldier.mdl","skin" : skin, "frame" : 28}) = monster_dead_army : "Soldier Corpse" //dumptruck_ds
-[
-targetname(string)
-spawnflags(Flags) =
-[
-0 : "Non-Solid (defaut)" : 0
-1 : "Solid" : 0
-2 : "Face Up" : 0
-]
-]
-@PointClass base(Appearflags) size(-32 -32 -24, 32 32 40) studio({ "path": ":progs/dog.mdl","skin" : skin, "frame" : 16}) = monster_dead_dog : "Dog Corpse" //dumptruck_ds
-[
-targetname(string)
-spawnflags(Flags) =
-[
-0 : "Non-Solid (defaut)" : 0
-1 : "Solid" : 0
-]
-]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/enforcer.mdl","skin" : skin, "frame" : 54}) = monster_dead_enforcer : "Enforcer Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_dead_army : "Soldier Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -462,7 +386,16 @@ spawnflags(Flags) =
 2 : "Face Up" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/ogre.mdl","skin" : skin, "frame" : 135}) = monster_dead_ogre : "Ogre Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 40) studio("progs/dog.mdl") = monster_dead_dog : "Dog Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_dead_enforcer : "Enforcer Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -472,7 +405,17 @@ spawnflags(Flags) =
 2 : "Face Up" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/knight.mdl","skin" : skin, "frame" : 96}) = monster_dead_knight : "Knight Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_dead_ogre : "Ogre Corpse" //dumptruck_ds
+[
+targetname(string)
+spawnflags(Flags) =
+[
+0 : "Non-Solid (defaut)" : 0
+1 : "Solid" : 0
+2 : "Face Up" : 0
+]
+]
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio("progs/knight.mdl") = monster_dead_knight : "Knight Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -482,7 +425,7 @@ spawnflags(Flags) =
 2 : "On Side" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/hknight.mdl","skin" : skin, "frame" : 62}) = monster_dead_hell_knight : "Hellknight Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_dead_hell_knight : "Hellknight Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -491,7 +434,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/shalrath.mdl","skin" : skin, "frame" : 22}) = monster_dead_shalrath : "Shalrath Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_dead_shalrath : "Shalrath Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -500,7 +443,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/wizard.mdl","skin" : skin, "frame" : 53}) = monster_dead_wizard : "Scrag Corpse" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio("progs/wizard.mdl") = monster_dead_wizard : "Scrag Corpse" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -509,7 +452,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 49}) = player_dead_axe: "Player Corpse Axe" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio("progs/player.mdl") = player_dead_axe: "Player Corpse Axe" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -518,7 +461,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 102}) = player_dead_on_side: "Player Corpse on Side" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio("progs/player.mdl") = player_dead_on_side: "Player Corpse on Side" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -527,7 +470,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 84}) = player_dead_face_down: "Player Corpse Face Down" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio("progs/player.mdl") = player_dead_face_down: "Player Corpse Face Down" //dumptruck_ds
 [
 targetname(string)
 spawnflags(Flags) =
@@ -536,7 +479,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_demon.mdl","skin" : skin, "frame" : 0}) = gib_head_demon : "Demon Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_demon.mdl") = gib_head_demon : "Demon Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -546,7 +489,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_dog.mdl","skin" : skin, "frame" : 0}) = gib_head_dog : "Dog Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_dog.mdl") = gib_head_dog : "Dog Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -556,7 +499,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_guard.mdl","skin" : skin, "frame" : 0}) = gib_head_army : "Grunt Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_guard.mdl") = gib_head_army : "Grunt Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -566,7 +509,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_hellkn.mdl","skin" : skin, "frame" : 0}) = gib_head_hell_knight : "Hellnight Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_hellkn.mdl") = gib_head_hell_knight : "Hellnight Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -576,7 +519,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_knight.mdl","skin" : skin, "frame" : 0}) = gib_head_knight : "Knight Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_knight.mdl") = gib_head_knight : "Knight Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -586,7 +529,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_mega.mdl","skin" : skin, "frame" : 0}) = gib_head_enforcer : "Enforcer Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_mega.mdl") = gib_head_enforcer : "Enforcer Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -596,7 +539,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_ogre.mdl","skin" : skin, "frame" : 0}) = gib_head_ogre : "Orge Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_ogre.mdl") = gib_head_ogre : "Orge Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -606,7 +549,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_player.mdl","skin" : skin, "frame" : 0}) = gib_head_player : "Player Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_player.mdl") = gib_head_player : "Player Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -616,7 +559,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_shal.mdl","skin" : skin, "frame" : 0}) = gib_head_shalrath : "Shalrath Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_shal.mdl") = gib_head_shalrath : "Shalrath Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -626,7 +569,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_shams.mdl","skin" : skin, "frame" : 0}) = gib_head_shambler : "Shambler Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_shams.mdl") = gib_head_shambler : "Shambler Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -636,7 +579,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/h_wizard.mdl","skin" : skin, "frame" : 0}) = gib_head_wizard : "Wizard Head" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/h_wizard.mdl") = gib_head_wizard : "Wizard Head" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -646,7 +589,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/gib1.mdl","skin" : skin, "frame" : 0}) = gib_misc_1 : "Gib 1" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/gib1.mdl") = gib_misc_1 : "Gib 1" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -656,7 +599,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/gib2.mdl","skin" : skin, "frame" : 0}) = gib_misc_2 : "Gib 2" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/gib2.mdl") = gib_misc_2 : "Gib 2" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -666,7 +609,7 @@ spawnflags(Flags) =
 1 : "Solid" : 0
 ]
 ]
-@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio({ "path": ":progs/gib3.mdl","skin" : skin, "frame" : 0}) = gib_misc_3 : "Gib 3" //dumptruck_ds
+@PointClass base(Appearflags) size(-16 -16 0, 16 16 56) studio("progs/gib3.mdl") = gib_misc_3 : "Gib 3" //dumptruck_ds
 [
 angles(integer)
 targetname(string)
@@ -736,7 +679,7 @@ spawnflags(Flags) =
 	[
 		spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
 	]
-@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/candle.mdl" }) = //dumptruck_ds
+@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio("progs/candle.mdl") = //dumptruck_ds
 	light_candle : "Candle"
 	[
 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
@@ -925,13 +868,13 @@ targetname = Must be triggered"
 	]
 ]
 
-@SolidClass base(Appearflags, Targetname) = func_breakable : "An object that can be broken apart by shooting or being axed."
-[	spawnflags(Flags) =
-	[
-		1 : "No monster damage" : 0
-		2 : "Explode" : 0
-	]
-]
+//@SolidClass base(Appearflags, Targetname) = func_breakable : "An object that can be broken apart by shooting or being axed."
+//[	spawnflags(Flags) =
+//	[
+//		1 : "No monster damage" : 0
+//		2 : "Explode" : 0
+//	]
+//]
 
 @SolidClass base(Appearflags, Targetname) = func_wall : "Wall, starts animation when triggered (if supporting texture)" []
 
@@ -1078,7 +1021,7 @@ dmg is the amount of damage to cause when touched."
 // triggers
 //
 
-@baseclass base(Appearflags, Target, Killarget, Targetname) = Trigger
+@baseclass base(Appearflags, Target, Targetname) = Trigger
 [
 	sounds(choices) : "Sound style" : 0 =
 	[
@@ -1233,7 +1176,7 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 //dumptruck’s additions via Joshua Skelton’s Quake Tools///
 ///////////////////////////////////////////////////////////
 
-@PointClass size(32 32 16) color(255 128 0) /*studio({ "path" : mdl})*/ = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
+@PointClass size(32 32 16) color(255 128 0) /*studio("path" : mdl})*/ = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
 
 mdl: The model to display. Can be of type mdl, bsp, or spr.
 frame: Single frame to display. Can also be used to offset the animation.
@@ -1334,7 +1277,7 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		]
 		volume(integer) : "Volume (0 - 1)" : 1
 	]
-@SolidClass base(Target, Targetname, Appearflags, Break) = func_breakable : "Breakable - See manual for full details
+@SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details
 
 Defaults to built-in .mdl file with 3 styles, cnt is number of pieces of debris to spawn (built-in only)
 
