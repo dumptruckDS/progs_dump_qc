@@ -1,4 +1,5 @@
 //selections from Rubicon 2 qc by john fitzgibbons
+//and AD breakable code modified by Qmaster and dumptruck_ds
 float 	BREAKABLE_NO_MONSTERS = 1;
 float		BREAK_EXPLODE = 2;
 float		BREAK_CUSTOM = 4;
@@ -395,4 +396,139 @@ void() trigger_ladder =
 {
 	InitTrigger ();
 	self.touch = ladder_touch;
+};
+/*
+===============================================================================
+func_laser
+===============================================================================
+*/
+float LASER_SOLID = 2;
+.string		message2;
+.float		alpha;
+
+
+void() laser_helper_think =
+{
+	if (!self.owner || self.owner.classname != "func_laser")
+	{
+		remove(self);
+		return;
+	}
+
+
+	if (!(self.owner.spawnflags & START_OFF))
+		self.owner.alpha = self.alpha * 0.8 + self.alpha * random() * 0.4;
+
+	self.nextthink = time + 0.05;
+};
+
+void() func_laser_touch =
+{
+	if (other.takedamage && self.attack_finished < time)
+	{
+		T_Damage (other, self, self, self.dmg);
+		self.attack_finished = time + 0.1;
+	}
+
+};
+
+void () func_laser_use =
+{
+	if (self.spawnflags & START_OFF)
+	{
+		setorigin(self, '0 0 0');
+		self.spawnflags = self.spawnflags - START_OFF;
+
+		sound (activator, CHAN_VOICE, self.noise, 1, ATTN_NORM);
+
+		if (activator.classname == "player" && self.message != "")
+		{
+			centerprint (activator, self.message);
+		}
+	}
+	else
+	{
+		setorigin(self, '0 0 9000');
+		self.spawnflags = self.spawnflags + START_OFF;
+
+		sound (activator, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
+
+		if (activator.classname == "player" && self.message2 != "")
+		{
+			centerprint (activator, self.message2);
+		}
+	}
+};
+
+/*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID
+A togglable laser, hurts to touch, can be used to block players
+
+START_OFF: Laser starts off.
+
+LASER_SOLID: Laser blocks movement while turned on.
+
+Keys:
+
+"dmg" damage to do on touch. default 1
+
+"alpha" approximate alpha you want the laser drawn at. default 0.5. alpha will vary by 20% of this value.
+
+"message" message to display when activated
+
+"message2" message to display when deactivated
+
+*/
+void () func_laser =
+{
+	local entity helper;
+
+	setmodel (self, self.model);
+
+	precache_sound ("buttons/switch02.wav");
+	precache_sound ("buttons/switch04.wav");
+
+	if (self.spawnflags & LASER_SOLID)
+	{
+		self.solid = SOLID_BSP; //so you can shoot between lasers in a single bmodel
+		self.movetype = MOVETYPE_PUSH; //required becuase of SOLID_BSP
+	}
+	else
+	{
+		self.solid = SOLID_TRIGGER;
+		self.movetype = MOVETYPE_NONE;
+	}
+
+	if (!self.alpha)
+		self.alpha = 0.5;
+
+	if (!self.dmg)
+		self.dmg = 1;
+
+	self.use = func_laser_use;
+	self.touch = func_laser_touch;
+
+	if (self.spawnflags & START_OFF)
+		setorigin(self, '0 0 9000');
+		{
+		if (self.noise != "") precache_sound(self.noise);
+
+		else
+			(self.noise = "buttons/switch02.wav");
+		}
+		{
+		if (self.noise1 != "") precache_sound(self.noise1);
+
+		else
+			(self.noise1 = "buttons/switch04.wav");
+		}
+
+
+
+
+	//spawn a second entity to handle alpha changes, since MOVETYPE_PUSH doesn't support think functions
+	helper = spawn();
+	helper.alpha = self.alpha;
+	helper.owner = self;
+	helper.nextthink = 0.05;
+	helper.think = laser_helper_think;
 };
