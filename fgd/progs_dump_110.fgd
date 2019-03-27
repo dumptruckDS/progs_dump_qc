@@ -1495,12 +1495,12 @@ delay how much time to wait before firing after being switched on."
 		3: "Base"
 	]
 ]
-@PointClass size(0 0 0, 16 16 16) base(Target) = func_clock : "Clock Hand"
-[
-	event(string) : "Target event (at 12pm)"
-	cnt(integer) : "Start time"
-	count(integer) : "Seconds per rotation" : 60
-]
+//@PointClass size(0 0 0, 16 16 16) base(Target) = func_clock : "Clock Hand"
+//[
+//	event(string) : "Target event (at 12pm)"
+//	cnt(integer) : "Start time"
+//	count(integer) : "Seconds per rotation" : 60
+//]
 
 //
 // Miscellaneous Geometry

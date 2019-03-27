@@ -1434,12 +1434,12 @@ delay how much time to wait before firing after being switched on."
 		3: "Base"
 	]
 ]
-@PointClass size(0 0 0, 32 32 32) base(Target) = func_clock : "Clock Hand"
-[
-	event(string) : "Target event (at 12pm)"
-	cnt(integer) : "Start time"
-	count(integer) : "Seconds per rotation" : 60
-]
+//@PointClass size(0 0 0, 32 32 32) base(Target) = func_clock : "Clock Hand"
+//[
+	//event(string) : "Target event (at 12pm)"
+	//cnt(integer) : "Start time"
+	//count(integer) : "Seconds per rotation" : 60
+//]
 
 //
 // Miscellaneous Geometry
@@ -1454,114 +1454,6 @@ delay how much time to wait before firing after being switched on."
 		4 : "Non-Solid" : 0
 	]
 	dmg(integer) : "Damage"
-]
-//
-// Hipnotic Rotation Geometry
-//
-
-@PointClass size(-4 -4 -4, 4 4 4) base(Targetname) = info_rotate : "Point of rotation" []
-@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target) = func_rotate_entity : "Creates rotating entity"
-[
-	spawnflags(flags) =
-	[
-		1 : "Toggle" : 0
-		2 : "Start on" : 0
-	]
-	deathtype(string) : "Kill Message"
-	rotate(string) : "Rate of rotation (x y z)"
-	target(string) : "Center of rotation"
-	speed(string) : "Speed (0 to full) time"
-]
-@PointClass base(Targetname, Target) = path_rotate : "path_rotate"
-[
-	spawnflags(flags) =
-	[
-		1 : "Rotation" : 0
-		2 : "Angles" : 0
-		4 : "Stop" : 0
-		8 : "No Rotate" : 0
-		16 : "Damage" : 0
-		32 : "Move Time" : 0
-		64 : "Set Damage" : 0
-	]
-	rotate(string) : "Rotation (x y z)"
-	angles(string) : "Angles (x y z)"
-	noise(string) : "Wait Noise"
-	noise1(string) : "Move Noise"
-	wait(integer) : "Wait Time"
-	event(string) : "Event Target"
-	message(string) : "Event Message"
-	dmg(integer) : "Damage"
-	speed(integer) : "Move Time(if flaged) or Speed"
-]
-@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target) = func_rotate_train : "Moving platform"
-[
-	noise1(string) : "Train move noise"
-	noise(string) : "Train stop noise"
-	path(string) : "First path_rotate"
-	deathtype(string) : "Kill Message"
-	speed(integer) : "Speed" : 100
-	dmg(integer) : "Damage" : 0
-	sounds(choices) : "Sound" : 1 =
-	[
-		0: "None"
-		1: "Ratchet Metal"
-	]
-]
-@SolidClass base(Targetname, Target) = rotate_object : "Object to be rotated"[]
-@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target) = func_rotate_door : "Create rotating door"
-[
-	spawnflags(flags) =
-	[
-		1 : "Stay open" : 0
-	]
-	dmg(integer) : "Damage" : 2
-	speed(integer) : "Time to rotate" : 10
-	angles(string) : "Angles (x y z)"
-	rotate(string) : "Rotate (x y z)"
-	sounds(choices) : "Sound" : 1 =
-	[
-		0: "None"
-		1: "Medieval (default)"
-		2: "Metal"
-		3: "Base"
-	]
-]
-@PointClass size(0 0 0, 16 16 16) base(Target) = func_clock : "Clock Hand"
-[
-	event(string) : "Target event (at 12pm)"
-	cnt(integer) : "Start time"
-	count(integer) : "Seconds per rotation" : 60
-]
-
-//
-// Miscellaneous Geometry
-//
-
-@SolidClass base(Targetname) = func_movewall : "Emulate collision on rotating brushes"
-[
-	spawnflags(flags) =
-	[
-		1 : "Visible" : 1
-		2 : "Damage on touch" : 0
-		4 : "Non-Solid" : 0
-	]
-	dmg(integer) : "Damage"
-]
-
-@SolidClass base(Targetname) = func_laser: "A togglable laser, hurts to touch, can be used to block players"
-[
-	spawnflags(flags) =
-	[
-		1 : "Start Off" : 1
-		2 : "Solid Laser" : 0
-	]
-	dmg(integer) : "Damage" : 1
-	alpha(float) : "Alpha of Laser Effect" : 0.5
-	message(string) : "Message Upon Activation"
-	message2(string) : "Message Upon Deactivation"
-	noise(string) : "Sound Upon Activation"
-	noise1(string) : "Sound Upon Deactivation"
 ]
 
 //////////////////////
