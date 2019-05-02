@@ -1107,7 +1107,12 @@ dmg is the amount of damage to cause when touched."
 		0 : "Default"
 		1 : "Wait for Trigger"
 	]
-	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
+
+	spawnflags(flags) = [ 
+		1: "Not touchable" : 0
+		8: "Gold Key Required" : 0
+		16: "Silver Key Required" : 0
+	]
 ]
 
 @SolidClass base(Appearflags) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters
@@ -1128,7 +1133,11 @@ gravity = what to set the players gravity to
 	gravity(integer) : "Gravity : Normal (Default)" : 0
 ]
 
-@SolidClass base(Trigger) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
+@SolidClass base(Trigger) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag
+
+SPAWNFLAG Silent: Dont flash message about needing a key, or fire sound. Can be used to fire of hidden triggers
+" //dumptruck_ds added from Hipnotic Mission Pack
+
 [
 	message(string) : "Health (shootable)"
 	spawnflags(flags) =
@@ -1136,6 +1145,7 @@ gravity = what to set the players gravity to
 	[
 		8 : "Silver Key Required" : 0
 	 	16 : "Gold Key Required" : 0
+		32 : "Silent" : 0
 	]
 ]
 

@@ -9,6 +9,7 @@
 
 float USE_SILV_KEY = 8;
 float USE_GOLD_KEY = 16;
+float SPAWNFLAG_SILENT = 32;
 
 void() keytrigger_use =
 {
@@ -25,6 +26,10 @@ void() keytrigger_use =
 	{
 		if (self.message != "")
 			centerprint (activator, self.message);
+		else if (self.spawnflags & SPAWNFLAG_SILENT) 
+		{
+			return;
+		}
 		else
 		{
 			if (self.items == IT_KEY1) //self.items was incorrect here, thanks Khreathor and spike
