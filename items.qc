@@ -229,7 +229,7 @@ float	H_ROTTEN = 1;
 float	H_MEGA = 2;
 .float	healamount, healtype;
 void() health_touch;
-void() item_megahealth_rot;
+// void() item_megahealth_rot;
 
 void() item_health =
 {
@@ -268,7 +268,6 @@ void() item_health =
 	StartItem ();
 };
 
-
 void() health_touch =
 {
 	local	float amount;
@@ -302,49 +301,76 @@ void() health_touch =
 
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-
 	// Megahealth = rot down the player's super health
+
+	if (!deathmatch)
+	CheckItemRespawn(self, 30);
+	self.think = SUB_regen;
+
 	if (self.healtype == 2)
+
 	{
 		other.items = other.items | IT_SUPERHEALTH;
-		self.nextthink = time + 5;
-		self.think = item_megahealth_rot;
+		// self.nextthink = time + 5;
+		// self.think = item_megahealth_rot;
 		self.owner = other;
-	}
-	else
-	{
-		if (!deathmatch)
-		CheckItemRespawn(self, 30);
-		self.think = SUB_regen;
+	// }
+	// else
+	// {
 	}
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
 };
 
-void() item_megahealth_rot =
-{
-	other = self.owner;
+// void() item_megahealth_rot2 = //this makes mega only respawn once. DOh!
+// {
+//     other = self.owner;
+//
+//     if (other.health > other.max_health)
+//     {
+//         other.health = other.health - 1;
+//         self.nextthink = time + 1;
+//         return;
+//     }
+//     // it is possible for a player to die and respawn between rots, so don't
+//     // just blindly subtract the flag off
+//     other.items = other.items - (other.items & IT_SUPERHEALTH);
+// };
 
-	if (other.health > other.max_health)
-	{
-		other.health = other.health - 1;
-		self.nextthink = time + 1;
-		return;
-	}
-	if (!deathmatch)
-	{
-		if (other.health <= other.max_health)
-		{
-			CheckItemRespawn(self, 30);
-			self.nextthink = time + self.respawndelay;
-			self.think = SUB_regen;
-		}
-	}
-// it is possible for a player to die and respawn between rots, so don't
-// just blindly subtract the flag off
-	other.items = other.items - (other.items & IT_SUPERHEALTH);
+// void() check_mega = //this is messed up
+// {
+//     CheckItemRespawn(self, 30);
+//     SUB_regen();
+//     self.think = item_megahealth_rot2;
+//     self.nextthink = time + 0.1;
+// 		return;
+// };
 
-};
+// void() item_megahealth_rot = //Thanks to RennyC for your help on adding the count
+// {
+//     other = self.owner;
+//
+//     if (other.health > other.max_health)
+//     {
+//         other.health = other.health - 1;
+//         self.nextthink = time + 1;
+//
+// 				if (self.ritem == 1)
+// 				{
+//         	self.cnt = self.cnt + 1;
+//
+// 						if (self.cnt > 30)
+// 						{
+// 							check_mega();
+// 							self.cnt = 0;
+// 						}
+// 				}
+//         return;
+//     }
+//     // it is possible for a player to die and respawn between rots, so don't
+//     // just blindly subtract the flag off
+//     other.items = other.items - (other.items & IT_SUPERHEALTH);
+// };
 
 /*
 ===============================================================================

@@ -7,6 +7,7 @@ void() player_stand1;
 //void (vector org) spawn_tfog; //moved to items.qc -- dumptruck_ds
 void (vector org, entity death_owner) spawn_tdeath;
 
+
 float	modelindex_eyes, modelindex_player;
 
 /*
@@ -1180,9 +1181,7 @@ void() CheckPowerups =
 			self.radsuit_finished = 0;
 		}
 	}
-
 };
-
 
 /*
 ================
@@ -1223,7 +1222,23 @@ void() PlayerPostThink =
 	if (!(self.flags & FL_ONGROUND))
 		self.jump_flag = self.velocity_z;
 
-	CheckPowerups ();
+
+	if (self.health > self.max_health)
+ 
+{
+	if (self.megahealth_finished < time)
+		{
+				self.megahealth_finished = time + 1;
+				self.health = self.health - 1;
+				// self.nextthink = time + 1;
+				// return;
+
+				self.items = self.items - (self.items & IT_SUPERHEALTH);
+		}
+}
+
+CheckPowerups ();
+
 };
 
 
