@@ -744,7 +744,7 @@ float BREAKABLE_NO_MONSTERS = 1;
 
 .float 		wantedgravity; // thanks Spike!
 .float		onladder;
-.float		ladder_step_finished;
+//.float		ladder_step_finished; //footsteps on ladder no uses -- dumptruck_ds
 
 //dumptruck_ds defs for breakables in rubcon2.qc -- thanks to Qmaster and the Arcane Dimensions team
 
