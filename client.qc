@@ -1222,19 +1222,17 @@ void() PlayerPostThink =
 	if (!(self.flags & FL_ONGROUND))
 		self.jump_flag = self.velocity_z;
 
+	if (self.health > self.max_health) //dumptruck_ds --  this replaces item_megahealth_rot in items.qc
 
-	if (self.health > self.max_health)
- 
-{
-	if (self.megahealth_finished < time)
-		{
-				self.megahealth_finished = time + 1;
-				self.health = self.health - 1;
-				// self.nextthink = time + 1;
-				// return;
+	{
+		if (self.megahealth_rottime < time)
+			{
+					self.megahealth_rottime = time + 1;
+					self.health = self.health - 1;
+			}
 
-				self.items = self.items - (self.items & IT_SUPERHEALTH);
-		}
+		else if (self.health <= 100)   //thanks ydrol!!!
+		self.items = self.items - (self.items & IT_SUPERHEALTH);
 }
 
 CheckPowerups ();

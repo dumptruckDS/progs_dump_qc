@@ -78,12 +78,12 @@ void() DelaySpawnItem =
 // Supa, restore old hull and lock movement
 void() RefreshHull =
 {
-	setsize (self, self.dest, self.dest2);
+	// setsize (self, self.dest, self.dest2);
+	setsize (self, '0 0 0', '32 32 56'); //dumptruck_ds -- fix for bounding boxes
 
 	self.movetype = MOVETYPE_NONE;
 	self.velocity = '0 0 0';
 };
-
 
 // /*
 // ============
@@ -310,14 +310,11 @@ void() health_touch =
 	if (self.healtype == 2)
 
 	{
+		other.megahealth_rottime = time + 5;  //thanks ydrol!!!
 		other.items = other.items | IT_SUPERHEALTH;
-		// self.nextthink = time + 5;
-		// self.think = item_megahealth_rot;
 		self.owner = other;
-	// }
-	// else
-	// {
 	}
+
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
 };
