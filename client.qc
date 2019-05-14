@@ -7,6 +7,7 @@ void() player_stand1;
 //void (vector org) spawn_tfog; //moved to items.qc -- dumptruck_ds
 void (vector org, entity death_owner) spawn_tdeath;
 
+
 float	modelindex_eyes, modelindex_player;
 
 /*
@@ -1180,9 +1181,7 @@ void() CheckPowerups =
 			self.radsuit_finished = 0;
 		}
 	}
-
 };
-
 
 /*
 ================
@@ -1223,7 +1222,21 @@ void() PlayerPostThink =
 	if (!(self.flags & FL_ONGROUND))
 		self.jump_flag = self.velocity_z;
 
-	CheckPowerups ();
+	if (self.health > self.max_health) //dumptruck_ds --  this replaces item_megahealth_rot in items.qc
+
+	{
+		if (self.megahealth_rottime < time)
+			{
+					self.megahealth_rottime = time + 1;
+					self.health = self.health - 1;
+			}
+
+		else if (self.health <= 100)   //thanks ydrol!!!
+		self.items = self.items - (self.items & IT_SUPERHEALTH);
+}
+
+CheckPowerups ();
+
 };
 
 
