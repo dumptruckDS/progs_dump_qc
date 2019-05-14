@@ -319,56 +319,6 @@ void() health_touch =
 	SUB_UseTargets();				// fire all targets / killtargets
 };
 
-// void() item_megahealth_rot2 = //this makes mega only respawn once. DOh!
-// {
-//     other = self.owner;
-//
-//     if (other.health > other.max_health)
-//     {
-//         other.health = other.health - 1;
-//         self.nextthink = time + 1;
-//         return;
-//     }
-//     // it is possible for a player to die and respawn between rots, so don't
-//     // just blindly subtract the flag off
-//     other.items = other.items - (other.items & IT_SUPERHEALTH);
-// };
-
-// void() check_mega = //this is messed up
-// {
-//     CheckItemRespawn(self, 30);
-//     SUB_regen();
-//     self.think = item_megahealth_rot2;
-//     self.nextthink = time + 0.1;
-// 		return;
-// };
-
-// void() item_megahealth_rot = //Thanks to RennyC for your help on adding the count
-// {
-//     other = self.owner;
-//
-//     if (other.health > other.max_health)
-//     {
-//         other.health = other.health - 1;
-//         self.nextthink = time + 1;
-//
-// 				if (self.ritem == 1)
-// 				{
-//         	self.cnt = self.cnt + 1;
-//
-// 						if (self.cnt > 30)
-// 						{
-// 							check_mega();
-// 							self.cnt = 0;
-// 						}
-// 				}
-//         return;
-//     }
-//     // it is possible for a player to die and respawn between rots, so don't
-//     // just blindly subtract the flag off
-//     other.items = other.items - (other.items & IT_SUPERHEALTH);
-// };
-
 /*
 ===============================================================================
 
