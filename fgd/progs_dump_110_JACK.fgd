@@ -1226,7 +1226,7 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
 				[
-			0 : "No attenuation (heard everywhere)"
+			-1 : "No attenuation (heard everywhere)"
 			1  : "Normal"
 			2  : "Idle"
 			3  : "Static"
@@ -1250,7 +1250,7 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
 		[
-			0  : "No attenuation (heard everywhere)"
+			-1  : "No attenuation (heard everywhere)"
 			1  : "Normal"
 			2  : "Idle"
 			3  : "Static"
@@ -1270,7 +1270,7 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
 				[
-			0 : "No attenuation (heard everywhere)"
+			-1 : "No attenuation (heard everywhere)"
 			1  : "Normal"
 			2  : "Idle"
 			3  : "Static"
