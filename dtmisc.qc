@@ -66,7 +66,8 @@ void() play_sound_triggered =
    if (self.speed == 0)
       self.speed = 1;
    if (self.speed == -1)
-      self.speed = 0;
+      // self.speed = 0;
+      self.speed = ATTN_NONE;
    if (self.spawnflags & 1)
       if (self.impulse == 0)
          self.impulse = 7;
@@ -138,6 +139,11 @@ void () ambient_general =
 	{
 		self.speed = ATTN_NORM;
 	}
+  if (self.speed == 0)
+     self.speed = 1;
+  if (self.speed == -1)
+     // self.speed = 0;
+     self.speed = ATTN_NONE;
 	if (!self.volume)
 	{
 		self.volume = 0.5;
