@@ -836,3 +836,15 @@ void() trigger_axe_only =
 	InitTrigger ();
 	self.touch = dt_take_sgun;
 };
+
+void() dt_give_sgun =
+{
+	SetNewParms();
+	// other.ammo_shells = other.ammo_shells + 25;
+}
+
+void() trigger_give_sgun =
+{
+	InitTrigger ();
+	self.touch = dt_give_sgun;
+};
