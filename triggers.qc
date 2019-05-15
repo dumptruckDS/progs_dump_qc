@@ -824,3 +824,15 @@ void() trigger_void =
 	InitTrigger ();
 	self.touch = trigger_void_touch;
 };
+//wip -- dumptruck_ds
+void() dt_take_sgun =
+{
+	other.items = other.items - (other.items & IT_SHOTGUN);
+	other.currentammo = !other.ammo_shells;
+}
+
+void() trigger_axe_only =
+{
+	InitTrigger ();
+	self.touch = dt_take_sgun;
+};
