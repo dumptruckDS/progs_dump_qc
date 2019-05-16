@@ -230,6 +230,8 @@ void() monster_shalrath =
 
 	setmodel (self, "progs/shalrath.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 400;
 
 	self.th_stand = shal_stand;

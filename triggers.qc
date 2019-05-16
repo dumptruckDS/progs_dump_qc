@@ -824,27 +824,71 @@ void() trigger_void =
 	InitTrigger ();
 	self.touch = trigger_void_touch;
 };
-//wip -- dumptruck_ds
-void() dt_take_sgun =
-{
-	other.items = other.items - (other.items & IT_SHOTGUN);
-	other.currentammo = !other.ammo_shells;
-}
 
-void() trigger_axe_only =
-{
-	InitTrigger ();
-	self.touch = dt_take_sgun;
-};
+/*==============================================================================
+GIVE AND TAKE STUFF
+==============================================================================*/
 
-void() dt_give_sgun =
-{
-	SetNewParms();
-	// other.ammo_shells = other.ammo_shells + 25;
-}
+// void() take_weapon_use =
+//
+// {
+//
+// 	if (self.spawnflags & 4)
+// 	{
+// 		other.items = self.items - (self.items & IT_SHOTGUN);
+// 		other.ammo_shells = 0;
+// 		other.weapon = IT_AXE;
+// 		other.currentammo = 0;
+// 		other.weaponmodel = "progs/v_axe.mdl";
+// 		other.weaponframe = 0;
+//
+// 		centerprint (other, "fuck this shit");
+// 	}
+// 	if (!activator.flags & FL_CLIENT)
+// 	return;
+// }
+//
+// void() trigger_take_weapon =
+// {
+// 	InitTrigger ();
+// 	self.touch = take_weapon_use;
+// };
 
-void() trigger_give_sgun =
-{
-	InitTrigger ();
-	self.touch = dt_give_sgun;
-};
+
+// //wip -- dumptruck_ds
+// void() trigger_take_touch =
+//
+// {
+// 	other.items &= ~IT_SHOTGUN;
+// 	// other.currentammo = !other.ammo_shells;
+//
+// };
+//
+//
+// void() trigger_take =
+// {
+// 	InitTrigger ();
+// 	self.touch = trigger_take_touch;
+// 	self.wait = -1;
+// };
+//
+// /*==============================================================================*/
+//
+// void() trigger_give_touch =
+//
+// {
+// 	// other.items = other.items && IT_SHOTGUN;
+// 	// // other.items &= ~IT_SHOTGUN;
+// 	// other.currentammo = other.ammo_shells + 25;
+// 	other.weapon = 1;
+// 	// self.ammo_shells = self.ammo_shells + self.aflag;
+//
+// };
+//
+//
+// void() trigger_give =
+// {
+// 	InitTrigger ();
+// 	self.touch = trigger_give_touch;
+// 	self.wait = -1;
+// };

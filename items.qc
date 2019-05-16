@@ -3,12 +3,14 @@ void() W_SetCurrentAmmo;
 /* ALL LIGHTS SHOULD BE 0 1 0 IN COLOR ALL OTHER ITEMS SHOULD
 BE .8 .3 .4 IN COLOR */
 
+.vector particles_offset;
+
 void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
 	if (!(self.spawnflags & 16384)) 			// SILENT, gb
-		{spawn_tfog (self.origin);}
+		{spawn_tfog (self.origin + self.particles_offset);}
 	else
 {	sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
 }	setorigin (self, self.origin);
@@ -69,7 +71,7 @@ void() DelaySpawnItem =
 
 	if (!(self.spawnflags & 32)) 			// SILENT, gb
 		// sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);
-		spawn_tfog (self.origin);
+		spawn_tfog (self.origin + self.particles_offset);
 
 	self.use = SUB_Null;
 };
@@ -244,6 +246,8 @@ void() item_health =
 		self.noise = "items/r_item1.wav";
 		self.healamount = 15;
 		self.healtype = 0;
+		self.particles_offset = '16 16 8';
+
 	}
 	else
 	if (self.spawnflags & H_MEGA)
@@ -254,6 +258,8 @@ void() item_health =
 		self.noise = "items/r_item2.wav";
 		self.healamount = 100;
 		self.healtype = 2;
+		self.particles_offset = '16 16 16';
+
 	}
 	else
 	{
@@ -263,6 +269,8 @@ void() item_health =
 		self.noise = "items/health1.wav";
 		self.healamount = 25;
 		self.healtype = 1;
+		self.particles_offset = '16 16 8';
+
 	}
 	setsize (self, '0 0 0', '32 32 56');
 	StartItem ();
@@ -394,6 +402,7 @@ void() item_armor1 =
 	setmodel (self, "progs/armor.mdl");
 	self.skin = 0;
 	setsize (self, '-16 -16 0', '16 16 56');
+	// self.particles_offset = '21 21 17';
 	StartItem ();
 };
 
@@ -407,6 +416,7 @@ void() item_armor2 =
 	setmodel (self, "progs/armor.mdl");
 	self.skin = 1;
 	setsize (self, '-16 -16 0', '16 16 56');
+	// self.particles_offset = '21 21 17';
 	StartItem ();
 };
 
@@ -614,6 +624,7 @@ void() weapon_supershotgun =
 	self.netname = "Double-barrelled Shotgun";
 	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
+	self.particles_offset = '0 0 33';
 	StartItem ();
 };
 
@@ -628,6 +639,7 @@ void() weapon_nailgun =
 	self.netname = "nailgun";
 	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
+	self.particles_offset = '0 0 31';
 	StartItem ();
 };
 
@@ -642,6 +654,7 @@ void() weapon_supernailgun =
 	self.netname = "Super Nailgun";
 	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
+	self.particles_offset = '0 0 34';
 	StartItem ();
 };
 
@@ -656,6 +669,7 @@ void() weapon_grenadelauncher =
 	self.netname = "Grenade Launcher";
 	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
+	self.particles_offset = '0 0 28';
 	StartItem ();
 };
 
@@ -670,6 +684,7 @@ void() weapon_rocketlauncher =
 	self.netname = "Rocket Launcher";
 	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
+	self.particles_offset = '0 0 32';
 	StartItem ();
 };
 
@@ -685,6 +700,7 @@ void() weapon_lightning =
 	self.netname = "Thunderbolt";
 	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
+	self.particles_offset = '0 0 31';
 	StartItem ();
 };
 
@@ -801,12 +817,14 @@ void() item_shells =
 	{
 		precache_model ("maps/b_shell1.bsp");
 		setmodel (self, "maps/b_shell1.bsp");
+		self.particles_offset = '16 16 16';
 		self.aflag = 40;
 	}
 	else
 	{
 		precache_model ("maps/b_shell0.bsp");
 		setmodel (self, "maps/b_shell0.bsp");
+		self.particles_offset = '12 12 12';
 		self.aflag = 20;
 	}
 	self.weapon = 1;
@@ -826,12 +844,14 @@ void() item_spikes =
 	{
 		precache_model ("maps/b_nail1.bsp");
 		setmodel (self, "maps/b_nail1.bsp");
+		self.particles_offset = '16 16 16';
 		self.aflag = 50;
 	}
 	else
 	{
 		precache_model ("maps/b_nail0.bsp");
 		setmodel (self, "maps/b_nail0.bsp");
+		self.particles_offset = '12 12 12';
 		self.aflag = 25;
 	}
 	self.weapon = 2;
@@ -851,12 +871,14 @@ void() item_rockets =
 	{
 		precache_model ("maps/b_rock1.bsp");
 		setmodel (self, "maps/b_rock1.bsp");
+		self.particles_offset = '16 8 16';
 		self.aflag = 10;
 	}
 	else
 	{
 		precache_model ("maps/b_rock0.bsp");
 		setmodel (self, "maps/b_rock0.bsp");
+		self.particles_offset = '8 8 16';
 		self.aflag = 5;
 	}
 	self.weapon = 3;
@@ -877,12 +899,14 @@ void() item_cells =
 	{
 		precache_model ("maps/b_batt1.bsp");
 		setmodel (self, "maps/b_batt1.bsp");
+		self.particles_offset = '16 16 16';
 		self.aflag = 12;
 	}
 	else
 	{
 		precache_model ("maps/b_batt0.bsp");
 		setmodel (self, "maps/b_batt0.bsp");
+		self.particles_offset = '12 12 12';
 		self.aflag = 6;
 	}
 	self.weapon = 4;
@@ -903,6 +927,8 @@ float WEAPON_BIG = 8;
 void() item_weapon =
 {
 	self.touch = ammo_touch;
+
+	self.particles_offset = '0 0 0';
 
 	if (self.spawnflags & WEAPON_SHOTGUN)
 	{
@@ -1054,6 +1080,7 @@ void() item_key1 =
 	self.touch = key_touch;
 	self.items = IT_KEY1;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 18';
 	StartItem ();
 };
 
@@ -1092,6 +1119,7 @@ void() item_key2 =
 	self.touch = key_touch;
 	self.items = IT_KEY2;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 18';
 	StartItem ();
 };
 
@@ -1181,6 +1209,7 @@ void() item_sigil =
 
 	self.touch = sigil_touch;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 18';
 	StartItem ();
 };
 
@@ -1294,6 +1323,7 @@ void() item_artifact_invulnerability =
 	self.netname = "Pentagram of Protection";
 	self.items = IT_INVULNERABILITY;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 16';
 	StartItem ();
 };
 
@@ -1312,6 +1342,7 @@ void() item_artifact_envirosuit =
 	self.netname = "Biosuit";
 	self.items = IT_SUIT;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 32';
 	StartItem ();
 };
 
@@ -1332,6 +1363,7 @@ void() item_artifact_invisibility =
 	self.netname = "Ring of Shadows";
 	self.items = IT_INVISIBILITY;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 0';
 	StartItem ();
 };
 
@@ -1352,6 +1384,7 @@ void() item_artifact_super_damage =
 	self.netname = "Quad Damage";
 	self.items = IT_QUAD;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	self.particles_offset = '0 0 16';
 	StartItem ();
 };
 

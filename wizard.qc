@@ -403,6 +403,8 @@ void() monster_wizard =
 	setmodel (self, "progs/wizard.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 80;
 
 	self.th_stand = wiz_stand1;

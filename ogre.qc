@@ -444,6 +444,8 @@ void() monster_ogre =
 	setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 200;
 
 	self.th_stand = ogre_stand1;

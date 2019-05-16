@@ -358,6 +358,8 @@ void() monster_shambler =
 	setmodel (self, "progs/shambler.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 600;
 
 	self.th_stand = sham_stand1;

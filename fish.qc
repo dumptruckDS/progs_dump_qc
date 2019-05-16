@@ -149,7 +149,7 @@ void(entity attacker, float damage)	fish_pain =
 
   if (self.health <= self.pain_threshold) //dumptruck_ds
   monster_pain_use();
-			
+
 
 // fish allways do pain frames
 	f_pain1 ();
@@ -178,6 +178,8 @@ void() monster_fish =
 	setmodel (self, "progs/fish.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 24');
+	
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 25;
 
 	self.th_stand = f_stand1;

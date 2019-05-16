@@ -276,6 +276,8 @@ void() monster_army =
 	setmodel (self, "progs/soldier.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 30;
 
 	self.th_stand = army_stand1;

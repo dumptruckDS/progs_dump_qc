@@ -263,6 +263,8 @@ void() monster_knight =
 	setmodel (self, "progs/knight.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 75;
 
 	self.th_stand = knight_stand1;

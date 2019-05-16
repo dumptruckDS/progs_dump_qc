@@ -41,11 +41,13 @@ RC 4
 * Added trigger spawning to items
 * Added items suspended flag
 * Fixed trigger_ladder conflict with trigger_setgravity
-* Revised FGDs
 * Added pain_target and pain_threshold
 * Added func_togglewall, func_counter, func_oncount and func_particlefield from Hipnotic
 * Added pd_ladders test level
-* Fixed H_MEGA respawn bug
 * Added pd_zombies and pd_meat maps
 * Added Persistent Key behavior (cnt = 1) to func_door and trigger_usekey
 * Added candle.mdl from Rogue and light_candle qc from Honey
+* Fixed Meghealth respawning issue from RC1 / RC2
+* Fixed incorrect bounding box from RC1 / RC2
+* Fixed Attenuation issue on custom sound entities
+* Added Khreathor's self.particle_offset to spawning items for better tfog
