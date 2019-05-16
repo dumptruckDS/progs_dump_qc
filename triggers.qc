@@ -829,21 +829,23 @@ void() trigger_void =
 GIVE AND TAKE STUFF (WIP)
 ==============================================================================*/
 
-void() take_weapon_use =
+void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 
 {
+	if (!(other.flags & FL_CLIENT))
+	return;
+
 	if (self.spawnflags & 4)
 
 		{
+			multi_trigger();
 			other.items &= ~IT_SHOTGUN;
-			other.ammo_shells = 0;
-			other.weapon = IT_AXE;
-			other.weaponmodel = "progs/v_axe.mdl";
-			other.weaponframe = 0;
+			other.currentammo = !other.ammo_shells;
+			other.ammo_shells = !other.ammo_shells;
+			other.items = other.items - ( other.items & IT_SHELLS);
+			W_SetCurrentAmmo();
+			W_BestWeapon();
 		}
-
-	if (!(activator.flags & FL_CLIENT))
-	return;
 }
 
 void() trigger_take_weapon =
