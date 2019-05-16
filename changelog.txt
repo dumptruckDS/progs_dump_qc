@@ -51,3 +51,4 @@ RC 4
 * Fixed incorrect bounding box from RC1 / RC2
 * Fixed Attenuation issue on custom sound entities
 * Added Khreathor's self.particle_offset to spawning items for better tfog
+* Added custom health to monsters (except zombies)
