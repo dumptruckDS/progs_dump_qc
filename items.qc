@@ -535,7 +535,7 @@ void() weapon_touch =
 	}
 	// johnfitz
 
-	if (self.classname == "weapon_nailgun")
+	else if (self.classname == "weapon_nailgun")
 	{
 		if (leave && (other.items & IT_NAILGUN) )
 			return;
