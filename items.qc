@@ -518,6 +518,23 @@ void() weapon_touch =
 	else
 		leave = 0;
 
+	// johnfitz added for axe, shotgun items --dumptruck_ds from RRP /rubicon2
+	if (self.classname == "weapon_axe")
+	{
+		if (leave && (other.items & IT_AXE) )
+			return;
+		new = IT_AXE;
+	}
+	else if (self.classname == "weapon_shotgun")
+	{
+		if (leave && (other.items & IT_SHOTGUN) )
+			return;
+		hadammo = other.ammo_shells;
+		new = IT_SHOTGUN;
+		other.ammo_shells = other.ammo_shells + 5;
+	}
+	// johnfitz
+
 	if (self.classname == "weapon_nailgun")
 	{
 		if (leave && (other.items & IT_NAILGUN) )
@@ -611,6 +628,36 @@ void() weapon_touch =
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
 };
+
+// johnfitz new items   -- dumptruck_ds from RRP and rubicon2
+/*QUAKED weapon_axe (0 .5 .8) (-16 -16 0) (16 16 32)
+Axe
+*/
+void() weapon_axe =
+{
+	precache_model ("progs/g_axe.mdl");
+	setmodel (self, "progs/g_axe.mdl");
+	self.weapon = IT_AXE;
+	self.netname = "Axe";
+	self.touch = weapon_touch;
+	setsize (self, '-16 -16 0', '16 16 56');
+	StartItem ();
+};
+/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+Shotgun
+*/
+
+void() weapon_shotgun =
+{
+	precache_model ("progs/g_shotty.mdl");
+	setmodel (self, "progs/g_shotty.mdl");	//ijed Replaced for SlapMap's model
+	self.weapon = IT_SHOTGUN;
+	self.netname = "Shotgun";
+	self.touch = weapon_touch;
+	setsize (self, '-16 -16 0', '16 16 56');
+	StartItem ();
+};
+// johnfitz
 
 
 /*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32)
