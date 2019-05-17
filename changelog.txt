@@ -52,3 +52,4 @@ RC 4
 * Fixed Attenuation issue on custom sound entities
 * Added Khreathor's self.particle_offset to spawning items for better tfog
 * Added custom health to monsters (except zombies)
+* Added trigger_remove_weapon (work in progress)
