@@ -846,7 +846,83 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 			W_SetCurrentAmmo();
 			W_BestWeapon();
 		}
-}
+
+	if (self.spawnflags & 8)
+
+		{
+			multi_trigger();
+			other.items &= ~IT_SUPER_SHOTGUN;
+			other.currentammo = !other.ammo_shells;
+			other.ammo_shells = !other.ammo_shells;
+			other.items = other.items - ( other.items & IT_SHELLS);
+			W_SetCurrentAmmo();
+			W_BestWeapon();
+		}
+
+	if (self.spawnflags & 16)
+
+		{
+			multi_trigger();
+			other.items &= ~IT_NAILGUN;
+			other.currentammo = !other.ammo_nails;
+			other.ammo_nails = !other.ammo_nails;
+			other.items = other.items - ( other.items & IT_NAILS);
+			W_SetCurrentAmmo();
+			W_BestWeapon();
+		}
+
+	if (self.spawnflags & 32)
+
+		{
+			multi_trigger();
+			other.items &= ~IT_SUPER_NAILGUN;
+			other.currentammo = !other.ammo_nails;
+			other.ammo_nails = !other.ammo_nails;
+			other.items = other.items - ( other.items & IT_NAILS);
+			W_SetCurrentAmmo();
+			W_BestWeapon();
+		}
+
+	if (self.spawnflags & 64)
+
+		{
+			multi_trigger();
+			other.items &= ~IT_GRENADE_LAUNCHER;
+			other.currentammo = !other.ammo_rockets;
+			if (!self.keep_ammo)  // works but is weird need to consider this some more
+			{
+					other.ammo_rockets = !other.ammo_rockets;
+					other.items = other.items - ( other.items & IT_ROCKETS);
+					W_SetCurrentAmmo();
+			}
+			W_BestWeapon();
+		}
+
+	if (self.spawnflags & 128)
+
+		{
+			multi_trigger();
+			other.items &= ~IT_ROCKET_LAUNCHER;
+			other.currentammo = !other.ammo_rockets;
+			other.ammo_rockets = !other.ammo_rockets;
+			other.items = other.items - ( other.items & IT_ROCKETS);
+			W_SetCurrentAmmo();
+			W_BestWeapon();
+		}
+
+	if (self.spawnflags & 256)
+
+		{
+			multi_trigger();
+			other.items &= ~IT_LIGHTNING;
+			other.currentammo = !other.ammo_cells;
+			other.ammo_cells = !other.ammo_cells;
+			other.items = other.items - ( other.items & IT_CELLS);
+			W_SetCurrentAmmo();
+			W_BestWeapon();
+		}
+
+};
 
 void() trigger_take_weapon =
 {

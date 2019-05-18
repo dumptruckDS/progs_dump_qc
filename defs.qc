@@ -736,6 +736,7 @@ float STAT_TOTALMONSTERS = 12;
 .float		reset_items; //dumptruck_ds
 .float		spawn_angry; //dumptruck_ds
 .string		mdl_debris; //dumptruck_ds
+.float		keep_ammo //dumptruck_ds
 
 /*============================================================================
 johnfitz new defs from Rubicon2
