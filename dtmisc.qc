@@ -452,3 +452,56 @@ void() gib_misc_3 =
 	}
 };
 /* END Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
+/*==============================================================================
+func_fall from RennyC
+
+dumptruck_ds
+noise = sound to play when triggered
+wait = wait this long before falling
+==============================================================================*/
+
+void() func_fall_think =
+{
+    if (self.cnt == TRUE && self.attack_finished < time)
+    {
+        self.solid = SOLID_NOT;
+        self.movetype = MOVETYPE_TOSS;
+
+        if (self.alpha > 0.1)
+            self.alpha = self.alpha - 0.03;
+        else
+        {
+            remove(self);
+            return;
+        }
+    }
+    self.nextthink = time + 0.1;
+};
+
+void() fall_touch =
+{
+    if (other.classname != "player" || self.cnt == TRUE)
+        return;
+
+    self.attack_finished = time + self.wait;
+    self.cnt = TRUE;
+    sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+};
+
+/*QUAKED func_fall (0 .5 .8) ?
+Falling brush upon touch
+*/
+
+void() func_fall =
+{
+    precache_sound(self.noise);
+
+    self.alpha = 1;
+    self.cnt = FALSE;
+    self.solid = SOLID_BSP;
+    self.movetype = MOVETYPE_PUSH;
+    self.think = func_fall_think;
+    self.nextthink = time;
+    self.touch = fall_touch;
+    setmodel (self, self.model);
+};

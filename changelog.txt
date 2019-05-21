@@ -48,8 +48,9 @@ RC 4
 * Added Persistent Key behavior (cnt = 1) to func_door and trigger_usekey
 * Added candle.mdl from Rogue and light_candle qc from Honey
 * Fixed Meghealth respawning issue from RC1 / RC2
-* Fixed incorrect bounding box from RC1 / RC2
+* Fixed incorrect item_health bounding box from RC1 / RC2
 * Fixed Attenuation issue on custom sound entities
 * Added Khreathor's self.particle_offset to spawning items for better tfog
 * Added custom health to monsters (except zombies)
-* Added trigger_remove_weapon (work in progress)
+* Added trigger_take_weapon (a.k.a. axe start)
+* Added RennyC's func_fall - trap brush that falls out from under the player

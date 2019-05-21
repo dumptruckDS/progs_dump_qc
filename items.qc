@@ -649,16 +649,31 @@ Shotgun
 
 void() weapon_shotgun =
 {
-	precache_model ("progs/g_shotty.mdl");
-	setmodel (self, "progs/g_shotty.mdl");	//ijed Replaced for SlapMap's model
+	self.touch = weapon_touch;
+	{
+
+		if (!self.spawnflags)
+		{
+			self.spawnflags = 2;
+		};
+
+		if (self.spawnflags & 2)
+		{
+			precache_model ("progs/g_shotgn.mdl");
+			setmodel (self, "progs/g_shotgn.mdl");	//ijed Replaced for SlapMap's model
+		}
+		else if (self.spawnflags & 4)
+		{
+			precache_model ("progs/g_shotty.mdl");
+			setmodel (self, "progs/g_shotty.mdl");	//ijed Replaced for SlapMap's model
+		}
+	}
 	self.weapon = IT_SHOTGUN;
 	self.netname = "Shotgun";
-	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
 };
 // johnfitz
-
 
 /*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32)
 */

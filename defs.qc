@@ -777,3 +777,4 @@ void() SUB_UsePain; //dumptruck_ds
 .string 	pain_target; //dumptruck_ds
 .float color; //Hipnotic
 .float megahealth_rottime; // dumptruck_ds
+.float alpha; // from RennyC func_drop in dtmisc.qc

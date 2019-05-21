@@ -827,6 +827,8 @@ void() trigger_void =
 
 /*==============================================================================
 GIVE AND TAKE STUFF (WIP)
+
+This is Axe only at the moment. Need to research removing all weapons.
 ==============================================================================*/
 
 void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
@@ -834,8 +836,6 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 {
 	if (!(other.flags & FL_CLIENT))
 	return;
-
-	if (self.spawnflags & 4)
 
 		{
 			multi_trigger();
@@ -846,7 +846,7 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 			W_SetCurrentAmmo();
 			W_BestWeapon();
 		}
-
+/*
 	if (self.spawnflags & 8)
 
 		{
@@ -889,13 +889,15 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 			multi_trigger();
 			other.items &= ~IT_GRENADE_LAUNCHER;
 			other.currentammo = !other.ammo_rockets;
-			if (!self.keep_ammo)  // works but is weird need to consider this some more
-			{
-					other.ammo_rockets = !other.ammo_rockets;
-					other.items = other.items - ( other.items & IT_ROCKETS);
-					W_SetCurrentAmmo();
-			}
+			// if (!self.keep_ammo)
+			// {
+					// other.ammo_rockets = !other.ammo_rockets;
+			// 		other.items = other.items - ( other.items & IT_ROCKETS);
+			// 		W_SetCurrentAmmo();
+			// }
+			// else W_BestWeapon();
 			W_BestWeapon();
+			dprint ("best weapon 64\n");
 		}
 
 	if (self.spawnflags & 128)
@@ -904,10 +906,16 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 			multi_trigger();
 			other.items &= ~IT_ROCKET_LAUNCHER;
 			other.currentammo = !other.ammo_rockets;
-			other.ammo_rockets = !other.ammo_rockets;
-			other.items = other.items - ( other.items & IT_ROCKETS);
-			W_SetCurrentAmmo();
+			// if (!self.keep_ammo)
+			// {
+			// 		other.ammo_rockets = !other.ammo_rockets;
+			// 		other.items = other.items - ( other.items & IT_ROCKETS);
+			// 		W_SetCurrentAmmo();
+			// }
+			// else W_BestWeapon();
 			W_BestWeapon();
+			dprint ("best weapon 128\n");
+
 		}
 
 	if (self.spawnflags & 256)
@@ -921,7 +929,7 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 			W_SetCurrentAmmo();
 			W_BestWeapon();
 		}
-
+*/
 };
 
 void() trigger_take_weapon =

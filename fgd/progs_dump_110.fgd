@@ -287,13 +287,14 @@
 
 @baseclass size(-16 -16 0, 16 16 56) color(0 0 200) base(Item, Appearflags) = Weapon []
 
-@PointClass base(Weapon) model({ "path": ":progs/g_axe.mdl" }) = weapon_axe : "Axe" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
+//axe not used in this version
+//@PointClass base(Weapon) model({ "path": ":progs/g_axe.mdl" }) = weapon_axe : "Axe" [spawnflags(flags) =
+	//[
+		//32 : "Spawn silent" : 0
+		//64 : "Trigger Spawned" : 0
+		//128 : "Suspended in air" : 0
+		//16384 : "Respawn DM style" : 0
+	//]]
 
 	@PointClass base(Weapon) model({ "path": ":progs/g_shotty.mdl" }) = weapon_shotgun : "Shotgun" [spawnflags(flags) =
 		[
@@ -372,6 +373,9 @@
 		1 : "Spawn Silently"
 	]
 	spawn_angry(integer)
+	health(integer)
+	pain_target(string)
+	pain_threshold(integer)
 ]
 
 @PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
