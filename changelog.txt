@@ -57,5 +57,5 @@ RC 4
 * Added custom health to monsters (except zombies)
 * Added trigger_take_weapon (a.k.a. axe start)
 * Added RennyC's func_fall - trap brush that falls out from under the player
-* Added Hiptnotic version of trap_spikeshooter (with lavaball and rockets)
+* Added Hipnotic version of trap_spikeshooter (with lavaball and rockets)
 * Added Voreballs, Grenades to trap_spikeshooter
