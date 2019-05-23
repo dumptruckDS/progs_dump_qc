@@ -170,22 +170,22 @@ ATTACKS
 =============================================================================
 */
 
-void() ZombieGrenadeTouch =
-{
-	if (other == self.owner)
-		return;         // don't explode on owner
-	if (other.takedamage)
-	{
-		T_Damage (other, self, self.owner, 10 );
-		sound (self, CHAN_WEAPON, "zombie/z_hit.wav", 1, ATTN_NORM);
-		remove (self);
-		return;
-	}
-	sound (self, CHAN_WEAPON, "zombie/z_miss.wav", 1, ATTN_NORM);   // bounce sound
-	self.velocity = '0 0 0';
-	self.avelocity = '0 0 0';
-	self.touch = SUB_Remove;
-};
+// void() ZombieGrenadeTouch =
+// {
+// 	if (other == self.owner)
+// 		return;         // don't explode on owner
+// 	if (other.takedamage)
+// 	{
+// 		T_Damage (other, self, self.owner, 10 );
+// 		sound (self, CHAN_WEAPON, "zombie/z_hit.wav", 1, ATTN_NORM);
+// 		remove (self);
+// 		return;
+// 	}
+// 	sound (self, CHAN_WEAPON, "zombie/z_miss.wav", 1, ATTN_NORM);   // bounce sound
+// 	self.velocity = '0 0 0';
+// 	self.avelocity = '0 0 0';
+// 	self.touch = SUB_Remove;
+// };
 
 /*
 ================

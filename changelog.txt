@@ -59,3 +59,5 @@ RC 4
 * Added RennyC's func_fall - trap brush that falls out from under the player
 * Added Hipnotic version of trap_spikeshooter (with lavaball and rockets)
 * Added Voreballs, Grenades to trap_spikeshooter
+* Added Rubicon2 "retriggerable" spawnflag and custom sounds to func_train
+* Added gibs to trap_spikeshooter

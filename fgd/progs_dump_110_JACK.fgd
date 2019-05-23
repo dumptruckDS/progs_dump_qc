@@ -730,16 +730,46 @@ spawnflags(Flags) =
 	[
 		1 : "Spike" : 0
 		2 : "Laser" : 0
+		4 : "Lavaball" : 0
+		8 : "Rocket" : 0
+		16 : "Voreball" : 0
+		32 : "Grenade" : 0
+		64 : "Gibs" : 0
+		128 : "Silent" : 0
 	]
 ]
 @PointClass base(Angle, Appearflags, Targetname) color(220 150 150) = trap_shooter : "Continuous shooter" //modified by dumptruck_ds adding Angle & Targetname to baseclass
 [
 	nextthink(integer) : "Delay before first spike"
-	wait(integer) : "Delay between spikes"
+	wait(integer) : "Delay between firing" : 1
 	spawnflags(Flags) =
 	[
 		1 : "Spike" : 0
 		2 : "Laser" : 0
+		4 : "Lavaball" : 0
+		8 : "Rocket" : 0
+		16 : "Voreball" : 0
+		32 : "Grenade" : 0
+		64 : "Gibs" : 0
+		128 : "Silent" : 0
+	]
+]
+
+@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) = trap_switched_shooter : "Continuous shooter can be toggled when targeted, start on or off" //modified by dumptruck_ds adding Angle & Targetname to baseclass
+[
+	nextthink(integer) : "Delay before first spike"
+	wait(integer) : "Delay between firing" : 1
+	state(integer) : "0 initially off, 1 initially on" : 0
+	spawnflags(Flags) =
+	[
+		1 : "Spike" : 0
+		2 : "Laser" : 0
+		4 : "Lavaball" : 0
+		8 : "Rocket" : 0
+		16 : "Voreball" : 0
+		32 : "Grenade" : 0
+		64 : "Gibs" : 0
+		128 : "Silent" : 0
 	]
 ]
 
@@ -966,17 +996,29 @@ dmg is the amount of damage to cause when touched."
 	message(string) : "Message"
 ]
 
+@SolidClass base(Appearflags, Targetname) = func_train : "Moving platform
 
-@SolidClass base(Appearflags, Targetname) = func_train : "Moving platform"
+RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
+
+Set Sounds to 3 for custom sounds with noise4 as the movement and noise3 for stop sound"
 [
+spawnflags(Flags) =
+[
+	1 : "RETRIGGER (wait at path_corners)" : 0
+]
+
 	sounds(choices) : "Sound" : 1 =
 	[
 		0: "Silent"
 		1: "Ratchet Metal"
+		2: "Base"
+		3: "Custom (set path in noise3, noise4)"
 	]
 	speed(integer) : "Speed (units per second)" : 64
 	target(target_source) : "Target to start at"
 	dmg(integer) : "Damage on block" : 2
+	noise3(string) : "Custom start noise"
+	noise4(string) : "Custom movement noise"
 ]
 
 @PointClass base(Appearflags, Targetname) size(16 16 16) color(0 255 255) =

@@ -329,7 +329,8 @@ float SPAWNFLAG_LAVABALL = 4;
 float SPAWNFLAG_ROCKET = 8;
 float SPAWNFLAG_VOREBALL = 16;
 float SPAWNFLAG_GRENADE = 32;
-float SPAWNFLAG_SILENT = 64;
+float SPAWNFLAG_GIBS = 64;
+float SPAWNFLAG_SILENT = 128;
 
 void() ShalMissileTouch = //moved from Shalrath to enable shooter version
 {
@@ -357,6 +358,24 @@ void() ShalMissileTouch = //moved from Shalrath to enable shooter version
  // s_explode1 ();
 };
 
+void() ZombieGrenadeTouch = //moved from zombie.qc to enable shooter version
+{
+	if (other == self.owner)
+		return;         // don't explode on owner
+	if (other.takedamage)
+	{
+		T_Damage (other, self, self.owner, 10 );
+		sound (self, CHAN_WEAPON, "zombie/z_hit.wav", 1, ATTN_NORM);
+		remove (self);
+		return;
+	}
+	sound (self, CHAN_WEAPON, "zombie/z_miss.wav", 1, ATTN_NORM);   // bounce sound
+	self.velocity = '0 0 0';
+	self.avelocity = '0 0 0';
+	self.touch = SUB_Remove;
+};
+
+
 void(vector org, vector vec) LaunchLaser;
 
 //MED 11/09/96 added lava ball and rocket
@@ -367,6 +386,7 @@ void() spikeshooter_use =
    local entity voreball;
    local entity rockettrap;
    local entity gnade;
+   local entity zgibs;
 
 	if (self.spawnflags & SPAWNFLAG_LASER)
 	{
@@ -378,7 +398,9 @@ void() spikeshooter_use =
    else if (self.spawnflags & SPAWNFLAG_LAVABALL)
    {
       if (!self.spawnflags & SPAWNFLAG_SILENT)
-      sound (self, CHAN_VOICE, "weapons/ax1.wav", 1, ATTN_NORM); //dms
+      sound (self, CHAN_VOICE, "boss1/throw.wav", 1, ATTN_NORM); //dms
+      // sound (self, CHAN_VOICE, "knight/sword2.wav", 1, ATTN_NORM); //dms
+      // sound (self, CHAN_VOICE, "weapons/ax1.wav", 1, ATTN_NORM); //dms
       lavaball = spawn();
       lavaball.movetype = MOVETYPE_FLYMISSILE;
       lavaball.solid = SOLID_BBOX;
@@ -460,14 +482,26 @@ void() spikeshooter_use =
 	 	 gnade.think = GrenadeExplode;
 	 }
 
-	// else if (self.spawnflags & SPAWNFLAG_GRENADE)
-	//  {
-	// 		 if (!self.spawnflags & SPAWNFLAG_SILENT)
-	// 		 sound (self, CHAN_VOICE, "weapons/grenade.wav", 1, ATTN_NORM);
-	// 		 W_FireGrenade (self.origin, self.movedir);
-	// 		 // newmis.spawnflags = self.spawnflags;
-	//  }
-	//
+	else if (self.spawnflags & SPAWNFLAG_GIBS)
+	 {
+	 	if (!self.spawnflags & SPAWNFLAG_SILENT)
+		sound (self, CHAN_VOICE, "zombie/z_shot1.wav", 1, ATTN_NORM);
+	 	zgibs = spawn ();
+	 	zgibs.owner = self;
+	 	zgibs.movetype = MOVETYPE_BOUNCE;
+	 	zgibs.solid = SOLID_BBOX;
+		zgibs.classname = "zgibs";
+		setmodel (zgibs, "progs/zom_gib.mdl");
+		setsize (zgibs, '0 0 0', '0 0 0');
+		setorigin (zgibs, self.origin);
+	 	zgibs.velocity = self.movedir * 600 + v_up * 200 + crandom()*v_right*10 + crandom()*v_up*10;
+	 	zgibs.avelocity = '3000 1000 2000';
+	 	zgibs.touch = ZombieGrenadeTouch;
+	 // set missile duration
+	 	zgibs.nextthink = time + 2.5;
+	 	zgibs.think = SUB_Remove;
+	 }
+
    else
 	{
   if (!self.spawnflags & SPAWNFLAG_SILENT)
@@ -486,7 +520,6 @@ void() shooter_think =
       {
       spikeshooter_use ();
       }
-			dprint ("is this thing working");
 	 self.nextthink = time + self.wait;
 };
 
@@ -511,8 +544,7 @@ void() trap_spikeshooter =
    else if (self.spawnflags & SPAWNFLAG_LAVABALL)
    {
       precache_model ("progs/lavaball.mdl");
-//      self.classname = "fireball";
-      // precache_sound2 ("misc/spike.wav");
+      // precache_sound2 ("knight/sword2.wav"); //dms
       precache_sound2 ("boss1/throw.wav"); //dms
    }
    else if (self.spawnflags & SPAWNFLAG_ROCKET)
@@ -529,6 +561,13 @@ void() trap_spikeshooter =
 	 {
 		precache_model ("progs/grenade.mdl");
 		precache_sound ("weapons/grenade.wav");	// grenade launcher
+	 }
+	 else if (self.spawnflags & SPAWNFLAG_GIBS)
+	 {
+		precache_model ("progs/zom_gib.mdl");
+		precache_sound ("zombie/z_shot1.wav");	// Zombie gibs
+		precache_sound ("zombie/z_miss.wav");
+		precache_sound ("zombie/z_hit.wav");
 	 }
 
    else
