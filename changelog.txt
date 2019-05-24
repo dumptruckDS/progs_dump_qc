@@ -23,7 +23,7 @@ RC 4
 
 1.0.0 (omitted)
 
-1.1.0
+1.1.0 Release Candidate 1 & 2
 
 * Added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for custom start maps!)
 * Added classnames to "bonus item fell out of level" and "monster stuck in wall" errors when developer is set to 1.
@@ -61,4 +61,8 @@ RC 4
 * Added Voreballs, Grenades to trap_spikeshooter
 * Added Rubicon2 "retriggerable" spawnflag and custom sounds to func_train
 * Added gibs to trap_spikeshooter
-* Added lightning trail entities from DOE (WIP) 
+* Added lightning trail entities from DOE (for traps and visual effects)
+* Added visual effect entities:
+        play_explosion
+        play_tbabyexplode
+        play_lavasplash

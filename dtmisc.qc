@@ -170,7 +170,57 @@ void () play_tfog = //thanks Khreathor -- dumptruck_ds
 void() tele_fog =
 {
   self.use = play_tfog;
+};
+
+/*QUAKED play_explosion (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, creates a explosion at it's origin. Causes damage.
+
+*/
+
+void () play_explosion_fx = //thanks Khreathor -- dumptruck_ds
+
+{
+  GrenadeExplode();
 }
+
+void() play_explosion =
+{
+  self.use = play_explosion_fx;
+};
+
+/*QUAKED play_explosion (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, creates a explosion at it's origin. Causes damage.
+
+*/
+
+void () play_tbaby_fx = //thanks Khreathor -- dumptruck_ds
+
+{
+  tbaby_die2();
+}
+
+void() play_tbabyexplode =
+{
+  precache_sound2 ("blob/death1.wav");
+  self.use = play_tbaby_fx;
+};
+
+void () play_lavasplash_fx = //thanks Khreathor -- dumptruck_ds
+{
+WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
+WriteCoord (MSG_BROADCAST, self.origin_x);
+WriteCoord (MSG_BROADCAST, self.origin_y);
+WriteCoord (MSG_BROADCAST, self.origin_z);
+}
+
+void () play_lavasplash =
+{
+  self.use = play_lavasplash_fx;
+};
+
 
 void () play_meatspray = //-- dumptruck_ds -- thanks to Spike for helping with errors
 {
@@ -200,7 +250,6 @@ void () play_meatspray = //-- dumptruck_ds -- thanks to Spike for helping with e
   		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 }
 };
-
 
 void() meat_shower =
 {

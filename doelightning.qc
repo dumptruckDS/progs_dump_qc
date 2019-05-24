@@ -20,6 +20,7 @@ void() ltrail_fire =
 
 	if (self.classname != "ltrail_end")
 	{
+		if (!self.sounds)
 		sound (self, CHAN_VOICE, "weapons/lhit.wav", 1, ATTN_NORM);
 		myTarget = find(world, targetname, self.target);
 		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);

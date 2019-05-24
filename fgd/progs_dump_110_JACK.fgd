@@ -826,6 +826,63 @@ targetname = Must be triggered"
 	fly_sound(integer) : "Play gib sound effects" : 0
 ]
 
+@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 200 300) = ltrail_start : "Starting point of a lightning trail. See the manual for set up steps.
+
+Set currentammo key to amount of damage you want the lightning to do.
+Default is 25.
+
+Set frags key to amount of time before next item is triggered.
+Default is 0.3 seconds.
+
+Set weapon key to amount of time to be firing the lightning.
+Default is 0.3 seconds.
+
+Set sounds key to 1 for silence
+Default is 0
+Does not work with ltrail_relay (it will still make noise.)
+
+Set the Toggle spawnflag if you want the lightning shooter to continuously fire until triggered again.
+
+Set the Start On spawnflag to have the lightning shooter start on (DO NOT USE WITH TOGGLE)"
+[
+spawnflags(Flags) =
+[
+	1 : "Toggle" : 0
+	2 : "Start On" : 0
+]
+	currentammo(integer) : "Damage" : 0
+	frags(integer) : "Time before next trigger" : 0.3
+	weapon(integer) : "Duration of each strike" : 0.3
+	sounds(integer) : "Set to 1 for silence (?)" : 0
+]
+
+@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 200) = ltrail_end : "Ending point of a lightning trail.
+
+Does not fire any lightning.
+
+Set frags to amount of time before next item is triggered.
+Default is 0.3 seconds.
+"
+[
+	frags(integer) : "Time before next trigger" : 0.3
+]
+
+@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 300) = ltrail_relay : "Relay point of a lightning trail.
+
+Set currentammo to amount of damage you want the lightning to do.
+Default is 25.
+
+Set frags to amount of time before next item is triggered.
+Default is 0.3 seconds.
+
+Set weapon to amount of time to be firing the lightning.
+Default is 0.3 seconds.
+"
+[
+	currentammo(integer) : "Damage" : 0
+	frags(integer) : "Time before next trigger" : 0.3
+	weapon(integer) : "Duration of each strike" : 0.3
+]
 
 @SolidClass = func_group : "Group of brushes for in-editor use" []
 @SolidClass = func_detail : "Group of brushes for certain compilers " []
