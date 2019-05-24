@@ -40,8 +40,9 @@ misc_model.qc // Code by Joshua Skelton
 hipcount.qc //Hipnotic counter
 hippart.qc //Hipnotic particlefield and func_togglewall
 hiptrig.qc //Hipnotic triggers qc
+doelightning.qc //from DOE lightnin.qc
 doeplats.qc //Rogue MP newplats.qc
 elevatr.qc //Rogue elevator code
 rubicon2.qc //selections from Rubicon2 QC
 dtquake.qc //triggerable earthquake from Zer cutscenes
-rotate.qc //from Hipnotic thanks RennyC 
+rotate.qc //from Hipnotic thanks RennyC

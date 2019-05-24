@@ -61,3 +61,4 @@ RC 4
 * Added Voreballs, Grenades to trap_spikeshooter
 * Added Rubicon2 "retriggerable" spawnflag and custom sounds to func_train
 * Added gibs to trap_spikeshooter
+* Added lightning trail entities from DOE (WIP) 
