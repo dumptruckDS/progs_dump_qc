@@ -536,6 +536,7 @@ dumptruck_ds
 noise = sound to play when triggered
 wait = wait this long before falling
 ==============================================================================*/
+float DONT_FADE = 1;
 
 void() func_fall_think =
 {
@@ -544,12 +545,15 @@ void() func_fall_think =
         self.solid = SOLID_NOT;
         self.movetype = MOVETYPE_TOSS;
 
-        if (self.alpha > 0.1)
-            self.alpha = self.alpha - 0.03;
-        else
+        if (!self.spawnflags & DONT_FADE)
         {
-            remove(self);
-            return;
+          if (self.alpha > 0.1)
+              self.alpha = self.alpha - 0.03;
+          else
+          {
+              remove(self);
+              return;
+          }
         }
     }
     self.nextthink = time + 0.1;

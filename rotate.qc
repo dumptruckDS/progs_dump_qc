@@ -1121,7 +1121,7 @@ once door from closing again when it's blocked.
 3) base
 */
 
-void() func_rotate_door =
+void() func_rotate_door = // added slinet option - sounds 4 -- dumptruck_ds
    {
    if (!self.target)
       {
@@ -1174,6 +1174,14 @@ void() func_rotate_door =
 		self.noise1 = "doors/basesec2.wav";
 		self.noise3 = "doors/basesec2.wav";
 	}
+  if (self.sounds == 4)
+  {
+    precache_sound ("misc/null.wav");
+    precache_sound ("misc/null.wav");
+    self.noise2 = "misc/null.wav";
+    self.noise1 = "misc/null.wav";
+    self.noise3 = "misc/null.wav";
+  }
 
    self.solid = SOLID_NOT;
    self.movetype = MOVETYPE_NONE;

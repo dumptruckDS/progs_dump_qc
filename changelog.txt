@@ -70,3 +70,5 @@ RC 4
 * Added custom sound option to play_lavasplash
 * Added custom sound option to func_fall
 * Added Zerstrorer misc_particle_stream
+* Added silent option to func_rotate_door (sounds 4)
+* Added DONT_FADE spawnflag to func_fall

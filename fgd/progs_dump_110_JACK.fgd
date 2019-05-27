@@ -1554,6 +1554,10 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 	[
 	noise(string) : "Sound to play when fall starts"
 	wait(integer) : "Wait this long before falling"
+	spawnflags(flags) =
+			[
+				1 : "Don't Fade" : 0
+			]
 	]
 
 @SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details
@@ -1711,6 +1715,7 @@ delay how much time to wait before firing after being switched on."
 		1: "Medieval (default)"
 		2: "Metal"
 		3: "Base"
+		4: "Silent"
 	]
 ]
 //@PointClass size(0 0 0, 32 32 32) base(Target) = func_clock : "Clock Hand"
