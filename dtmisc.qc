@@ -189,9 +189,9 @@ void() play_explosion =
   self.use = play_explosion_fx;
 };
 
-/*QUAKED play_explosion (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED play_tbabyexplode (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
 
-When triggered, creates a explosion at it's origin. Causes damage.
+When triggered, creates a Spawn death explosion at it's origin. Causes damage.
 
 */
 
@@ -207,20 +207,45 @@ void() play_tbabyexplode =
   self.use = play_tbaby_fx;
 };
 
+/*QUAKED play_lavasplash (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, plays the lavasplash effect from E1M7.
+
+Use noise key for a custom sound.
+
+*/
+
 void () play_lavasplash_fx = //thanks Khreathor -- dumptruck_ds
 {
+  if (self.noise)
+  {
+    sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+  }
+  else
+  {
+    sound (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
+  }
 WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
 WriteCoord (MSG_BROADCAST, self.origin_x);
 WriteCoord (MSG_BROADCAST, self.origin_y);
 WriteCoord (MSG_BROADCAST, self.origin_z);
-}
+};
 
 void () play_lavasplash =
 {
+  if (self.noise) precache_sound (self.noise);
+  precache_sound("boss1/out1.wav");
   self.use = play_lavasplash_fx;
 };
 
+/*QUAKED meat_shower (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, plays a gib effect.
+
+Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
+
+*/
 
 void () play_meatspray = //-- dumptruck_ds -- thanks to Spike for helping with errors
 {
@@ -501,8 +526,11 @@ void() gib_misc_3 =
 	}
 };
 /* END Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
+
 /*==============================================================================
 func_fall from RennyC
+
+A brush that drops and fades away when touched.
 
 dumptruck_ds
 noise = sound to play when triggered
@@ -534,7 +562,15 @@ void() fall_touch =
 
     self.attack_finished = time + self.wait;
     self.cnt = TRUE;
-    sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    if (self.noise)
+    {
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
+    else
+    {
+      sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
+    }
+    // sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 };
 
 /*QUAKED func_fall (0 .5 .8) ?
@@ -543,7 +579,9 @@ Falling brush upon touch
 
 void() func_fall =
 {
-    precache_sound(self.noise);
+    precache_sound("buttons/switch21.wav");
+    if (self.noise) precache_sound (self.noise);
+
 
     self.alpha = 1;
     self.cnt = FALSE;
@@ -553,4 +591,81 @@ void() func_fall =
     self.nextthink = time;
     self.touch = fall_touch;
     setmodel (self, self.model);
+};
+
+//=START PARTICLE-STREAM==================================================
+// from Zerstrorer mod -- dumptruck_ds
+
+void(vector start, vector end, float color1, float color2, float pdensity) Particle_Beam =
+{
+local vector	spray, next;
+local float		dist, loop, clr;
+
+	clr = color1;
+	spray = start - end;
+	dist = vlen(spray);
+	loop = dist / 24;
+	spray = normalize(spray);
+	next = spray * 24;
+	while(loop > 0)
+	{
+		particle (end, spray, clr, pdensity);
+		end = end + next;
+		loop = loop - 1;
+		if (clr == color1)
+			clr = color2;
+		else
+			clr = color1;
+	}
+};
+
+
+void() particle_use =
+{
+	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
+	Particle_Beam(self.origin, self.enemy.origin, self.dmg, self.cnt, 15); // was 40 - too many particles for my taste --dumptruck_ds
+};
+
+void() particle_stream_start =
+{
+local entity	pspot;
+
+	pspot = find(world, targetname, self.target);
+	if(!pspot)
+	{
+		dprint("Particle stream can't find target!");
+		return;
+	}
+
+	self.enemy = pspot;
+};
+
+/*QUAKED misc_particle_stream (0 .5 .8) (-8 -8 -8) (8 8 8)
+A particle stream!  It appears when triggered.  This entity is
+one end of the stream, target another entity as the other end-point.
+I used the info_notnull, but you should be able to target anything
+(like monsters).
+
+"target"   This entities origin is the end-point of the stream
+"dmg"  1st Color  -  Use if you want a single color stream
+"cnt"  2nd Color  -  Mixes particles of both colors
+"noise"  Sound to play when triggered
+*/
+void() misc_particle_stream =
+{
+	if(!self.target)
+		objerror("misc_particle_stream with not target!");
+
+	if(!self.dmg)
+		self.dmg = 73;
+	if(!self.cnt)
+		self.cnt = self.dmg;
+	if(!self.noise)
+		self.noise = "misc/null.wav";
+
+  precache_sound(self.noise);
+
+	self.use = particle_use;
+	self.think = particle_stream_start;
+	self.nextthink = time + 0.2;
 };

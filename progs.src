@@ -16,6 +16,7 @@ buttons.qc
 triggers.qc //added trigger_push_custom based on Hipnotic
 plats.qc
 misc.qc
+lights.qc //c0burn's excellent switchable lights
 
 ogre.qc
 demon.qc

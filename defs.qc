@@ -779,3 +779,4 @@ void() SUB_UsePain; //dumptruck_ds
 .float megahealth_rottime; // dumptruck_ds
 .float alpha; // from RennyC func_drop in dtmisc.qc
 .float		ltrailLastUsed;  //from DOE lighnin
+.float style2 //c0burn's switchable lights

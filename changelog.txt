@@ -66,3 +66,7 @@ RC 4
         play_explosion
         play_tbabyexplode
         play_lavasplash
+* Added c0burn's switchable light styles
+* Added custom sound option to play_lavasplash
+* Added custom sound option to func_fall
+* Added Zerstrorer misc_particle_stream
