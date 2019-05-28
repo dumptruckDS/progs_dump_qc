@@ -72,3 +72,5 @@ RC 4
 * Added Zerstrorer misc_particle_stream
 * Added silent option to func_rotate_door (sounds 4)
 * Added DONT_FADE spawnflag to func_fall
+* Added elec22k.wav for looped lightning sound effects
+* Added pd_lasers test level

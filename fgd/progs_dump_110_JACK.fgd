@@ -1165,6 +1165,22 @@ dmg is the amount of damage to cause when touched."
 	]
 ]
 
+@PointClass base(Appearflags, Target, Targetname) size(16 16 16) color(0 255 255) = misc_particle_stream : "A particle stream!  It appears when triggered.
+
+This entity is one end of the stream, target another entity as the other end-point. I used the info_notnull, but you should be able to target anything even monsters.
+
+dmg 1st Color  -  Use if you want a single color stream
+cnt 2nd Color  -  Mixes particles of both colors
+noise  Sound to play when triggered
+
+NOTE: To have a continuous stream use a func_counter as the target, then set the misc_particle_stream as the target of the func_counter, finally set the Looping spawnflag on the counter"
+[
+	target(target_source) : "End-point of the stream"
+	dmg(integer) : "1st Color" : 0
+	cnt(integer) : "2nd Color" : 0
+	noise(string) : "Path of sound when triggered"
+]
+
 @SolidClass base(Angle, Appearflags, Targetname, Target) = func_button : "Button" //modified by dumptruck_ds to add Target
 [
 	speed(integer) : "Speed" : 40
