@@ -1398,6 +1398,10 @@ NOTE: To use is_waiting function, use targetname2 only."
         3 : "Nightmare!"
 	]
 ]
+@SolidClass base(Appearflags) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at info_player_start for an axe only spawn.
+
+Make sure and add a weapon_shotgun to your map!"
+[]
 @PointClass base(Targetname, Trigger) = trigger_relay : "Trigger relay" []
 @SolidClass base(Angle, Appearflags, OneTargetname) = trigger_monsterjump : "Trigger: Monster jump"
 [

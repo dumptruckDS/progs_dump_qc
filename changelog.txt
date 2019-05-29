@@ -50,12 +50,13 @@ RC 4
 
 1.1.0 Release Candidate 3
 
-* Fixed Meghealth respawning issue from RC1 / RC2
+* Fixed Megahealth respawning issue from RC1 / RC2
 * Fixed incorrect item_health bounding box from RC1 / RC2
 * Fixed Attenuation issue on custom sound entities
 * Added Khreathor's self.particle_offset to spawning items for better tfog
 * Added custom health to monsters (except zombies)
 * Added trigger_take_weapon (a.k.a. axe start)
+* Added weapon_shotgun pickup
 * Added RennyC's func_fall - trap brush that falls out from under the player
 * Added Hipnotic version of trap_spikeshooter (with lavaball and rockets)
 * Added Voreballs, Grenades to trap_spikeshooter

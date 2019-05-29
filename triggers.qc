@@ -931,7 +931,10 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 		}
 */
 };
+/*QUAKED trigger_take_weapon (.5 .5 .5) ?
 
+Removes shotgun upon touch.
+*/
 void() trigger_take_weapon =
 {
 	self.wait = -1;
