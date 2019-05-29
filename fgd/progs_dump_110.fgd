@@ -1495,7 +1495,7 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		volume(integer) : "Volume (0 - 1)" : 1
 	]
 
-@SolidClass base(Appearflags) = func_fall : "A brush that drops and fades away when touched.
+@SolidClass base(Appearflags, OneTargetname) = func_fall : "A brush that drops and fades away when touched. Gibs monsters who touch it. Can be targeted by triggers etc.
 
 noise = sound to play when triggered
 wait = wait this long before falling"

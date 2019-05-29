@@ -542,11 +542,13 @@ void() func_fall_think =
 {
     if (self.cnt == TRUE && self.attack_finished < time)
     {
-        self.solid = SOLID_NOT;
+        self.solid = SOLID_BBOX;
+        // self.solid = SOLID_NOT;
         self.movetype = MOVETYPE_TOSS;
 
         if (!self.spawnflags & DONT_FADE)
         {
+
           if (self.alpha > 0.1)
               self.alpha = self.alpha - 0.03;
           else
@@ -561,21 +563,40 @@ void() func_fall_think =
 
 void() fall_touch =
 {
-    if (other.classname != "player" || self.cnt == TRUE)
+    if (other.classname == "player")
+    {
+        if (!other.flags & FL_ONGROUND)
+            other.flags = other.flags | FL_ONGROUND;
+    }
+
+    else if (other.flags & FL_MONSTER)
+    T_Damage (other, self, other, 50000);
+
+    else
+        return;
+
+    if (self.cnt == TRUE)
         return;
 
     self.attack_finished = time + self.wait;
     self.cnt = TRUE;
+
     if (self.noise)
-    {
-      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-    }
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
     else
-    {
-      sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
-    }
-    // sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+        sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
 };
+
+void() fall_use =  // thanks again RennyC for help on revisions --dumptruck_ds
+    {
+      self.attack_finished = time + self.wait;
+      self.cnt = TRUE;
+
+      if (self.noise)
+          sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+      else
+          sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
+    };
 
 /*QUAKED func_fall (0 .5 .8) ?
 Falling brush upon touch
@@ -594,6 +615,7 @@ void() func_fall =
     self.think = func_fall_think;
     self.nextthink = time;
     self.touch = fall_touch;
+    self.use = fall_use;
     setmodel (self, self.model);
 };
 
