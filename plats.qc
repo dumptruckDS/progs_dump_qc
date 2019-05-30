@@ -324,9 +324,11 @@ RETRIGGER: stop at each path_corner and don't resume until triggered again (igno
 
 speed	default 100
 dmg		default	2
+noise path to custom sound
 sounds
 1) ratchet metal
 2) base
+3) custom
 
 */
 void() func_train =
@@ -366,8 +368,8 @@ void() func_train =
 	if (self.sounds == 3) //custom sounds -- dumptruck_ds
 	{
 		self.noise = self.noise3;  //stop sound
-		precache_sound (self.noise3); //sound in motion
-		self.noise1 = self.noise4;
+		precache_sound (self.noise3);
+		self.noise1 = self.noise4; //sound in motion
 		precache_sound (self.noise4);
 	}
 

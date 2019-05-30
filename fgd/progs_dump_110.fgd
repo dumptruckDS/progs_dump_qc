@@ -296,8 +296,10 @@
 		//16384 : "Respawn DM style" : 0
 	//]]
 
-	@PointClass base(Weapon) model({ "path": ":progs/g_shotty.mdl" }) = weapon_shotgun : "Shotgun" [spawnflags(flags) =
+	@PointClass base(Weapon) model({ "path": ":progs/g_shotgn.mdl" }) = weapon_shotgun : "Shotgun" [spawnflags(flags) =
 		[
+			2 : "metlslime mdl (default)"
+			4 : "Slapmap  mdl"
 			32 : "Spawn silent" : 0
 			64 : "Trigger Spawned" : 0
 			128 : "Suspended in air" : 0

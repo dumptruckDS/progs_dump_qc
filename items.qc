@@ -660,12 +660,12 @@ void() weapon_shotgun =
 		if (self.spawnflags & 2)
 		{
 			precache_model ("progs/g_shotgn.mdl");
-			setmodel (self, "progs/g_shotgn.mdl");	//ijed Replaced for SlapMap's model
+			setmodel (self, "progs/g_shotgn.mdl");	//rubicon2 mdl by metlsline aka johnfitz
 		}
 		else if (self.spawnflags & 4)
 		{
 			precache_model ("progs/g_shotty.mdl");
-			setmodel (self, "progs/g_shotty.mdl");	//ijed Replaced for SlapMap's model
+			setmodel (self, "progs/g_shotty.mdl");	//ijed -- Replaced above for SlapMap's model
 		}
 	}
 	self.weapon = IT_SHOTGUN;
