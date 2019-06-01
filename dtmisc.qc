@@ -530,7 +530,7 @@ void() gib_misc_3 =
 /*==============================================================================
 func_fall from RennyC
 
-A brush that drops and fades away when touched.
+A brush that drops and fades away when touched or triggered.
 
 dumptruck_ds
 noise = sound to play when triggered
