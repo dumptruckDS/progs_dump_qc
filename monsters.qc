@@ -30,6 +30,8 @@ self.movetype = self.tele_movetype;
 setmodel(self, self.tele_model);
 setsize (self, self.tele_mins, self.tele_maxs);
 
+self.delay = 0; //fix for cumlitive delays for counters etc. -- dumptruck_ds
+
 self.think1();
 //override the random delay some go functions apply
 self.nextthink = time + 0.1;
