@@ -3,6 +3,8 @@
 float 	BREAKABLE_NO_MONSTERS = 1;
 float		BREAK_EXPLODE = 2;
 float		BREAK_CUSTOM = 4;
+float		SPARKS_BLUE = 2;
+float		SPARKS_PALE = 4;
 
 void() make_breakable_debris;
 
@@ -531,4 +533,189 @@ void () func_laser =
 	helper.owner = self;
 	helper.nextthink = 0.05;
 	helper.think = laser_helper_think;
+};
+
+/*
+===============================================================================
+misc_sparks
+===============================================================================
+*/
+
+void()	sparks_fade1 = [0, sparks_fade2] {self.alpha = 0.8; self.nextthink = time + 0.05;};
+void()	sparks_fade2 = [0, sparks_fade3] {self.alpha = 0.6; self.nextthink = time + 0.05;};
+void()	sparks_fade3 = [0, sparks_fade4] {self.alpha = 0.4; self.nextthink = time + 0.05;};
+void()	sparks_fade4 = [0, SUB_Remove]   {self.alpha = 0.2; self.nextthink = time + 0.05;};
+
+void() sparks_use =
+{
+	if (self.spawnflags & START_OFF)
+		self.spawnflags = self.spawnflags - START_OFF;
+	else
+		self.spawnflags = self.spawnflags + START_OFF;
+};
+
+void() make_sparks;
+
+void() spark_turnofflight =
+{
+	SUB_UseTargets();
+	self.think = make_sparks;
+	self.nextthink = time + (random() + 0.5)*self.wait - 0.15;
+}
+
+void() make_sparks =
+{
+
+	if (self.spawnflags & START_OFF)
+	{
+		self.nextthink = time + 0.1;
+		self.think = make_sparks;
+	}
+	else
+	{
+		local float i;
+		i = -0.25*self.cnt + random()*0.5*self.cnt;
+		while (i < self.cnt)
+		{
+
+			local entity spark;
+			spark = spawn();
+			spark.owner = self;
+			setmodel (spark, "progs/spark.mdl");
+			setorigin (spark, self.origin);
+			spark.movetype = MOVETYPE_BOUNCE;
+			spark.solid = SOLID_TRIGGER;
+			spark.gravity = 0.3;
+			spark.velocity_x = -40 + random() * 80;
+			spark.velocity_y = -40 + random() * 80;
+			spark.velocity_z = -40 + random() * 80;
+			spark.avelocity = '3000 3000 3000';
+			spark.nextthink = time + 0.5 + 1.5*random();
+			spark.think = sparks_fade1;
+			spark.classname = "spark";
+
+			if (random() < 0.33)
+				spark.skin = 0;
+			else if (random() < 0.5)
+				spark.skin = 1;
+			else
+				spark.skin = 2;
+
+			if (self.spawnflags & SPARKS_PALE)
+				spark.skin = spark.skin + 6;
+			else if (self.spawnflags & SPARKS_BLUE)
+				spark.skin = spark.skin + 3;
+
+			setsize (spark, '0 0 0', '0 0 0');
+			i = i + 1;
+		}
+		if (self.sounds == 1)
+			sound (self, CHAN_AUTO, "dump/spark.wav", 1, ATTN_STATIC);
+		SUB_UseTargets();
+		self.nextthink = time + 0.1 + random() * 0.1;
+		self.think = spark_turnofflight;
+
+	}
+
+};
+
+/*QUAKED misc_sparks (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF SPARKS_BLUE SPARKS_PALE
+Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash allong with each burst of sparks. Note: targeted lights should be set to START_OFF.
+
+SPARKS_BLUE: sparks are blue in color
+
+SPARKS_PALE: sparks are pale yellow in color
+
+Keys:
+
+"wait" is the average delay between bursts (variance is 1/2 wait). Default is 2.
+
+"cnt" is the average number of sparks in a burst (variance is 1/4 cnt). Default is 15.
+
+"sounds"
+0)	no sound
+1)	sparks
+*/
+void() misc_sparks =
+{
+	precache_model ("progs/spark.mdl");
+	precache_sound ("dump/spark.wav");
+
+	if (!self.movedir)
+		self.movedir = '0 0 -30';
+	if (!self.wait)
+		self.wait = 2;
+	if (!self.cnt)
+		self.cnt = 15;
+
+	self.use = sparks_use;
+	self.nextthink = time + random()*0.1;
+	self.think = make_sparks;
+};
+
+/*
+===============================================================================
+misc_particles a.k.a. misc_splash
+===============================================================================
+*/
+void() splash_use =
+{
+	if (self.spawnflags & START_OFF)
+		self.spawnflags = self.spawnflags - START_OFF;
+	else
+		self.spawnflags = self.spawnflags + START_OFF;
+};
+
+void() splash_think =
+{
+	if (self.spawnflags & START_OFF)
+	{
+		self.nextthink = time + 0.1;
+		self.think = splash_think;
+	}
+	else
+	{
+		local vector vec;
+		local float variance;
+		variance = vlen(self.movedir) / 2;
+		vec_x = self.movedir_x - variance + random() * variance * 2;
+		vec_y = self.movedir_y - variance + random() * variance * 2;
+		vec_z = self.movedir_z - variance + random() * variance * 2;
+		particle (self.origin, vec, self.color, self.volume);
+		self.nextthink = time + self.wait;
+	}
+};
+
+//
+//misc_particles
+//
+// renamed from misc_splash (Rubcion 2)  --dumptruck_ds
+//
+
+/*QUAKED misc_particles (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF
+Produces a continuous particle splash for waterfalls and other effects
+
+"color" color of particles.  0 through 15, corresponds to a row of the quake palette. (default 0)
+
+"movedir" average movement vector of particles (default 0 0 4)
+
+"wait" time between particle generation cycles.  (default 0.1)
+
+"volume" density of particles. (default 10)
+
+
+*/
+void() misc_particles =
+{
+	if (!self.wait)
+		self.wait = 0.1;
+	if (!self.movedir)
+		self.movedir = '0 0 4';
+	if (!self.volume)
+		self.volume = 10;
+	self.color = self.color * 16;
+
+	self.use = splash_use;
+	self.nextthink = time + self.wait;
+	self.think = splash_think;
 };

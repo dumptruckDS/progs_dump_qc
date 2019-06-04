@@ -75,3 +75,9 @@ RC 4
 * Added DONT_FADE spawnflag to func_fall
 * Added elec22k.wav for looped lightning sound effects
 * Added pd_lasers test level
+
+1.1.0 Official Release
+
+** Added func_bob and misc_bob (RennyC adapted from AD)
+** Added misc_sparks  (Rubicon2)
+** Added misc_particles (misc_splash from Rubicon2)

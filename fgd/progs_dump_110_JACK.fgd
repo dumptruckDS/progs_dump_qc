@@ -1166,6 +1166,68 @@ dmg is the amount of damage to cause when touched."
 		1 : "Use Count" : 0
 	]
 ]
+@SolidClass base(Appearflags, OneTargetname) = func_bob : "A SOLID bmodel that gently moves back and forth."
+[
+	angle(integer) : "direction movement, use 360 for angle 0" : 0
+	height(integer) : "direction intensity" : 8
+	count(integer) : "direction cycle timer minimum = 1" : 2
+	waitmin(integer) : "Speed up scale default = 1, 1+ =non linear" : 1
+	waitmin2(integer) : "Slow down scale default = 0.75"
+	delay(integer) : "Starting time delay defualt = 0, -1 = random"
+	style(integer) : "If set to 1, starts off and waits for trigger"
+	_dirt(integer) : "-1 = will be excluded from dirtmapping"
+	_minlight(integer) : "Minimum light level for any surface of the brush model"
+	_mincolor(integer) : "Minimum light color for any surface (default = '1 1 1' RGB)"
+	_shadow(integer) : "Will cast shadows on other models and itself"
+	_shadowself(integer) : "Will cast shadows on itself"
+
+	spawnflags(flags) =
+	[
+		2 : "BOB_COLLISION" : 2
+		4 : "BOB_NONSOLID" : 0
+	]
+]
+
+@PointClass base(Appearflags, OneTargetname) size(16 16 16) color(255 128 0) = misc_bob : "A model that gently moves back and forth."
+[
+	angle(integer) : "direction movement, use 360 for angle 0" : 0
+	height(integer) : "direction intensity" : 8
+	count(integer) : "direction cycle timer minimum = 1" : 2
+	waitmin(integer) : "Speed up scale default = 1, 1+ =non linear" : 1
+	waitmin2(integer) : "Slow down scale default = 0.75"
+	delay(integer) : "Starting time delay defualt = 0, -1 = random"
+	style(integer) : "If set to 1, starts off and waits for trigger"
+	style(integer) : "If set to 1, starts off and waits for trigger"
+	mdl(string) : "Path to mdl file"
+	spawnflags(flags) =
+	[
+		2 : "BOB_COLLISION (default)" : 2
+		4 : "BOB_NONSOLID" : 0
+	]
+]
+
+@PointClass base(Appearflags, OneTargetname) size(16 16 16) color(255 200 0) = misc_sparks : "Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash along with each burst of sparks. Note: targeted lights should be set to START_OFF."
+[
+	wait(integer) : "is the average delay between bursts (variance is 1/2 wait). Default is 2."
+	cnt(integer) : "is the average number of sparks in a burst (variance is 1/4 cnt). Default is 15."
+	spawnflags(flags) =
+	[
+		2 : "SPARKS_BLUE" : 0
+		4 : "SPARKS_PALE" : 0
+	]
+]
+
+@PointClass base(Appearflags, Targetname) size(16 16 16) color(0 200 200) = misc_particles : "Produces a continuous particle splash for waterfalls and other effects."
+[
+	color(integer) : "color of particles.  0 through 15, corresponds to a row of the quake palette. (default 0)"
+	movedir(integer) : "average movement vector of particles (default 0 0 4)"
+	wait(integer) : "time between particle generation cycles.  (default 0.1)"
+	volume(integer) : "density of particles. (default 10)"
+	spawnflags(flags) =
+	[
+	1 : "START_OFF" : 0
+	]
+]
 
 @PointClass base(Appearflags, Target, Targetname) size(16 16 16) color(0 255 255) = misc_particle_stream : "A particle stream!  It appears when triggered.
 
