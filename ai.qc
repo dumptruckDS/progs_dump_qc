@@ -329,6 +329,9 @@ void() FoundTarget =
 
 	SightSound ();
 	HuntTarget ();
+
+	if (self.sight_trigger == 1) //thanks RennyC -- dumptruck_ds
+	SUB_UseTargets ();
 };
 
 /*

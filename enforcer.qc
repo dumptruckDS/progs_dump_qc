@@ -259,7 +259,7 @@ void(entity attacker, float damage)	enf_pain =
 void()	enf_die1	=[	$death1,	enf_die2	] {};
 void()	enf_die2	=[	$death2,	enf_die3	] {};
 void()	enf_die3	=[	$death3,	enf_die4	]
-{self.solid = SOLID_NOT;self.ammo_cells = 5;DropBackpack();};
+{self.solid = SOLID_NOT;self.ammo_cells = 5;if(!self.keep_ammo)DropBackpack();};
 void()	enf_die4	=[	$death4,	enf_die5	] {ai_forward(14);};
 void()	enf_die5	=[	$death5,	enf_die6	] {ai_forward(2);};
 void()	enf_die6	=[	$death6,	enf_die7	] {};
@@ -277,7 +277,7 @@ void()	enf_fdie1	=[	$fdeath1,	enf_fdie2	] {
 };
 void()	enf_fdie2	=[	$fdeath2,	enf_fdie3	] {};
 void()	enf_fdie3	=[	$fdeath3,	enf_fdie4	]
-{self.solid = SOLID_NOT;self.ammo_cells = 5;DropBackpack();};
+{self.solid = SOLID_NOT;self.ammo_cells = 5;if(!self.keep_ammo)DropBackpack();};
 void()	enf_fdie4	=[	$fdeath4,	enf_fdie5	] {};
 void()	enf_fdie5	=[	$fdeath5,	enf_fdie6	] {};
 void()	enf_fdie6	=[	$fdeath6,	enf_fdie7	] {};

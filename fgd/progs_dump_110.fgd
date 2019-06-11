@@ -378,22 +378,31 @@
 	health(integer)
 	pain_target(string)
 	pain_threshold(integer)
+	sight_trigger(integer)
 ]
 
 @PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
 
-Default health = 30" []
+Default health = 30"
+[
+keep_ammo(integer) : "Don't drop backpack" : 0
+]
 @PointClass base(Monster) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
 
 Default health = 25" []
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
 
-Default health = 200" []
+Default health = 200" [
+keep_ammo(integer) : "Don't drop backpack" : 0
+]
+
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre_marksman : "Ogre marksman
 
 Default health = 200
 
-The monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres)." []
+The monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres)." [
+keep_ammo(integer) : "Don't drop backpack" : 0
+]
 @PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
 
 Default heath = 75" []
@@ -412,7 +421,10 @@ Default health = 600" []
 @PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl" }) = monster_enforcer : "Enforcer
 
-Default health = 80" []
+Default health = 80" [
+keep_ammo(integer) : "Don't drop backpack" : 0
+]
+
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
 
 Default health = 400" []

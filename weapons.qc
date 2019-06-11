@@ -664,7 +664,8 @@ void(float ox) W_FireSpikes =
 	launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
 
 	self.punchangle_x = -2;
-};
+	
+	};
 
 
 

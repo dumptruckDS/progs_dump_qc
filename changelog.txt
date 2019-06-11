@@ -81,3 +81,5 @@ RC 4
 ** Added func_bob and misc_bob (RennyC adapted from AD)
 ** Added misc_sparks  (Rubicon2)
 ** Added misc_particles (misc_splash from Rubicon2)
+** Added sight_trigger - monsters fire targets upon seeing the player
+** Added keep_ammo to Ogre, Soldier and Enforcer (no "DropBackpack" if set to 1)
