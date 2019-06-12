@@ -165,7 +165,6 @@ void() oncount_use =
 	if ( counter_GetCount( other ) == self.count )
 		{
 		activator = other;
-		// dprint("testing\n");
 		SUB_UseTargets();
 		}
 	};
