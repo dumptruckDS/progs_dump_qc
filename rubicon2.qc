@@ -719,3 +719,62 @@ void() misc_particles =
 	self.nextthink = time + self.wait;
 	self.think = splash_think;
 };
+
+//##########################################
+//#### Particle Sprayer                 ####
+//##########################################
+
+//this is from Custents not Rubicon2  -- dumptruck_ds
+//renamed from func to misc
+
+/*QUAKED misc_particlespray (0 .5 .8) (-8 -8 -8) (8 8 8)
+Shoots particles either when triggered, or contiuously when not triggered by anything.
+"color" is the palette color of the particles
+
+"count" is the number of particles to make each time
+
+"delay" is the delay between each triggering
+
+"noise" is the name of the wav file to play when triggered
+
+"movedir" is the vector distance that the particles will travel before disappearing. (in x y z)
+
+"duration" is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering.*/
+
+.float	endtime;
+.float	duration;
+
+void() partspray_think =
+{
+	particle (self.origin, self.movedir, self.color, self.count);
+
+	if(!self.targetname || self.endtime > time)
+		self.nextthink = time + self.delay;
+
+	sound(self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+
+};
+
+void() partspray_use =
+{
+	self.endtime = time + self.duration;
+	partspray_think();
+};
+
+void() misc_particlespray =
+{
+	if ( !self.color )
+		self.color = 47;
+	if ( self.count <= 0 )
+		self.count = 15;
+	if(self.delay <= 0)
+		self.delay = 0.1;
+	self.classname = "particlespray";
+	if (self.noise)
+	      precache_sound(self.noise);
+	self.think = partspray_think;
+	if(!self.targetname)
+		self.nextthink = time + 0.1 + self.delay;
+	else
+		self.use = partspray_use;
+};

@@ -1240,6 +1240,16 @@ dmg is the amount of damage to cause when touched."
 	]
 ]
 
+@PointClass base(Appearflags, Targetname) size(16 16 16) color(0 200 225) = misc_particlespray : "Shoots particles either when triggered, or contiuously when not triggered by anything."
+[
+	color(integer) : "is the palette color of the particles. (default 47)"
+	movedir(integer) : "is the vector distance that the particles will travel before disappearing. (in x y z)"
+	delay(integer) : "is the delay between each triggering (default 0.1)"
+	duration(integer) : "is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering"
+	count(integer) : "is the number of particles to make each time (default 15)"
+	noise(string) : "is the name of the wav file to play when triggered"
+]
+
 @PointClass base(Appearflags, Target, Targetname) size(16 16 16) color(0 255 255) = misc_particle_stream : "A particle stream!  It appears when triggered.
 
 This entity is one end of the stream, target another entity as the other end-point. I used the info_notnull, but you should be able to target anything even monsters.
