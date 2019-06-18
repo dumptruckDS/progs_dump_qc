@@ -1146,10 +1146,11 @@ dmg is the amount of damage to cause when touched."
 	]
 ]
 
-@PointClass base(Appearflags, Targetname, Target) size(16 16 16) color(255 200 0) = misc_sparks : "Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash along with each burst of sparks. Note: targeted lights should be set to START_OFF."
+@PointClass base(Appearflags, Targetname, Target) size(16 16 16) color(255 200 0) = misc_sparks : "Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash along with each burst of sparks. Note: targeted lights should be set to START_OFF. Set sounds key to 1 for built-in spark sound effect or target a play_sound_triggered for a custom sound."
 [
 	wait(integer) : "is the average delay between bursts (variance is 1/2 wait). Default is 2."
 	cnt(integer) : "is the average number of sparks in a burst (variance is 1/4 cnt). Default is 15."
+	sounds(integer) : "set to 1 for built-in spark sound effect. Default is 0 - silent."
 	spawnflags(flags) =
 	[
 		2 : "SPARKS_BLUE" : 0
