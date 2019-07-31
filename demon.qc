@@ -135,7 +135,7 @@ void(entity attacker, float damage)	demon1_pain =
 
 	self.pain_finished = time + 1;
     sound (self, CHAN_VOICE, "demon/dpain1.wav", 1, ATTN_NORM);
-    return;		// allready dying, don't go into pain frame
+
 	if (random()*200 > damage)
 		return;		// didn't flinch
 
