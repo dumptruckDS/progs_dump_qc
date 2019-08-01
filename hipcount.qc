@@ -98,8 +98,6 @@ void() counter_off_use =
 
 float( entity counter ) counter_GetCount =
 	{
-	local float value;
-
 	if ( counter.classname == "counter" )
 		{
 		return counter.state;
