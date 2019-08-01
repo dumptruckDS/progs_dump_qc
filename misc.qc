@@ -390,14 +390,14 @@ void() spikeshooter_use =
 
 	if (self.spawnflags & SPAWNFLAG_LASER)
 	{
-      if (!self.spawnflags & SPAWNFLAG_SILENT)
+      if (!(self.spawnflags & SPAWNFLAG_SILENT))
 		  sound (self, CHAN_VOICE, "enforcer/enfire.wav", 1, ATTN_NORM);
 			LaunchLaser (self.origin, self.movedir);
       newmis.spawnflags = self.spawnflags;
 	}
    else if (self.spawnflags & SPAWNFLAG_LAVABALL)
    {
-      if (!self.spawnflags & SPAWNFLAG_SILENT)
+      if (!(self.spawnflags & SPAWNFLAG_SILENT))
       sound (self, CHAN_VOICE, "boss1/throw.wav", 1, ATTN_NORM); //dms
       // sound (self, CHAN_VOICE, "knight/sword2.wav", 1, ATTN_NORM); //dms
       // sound (self, CHAN_VOICE, "weapons/ax1.wav", 1, ATTN_NORM); //dms
@@ -420,7 +420,7 @@ void() spikeshooter_use =
 
 	 else if (self.spawnflags & SPAWNFLAG_ROCKET)
 	 {
-		 if (!self.spawnflags & SPAWNFLAG_SILENT)
+		 if (!(self.spawnflags & SPAWNFLAG_SILENT))
 		 sound (self, CHAN_VOICE, "weapons/sgun1.wav", 1, ATTN_NORM);
 		 rockettrap = spawn();
 		 rockettrap.movetype = MOVETYPE_FLYMISSILE;
@@ -440,7 +440,7 @@ void() spikeshooter_use =
 	 }
 	 else if (self.spawnflags & SPAWNFLAG_VOREBALL)
 	 {
-		 if (!self.spawnflags & SPAWNFLAG_SILENT)
+		 if (!(self.spawnflags & SPAWNFLAG_SILENT))
 		 sound (self, CHAN_VOICE, "shalrath/attack2.wav", 1, ATTN_NORM);
 		 voreball = spawn();
 		 voreball.movetype = MOVETYPE_FLYMISSILE;
@@ -461,7 +461,7 @@ void() spikeshooter_use =
 
 	 else if (self.spawnflags & SPAWNFLAG_GRENADE)
 	 {
-		 if (!self.spawnflags & SPAWNFLAG_SILENT)
+		 if (!(self.spawnflags & SPAWNFLAG_SILENT))
 		 sound (self, CHAN_VOICE, "weapons/grenade.wav", 1, ATTN_NORM);
 		 gnade = spawn();
 		 gnade.movetype = MOVETYPE_BOUNCE;
@@ -484,7 +484,7 @@ void() spikeshooter_use =
 
 	else if (self.spawnflags & SPAWNFLAG_GIBS)
 	 {
-	 	if (!self.spawnflags & SPAWNFLAG_SILENT)
+	 	if (!(self.spawnflags & SPAWNFLAG_SILENT))
 		sound (self, CHAN_VOICE, "zombie/z_shot1.wav", 1, ATTN_NORM);
 	 	zgibs = spawn ();
 	 	zgibs.owner = self;
@@ -504,7 +504,7 @@ void() spikeshooter_use =
 
    else
 	{
-  if (!self.spawnflags & SPAWNFLAG_SILENT)
+  if (!(self.spawnflags & SPAWNFLAG_SILENT))
     sound (self, CHAN_VOICE, "weapons/spike2.wav", 1, ATTN_NORM);
 		launch_spike (self.origin, self.movedir);
 		newmis.velocity = self.movedir * 500;

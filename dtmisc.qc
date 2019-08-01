@@ -546,7 +546,7 @@ void() func_fall_think =
         // self.solid = SOLID_NOT;
         self.movetype = MOVETYPE_TOSS;
 
-        if (!self.spawnflags & DONT_FADE)
+        if (!(self.spawnflags & DONT_FADE))
         {
 
           if (self.alpha > 0.1)
@@ -565,7 +565,7 @@ void() fall_touch =
 {
     if (other.classname == "player")
     {
-        if (!other.flags & FL_ONGROUND)
+        if (!(other.flags & FL_ONGROUND))
             other.flags = other.flags | FL_ONGROUND;
     }
 
