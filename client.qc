@@ -541,6 +541,9 @@ void() PutClientInServer =
 	self.invincible_finished = 0;
 	self.effects = 0;
 	self.invincible_time = 0;
+	self.gravity = 0;
+	self.wantedgravity = 0;
+	self.onladder = 0;
 
 	if (world.reset_items == 1) //dumptruck_ds thanks to Spike on progs_dump Discord!
 	{
