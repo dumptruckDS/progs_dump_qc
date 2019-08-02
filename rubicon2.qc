@@ -396,6 +396,10 @@ Keys:
 */
 void() trigger_ladder =
 {
+	// ignore an "up" or "down" angle (doesn't make sense for a ladder)
+	if (self.angles_y == -1 || self.angles_y == -2)
+		self.angles_y = 0;
+
 	InitTrigger ();
 	self.touch = ladder_touch;
 };
