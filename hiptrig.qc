@@ -173,22 +173,26 @@ else
 
 void() trigger_gravity_touch =
 {
+	local float grav;
+
 //	This is commented out so that the changing gravity will
 //	affect everything, if you don't want to use all affecting
 //	gravity changes, then uncomment these two lines.
 //	if (other.classname != "player")
 //		return;
-	if (self.gravity == -1)
-	{
-		other.gravity = 1.0;
-		other.wantedgravity = other.gravity;
-	}
 
+	if (self.gravity == -1)
+		grav = 1;
 	else
-	{
-		other.gravity = self.gravity;
-		other.wantedgravity = other.gravity;
-	}
+		grav = self.gravity;
+
+	// the player's gravity is now managed in PlayerPreThink(), however
+	// other entities don't have special gravity management, so their
+	// gravity is still set directly -- iw
+	if (other.classname == "player")
+		other.wantedgravity = grav;
+	else
+		other.gravity = grav;
 };
 
 /*QUAKED trigger_setgravity (.5 .5 .5) ?

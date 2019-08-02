@@ -384,7 +384,6 @@ void() ladder_touch =
 			return;		// not facing the right way
 	}
 	other.onladder = 1;
-	other.wantedgravity = 0.0000001; //zero doesnt seem to work
 }
 
 /*QUAKED trigger_ladder (.5 .5 .5) ?
