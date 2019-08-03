@@ -310,8 +310,6 @@ void() health_touch =
 	self.model = string_null;
 	self.solid = SOLID_NOT;
 
-	if (!deathmatch)
-		CheckItemRespawn(self, 30);
 	self.think = SUB_regen;
 
 	// Megahealth = rot down the player's super health
@@ -320,6 +318,30 @@ void() health_touch =
 		other.megahealth_rottime = time + 5;  //thanks ydrol!!!
 		other.items = other.items | IT_SUPERHEALTH;
 		self.owner = other;
+
+		// Regarding the deathmatch respawn time below: id's original
+		// code made the megahealth respawn 20 seconds after the health
+		// of the player who collected it finished rotting down.
+		// However, this mod has already got rid of the weird old
+		// megahealth behavior whereby it monitored the player who
+		// touched it, so the original respawn logic isn't applicable.
+		// As a solution, the code below uses a respawn time of 120
+		// seconds for deathmatch, because that was the worst-case
+		// scenario of id's original code (100 seconds to rot down 100
+		// health points, plus the original 20 second delay on top of
+		// that).  -- iw
+		//
+		if (!deathmatch)
+			CheckItemRespawn(self, 30);
+		else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
+			self.nextthink = time + 120;
+	}
+	else
+	{
+		if (!deathmatch)
+			CheckItemRespawn(self, 30);
+		else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
+			self.nextthink = time + 20;
 	}
 
 	activator = other;
@@ -375,6 +397,8 @@ void() armor_touch =
 	// Supa, SP respawning items support
 	if (!deathmatch)
 		CheckItemRespawn(self, 30);
+	else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
+		self.nextthink = time + 20;
 	self.think = SUB_regen;
 
 	sprint(other, "You got armor\n");
@@ -612,11 +636,11 @@ void() weapon_touch =
 // remove it in single player, or setup for respawning in deathmatch
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-	if (deathmatch == 1)
-		self.nextthink = time + 30;
 	// Supa, SP respawning items support
 	if (!deathmatch)
 		CheckItemRespawn(self, 30);
+	else if (deathmatch == 1)  // weapons never disappear in "deathmatch 2"
+		self.nextthink = time + 30;
 
 	self.think = SUB_regen;
 
@@ -850,6 +874,8 @@ local float		best;
 	self.solid = SOLID_NOT;
 	if (!deathmatch)
 		CheckItemRespawn(self, 30);
+	else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
+		self.nextthink = time + 30;
 	self.think = SUB_regen;
 
 	activator = other;
@@ -1323,6 +1349,8 @@ void() powerup_touch =
 		if ((self.classname == "item_artifact_invulnerability") ||
 		    (self.classname == "item_artifact_invisibility"))
 			self.nextthink = time + 60*5;
+		else
+			self.nextthink = time + 60;
 	}
 
 	sound (other, CHAN_VOICE, self.noise, 1, ATTN_NORM);
