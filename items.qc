@@ -309,14 +309,13 @@ void() health_touch =
 
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-	// Megahealth = rot down the player's super health
 
 	if (!deathmatch)
-	CheckItemRespawn(self, 30);
+		CheckItemRespawn(self, 30);
 	self.think = SUB_regen;
 
+	// Megahealth = rot down the player's super health
 	if (self.healtype == 2)
-
 	{
 		other.megahealth_rottime = time + 5;  //thanks ydrol!!!
 		other.items = other.items | IT_SUPERHEALTH;
@@ -373,14 +372,10 @@ void() armor_touch =
 
 	self.solid = SOLID_NOT;
 	self.model = string_null;
-	// if (deathmatch == 1) Khreathor stuff
-	// 	self.nextthink = time + 20;
-	// self.think = SUB_regen;
 	// Supa, SP respawning items support
 	if (!deathmatch)
 		CheckItemRespawn(self, 30);
 	self.think = SUB_regen;
-
 
 	sprint(other, "You got armor\n");
 // armor touch sound
@@ -619,9 +614,9 @@ void() weapon_touch =
 	self.solid = SOLID_NOT;
 	if (deathmatch == 1)
 		self.nextthink = time + 30;
-		// Supa, SP respawning items support
-		if (!deathmatch)
-			CheckItemRespawn(self, 30);
+	// Supa, SP respawning items support
+	if (!deathmatch)
+		CheckItemRespawn(self, 30);
 
 	self.think = SUB_regen;
 
@@ -853,11 +848,9 @@ local float		best;
 // remove it in single player, or setup for respawning in deathmatch
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-	// if (deathmatch == 1)
 	if (!deathmatch)
 		CheckItemRespawn(self, 30);
 	self.think = SUB_regen;
-
 
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
