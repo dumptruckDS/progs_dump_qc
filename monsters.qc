@@ -205,7 +205,7 @@ if(!(self.spawnflags & 8))
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;
 
-	if ((self.spawnflags && 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+	if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
 	{
 		monster_use();
 	}
@@ -281,7 +281,7 @@ void() flymonster_start_go =
 		self.th_stand ();
 	}
 
-	if ((self.spawnflags && 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+	if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
 	{
 	monster_use();
 	}
@@ -357,7 +357,7 @@ void() swimmonster_start_go =
 // spread think times so they don't all happen at same time
 	self.nextthink = self.nextthink + random()*0.5;
 
-	if ((self.spawnflags && 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+	if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
 	{
 	monster_use();
   }
