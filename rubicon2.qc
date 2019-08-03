@@ -376,6 +376,12 @@ void() ladder_touch =
 	if (other.classname != "player")
 		return;
 
+	// prevent the player "sticking" to a ladder if they are standing on
+	// the platform at the top of the ladder with the bottom of their
+	// bounding box flush with the top of the trigger -- iw
+	if (other.absmin_z + 1 >= self.absmax_z - 1)
+		return;
+
 	// if the trigger has an angles field, check player's facing direction
 	if (self.movedir != '0 0 0')
 	{
