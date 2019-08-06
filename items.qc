@@ -325,16 +325,17 @@ void() health_touch =
 		// However, this mod has already got rid of the weird old
 		// megahealth behavior whereby it monitored the player who
 		// touched it, so the original respawn logic isn't applicable.
-		// As a solution, the code below uses a respawn time of 120
+		// As a solution, the code below uses a respawn time of 125
 		// seconds for deathmatch, because that was the worst-case
-		// scenario of id's original code (100 seconds to rot down 100
-		// health points, plus the original 20 second delay on top of
-		// that).  -- iw
+		// scenario of id's original code (5 seconds before the player's
+		// health started to rot, plus 100 seconds to rot down 100
+		// health points, plus the original 20 second delay before the
+		// item respawned).  -- iw
 		//
 		if (!deathmatch)
 			CheckItemRespawn(self, 30);
 		else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
-			self.nextthink = time + 120;
+			self.nextthink = time + 125;
 	}
 	else
 	{
