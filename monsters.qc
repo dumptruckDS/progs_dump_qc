@@ -10,6 +10,24 @@
 //		<code>
 // };
 
+/*
+================
+monster_update_total
+
+Call this function to safely update total_monsters when the game is in
+progress.  It adds "n" to total_monsters, then notifies all clients of
+the change.  -- iw
+================
+*/
+void(float n) monster_update_total =
+{
+	total_monsters = total_monsters + n;
+
+	WriteByte (MSG_ALL, SVC_UPDATESTAT);
+	WriteByte (MSG_ALL, STAT_TOTALMONSTERS);
+	WriteLong (MSG_ALL, total_monsters);
+};
+
 /* From Preach's tutorial here: https://tomeofpreach.wordpress.com/2017/10/08/teleporting-monsters-flag/#more-2281 */
 
 //define Preach's new fields dumptruck_ds
