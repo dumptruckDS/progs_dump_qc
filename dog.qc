@@ -197,10 +197,6 @@ void() dog_painb16	=[	$painb16 ,	dog_run1	] {};
 
 void() dog_pain =
 {
-
-  if (self.health <= self.pain_threshold) //dumptruck_ds
-  monster_pain_use();
-
 	sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
 
 	if (random() > 0.5)
@@ -240,7 +236,6 @@ void() dog_die =
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowHead ("progs/h_dog.mdl", self.health);
-		monster_pain_use();
 		return;
 	}
 
