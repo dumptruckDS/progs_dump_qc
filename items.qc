@@ -9,11 +9,11 @@ void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
-	if (!(self.spawnflags & 16384)) 			// SILENT, gb
-		{spawn_tfog (self.origin + self.particles_offset);}
+	if (deathmatch || (self.spawnflags & 16384))	// respawn DM style
+		sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
 	else
-{	sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
-}	setorigin (self, self.origin);
+		spawn_tfog (self.origin + self.particles_offset);	// play teleport sound and display particles
+	setorigin (self, self.origin);
 };
 
 // Supa, Quoth respawning items support Respawn item like in DM if 'ritem' TRUE,
