@@ -138,6 +138,20 @@ void() PlaceItem =
 	}
 	else
 	{
+		// The following hack for item_health was inherited from the RMQ
+		// code, and was here when the func_mapjamx maps were created.
+		// It would have been nice to remove this code entirely, because
+		// progs_dump doesn't need it, and it breaks item_health's
+		// collision with entities that have MOVETYPE_PUSH.  However,
+		// removing this code would cause some of the item_health
+		// entities in some of the func_mapjamx maps to "fall out of the
+		// level", because they're accidentally touching solid surfaces.
+		// So, to maintain backwards-compatibility, this code has been
+		// left in, but will only be run if one of the func_mapjamx maps
+		// is being played.  -- iw
+		//
+		if (known_release == KNOWN_RELEASE_FUNC_MAPJAMX)
+		{
 			if (self.classname == "item_health")	// Supa, CTF
 			{
 
@@ -147,6 +161,7 @@ void() PlaceItem =
 			self.think = RefreshHull;
 			self.nextthink = time + 0.2;
 			}
+		}
 
 		self.mdl = self.model;		// so it can be restored on respawn
 		self.flags = FL_ITEM;		// make extra wide
