@@ -155,6 +155,52 @@ void() main =
 };
 
 
+/*
+================
+DetectKnownRelease
+
+This detects whether the current map is from a known release for which
+a backwards-compatibility hack should be applied, and sets the
+known_release global accordingly.  -- iw
+================
+*/
+void() DetectKnownRelease =
+{
+	local string release_name;
+
+	known_release = KNOWN_RELEASE_NOT;
+	release_name = "";
+
+	if (mapname == "jamx_artistical" ||
+		mapname == "jamx_bloodshot" ||
+		mapname == "jamx_fw" ||
+		mapname == "jamx_hcm" ||
+		mapname == "jamx_ionous" ||
+		mapname == "jamx_jcr" ||
+		mapname == "jamx_kalebclark" ||
+		mapname == "jamx_mafon" ||
+		//mapname == "jamx_mugwump" ||   // dummy map
+		mapname == "jamx_naitelveni" ||
+		mapname == "jamx_newhouse" ||
+		mapname == "jamx_pinchy" ||
+		mapname == "jamx_strwrk" ||
+		mapname == "jamx_ukko" ||
+		mapname == "jamx_yoder" ||
+		(mapname == "start" && world.message == "An Unending Dusk"))
+	{
+		known_release = KNOWN_RELEASE_FUNC_MAPJAMX;
+		release_name = "func_mapjamx";
+	}
+
+	if (release_name != "")
+	{
+		dprint ("WARNING: ");
+		dprint (release_name);
+		dprint (" map detected, behaving compatibly\n");
+	}
+};
+
+
 entity	lastspawn;
 
 //=======================
@@ -171,6 +217,8 @@ World Types:
 //=======================
 void() worldspawn =
 {
+	DetectKnownRelease ();
+
 	lastspawn = world;
 	InitBodyQue ();
 
