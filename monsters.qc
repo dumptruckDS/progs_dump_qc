@@ -112,8 +112,6 @@ enemy as activator.
 */
 void() monster_death_use =
 {
-	local entity 	ent, otemp, stemp;
-
 // fall to ground
 	if (self.flags & FL_FLY)
 		self.flags = self.flags - FL_FLY;
@@ -148,9 +146,6 @@ void() monster_pain_use =
 
 void() walkmonster_start_go =
 {
-local string	stemp;
-local entity	etemp;
-
 	self.origin_z = self.origin_z + 1;	// raise off floor a bit
 //Preach's "check" here
 

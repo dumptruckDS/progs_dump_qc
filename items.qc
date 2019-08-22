@@ -655,7 +655,7 @@ void() weapon_shotgun =
 		if (!self.spawnflags)
 		{
 			self.spawnflags = 2;
-		};
+		}
 
 		if (self.spawnflags & 2)
 		{

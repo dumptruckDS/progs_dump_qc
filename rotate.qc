@@ -1067,7 +1067,6 @@ void() rotate_door_group_reversedirection =
 
 void() rotate_door_use =
    {
-   local entity t;
    local vector start;
 
    if ( ( self.state != STATE_OPEN ) && ( self.state != STATE_CLOSED ) )

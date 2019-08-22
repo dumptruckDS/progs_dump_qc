@@ -334,7 +334,7 @@ void()	player_axpain4 =	[	$axpain4,	player_axpain5	] {};
 void()	player_axpain5 =	[	$axpain5,	player_axpain6	] {};
 void()	player_axpain6 =	[	$axpain6,	player_run	] {};
 
-void() player_pain =
+void(entity attacker, float damage) player_pain =
 {
 	if (self.weaponframe)
 		return;

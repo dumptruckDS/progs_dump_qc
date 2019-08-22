@@ -736,7 +736,7 @@ float STAT_TOTALMONSTERS = 12;
 .float		reset_items; //dumptruck_ds
 .float		spawn_angry; //dumptruck_ds
 .string		mdl_debris; //dumptruck_ds
-.float		keep_ammo //dumptruck_ds
+.float		keep_ammo; //dumptruck_ds
 
 /*============================================================================
 johnfitz new defs from Rubicon2
@@ -779,6 +779,6 @@ void() SUB_UsePain; //dumptruck_ds
 .float megahealth_rottime; // dumptruck_ds
 .float alpha; // from RennyC func_drop in dtmisc.qc
 .float		ltrailLastUsed;  //from DOE lighnin
-.float style2 //c0burn's switchable lights
-.float sight_trigger //dumptruck_ds
-.float keep_ammo //dumptruck_ds
+.float style2; //c0burn's switchable lights
+.float sight_trigger; //dumptruck_ds
+.float keep_ammo; //dumptruck_ds
