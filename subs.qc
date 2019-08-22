@@ -466,6 +466,7 @@ if (self.pain_target)
 		t = find (t, targetname, self.pain_target);
 		if (!t)
 		{
+			self.pain_target = ""; //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
 			return;
 		}
 		stemp = self;
@@ -482,7 +483,6 @@ if (self.pain_target)
 		activator = act;
 	} while ( 1 );
 }
-self.pain_target = ""; //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
 };
 
 /*
