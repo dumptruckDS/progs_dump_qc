@@ -11,7 +11,7 @@ float START_AT_TOP  = 8;
 float PLAT2			= 16;
 float PLAT2_BOTTOM  = 32;
 
-float ELV_BUTN_DIR	= 0;
+float elv_butn_dir;
 
 // ==================================
 // down N and wait code
@@ -169,7 +169,7 @@ void() elvtr_use =
 	
 	self.elevatorLastUse = time;
 	
-	if (ELV_BUTN_DIR == 0)
+	if (elv_butn_dir == 0)
 		return;
 
 	elvPos = (self.absmin_z + self.absmax_z) * 0.5;
@@ -196,7 +196,7 @@ void() elvtr_use =
 		}
 	}
 		
-	if (ELV_BUTN_DIR == -1)
+	if (elv_butn_dir == -1)
 	{	
 		if(self.elevatorOnFloor > 0)
 		{
@@ -204,7 +204,7 @@ void() elvtr_use =
 			elvtr_go ();
 		}
 	}
-	else if(ELV_BUTN_DIR == 1)
+	else if(elv_butn_dir == 1)
 	{
 		if(self.elevatorOnFloor < (self.cnt - 1))
 		{
