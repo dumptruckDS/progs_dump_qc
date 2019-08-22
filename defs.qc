@@ -389,6 +389,10 @@ float	MSG_ONE			= 1;		// reliable to one (msg_entity)
 float	MSG_ALL			= 2;		// reliable to all
 float	MSG_INIT		= 3;		// write to the init string
 
+// known_release values -- iw
+float	KNOWN_RELEASE_NOT			= 0;
+float	KNOWN_RELEASE_FUNC_MAPJAMX	= 1;
+
 //================================================
 
 //
@@ -408,6 +412,8 @@ entity	damage_attacker;	// set by T_Damage
 float	framecount;
 
 float		skill;
+
+float	known_release;	// unique id for a release; see values above -- iw
 
 //================================================
 
