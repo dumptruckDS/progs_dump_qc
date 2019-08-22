@@ -348,21 +348,15 @@ void() wiz_die =
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
-		monster_pain_use();
 		return;
 	}
 
 	wiz_death1 ();
-	monster_pain_use();
 };
 
 
 void(entity attacker, float damage) Wiz_Pain =
 {
-
-	if (self.health <= self.pain_threshold) //dumptruck_ds
-	monster_pain_use();
-
 	sound (self, CHAN_VOICE, "wizard/wpain.wav", 1, ATTN_NORM);
 	if (random()*70 > damage)
 		return;		// didn't flinch

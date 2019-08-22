@@ -778,6 +778,7 @@ void(string type, string text) print_self =
 	dprint ("\n");
 };
 
+void() monster_pain_use; //dumptruck_ds
 void() SUB_UsePain; //dumptruck_ds
 .float 		pain_threshold; //dumptruck_ds
 .string 	pain_target; //dumptruck_ds

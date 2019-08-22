@@ -278,9 +278,6 @@ void(entity attacker, float damage)	sham_pain =
 	if (self.health <= 0)
 		return;		// allready dying, don't go into pain frame
 
-	if (self.health <= self.pain_threshold) //dumptruck_ds
-		monster_pain_use();
-
 	if (random()*400 > damage)
 		return;		// didn't flinch
 
@@ -316,13 +313,11 @@ void() sham_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
-		monster_pain_use();
 		return;
 	}
 
 // regular death
 	sound (self, CHAN_VOICE, "shambler/sdeath.wav", 1, ATTN_NORM);
-	monster_pain_use();
 	sham_death1 ();
 };
 

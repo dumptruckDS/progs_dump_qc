@@ -123,10 +123,6 @@ void()	demon1_pain6	=[	$pain6,		demon1_run1	] {};
 
 void(entity attacker, float damage)	demon1_pain =
 {
-
-  if (self.health <= self.pain_threshold) //dumptruck_ds
-  monster_pain_use();
-
 	if (self.touch == Demon_JumpTouch)
 		return;
 
@@ -164,7 +160,6 @@ void() demon_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib1.mdl", self.health);
-    monster_pain_use();
 		return;
 	}
 

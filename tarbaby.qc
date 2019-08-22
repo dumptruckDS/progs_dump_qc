@@ -104,9 +104,6 @@ void()	Tar_JumpTouch =
 	else
 		sound (self, CHAN_WEAPON, "blob/land1.wav", 1, ATTN_NORM);
 
-	if (self.health <= self.pain_threshold) //dumptruck_ds
-	monster_pain_use();
-
 	if (!checkbottom(self))
 	{
 		if (self.flags & FL_ONGROUND)
@@ -183,7 +180,6 @@ void()	tbaby_die2	=[	$exp,		tbaby_run1	]
 	WriteCoord (MSG_BROADCAST, self.origin_z);
 
 	BecomeExplosion ();
-	monster_pain_use();
 };
 
 //=============================================================================

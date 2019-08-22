@@ -175,6 +175,17 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 // do the damage
 	targ.health = targ.health - take;
 
+// fire pain_target if appropriate
+	if ((targ.flags & FL_MONSTER) &&
+			targ.pain_target != "" &&
+			targ.health <= targ.pain_threshold)
+	{
+		oldself = self;
+		self = targ;
+		monster_pain_use ();
+		self = oldself;
+	}
+
 	if (targ.health <= 0)
 	{
 		Killed (targ, attacker);

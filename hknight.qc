@@ -207,7 +207,6 @@ void() hknight_die =
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
-		monster_pain_use();
 		return;
 	}
 
@@ -358,10 +357,6 @@ void() hk_idle_sound =
 
 void(entity attacker, float damage)	hknight_pain =
 {
-
-	if (self.health <= self.pain_threshold) //dumptruck_ds
-	monster_pain_use();
-
 	if (self.pain_finished > time)
 		return;
 
