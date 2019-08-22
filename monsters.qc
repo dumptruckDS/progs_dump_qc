@@ -237,10 +237,14 @@ if(!(self.spawnflags & 8))
 		}
 // this used to be an objerror
 		if (self.movetarget.classname == "path_corner")
+		{
 			self.th_walk ();
+		}
 		else
+		{
 			self.pausetime = 99999999;
 			self.th_stand ();
+		}
 	}
 	else
 	{
@@ -316,10 +320,14 @@ void() flymonster_start_go =
 		}
 // this used to be an objerror
 		if (self.movetarget.classname == "path_corner")
+		{
 			self.th_walk ();
+		}
 		else
+		{
 			self.pausetime = 99999999;
 			self.th_stand ();
+		}
 	}
 	else
 	{
