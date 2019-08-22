@@ -385,6 +385,70 @@ void(string matchstring) SUB_UseName =
 };
 // ### end of Custents triggering code
 
+/*
+================
+SUB_FieldIsTargeted
+
+Return TRUE if the "fld" field of this entity is non-empty and matches
+the target (or target2/3/4 or pain_target) field of any other entity,
+otherwise return FALSE.  -- iw
+================
+*/
+float(.string fld) SUB_FieldIsTargeted =
+{
+	if (self.fld == "")
+		return FALSE;
+
+	// the following function calls are staggered to avoid the silly
+	// "return value conflict" problem with traditional compilers -- iw
+
+	if (find (world, target, self.fld) != world)
+		return TRUE;
+
+	if (find (world, target2, self.fld) != world)
+		return TRUE;
+
+	if (find (world, target3, self.fld) != world)
+		return TRUE;
+
+	if (find (world, target4, self.fld) != world)
+		return TRUE;
+
+	if (find (world, pain_target, self.fld) != world)
+		return TRUE;
+
+	return FALSE;
+};
+
+/*
+================
+SUB_IsTargeted
+
+Return TRUE if the targetname (or targetname2/3/4) field of this entity
+is non-empty and matches the target (or target2/3/4 or pain_target)
+field of any other entity, otherwise return FALSE.  -- iw
+================
+*/
+float() SUB_IsTargeted =
+{
+	// the following function calls are staggered to avoid the silly
+	// "return value conflict" problem with traditional compilers -- iw
+
+	if (SUB_FieldIsTargeted (targetname))
+		return TRUE;
+
+	if (SUB_FieldIsTargeted (targetname2))
+		return TRUE;
+
+	if (SUB_FieldIsTargeted (targetname3))
+		return TRUE;
+
+	if (SUB_FieldIsTargeted (targetname4))
+		return TRUE;
+
+	return FALSE;
+};
+
 //
 // pain_target //dumptruck_ds
 //

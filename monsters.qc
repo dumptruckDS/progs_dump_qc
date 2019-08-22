@@ -10,6 +10,24 @@
 //		<code>
 // };
 
+/*
+================
+monster_update_total
+
+Call this function to safely update total_monsters when the game is in
+progress.  It adds "n" to total_monsters, then notifies all clients of
+the change.  -- iw
+================
+*/
+void(float n) monster_update_total =
+{
+	total_monsters = total_monsters + n;
+
+	WriteByte (MSG_ALL, SVC_UPDATESTAT);
+	WriteByte (MSG_ALL, STAT_TOTALMONSTERS);
+	WriteLong (MSG_ALL, total_monsters);
+};
+
 /* From Preach's tutorial here: https://tomeofpreach.wordpress.com/2017/10/08/teleporting-monsters-flag/#more-2281 */
 
 //define Preach's new fields dumptruck_ds
@@ -49,6 +67,36 @@ self.think = monster_teleport_go;
 self.nextthink = time + 0.1 + self.delay;
 };
 
+/*
+================
+monster_teleport_check
+
+This detects and eliminates a common map bug: a trigger-spawned monster
+which can't be activated either because it has no targetname or because
+its targetname isn't targeted by any other entity.  (This map bug would
+otherwise make it impossible for the player to get 100% kills.)  -- iw
+================
+*/
+void() monster_teleport_check =
+{
+	if (!SUB_IsTargeted ())
+	{
+		dprint ("WARNING: removed untargeted trigger-spawned ");
+		dprint (self.classname);
+		dprint (" at ");
+		dprint (vtos (self.origin));
+		dprint ("\n");
+
+		remove (self);
+		return;
+	}
+
+	// the targetname appears to be OK, so let's finish setting up the
+	// trigger-spawned monster -- iw
+	self.use = monster_teleport_delay;  // qmaster
+	monster_update_total (1);
+};
+
 float (void() monster_start_fn) monster_teleport =
 {
 if(!(self.spawnflags & 8))
@@ -65,10 +113,13 @@ self.model = "";
 self.modelindex = 0;
 self.solid = SOLID_NOT;
 self.movetype = MOVETYPE_NONE;
-//self.use = monster_teleport_go; //qmaster part 2 removes a piece of Preach's code -- dumptruck_ds
-self.use = monster_teleport_delay; //qmaster replaces above
 self.think1 = monster_start_fn;
-total_monsters = total_monsters + 1;
+
+// wait for other entities to finish spawning, then check that
+// something targets this -- iw
+self.think = monster_teleport_check;
+self.nextthink = time + 0.1;
+
 return TRUE;
 }
 
