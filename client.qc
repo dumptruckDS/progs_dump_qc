@@ -541,6 +541,9 @@ void() PutClientInServer =
 	self.invincible_finished = 0;
 	self.effects = 0;
 	self.invincible_time = 0;
+	self.gravity = 0;
+	self.wantedgravity = 0;
+	self.onladder = 0;
 
 	if (world.reset_items == 1) //dumptruck_ds thanks to Spike on progs_dump Discord!
 	{
@@ -953,6 +956,7 @@ Called every frame before physics are run
 */
 void() PlayerPreThink =
 {
+	local float do_ladder_physics;
 
 	if (intermission_running)
 	{
@@ -962,6 +966,22 @@ void() PlayerPreThink =
 
 	if (self.view_ofs == '0 0 0')
 		return;		// intermission or finale
+
+	// note that this code block is here, before the tests which check
+	// whether the player is dead, so that the player's gravity will be
+	// correctly updated even if they e.g. fell off a ladder because
+	// they died -- iw
+	if (self.onladder)
+	{
+		do_ladder_physics = TRUE;
+		self.gravity = 0.0000001;	// not zero, because zero means "default"
+		self.onladder = 0;
+	}
+	else
+	{
+		do_ladder_physics = FALSE;
+		self.gravity = self.wantedgravity;
+	}
 
 	makevectors (self.v_angle);		// is this still used
 
@@ -981,9 +1001,8 @@ void() PlayerPreThink =
 		return;	// dying, so do nothing
 
 //johnfitz ladder conditions //added from Rubicon2 client.qc -- dumptruck_ds
-if (self.onladder)
+if (do_ladder_physics)
 {
-	self.onladder = 0;
 	if (self.button2)
 	{
 		PlayerClimb ();
@@ -1010,7 +1029,6 @@ if (self.onladder)
 }
 else
 {
-	self.wantedgravity = 1;
 	if (self.button2)
 		PlayerJump ();
 	else
