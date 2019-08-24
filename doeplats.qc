@@ -150,8 +150,15 @@ void() elvtr_go =
 
 void() elvtr_crush =
 {
+	local float tmp;
+
 //	T_Damage (other, self, self, 1);
-	self.elevatorToFloor = self.elevatorOnFloor;
+
+	// the elevator is changing direction, so swap the floor it's coming
+	// from and the floor it's going to -- iw
+	tmp = self.elevatorOnFloor;
+	self.elevatorOnFloor = self.elevatorToFloor;
+	self.elevatorToFloor = tmp;
 	
 	elvtr_go ();
 };
@@ -164,6 +171,13 @@ void() elvtr_use =
 {
 	local float		tempDist, elvPos, btnPos;
 	
+	// the original DoE code allowed an elevator to be activated again
+	// when it was in the process of moving between floors (assuming the
+	// wait period was over); this resulted in sometimes unintuitive
+	// behavior, so, the following test prevents this -- iw
+	if (self.elevatorToFloor != self.elevatorOnFloor)
+		return;
+
 	// the original DoE code had a hard-coded two second wait period;
 	// this has been changed for progs_dump so that self.wait is used
 	// instead -- iw
@@ -547,8 +561,6 @@ local float negativeHeight;
 	}
 	else if (self.spawnflags & ELEVATOR)
 	{
-		self.elevatorOnFloor = 0;
-		self.elevatorToFloor = 0;
 		self.elevatorLastUse = 0;
 		
 		// allow the mapper to set self.wait, but don't allow a negative
@@ -562,6 +574,7 @@ local float negativeHeight;
 			self.pos2 = self.origin;
 			self.pos2_z = self.origin_z - (self.height * (self.cnt - 1));
 			self.elevatorOnFloor = self.cnt - 1;
+			self.elevatorToFloor = self.elevatorOnFloor;
 		}
 		else
 		{
@@ -569,6 +582,7 @@ local float negativeHeight;
 			self.pos2 = self.origin;
 			self.pos1_z = self.origin_z + (self.height * (self.cnt - 1));
 			self.elevatorOnFloor = 0;
+			self.elevatorToFloor = self.elevatorOnFloor;
 		}
 		
 		self.use = elvtr_use;
