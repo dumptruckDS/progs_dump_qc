@@ -87,7 +87,7 @@ RC 4
 
 1.1.1
 
-* Added func_elvtr_button and ELEVATOR spawnflags from DOE (iw)
+* Added func_elvtr_button and ELEVATOR functionality to func_new_plat (iw)
 * Fix Fiends never going into their pain animation (iw)
 * Fix a critical bug involving func_elvtr_button (iw)
 * Address various FTEQCC warnings (iw)
@@ -102,4 +102,4 @@ RC 4
 * Fix the weapon_shotgun spawnflag test (iw)
 * Allow "wait" to be set for elevators (iw)
 * other tweaks to DOE elevator code in doeplats.qc (iw)
-* pd_elevator demo level (iw) 
+* pd_elevator demo level (iw)
