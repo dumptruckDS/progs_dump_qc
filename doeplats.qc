@@ -150,8 +150,15 @@ void() elvtr_go =
 
 void() elvtr_crush =
 {
+	local float tmp;
+
 //	T_Damage (other, self, self, 1);
-	self.elevatorToFloor = self.elevatorOnFloor;
+
+	// the elevator is changing direction, so swap the floor it's coming
+	// from and the floor it's going to -- iw
+	tmp = self.elevatorOnFloor;
+	self.elevatorOnFloor = self.elevatorToFloor;
+	self.elevatorToFloor = tmp;
 	
 	elvtr_go ();
 };
@@ -164,7 +171,17 @@ void() elvtr_use =
 {
 	local float		tempDist, elvPos, btnPos;
 	
-	if ( (self.elevatorLastUse + 2) > time)
+	// the original DoE code allowed an elevator to be activated again
+	// when it was in the process of moving between floors (assuming the
+	// wait period was over); this resulted in sometimes unintuitive
+	// behavior, so, the following test prevents this -- iw
+	if (self.elevatorToFloor != self.elevatorOnFloor)
+		return;
+
+	// the original DoE code had a hard-coded two second wait period;
+	// this has been changed for progs_dump so that self.wait is used
+	// instead -- iw
+	if ((self.elevatorLastUse + self.wait) > time)
 		return;
 	
 	self.elevatorLastUse = time;
@@ -421,6 +438,7 @@ PLT_TOGGLE is a plat that will change between the top and bottom each time it is
 ELEVATOR is an elevator plat. You can have as many levels as you want but they must be all the same distance away. Use elevator button entity as the trigger. 
   cnt is the number of floors
   height is the distance between floors
+  wait is the number of seconds before the elevator can be activated again after starting or stopping (default 0)
 
 START_AT_TOP is an optional flag for elevators. It just tells the elevator that it's position is the top floor. (Default is the bottom floor) USE THIS ONLY WITH ELEVATORS!
 
@@ -543,16 +561,20 @@ local float negativeHeight;
 	}
 	else if (self.spawnflags & ELEVATOR)
 	{
-		self.elevatorOnFloor = 0;
-		self.elevatorToFloor = 0;
 		self.elevatorLastUse = 0;
 		
+		// allow the mapper to set self.wait, but don't allow a negative
+		// wait period -- iw
+		if (self.wait < 0)
+			self.wait = 0;
+
 		if (self.spawnflags & START_AT_TOP)
 		{
 			self.pos1 = self.origin;
 			self.pos2 = self.origin;
 			self.pos2_z = self.origin_z - (self.height * (self.cnt - 1));
 			self.elevatorOnFloor = self.cnt - 1;
+			self.elevatorToFloor = self.elevatorOnFloor;
 		}
 		else
 		{
@@ -560,6 +582,7 @@ local float negativeHeight;
 			self.pos2 = self.origin;
 			self.pos1_z = self.origin_z + (self.height * (self.cnt - 1));
 			self.elevatorOnFloor = 0;
+			self.elevatorToFloor = self.elevatorOnFloor;
 		}
 		
 		self.use = elvtr_use;
