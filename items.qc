@@ -687,9 +687,9 @@ void() weapon_shotgun =
 	self.touch = weapon_touch;
 	{
 
-		if (!self.spawnflags)
+		if (!(self.spawnflags & (2 | 4)))
 		{
-			self.spawnflags = 2;
+			self.spawnflags = self.spawnflags | 2;
 		}
 
 		if (self.spawnflags & 2)
