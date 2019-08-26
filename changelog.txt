@@ -78,9 +78,28 @@ RC 4
 
 1.1.0 Official Release
 
-** Added func_bob and misc_bob (RennyC adapted from AD)
-** Added misc_sparks  (Rubicon2)
-** Added misc_particles (misc_splash from Rubicon2)
-** Added sight_trigger - monsters fire targets upon seeing the player
-** Added keep_ammo to Ogre, Soldier and Enforcer (no "DropBackpack" if set to 1)
-** Added misc_particlespray (from custents)
+* Added func_bob and misc_bob (RennyC adapted from AD)
+* Added misc_sparks  (Rubicon2)
+* Added misc_particles (misc_splash from Rubicon2)
+* Added sight_trigger - monsters fire targets upon seeing the player
+* Added keep_ammo to Ogre, Soldier and Enforcer (no "DropBackpack" if set to 1)
+* Added misc_particlespray (from custents)
+
+1.1.1
+
+* Added func_elvtr_button and ELEVATOR spawnflags from DOE (iw)
+* Fix Fiends never going into their pain animation (iw)
+* Fix a critical bug involving func_elvtr_button (iw)
+* Address various FTEQCC warnings (iw)
+* Fix kill count bug with trigger-spawned Rotfish (iw)
+* Fixed qc syntax errors in monsters.qc (iw)
+* Fix various issues involving gravity and ladders (iw)
+* Make trigger_ladder ignore bad (up/down) angles (iw)
+* Fix items not respawning in deathmatch mode (iw)
+* Fix a "friendly monster" bug in trigger spawned monsters (iw)
+* Fix pain_target never firing in some cases (iw)
+* Fix item_health collision with BSP model entities (iw)
+* Fix the weapon_shotgun spawnflag test (iw)
+* Allow "wait" to be set for elevators (iw)
+* other tweaks to DOE elevator code in doeplats.qc (iw)
+* pd_elevator demo level (iw) 
