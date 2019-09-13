@@ -105,6 +105,8 @@
 // 	makestatic (self);
 // };
 //
+/*QUAKED FireAmbient (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
 void() FireAmbient =
 {
 	precache_sound ("ambience/fire1.wav");
@@ -200,7 +202,6 @@ void() fire_fly;
 void() fire_touch;
 void() misc_fireball =
 {
-
 	precache_model ("progs/lavaball.mdl");
 	self.classname = "fireball";
 	self.nextthink = time + (random() * 5);
@@ -634,7 +635,6 @@ testing air bubbles
 */
 
 void() air_bubbles =
-
 {
 	if (deathmatch)
 	{
@@ -746,7 +746,6 @@ Just for the debugging level.  Don't use
 */
 
 void() viewthing =
-
 {
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
@@ -785,7 +784,6 @@ void() func_wall =
 A simple entity that looks solid but lets you walk through it.
 */
 void() func_illusionary =
-
 {
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_NONE;
@@ -798,7 +796,6 @@ void() func_illusionary =
 This bmodel will appear if the episode has allready been completed, so players can't reenter it.
 */
 void() func_episodegate =
-
 {
 	if (!(serverflags & self.spawnflags))
 		return;			// can still enter episode
@@ -814,7 +811,6 @@ void() func_episodegate =
 This bmodel appears unless players have all of the episode sigils.
 */
 void() func_bossgate =
-
 {
 	if ( (serverflags & 15) == 15)
 		return;		// all episodes completed
@@ -968,7 +964,6 @@ For optimzation testing, starts a lot of sounds.
 */
 
 void() misc_noisemaker =
-
 {
 	precache_sound2 ("enforcer/enfire.wav");
 	precache_sound2 ("enforcer/enfstop.wav");

@@ -359,7 +359,6 @@ and toggled off and on.
 float DT_EXITOFF = 8;
 
 void() trigger_changelevel =
-
 {
 	self.use = dt_exit_toggle; //dumptruck_ds
 	if (!self.map)

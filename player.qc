@@ -660,6 +660,8 @@ void()	player_die_ax9	=	[	$axdeth9,	player_die_ax9	] {PlayerDead();};
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() player_dead_axe =
 {
 	precache_model("progs/player.mdl");
@@ -678,6 +680,8 @@ void() player_dead_axe =
 
 };
 
+/*QUAKED player_dead_face_down (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() player_dead_face_down =
 {
 	precache_model("progs/player.mdl");
@@ -696,6 +700,8 @@ void() player_dead_face_down =
 
 };
 
+/*QUAKED player_dead_on_side (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() player_dead_on_side =
 {
 	precache_model("progs/player.mdl");

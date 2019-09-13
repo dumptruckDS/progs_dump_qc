@@ -692,7 +692,7 @@ else
 	}
 };
 
-/* *QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT
+/*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT
 
 dumptruck_ds
 

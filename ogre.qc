@@ -454,6 +454,8 @@ void() monster_ogre =
 	walkmonster_start();
 };
 
+/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+*/
 void() monster_ogre_marksman =
 {
 	monster_ogre ();
@@ -461,6 +463,8 @@ void() monster_ogre_marksman =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_ogre =
 {
 	precache_model("progs/ogre.mdl");

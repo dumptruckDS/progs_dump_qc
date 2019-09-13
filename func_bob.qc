@@ -6,8 +6,7 @@
 float BOB_COLLISION = 2;		// Collision for misc_bob
 float BOB_NONSOLID = 4;			// Non solid for func_bob
 
-/*======================================================================
-QUAKED func_bob (0 .5 .8) ?
+/*QUAKED func_bob (0 .5 .8) ?
 A SOLID bmodel that gently moves back and forth
 -------- KEYS --------
 targetname : trigger entity (works with entity state system)
@@ -27,8 +26,7 @@ _shadowself : Will cast shadows on itself
 STARTOFF : Starts off and waits for trigger - DISABLED, Ripped out ESTATE System (RennyC)
 -------- NOTES --------
 A SOLID bmodel that gently moves back and forth
-
-======================================================================*/
+*/
 
 //----------------------------------------------------------------------
 void() func_bob_timer =
@@ -167,6 +165,9 @@ void() func_bob =
 };
 
 //----------------------------------------------------------------------
+
+/*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
 void() misc_bob =
 {
 	if (self.mdl == "")

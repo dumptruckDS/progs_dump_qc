@@ -353,6 +353,8 @@ void() monster_enforcer =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() monster_dead_enforcer =
 {
 	precache_model("progs/enforcer.mdl");

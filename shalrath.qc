@@ -242,6 +242,8 @@ void() monster_shalrath =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_shalrath =
 {
 	precache_model("progs/shalrath.mdl");

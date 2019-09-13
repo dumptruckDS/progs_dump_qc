@@ -365,6 +365,8 @@ void() monster_dog =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_dog =
 {
 	precache_model("progs/dog.mdl");
