@@ -219,6 +219,8 @@ void() worldspawn =
 {
 	DetectKnownRelease ();
 
+	InitNewSpawnflags ();  // new spawnflags for all entities -- iw
+
 	lastspawn = world;
 	InitBodyQue ();
 
@@ -385,6 +387,9 @@ void() worldspawn =
 
 void() StartFrame =
 {
+	if (!done_inhibition_summary)  // new spawnflags for all entities -- iw
+		PrintInhibitionSummary ();
+
 	teamplay = cvar("teamplay");
 	skill = cvar("skill");
 	framecount = framecount + 1;
