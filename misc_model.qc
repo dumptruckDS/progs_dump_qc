@@ -26,6 +26,9 @@ first_frame: The starting frame of the animation.
 last_frame: The last frame of the animation.
 */
 void() misc_model = {
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+
     precache_model(self.mdl);
     setmodel(self, self.mdl);
 

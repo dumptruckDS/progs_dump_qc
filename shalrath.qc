@@ -203,6 +203,9 @@ void() ShalHome =
 */
 void() monster_shalrath =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -246,6 +249,9 @@ void() monster_shalrath =
 */
 void() monster_dead_shalrath =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/shalrath.mdl");
 	setmodel(self, "progs/shalrath.mdl");
 	self.frame = $death7;

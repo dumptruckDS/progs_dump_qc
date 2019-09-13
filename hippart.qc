@@ -164,6 +164,9 @@ USE_COUNT when the activator is a func_counter, the field will only
 
 void() func_particlefield =
 	{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
    if ( !self.color )
 	   {
       self.color = 192;
@@ -273,6 +276,9 @@ START_OFF wall doesn't block until triggered.
 
 void() func_togglewall =
 	{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
    self.classname = "togglewall";
    self.movetype = MOVETYPE_PUSH;
    self.mdl = self.model;

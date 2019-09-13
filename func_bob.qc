@@ -122,6 +122,9 @@ void() func_bob_off =
 //----------------------------------------------------------------------
 void() func_bob =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.spawnflags)
 		self.spawnflags = BOB_COLLISION;
 	// Using a custom model?
@@ -170,6 +173,9 @@ void() func_bob =
 */
 void() misc_bob =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (self.mdl == "")
 		self.mdl = string_null;
 	precache_model(self.mdl);

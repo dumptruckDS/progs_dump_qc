@@ -189,6 +189,9 @@ void()	tbaby_die2	=[	$exp,		tbaby_run1	]
 */
 void() monster_tarbaby =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);

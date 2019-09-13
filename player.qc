@@ -664,6 +664,9 @@ void()	player_die_ax9	=	[	$axdeth9,	player_die_ax9	] {PlayerDead();};
 */
 void() player_dead_axe =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/player.mdl");
 	setmodel(self, "progs/player.mdl");
 	self.frame = $axdeth9;
@@ -684,6 +687,9 @@ void() player_dead_axe =
 */
 void() player_dead_face_down =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/player.mdl");
 	setmodel(self, "progs/player.mdl");
 	self.frame = $deathc14;
@@ -704,6 +710,9 @@ void() player_dead_face_down =
 */
 void() player_dead_on_side =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/player.mdl");
 	setmodel(self, "progs/player.mdl");
 	self.frame = $deathe9;

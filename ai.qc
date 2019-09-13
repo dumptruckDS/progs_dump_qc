@@ -88,6 +88,9 @@ Monsters will continue walking towards the next target corner.
 */
 void() path_corner =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	movetarget_f ();
 };
 

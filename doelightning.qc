@@ -107,6 +107,9 @@ Set the LT_TOGGLE checkbox if you want the lightning shooter to continuously fir
 */
 void() ltrail_start =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.ltrailLastUsed = time;
 
 	precache_sound ("weapons/lhit.wav");
@@ -144,6 +147,9 @@ Default is 0.3 seconds.
 */
 void() ltrail_relay =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("weapons/lhit.wav");
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_BBOX;
@@ -168,6 +174,9 @@ Default is 0.3 seconds.
 */
 void() ltrail_end =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("weapons/lhit.wav");
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_BBOX;

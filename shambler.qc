@@ -328,6 +328,9 @@ void() sham_die =
 */
 void() monster_shambler =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -373,6 +376,9 @@ void() monster_shambler =
 */
 void() monster_dead_shambler =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/shambler.mdl");
 	setmodel(self, "progs/shambler.mdl");
 	self.frame = $death11;

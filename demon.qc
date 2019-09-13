@@ -179,6 +179,9 @@ void() Demon_MeleeAttack =
 */
 void() monster_demon1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -368,6 +371,9 @@ void()	Demon_JumpTouch =
 */
 void() monster_dead_demon =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/demon.mdl");
 	setmodel(self, "progs/demon.mdl");
 	self.frame = $death9;

@@ -416,6 +416,9 @@ void() ogre_melee =
 */
 void() monster_ogre =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -458,6 +461,9 @@ void() monster_ogre =
 */
 void() monster_ogre_marksman =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	monster_ogre ();
 };
 
@@ -467,6 +473,9 @@ void() monster_ogre_marksman =
 */
 void() monster_dead_ogre =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/ogre.mdl");
 	setmodel(self, "progs/ogre.mdl");
 	if (self.spawnflags & 2)

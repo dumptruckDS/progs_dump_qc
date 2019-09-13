@@ -156,6 +156,9 @@ void(entity attacker, float damage)	fish_pain =
 */
 void() monster_fish =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);

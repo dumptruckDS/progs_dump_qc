@@ -10,13 +10,20 @@ Used as a positional target for spotlights, etc.
 */
 void() info_null =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	remove(self);
 };
 
 /*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4)
 Never used in the or
 */
-void() info_notnull = {};
+void() info_notnull =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+};
 
 /*==========
 lightstyle_lookup
@@ -325,6 +332,9 @@ _anglescale => _anglescale
 */
 void() light =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	// default speed for fading in/out
 	if (self.speed <= 0)
 		self.speed = 0.1;
@@ -360,6 +370,9 @@ See the "light" entity for a full description.
 */
 void() light_fluoro =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	ambient_light_buzz();
 	light();
 };
@@ -373,6 +386,9 @@ See the "light" entity for a full description.
 */
 void() light_fluorospark =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.style)
 		self.style = 10;
 	ambient_flouro_buzz();
@@ -386,6 +402,9 @@ See the "light" entity for a full description.
 */
 void() light_globe =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/s_light.spr");
 	setmodel(self, "progs/s_light.spr");
 	makestatic(self);
@@ -397,6 +416,9 @@ See the "light" entity for a full description.
 */
 void() light_torch_small_walltorch =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/flame.mdl");
 	setmodel(self, "progs/flame.mdl");
 	FireAmbient ();
@@ -409,6 +431,9 @@ See the "light" entity for a full description.
 */
 void() light_flame_large_yellow =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/flame2.mdl");
 	setmodel (self, "progs/flame2.mdl");
 	self.frame = 1;
@@ -422,6 +447,9 @@ See the "light" entity for a full description.
 */
 void() light_flame_small_yellow =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/flame2.mdl");
 	setmodel(self, "progs/flame2.mdl");
 	FireAmbient ();
@@ -434,5 +462,8 @@ Identical to "light_flame_small_yellow"
 */
 void() light_flame_small_white =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	light_flame_small_yellow();
 };

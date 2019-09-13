@@ -571,6 +571,9 @@ If crucified, stick the bounding box 12 pixels back into a wall to look right.
 */
 void() monster_zombie =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch /*&& (!(self.spawnflags & SPAWN_DEAD_CRUCIFIED))*/)
 	{
 		remove(self);

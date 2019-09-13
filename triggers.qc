@@ -130,6 +130,9 @@ set "message" to text string
 */
 void() trigger_multiple =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (self.is_waiting)
 	{
 		dprint("Spawned a waiting ");
@@ -198,6 +201,9 @@ set "message" to text string
 */
 void() trigger_once =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.wait = -1;
 	trigger_multiple();
 };
@@ -209,6 +215,9 @@ This fixed size trigger cannot be touched, it can only be fired by other events.
 */
 void() trigger_relay =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.use = SUB_UseTargets;
 };
 
@@ -226,6 +235,9 @@ set "message" to text string
 */
 void() trigger_secret =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	total_secrets = total_secrets + 1;
 	self.wait = -1;
 	if (!self.message)
@@ -289,6 +301,9 @@ After the counter has been triggered "count" times (default 2), it will fire all
 */
 void() trigger_counter =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.wait = -1;
 	if (!self.count)
 		self.count = 2;
@@ -464,6 +479,9 @@ This is the destination marker for a teleporter.  It should have a "targetname" 
 */
 void() info_teleport_destination =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 // this does nothing, just serves as a target spot
 	self.mangle = self.angles;
 	self.angles = '0 0 0';
@@ -494,6 +512,9 @@ If the trigger_teleport has a targetname, it will only teleport entities when it
 */
 void() trigger_teleport =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	local vector o;
 
 	InitTrigger ();
@@ -533,6 +554,9 @@ Only used on start map.
 */
 void() trigger_setskill =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	InitTrigger ();
 	self.touch = trigger_skill_touch;
 };
@@ -575,6 +599,9 @@ Only fires if playing the registered version, otherwise prints the message
 */
 void() trigger_onlyregistered =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("misc/talk.wav");
 	InitTrigger ();
 	self.touch = trigger_onlyregistered_touch;
@@ -608,6 +635,9 @@ defalt dmg = 5
 */
 void() trigger_hurt =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	InitTrigger ();
 	self.touch = hurt_touch;
 	if (!self.dmg)
@@ -663,6 +693,9 @@ Pushes the player
 */
 void() trigger_push = //dumptruck_ds
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	InitTrigger ();
 	precache_sound ("ambience/windfly.wav");
 	// if (self.targetname)
@@ -710,6 +743,9 @@ Adapted from Hipnotic's func_togglewall */
 
 void() trigger_push_custom =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	InitTrigger();
 	self.use = push_toggle;
 	self.touch = trigger_push_touch;
@@ -762,6 +798,9 @@ and toggled off and on.
 */
 void() trigger_monsterjump =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.use = push_toggle;
 	if ( self.spawnflags & DT_STARTOFF ) // dumptruck_ds
 		 {
@@ -821,6 +860,9 @@ Use this for a 'void' area.  removes monsters, gibs, ammo, etc...  also kills pl
 */
 void() trigger_void =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	InitTrigger ();
 	self.touch = trigger_void_touch;
 };
@@ -937,6 +979,9 @@ Removes shotgun upon touch.
 */
 void() trigger_take_weapon =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.wait = -1;
 	trigger_multiple();
 	self.touch = take_weapon_use;

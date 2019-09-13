@@ -52,6 +52,9 @@ Keys:
 */
 void () func_explobox =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.solid = SOLID_BSP;
 	self.movetype = MOVETYPE_PUSH;
 	setmodel (self, self.model);
@@ -334,6 +337,9 @@ void() break_template_setup = {
 };
 
 void () func_breakable = {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	break_template_setup();
 
 	self.solid = SOLID_BSP;
@@ -401,6 +407,9 @@ Keys:
 */
 void() trigger_ladder =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	// ignore an "up" or "down" angle (doesn't make sense for a ladder)
 	if (self.angles_y == -1 || self.angles_y == -2)
 	{
@@ -497,6 +506,9 @@ Keys:
 */
 void () func_laser =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	local entity helper;
 
 	setmodel (self, self.model);
@@ -653,6 +665,9 @@ Keys:
 */
 void() misc_sparks =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/spark.mdl");
 	precache_sound ("dump/spark.wav");
 
@@ -722,6 +737,9 @@ Produces a continuous particle splash for waterfalls and other effects
 */
 void() misc_particles =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.wait)
 		self.wait = 0.1;
 	if (!self.movedir)
@@ -781,6 +799,9 @@ void() partspray_use =
 
 void() misc_particlespray =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if ( !self.color )
 		self.color = 47;
 	if ( self.count <= 0 )

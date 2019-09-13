@@ -311,6 +311,9 @@ void() enf_die =
 */
 void() monster_enforcer =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -357,6 +360,9 @@ void() monster_enforcer =
 */
 void() monster_dead_enforcer =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/enforcer.mdl");
 	setmodel(self, "progs/enforcer.mdl");
 	if (self.spawnflags & 2)

@@ -4,6 +4,9 @@
 // */
 // /void() info_null =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	remove(self);
 // };
 //
@@ -12,6 +15,8 @@
 // */
 // void() info_notnull =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
 // };
 //
 // //============================================================================
@@ -40,6 +45,9 @@
 // */
 // void() light =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	if (!self.targetname)
 // 	{	// inert light
 // 		remove(self);
@@ -65,6 +73,9 @@
 // */
 // void() light_fluoro =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	if (self.style >= 32)
 // 	{
 // 		self.use = light_use;
@@ -86,6 +97,9 @@
 // */
 // void() light_fluorospark =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	if (!self.style)
 // 		self.style = 10;
 //
@@ -100,6 +114,9 @@
 // */
 // void() light_globe =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	precache_model ("progs/s_light.spr");
 // 	setmodel (self, "progs/s_light.spr");
 // 	makestatic (self);
@@ -109,6 +126,9 @@
 */
 void() FireAmbient =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/fire1.wav");
 // attenuate fast
 	ambientsound (self.origin, "ambience/fire1.wav", 0.5, ATTN_STATIC);
@@ -121,6 +141,9 @@ void() FireAmbient =
 // */
 // void() light_torch_small_walltorch =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	precache_model ("progs/flame.mdl");
 // 	setmodel (self, "progs/flame.mdl");
 // 	FireAmbient ();
@@ -132,6 +155,9 @@ void() FireAmbient =
 // */
 // void() light_flame_large_yellow =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	precache_model ("progs/flame2.mdl");
 // 	setmodel (self, "progs/flame2.mdl");
 // 	self.frame = 1;
@@ -144,6 +170,9 @@ void() FireAmbient =
 // */
 // void() light_flame_small_yellow =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	precache_model ("progs/flame2.mdl");
 // 	setmodel (self, "progs/flame2.mdl");
 // 	FireAmbient ();
@@ -155,6 +184,9 @@ void() FireAmbient =
 // */
 // void() light_flame_small_white =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	precache_model ("progs/flame2.mdl");
 // 	setmodel (self, "progs/flame2.mdl");
 // 	FireAmbient ();
@@ -166,6 +198,9 @@ White candle
 */
 void() light_candle =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/candle.mdl");
 	setmodel (self, "progs/candle.mdl");
 	makestatic (self);
@@ -202,6 +237,9 @@ void() fire_fly;
 void() fire_touch;
 void() misc_fireball =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/lavaball.mdl");
 	self.classname = "fireball";
 	self.nextthink = time + (random() * 5);
@@ -264,6 +302,9 @@ TESTING THING
 
 void() misc_explobox =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	local float	oldz;
 
 	self.solid = SOLID_BBOX;
@@ -296,6 +337,9 @@ Smaller exploding box, REGISTERED ONLY
 
 void() misc_explobox2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	local float	oldz;
 
 	self.solid = SOLID_BBOX;
@@ -533,6 +577,9 @@ Laser is only for REGISTERED.
 //MED 11/01/96 commented out setmovedir
 void() trap_spikeshooter =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
    SetMovedir ();
 	self.use = spikeshooter_use;
 	if (self.spawnflags & SPAWNFLAG_LASER)
@@ -583,6 +630,9 @@ Continuously fires spikes.
 */
 void() trap_shooter =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	trap_spikeshooter ();
 
 	if (self.wait == 0)
@@ -607,6 +657,9 @@ Continuously fires spikes.
 */
 void() trap_switched_shooter =
  {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
    trap_spikeshooter ();
 
 	if (self.wait == 0)
@@ -636,6 +689,9 @@ testing air bubbles
 
 void() air_bubbles =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove (self);
@@ -747,6 +803,9 @@ Just for the debugging level.  Don't use
 
 void() viewthing =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
 	precache_model ("progs/player.mdl");
@@ -772,6 +831,9 @@ This is just a solid wall if not inhibitted
 */
 void() func_wall =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
 	self.solid = SOLID_BSP;
@@ -785,6 +847,9 @@ A simple entity that looks solid but lets you walk through it.
 */
 void() func_illusionary =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
@@ -797,6 +862,9 @@ This bmodel will appear if the episode has allready been completed, so players c
 */
 void() func_episodegate =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!(serverflags & self.spawnflags))
 		return;			// can still enter episode
 
@@ -812,6 +880,9 @@ This bmodel appears unless players have all of the episode sigils.
 */
 void() func_bossgate =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if ( (serverflags & 15) == 15)
 		return;		// all episodes completed
 	self.angles = '0 0 0';
@@ -826,6 +897,9 @@ void() func_bossgate =
 */
 void() ambient_suck_wind =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/suck1.wav");
 	ambientsound (self.origin, "ambience/suck1.wav", 1, ATTN_STATIC);
 };
@@ -834,6 +908,9 @@ void() ambient_suck_wind =
 */
 void() ambient_drone =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/drone6.wav");
 	ambientsound (self.origin, "ambience/drone6.wav", 0.5, ATTN_STATIC);
 };
@@ -842,6 +919,9 @@ void() ambient_drone =
 */
 void() ambient_flouro_buzz =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/buzz1.wav");
 	ambientsound (self.origin, "ambience/buzz1.wav", 1, ATTN_STATIC);
 };
@@ -849,6 +929,9 @@ void() ambient_flouro_buzz =
 */
 void() ambient_drip =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/drip1.wav");
 	ambientsound (self.origin, "ambience/drip1.wav", 0.5, ATTN_STATIC);
 };
@@ -856,6 +939,9 @@ void() ambient_drip =
 */
 void() ambient_comp_hum =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/comp1.wav");
 	ambientsound (self.origin, "ambience/comp1.wav", 1, ATTN_STATIC);
 };
@@ -863,6 +949,9 @@ void() ambient_comp_hum =
 */
 // void() ambient_thunder =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	precache_sound ("ambience/thunder1.wav");
 // 	ambientsound (self.origin, "ambience/thunder1.wav", 0.5, ATTN_STATIC);
 // };
@@ -870,6 +959,9 @@ void() ambient_comp_hum =
 */
 void() ambient_light_buzz =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/fl_hum1.wav");
 	ambientsound (self.origin, "ambience/fl_hum1.wav", 0.5, ATTN_STATIC);
 };
@@ -877,6 +969,9 @@ void() ambient_light_buzz =
 */
 void() ambient_swamp1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/swamp1.wav");
 	ambientsound (self.origin, "ambience/swamp1.wav", 0.5, ATTN_STATIC);
 };
@@ -884,6 +979,9 @@ void() ambient_swamp1 =
 */
 void() ambient_swamp2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/swamp2.wav");
 	ambientsound (self.origin, "ambience/swamp2.wav", 0.5, ATTN_STATIC);
 };
@@ -900,6 +998,9 @@ void() ambient_swamp2 =
 */
 void() ambient_water1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/water1.wav");
 	ambientsound (self.origin, "ambience/water1.wav", 1, ATTN_STATIC);
 };
@@ -907,6 +1008,9 @@ void() ambient_water1 =
 */
 void() ambient_wind2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound ("ambience/wind2.wav");
 	ambientsound (self.origin, "ambience/wind2.wav", 1, ATTN_STATIC);
 };
@@ -935,6 +1039,9 @@ void() thunder_go_boom =
 */
 void() ambient_thunder =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	//  changed from ambient to delayed sound (sounds better)
 	precache_sound ("ambience/thunder1.wav");
 	// precache_sound ("ambience/thunder2.wav"); this file in not included in the game
@@ -965,6 +1072,9 @@ For optimzation testing, starts a lot of sounds.
 
 void() misc_noisemaker =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_sound2 ("enforcer/enfire.wav");
 	precache_sound2 ("enforcer/enfstop.wav");
 	precache_sound2 ("enforcer/sight1.wav");

@@ -237,6 +237,9 @@ void() knight_die =
 */
 void() monster_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -278,6 +281,9 @@ void() monster_knight =
 */
 void() monster_dead_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/knight.mdl");
 	setmodel(self, "progs/knight.mdl");
 	if (self.spawnflags & 2)

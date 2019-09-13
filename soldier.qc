@@ -244,6 +244,9 @@ void() army_die =
 */
 void() monster_army =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -291,6 +294,9 @@ void() monster_army =
 */
 void() monster_dead_army =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/soldier.mdl");
 	setmodel(self, "progs/soldier.mdl");
 	if (self.spawnflags & 2)

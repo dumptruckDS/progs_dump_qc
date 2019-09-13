@@ -251,6 +251,9 @@ void(entity attacker, float damage) nopain =
 */
 void() monster_oldone =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);

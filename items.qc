@@ -50,6 +50,9 @@ prints a warning message when spawned
 */
 void() noclass =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	dprint ("noclass spawned at");
 	dprint (vtos(self.origin));
 	dprint ("\n");
@@ -250,6 +253,9 @@ void() health_touch;
 
 void() item_health =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = health_touch;
 
 	if (self.spawnflags & H_ROTTEN)
@@ -432,6 +438,9 @@ void() armor_touch =
 
 void() item_armor1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = armor_touch;
 	precache_model ("progs/armor.mdl");
 	setmodel (self, "progs/armor.mdl");
@@ -446,6 +455,9 @@ void() item_armor1 =
 
 void() item_armor2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = armor_touch;
 	precache_model ("progs/armor.mdl");
 	setmodel (self, "progs/armor.mdl");
@@ -460,6 +472,9 @@ void() item_armor2 =
 
 void() item_armorInv =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = armor_touch;
 	precache_model ("progs/armor.mdl");
 	setmodel (self, "progs/armor.mdl");
@@ -670,6 +685,9 @@ Axe
 */
 void() weapon_axe =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_axe.mdl");
 	setmodel (self, "progs/g_axe.mdl");
 	self.weapon = IT_AXE;
@@ -684,6 +702,9 @@ Shotgun
 
 void() weapon_shotgun =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = weapon_touch;
 	{
 
@@ -715,6 +736,9 @@ void() weapon_shotgun =
 
 void() weapon_supershotgun =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_shot.mdl");
 	setmodel (self, "progs/g_shot.mdl");
 	self.weapon = IT_SUPER_SHOTGUN;
@@ -730,6 +754,9 @@ void() weapon_supershotgun =
 
 void() weapon_nailgun =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_nail.mdl");
 	setmodel (self, "progs/g_nail.mdl");
 	self.weapon = IT_NAILGUN;
@@ -745,6 +772,9 @@ void() weapon_nailgun =
 
 void() weapon_supernailgun =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_nail2.mdl");
 	setmodel (self, "progs/g_nail2.mdl");
 	self.weapon = IT_SUPER_NAILGUN;
@@ -760,6 +790,9 @@ void() weapon_supernailgun =
 
 void() weapon_grenadelauncher =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_rock.mdl");
 	setmodel (self, "progs/g_rock.mdl");
 	self.weapon = 3;
@@ -775,6 +808,9 @@ void() weapon_grenadelauncher =
 
 void() weapon_rocketlauncher =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_rock2.mdl");
 	setmodel (self, "progs/g_rock2.mdl");
 	self.weapon = 3;
@@ -791,6 +827,9 @@ void() weapon_rocketlauncher =
 
 void() weapon_lightning =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model ("progs/g_light.mdl");
 	setmodel (self, "progs/g_light.mdl");
 	self.weapon = 3;
@@ -908,6 +947,9 @@ float WEAPON_BIG2 = 1;
 
 void() item_shells =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = ammo_touch;
 
 	if (self.spawnflags & WEAPON_BIG2)
@@ -935,6 +977,9 @@ void() item_shells =
 
 void() item_spikes =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = ammo_touch;
 
 	if (self.spawnflags & WEAPON_BIG2)
@@ -962,6 +1007,9 @@ void() item_spikes =
 
 void() item_rockets =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = ammo_touch;
 
 	if (self.spawnflags & WEAPON_BIG2)
@@ -990,6 +1038,9 @@ void() item_rockets =
 
 void() item_cells =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = ammo_touch;
 
 	if (self.spawnflags & WEAPON_BIG2)
@@ -1023,6 +1074,9 @@ float WEAPON_SPIKES = 4;
 float WEAPON_BIG = 8;
 void() item_weapon =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = ammo_touch;
 
 	self.particles_offset = '0 0 0';
@@ -1155,6 +1209,9 @@ following:
 
 void() item_key1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (world.worldtype == 0)
 	{
 		precache_model ("progs/w_s_key.mdl");
@@ -1194,6 +1251,9 @@ following:
 
 void() item_key2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (world.worldtype == 0)
 	{
 		precache_model ("progs/w_g_key.mdl");
@@ -1277,6 +1337,9 @@ End of level sigil, pick up to end episode and return to jrstart.
 
 void() item_sigil =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.spawnflags)
 		objerror ("no spawnflags");
 
@@ -1411,6 +1474,9 @@ Player is invulnerable for 30 seconds
 */
 void() item_artifact_invulnerability =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = powerup_touch;
 
 	precache_model ("progs/invulner.mdl");
@@ -1431,6 +1497,9 @@ Player takes no damage from water or slime for 30 seconds
 */
 void() item_artifact_envirosuit =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = powerup_touch;
 
 	precache_model ("progs/suit.mdl");
@@ -1451,6 +1520,9 @@ Player is invisible for 30 seconds
 */
 void() item_artifact_invisibility =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = powerup_touch;
 
 	precache_model ("progs/invisibl.mdl");
@@ -1472,6 +1544,9 @@ The next attack from the player will do 4x damage
 */
 void() item_artifact_super_damage =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.touch = powerup_touch;
 
 	precache_model ("progs/quaddama.mdl");

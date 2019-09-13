@@ -135,6 +135,9 @@ it specifies how high to count before reseting to zero.  Default is 10.
 
 void() func_counter =
 	{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if ( !self.wait )
 	   {
 	   self.wait = 1;
@@ -178,6 +181,9 @@ reaches the value set by count, func_oncount triggers its targets.
 
 void() func_oncount =
 	{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.count = floor( self.count );
 	if ( self.count <= 0 )
 	   {

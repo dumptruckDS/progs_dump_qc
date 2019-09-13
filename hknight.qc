@@ -398,6 +398,9 @@ void() hknight_melee =
 */
 void() monster_hell_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -447,6 +450,9 @@ void() monster_hell_knight =
 */
 void() monster_dead_hell_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/hknight.mdl");
 	setmodel(self, "progs/hknight.mdl");
 	if (self.spawnflags & 2)

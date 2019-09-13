@@ -374,6 +374,9 @@ void() Wiz_Missile =
 */
 void() monster_wizard =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -417,6 +420,9 @@ void() monster_wizard =
 */
 void() monster_dead_wizard =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/wizard.mdl");
 	setmodel(self, "progs/wizard.mdl");
 	self.frame = $death8;
