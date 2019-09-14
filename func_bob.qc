@@ -76,6 +76,10 @@ void() func_bob_timer =
 //----------------------------------------------------------------------
 void() func_bob_on =
 {
+	// This may have been called as a "use" function, so don't allow it
+	// to be called repeatedly -- iw
+	self.use = SUB_Null;
+
 	if (self.bsporigin)
 	{
 		// Check for solid spawnflag
@@ -101,6 +105,12 @@ void() func_bob_on =
 	}
 	setmodel (self, self.mdl);
 	setsize (self, self.mins , self.maxs);
+
+	self.think = func_bob_timer;
+	if (self.bsporigin)
+		self.nextthink = self.ltime + 0.1 + self.delay;
+	else
+		self.nextthink = time + 0.1 + self.delay;
 };
 
 //----------------------------------------------------------------------
@@ -164,9 +174,6 @@ void() func_bob =
 		func_bob_on();
 	else
 		func_bob_off();
-
-	self.think = func_bob_timer;
-	self.nextthink = time + 0.1 + self.delay;
 };
 
 //----------------------------------------------------------------------
