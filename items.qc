@@ -1182,7 +1182,9 @@ void() key_touch =
 	}
 
 	activator = other;
-	SUB_UseTargets();				// fire all targets / killtargets
+// fix key items firing their targets multiple times in coop -- iw
+//	SUB_UseTargets();				// fire all targets / killtargets
+	SUB_UseAndForgetTargets();
 };
 
 
