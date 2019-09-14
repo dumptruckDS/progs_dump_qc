@@ -564,9 +564,18 @@ void() weapon_touch =
 	self = stemp;
 
 	if (deathmatch == 2 || coop)
+	{
 		leave = 1;
+
+	// fix weapon items never firing their targets in coop or
+	// "deathmatch 2" -- iw
+		activator = other;
+		SUB_UseAndForgetTargets ();
+	}
 	else
+	{
 		leave = 0;
+	}
 
 	// johnfitz added for axe, shotgun items --dumptruck_ds from RRP /rubicon2
 	if (self.classname == "weapon_axe")
