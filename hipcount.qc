@@ -97,9 +97,13 @@ void() counter_off_use =
 	// fix func_counter and func_oncount handling of activator -- iw
 	self.enemy = activator;
 	self.think = counter_think;
-	if (self.delay)
+	// fix "delay" making func_counter not work -- iw
+	//if (self.delay)
+	if (self.pausetime)
 		{
-		self.nextthink = time + self.delay;
+		// fix "delay" making func_counter not work -- iw
+		//self.nextthink = time + self.delay;
+		self.nextthink = time + self.pausetime;
 		}
 	else
 		{
@@ -159,6 +163,11 @@ void() func_counter =
 	   {
 	   self.count = 10;
 	   }
+
+	// fix "delay" making func_counter not work -- iw
+	self.pausetime = self.delay;
+	self.delay = 0;
+
 	self.cnt = 0;
 	self.state = 0;
 
