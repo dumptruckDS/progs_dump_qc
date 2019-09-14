@@ -82,27 +82,19 @@ void() func_bob_on =
 
 	if (self.bsporigin)
 	{
-		// Check for solid spawnflag
-		if (self.spawnflags & BOB_NONSOLID)
-		{
-			self.movetype = MOVETYPE_PUSH;
-			self.solid = SOLID_NOT;
-		}
-		else
-		{
-			self.movetype = MOVETYPE_PUSH;
-			self.solid = SOLID_BSP;
-		}
+		self.movetype = MOVETYPE_PUSH;
+		self.solid = SOLID_BSP;
 	}
 	else
 	{
 		self.movetype = MOVETYPE_FLY;
-		if (self.spawnflags & BOB_COLLISION)
-			self.solid = SOLID_BBOX;
-		else
-			self.solid = SOLID_NOT;
+		self.solid = SOLID_BBOX;
 		self.flags = 0;	// Reset any onground flags
 	}
+
+	if (self.spawnflags & BOB_NONSOLID)
+		self.solid = SOLID_NOT;
+
 	setmodel (self, self.mdl);
 	setsize (self, self.mins , self.maxs);
 
@@ -116,11 +108,20 @@ void() func_bob_on =
 //----------------------------------------------------------------------
 void() func_bob_off =
 {
-	self.movetype = MOVETYPE_NONE;
-	if (self.spawnflags & BOB_COLLISION)
-		self.solid = SOLID_BBOX;
+	if (self.bsporigin)
+	{
+		self.movetype = MOVETYPE_PUSH;
+		self.solid = SOLID_BSP;
+	}
 	else
+	{
+		self.movetype = MOVETYPE_FLY;
+		self.solid = SOLID_BBOX;
+	}
+
+	if (self.spawnflags & BOB_NONSOLID)
 		self.solid = SOLID_NOT;
+
 	setmodel (self, self.mdl);
 	setsize (self, self.mins , self.maxs);
 	self.velocity = '0 0 0';
