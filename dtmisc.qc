@@ -234,7 +234,7 @@ Use noise key for a custom sound.
 
 void () play_lavasplash_fx = //thanks Khreathor -- dumptruck_ds
 {
-  if (self.noise)
+  if (self.noise != "")
   {
     sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
   }
@@ -254,7 +254,7 @@ void () play_lavasplash =
   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
     return;
 
-  if (self.noise) precache_sound (self.noise);
+  if (self.noise != "") precache_sound (self.noise);
   precache_sound("boss1/out1.wav");
   self.use = play_lavasplash_fx;
 };
@@ -674,7 +674,7 @@ void() fall_touch =
     self.attack_finished = time + self.wait;
     self.cnt = TRUE;
 
-    if (self.noise)
+    if (self.noise != "")
         sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
     else
         sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
@@ -685,7 +685,7 @@ void() fall_use =  // thanks again RennyC for help on revisions --dumptruck_ds
       self.attack_finished = time + self.wait;
       self.cnt = TRUE;
 
-      if (self.noise)
+      if (self.noise != "")
           sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
       else
           sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
@@ -701,7 +701,7 @@ void() func_fall =
         return;
 
     precache_sound("buttons/switch21.wav");
-    if (self.noise) precache_sound (self.noise);
+    if (self.noise != "") precache_sound (self.noise);
 
 
     self.alpha = 1;

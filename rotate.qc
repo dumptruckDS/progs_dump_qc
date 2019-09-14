@@ -438,11 +438,11 @@ void() path_rotate =
    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
       return;
 
-   if ( self.noise )
+   if ( self.noise != "" )
       {
       precache_sound( self.noise );
       }
-   if ( self.noise1 )
+   if ( self.noise1 != "" )
       {
       precache_sound( self.noise1 );
       }
@@ -505,7 +505,7 @@ void() rotate_train_wait =
 	{
    self.state = STATE_WAIT;
 
-   if ( self.goalentity.noise )
+   if ( self.goalentity.noise != "" )
       {
       sound (self, CHAN_VOICE, self.goalentity.noise, 1, ATTN_NORM);
       }
@@ -530,7 +530,7 @@ void() rotate_train_stop =
 	{
    self.state = STATE_STOP;
 
-   if ( self.goalentity.noise )
+   if ( self.goalentity.noise != "" )
       {
       sound (self, CHAN_VOICE, self.goalentity.noise, 1, ATTN_NORM);
       }
@@ -567,7 +567,7 @@ void() rotate_train_next =
    if ( targ.classname != "path_rotate" )
       objerror( "Next target is not path_rotate" );
 
-   if ( self.goalentity.noise1 )
+   if ( self.goalentity.noise1 != "" )
       {
       self.noise1 = self.goalentity.noise1;
       }
@@ -591,7 +591,7 @@ void() rotate_train_next =
       self.think1 = rotate_train_next;
 		}
 
-   if ( current.event )
+   if ( current.event != "" )
       {
       // Trigger any events that should happen at the corner.
       temp = self.target;
@@ -1067,7 +1067,7 @@ void() rotate_door_group_reversedirection =
    local string name;
 
    // tell all associated rotaters to reverse direction
-   if ( self.group )
+   if ( self.group != "" )
       {
       name = self.group;
       self = find( world, group, name);

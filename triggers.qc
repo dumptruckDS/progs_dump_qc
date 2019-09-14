@@ -42,7 +42,7 @@ void() multi_trigger =
 		WriteByte (MSG_ALL, SVC_FOUNDSECRET);
 	}
 
-	if (self.noise)
+	if (self.noise != "")
 		sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
 
 // don't trigger again until reset
@@ -407,7 +407,7 @@ void() teleport_touch =
 local entity	t;
 local vector	org;
 
-	if (self.targetname)
+	if (self.targetname != "")
 	{
 		if (self.nextthink < time)
 		{
@@ -425,7 +425,7 @@ local vector	org;
 		return;
 
 	if (self.is_waiting != -1)	// Special case
-	if (self.targetname)
+	if (self.targetname != "")
 	{
 		if (self.nextthink < time)
 		{
@@ -758,7 +758,7 @@ void() trigger_push_custom =
 		{
 		 self.state = 1;
 	 	}
-	if ( self.noise )
+	if ( self.noise != "" )
     {
     precache_sound( self.noise );
 	  }

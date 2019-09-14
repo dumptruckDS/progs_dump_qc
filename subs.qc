@@ -276,7 +276,7 @@ void() SUB_UseTargets =
 //
 // kill the killtarget entities
 //
-	if (self.killtarget)
+	if (self.killtarget != "")
 	{
 		t = find(world, targetname, self.killtarget);
 		while(t != world)
@@ -307,7 +307,7 @@ void() SUB_UseTargets =
 //
 // kill the killtaget2 entities
 //
-	if (self.killtarget2)
+	if (self.killtarget2 != "")
 	{
 		t = find(world, targetname, self.killtarget2);
 		while(t != world)
@@ -340,7 +340,7 @@ void() SUB_UseTargets =
 //
 
 // target 1
-	if (self.target)
+	if (self.target != "")
 	{
 		SUB_UseSpecificTarget(self.target, targetname);
 		SUB_UseSpecificTarget(self.target, targetname2);
@@ -349,7 +349,7 @@ void() SUB_UseTargets =
 	}
 
 // target 2
-	if (self.target2)
+	if (self.target2 != "")
 	{
 		SUB_UseSpecificTarget(self.target2, targetname);
 		SUB_UseSpecificTarget(self.target2, targetname2);
@@ -358,7 +358,7 @@ void() SUB_UseTargets =
 	}
 
 // target 3
-	if (self.target3)
+	if (self.target3 != "")
 	{
 		SUB_UseSpecificTarget(self.target3, targetname);
 		SUB_UseSpecificTarget(self.target3, targetname2);
@@ -367,7 +367,7 @@ void() SUB_UseTargets =
 	}
 
 // target 4
-	if (self.target4)
+	if (self.target4 != "")
 	{
 		SUB_UseSpecificTarget(self.target4, targetname);
 		SUB_UseSpecificTarget(self.target4, targetname2);
@@ -457,7 +457,7 @@ void() SUB_UsePain =
 {
 local entity t, stemp, otemp, act;
 
-if (self.pain_target)
+if (self.pain_target != "")
 {
 	act = activator;
 	t = world;

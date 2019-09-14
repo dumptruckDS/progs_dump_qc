@@ -10,7 +10,7 @@ void() shake_think =
 	{
 		self.nextthink = -1;
 
-		if (self.noise1)
+		if (self.noise1 != "")
 			sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
 
 		return;
@@ -61,7 +61,7 @@ void() shake_use =
 
 	// Start...
 
-	if (self.noise)
+	if (self.noise != "")
 		sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
 
 	self.attack_finished = time + self.wait;
@@ -90,8 +90,8 @@ void() trigger_shake =
 
 	if (!self.targetname) objerror("trigger_shake without name");
 
-	if (self.noise) precache_sound (self.noise);
-	if (self.noise1) precache_sound (self.noise1);
+	if (self.noise != "") precache_sound (self.noise);
+	if (self.noise1 != "") precache_sound (self.noise1);
 
 	if (!self.dmg) self.dmg = 120;
 	if (self.count <= 0) self.count = 200;
