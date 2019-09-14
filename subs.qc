@@ -387,6 +387,36 @@ void(string matchstring) SUB_UseName =
 
 /*
 ================
+SUB_UseAndForgetTargets
+
+This calls SUB_UseTargets, then clears all of self's fields that cause
+SUB_UseTargets to do things.  The intention is that if SUB_UseTargets
+gets called again in the future, it won't do anything.  Call this
+function if you want an entity to fire its targets just this once, and
+never again.
+
+Note that this function relies on the fact that SUB_UseTargets has
+already been modified to work around the engine bug involving tests of
+the form 'if (string)', i.e. that the tests in SUB_UseTargets are now of
+the form 'if (string != "")'.  -- iw
+================
+*/
+void() SUB_UseAndForgetTargets =
+{
+	SUB_UseTargets ();
+
+	self.delay = 0;
+	self.killtarget = "";
+	self.killtarget2 = "";
+	self.message = "";
+	self.target = "";
+	self.target2 = "";
+	self.target3 = "";
+	self.target4 = "";
+};
+
+/*
+================
 SUB_FieldIsTargeted
 
 Return TRUE if the "fld" field of this entity is non-empty and matches
