@@ -125,8 +125,10 @@ void() func_bob =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (!self.spawnflags)
-		self.spawnflags = BOB_COLLISION;
+	self.spawnflags = self.spawnflags | BOB_COLLISION;
+	if (self.spawnflags & BOB_NONSOLID)
+		self.spawnflags = self.spawnflags - (self.spawnflags & BOB_COLLISION);
+
 	// Using a custom model?
 	if (self.mdl == "")
 	{
