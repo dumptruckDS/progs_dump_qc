@@ -483,36 +483,15 @@ float() SUB_IsTargeted =
 // pain_target //dumptruck_ds
 //
 void() SUB_UsePain =
-
 {
-local entity t, stemp, otemp, act;
-
-if (self.pain_target != "")
-{
-	act = activator;
-	t = world;
-	do
+	if (self.pain_target != "")
 	{
-		t = find (t, targetname, self.pain_target);
-		if (!t)
-		{
-			self.pain_target = ""; //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
-			return;
-		}
-		stemp = self;
-		otemp = other;
-		self = t;
-		other = stemp;
-		if (self.use != SUB_Null)
-		{
-			if (self.use)
-			self.use ();
-		}
-		self = stemp;
-		other = otemp;
-		activator = act;
-	} while ( 1 );
-}
+		SUB_UseSpecificTarget (self.pain_target, targetname);
+		SUB_UseSpecificTarget (self.pain_target, targetname2);
+		SUB_UseSpecificTarget (self.pain_target, targetname3);
+		SUB_UseSpecificTarget (self.pain_target, targetname4);
+	}
+	self.pain_target = "";  //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
 };
 
 /*
