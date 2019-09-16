@@ -374,6 +374,9 @@ void() Wiz_Missile =
 */
 void() monster_wizard =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -413,8 +416,13 @@ void() monster_wizard =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() monster_dead_wizard =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/wizard.mdl");
 	setmodel(self, "progs/wizard.mdl");
 	self.frame = $death8;

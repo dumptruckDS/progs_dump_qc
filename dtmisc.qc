@@ -51,6 +51,8 @@ play a sound when it is used
 */
 void() play_sound_triggered =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
 
    if (!self.noise) //dumptruck_ds
    {
@@ -89,6 +91,9 @@ play a sound on a periodic basis
 */
 void() play_sound =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    local float t;
 
    if (!self.noise) //dumptruck_ds
@@ -114,7 +119,7 @@ void() play_sound =
 
  //johnfitz -- ambient_general (this is from Rubicon Rumble dev kit)
 
- /*QUAKED ambient_general (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_general (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
 Plays any looped sound
 
 Keys:
@@ -127,6 +132,9 @@ Keys:
 */
 void () ambient_general =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
   if (!self.noise) //dumptruck_ds
   {
       objerror ("no soundfile set in noise!\n");
@@ -169,6 +177,9 @@ void () play_tfog = //thanks Khreathor -- dumptruck_ds
 
 void() tele_fog =
 {
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
   self.use = play_tfog;
 };
 
@@ -186,6 +197,9 @@ void () play_explosion_fx = //thanks Khreathor -- dumptruck_ds
 
 void() play_explosion =
 {
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
   self.use = play_explosion_fx;
 };
 
@@ -203,6 +217,9 @@ void () play_tbaby_fx = //thanks Khreathor -- dumptruck_ds
 
 void() play_tbabyexplode =
 {
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
   precache_sound2 ("blob/death1.wav");
   self.use = play_tbaby_fx;
 };
@@ -234,6 +251,9 @@ WriteCoord (MSG_BROADCAST, self.origin_z);
 
 void () play_lavasplash =
 {
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
   if (self.noise) precache_sound (self.noise);
   precache_sound("boss1/out1.wav");
   self.use = play_lavasplash_fx;
@@ -278,6 +298,9 @@ void () play_meatspray = //-- dumptruck_ds -- thanks to Spike for helping with e
 
 void() meat_shower =
 {
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
   self.use = play_meatspray;
 }
 /* misc gore */
@@ -288,8 +311,13 @@ deadstuff version 1.0 - tony collen - manero@canweb.net - EfNet IRC #QuakeEd or 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 */
 
+/*QUAKED gib_head_demon (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_demon =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_demon.mdl");
 	setmodel(self, "progs/h_demon.mdl");
         self.frame = 0;
@@ -305,8 +333,13 @@ void() gib_head_demon =
 	}
 };
 
+/*QUAKED gib_head_dog (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_dog =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_dog.mdl");
 	setmodel(self, "progs/h_dog.mdl");
         self.frame = 0;  //was 1 -- dumptruck_ds
@@ -322,8 +355,13 @@ void() gib_head_dog =
 	}
 };
 
+/*QUAKED gib_head_army (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_army =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_guard.mdl");
 	setmodel(self, "progs/h_guard.mdl");
         self.frame = 0;
@@ -339,8 +377,13 @@ void() gib_head_army =
 	}
 };
 
+/*QUAKED gib_head_hell_knight (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_hell_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_hellkn.mdl");
 	setmodel(self, "progs/h_hellkn.mdl");
         self.frame = 0;
@@ -356,8 +399,13 @@ void() gib_head_hell_knight =
 	}
 };
 
+/*QUAKED gib_head_knight (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_knight.mdl");
 	setmodel(self, "progs/h_knight.mdl");
         self.frame = 0;
@@ -373,8 +421,13 @@ void() gib_head_knight =
 	}
 };
 
+/*QUAKED gib_head_enforcer (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_enforcer =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_mega.mdl");
 	setmodel(self, "progs/h_mega.mdl");
         self.frame = 0;
@@ -390,8 +443,13 @@ void() gib_head_enforcer =
 	}
 };
 
+/*QUAKED gib_head_ogre (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_ogre =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_ogre.mdl");
 	setmodel(self, "progs/h_ogre.mdl");
         self.frame = 0;
@@ -407,8 +465,13 @@ void() gib_head_ogre =
 	}
 };
 
+/*QUAKED gib_head_player (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_player =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_player.mdl");
 	setmodel(self, "progs/h_player.mdl");
         self.frame = 0;
@@ -424,8 +487,13 @@ void() gib_head_player =
 	}
 };
 
+/*QUAKED gib_head_shalrath (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_shalrath =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_shal.mdl");
 	setmodel(self, "progs/h_shal.mdl");
         self.frame = 0;
@@ -441,8 +509,13 @@ void() gib_head_shalrath =
 	}
 };
 
+/*QUAKED gib_head_shambler (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_shambler =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
         precache_model("progs/h_shams.mdl");
         setmodel(self, "progs/h_shams.mdl");
         self.frame = 0; //was 1, caused an error -- dumptruck_ds
@@ -458,8 +531,13 @@ void() gib_head_shambler =
 	}
 };
 
+/*QUAKED gib_head_wizard (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
 void() gib_head_wizard =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/h_wizard.mdl");
 	setmodel(self, "progs/h_wizard.mdl");
         self.frame = 0;
@@ -475,8 +553,13 @@ void() gib_head_wizard =
 	}
 };
 
+/*QUAKED gib_misc_1 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
 void() gib_misc_1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/gib1.mdl");
 	setmodel(self, "progs/gib1.mdl");
         self.frame = 0;
@@ -492,8 +575,13 @@ void() gib_misc_1 =
 	}
 };
 
+/*QUAKED gib_misc_2 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
 void() gib_misc_2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/gib2.mdl");
 	setmodel(self, "progs/gib2.mdl");
         self.frame = 0;
@@ -509,8 +597,13 @@ void() gib_misc_2 =
 	}
 };
 
+/*QUAKED gib_misc_3 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
 void() gib_misc_3 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/gib3.mdl");
 	setmodel(self, "progs/gib3.mdl");
         self.frame = 0;
@@ -604,6 +697,9 @@ Falling brush upon touch
 
 void() func_fall =
 {
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+
     precache_sound("buttons/switch21.wav");
     if (self.noise) precache_sound (self.noise);
 
@@ -679,6 +775,9 @@ I used the info_notnull, but you should be able to target anything
 */
 void() misc_particle_stream =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if(!self.target)
 		objerror("misc_particle_stream with not target!");
 

@@ -13,21 +13,22 @@
 // Forward declarations
 void() misc_model_think;
 
-/*
- * misc_model
- *
- * An entity for displaying models. A frame range can be given to animate the
- * model.
- *
- * mdl: The model to display. Can be of type mdl, bsp, or spr.
- *
- * frame: The frame to display. Can be used to offset the animation.
- *
- * first_frame: The starting frame of the animation.
- *
- * last_frame: The last frame of the animation.
- */
+/*QUAKED misc_model (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+An entity for displaying models. A frame range can be given to animate the
+model.
+
+mdl: The model to display. Can be of type mdl, bsp, or spr.
+
+frame: The frame to display. Can be used to offset the animation.
+
+first_frame: The starting frame of the animation.
+
+last_frame: The last frame of the animation.
+*/
 void() misc_model = {
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+
     precache_model(self.mdl);
     setmodel(self, self.mdl);
 

@@ -237,6 +237,9 @@ void() knight_die =
 */
 void() monster_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -274,8 +277,13 @@ void() monster_knight =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() monster_dead_knight =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/knight.mdl");
 	setmodel(self, "progs/knight.mdl");
 	if (self.spawnflags & 2)

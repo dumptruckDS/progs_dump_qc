@@ -96,6 +96,9 @@ Used as the point of rotation for rotatable objects.
 */
 void() info_rotate =
 {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
 // remove self after a little while, to make sure that entities that
 // have targeted it have had a chance to spawn
    self.nextthink = time + 2;
@@ -384,6 +387,9 @@ If "deathtype" is set with a string, this is the message that will appear when a
 
 void() func_rotate_entity =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    self.solid    = SOLID_NOT;
    self.movetype = MOVETYPE_NONE;
 
@@ -429,6 +435,9 @@ void() func_rotate_entity =
 */
 void() path_rotate =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    if ( self.noise )
       {
       precache_sound( self.noise );
@@ -784,6 +793,9 @@ void() rotate_train =
 
 void() func_rotate_train =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    if (!self.speed)
 		self.speed = 100;
 	if (!self.target)
@@ -917,6 +929,9 @@ NONBLOCKING makes the brush non-solid.  This is useless if VISIBLE is set.
 */
 void() func_movewall =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    self.angles = '0 0 0';
    self.movetype = MOVETYPE_PUSH;
    if ( self.spawnflags & NONBLOCKING )
@@ -947,6 +962,9 @@ This defines an object to be rotated.  Used as the target of func_rotate_door.
 */
 void() rotate_object =
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    self.classname = "rotate_object";
    self.solid = SOLID_NOT;
    self.movetype = MOVETYPE_NONE;
@@ -1122,6 +1140,9 @@ once door from closing again when it's blocked.
 
 void() func_rotate_door = // added slinet option - sounds 4 -- dumptruck_ds
    {
+   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+      return;
+
    if (!self.target)
       {
       objerror( "rotate_door without target." );

@@ -80,6 +80,9 @@ Variable sized single use trigger that requires a key to trigger targets.  Must 
 
 void() trigger_usekey =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (world.worldtype == 0)
 	{
 		precache_sound ("doors/medtry.wav");
@@ -138,6 +141,9 @@ void() trigger_usekey =
 // */
 // void() trigger_remove =
 // {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
 // 	self.cnt = FL_CLIENT|FL_MONSTER;
 // 	if (self.spawnflags & 1)
 // 		self.cnt = self.cnt - FL_MONSTER;
@@ -210,6 +216,9 @@ set the gravity of a player
 */
 void() trigger_setgravity =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	InitTrigger ();
 	self.use = grav_toggle; // dumptruck_ds
 	self.touch = trigger_gravity_touch;

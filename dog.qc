@@ -328,6 +328,9 @@ float()	DogCheckAttack =
 */
 void() monster_dog =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -365,8 +368,13 @@ void() monster_dog =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_dog =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/dog.mdl");
 	setmodel(self, "progs/dog.mdl");
 	self.frame = $death8;

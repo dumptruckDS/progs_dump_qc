@@ -416,6 +416,9 @@ void() ogre_melee =
 */
 void() monster_ogre =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -454,15 +457,25 @@ void() monster_ogre =
 	walkmonster_start();
 };
 
+/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+*/
 void() monster_ogre_marksman =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	monster_ogre ();
 };
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_ogre =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/ogre.mdl");
 	setmodel(self, "progs/ogre.mdl");
 	if (self.spawnflags & 2)

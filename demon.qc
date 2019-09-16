@@ -179,6 +179,9 @@ void() Demon_MeleeAttack =
 */
 void() monster_demon1 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -364,8 +367,13 @@ void()	Demon_JumpTouch =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_demon =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/demon.mdl");
 	setmodel(self, "progs/demon.mdl");
 	self.frame = $death9;

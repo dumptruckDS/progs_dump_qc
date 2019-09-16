@@ -85,6 +85,9 @@ Spawnflags:
 */
 void() trigger_shake =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.targetname) objerror("trigger_shake without name");
 
 	if (self.noise) precache_sound (self.noise);

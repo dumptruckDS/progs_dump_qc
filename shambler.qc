@@ -328,6 +328,9 @@ void() sham_die =
 */
 void() monster_shambler =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -369,8 +372,13 @@ void() monster_shambler =
 };
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
 void() monster_dead_shambler =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/shambler.mdl");
 	setmodel(self, "progs/shambler.mdl");
 	self.frame = $death11;

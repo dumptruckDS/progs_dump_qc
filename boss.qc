@@ -263,6 +263,9 @@ void() boss_awake =
 */
 void() monster_boss =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -379,6 +382,9 @@ Just for boss level.
 */
 void() event_lightning =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.use = lightning_use;
 };
 

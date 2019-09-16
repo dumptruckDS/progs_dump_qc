@@ -85,6 +85,8 @@ When a button is touched, it moves some distance in the direction of it's angle,
 */
 void() func_button =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 
 	if (self.sounds == 0)
 	{

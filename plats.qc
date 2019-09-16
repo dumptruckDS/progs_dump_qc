@@ -145,8 +145,9 @@ Set "sounds" to one of the following:
 
 
 void() func_plat =
-
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 
 	if (!self.t_length)
 		self.t_length = 80;
@@ -333,6 +334,9 @@ sounds
 */
 void() func_train =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.speed)
 		self.speed = 100;
 	if (!self.target)
@@ -398,6 +402,9 @@ This is used for the final bos
 */
 void() misc_teleporttrain =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.speed)
 		self.speed = 100;
 	if (!self.target)

@@ -244,6 +244,9 @@ void() army_die =
 */
 void() monster_army =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -287,8 +290,13 @@ void() monster_army =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
+/*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
 void() monster_dead_army =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	precache_model("progs/soldier.mdl");
 	setmodel(self, "progs/soldier.mdl");
 	if (self.spawnflags & 2)

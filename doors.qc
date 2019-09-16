@@ -417,8 +417,9 @@ Key doors are allways wait -1.
 */
 
 void() func_door =
-
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 
 	if (world.worldtype == 0)
 	{
@@ -723,6 +724,9 @@ If a secret door has a targetname, it will only be opened by it's botton or trig
 
 void () func_door_secret =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (self.sounds == 0)
 		self.sounds = 3;
 	if (self.sounds == 1)

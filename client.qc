@@ -27,6 +27,8 @@ Use mangle instead of angle, so you can set pitch or roll as well as yaw.  'pitc
 */
 void() info_intermission =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 };
 
 
@@ -359,8 +361,10 @@ and toggled off and on.
 float DT_EXITOFF = 8;
 
 void() trigger_changelevel =
-
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	self.use = dt_exit_toggle; //dumptruck_ds
 	if (!self.map)
 		objerror ("changelevel trigger doesn't have map");
@@ -604,6 +608,8 @@ The normal starting point for a level.
 */
 void() info_player_start =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 };
 
 
@@ -612,6 +618,8 @@ Only used on start map for the return point from an episode.
 */
 void() info_player_start2 =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 };
 
 
@@ -627,6 +635,8 @@ potential spawning position for deathmatch games
 */
 void() info_player_deathmatch =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 };
 
 /*QUAKED info_player_coop (1 0 1) (-16 -16 -24) (16 16 24)
@@ -634,6 +644,8 @@ potential spawning position for coop games
 */
 void() info_player_coop =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
 };
 
 /*
