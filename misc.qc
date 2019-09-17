@@ -456,7 +456,7 @@ void() spikeshooter_use =
       lavaball.owner = self;
       lavaball.touch = ShalMissileTouch;
       setmodel (lavaball, "progs/lavaball.mdl"); //dms
-      setsize (lavaball, '-4 -4 -4', '4 4 4');
+      setsize (lavaball, '0 0 0', '0 0 0');
       setorigin (lavaball, self.origin);
       lavaball.avelocity = '0 0 400';
       lavaball.nextthink = time + 5;
@@ -477,7 +477,7 @@ void() spikeshooter_use =
 		 rockettrap.owner = self;
 		 rockettrap.touch = T_MissileTouch;
 		 setmodel (rockettrap, "progs/missile.mdl"); //dms
-		 setsize (rockettrap, '-4 -4 -4', '4 4 4');
+		 setsize (rockettrap, '0 0 0', '0 0 0');
 		 setorigin (rockettrap, self.origin);
 		 // rockettrap.avelocity = '0 0 400';
 		 rockettrap.nextthink = time + 5;
@@ -497,7 +497,7 @@ void() spikeshooter_use =
 		 voreball.owner = self;
 		 voreball.touch = ShalMissileTouch;
 		 setmodel (voreball, "progs/v_spike.mdl"); //dms
-		 setsize (voreball, '-4 -4 -4', '4 4 4');
+		 setsize (voreball, '0 0 0', '0 0 0');
 		 setorigin (voreball, self.origin);
 		 voreball.avelocity = '0 0 400';
 		 voreball.nextthink = time + 5;
@@ -520,7 +520,7 @@ void() spikeshooter_use =
 		 gnade.owner = self;
 		 gnade.touch = GrenadeTouch;
 		 setmodel (gnade, "progs/grenade.mdl"); //dms
-		 setsize (gnade, '-4 -4 -4', '4 4 4');
+		 setsize (gnade, '0 0 0', '0 0 0');
 		 setorigin (gnade, self.origin);
 		 gnade.avelocity = '300 300 300';
 		 gnade.nextthink = time + 2.5;
