@@ -76,41 +76,52 @@ void() func_bob_timer =
 //----------------------------------------------------------------------
 void() func_bob_on =
 {
+	// This may have been called as a "use" function, so don't allow it
+	// to be called repeatedly -- iw
+	self.use = SUB_Null;
+
 	if (self.bsporigin)
 	{
-		// Check for solid spawnflag
-		if (self.spawnflags & BOB_NONSOLID)
-		{
-			self.movetype = MOVETYPE_PUSH;
-			self.solid = SOLID_NOT;
-		}
-		else
-		{
-			self.movetype = MOVETYPE_PUSH;
-			self.solid = SOLID_BSP;
-		}
+		self.movetype = MOVETYPE_PUSH;
+		self.solid = SOLID_BSP;
 	}
 	else
 	{
 		self.movetype = MOVETYPE_FLY;
-		if (self.spawnflags & BOB_COLLISION)
-			self.solid = SOLID_BBOX;
-		else
-			self.solid = SOLID_NOT;
+		self.solid = SOLID_BBOX;
 		self.flags = 0;	// Reset any onground flags
 	}
+
+	if (self.spawnflags & BOB_NONSOLID)
+		self.solid = SOLID_NOT;
+
 	setmodel (self, self.mdl);
 	setsize (self, self.mins , self.maxs);
+
+	self.think = func_bob_timer;
+	if (self.bsporigin)
+		self.nextthink = self.ltime + 0.1 + self.delay;
+	else
+		self.nextthink = time + 0.1 + self.delay;
 };
 
 //----------------------------------------------------------------------
 void() func_bob_off =
 {
-	self.movetype = MOVETYPE_NONE;
-	if (self.spawnflags & BOB_COLLISION)
-		self.solid = SOLID_BBOX;
+	if (self.bsporigin)
+	{
+		self.movetype = MOVETYPE_PUSH;
+		self.solid = SOLID_BSP;
+	}
 	else
+	{
+		self.movetype = MOVETYPE_FLY;
+		self.solid = SOLID_BBOX;
+	}
+
+	if (self.spawnflags & BOB_NONSOLID)
 		self.solid = SOLID_NOT;
+
 	setmodel (self, self.mdl);
 	setsize (self, self.mins , self.maxs);
 	self.velocity = '0 0 0';
@@ -125,8 +136,10 @@ void() func_bob =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (!self.spawnflags)
-		self.spawnflags = BOB_COLLISION;
+	self.spawnflags = self.spawnflags | BOB_COLLISION;
+	if (self.spawnflags & BOB_NONSOLID)
+		self.spawnflags = self.spawnflags - (self.spawnflags & BOB_COLLISION);
+
 	// Using a custom model?
 	if (self.mdl == "")
 	{
@@ -162,9 +175,6 @@ void() func_bob =
 		func_bob_on();
 	else
 		func_bob_off();
-
-	self.think = func_bob_timer;
-	self.nextthink = time + 0.1 + self.delay;
 };
 
 //----------------------------------------------------------------------
