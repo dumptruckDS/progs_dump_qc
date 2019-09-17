@@ -332,7 +332,10 @@ void() FoundTarget =
 	HuntTarget ();
 
 	if (self.sight_trigger == 1) //thanks RennyC -- dumptruck_ds
-	SUB_UseTargets ();
+	{
+		activator = self.enemy;
+		SUB_UseAndForgetTargets ();
+	}
 };
 
 /*

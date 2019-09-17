@@ -276,7 +276,7 @@ void() SUB_UseTargets =
 //
 // kill the killtarget entities
 //
-	if (self.killtarget)
+	if (self.killtarget != "")
 	{
 		t = find(world, targetname, self.killtarget);
 		while(t != world)
@@ -307,7 +307,7 @@ void() SUB_UseTargets =
 //
 // kill the killtaget2 entities
 //
-	if (self.killtarget2)
+	if (self.killtarget2 != "")
 	{
 		t = find(world, targetname, self.killtarget2);
 		while(t != world)
@@ -340,7 +340,7 @@ void() SUB_UseTargets =
 //
 
 // target 1
-	if (self.target)
+	if (self.target != "")
 	{
 		SUB_UseSpecificTarget(self.target, targetname);
 		SUB_UseSpecificTarget(self.target, targetname2);
@@ -349,7 +349,7 @@ void() SUB_UseTargets =
 	}
 
 // target 2
-	if (self.target2)
+	if (self.target2 != "")
 	{
 		SUB_UseSpecificTarget(self.target2, targetname);
 		SUB_UseSpecificTarget(self.target2, targetname2);
@@ -358,7 +358,7 @@ void() SUB_UseTargets =
 	}
 
 // target 3
-	if (self.target3)
+	if (self.target3 != "")
 	{
 		SUB_UseSpecificTarget(self.target3, targetname);
 		SUB_UseSpecificTarget(self.target3, targetname2);
@@ -367,7 +367,7 @@ void() SUB_UseTargets =
 	}
 
 // target 4
-	if (self.target4)
+	if (self.target4 != "")
 	{
 		SUB_UseSpecificTarget(self.target4, targetname);
 		SUB_UseSpecificTarget(self.target4, targetname2);
@@ -384,6 +384,36 @@ void(string matchstring) SUB_UseName =
 	SUB_UseSpecificTarget(matchstring, targetname4);
 };
 // ### end of Custents triggering code
+
+/*
+================
+SUB_UseAndForgetTargets
+
+This calls SUB_UseTargets, then clears all of self's fields that cause
+SUB_UseTargets to do things.  The intention is that if SUB_UseTargets
+gets called again in the future, it won't do anything.  Call this
+function if you want an entity to fire its targets just this once, and
+never again.
+
+Note that this function relies on the fact that SUB_UseTargets has
+already been modified to work around the engine bug involving tests of
+the form 'if (string)', i.e. that the tests in SUB_UseTargets are now of
+the form 'if (string != "")'.  -- iw
+================
+*/
+void() SUB_UseAndForgetTargets =
+{
+	SUB_UseTargets ();
+
+	self.delay = 0;
+	self.killtarget = "";
+	self.killtarget2 = "";
+	self.message = "";
+	self.target = "";
+	self.target2 = "";
+	self.target3 = "";
+	self.target4 = "";
+};
 
 /*
 ================
@@ -453,36 +483,15 @@ float() SUB_IsTargeted =
 // pain_target //dumptruck_ds
 //
 void() SUB_UsePain =
-
 {
-local entity t, stemp, otemp, act;
-
-if (self.pain_target)
-{
-	act = activator;
-	t = world;
-	do
+	if (self.pain_target != "")
 	{
-		t = find (t, targetname, self.pain_target);
-		if (!t)
-		{
-			self.pain_target = ""; //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
-			return;
-		}
-		stemp = self;
-		otemp = other;
-		self = t;
-		other = stemp;
-		if (self.use != SUB_Null)
-		{
-			if (self.use)
-			self.use ();
-		}
-		self = stemp;
-		other = otemp;
-		activator = act;
-	} while ( 1 );
-}
+		SUB_UseSpecificTarget (self.pain_target, targetname);
+		SUB_UseSpecificTarget (self.pain_target, targetname2);
+		SUB_UseSpecificTarget (self.pain_target, targetname3);
+		SUB_UseSpecificTarget (self.pain_target, targetname4);
+	}
+	self.pain_target = "";  //dumptruck_ds via Discord - thanks Spike, Snaut and QueenJazz
 };
 
 /*

@@ -338,7 +338,7 @@ void() LinkDoors =
 
 		if (self.health)
 			starte.health = self.health;
-		if (self.targetname)
+		if (self.targetname != "")
 			starte.targetname = self.targetname;
 		if (self.message != "")
 			starte.message = self.message;
@@ -355,7 +355,7 @@ void() LinkDoors =
 
 			if (self.health)
 				return;
-			if (self.targetname)
+			if (self.targetname != "")
 				return;
 			if (self.items)
 				return;
@@ -697,7 +697,7 @@ void() secret_touch =
 
 	self.attack_finished = time + 2;
 
-	if (self.message)
+	if (self.message != "")
 	{
 		centerprint (other, self.message);
 		sound (other, CHAN_BODY, "misc/talk.wav", 1, ATTN_NORM);

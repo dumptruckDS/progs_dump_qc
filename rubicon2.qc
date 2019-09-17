@@ -359,7 +359,7 @@ void () func_breakable = {
 	if (!self.cnt)
 		self.cnt = 5; // was 6 dumptruck_ds
 
-	if (self.targetname)
+	if (self.targetname != "")
 	{
 		self.use = func_breakable_use;
 	}
@@ -784,7 +784,7 @@ void() partspray_think =
 	if(!self.targetname || self.endtime > time)
 		self.nextthink = time + self.delay;
 
-	if(self.noise)
+	if(self.noise != "")
 	sound(self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 	else
 	sound(self, CHAN_AUTO, "misc/null.wav", 1, ATTN_NORM);
@@ -809,7 +809,7 @@ void() misc_particlespray =
 	if(self.delay <= 0)
 		self.delay = 0.1;
 	self.classname = "particlespray";
-	if (self.noise)
+	if (self.noise != "")
   precache_sound(self.noise);
 	precache_sound ("misc/null.wav");
 	self.think = partspray_think;
