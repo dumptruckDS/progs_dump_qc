@@ -29,7 +29,9 @@ void() counter_think =
 		self.state = self.cnt;
 		}
 
-	activator = other;
+	// fix func_counter and func_oncount handling of activator -- iw
+	//activator = other;
+	activator = self.enemy;
 	SUB_UseTargets();
 	self.nextthink = time + self.wait;
 
@@ -53,6 +55,13 @@ void() counter_think =
 				}
 			}
 		}
+	};
+
+// fix func_counter and func_oncount handling of activator -- iw
+void() counter_start_on_think =
+	{
+	activator = world;  // to ensure it's not a random entity -- iw
+	counter_off_use();
 	};
 
 void() counter_on_use =
@@ -85,10 +94,16 @@ void() counter_off_use =
 		self.cnt = 0;
 		self.state = 0;
 		}
+	// fix func_counter and func_oncount handling of activator -- iw
+	self.enemy = activator;
 	self.think = counter_think;
-	if (self.delay)
+	// fix "delay" making func_counter not work -- iw
+	//if (self.delay)
+	if (self.pausetime)
 		{
-		self.nextthink = time + self.delay;
+		// fix "delay" making func_counter not work -- iw
+		//self.nextthink = time + self.delay;
+		self.nextthink = time + self.pausetime;
 		}
 	else
 		{
@@ -148,6 +163,11 @@ void() func_counter =
 	   {
 	   self.count = 10;
 	   }
+
+	// fix "delay" making func_counter not work -- iw
+	self.pausetime = self.delay;
+	self.delay = 0;
+
 	self.cnt = 0;
 	self.state = 0;
 
@@ -156,7 +176,9 @@ void() func_counter =
 	self.think = SUB_Null;
    if ( self.spawnflags & COUNTER_START_ON )
       {
-      self.think = counter_off_use;
+      // fix func_counter and func_oncount handling of activator -- iw
+      //self.think = counter_off_use;
+      self.think = counter_start_on_think;
       self.nextthink = time + 0.1;
       }
 	};
@@ -165,7 +187,8 @@ void() oncount_use =
 	{
 	if ( counter_GetCount( other ) == self.count )
 		{
-		activator = other;
+		// fix func_counter and func_oncount handling of activator -- iw
+		//activator = other;
 		SUB_UseTargets();
 		}
 	};
