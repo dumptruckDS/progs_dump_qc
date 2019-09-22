@@ -1,27 +1,79 @@
-RC1 (omitted)
+1.1.2
 
-RC2 2018-9-15
+* Added newflags.qc (iw)
+* Added new spawnflags (iw)
+  4096   Not in Coop
+  8192   Not in Single Player
+  32768  Not on Hard Only
+  65536  Not on Nightmare Only
+* Fixed collision issues in trap_shooter, trap_spikeshooter, trap_switched_shooter
+* Added workaround for if(string) engine bug (iw)
+* Added function SUB_UseAndForgetTargets() in subs.qc (iw)
+* Fixed sight_target firing targets multiple times (iw)
+* Fixed pain_target not using targetname2/3/4 (iw)
+* Fixed messages not displaying with sight_trigger (iw)
+* Make weapons fire their targets in Coop and DM2 modes (iw)
+* Prevent keys firing multiple targets multiple times in Coop (iw)
+* Fixes to func_bob (iw)
+* Fixed messages not displaying with func_counter (iw)
+* Fixed "delay" making func_counter not work (iw)
 
-* added trigger_setgravity from Hipnotic
-* added trigger_usekey from Hipnotic
-* added func_new_plat from Rogue
-* revised dtsounds.qc to avoid crashes when noise values were missing
-* updated manual
-* "new" test map to illustrate additions
 
-RC 3
+1.1.1 August 2019
 
-* removed unused spawnflags from fgd
-* revised progs_dump_100 map
-* reverted trigger_hurt, trigger_push to id1 code
+* Added func_elvtr_button and ELEVATOR functionality to func_new_plat (iw)
+* Fix Fiends never going into their pain animation (iw)
+* Fix a critical bug involving func_elvtr_button (iw)
+* Address various FTEQCC warnings (iw)
+* Fix kill count bug with trigger-spawned Rotfish (iw)
+* Fixed qc syntax errors in monsters.qc (iw)
+* Fix various issues involving gravity and ladders (iw)
+* Make trigger_ladder ignore bad (up/down) angles (iw)
+* Fix items not respawning in deathmatch mode (iw)
+* Fix a "friendly monster" bug in trigger spawned monsters (iw)
+* Fix pain_target never firing in some cases (iw)
+* Fix item_health collision with BSP model entities (iw)
+* Fix the weapon_shotgun spawnflag test (iw)
+* Allow "wait" to be set for elevators (iw)
+* other tweaks to DOE elevator code in doeplats.qc (iw)
+* pd_elevator demo level (iw)
 
-RC 4
+1.1.0 Official Release
 
-* added tele_fog //thanks Khreathor!
-* added FireAmbient to fgd
-* revisions to progs_dump_100 sample map.
+* Added func_bob and misc_bob (RennyC adapted from AD)
+* Added misc_sparks  (Rubicon2)
+* Added misc_particles (misc_splash from Rubicon2)
+* Added sight_trigger - monsters fire targets upon seeing the player
+* Added keep_ammo to Ogre, Soldier and Enforcer (no "DropBackpack" if set to 1)
+* Added misc_particlespray (from custents)
 
-1.0.0 (omitted)
+1.1.0 Release Candidate 3
+
+* Fixed Megahealth respawning issue from RC1 / RC2
+* Fixed incorrect item_health bounding box from RC1 / RC2
+* Fixed Attenuation issue on custom sound entities
+* Added Khreathor's self.particle_offset to spawning items for better tfog
+* Added custom health to monsters (except zombies)
+* Added trigger_take_weapon (a.k.a. axe start)
+* Added weapon_shotgun pickup
+* Added RennyC's func_fall - trap brush that falls out from under the player
+* Added Hipnotic version of trap_spikeshooter (with lavaball and rockets)
+* Added Voreballs, Grenades to trap_spikeshooter
+* Added Rubicon2 "retriggerable" spawnflag and custom sounds to func_train
+* Added gibs to trap_spikeshooter
+* Added lightning trail entities from DOE (for traps and visual effects)
+* Added visual effect entities:
+  play_explosion
+  play_tbabyexplode
+  play_lavasplash
+* Added c0burn's switchable light styles
+* Added custom sound option to play_lavasplash
+* Added custom sound option to func_fall
+* Added Zerstrorer misc_particle_stream
+* Added silent option to func_rotate_door (sounds 4)
+* Added DONT_FADE spawnflag to func_fall
+* Added elec22k.wav for looped lightning sound effects
+* Added pd_lasers test level
 
 1.1.0 Release Candidate 1 & 2
 
@@ -48,58 +100,27 @@ RC 4
 * Added Persistent Key behavior (cnt = 1) to func_door and trigger_usekey
 * Added candle.mdl from Rogue and light_candle qc from Honey
 
-1.1.0 Release Candidate 3
+1.0.0 (omitted)
 
-* Fixed Megahealth respawning issue from RC1 / RC2
-* Fixed incorrect item_health bounding box from RC1 / RC2
-* Fixed Attenuation issue on custom sound entities
-* Added Khreathor's self.particle_offset to spawning items for better tfog
-* Added custom health to monsters (except zombies)
-* Added trigger_take_weapon (a.k.a. axe start)
-* Added weapon_shotgun pickup
-* Added RennyC's func_fall - trap brush that falls out from under the player
-* Added Hipnotic version of trap_spikeshooter (with lavaball and rockets)
-* Added Voreballs, Grenades to trap_spikeshooter
-* Added Rubicon2 "retriggerable" spawnflag and custom sounds to func_train
-* Added gibs to trap_spikeshooter
-* Added lightning trail entities from DOE (for traps and visual effects)
-* Added visual effect entities:
-        play_explosion
-        play_tbabyexplode
-        play_lavasplash
-* Added c0burn's switchable light styles
-* Added custom sound option to play_lavasplash
-* Added custom sound option to func_fall
-* Added Zerstrorer misc_particle_stream
-* Added silent option to func_rotate_door (sounds 4)
-* Added DONT_FADE spawnflag to func_fall
-* Added elec22k.wav for looped lightning sound effects
-* Added pd_lasers test level
+RC 4
 
-1.1.0 Official Release
+* added tele_fog //thanks Khreathor!
+* added FireAmbient to fgd
+* revisions to progs_dump_100 sample map.
 
-* Added func_bob and misc_bob (RennyC adapted from AD)
-* Added misc_sparks  (Rubicon2)
-* Added misc_particles (misc_splash from Rubicon2)
-* Added sight_trigger - monsters fire targets upon seeing the player
-* Added keep_ammo to Ogre, Soldier and Enforcer (no "DropBackpack" if set to 1)
-* Added misc_particlespray (from custents)
+RC 3
 
-1.1.1
+* removed unused spawnflags from fgd
+* revised progs_dump_100 map
+* reverted trigger_hurt, trigger_push to id1 code
 
-* Added func_elvtr_button and ELEVATOR functionality to func_new_plat (iw)
-* Fix Fiends never going into their pain animation (iw)
-* Fix a critical bug involving func_elvtr_button (iw)
-* Address various FTEQCC warnings (iw)
-* Fix kill count bug with trigger-spawned Rotfish (iw)
-* Fixed qc syntax errors in monsters.qc (iw)
-* Fix various issues involving gravity and ladders (iw)
-* Make trigger_ladder ignore bad (up/down) angles (iw)
-* Fix items not respawning in deathmatch mode (iw)
-* Fix a "friendly monster" bug in trigger spawned monsters (iw)
-* Fix pain_target never firing in some cases (iw)
-* Fix item_health collision with BSP model entities (iw)
-* Fix the weapon_shotgun spawnflag test (iw)
-* Allow "wait" to be set for elevators (iw)
-* other tweaks to DOE elevator code in doeplats.qc (iw)
-* pd_elevator demo level (iw)
+RC2 2018-9-15
+
+* added trigger_setgravity from Hipnotic
+* added trigger_usekey from Hipnotic
+* added func_new_plat from Rogue
+* revised dtsounds.qc to avoid crashes when noise values were missing
+* updated manual
+* "new" test map to illustrate additions
+
+RC1 (omitted)
