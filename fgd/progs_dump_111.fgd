@@ -1234,8 +1234,8 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 		2 : "Metallic clink"
 		3 : "In-out"
 	]
-	wait(string) : "Wait before reset" : "1"
-	delay(string) : "Delay before trigger"
+	wait(integer) : "Wait before reset" : 1
+	delay(integer) : "Delay before trigger"
 	message(string) : "Message"
 ]
 
@@ -1302,6 +1302,7 @@ spawnflags(Flags) =
 	height(integer) : "Travel altitude (can be negative)" : 0
 	health(integer) : "Seconds to wait at bottom if using Start at Top": 5
 	delay(integer) : "Seconds to wait if using Plat2" : 3
+	wait(integer) : "Seconds to retrigger Elevator" : 0
 	sounds(choices) : "Sound" : 1 =
 	[
 		1: "Base fast"
