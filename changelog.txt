@@ -1,4 +1,4 @@
-1.1.2
+1.1.2 October 2019
 
 * Added newflags.qc (iw)
 * Added new spawnflags (iw)
@@ -8,7 +8,7 @@
   65536  Not on Nightmare Only
 * Fixed collision issues in trap_shooter, trap_spikeshooter, trap_switched_shooter
 * Added workaround for if(string) engine bug (iw)
-* Added function SUB_UseAndForgetTargets() in subs.qc (iw)
+* Added function SUB_UseAndForgetTargets() to subs.qc (iw)
 * Fixed sight_target firing targets multiple times (iw)
 * Fixed pain_target not using targetname2/3/4 (iw)
 * Fixed messages not displaying with sight_trigger (iw)
@@ -17,7 +17,9 @@
 * Fixes to func_bob (iw)
 * Fixed messages not displaying with func_counter (iw)
 * Fixed "delay" making func_counter not work (iw)
-
+* Added SUB_DislodgeRestingEntities to subs.qc (iw)
+* Fixed func_breakable debris sometimes floating (iw)
+* Added pd_lightning demo map
 
 1.1.1 August 2019
 
