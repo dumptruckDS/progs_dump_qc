@@ -276,6 +276,12 @@ void () func_breakable_die = {
 		sound(ent, CHAN_AUTO, self.noise1, 1, ATTN_NORM);
 		// remove (self);
 	}
+
+	// this is to ensure that any debris from another func_breakable
+	// which is resting on top of this func_breakable is not left
+	// floating in mid-air after this entity is removed -- iw
+	SUB_DislodgeRestingEntities ();
+
 	if (self.spawnflags & BREAK_EXPLODE) {
 		if (self.spawnflags & BREAK_CUSTOM) {
 			make_breakable_templates_debris ();

@@ -521,3 +521,31 @@ void (void() thinkst) SUB_CheckRefire =
 	self.cnt = 1;
 	self.think = thinkst;
 };
+
+/*
+================
+SUB_DislodgeRestingEntities
+
+This clears the FL_ONGROUND flag from any entities that are on top of
+self.
+
+The engine does not update the FL_ONGROUND flag automatically in some
+cases, with the result that certain types of entities can be left
+floating in mid-air if the entity they are resting on is removed from
+under them.  This function is intended to be called in the case where
+self is going to be removed, to ensure that other entities are not left
+floating.  -- iw
+================
+*/
+void() SUB_DislodgeRestingEntities =
+{
+	local entity e;
+
+	e = nextent (world);
+	while (e != world)
+	{
+		if ((e.flags & FL_ONGROUND) && e.groundentity == self)
+			e.flags = e.flags - (e.flags & FL_ONGROUND);
+		e = nextent (e);
+	}
+};
