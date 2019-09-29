@@ -107,7 +107,7 @@ void() lightning_strike =
 	}
 	// light_reset();
 	// self.think = pd_lightning;
-	SUB_UseTargets();
+	// SUB_UseTargets();
 	self.nextthink = time + 0.1;
 	self.think = zap_turnofflight;
 };

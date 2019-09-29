@@ -1,0 +1,110 @@
+/*
++---------+
+|Lightning|
++---------+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
+| Scratch                                      Http://www.admdev.com/scratch |
++=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
+| Ambient lightning for the castle map is done here                          |
++=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-+
+*/
+
+.float light;
+void() lightning_strike; // Fixes calling function before defined
+void() pd_lightning;
+
+float (float min, float max) RandomRange =
+{
+	local float width;
+	local float offset;
+	local float result;
+
+	width = (max - min);
+	offset = (random () * width);
+	result = (offset + min);
+	return (result);
+};
+
+//
+// Lightning entity is default turned on until targetted/fired the first time
+//
+
+void() lightning_toggle =
+{
+	// Turn off when toggled
+	if (self.pain_finished == TRUE)
+	{
+		self.pain_finished = FALSE;
+		self.think = SUB_Null;
+	}
+	else // Turn off
+	{
+		self.nextthink = time + 10 * random()*0.5;
+		self.think = lightning_strike;
+		self.pain_finished = TRUE;
+	}
+};
+
+void() lightning_targetlightoff =
+{
+	if (self.target) // Turn targetted entity OFF (light)
+		SUB_UseTargets();
+
+	self.nextthink = time + 10 * random()*0.5;
+	self.think = lightning_strike;
+};
+
+float lightning_strikes; // only allow so many lightning strikes at a given time
+				         // or else we'll crash quake with too many TE_LIGHTNING calls!
+
+void() lightning_strike =
+{
+	local vector targ;
+
+	if (self.pain_finished == TRUE)
+	{
+		if (random() < 0.2 && lightning_strikes == 0)
+		{
+			lightning_strikes = lightning_strikes + 1;
+			self.cnt = TRUE;
+
+			targ = self.origin - '0 0 9999';
+			targ_x = (targ_x + RandomRange (-50, 50));
+			targ_y = (targ_y + RandomRange (-50, 50));
+
+			WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+			WriteByte (MSG_BROADCAST, TE_LIGHTNING1);
+			WriteEntity (MSG_BROADCAST, self);
+			WriteCoord (MSG_BROADCAST, self.origin_x);
+			WriteCoord (MSG_BROADCAST, self.origin_y);
+			WriteCoord (MSG_BROADCAST, self.origin_z);
+			WriteCoord (MSG_BROADCAST, targ_x);
+			WriteCoord (MSG_BROADCAST, targ_y);
+			WriteCoord (MSG_BROADCAST, targ_z);
+
+			if (self.target)
+				SUB_UseTargets(); // Turn targetted entity ON (light)
+		}
+	}
+
+	if (self.cnt == TRUE)
+	{
+		lightning_strikes = lightning_strikes - 1;
+		self.cnt = FALSE;
+	}
+	self.nextthink = time + 0.1;
+	self.think = lightning_targetlightoff;
+};
+
+/*QUAKED pd_lightning (0 1 0) (-10 -10 -10) (10 10 10)
+Lightning entity, causes full bright flashes automatically
+and is effective for stormy weather ambience
+*/
+void() pd_lightning =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	self.nextthink = time + 10 * random()*0.5;
+	self.think = lightning_strike;
+	self.use = lightning_toggle; // toggle lightning entity on/off
+};
