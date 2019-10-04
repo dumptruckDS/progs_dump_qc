@@ -471,7 +471,9 @@ void () func_laser_use =
 		setorigin(self, '0 0 0');
 		self.spawnflags = self.spawnflags - START_OFF;
 
-		sound (activator, CHAN_VOICE, self.noise, 1, ATTN_NORM);
+		// changed for progs_dump: the laser sound is now emitted from
+		// the func_laser itself instead of from the activator -- iw
+		sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
 
 		if (activator.classname == "player" && self.message != "")
 		{
@@ -480,10 +482,12 @@ void () func_laser_use =
 	}
 	else
 	{
+		// changed for progs_dump: the laser sound is now emitted from
+		// the func_laser itself instead of from the activator -- iw
+		sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
+
 		setorigin(self, '0 0 9000');
 		self.spawnflags = self.spawnflags + START_OFF;
-
-		sound (activator, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
 
 		if (activator.classname == "player" && self.message2 != "")
 		{
