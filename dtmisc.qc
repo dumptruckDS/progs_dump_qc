@@ -794,3 +794,27 @@ void() misc_particle_stream =
 	self.think = particle_stream_start;
 	self.nextthink = time + 0.2;
 };
+
+void() mflash_use =
+{
+  self.effects = self.effects | EF_MUZZLEFLASH;
+  // dprint("flash\n");
+};
+
+/*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
+*/
+
+void() play_mflash =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  precache_model ("progs/s_null.spr");
+
+      setmodel (self, "progs/s_null.spr");
+      setorigin (self, self.origin);
+      self.movetype = MOVETYPE_NONE;
+      self.solid = SOLID_NOT;
+      setsize (self, '0 0 0', '0 0 0');
+      self.use = mflash_use;
+};
