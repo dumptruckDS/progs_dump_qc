@@ -802,6 +802,7 @@ void() mflash_use =
 };
 
 /*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
+this is a work in progress in ver. 1.1.2 and not exposed in the FGD
 */
 
 void() play_mflash =

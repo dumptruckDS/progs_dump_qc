@@ -20,6 +20,8 @@
 * Added SUB_DislodgeRestingEntities to subs.qc (iw)
 * Fixed func_breakable debris sometimes floating (iw)
 * Added pd_lightning demo map
+* Fixed func_laser audio issue when used with func_counter
+* Added GNU License and source to my_mod directory
 
 1.1.1 August 2019
 
