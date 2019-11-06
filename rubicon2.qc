@@ -1,5 +1,5 @@
 //selections from Rubicon 2 qc by john fitzgibbons
-//and AD breakable code modified by Qmaster and dumptruck_ds
+//and AD breakable code modified by Qmaster,iw and dumptruck_ds
 float 	BREAKABLE_NO_MONSTERS = 1;
 float		BREAK_EXPLODE = 2;
 float		BREAK_CUSTOM = 4;
@@ -255,6 +255,50 @@ void() make_breakable_debris = {
 			new.skin = 1;
 		if (self.style == 2)
 			new.skin = 2;
+		if (self.style == 3) // new debris skins start here - dumptruck_ds
+			new.skin = 3;
+		if (self.style == 4)
+		new.skin = 4;
+		if (self.style == 5)
+		new.skin = 5;
+		if (self.style == 6)
+		new.skin = 6;
+		if (self.style == 7)
+		new.skin = 7;
+		if (self.style == 8)
+		new.skin = 8;
+		if (self.style == 9)
+		new.skin = 9;
+		if (self.style == 10)
+		new.skin = 10;
+		if (self.style == 11)
+		new.skin = 11;
+		if (self.style == 12)
+		new.skin = 12;
+		if (self.style == 13)
+		new.skin = 13;
+		if (self.style == 14)
+		new.skin = 14;
+		if (self.style == 15)
+		new.skin = 15;
+		if (self.style == 16)
+		new.skin = 16;
+		if (self.style == 17)
+		new.skin = 17;
+		if (self.style == 18)
+		new.skin = 18;
+		if (self.style == 19)
+		new.skin = 19;
+		if (self.style == 20)
+		new.skin = 20;
+		if (self.style == 21)
+		new.skin = 21;
+		if (self.style == 22)
+		new.skin = 22;
+		if (self.style == 23)
+		new.skin = 23;
+		if (self.style == 24)
+		new.skin = 24; // new debris skins end here - dumptruck_ds
 
 		i = i + 1;
 	}
@@ -332,6 +376,7 @@ BREAKABLE_NO_MONSTERS: object ignores damage from monsters
 0 = green metal (default)
 1 = red metal
 2 = concrete
+3 - 24 additional skins
 */
 
 void() break_template_setup = {
