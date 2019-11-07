@@ -754,14 +754,14 @@ float BREAKABLE_NO_MONSTERS = 1;
 //.float		ladder_step_finished; //footsteps on ladder no uses -- dumptruck_ds
 
 //dumptruck_ds defs for breakables in rubcon2.qc -- thanks to Qmaster and the Arcane Dimensions team
-
+/*
 .string break_template1_e;
 .string break_template2_e;
 .string break_template3_e;
 .string break_template4_e;
 .string break_template5_e;
 .string find_brk_template_model;
-
+*/
 //from remakequake -- dumptruck_ds
 
 .vector		dest, dest1, dest2;
