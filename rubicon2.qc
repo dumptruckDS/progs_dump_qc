@@ -298,7 +298,21 @@ void() make_breakable_debris = {
 		if (self.style == 23)
 		new.skin = 23;
 		if (self.style == 24)
-		new.skin = 24; // new debris skins end here - dumptruck_ds
+		new.skin = 24;
+		if (self.style == 25)
+		new.skin = 25;
+		if (self.style == 26)
+		new.skin = 26;
+		if (self.style == 27)
+		new.skin = 27;
+		if (self.style == 28)
+		new.skin = 28;
+		if (self.style == 29)
+		new.skin = 29;
+		if (self.style == 30)
+		new.skin = 30;
+		if (self.style == 31)// new debris skins end here - dumptruck_ds
+		new.skin = 31;
 
 		i = i + 1;
 	}
