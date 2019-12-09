@@ -35,6 +35,7 @@ fish.qc			// registered
 shalrath.qc		// registered
 enforcer.qc		// registered
 oldone.qc		// registered
+oldone2.qc		// killable Shub
 
 dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
 math.qc // Code by Joshua Skelton
