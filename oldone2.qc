@@ -169,7 +169,8 @@ void(vector p) shub_missile =
 	setmodel (newmis, "progs/lavaball.mdl");
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	newmis.velocity = vec*300;
+	// newmis.velocity = vec*300;
+	newmis.velocity = vec*600;
 	newmis.touch = T_MissileTouch; // rocket explosion
 	sound (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
 
@@ -195,8 +196,8 @@ void() old2_attk14       =[      $old14, old2_attk15      ] {shub_face();};
 void() old2_attk15       =[      $old15, old2_attk16      ] {shub_face();};
 void() old2_attk16       =[      $old16, old2_attk17      ] {shub_face();};
 void() old2_attk17       =[      $old17, old2_attk18      ] {shub_face();};
-void() old2_attk18       =[      $old18, old2_attk19      ] {shub_face();};
-void() old2_attk19       =[      $old19, old2_attk20      ] {shub_missile('0 -16 416');};
+void() old2_attk18       =[      $old18, old2_attk19      ] {shub_missile('0 -16 416');};
+void() old2_attk19       =[      $old19, old2_attk20      ] {shub_face();};
 void() old2_attk20       =[      $old20, old2_attk21      ] {shub_face();};
 void() old2_attk21       =[      $old21, old2_attk22      ] {shub_face();};
 void() old2_attk22       =[      $old22, old2_attk23      ] {shub_face();};
@@ -204,47 +205,26 @@ void() old2_attk23       =[      $old23, old2_attk24      ] {shub_face();};
 void() old2_attk24       =[      $old24, old2_attk25      ] {shub_face();};
 void() old2_attk25       =[      $old25, old2_attk26      ] {shub_face();};
 void() old2_attk26       =[      $old26, old2_attk27      ] {shub_face();};
-void() old2_attk27       =[      $old27, old2_attk28      ] {shub_face();};
+void() old2_attk27       =[      $old27, old2_attk28      ] {shub_missile('0 -16 416');};
 void() old2_attk28       =[      $old28, old2_attk29      ] {shub_face();};
-void() old2_attk29       =[      $old29, old2_attk30      ] {shub_missile('0 -16 416');};
+void() old2_attk29       =[      $old29, old2_attk30      ] {shub_face();};
 void() old2_attk30       =[      $old30, old2_attk31      ] {shub_face();};
 void() old2_attk31       =[      $old31, old2_attk32      ] {shub_face();};
 void() old2_attk32       =[      $old32, old2_attk33      ] {shub_face();};
 void() old2_attk33       =[      $old33, old2_attk34      ] {shub_face();};
 void() old2_attk34       =[      $old34, old2_attk35      ] {shub_face();};
 void() old2_attk35       =[      $old35, old2_attk36      ] {shub_face();};
-void() old2_attk36       =[      $old36, old2_attk37      ] {shub_face();};
+void() old2_attk36       =[      $old36, old2_attk37      ] {shub_missile('0 -16 416');};
 void() old2_attk37       =[      $old37, old2_attk38      ] {shub_face();};
 void() old2_attk38       =[      $old38, old2_attk39      ] {shub_face();};
-void() old2_attk39       =[      $old39, old2_attk40      ] {shub_missile('0 -16 416');};
+void() old2_attk39       =[      $old39, old2_attk40      ] {shub_face();};
 void() old2_attk40       =[      $old40, old2_attk41      ] {shub_face();};
 void() old2_attk41       =[      $old41, old2_attk42      ] {shub_face();};
 void() old2_attk42       =[      $old42, old2_attk43      ] {shub_face();};
 void() old2_attk43       =[      $old43, old2_attk44      ] {shub_face();};
 void() old2_attk44       =[      $old44, old2_attk45      ] {shub_face();};
-void() old2_attk45       =[      $old45, old2_attk46      ] {shub_face();};
-void() old2_attk46       =[      $old46, old2_attk1       ] {shub_missile('0 -16 416');};
-// shub stanbds at attention for a few
-void() old2_thrash1        =[			 $shake1,  old2_thrash2       ] {};
-void() old2_thrash2        =[      $shake2,  old2_thrash3       ] {};
-void() old2_thrash3        =[      $shake3,  old2_thrash4       ] {};
-void() old2_thrash4        =[      $shake4,  old2_thrash5       ] {};
-void() old2_thrash5        =[      $shake5,  old2_thrash6       ] {};
-void() old2_thrash6        =[      $shake6,  old2_thrash7       ] {};
-void() old2_thrash7        =[      $shake7,  old2_thrash8       ] {};
-void() old2_thrash8        =[      $shake8,  old2_thrash9       ] {};
-void() old2_thrash9        =[      $shake9,  old2_thrash10      ] {};
-void() old2_thrash10       =[      $shake10, old2_thrash11      ] {};
-void() old2_thrash11       =[      $shake11, old2_thrash12      ] {};
-void() old2_thrash12       =[      $shake12, old2_thrash13      ] {};
-void() old2_thrash13       =[      $shake13, old2_thrash14      ] {};
-void() old2_thrash14       =[      $shake14, old2_thrash15      ] {};
-void() old2_thrash15       =[      $shake15, old2_thrash16      ] {};
-void() old2_thrash16       =[      $shake16, old2_thrash17      ] {};
-void() old2_thrash17       =[      $shake17, old2_thrash18      ] {};
-void() old2_thrash18       =[      $shake18, old2_thrash19      ] {};
-void() old2_thrash19       =[      $shake19, old2_thrash20      ] {};
-void() old2_thrash20       =[      $shake20, old2_idle1         ] {};
+void() old2_attk45       =[      $old45, old2_attk46      ] {shub_missile('0 -16 416');};
+void() old2_attk46       =[      $old46, old2_attk1       ] {shub_face();};
 //death twitch --dumptruck_ds
 void() old2_twitch1        =[ 		 $shake1,  old2_twitch2       ] {sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
 void() old2_twitch2        =[      $shake2,  old2_twitch3       ] {};
@@ -280,9 +260,9 @@ void(entity attacker, float damage) oldone2_pain =
 	if (self.pain_finished > time)
 		return;
 
-	sound (self, CHAN_AUTO, "blob/death1.wav", 1, ATTN_NONE);
-	old2_attk1();
-	self.pain_finished = time + 4;
+		sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM);
+		old2_attk1();
+		self.pain_finished = time + 4;
 };
 
 void() oldone2_die =
@@ -350,7 +330,7 @@ void() monster_oldone2 =
 	precache_sound2 ("boss2/idle.wav");
 	precache_sound2 ("boss2/sight.wav");
 	precache_sound2 ("boss2/pop2.wav");
-	precache_sound2 ("blob/death1.wav");
+	precache_sound2 ("oldone2/pd_pop2.wav");
 	precache_model ("progs/lavaball.mdl");
 	precache_sound ("boss1/throw.wav");
 
@@ -367,6 +347,7 @@ void() monster_oldone2 =
 			else
 				self.health = 3000;
 		}
+
 	self.think = old2_idle1;
 	self.nextthink = time + 0.1;
 // CHANGE BEGINS HERE -- iw
