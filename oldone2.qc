@@ -260,7 +260,7 @@ void(entity attacker, float damage) oldone2_pain =
 	if (self.pain_finished > time)
 		return;
 
-		sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM);
+		sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
 		old2_attk1();
 		self.pain_finished = time + 4;
 };
@@ -348,6 +348,7 @@ void() monster_oldone2 =
 				self.health = 3000;
 		}
 
+	self.flags = FL_MONSTER;
 	self.think = old2_idle1;
 	self.nextthink = time + 0.1;
 // CHANGE BEGINS HERE -- iw

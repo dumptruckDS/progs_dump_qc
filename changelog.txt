@@ -1,6 +1,9 @@
-1.1.3 November 2019
+1.1.3 January 2020
 
 * Added skins to debris.mdl for a total of 32 built-in, commonly used textures
+* Added pd_pop2.wav to sound\oldone2 for Shub pain sound effect
+* Added oldone2.qc for killable Shub entity
+* Added boss2.qc for killable Chthon
 
 1.1.2 October 2019
 
