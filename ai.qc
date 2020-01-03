@@ -316,6 +316,8 @@ local float	rsnd;
 		sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_shalrath")
 		sound (self, CHAN_VOICE, "shalrath/sight.wav", 1, ATTN_NORM);
+	else if (self.classname == "monster_oldone2")  //dumptruck_ds added Shub sighting SFX
+		sound (self, CHAN_VOICE, "boss2/sight.wav", 1, ATTN_NONE);
 };
 
 void() FoundTarget =
