@@ -183,6 +183,22 @@ void() tele_fog =
   self.use = play_tfog;
 };
 
+/*QUAKED play_tele (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, tele_fog shows the teleport particle effects and sounds.
+Same os tele_fog.
+
+Use this when killtageting an entity if the player can see.
+
+*/
+void() play_tele = //same as tele_fog
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  self.use = play_tfog;
+};
+
 /*QUAKED play_explosion (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
 
 When triggered, creates a explosion at it's origin. Causes damage.
@@ -303,6 +319,135 @@ void() meat_shower =
 
   self.use = play_meatspray;
 }
+
+/*QUAKED play_gibs (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, plays a gib effect. Same as meat_shower.
+
+Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
+
+*/
+void() play_gibs =  //same as meat_shower
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  self.use = play_meatspray;
+}
+
+void() mflash_use =
+{
+  self.effects = self.effects | EF_MUZZLEFLASH;
+  // dprint("flash\n");
+};
+
+/*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
+this is a work in progress in ver. 1.1.2 and not exposed in the FGD
+*/
+
+void() play_mflash =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  precache_model ("progs/s_null.spr");
+
+      setmodel (self, "progs/s_null.spr");
+      setorigin (self, self.origin);
+      self.movetype = MOVETYPE_NONE;
+      self.solid = SOLID_NOT;
+      setsize (self, '0 0 0', '0 0 0');
+      self.use = mflash_use;
+};
+
+void() bfield_use =
+{
+  self.effects = self.effects | EF_BRIGHTFIELD;
+};
+
+/*QUAKED play_bfield (0 .5 .8) (-8 -8 -8) (8 8 8)
+
+*/
+
+void() play_bfield =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  precache_model ("progs/s_null.spr");
+
+      setmodel (self, "progs/s_null.spr");
+      setorigin (self, self.origin);
+      self.movetype = MOVETYPE_NONE;
+      self.solid = SOLID_NOT;
+      setsize (self, '0 0 0', '0 0 0');
+      self.use = bfield_use;
+};
+
+void() brightl_use =
+{
+  self.effects = self.effects | EF_BRIGHTLIGHT;
+};
+
+/*QUAKED play_brlight (0 .5 .8) (-8 -8 -8) (8 8 8)
+
+*/
+
+void() play_brlight =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  precache_model ("progs/s_null.spr");
+
+      setmodel (self, "progs/s_null.spr");
+      setorigin (self, self.origin);
+      self.movetype = MOVETYPE_NONE;
+      self.solid = SOLID_NOT;
+      setsize (self, '0 0 0', '0 0 0');
+      self.use = brightl_use;
+};
+
+void() dimlight_use =
+{
+  self.effects = self.effects | EF_DIMLIGHT;
+};
+
+void() dim_toggle = //dumptruck_ds based on hipnotic blocker_use
+{
+if ( self.state == 0)
+	{
+		self.state = 1;
+	  setorigin( self, self.origin - '8000 8000 8000');
+	}
+else
+	{
+		self.state = 0;
+	  setorigin( self, self.origin + '8000 8000 8000');
+	}
+    dimlight_use();
+};
+
+/*QUAKED play_dimlight (0 .5 .8) (-8 -8 -8) (8 8 8)
+
+*/
+void() play_dimlight =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+  precache_model ("progs/s_null.spr");
+
+      setmodel (self, "progs/s_null.spr");
+      // setorigin (self, self.origin);
+      self.movetype = MOVETYPE_NONE;
+      self.solid = SOLID_NOT;
+      setsize (self, '0 0 0', '0 0 0');
+      self.state = 0;
+      setorigin( self, self.origin + '8000 8000 8000' );
+      self.use = dim_toggle;
+};
+
 /* misc gore */
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 /*
@@ -793,29 +938,4 @@ void() misc_particle_stream =
 	self.use = particle_use;
 	self.think = particle_stream_start;
 	self.nextthink = time + 0.2;
-};
-
-void() mflash_use =
-{
-  self.effects = self.effects | EF_MUZZLEFLASH;
-  // dprint("flash\n");
-};
-
-/*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
-this is a work in progress in ver. 1.1.2 and not exposed in the FGD
-*/
-
-void() play_mflash =
-{
-  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
-    return;
-
-  precache_model ("progs/s_null.spr");
-
-      setmodel (self, "progs/s_null.spr");
-      setorigin (self, self.origin);
-      self.movetype = MOVETYPE_NONE;
-      self.solid = SOLID_NOT;
-      setsize (self, '0 0 0', '0 0 0');
-      self.use = mflash_use;
 };
