@@ -214,7 +214,7 @@
 //axe not used in this version
 //@PointClass base(Weapon) studio("progs/g_axe.mdl") =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) studio("progs/g_shotty.mdl") =
+@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =
 	weapon_shotgun : "Shotgun"
 [
 	spawnflags(flags) =
