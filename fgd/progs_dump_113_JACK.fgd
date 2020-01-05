@@ -113,28 +113,37 @@
 // items
 //
 
-@baseclass base(Appearflags, Target, Targetname) = Item
+@BaseClass base(Appearflags, Target, Targetname) =
+	NonRespawnableItem
 [
+	spawnflags(flags) =
+	[
+		32 : "Spawn silent" : 0
+		64 : "Trigger spawned" : 0
+		128 : "Suspended in air" : 0
+	]
 	message(string) : "Message"
-	target(string) : "Target"
-	killtarget(string) : "Killtarget"
 	delay(integer) : "Delay"
+]
+
+@BaseClass base(NonRespawnableItem) =
+	RespawnableItem
+[
+	spawnflags(flags) =
+	[
+		16384 : "Respawn DM style" : 0
+	]
 	ritem(integer) : "Respawn item?"
 	respawndelay(integer) : "Respawn time"
 	respawncount(integer) : "How many respawns?"
-
 ]
 
-@baseclass size(0 0 0, 32 32 56) color(80 0 200) base(Item) = Ammo
+@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem) =
+	Ammo
 [
 	spawnflags(flags) =
 	[
 		1 : "Large box" : 0
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-
 	]
 ]
 
@@ -143,100 +152,47 @@
 @PointClass base(Ammo) studio("maps/b_shell0.bsp") = item_shells : "Shells" []
 @PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
-@PointClass size(-16 -16 0, 16 16 16) base(Appearflags) studio("maps/b_bh25.bsp") = item_health : "Health pack"
+@PointClass size(-16 -16 0, 16 16 16) base(RespawnableItem) studio("maps/b_bh25.bsp") =
+	item_health : "Health pack"
 [
 	spawnflags(flags) =
 	[
-	1 : "Rotten" : 0
-	2 : "Megahealth" : 0
-	32 : "Spawn silent" : 0
-	64 : "Trigger Spawned" : 0
-	128 : "Suspended in air" : 0
-	16384 : "Respawn DM style" : 0
+		1 : "Rotten" : 0
+		2 : "Megahealth" : 0
 	]
 ]
 
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/suit.mdl") =
-	item_artifact_envirosuit : "Environmental protection suit" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/quaddama.mdl") =
-	item_artifact_super_damage : "Quad damage" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/invulner.mdl") =
-	item_artifact_invulnerability : "Pentagram of Protection" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/invisibl.mdl") =
-	item_artifact_invisibility : "Ring of Shadows" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
+@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Artifact []
 
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
-	item_armorInv : "Red armor (200%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
-	item_armor2 : "Yellow armor (150%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
-	item_armor1 : "Green armor (100%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/w_s_key.mdl") =
-	item_key1 : "Silver key" [spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/w_g_key.mdl") =
-	item_key2 : "Gold key" [spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/end1.mdl") =
+@PointClass base(Artifact) studio("progs/suit.mdl") =
+	item_artifact_envirosuit : "Environmental protection suit" []
+@PointClass base(Artifact) studio("progs/quaddama.mdl") =
+	item_artifact_super_damage : "Quad damage" []
+@PointClass base(Artifact) studio("progs/invulner.mdl") =
+	item_artifact_invulnerability : "Pentagram of Protection" []
+@PointClass base(Artifact) studio("progs/invisibl.mdl") =
+	item_artifact_invisibility : "Ring of Shadows" []
+
+@BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) =
+	Armor []
+
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armorInv : "Red armor (200%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armor2 : "Yellow armor (150%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armor1 : "Green armor (100%)" []
+
+@BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Key []
+
+@PointClass base(Key) studio("progs/w_s_key.mdl") =
+	item_key1 : "Silver key" []
+@PointClass base(Key) studio("progs/w_g_key.mdl") =
+	item_key2 : "Gold key" []
+
+@PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem) studio("progs/end1.mdl") =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =
@@ -252,76 +208,33 @@
 // weapons
 //
 
-@baseclass size(-16 -16 0, 16 16 56) color(0 0 200) base(Item, Appearflags) = Weapon []
+@BaseClass size(-16 -16 0, 16 16 56) color(0 0 200) base(RespawnableItem) =
+	Weapon []
 
 //axe not used in this version
-//@PointClass base(Weapon) studio(progs/g_axe.mdl" }) = weapon_axe : "Axe" [spawnflags(flags) =
-//[
-	//32 : "Spawn silent" : 0
-	//64 : "Trigger Spawned" : 0
-	//128 : "Suspended in air" : 0
-	//16384 : "Respawn DM style" : 0
-//]]
-
-@PointClass base(Weapon) studio("progs/g_shotty.mdl") = weapon_shotgun : "Shotgun" [spawnflags(flags) =
+//@PointClass base(Weapon) studio("progs/g_axe.mdl") =
+//	weapon_axe : "Axe" []
+@PointClass base(Weapon) studio("progs/g_shotty.mdl") =
+	weapon_shotgun : "Shotgun"
+[
+	spawnflags(flags) =
 	[
-	2 : "metlslime mdl (default)"
-	4 : "Slapmap  mdl"
-	32 : "Spawn silent" : 0
-	64 : "Trigger Spawned" : 0
-	128 : "Suspended in air" : 0
-	16384 : "Respawn DM style" : 0
+		2 : "metlslime mdl (default)"
+		4 : "Slapmap mdl"
 	]
 ]
-
-@PointClass base(Weapon) studio("progs/g_shot.mdl") = weapon_supershotgun : "Double-barrelled shotgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_nail.mdl") = weapon_nailgun : "Nailgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_nail2.mdl") = weapon_supernailgun : "Super nailgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_rock.mdl") = weapon_grenadelauncher : "Grenade launcher" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_rock2.mdl") = weapon_rocketlauncher : "Rocket launcher" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_light.mdl") = weapon_lightning : "Thunderbolt" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
+@PointClass base(Weapon) studio("progs/g_shot.mdl") =
+	weapon_supershotgun : "Double-barrelled shotgun" []
+@PointClass base(Weapon) studio("progs/g_nail.mdl") =
+	weapon_nailgun : "Nailgun" []
+@PointClass base(Weapon) studio("progs/g_nail2.mdl") =
+	weapon_supernailgun : "Super nailgun" []
+@PointClass base(Weapon) studio("progs/g_rock.mdl") =
+	weapon_grenadelauncher : "Grenade launcher" []
+@PointClass base(Weapon) studio("progs/g_rock2.mdl") =
+	weapon_rocketlauncher : "Rocket launcher" []
+@PointClass base(Weapon) studio("progs/g_light.mdl") =
+	weapon_lightning : "Thunderbolt" []
 
 //
 // badasses
