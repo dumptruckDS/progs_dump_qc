@@ -152,7 +152,7 @@
 @PointClass base(Ammo) studio("maps/b_shell0.bsp") = item_shells : "Shells" []
 @PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
-@PointClass size(-16 -16 0, 16 16 16) base(RespawnableItem) studio("maps/b_bh25.bsp") =
+@PointClass size(0 0 0, 32 32 56) base(RespawnableItem) studio("maps/b_bh25.bsp") =
 	item_health : "Health pack"
 [
 	spawnflags(flags) =
