@@ -1326,7 +1326,7 @@ gravity = what to set the players gravity to
 
 @SolidClass base(Trigger) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
 [
-	message(string) : "Health (shootable)"
+	message(string) : "Custom message"
 	spawnflags(flags) =
 	[
 		8 : "Silver Key Required" : 0
