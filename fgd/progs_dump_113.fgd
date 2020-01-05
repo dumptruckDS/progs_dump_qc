@@ -268,7 +268,14 @@
 //axe not used in this version
 //@PointClass base(Weapon) model({ "path": ":progs/g_axe.mdl" }) =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) model({ "path": ":progs/g_shotgn.mdl" }) =
+@PointClass
+	base(Weapon)
+	model(
+		{{
+			spawnflags & 4 -> ":progs/g_shotty.mdl",
+			":progs/g_shotgn.mdl"
+		}}
+	) =
 	weapon_shotgun : "Shotgun"
 [
 	spawnflags(flags) =
