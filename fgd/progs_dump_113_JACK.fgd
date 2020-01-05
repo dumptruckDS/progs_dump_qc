@@ -1383,8 +1383,9 @@ spawnflags(Flags) =
 		gravity(integer) : "Gravity : Normal (Default)" : 0
 	]
 
-@SolidClass base(Trigger) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
+@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
 [
+	delay(float) : "Delay before trigger" : 0
 	message(string) : "Custom message"
 	spawnflags(flags) =
 	[
