@@ -4,6 +4,10 @@
 * Added pd_pop2.wav to sound\oldone2 for Shub pain sound effect
 * Added oldone2.qc for killable Shub entity
 * Added boss2.qc for killable Chthon
+* Added play_brlight, play_dimlight, play_mflash, play_bfield effects
+* Added play_gibs for consistency (same as meat_shower)
+* Added play_tele for consistency (same as tele_fog)
+* Added ambient_fire sound effect for consistency (same as AmbientFire)
 
 1.1.2 October 2019
 
