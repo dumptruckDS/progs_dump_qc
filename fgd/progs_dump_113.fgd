@@ -947,7 +947,7 @@ spawnflags(Flags) =
 	speed(integer) : "Speed" : 100
 	sounds(choices) : "Sound" : 0 =
 	[
-        	0: "Silent"
+		0: "Silent"
 		1: "Stone"
 		2: "Machine"
 		3: "Stone Chain"
@@ -963,8 +963,8 @@ spawnflags(Flags) =
 		1 : "Starts Open" : 0
 		4 : "Don't link" : 0
 		8 : "Gold Key required" : 0
-        	16: "Silver Key required" : 0
-        	32: "Toggle" : 0
+		16: "Silver Key required" : 0
+		32: "Toggle" : 0
 	]
 ]
 
@@ -1328,10 +1328,9 @@ gravity = what to set the players gravity to
 [
 	message(string) : "Health (shootable)"
 	spawnflags(flags) =
-
 	[
 		8 : "Silver Key Required" : 0
-	 	16 : "Gold Key Required" : 0
+		16 : "Gold Key Required" : 0
 	]
 ]
 
