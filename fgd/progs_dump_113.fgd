@@ -236,7 +236,17 @@
 @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
 	item_key2 : "Gold key" []
 
-@PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem) model({ "path": ":progs/end1.mdl" }) =
+@PointClass
+	size(-16 -16 -24, 16 16 32)
+	base(NonRespawnableItem)
+	model(
+		{{
+			spawnflags & 8 -> ":progs/end4.mdl",
+			spawnflags & 4 -> ":progs/end3.mdl",
+			spawnflags & 2 -> ":progs/end2.mdl",
+			":progs/end1.mdl"
+		}}
+	) =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =
