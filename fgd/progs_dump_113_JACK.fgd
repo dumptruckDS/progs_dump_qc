@@ -1388,8 +1388,8 @@ spawnflags(Flags) =
 	message(string) : "Custom message"
 	spawnflags(flags) =
 	[
-		8 : "Silver Key Required" : 8
-		16 : "Gold Key Required" : 8
+		8 : "Silver Key Required" : 0
+		16 : "Gold Key Required" : 0
 	]
 ]
 
