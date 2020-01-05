@@ -958,6 +958,11 @@ spawnflags(Flags) =
 	dmg(integer) : "Damage inflicted when blocked" : 2
 	message(string) : "Message if touched"
 	health(integer) : "Health (shootable)" : 0
+	cnt(choices) : "Leave key in player's inventory?" : 0 =
+	[
+		0 : "Don't leave key in player's inventory"
+		1 : "Leave key in player's inventory"
+	]
 	spawnflags(flags) =
 	[
 		1 : "Starts Open" : 0
@@ -1326,6 +1331,11 @@ gravity = what to set the players gravity to
 
 @SolidClass base(Appearflags, Target, Targetname) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
 [
+	cnt(choices) : "Leave key in player's inventory?" : 0 =
+	[
+		0 : "Don't leave key in player's inventory"
+		1 : "Leave key in player's inventory"
+	]
 	delay(float) : "Delay before trigger" : 0
 	message(string) : "Custom message"
 	spawnflags(flags) =
