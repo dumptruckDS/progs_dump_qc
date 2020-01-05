@@ -96,16 +96,6 @@
 	noise(string) : "noise"
 	touch(string) : "self.touch"
 ]
-//
-// CTF stuff
-//
-
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) =
-    item_flag_team1 : "CTF: Red Team Flag" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) =
-    item_flag_team2 : "CTF: Blue Team Flag" []
-@PointClass base(PlayerClass) = info_player_team1 : "CTF: Red team base start" []
-@PointClass base(PlayerClass) = info_player_team2 : "CTF: Blue team base start" []
 
 @PointClass base(Appearflags) = info_intermission : "Intermission camera" []
 
@@ -1316,7 +1306,6 @@ spawnflags(Flags) =
 	]
 ]
 
-@SolidClass = func_dm_only : "Deathmatch teleporter" []
 @SolidClass = func_illusionary : "Solids can be walked through" []
 
 @SolidClass base(Appearflags) = func_episodegate : "Episode Gate"
