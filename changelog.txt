@@ -8,6 +8,7 @@
 * Added play_gibs for consistency (same as meat_shower)
 * Added play_tele for consistency (same as tele_fog)
 * Added ambient_fire sound effect for consistency (same as AmbientFire)
+* Added custom noise field to some play_ entities
 
 1.1.2 October 2019
 

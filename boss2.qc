@@ -262,7 +262,7 @@ void() boss2_awake =
 {
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
-	self.takedamage = DAMAGE_YES;
+	self.takedamage = DAMAGE_AIM;
 
 	setmodel (self, "progs/boss.mdl");
 	setsize (self, '-128 -128 -24', '128 128 256');
