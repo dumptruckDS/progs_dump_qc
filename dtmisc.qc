@@ -338,6 +338,9 @@ void() play_gibs =  //same as meat_shower, added for "play_xxxx" consistancy
 void() mflash_use =
 {
   self.effects = self.effects | EF_MUZZLEFLASH;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
   // dprint("flash\n");
 };
 
@@ -351,6 +354,7 @@ void() play_mflash =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
       setorigin (self, self.origin);
@@ -367,6 +371,9 @@ void() play_mflash =
 void() bfield_use =
 {
   self.effects = self.effects | EF_BRIGHTFIELD;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 };
 
 void() bfield_toggle = //dumptruck_ds based on hipnotic blocker_use
@@ -394,6 +401,7 @@ void() play_bfield =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
       setorigin( self, self.origin + '8000 8000 8000' );
@@ -411,6 +419,10 @@ void() play_bfield =
 void() brlight_use =
 {
   self.effects = self.effects | EF_BRIGHTLIGHT;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+
 };
 
 void() brlight_toggle = //dumptruck_ds based on hipnotic blocker_use
@@ -438,6 +450,7 @@ void() play_brlight =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
       setorigin( self, self.origin + '8000 8000 8000');
@@ -453,6 +466,9 @@ void() play_brlight =
 void() dimlight_use =
 {
   self.effects = self.effects | EF_DIMLIGHT;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 };
 
 void() dim_toggle = //dumptruck_ds based on hipnotic blocker_use
@@ -479,6 +495,7 @@ void() play_dimlight =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
       // setorigin (self, self.origin);
