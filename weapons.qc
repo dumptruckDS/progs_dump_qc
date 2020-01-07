@@ -513,9 +513,18 @@ void() W_FireLightning =
 //=============================================================================
 
 
-void() GrenadeExplode =
+/*
+================
+GrenadeExplode2
+
+This is the same as the original GrenadeExplode function except that it
+will ignore the entity specified by the "ignore" parameter when dealing
+damage.  -- iw
+================
+*/
+void(entity ignore) GrenadeExplode2 =
 {
-	T_RadiusDamage (self, self.owner, 120, world);
+	T_RadiusDamage (self, self.owner, 120, ignore);
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
@@ -526,19 +535,78 @@ void() GrenadeExplode =
 	BecomeExplosion ();
 };
 
+
+/*
+================
+GrenadeExplode
+
+Refactored.  -- iw
+================
+*/
+void() GrenadeExplode =
+{
+	GrenadeExplode2 (world);
+};
+
+
+/*
+================
+GrenadeTouch
+
+This has been modified to fix a bug in the original code, which is that
+an entity with a very large bounding box (e.g. the size of monster_boss
+or monster_oldone) would receive little or no damage from a grenade
+impact.  (In the original game, this bug didn't really matter because
+the largest DAMAGE_AIM entities were Shambler-sized.)
+
+In the original code, this function simply called GrenadeExplode, which
+called T_RadiusDamage, which deals an amount of damage based on the
+distance to the center of the victim's bounding box.  Therefore, the
+larger the victim's bounding box, the lower the amount of damage that
+a grenade impact could deal.
+
+This modified version of GrenadeTouch adds a hack so that an entity
+which is larger than Shambler-size is treated differently: damage will
+be dealt to it using the same logic as a rocket impact, i.e. T_Damage
+will be called to deal damage to the impacted entity, and then radius
+damage will be dealt to any other entities in the vicinity.  Grenades
+and rockets have always dealt the same amount of radius damage, so
+making the impact damage the same seemed a reasonable solution.
+
+The reason this logic is only used for very large entities is because
+I didn't want to affect the amount of damage that grenades deal to any
+of the original monsters under any circumstances.  -- iw
+================
+*/
 void() GrenadeTouch =
 {
+	local float damg;
+
 	if (other == self.owner)
 		return;		// don't explode on owner
 	if (other.takedamage == DAMAGE_AIM)
 	{
-		GrenadeExplode();
+	// see the explanation above -- iw
+		if (other.size_x > VEC_HULL2_SIZE_x ||
+				other.size_y > VEC_HULL2_SIZE_y ||
+				other.size_z > VEC_HULL2_SIZE_z)
+		{
+		// note that the logic for monster_shambler's partial immunity
+		// to explosions is not required because this is only for
+		// entities which are larger than monster_shambler -- iw
+			damg = 100 + random () * 20;
+			T_Damage (other, self, self.owner, damg);
+			GrenadeExplode2 (other);
+			return;
+		}
+		GrenadeExplode ();
 		return;
 	}
 	sound (self, CHAN_WEAPON, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
 	if (self.velocity == '0 0 0')
 		self.avelocity = '0 0 0';
 };
+
 
 /*
 ================

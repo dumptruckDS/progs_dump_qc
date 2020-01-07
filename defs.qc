@@ -327,9 +327,10 @@ float	STATE_DOWN		= 3;
 vector	VEC_ORIGIN = '0 0 0';
 vector	VEC_HULL_MIN = '-16 -16 -24';
 vector	VEC_HULL_MAX = '16 16 32';
-
+vector	VEC_HULL_SIZE = '32 32 56';
 vector	VEC_HULL2_MIN = '-32 -32 -24';
 vector	VEC_HULL2_MAX = '32 32 64';
+vector	VEC_HULL2_SIZE = '64 64 88';
 
 // protocol bytes
 float	SVC_TEMPENTITY		= 23;
