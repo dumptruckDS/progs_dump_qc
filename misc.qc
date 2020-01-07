@@ -133,6 +133,19 @@ void() FireAmbient =
 // attenuate fast
 	ambientsound (self.origin, "ambience/fire1.wav", 0.5, ATTN_STATIC);
 };
+
+/*QUAKED ambient_fire (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+ambinet fire sound effects added for consistency
+same as FireAmbient
+*/
+void() ambient_fire =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+FireAmbient();
+};
+
 //
 // /*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20)
 // Short wall torch

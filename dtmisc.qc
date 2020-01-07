@@ -191,7 +191,7 @@ Same os tele_fog.
 Use this when killtageting an entity if the player can see.
 
 */
-void() play_tele = //same as tele_fog
+void() play_tele = //same as tele_fog, added for "play_xxxx" consistancy
 {
   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
     return;
@@ -327,7 +327,7 @@ When triggered, plays a gib effect. Same as meat_shower.
 Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
 
 */
-void() play_gibs =  //same as meat_shower
+void() play_gibs =  //same as meat_shower, added for "play_xxxx" consistancy
 {
   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
     return;
@@ -338,11 +338,14 @@ void() play_gibs =  //same as meat_shower
 void() mflash_use =
 {
   self.effects = self.effects | EF_MUZZLEFLASH;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
   // dprint("flash\n");
 };
 
 /*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
-this is a work in progress in ver. 1.1.2 and not exposed in the FGD
+triggable muzzle flash effect entity
 */
 
 void() play_mflash =
@@ -351,6 +354,7 @@ void() play_mflash =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
       setorigin (self, self.origin);
@@ -360,13 +364,35 @@ void() play_mflash =
       self.use = mflash_use;
 };
 
+//
+// play_bfield triggerable effect
+//
+
 void() bfield_use =
 {
   self.effects = self.effects | EF_BRIGHTFIELD;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+};
+
+void() bfield_toggle = //dumptruck_ds based on hipnotic blocker_use
+{
+if ( self.state == 0)
+	{
+		self.state = 1;
+	  setorigin( self, self.origin - '8000 8000 8000');
+	}
+else
+	{
+		self.state = 0;
+	  setorigin( self, self.origin + '8000 8000 8000');
+	}
+    bfield_use();
 };
 
 /*QUAKED play_bfield (0 .5 .8) (-8 -8 -8) (8 8 8)
-
+a triggerable, spherical field of yellow particles
 */
 
 void() play_bfield =
@@ -375,22 +401,47 @@ void() play_bfield =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
-      setorigin (self, self.origin);
+      setorigin( self, self.origin + '8000 8000 8000' );
       self.movetype = MOVETYPE_NONE;
       self.solid = SOLID_NOT;
       setsize (self, '0 0 0', '0 0 0');
-      self.use = bfield_use;
+      self.state = 0;
+      self.use = bfield_toggle;
 };
 
-void() brightl_use =
+//
+// play_brlight triggerable effect
+//
+
+void() brlight_use =
 {
   self.effects = self.effects | EF_BRIGHTLIGHT;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+
+};
+
+void() brlight_toggle = //dumptruck_ds based on hipnotic blocker_use
+{
+if ( self.state == 0)
+	{
+		self.state = 1;
+	  setorigin( self, self.origin - '8000 8000 8000');
+	}
+else
+	{
+		self.state = 0;
+	  setorigin( self, self.origin + '8000 8000 8000');
+	}
+    brlight_use();
 };
 
 /*QUAKED play_brlight (0 .5 .8) (-8 -8 -8) (8 8 8)
-
+a triggerable bright lighting effect
 */
 
 void() play_brlight =
@@ -399,18 +450,25 @@ void() play_brlight =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
-      setorigin (self, self.origin);
+      setorigin( self, self.origin + '8000 8000 8000');
       self.movetype = MOVETYPE_NONE;
       self.solid = SOLID_NOT;
       setsize (self, '0 0 0', '0 0 0');
-      self.use = brightl_use;
+      self.state = 0;
+      self.use = brlight_toggle;
 };
-
+//
+// play_dimlight triggerable effect
+//
 void() dimlight_use =
 {
   self.effects = self.effects | EF_DIMLIGHT;
+
+  if (self.noise != "")
+      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 };
 
 void() dim_toggle = //dumptruck_ds based on hipnotic blocker_use
@@ -437,6 +495,7 @@ void() play_dimlight =
     return;
 
   precache_model ("progs/s_null.spr");
+  if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
       // setorigin (self, self.origin);
