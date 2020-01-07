@@ -79,10 +79,15 @@ void() SetNewParms =
 
 void() DecodeLevelParms =
 {
-	if (serverflags)
+// Reset the player's inventory if they returned to the start map with
+// a rune, or if the mapper set the "reset_items" field of worldspawn to
+// a non-zero value.  (The old "reset_items" check, which this replaces,
+// had a comment from dumptruck_ds thanking Spike.)  -- iw
+//
+	if ((serverflags != 0 && world.model == "maps/start.bsp") ||
+			world.reset_items != 0)
 	{
-		if (world.model == "maps/start.bsp")
-			SetNewParms ();		// take away all stuff on starting new episode
+		SetNewParms ();
 	}
 
 	self.items = parm1;
@@ -549,10 +554,6 @@ void() PutClientInServer =
 	self.wantedgravity = 0;
 	self.onladder = 0;
 
-	if (world.reset_items == 1) //dumptruck_ds thanks to Spike on progs_dump Discord!
-	{
-		SetNewParms();
-	}
 	DecodeLevelParms ();
 
 	W_SetCurrentAmmo ();
