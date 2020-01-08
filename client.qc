@@ -66,23 +66,39 @@ void() SetChangeParms =
 
 void() SetNewParms =
 {
-	parm1 = IT_SHOTGUN | IT_AXE;
-	parm2 = 100;
-	parm3 = 0;
-	parm4 = 25;
-	parm5 = 0;
-	parm6 = 0;
-	parm7 = 0;
-	parm8 = 1;
-	parm9 = 0;
+	parm2 = 100;  // self.health
+	parm3 = 0;    // self.armorvalue
+	parm5 = 0;    // self.ammo_nails
+	parm6 = 0;    // self.ammo_rockets
+	parm7 = 0;    // self.ammo_cells
+	parm9 = 0;    // self.armortype * 100
+
+// "reset_items 2" makes the player start with only the axe -- iw
+	if (world.reset_items == 2)
+	{
+		parm1 = IT_AXE;  // self.items
+		parm4 = 0;       // self.ammo_shells
+		parm8 = IT_AXE;  // self.weapon
+	}
+	else
+	{
+		parm1 = IT_AXE | IT_SHOTGUN;  // self.items
+		parm4 = 25;                   // self.ammo_shells
+		parm8 = IT_SHOTGUN;           // self.weapon
+	}
 };
 
 void() DecodeLevelParms =
 {
-	if (serverflags)
+// Reset the player's inventory if they returned to the start map with
+// a rune, or if the mapper set the "reset_items" field of worldspawn to
+// a non-zero value.  (The old "reset_items" check, which this replaces,
+// had a comment from dumptruck_ds thanking Spike.)  -- iw
+//
+	if ((serverflags != 0 && world.model == "maps/start.bsp") ||
+			world.reset_items != 0)
 	{
-		if (world.model == "maps/start.bsp")
-			SetNewParms ();		// take away all stuff on starting new episode
+		SetNewParms ();
 	}
 
 	self.items = parm1;
@@ -549,10 +565,6 @@ void() PutClientInServer =
 	self.wantedgravity = 0;
 	self.onladder = 0;
 
-	if (world.reset_items == 1) //dumptruck_ds thanks to Spike on progs_dump Discord!
-	{
-		SetNewParms();
-	}
 	DecodeLevelParms ();
 
 	W_SetCurrentAmmo ();

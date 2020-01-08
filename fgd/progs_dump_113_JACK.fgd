@@ -23,8 +23,12 @@
 	light(integer) : "Ambient light"
 	_sunlight(integer) : "Sunlight"
 	_sun_mangle(string) : "Sun mangle (Yaw pitch roll)"
-	reset_items(integer) : "Reset player items on map load" : 0
-
+	reset_items(choices) : "Reset the player's inventory on spawn" : 0 =
+	[
+		0 : "Don't reset the player's inventory"
+		1 : "Reset to shotgun, axe, and 25 shells"
+		2 : "Reset to axe only"
+	]
 ]
 
 //
@@ -96,16 +100,6 @@
 	noise(string) : "noise"
 	touch(string) : "self.touch"
 ]
-//
-// CTF stuff
-//
-
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) =
-    item_flag_team1 : "CTF: Red Team Flag" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) =
-    item_flag_team2 : "CTF: Blue Team Flag" []
-@PointClass base(PlayerClass) = info_player_team1 : "CTF: Red team base start" []
-@PointClass base(PlayerClass) = info_player_team2 : "CTF: Blue team base start" []
 
 @PointClass base(Appearflags) = info_intermission : "Intermission camera" []
 
@@ -113,28 +107,37 @@
 // items
 //
 
-@baseclass base(Appearflags, Target, Targetname) = Item
+@BaseClass base(Appearflags, Target, Targetname) =
+	NonRespawnableItem
 [
+	spawnflags(flags) =
+	[
+		32 : "Spawn silent" : 0
+		64 : "Trigger spawned" : 0
+		128 : "Suspended in air" : 0
+	]
 	message(string) : "Message"
-	target(string) : "Target"
-	killtarget(string) : "Killtarget"
 	delay(integer) : "Delay"
+]
+
+@BaseClass base(NonRespawnableItem) =
+	RespawnableItem
+[
+	spawnflags(flags) =
+	[
+		16384 : "Respawn DM style" : 0
+	]
 	ritem(integer) : "Respawn item?"
 	respawndelay(integer) : "Respawn time"
 	respawncount(integer) : "How many respawns?"
-
 ]
 
-@baseclass size(0 0 0, 32 32 56) color(80 0 200) base(Item) = Ammo
+@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem) =
+	Ammo
 [
 	spawnflags(flags) =
 	[
 		1 : "Large box" : 0
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-
 	]
 ]
 
@@ -143,100 +146,47 @@
 @PointClass base(Ammo) studio("maps/b_shell0.bsp") = item_shells : "Shells" []
 @PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
-@PointClass size(-16 -16 0, 16 16 16) base(Appearflags) studio("maps/b_bh25.bsp") = item_health : "Health pack"
+@PointClass size(0 0 0, 32 32 56) base(RespawnableItem) studio("maps/b_bh25.bsp") =
+	item_health : "Health pack"
 [
 	spawnflags(flags) =
 	[
-	1 : "Rotten" : 0
-	2 : "Megahealth" : 0
-	32 : "Spawn silent" : 0
-	64 : "Trigger Spawned" : 0
-	128 : "Suspended in air" : 0
-	16384 : "Respawn DM style" : 0
+		1 : "Rotten" : 0
+		2 : "Megahealth" : 0
 	]
 ]
 
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/suit.mdl") =
-	item_artifact_envirosuit : "Environmental protection suit" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/quaddama.mdl") =
-	item_artifact_super_damage : "Quad damage" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/invulner.mdl") =
-	item_artifact_invulnerability : "Pentagram of Protection" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) studio("progs/invisibl.mdl") =
-	item_artifact_invisibility : "Ring of Shadows" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
+@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Artifact []
 
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
-	item_armorInv : "Red armor (200%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
-	item_armor2 : "Yellow armor (150%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) studio("progs/armor.mdl") =
-	item_armor1 : "Green armor (100%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/w_s_key.mdl") =
-	item_key1 : "Silver key" [spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/w_g_key.mdl") =
-	item_key2 : "Gold key" [spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-		]
-	]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) studio("progs/end1.mdl") =
+@PointClass base(Artifact) studio("progs/suit.mdl") =
+	item_artifact_envirosuit : "Environmental protection suit" []
+@PointClass base(Artifact) studio("progs/quaddama.mdl") =
+	item_artifact_super_damage : "Quad damage" []
+@PointClass base(Artifact) studio("progs/invulner.mdl") =
+	item_artifact_invulnerability : "Pentagram of Protection" []
+@PointClass base(Artifact) studio("progs/invisibl.mdl") =
+	item_artifact_invisibility : "Ring of Shadows" []
+
+@BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) =
+	Armor []
+
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armorInv : "Red armor (200%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armor2 : "Yellow armor (150%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armor1 : "Green armor (100%)" []
+
+@BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Key []
+
+@PointClass base(Key) studio("progs/w_s_key.mdl") =
+	item_key1 : "Silver key" []
+@PointClass base(Key) studio("progs/w_g_key.mdl") =
+	item_key2 : "Gold key" []
+
+@PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem) studio("progs/end1.mdl") =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =
@@ -252,76 +202,33 @@
 // weapons
 //
 
-@baseclass size(-16 -16 0, 16 16 56) color(0 0 200) base(Item, Appearflags) = Weapon []
+@BaseClass size(-16 -16 0, 16 16 56) color(0 0 200) base(RespawnableItem) =
+	Weapon []
 
 //axe not used in this version
-//@PointClass base(Weapon) studio(progs/g_axe.mdl" }) = weapon_axe : "Axe" [spawnflags(flags) =
-//[
-	//32 : "Spawn silent" : 0
-	//64 : "Trigger Spawned" : 0
-	//128 : "Suspended in air" : 0
-	//16384 : "Respawn DM style" : 0
-//]]
-
-@PointClass base(Weapon) studio("progs/g_shotty.mdl") = weapon_shotgun : "Shotgun" [spawnflags(flags) =
+//@PointClass base(Weapon) studio("progs/g_axe.mdl") =
+//	weapon_axe : "Axe" []
+@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =
+	weapon_shotgun : "Shotgun"
+[
+	spawnflags(flags) =
 	[
-	2 : "metlslime mdl (default)"
-	4 : "Slapmap  mdl"
-	32 : "Spawn silent" : 0
-	64 : "Trigger Spawned" : 0
-	128 : "Suspended in air" : 0
-	16384 : "Respawn DM style" : 0
+		2 : "metlslime mdl (default)"
+		4 : "Slapmap mdl"
 	]
 ]
-
-@PointClass base(Weapon) studio("progs/g_shot.mdl") = weapon_supershotgun : "Double-barrelled shotgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_nail.mdl") = weapon_nailgun : "Nailgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_nail2.mdl") = weapon_supernailgun : "Super nailgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_rock.mdl") = weapon_grenadelauncher : "Grenade launcher" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_rock2.mdl") = weapon_rocketlauncher : "Rocket launcher" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
-@PointClass base(Weapon) studio("progs/g_light.mdl") = weapon_lightning : "Thunderbolt" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]
-]
+@PointClass base(Weapon) studio("progs/g_shot.mdl") =
+	weapon_supershotgun : "Double-barrelled shotgun" []
+@PointClass base(Weapon) studio("progs/g_nail.mdl") =
+	weapon_nailgun : "Nailgun" []
+@PointClass base(Weapon) studio("progs/g_nail2.mdl") =
+	weapon_supernailgun : "Super nailgun" []
+@PointClass base(Weapon) studio("progs/g_rock.mdl") =
+	weapon_grenadelauncher : "Grenade launcher" []
+@PointClass base(Weapon) studio("progs/g_rock2.mdl") =
+	weapon_rocketlauncher : "Rocket launcher" []
+@PointClass base(Weapon) studio("progs/g_light.mdl") =
+	weapon_lightning : "Thunderbolt" []
 
 //
 // badasses
@@ -761,22 +668,22 @@ _color(color255) : "Light color"
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
 @PointClass base(Light) = light_globe : "Globe sprite light" []
 
-@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio(progs/flame2.mdl") =
+@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio("progs/flame2.mdl") =
 	light_flame_large_yellow : "Large yellow flame"
 	[
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
-@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio(progs/candle.mdl") = //dumptruck_ds
+@PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio("progs/candle.mdl") = //dumptruck_ds
 	light_candle : "Candle"
 	[
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
-@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) studio(progs/flame2.mdl") =
+@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) studio("progs/flame2.mdl") =
 	light_flame_small_yellow : "Small yellow flame"
 	[
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
-@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) studio(progs/flame2.mdl") =
+@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) studio("progs/flame2.mdl") =
 	light_flame_small_white : "Small white flame"
 	[
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
@@ -1095,7 +1002,7 @@ Default is 0.3 seconds.
 	speed(integer) : "Speed" : 100
 	sounds(choices) : "Sound" : 0 =
 	[
-        	0: "Silent"
+		0: "Silent"
 		1: "Stone"
 		2: "Machine"
 		3: "Stone Chain"
@@ -1106,13 +1013,18 @@ Default is 0.3 seconds.
 	dmg(integer) : "Damage inflicted when blocked" : 2
 	message(string) : "Message if touched"
 	health(integer) : "Health (shootable)" : 0
+	cnt(choices) : "Leave key in player's inventory?" : 0 =
+	[
+		0 : "Don't leave key in player's inventory"
+		1 : "Leave key in player's inventory"
+	]
 	spawnflags(flags) =
 	[
 		1 : "Starts Open" : 0
 		4 : "Don't link" : 0
 		8 : "Gold Key required" : 0
-        	16: "Silver Key required" : 0
-        	32: "Toggle" : 0
+		16: "Silver Key required" : 0
+		32: "Toggle" : 0
 	]
 ]
 
@@ -1323,7 +1235,7 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 		2 : "Metallic clink"
 		3 : "In-out"
 	]
-	wait(integer) : "Wait before reset" : "1"
+	wait(integer) : "Wait before reset" : 1
 	delay(integer) : "Delay before trigger"
 	message(string) : "Message"
 ]
@@ -1398,7 +1310,6 @@ spawnflags(Flags) =
 	]
 ]
 
-@SolidClass = func_dm_only : "Deathmatch teleporter" []
 @SolidClass = func_illusionary : "Solids can be walked through" []
 
 @SolidClass base(Appearflags) = func_episodegate : "Episode Gate"
@@ -1470,14 +1381,19 @@ spawnflags(Flags) =
 		gravity(integer) : "Gravity : Normal (Default)" : 0
 	]
 
-@SolidClass base(Trigger) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
+@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
 [
-	message(string) : "Health (shootable)"
-	spawnflags(flags) =
-
+	cnt(choices) : "Leave key in player's inventory?" : 0 =
 	[
-		8 : "Silver Key Required" : 8
-	 16 : "Gold Key Required" : 8
+		0 : "Don't leave key in player's inventory"
+		1 : "Leave key in player's inventory"
+	]
+	delay(float) : "Delay before trigger" : 0
+	message(string) : "Custom message"
+	spawnflags(flags) =
+	[
+		8 : "Silver Key Required" : 0
+		16 : "Gold Key Required" : 0
 	]
 ]
 
@@ -1577,7 +1493,7 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 //dumptruck’s additions via Joshua Skelton’s Quake Tools///
 ///////////////////////////////////////////////////////////
 
-@PointClass size(32 32 16) color(255 128 0) /*studio("path" : mdl})*/ = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
+@PointClass size(32 32 16) color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
 
 mdl: The model to display. Can be of type mdl, bsp, or spr.
 frame: Single frame to display. Can also be used to offset the animation.

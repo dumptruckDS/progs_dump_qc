@@ -31,7 +31,12 @@
 	light(integer) : "Ambient light"
 	_sunlight(integer) : "Sunlight"
 	_sun_mangle(string) : "Sun mangle (Yaw pitch roll)"
-	reset_items(integer) : "Reset player items on map load" : 0
+	reset_items(choices) : "Reset the player's inventory on spawn" : 0 =
+	[
+		0 : "Don't reset the player's inventory"
+		1 : "Reset to shotgun, axe, and 25 shells"
+		2 : "Reset to axe only"
+	]
 ]
 
 //
@@ -115,28 +120,37 @@
 // items
 //
 
-@baseclass base(Appearflags, Target, Targetname) = Item
+@BaseClass base(Appearflags, Target, Targetname) =
+	NonRespawnableItem
 [
+	spawnflags(flags) =
+	[
+		32 : "Spawn silent" : 0
+		64 : "Trigger spawned" : 0
+		128 : "Suspended in air" : 0
+	]
 	message(string) : "Message"
-	target(string) : "Target"
-	killtarget(string) : "Killtarget"
 	delay(integer) : "Delay"
+]
+
+@BaseClass base(NonRespawnableItem) =
+	RespawnableItem
+[
+	spawnflags(flags) =
+	[
+		16384 : "Respawn DM style" : 0
+	]
 	ritem(integer) : "Respawn item?"
 	respawndelay(integer) : "Respawn time"
 	respawncount(integer) : "How many respawns?"
-
 ]
 
-@baseclass size(0 0 0, 32 32 56) color(80 0 200) base(Item) = Ammo
+@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem) =
+	Ammo
 [
 	spawnflags(flags) =
 	[
 		1 : "Large box" : 0
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-
 	]
 ]
 
@@ -180,7 +194,7 @@
 
 @PointClass
     size(0 0 0, 32 32 56)
-    base(Item, Appearflags, Itemflags)
+    base(RespawnableItem)
     model(
         {{
             spawnflags & 2 ->   ":maps/b_bh100.bsp",
@@ -194,86 +208,50 @@
 	[
 		1 : "Rotten" : 0
 		2 : "Megahealth" : 0
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
 	]
 ]
 
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/suit.mdl" }) =
-	item_artifact_envirosuit : "Environmental protection suit" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]
-]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/quaddama.mdl" }) =
-	item_artifact_super_damage : "Quad damage" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/invulner.mdl" }) =
-	item_artifact_invulnerability : "Pentagram of Protection" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags, Itemflags) model({ "path": ":progs/invisibl.mdl" }) =
-	item_artifact_invisibility : "Ring of Shadows" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
+@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Artifact []
 
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags, Itemflags) model({ "path": ":progs/armor.mdl", "skin": 2 }) =
-	item_armorInv : "Red armor (200%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags, Itemflags) model({ "path": ":progs/armor.mdl", "skin": 1 }) =
-	item_armor2 : "Yellow armor (150%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags, Itemflags) model({ "path": ":progs/armor.mdl" }) =
-	item_armor1 : "Green armor (100%)" [	spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/w_s_key.mdl" }) =
-	item_key1 : "Silver key" [spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/w_g_key.mdl" }) =
-	item_key2 : "Gold key" [spawnflags(flags) =
-		[
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-		]]
-@PointClass size(-16 -16 -24, 16 16 32) base(Appearflags) model({ "path": ":progs/end1.mdl" }) =
+@PointClass base(Artifact) model({ "path": ":progs/suit.mdl" }) =
+	item_artifact_envirosuit : "Environmental protection suit" []
+@PointClass base(Artifact) model({ "path": ":progs/quaddama.mdl" }) =
+	item_artifact_super_damage : "Quad damage" []
+@PointClass base(Artifact) model({ "path": ":progs/invulner.mdl" }) =
+	item_artifact_invulnerability : "Pentagram of Protection" []
+@PointClass base(Artifact) model({ "path": ":progs/invisibl.mdl" }) =
+	item_artifact_invisibility : "Ring of Shadows" []
+
+@BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) =
+	Armor []
+
+@PointClass base(Armor) model({ "path": ":progs/armor.mdl", "skin": 2 }) =
+	item_armorInv : "Red armor (200%)" []
+@PointClass base(Armor) model({ "path": ":progs/armor.mdl", "skin": 1 }) =
+	item_armor2 : "Yellow armor (150%)" []
+@PointClass base(Armor) model({ "path": ":progs/armor.mdl" }) =
+	item_armor1 : "Green armor (100%)" []
+
+@BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Key []
+
+@PointClass base(Key) model({ "path": ":progs/w_s_key.mdl" }) =
+	item_key1 : "Silver key" []
+@PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
+	item_key2 : "Gold key" []
+
+@PointClass
+	size(-16 -16 -24, 16 16 32)
+	base(NonRespawnableItem)
+	model(
+		{{
+			spawnflags & 8 -> ":progs/end4.mdl",
+			spawnflags & 4 -> ":progs/end3.mdl",
+			spawnflags & 2 -> ":progs/end2.mdl",
+			":progs/end1.mdl"
+		}}
+	) =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =
@@ -289,69 +267,40 @@
 // weapons
 //
 
-@baseclass size(-16 -16 0, 16 16 56) color(0 0 200) base(Item, Appearflags) = Weapon []
+@BaseClass size(-16 -16 0, 16 16 56) color(0 0 200) base(RespawnableItem) =
+	Weapon []
 
 //axe not used in this version
-//@PointClass base(Weapon) model({ "path": ":progs/g_axe.mdl" }) = weapon_axe : "Axe" [spawnflags(flags) =
-	//[
-		//32 : "Spawn silent" : 0
-		//64 : "Trigger Spawned" : 0
-		//128 : "Suspended in air" : 0
-		//16384 : "Respawn DM style" : 0
-	//]]
-
-	@PointClass base(Weapon) model({ "path": ":progs/g_shotgn.mdl" }) = weapon_shotgun : "Shotgun" [spawnflags(flags) =
-		[
-			2 : "metlslime mdl (default)"
-			4 : "Slapmap  mdl"
-			32 : "Spawn silent" : 0
-			64 : "Trigger Spawned" : 0
-			128 : "Suspended in air" : 0
-			16384 : "Respawn DM style" : 0
-		]]
-
-@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) = weapon_supershotgun : "Double-barrelled shotgun" [spawnflags(flags) =
+//@PointClass base(Weapon) model({ "path": ":progs/g_axe.mdl" }) =
+//	weapon_axe : "Axe" []
+@PointClass
+	base(Weapon)
+	model(
+		{{
+			spawnflags & 4 -> ":progs/g_shotty.mdl",
+			":progs/g_shotgn.mdl"
+		}}
+	) =
+	weapon_shotgun : "Shotgun"
+[
+	spawnflags(flags) =
 	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_nail.mdl" }) = weapon_nailgun : "Nailgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_nail2.mdl" }) = weapon_supernailgun : "Super nailgun" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_rock.mdl" }) = weapon_grenadelauncher : "Grenade launcher" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_rock2.mdl" }) = weapon_rocketlauncher : "Rocket launcher" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
-@PointClass base(Weapon) model({ "path": ":progs/g_light.mdl" }) = weapon_lightning : "Thunderbolt" [spawnflags(flags) =
-	[
-		32 : "Spawn silent" : 0
-		64 : "Trigger Spawned" : 0
-		128 : "Suspended in air" : 0
-		16384 : "Respawn DM style" : 0
-	]]
+		2 : "metlslime mdl (default)"
+		4 : "Slapmap mdl"
+	]
+]
+@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) =
+	weapon_supershotgun : "Double-barrelled shotgun" []
+@PointClass base(Weapon) model({ "path": ":progs/g_nail.mdl" }) =
+	weapon_nailgun : "Nailgun" []
+@PointClass base(Weapon) model({ "path": ":progs/g_nail2.mdl" }) =
+	weapon_supernailgun : "Super nailgun" []
+@PointClass base(Weapon) model({ "path": ":progs/g_rock.mdl" }) =
+	weapon_grenadelauncher : "Grenade launcher" []
+@PointClass base(Weapon) model({ "path": ":progs/g_rock2.mdl" }) =
+	weapon_rocketlauncher : "Rocket launcher" []
+@PointClass base(Weapon) model({ "path": ":progs/g_light.mdl" }) =
+	weapon_lightning : "Thunderbolt" []
 
 //
 // monsters
@@ -1020,7 +969,7 @@ spawnflags(Flags) =
 	speed(integer) : "Speed" : 100
 	sounds(choices) : "Sound" : 0 =
 	[
-        	0: "Silent"
+		0: "Silent"
 		1: "Stone"
 		2: "Machine"
 		3: "Stone Chain"
@@ -1031,13 +980,18 @@ spawnflags(Flags) =
 	dmg(integer) : "Damage inflicted when blocked" : 2
 	message(string) : "Message if touched"
 	health(integer) : "Health (shootable)" : 0
+	cnt(choices) : "Leave key in player's inventory?" : 0 =
+	[
+		0 : "Don't leave key in player's inventory"
+		1 : "Leave key in player's inventory"
+	]
 	spawnflags(flags) =
 	[
 		1 : "Starts Open" : 0
 		4 : "Don't link" : 0
 		8 : "Gold Key required" : 0
-        	16: "Silver Key required" : 0
-        	32: "Toggle" : 0
+		16: "Silver Key required" : 0
+		32: "Toggle" : 0
 	]
 ]
 
@@ -1397,14 +1351,19 @@ gravity = what to set the players gravity to
 	gravity(integer) : "Gravity : Normal (Default)" : 0
 ]
 
-@SolidClass base(Trigger) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
+@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
 [
-	message(string) : "Health (shootable)"
+	cnt(choices) : "Leave key in player's inventory?" : 0 =
+	[
+		0 : "Don't leave key in player's inventory"
+		1 : "Leave key in player's inventory"
+	]
+	delay(float) : "Delay before trigger" : 0
+	message(string) : "Custom message"
 	spawnflags(flags) =
-
 	[
 		8 : "Silver Key Required" : 0
-	 	16 : "Gold Key Required" : 0
+		16 : "Gold Key Required" : 0
 	]
 ]
 

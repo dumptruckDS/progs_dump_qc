@@ -213,6 +213,11 @@ World Types:
 0: medieval
 1: metal
 2: base
+
+Optionally set reset_items to one of the following values:
+0: don't reset the player's inventory
+1: reset to shotgun, axe, and 25 shells
+2: reset to axe only
 */
 //=======================
 void() worldspawn =
