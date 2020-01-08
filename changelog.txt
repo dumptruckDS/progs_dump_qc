@@ -9,6 +9,7 @@
 * Added play_tele for consistency (same as tele_fog)
 * Added ambient_fire sound effect for consistency (same as AmbientFire)
 * Added custom noise field to some play_ entities
+* Fixed id1 DAMAGE_AIM bug in Shub and Chthon (iw)
 
 1.1.2 October 2019
 
