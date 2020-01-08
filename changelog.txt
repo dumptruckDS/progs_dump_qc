@@ -10,6 +10,8 @@
 * Added ambient_fire sound effect for consistency (same as AmbientFire)
 * Added custom noise field to some play_ entities
 * Fixed id1 DAMAGE_AIM bug in Shub and Chthon (iw)
+* Multiple fixes and optimizations to FGDs (iw)
+* Added reset_items 2 to worldspawn for axe only start (iw)
 
 1.1.2 October 2019
 
