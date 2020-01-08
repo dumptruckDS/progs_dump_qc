@@ -341,7 +341,6 @@ void() mflash_use =
 
   if (self.noise != "")
       sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-  // dprint("flash\n");
 };
 
 /*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
@@ -368,31 +367,25 @@ void() play_mflash =
 // play_bfield triggerable effect
 //
 
-void() bfield_use =
+void() bfield_toggle =
 {
-  self.effects = self.effects | EF_BRIGHTFIELD;
-
-  if (self.noise != "")
-      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-};
-
-void() bfield_toggle = //dumptruck_ds based on hipnotic blocker_use
-{
-if ( self.state == 0)
-	{
-		self.state = 1;
-	  setorigin( self, self.origin - '8000 8000 8000');
-	}
-else
-	{
-		self.state = 0;
-	  setorigin( self, self.origin + '8000 8000 8000');
-	}
-    bfield_use();
+    if (!self.state)
+    {
+        self.state = 1;
+        self.effects = self.effects | EF_BRIGHTFIELD;
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
+    else
+    {
+        self.state = 0;
+        self.effects = self.effects - (self.effects & EF_BRIGHTFIELD);
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
 };
 
 /*QUAKED play_bfield (0 .5 .8) (-8 -8 -8) (8 8 8)
 a triggerable, spherical field of yellow particles
+state 1 = start on
 */
 
 void() play_bfield =
@@ -404,11 +397,12 @@ void() play_bfield =
   if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
-      setorigin( self, self.origin + '8000 8000 8000' );
+      setorigin( self, self.origin);
       self.movetype = MOVETYPE_NONE;
       self.solid = SOLID_NOT;
       setsize (self, '0 0 0', '0 0 0');
-      self.state = 0;
+      if (self.state)
+        self.effects = self.effects | EF_BRIGHTFIELD;
       self.use = bfield_toggle;
 };
 
@@ -416,32 +410,25 @@ void() play_bfield =
 // play_brlight triggerable effect
 //
 
-void() brlight_use =
+void() brlight_toggle = //dumptruck_ds -- thanks to c0burn
 {
-  self.effects = self.effects | EF_BRIGHTLIGHT;
-
-  if (self.noise != "")
-      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-
-};
-
-void() brlight_toggle = //dumptruck_ds based on hipnotic blocker_use
-{
-if ( self.state == 0)
-	{
-		self.state = 1;
-	  setorigin( self, self.origin - '8000 8000 8000');
-	}
-else
-	{
-		self.state = 0;
-	  setorigin( self, self.origin + '8000 8000 8000');
-	}
-    brlight_use();
+    if (!self.state)
+    {
+        self.state = 1;
+        self.effects = self.effects | EF_BRIGHTLIGHT;
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
+    else
+    {
+        self.state = 0;
+        self.effects = self.effects - (self.effects & EF_BRIGHTLIGHT);
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
 };
 
 /*QUAKED play_brlight (0 .5 .8) (-8 -8 -8) (8 8 8)
 a triggerable bright lighting effect
+state 1 = start on
 */
 
 void() play_brlight =
@@ -453,42 +440,38 @@ void() play_brlight =
   if (self.noise != "") precache_sound (self.noise);
 
       setmodel (self, "progs/s_null.spr");
-      setorigin( self, self.origin + '8000 8000 8000');
+      setorigin (self, self.origin);
       self.movetype = MOVETYPE_NONE;
       self.solid = SOLID_NOT;
       setsize (self, '0 0 0', '0 0 0');
-      self.state = 0;
+      if (self.state)
+        self.effects = self.effects | EF_BRIGHTLIGHT;
       self.use = brlight_toggle;
 };
 //
 // play_dimlight triggerable effect
 //
-void() dimlight_use =
+void() dim_toggle =
 {
-  self.effects = self.effects | EF_DIMLIGHT;
-
-  if (self.noise != "")
-      sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-};
-
-void() dim_toggle = //dumptruck_ds based on hipnotic blocker_use
-{
-if ( self.state == 0)
-	{
-		self.state = 1;
-	  setorigin( self, self.origin - '8000 8000 8000');
-	}
-else
-	{
-		self.state = 0;
-	  setorigin( self, self.origin + '8000 8000 8000');
-	}
-    dimlight_use();
+    if (!self.state)
+    {
+        self.state = 1;
+        self.effects = self.effects | EF_DIMLIGHT;
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
+    else
+    {
+        self.state = 0;
+        self.effects = self.effects - (self.effects & EF_DIMLIGHT);
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    }
 };
 
 /*QUAKED play_dimlight (0 .5 .8) (-8 -8 -8) (8 8 8)
-
+a triggerable lighting effect
+state 1 = start on
 */
+
 void() play_dimlight =
 {
   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -502,8 +485,9 @@ void() play_dimlight =
       self.movetype = MOVETYPE_NONE;
       self.solid = SOLID_NOT;
       setsize (self, '0 0 0', '0 0 0');
-      self.state = 0;
-      setorigin( self, self.origin + '8000 8000 8000' );
+      if (self.state)
+        self.effects = self.effects | EF_DIMLIGHT;
+      setorigin (self, self.origin);
       self.use = dim_toggle;
 };
 
