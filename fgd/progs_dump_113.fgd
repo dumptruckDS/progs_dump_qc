@@ -31,7 +31,12 @@
 	light(integer) : "Ambient light"
 	_sunlight(integer) : "Sunlight"
 	_sun_mangle(string) : "Sun mangle (Yaw pitch roll)"
-	reset_items(integer) : "Reset player items on map load" : 0
+	reset_items(choices) : "Reset the player's inventory on spawn" : 0 =
+	[
+		0 : "Don't reset the player's inventory"
+		1 : "Reset to shotgun, axe, and 25 shells"
+		2 : "Reset to axe only"
+	]
 ]
 
 //
