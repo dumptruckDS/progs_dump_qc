@@ -1061,6 +1061,13 @@ void() W_ChangeWeapon =
 		if (self.ammo_cells < 1)
 			am = 1;
 	}
+	else
+	{
+		dprint ("WARNING: W_ChangeWeapon: bad impulse: ");
+		dprint (ftos (self.impulse));
+		dprint ("\n");
+		return;
+	}
 
 	self.impulse = 0;
 
