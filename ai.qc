@@ -295,7 +295,12 @@ local float	rsnd;
 	else if (self.classname == "monster_zombie")
 		sound (self, CHAN_VOICE, "zombie/z_idle.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_dog")
-		sound (self, CHAN_VOICE, "dog/dsight.wav", 1, ATTN_NORM);
+		{
+			if (self.snd_sight != "") //custom monster sounds -- dumptruck_ds
+		  	sound (self, CHAN_AUTO, self.snd_sight, 1, ATTN_NORM);
+			else
+				sound (self, CHAN_VOICE, "dog/dsight.wav", 1, ATTN_NORM);
+		}
 	else if (self.classname == "monster_hell_knight")
 		sound (self, CHAN_VOICE, "hknight/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_tarbaby")
@@ -313,7 +318,12 @@ local float	rsnd;
 			sound (self, CHAN_VOICE, "enforcer/sight4.wav", 1, ATTN_NORM);
 	}
 	else if (self.classname == "monster_army")
-		sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
+	{
+		if (self.snd_sight != "") //custom monster sounds -- dumptruck_ds
+			sound (self, CHAN_AUTO, self.snd_sight, 1, ATTN_NORM);
+		else
+			sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
+	}
 	else if (self.classname == "monster_shalrath")
 		sound (self, CHAN_VOICE, "shalrath/sight.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_oldone2")  //dumptruck_ds added Shub sighting SFX

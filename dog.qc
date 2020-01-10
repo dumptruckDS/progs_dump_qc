@@ -113,7 +113,16 @@ void() dog_stand9	=[	$stand9,	dog_stand1	] {ai_stand();};
 
 void() dog_walk1	=[	$walk1 ,	dog_walk2	] {
 if (random() < 0.2)
+	{
+		if (self.snd_idle != "") //custom monster sounds -- dumptruck_ds
+		{
+			sound (self, CHAN_VOICE, self.snd_idle, 1, ATTN_IDLE); //custom monster sounds -- dumptruck_ds
+		}
+else
+		{
 	sound (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE);
+		}
+	}
 ai_walk(8);};
 void() dog_walk2	=[	$walk2 ,	dog_walk3	] {ai_walk(8);};
 void() dog_walk3	=[	$walk3 ,	dog_walk4	] {ai_walk(8);};
@@ -124,8 +133,17 @@ void() dog_walk7	=[	$walk7 ,	dog_walk8	] {ai_walk(8);};
 void() dog_walk8	=[	$walk8 ,	dog_walk1	] {ai_walk(8);};
 
 void() dog_run1		=[	$run1  ,	dog_run2	] {
-if (random() < 0.2)
-	sound (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE);
+	if (random() < 0.2)
+		{
+			if (self.snd_idle != "") //custom monster sounds -- dumptruck_ds
+			{
+				sound (self, CHAN_VOICE, self.snd_idle, 1, ATTN_IDLE);
+			}
+	else
+			{
+		sound (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE);
+			}
+		}
 ai_run(16);};
 void() dog_run2		=[	$run2  ,	dog_run3	] {ai_run(32);};
 void() dog_run3		=[	$run3  ,	dog_run4	] {ai_run(32);};
@@ -143,6 +161,9 @@ void() dog_atta1	=[	$attack1,	dog_atta2	] {ai_charge(10);};
 void() dog_atta2	=[	$attack2,	dog_atta3	] {ai_charge(10);};
 void() dog_atta3	=[	$attack3,	dog_atta4	] {ai_charge(10);};
 void() dog_atta4	=[	$attack4,	dog_atta5	] {
+	if (self.snd_attack != "") 						//custom monster sounds -- dumptruck_ds
+	  sound (self, CHAN_VOICE, self.snd_attack, 1, ATTN_NORM);
+	else
 sound (self, CHAN_VOICE, "dog/dattack1.wav", 1, ATTN_NORM);
 dog_bite();};
 void() dog_atta5	=[	$attack5,	dog_atta6	] {ai_charge(10);};
@@ -197,7 +218,10 @@ void() dog_painb16	=[	$painb16 ,	dog_run1	] {};
 
 void(entity attacker, float damage) dog_pain =
 {
-	sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
+	if (self.snd_pain != "") //custom monster sounds -- dumptruck_ds
+	  sound (self, CHAN_VOICE, self.snd_pain, 1, ATTN_NORM);
+	else
+		sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
 
 	if (random() > 0.5)
 		dog_pain1 ();
@@ -240,6 +264,9 @@ void() dog_die =
 	}
 
 // regular death
+	if (self.snd_death != "") //custom monster sounds -- dumptruck_ds
+	  sound (self, CHAN_VOICE, self.snd_death, 1, ATTN_NORM);
+	else
 	sound (self, CHAN_VOICE, "dog/ddeath.wav", 1, ATTN_NORM);
 	self.solid = SOLID_NOT;
 
@@ -339,10 +366,15 @@ void() monster_dog =
 	precache_model ("progs/h_dog.mdl");
 	precache_model ("progs/dog.mdl");
 
+	if (self.snd_attack != "") precache_sound (self.snd_attack); //custom monster sounds -- dumptruck_ds
 	precache_sound ("dog/dattack1.wav");
+	if (self.snd_death != "") precache_sound (self.snd_death); //custom monster sounds -- dumptruck_ds
 	precache_sound ("dog/ddeath.wav");
+	if (self.snd_pain != "") precache_sound (self.snd_pain); //custom monster sounds -- dumptruck_ds
 	precache_sound ("dog/dpain1.wav");
+	if (self.snd_sight != "") precache_sound (self.snd_sight); //custom monster sounds -- dumptruck_ds
 	precache_sound ("dog/dsight.wav");
+	if (self.snd_idle != "") precache_sound (self.snd_idle); //custom monster sounds -- dumptruck_ds
 	precache_sound ("dog/idle.wav");
 
 	self.solid = SOLID_SLIDEBOX;
@@ -351,7 +383,7 @@ void() monster_dog =
 	setmodel (self, "progs/dog.mdl");
 
 	setsize (self, '-32 -32 -24', '32 32 40');
-	
+
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 25;
 

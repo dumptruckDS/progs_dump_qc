@@ -1,0 +1,18 @@
+
+//in logic
+sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+
+
+//in spawn
+if (self.noise != "") precache_sound (self.noise);
+
+
+//in animation
+{
+if (self.snd_death != "")
+  sound (self, CHAN_AUTO, self.snd_death, 1, ATTN_NORM);
+else
+}
+
+
+//custom monster sounds -- dumptruck_ds
