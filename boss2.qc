@@ -220,15 +220,12 @@ void() GibBoss2 =
 
 	head = spawn();
 	head.origin = self.origin;
-	head.velocity_z = 300;
-	head.velocity_x = -300;
-	// head.velocity_x = -300 + (random() * 200);
-	head.velocity_y = -300;
-	// head.velocity_y = -300 + (random() * 200);
+	head.velocity_z = 600; + (random() * 200);
+	head.velocity_x = -300 + (random() * 600);
+	head.velocity_y = -200 + (random() * 600);
 	head.avelocity_x = random()*120;
 	head.avelocity_y = random()*120;
 	head.avelocity_z = random()*120;
-
 	head.flags = self.flags - (self.flags & FL_ONGROUND);
 	head.solid = SOLID_NOT;
 	head.movetype = MOVETYPE_BOUNCE;
@@ -240,10 +237,10 @@ void() GibBoss2 =
 	head.nextthink = time + 120;
 
 
-killed_monsters = killed_monsters + 1;
+// killed_monsters = killed_monsters + 1; //alreay done in combat.qc since this is now FL_MONSTER
 WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
-WriteByte (MSG_ALL, SVC_KILLEDMONSTER);
+// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //alreay done in combat.qc since this is now FL_MONSTER
 WriteCoord (MSG_BROADCAST, self.origin_x);
 WriteCoord (MSG_BROADCAST, self.origin_y);
 WriteCoord (MSG_BROADCAST, self.origin_z);
@@ -262,6 +259,7 @@ void() boss2_die =
 	else // otherwise
 	{
 		boss2_death1 (); // normal death
+		return;
 	}
 };
 
