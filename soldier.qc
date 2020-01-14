@@ -227,7 +227,7 @@ void()	army_die10	=[	$death10,	army_die10	] {};
 void()	army_cdie1	=[	$deathc1,	army_cdie2	] {};
 void()	army_cdie2	=[	$deathc2,	army_cdie3	] {ai_back(5);};
 void()	army_cdie3	=[	$deathc3,	army_cdie4	]
-{self.solid = SOLID_NOT;	
+{self.solid = SOLID_NOT;
 	if (self.style2 == 1)
 	{
 		self.ammo_rockets = 2;
@@ -309,7 +309,10 @@ void() monster_army =
 	self.th_walk = army_walk1;
 	self.th_run = army_run1;
 	self.th_missile = army_atk1;
+	if !(self.style2) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = army_pain;
+	else
+	self.th_pain = SUB_Null; //end dumptruck_ds
 	self.th_die = army_die;
 
 	walkmonster_start ();
