@@ -2,8 +2,8 @@
 
 * Added skins to debris.mdl for a total of 32 built-in, commonly used textures
 * Added pd_pop2.wav to sound\oldone2 for Shub pain sound effect
-* Added oldone2.qc for killable Shub entity
-* Added boss2.qc for killable Chthon
+* Added oldone2.qc for killable Shub entity (now gib-able)
+* Added boss2.qc for killable Chthon (now gib-able)
 * Added play_brlight, play_dimlight, play_mflash, play_bfield effects
 * Added play_gibs for consistency (same as meat_shower)
 * Added play_tele for consistency (same as tele_fog)

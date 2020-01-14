@@ -205,7 +205,7 @@ void() GibBoss2 =
 					ThrowGib ("progs/gib1.mdl", -120);
 				else if (r < 0.5)
 					ThrowGib ("progs/gib2.mdl", -120);
-				else if (r < 0.6)
+				else if (r < 0.7)
 					ThrowGib ("progs/lavaball.mdl", -120);
 				else
 					ThrowGib ("progs/gib3.mdl", -120);
@@ -219,7 +219,7 @@ void() GibBoss2 =
 	local entity head;
 
 	head = spawn();
-	head.origin = self.origin;
+	head.origin = self.origin + '0 0 128';
 	head.velocity_z = 600; + (random() * 200);
 	head.velocity_x = -300 + (random() * 600);
 	head.velocity_y = -200 + (random() * 600);
@@ -237,10 +237,10 @@ void() GibBoss2 =
 	head.nextthink = time + 120;
 
 
-// killed_monsters = killed_monsters + 1; //alreay done in combat.qc since this is now FL_MONSTER
+// killed_monsters = killed_monsters + 1; //already done in combat.qc since this is now FL_MONSTER
 WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
-// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //alreay done in combat.qc since this is now FL_MONSTER
+// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //already done in combat.qc since this is now FL_MONSTER -- dumptruck_ds
 WriteCoord (MSG_BROADCAST, self.origin_x);
 WriteCoord (MSG_BROADCAST, self.origin_y);
 WriteCoord (MSG_BROADCAST, self.origin_z);
@@ -251,7 +251,7 @@ remove (self);
 
 void() boss2_die =
 {
-	if (self.health < -1) // if health under -15
+	if (self.health < -50) // if health under -15
 	{
 		GibBoss2 ();
 		return;
