@@ -361,9 +361,49 @@ void() T_MissileTouch =
 	WriteCoord (MSG_BROADCAST, self.origin_z);
 
 	BecomeExplosion ();
+	
+};
+//dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
+
+void() T_GruntMisTouch =
+{
+	local float	damg;
+
+	if (other == self.owner)
+		return;		// don't explode on owner
+
+	if (pointcontents(self.origin) == CONTENT_SKY)
+	{
+		remove(self);
+		return;
+	}
+
+	damg = 10 + random()*2; //dumptruck_ds
+
+	if (other.health)
+	{
+		if (other.classname == "monster_shambler")
+			damg = damg * 0.5;	// mostly immune
+		T_Damage (other, self, self.owner, damg );
+	}
+
+	// don't do radius damage to the other, because all the damage
+	// was done in the impact
+	T_RadiusDamage (self, self.owner, 10, other); //dumptruck_ds
+
+//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
+	self.origin = self.origin - 8*normalize(self.velocity);
+
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+
+	BecomeExplosion ();
 };
 
-
+//dumptruck_ds end
 
 /*
 ================
@@ -403,6 +443,51 @@ void() W_FireRocket =
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin + v_forward*8 + '0 0 16');
 };
+/*
+================
+W_GruntRocket //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
+================
+*/
+void() W_GruntRocket =
+{
+	local	entity missile;
+
+	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
+
+	sound (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
+
+	self.punchangle_x = -2;
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_FLYMISSILE;
+	missile.solid = SOLID_BBOX;
+	missile.classname = "missile";
+
+// set missile speed  -- dumptruck_ds below
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+  missile.velocity = missile.velocity * 600;
+  missile.angles = vectoangles(missile.velocity);
+  missile.touch = T_GruntMisTouch;
+
+	// makevectors (self.v_angle);
+	// missile.velocity = aim(self, 1000);
+	// missile.velocity = missile.velocity * 1000;
+	// missile.angles = vectoangles(missile.velocity);
+
+	// missile.touch = T_MissileTouch;
+
+// set missile duration
+	missile.nextthink = time + 5;
+	missile.think = SUB_Remove;
+
+	setmodel (missile, "progs/missile.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin + v_forward*8 + '0 0 16');
+};
+
+//end dumptruck_ds grunt missle end
 
 /*
 ===============================================================================
@@ -664,7 +749,7 @@ void(float ox) W_FireSpikes =
 	launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
 
 	self.punchangle_x = -2;
-	
+
 	};
 
 
