@@ -231,7 +231,8 @@ void() GibBoss2 =
 	head.movetype = MOVETYPE_BOUNCE;
 	head.takedamage = DAMAGE_NO;
 	setmodel (head, "progs/h_boss.mdl");
-	setsize (head, '-16 -16 0', '16 16 56');
+	setsize (head, '-67 -60 -6', '62 52 88');
+	// setsize (head, '-16 -16 0', '16 16 56');
 	head.touch = SUB_Null;
 	head.think = SUB_Remove;
 	head.nextthink = time + 120;
