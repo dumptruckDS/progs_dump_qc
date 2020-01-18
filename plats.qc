@@ -337,6 +337,21 @@ void() func_train =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+// Some of the stock id1 maps (at least e2m7, e3m3, and e3m6) contain
+// one or more func_train entities which have spawnflag 1 erroneously
+// set.  In the id1 progs.dat, spawnflag 1 didn't do anything, but in
+// progs_dump it does: it's the "RETRIGGER" spawnflag.  So, if one of
+// the id1 maps is being played, we clear this spawnflag to maintain the
+// original behavior.  -- iw
+//
+	if (known_release == KNOWN_RELEASE_ID1 &&
+			(self.spawnflags & TRAIN_RETRIGGER))
+	{
+		dprint ("WARNING: progs.dat sanitized 'RETRIGGER' spawnflag of func_train\n");
+		self.spawnflags = self.spawnflags -
+				(self.spawnflags & TRAIN_RETRIGGER);
+	}
+
 	if (!self.speed)
 		self.speed = 100;
 	if (!self.target)
