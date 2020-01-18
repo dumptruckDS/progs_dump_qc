@@ -171,6 +171,49 @@ void() DetectKnownRelease =
 	known_release = KNOWN_RELEASE_NOT;
 	release_name = "";
 
+	if (mapname == "dm1" ||
+		mapname == "dm2" ||
+		mapname == "dm3" ||
+		mapname == "dm4" ||
+		mapname == "dm5" ||
+		mapname == "dm6" ||
+		mapname == "e1m1" ||
+		mapname == "e1m2" ||
+		mapname == "e1m3" ||
+		mapname == "e1m4" ||
+		mapname == "e1m5" ||
+		mapname == "e1m6" ||
+		mapname == "e1m7" ||
+		mapname == "e1m8" ||
+		mapname == "e2m1" ||
+		mapname == "e2m2" ||
+		mapname == "e2m3" ||
+		mapname == "e2m4" ||
+		mapname == "e2m5" ||
+		mapname == "e2m6" ||
+		mapname == "e2m7" ||
+		mapname == "e3m1" ||
+		mapname == "e3m2" ||
+		mapname == "e3m3" ||
+		mapname == "e3m4" ||
+		mapname == "e3m5" ||
+		mapname == "e3m6" ||
+		mapname == "e3m7" ||
+		mapname == "e4m1" ||
+		mapname == "e4m2" ||
+		mapname == "e4m3" ||
+		mapname == "e4m4" ||
+		mapname == "e4m5" ||
+		mapname == "e4m6" ||
+		mapname == "e4m7" ||
+		mapname == "e4m8" ||
+		mapname == "end" ||
+		(mapname == "start" && world.message == "Introduction"))
+	{
+		known_release = KNOWN_RELEASE_ID1;
+		release_name = "id1";
+	}
+
 	if (mapname == "jamx_artistical" ||
 		mapname == "jamx_bloodshot" ||
 		mapname == "jamx_fw" ||
@@ -194,9 +237,9 @@ void() DetectKnownRelease =
 
 	if (release_name != "")
 	{
-		dprint ("WARNING: ");
+		dprint ("WARNING: progs.dat detected a map from ");
 		dprint (release_name);
-		dprint (" map detected, behaving compatibly\n");
+		dprint (", attempting to behave compatibly\n");
 	}
 };
 
