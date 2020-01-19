@@ -23,7 +23,6 @@ $frame shake15 shake16 shake17 shake18 shake19 shake20
 
 void() shub_face =
 {
-
 // go for another player if multi player
 	if (self.enemy.health <= 0 || random() < 0.02)
 	{
@@ -113,7 +112,7 @@ void(vector p) shub_missile =
 
 	vec = normalize (d - org);
 
-  particle (org, '0 0 0', 239, 64);
+	particle (org, '0 0 0', 239, 64);
 	launch_spike (org, vec);
 	setmodel (newmis, "progs/lavaball.mdl");
 	newmis.avelocity = '200 100 300';
@@ -175,7 +174,7 @@ void() old2_attk44       =[      $old44, old2_attk45      ] {shub_face();};
 void() old2_attk45       =[      $old45, old2_attk46      ] {shub_missile('0 -16 416');};
 void() old2_attk46       =[      $old46, old2_attk1       ] {shub_face();};
 //death twitch --dumptruck_ds
-void() old2_twitch1        =[ 		 $shake1,  old2_twitch2       ] {sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
+void() old2_twitch1        =[      $shake1,  old2_twitch2       ] {sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
 void() old2_twitch2        =[      $shake2,  old2_twitch3       ] {};
 void() old2_twitch3        =[      $shake3,  old2_twitch4       ] {};
 void() old2_twitch4        =[      $shake4,  old2_twitch5       ] {};
@@ -202,16 +201,16 @@ void() old2_twitch24       =[      $shake20, old2_twitch25      ] {};
 void() old2_twitch25       =[      $shake17, old2_twitch26      ] {};
 void() old2_twitch26       =[      $shake18, old2_twitch27      ] {};
 void() old2_twitch27       =[      $shake19, old2_twitch28      ] {};
-void() old2_twitch28       =[      $shake20, oldone2_die     ] {};
+void() old2_twitch28       =[      $shake20, oldone2_die        ] {};
 
 void(entity attacker, float damage) oldone2_pain =
 {
 	if (self.pain_finished > time)
 		return;
 
-		sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
-		old2_attk1();
-		self.pain_finished = time + 4;
+	sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
+	old2_attk1();
+	self.pain_finished = time + 4;
 };
 
 void() oldone2_die =
@@ -290,12 +289,12 @@ void() monster_oldone2 =
 	setsize (self, '-160 -128 -24', '160 128 256');
 
 	if (!self.health)
-		{
-			if (skill == 0)
-				self.health = 1000;
-			else
-				self.health = 3000;
-		}
+	{
+		if (skill == 0)
+			self.health = 1000;
+		else
+			self.health = 3000;
+	}
 
 	self.flags = FL_MONSTER;
 	self.think = old2_idle1;
