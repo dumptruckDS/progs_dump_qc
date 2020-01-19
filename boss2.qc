@@ -358,6 +358,13 @@ void() boss2_awake =
 		else
 			self.health = 3000;
 	}
+
+// note that self.th_run has to be set in order to avoid a "NULL
+// function" Host_Error in the case where T_Damage() calls
+// FoundTarget(), which calls HuntTarget(), which uses self.th_run as
+// the next self.think -- iw
+	self.th_run = boss2_missile1;
+
 	self.th_pain = boss2_pain_go;
 	self.th_die = boss2_die;
 	self.enemy = activator;
