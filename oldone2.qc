@@ -252,10 +252,6 @@ void() oldone2_die =
 	particle (oldo, '128 128 128', 0, 255);
 	sound (self, CHAN_VOICE, "player/teledth1.wav", 1, ATTN_NONE);
 
-	killed_monsters = killed_monsters + 1;
-	WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// FIXME: reliable broadcast
-	SUB_UseTargets ();
-
 	remove (self);
 }
 
