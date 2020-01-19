@@ -244,7 +244,6 @@ void() GibBoss2 =
 	WriteCoord (MSG_BROADCAST, self.origin_x);
 	WriteCoord (MSG_BROADCAST, self.origin_y);
 	WriteCoord (MSG_BROADCAST, self.origin_z);
-	SUB_UseTargets ();
 	remove (self);
 };
 
@@ -294,9 +293,12 @@ void(entity attacker, float damage) boss2_pain_go =
 
 void() boss2_death10 = [$death9, boss2_death10]
 {
-	killed_monsters = killed_monsters + 1;
-	WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// FIXME: reliable broadcast
-	SUB_UseTargets ();
+// unlike the code for the original monster_boss, this function doesn't
+// need to increment killed_monsters or call SUB_UseTargets(); this
+// entity gets killed by regular damage and has FL_MONSTER, so the
+// Killed() function (in combat.qc) will already have taken care of
+// those things -- iw
+
 	remove (self);
 };
 
