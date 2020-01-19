@@ -35,55 +35,6 @@ void() shub_face =
 };
 
 
-// CHANGE BEGINS HERE -- iw
-
-//void() old2_idle1        =[      $old1,  old2_idle2       ] {};
-//void() old2_idle2        =[      $old2,  old2_idle3       ] {};
-//void() old2_idle3        =[      $old3,  old2_idle4       ] {};
-//void() old2_idle4        =[      $old4,  old2_idle5       ] {};
-//void() old2_idle5        =[      $old5,  old2_idle6       ] {};
-//void() old2_idle6        =[      $old6,  old2_idle7       ] {};
-//void() old2_idle7        =[      $old7,  old2_idle8       ] {};
-//void() old2_idle8        =[      $old8,  old2_idle9       ] {};
-//void() old2_idle9        =[      $old9,  old2_idle10      ] {};
-//void() old2_idle10       =[      $old10, old2_idle11      ] {};
-//void() old2_idle11       =[      $old11, old2_idle12      ] {};
-//void() old2_idle12       =[      $old12, old2_idle13      ] {};
-//void() old2_idle13       =[      $old13, old2_idle14      ] {};
-//void() old2_idle14       =[      $old14, old2_idle15      ] {};
-//void() old2_idle15       =[      $old15, old2_idle16      ] {};
-//void() old2_idle16       =[      $old16, old2_idle17      ] {};
-//void() old2_idle17       =[      $old17, old2_idle18      ] {};
-//void() old2_idle18       =[      $old18, old2_idle19      ] {};
-//void() old2_idle19       =[      $old19, old2_idle20      ] {};
-//void() old2_idle20       =[      $old20, old2_idle21      ] {};
-//void() old2_idle21       =[      $old21, old2_idle22      ] {};
-//void() old2_idle22       =[      $old22, old2_idle23      ] {};
-//void() old2_idle23       =[      $old23, old2_idle24      ] {};
-//void() old2_idle24       =[      $old24, old2_idle25      ] {};
-//void() old2_idle25       =[      $old25, old2_idle26      ] {};
-//void() old2_idle26       =[      $old26, old2_idle27      ] {};
-//void() old2_idle27       =[      $old27, old2_idle28      ] {};
-//void() old2_idle28       =[      $old28, old2_idle29      ] {};
-//void() old2_idle29       =[      $old29, old2_idle30      ] {};
-//void() old2_idle30       =[      $old30, old2_idle31      ] {};
-//void() old2_idle31       =[      $old31, old2_idle32      ] {};
-//void() old2_idle32       =[      $old32, old2_idle33      ] {};
-//void() old2_idle33       =[      $old33, old2_idle34      ] {};
-//void() old2_idle34       =[      $old34, old2_idle35      ] {};
-//void() old2_idle35       =[      $old35, old2_idle36      ] {};
-//void() old2_idle36       =[      $old36, old2_idle37      ] {};
-//void() old2_idle37       =[      $old37, old2_idle38      ] {};
-//void() old2_idle38       =[      $old38, old2_idle39      ] {};
-//void() old2_idle39       =[      $old39, old2_idle40      ] {};
-//void() old2_idle40       =[      $old40, old2_idle41      ] {};
-//void() old2_idle41       =[      $old41, old2_idle42      ] {};
-//void() old2_idle42       =[      $old42, old2_idle43      ] {};
-//void() old2_idle43       =[      $old43, old2_idle44      ] {};
-//void() old2_idle44       =[      $old44, old2_idle45      ] {};
-//void() old2_idle45       =[      $old45, old2_idle46      ] {};
-//void() old2_idle46       =[      $old46, old2_idle1       ] {};
-
 void() old2_stand =
 {
 	FindTarget ();
@@ -135,8 +86,6 @@ void() old2_idle43       =[      $old43, old2_idle44      ] {old2_stand();};
 void() old2_idle44       =[      $old44, old2_idle45      ] {old2_stand();};
 void() old2_idle45       =[      $old45, old2_idle46      ] {old2_stand();};
 void() old2_idle46       =[      $old46, old2_idle1       ] {old2_stand();};
-
-// CHANGE ENDS HERE -- iw
 
 void(vector p) shub_missile =
 {
@@ -351,11 +300,8 @@ void() monster_oldone2 =
 	self.flags = FL_MONSTER;
 	self.think = old2_idle1;
 	self.nextthink = time + 0.1;
-// CHANGE BEGINS HERE -- iw
-	//self.takedamage = DAMAGE_YES;
 	self.takedamage = DAMAGE_AIM;
 	self.th_run = old2_attk1;
-// CHANGE ENDS HERE -- iw
 	self.th_pain = oldone2_pain;
 	self.th_die = old2_twitch1;
 
