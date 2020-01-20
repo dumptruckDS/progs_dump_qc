@@ -367,6 +367,11 @@ void() boss2_awake =
 
 	self.th_pain = boss2_pain_go;
 	self.th_die = boss2_die;
+
+// give the boss a couple of seconds to finish rising before allowing it
+// to go into its pain animation -- iw
+	self.pain_finished = time + 2;
+
 	self.enemy = activator;
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
