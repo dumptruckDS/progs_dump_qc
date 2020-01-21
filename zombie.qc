@@ -105,7 +105,7 @@ void() zombie_cruc5     =       [       $cruc_5,                zombie_cruc6    
 void() zombie_cruc6     =       [       $cruc_6,                zombie_cruc1    ] {self.nextthink = time + 0.1 + random()*0.1;};
 
 void() zombie_walk1             =[      $walk1,         zombie_walk2    ] {
-	self.solid = SOLID_BBOX;
+	self.solid = SOLID_SLIDEBOX;
 	self.health = 60;   //so he doesn't fall
 	ai_walk(0);};
 void() zombie_walk2             =[      $walk2,         zombie_walk3    ] {ai_walk(2);};
