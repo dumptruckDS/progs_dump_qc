@@ -39,7 +39,6 @@ void(vector p) boss2_missile;
 
 void() boss2_face =
 {
-
 // go for another player if multi player
 	if (self.enemy.health <= 0 || random() < 0.02)
 	{
@@ -51,10 +50,10 @@ void() boss2_face =
 };
 
 void() boss2_rise1	=[	$rise1, boss2_rise2 ] {
-sound (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
 };
 void() boss2_rise2	=[	$rise2, boss2_rise3 ] {
-sound (self, CHAN_AUTO, "boss1/sight1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_AUTO, "boss1/sight1.wav", 1, ATTN_NORM);
 };
 void() boss2_rise3	=[	$rise3, boss2_rise4 ] {};
 void() boss2_rise4	=[	$rise4, boss2_rise5 ] {};
@@ -168,7 +167,8 @@ void() boss2_pain1 =[ $shocka1, boss2_pain2 ] {};
 void() boss2_pain2 =[ $shocka2, boss2_pain3 ] {};
 void() boss2_pain3 =[ $shocka3, boss2_pain4 ] {};
 void() boss2_pain4 =[ $shocka4, boss2_pain5 ] {
-sound (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM);}; // pain noise
+	sound (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM); // pain noise
+};
 void() boss2_pain5 =[ $shocka5, boss2_pain6 ] {};
 void() boss2_pain6 =[ $shocka6, bos2s_pain7 ] {};
 void() bos2s_pain7 =[ $shocka7, boss2_pain8 ] {};
@@ -214,7 +214,7 @@ void() GibBoss2 =
 			x = x + 32;
 		}
 		z = z + 96;
-}
+	}
 
 	local entity head;
 
@@ -237,17 +237,14 @@ void() GibBoss2 =
 	head.think = SUB_Remove;
 	head.nextthink = time + 120;
 
-
-// killed_monsters = killed_monsters + 1; //already done in combat.qc since this is now FL_MONSTER
-WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
-// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //already done in combat.qc since this is now FL_MONSTER -- dumptruck_ds
-WriteCoord (MSG_BROADCAST, self.origin_x);
-WriteCoord (MSG_BROADCAST, self.origin_y);
-WriteCoord (MSG_BROADCAST, self.origin_z);
-SUB_UseTargets ();
-remove (self);
-
+	// killed_monsters = killed_monsters + 1; //already done in combat.qc since this is now FL_MONSTER
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
+	// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //already done in combat.qc since this is now FL_MONSTER -- dumptruck_ds
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+	remove (self);
 };
 
 void() boss2_die =
@@ -265,7 +262,7 @@ void() boss2_die =
 };
 
 void() boss2_death1 = [$death1, boss2_death2] {
-sound (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
 };
 void() boss2_death2 = [$death2, boss2_death3] {};
 void() boss2_death3 = [$death3, boss2_death4] {};
@@ -289,16 +286,19 @@ void(entity attacker, float damage) boss2_pain_go =
 	if (self.pain_finished > time)
 		return;
 
-		boss2_pain1();
-		self.pain_finished = time + 4;
+	boss2_pain1();
+	self.pain_finished = time + 4;
 };
 
 
 void() boss2_death10 = [$death9, boss2_death10]
 {
-	killed_monsters = killed_monsters + 1;
-	WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// FIXME: reliable broadcast
-	SUB_UseTargets ();
+// unlike the code for the original monster_boss, this function doesn't
+// need to increment killed_monsters or call SUB_UseTargets(); this
+// entity gets killed by regular damage and has FL_MONSTER, so the
+// Killed() function (in combat.qc) will already have taken care of
+// those things -- iw
+
 	remove (self);
 };
 
@@ -351,15 +351,27 @@ void() boss2_awake =
 	setmodel (self, "progs/boss.mdl");
 	setsize (self, '-128 -128 -24', '128 128 256');
 
-	if(!self.health)
-{
-	if (skill == 0)
-		self.health = 1000;
-	else
-		self.health = 3000;
-}
+	if (!self.health)
+	{
+		if (skill == 0)
+			self.health = 1000;
+		else
+			self.health = 3000;
+	}
+
+// note that self.th_run has to be set in order to avoid a "NULL
+// function" Host_Error in the case where T_Damage() calls
+// FoundTarget(), which calls HuntTarget(), which uses self.th_run as
+// the next self.think -- iw
+	self.th_run = boss2_missile1;
+
 	self.th_pain = boss2_pain_go;
 	self.th_die = boss2_die;
+
+// give the boss a couple of seconds to finish rising before allowing it
+// to go into its pain animation -- iw
+	self.pain_finished = time + 2;
+
 	self.enemy = activator;
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
