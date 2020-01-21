@@ -309,8 +309,8 @@ keep_ammo(integer) : "Don't drop backpack" : 0
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath Default health = 400" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_tarbaby : "Spawn Default health = 80" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 24) studio("progs/fish.mdl") = monster_fish : "Rotfish Default health = 25" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio("progs/oldone.mdl") = monster_oldone : "Shub-Niggurath" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio("progs/oldone.mdl") = monster_oldone2 : "Killable Shub-Niggurath" []
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) studio("progs/oldone.mdl") = monster_oldone : "Shub-Niggurath" []
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) studio("progs/oldone.mdl") = monster_oldone2 : "Killable Shub-Niggurath" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie Default health = 60 If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
 [
 	spawnflags(Flags) =

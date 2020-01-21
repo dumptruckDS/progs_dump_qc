@@ -255,7 +255,7 @@ void() oldone2_die =
 	remove (self);
 }
 
-/*QUAKED monster_oldone2 (1 0 0) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_oldone2 (1 0 0) (-160 -128 -24) (160 128 256)
 */
 void() monster_oldone2 =
 {
