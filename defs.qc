@@ -392,7 +392,8 @@ float	MSG_INIT		= 3;		// write to the init string
 
 // known_release values -- iw
 float	KNOWN_RELEASE_NOT			= 0;
-float	KNOWN_RELEASE_FUNC_MAPJAMX	= 1;
+float	KNOWN_RELEASE_ID1			= 1;
+float	KNOWN_RELEASE_FUNC_MAPJAMX	= 2;
 
 //================================================
 
