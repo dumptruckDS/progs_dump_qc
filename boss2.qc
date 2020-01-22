@@ -216,35 +216,18 @@ void() GibBoss2 =
 		z = z + 96;
 	}
 
-	local entity head;
-
-	head = spawn();
-	head.origin = self.origin + '0 0 128';
-	head.velocity_z = 600; + (random() * 200);
-	head.velocity_x = -300 + (random() * 600);
-	head.velocity_y = -200 + (random() * 600);
-	head.avelocity_x = random()*120;
-	head.avelocity_y = random()*120;
-	head.avelocity_z = random()*120;
-	head.flags = self.flags - (self.flags & FL_ONGROUND);
-	head.solid = SOLID_NOT;
-	head.movetype = MOVETYPE_BOUNCE;
-	head.takedamage = DAMAGE_NO;
-	setmodel (head, "progs/h_boss.mdl");
-	setsize (head, '-67 -60 -6', '62 52 88');
-	// setsize (head, '-16 -16 0', '16 16 56');
-	head.touch = SUB_Null;
-	head.think = SUB_Remove;
-	head.nextthink = time + 120;
-
 	// killed_monsters = killed_monsters + 1; //already done in combat.qc since this is now FL_MONSTER
+	// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //already done in combat.qc since this is now FL_MONSTER -- dumptruck_ds
+
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
-	// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //already done in combat.qc since this is now FL_MONSTER -- dumptruck_ds
-	WriteCoord (MSG_BROADCAST, self.origin_x);
-	WriteCoord (MSG_BROADCAST, self.origin_y);
-	WriteCoord (MSG_BROADCAST, self.origin_z);
-	remove (self);
+	WriteCoord (MSG_BROADCAST, boss_x);
+	WriteCoord (MSG_BROADCAST, boss_y);
+	WriteCoord (MSG_BROADCAST, boss_z);
+
+	self.origin = boss + '0 0 192';  // approximate position of head
+	ThrowHead ("progs/h_boss.mdl", self.health);
+	setsize (self, '-32 -32 0', '32 32 88');  // larger than most heads
 };
 
 void() boss2_die =
