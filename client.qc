@@ -561,6 +561,7 @@ void() PutClientInServer =
 	self.invincible_finished = 0;
 	self.effects = 0;
 	self.invincible_time = 0;
+	self.deathtype = "";
 	self.gravity = 0;
 	self.wantedgravity = 0;
 	self.onladder = 0;
@@ -1251,9 +1252,10 @@ void() PlayerPostThink =
 			sound (self, CHAN_BODY, "player/h2ojump.wav", 1, ATTN_NORM);
 		else if (self.jump_flag < -650)
 		{
-			T_Damage (self, world, world, 5);
-			sound (self, CHAN_VOICE, "player/land2.wav", 1, ATTN_NORM);
 			self.deathtype = "falling";
+			T_Damage (self, world, world, 5);
+			self.deathtype = "";
+			sound (self, CHAN_VOICE, "player/land2.wav", 1, ATTN_NORM);
 		}
 		else
 			sound (self, CHAN_VOICE, "player/land.wav", 1, ATTN_NORM);
@@ -1571,7 +1573,6 @@ void(entity targ, entity attacker) ClientObituary =
 			// fell to their death?
 			if (targ.deathtype == "falling")
 			{
-				targ.deathtype = "";
 				bprint (" fell to his death\n");
 				return;
 			}
