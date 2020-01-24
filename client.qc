@@ -886,7 +886,9 @@ void() WaterMove =
 			self.dmg = self.dmg + 2;
 			if (self.dmg > 15)
 				self.dmg = 10;
+			self.deathtype = "drowning";
 			T_Damage (self, world, world, self.dmg);
+			self.deathtype = "";
 			self.pain_finished = time + 1;
 		}
 	}
@@ -911,7 +913,9 @@ void() WaterMove =
 			else
 				self.dmgtime = time + 0.2;
 
+			self.deathtype = "lava";
 			T_Damage (self, world, world, 10*self.waterlevel);
+			self.deathtype = "";
 		}
 	}
 	else if (self.watertype == CONTENT_SLIME)
@@ -919,7 +923,9 @@ void() WaterMove =
 		if (self.dmgtime < time && self.radsuit_finished < time)
 		{
 			self.dmgtime = time + 1;
+			self.deathtype = "slime";
 			T_Damage (self, world, world, 4*self.waterlevel);
+			self.deathtype = "";
 		}
 	}
 
@@ -1538,9 +1544,8 @@ void(entity targ, entity attacker) ClientObituary =
 				return;
 			}
 
-			// in-water deaths
-			rnum = targ.watertype;
-			if (rnum == -3)
+			// in-liquid deaths
+			if (targ.deathtype == "drowning")
 			{
 				if (random() < 0.5)
 					bprint (" sleeps with the fishes\n");
@@ -1548,7 +1553,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" sucks it down\n");
 				return;
 			}
-			else if (rnum == -4)
+			if (targ.deathtype == "slime")
 			{
 				if (random() < 0.5)
 					bprint (" gulped a load of slime\n");
@@ -1556,7 +1561,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" can't exist on slime alone\n");
 				return;
 			}
-			else if (rnum == -5)
+			if (targ.deathtype == "lava")
 			{
 				if (targ.health < -15)
 				{
