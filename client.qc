@@ -1522,6 +1522,11 @@ void(entity targ, entity attacker) ClientObituary =
 				bprint (" blew up\n");
 				return;
 			}
+			if (attacker.classname == "func_laser")
+			{
+				bprint (" discovered that lasers are hot\n");
+				return;
+			}
 			if (attacker.solid == SOLID_BSP &&
 					attacker != world &&
 					attacker.classname != "togglewall")
