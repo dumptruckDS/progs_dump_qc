@@ -1517,7 +1517,9 @@ void(entity targ, entity attacker) ClientObituary =
 			}
 
 			// tricks and traps
-			if (attacker.classname == "explo_box")
+			if (attacker.classname == "explo_box" ||
+					attacker.classname == "play_explosion" ||
+					attacker.classname == "play_tbabyexplode")
 			{
 				bprint (" blew up\n");
 				return;
