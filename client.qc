@@ -1522,7 +1522,9 @@ void(entity targ, entity attacker) ClientObituary =
 				bprint (" blew up\n");
 				return;
 			}
-			if (attacker.solid == SOLID_BSP && attacker != world)
+			if (attacker.solid == SOLID_BSP &&
+					attacker != world &&
+					attacker.classname != "togglewall")
 			{
 				bprint (" was squished\n");
 				return;
