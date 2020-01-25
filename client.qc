@@ -1527,7 +1527,9 @@ void(entity targ, entity attacker) ClientObituary =
 				bprint (" was squished\n");
 				return;
 			}
-			if (attacker.classname == "trap_shooter" || attacker.classname == "trap_spikeshooter")
+			if (attacker.classname == "trap_shooter" ||
+					attacker.classname == "trap_spikeshooter" ||
+					attacker.classname == "trap_switched_shooter")
 			{
 				// bprint (" was spiked\n");
 				bprint (" was unlucky\n"); //changed for custom shooters --dumptruck_ds
