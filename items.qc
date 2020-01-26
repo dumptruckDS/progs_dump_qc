@@ -1255,6 +1255,24 @@ void() key_setsounds =
 	}
 };
 
+
+/*
+============
+key_start
+
+Finish initializing self as a key item.  -- iw
+============
+*/
+void() key_start =
+{
+	key_setsounds ();
+	self.particles_offset = '0 0 18';
+	self.touch = key_touch;
+	setsize (self, '-16 -16 -24', '16 16 32');
+	StartItem ();
+};
+
+
 /*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32)
 SILVER key
 In order for keys to work you MUST set your map's worldtype to one of the following:
@@ -1284,12 +1302,8 @@ void() item_key1 =
 		setmodel (self, "progs/b_s_key.mdl");
 	}
 	self.netname = SilverKeyName ();
-	key_setsounds();
-	self.touch = key_touch;
 	self.items = IT_KEY1;
-	setsize (self, '-16 -16 -24', '16 16 32');
-	self.particles_offset = '0 0 18';
-	StartItem ();
+	key_start ();
 };
 
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
@@ -1321,12 +1335,8 @@ void() item_key2 =
 		setmodel (self, "progs/b_g_key.mdl");
 	}
 	self.netname = GoldKeyName ();
-	key_setsounds();
-	self.touch = key_touch;
 	self.items = IT_KEY2;
-	setsize (self, '-16 -16 -24', '16 16 32');
-	self.particles_offset = '0 0 18';
-	StartItem ();
+	key_start ();
 };
 
 
