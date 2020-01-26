@@ -108,10 +108,9 @@ void() trigger_usekey =
 	else
 		dprint ("no worldtype set!\n");
 
-	if (!self.spawnflags) //dumptruck_ds thanks c0burn
+	if (!(self.spawnflags & (USE_SILV_KEY | USE_GOLD_KEY))) //dumptruck_ds thanks c0burn //iw further tweaked
 	{
-		objerror ("no spawnflags set!\n");
-		remove(self);
+		objerror ("no key specified!");
 		return;
 	}
 
