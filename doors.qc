@@ -217,17 +217,17 @@ void() door_touch =
 	{
 		if (self.owner.items == IT_KEY1)
 		{
-			if (world.worldtype == 2)
+			if (world.worldtype == WORLDTYPE_BASE)
 			{
 				centerprint (other, "You need the silver keycard");
 				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 			}
-			else if (world.worldtype == 1)
+			else if (world.worldtype == WORLDTYPE_METAL)
 			{
 				centerprint (other, "You need the silver runekey");
 				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 			}
-			else if (world.worldtype == 0)
+			else if (world.worldtype == WORLDTYPE_MEDIEVAL)
 			{
 				centerprint (other, "You need the silver key");
 				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
@@ -235,17 +235,17 @@ void() door_touch =
 		}
 		else
 		{
-			if (world.worldtype == 2)
+			if (world.worldtype == WORLDTYPE_BASE)
 			{
 				centerprint (other, "You need the gold keycard");
 				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 			}
-			else if (world.worldtype == 1)
+			else if (world.worldtype == WORLDTYPE_METAL)
 			{
 				centerprint (other, "You need the gold runekey");
 				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 			}
-			else if (world.worldtype == 0)
+			else if (world.worldtype == WORLDTYPE_MEDIEVAL)
 			{
 				centerprint (other, "You need the gold key");
 				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
@@ -422,21 +422,21 @@ void() func_door =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_sound ("doors/medtry.wav");
 		precache_sound ("doors/meduse.wav");
 		self.noise3 = "doors/medtry.wav";
 		self.noise4 = "doors/meduse.wav";
 	}
-	else if (world.worldtype == 1)
+	else if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_sound ("doors/runetry.wav");
 		precache_sound ("doors/runeuse.wav");
 		self.noise3 = "doors/runetry.wav";
 		self.noise4 = "doors/runeuse.wav";
 	}
-	else if (world.worldtype == 2)
+	else if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_sound ("doors/basetry.wav");
 		precache_sound ("doors/baseuse.wav");

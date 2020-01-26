@@ -29,20 +29,20 @@ void() keytrigger_use =
 		{
 			if (self.items == IT_KEY1) //self.items was incorrect here, thanks Khreathor and spike
 			{
-				if (world.worldtype == 2)
+				if (world.worldtype == WORLDTYPE_BASE)
 					centerprint (activator, "You need the silver keycard");
-				else if (world.worldtype == 1)
+				else if (world.worldtype == WORLDTYPE_METAL)
 					centerprint (activator, "You need the silver runekey");
-				else if (world.worldtype == 0)
+				else if (world.worldtype == WORLDTYPE_MEDIEVAL)
 					centerprint (activator, "You need the silver key");
 			}
 			else
 			{
-				if (world.worldtype == 2)
+				if (world.worldtype == WORLDTYPE_BASE)
 					centerprint (activator, "You need the gold keycard");
-				else if (world.worldtype == 1)
+				else if (world.worldtype == WORLDTYPE_METAL)
 					centerprint (activator, "You need the gold runekey");
-				else if (world.worldtype == 0)
+				else if (world.worldtype == WORLDTYPE_MEDIEVAL)
 					centerprint (activator, "You need the gold key");
 			}
 		}
@@ -84,21 +84,21 @@ void() trigger_usekey =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_sound ("doors/medtry.wav");
 		precache_sound ("doors/meduse.wav");
 		self.noise3 = "doors/medtry.wav";
 		self.noise4 = "doors/meduse.wav";
 	}
-	else if (world.worldtype == 1)
+	else if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_sound ("doors/runetry.wav");
 		precache_sound ("doors/runeuse.wav");
 		self.noise3 = "doors/runetry.wav";
 		self.noise4 = "doors/runeuse.wav";
 	}
-	else if (world.worldtype == 2)
+	else if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_sound ("doors/basetry.wav");
 		precache_sound ("doors/baseuse.wav");

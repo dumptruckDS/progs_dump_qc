@@ -227,6 +227,11 @@ void		end_sys_fields;			// flag for structure dumping
 float	FALSE					= 0;
 float 	TRUE					= 1;
 
+// worldtype values
+float	WORLDTYPE_MEDIEVAL		= 0;
+float	WORLDTYPE_METAL			= 1;
+float	WORLDTYPE_BASE			= 2;
+
 // edict.flags
 float	FL_FLY					= 1;
 float	FL_SWIM					= 2;
