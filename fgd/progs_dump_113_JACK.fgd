@@ -1066,6 +1066,8 @@ Default is 0.3 seconds.
 		1 : "Leave key in player's inventory"
 	]
 	keyname(string) : "If set, this is the keyname of the item_key_custom which unlocks this entity"
+	noise1(string) : "Sound file for the 'stop moving' sound (if set, overrides 'sounds')"
+	noise2(string) : "Sound file for the 'move' sound (if set, overrides 'sounds')"
 	noise3(string) : "Sound file for the 'key required' sound (default is per worldtype)"
 	noise4(string) : "Sound file for the 'key used' sound (default is per worldtype)"
 	spawnflags(flags) =

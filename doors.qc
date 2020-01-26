@@ -382,6 +382,8 @@ Key doors are always wait -1.
 "dmg"		damage to inflict when blocked (2 default)
 "cnt"		if 1, leave a used key in the player's inventory (0 default)
 "keyname"	if set, this is the keyname of the item_key_custom which unlocks this entity
+"noise1"	sound file for the "stop moving" sound (if set, overrides "sounds")
+"noise2"	sound file for the "move" sound (if set, overrides "sounds")
 "noise3"	sound file for the "key required" sound (default is per worldtype)
 "noise4"	sound file for the "key used" sound (default is per worldtype)
 "sounds"
@@ -397,46 +399,44 @@ void() func_door =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	local string default_noise1;
+	local string default_noise2;
+
 // self.noise3 and self.noise4 can now be overridden by the mapper, but
 // will be set to default values in keylock_init if necessary -- iw
 	keylock_init ();
 
-	if (self.sounds == 0)
-	{
-		precache_sound ("misc/null.wav");
-		precache_sound ("misc/null.wav");
-		self.noise1 = "misc/null.wav";
-		self.noise2 = "misc/null.wav";
-	}
+// self.noise1 and self.noise2 can now be overridden by the mapper -- iw
+	default_noise1 = "misc/null.wav";
+	default_noise2 = "misc/null.wav";
 	if (self.sounds == 1)
 	{
-		precache_sound ("doors/drclos4.wav");
-		precache_sound ("doors/doormv1.wav");
-		self.noise1 = "doors/drclos4.wav";
-		self.noise2 = "doors/doormv1.wav";
+		default_noise1 = "doors/drclos4.wav";
+		default_noise2 = "doors/doormv1.wav";
 	}
 	if (self.sounds == 2)
 	{
-		precache_sound ("doors/hydro1.wav");
-		precache_sound ("doors/hydro2.wav");
-		self.noise2 = "doors/hydro1.wav";
-		self.noise1 = "doors/hydro2.wav";
+		default_noise1 = "doors/hydro2.wav";
+		default_noise2 = "doors/hydro1.wav";
 	}
 	if (self.sounds == 3)
 	{
-		precache_sound ("doors/stndr1.wav");
-		precache_sound ("doors/stndr2.wav");
-		self.noise2 = "doors/stndr1.wav";
-		self.noise1 = "doors/stndr2.wav";
+		default_noise1 = "doors/stndr2.wav";
+		default_noise2 = "doors/stndr1.wav";
 	}
 	if (self.sounds == 4)
 	{
-		precache_sound ("doors/ddoor1.wav");
-		precache_sound ("doors/ddoor2.wav");
-		self.noise1 = "doors/ddoor2.wav";
-		self.noise2 = "doors/ddoor1.wav";
+		default_noise1 = "doors/ddoor2.wav";
+		default_noise2 = "doors/ddoor1.wav";
 	}
 
+	if (self.noise1 == "")
+		self.noise1 = default_noise1;
+	if (self.noise2 == "")
+		self.noise2 = default_noise2;
+
+	precache_sound (self.noise1);
+	precache_sound (self.noise2);
 
 	SetMovedir ();
 
