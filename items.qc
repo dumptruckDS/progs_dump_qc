@@ -1220,10 +1220,7 @@ void() key_setsounds =
 
 /*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32)
 SILVER key
-In order for keys to work
-you MUST set your maps
-worldtype to one of the
-following:
+In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
 1: metal
 2: base
@@ -1262,10 +1259,7 @@ void() item_key1 =
 
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
 GOLD key
-In order for keys to work
-you MUST set your maps
-worldtype to one of the
-following:
+In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
 1: metal
 2: base
