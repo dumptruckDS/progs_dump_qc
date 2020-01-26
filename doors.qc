@@ -109,10 +109,7 @@ void() door_fire =
 	if (self.owner != self)
 		objerror ("door_fire: self.owner != self");
 
-// play use key sound
-
-	if (self.items)
-		sound (self, CHAN_ITEM, self.noise4, 1, ATTN_NORM); //dumptruck_ds CHAN_VOICE to ITEM thx c0burn
+// self.noise4 is now played in keylock_try_to_unlock -- iw
 
 	self.message = string_null;		// no more message
 	oself = self;
@@ -188,6 +185,27 @@ void() door_killed =
 
 /*
 ================
+door_unlock
+
+Perform the actions which should be performed when self is successfully
+unlocked with a key.
+
+This function exists so that it can be passed as an argument to the new
+keylock_try_to_unlock function.  This code was previously part of the
+door_touch function.  -- iw
+================
+*/
+void() door_unlock =
+{
+	self.touch = SUB_Null;
+	if (self.enemy)
+		self.enemy.touch = SUB_Null;	// get paired door
+	door_use ();
+};
+
+
+/*
+================
 door_touch
 
 Prints messages and opens key doors
@@ -209,22 +227,10 @@ void() door_touch =
 	}
 
 // key door stuff
-	if (!self.items)
+	if (!keylock_has_key_set ())
 		return;
 
-// FIXME: blink key on player's status bar
-	if ( (self.items & other.items) != self.items )
-	{
-		centerprint2 (other, "You need the ", self.netname);
-		sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-		return;
-	}
-if (!self.cnt) //dumptruck_ds thanks RennyC -- set cnt 1 to leave key in player inventory
-	other.items = other.items - self.items;
-	self.touch = SUB_Null;
-	if (self.enemy)
-		self.enemy.touch = SUB_Null;	// get paired door
-	door_use ();
+	keylock_try_to_unlock (other, "", door_unlock);
 };
 
 /*
@@ -323,7 +329,7 @@ void() LinkDoors =
 				return;
 			if (self.targetname != "")
 				return;
-			if (self.items)
+			if (keylock_has_key_set ())
 				return;
 
 			self.owner.trigger_field = spawn_field(cmins, cmaxs);
@@ -388,31 +394,9 @@ void() func_door =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == WORLDTYPE_MEDIEVAL)
-	{
-		precache_sound ("doors/medtry.wav");
-		precache_sound ("doors/meduse.wav");
-		self.noise3 = "doors/medtry.wav";
-		self.noise4 = "doors/meduse.wav";
-	}
-	else if (world.worldtype == WORLDTYPE_METAL)
-	{
-		precache_sound ("doors/runetry.wav");
-		precache_sound ("doors/runeuse.wav");
-		self.noise3 = "doors/runetry.wav";
-		self.noise4 = "doors/runeuse.wav";
-	}
-	else if (world.worldtype == WORLDTYPE_BASE)
-	{
-		precache_sound ("doors/basetry.wav");
-		precache_sound ("doors/baseuse.wav");
-		self.noise3 = "doors/basetry.wav";
-		self.noise4 = "doors/baseuse.wav";
-	}
-	else
-	{
-		dprint ("no worldtype set!\n");
-	}
+// self.noise3 and self.noise4 are now set in keylock_init -- iw
+	keylock_init ();
+
 	if (self.sounds == 0)
 	{
 		precache_sound ("misc/null.wav");
@@ -463,15 +447,9 @@ void() func_door =
 	self.use = door_use;
 
 	if (self.spawnflags & DOOR_SILVER_KEY)
-	{
-		self.items = IT_KEY1;
-		self.netname = SilverKeyName ();
-	}
+		keylock_set_silver_key ();
 	if (self.spawnflags & DOOR_GOLD_KEY)
-	{
-		self.items = IT_KEY2;
-		self.netname = GoldKeyName ();
-	}
+		keylock_set_gold_key ();
 
 	if (!self.speed)
 		self.speed = 100;
@@ -502,7 +480,7 @@ void() func_door =
 		self.th_die = door_killed;
 	}
 
-	if (self.items)
+	if (keylock_has_key_set ())
 		self.wait = -1;
 
 	self.touch = door_touch;

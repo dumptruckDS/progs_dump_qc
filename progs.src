@@ -12,6 +12,7 @@ world.qc
 client.qc
 player.qc
 monsters.qc //modified by dumptruck_ds from Preach's spawning tutorial | fish count fixed
+keylock.qc //common code for entities which can be unlocked with keys
 doors.qc
 buttons.qc
 triggers.qc //added trigger_push_custom based on Hipnotic

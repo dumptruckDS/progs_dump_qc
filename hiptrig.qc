@@ -10,30 +10,20 @@
 float USE_SILV_KEY = 8;
 float USE_GOLD_KEY = 16;
 
-void() keytrigger_use =
+/*
+================
+keytrigger_unlock
+
+Perform the actions which should be performed when self is successfully
+unlocked with a key.
+
+This function exists so that it can be passed as an argument to the new
+keylock_try_to_unlock function.  This code was previously part of the
+keytrigger_use function.  -- iw
+================
+*/
+void() keytrigger_unlock =
 {
-	if (activator.classname != "player")
-		return;
-	if (self.attack_finished > time)
-		return;
-
-	self.attack_finished = time + 2;
-
-// FIXME: blink key on player's status bar
-	if ( (self.items & activator.items) != self.items )
-
-	{
-		if (self.message != "")
-			centerprint (activator, self.message);
-		else
-			centerprint2 (activator, "You need the ", self.netname);
-		sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-		return;
-	}
-
-	if (!self.cnt) //dumptruck_ds thanks RennyC -- set cnt 1 to leave key in player inventory
-	activator.items = activator.items - self.items;
-
 	// we can't just remove (self) here, because this is a touch function
 	// called while C code is looping through area links...
 	self.touch = SUB_Null;
@@ -42,9 +32,18 @@ void() keytrigger_use =
 	self.think = SUB_Remove;
 	self.message = "";
 
-	sound (self, CHAN_ITEM, self.noise4, 1, ATTN_NORM); //dumptruck_ds CHAN_VOICE becomes CHAN_ITEM
-
 	SUB_UseTargets();
+};
+
+void() keytrigger_use =
+{
+	if (activator.classname != "player")
+		return;
+	if (self.attack_finished > time)
+		return;
+
+	self.attack_finished = time + 2;
+	keylock_try_to_unlock (activator, self.message, keytrigger_unlock);
 };
 
 void() keytrigger_touch =
@@ -65,29 +64,8 @@ void() trigger_usekey =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == WORLDTYPE_MEDIEVAL)
-	{
-		precache_sound ("doors/medtry.wav");
-		precache_sound ("doors/meduse.wav");
-		self.noise3 = "doors/medtry.wav";
-		self.noise4 = "doors/meduse.wav";
-	}
-	else if (world.worldtype == WORLDTYPE_METAL)
-	{
-		precache_sound ("doors/runetry.wav");
-		precache_sound ("doors/runeuse.wav");
-		self.noise3 = "doors/runetry.wav";
-		self.noise4 = "doors/runeuse.wav";
-	}
-	else if (world.worldtype == WORLDTYPE_BASE)
-	{
-		precache_sound ("doors/basetry.wav");
-		precache_sound ("doors/baseuse.wav");
-		self.noise3 = "doors/basetry.wav";
-		self.noise4 = "doors/baseuse.wav";
-	}
-	else
-		dprint ("no worldtype set!\n");
+// self.noise3 and self.noise4 are now set in keylock_init -- iw
+	keylock_init ();
 
 	if (!(self.spawnflags & (USE_SILV_KEY | USE_GOLD_KEY))) //dumptruck_ds thanks c0burn //iw further tweaked
 	{
@@ -96,15 +74,9 @@ void() trigger_usekey =
 	}
 
 	if (self.spawnflags & USE_SILV_KEY) //dumptruck_ds
-	{
-		self.items = IT_KEY1;
-		self.netname = SilverKeyName ();
-	}
+		keylock_set_silver_key ();
 	if (self.spawnflags & USE_GOLD_KEY) //dumptruck_ds
-	{
-		self.items = IT_KEY2;
-		self.netname = GoldKeyName ();
-	}
+		keylock_set_gold_key ();
 
 	self.use = keytrigger_use;
 	self.touch = keytrigger_touch;
