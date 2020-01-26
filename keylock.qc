@@ -126,9 +126,11 @@ then do the following:
     1. Remove the key from the client's inventory, unless self.cnt is
        non-zero, in which case leave it in the client's inventory.
 
-    2. Play the "key used" sound effect (self.noise4).
+    2. Print a message to let the player know which key they used.
 
-    3. Call the function specified as the success_func parameter, which
+    3. Play the "key used" sound effect (self.noise4).
+
+    4. Call the function specified as the success_func parameter, which
        should perform whatever entity-specific actions are required for
        self.
 
@@ -148,6 +150,8 @@ of the original game.  -- iw
 void(entity client, string custom_message,
 		void() success_func) keylock_try_to_unlock =
 {
+	local string s;
+
 	if ((self.items & client.items) != self.items)
 	{
 		if (custom_message != "")
@@ -160,8 +164,19 @@ void(entity client, string custom_message,
 
 // the old code in door_touch included a comment from dumptruck_ds
 // thanking RennyC re self.cnt
-	if (!self.cnt)
+	if (self.cnt)
+	{
+		s = "You used (and kept) the ";
+	}
+	else
+	{
 		client.items = client.items - (client.items & self.items);
+		s = "You used the ";
+	}
+
+	sprint (client, s);
+	sprint (client, self.netname);
+	sprint (client, "\n");
 
 // the old code in door_fire included a comment from dumptruck_ds
 // thanking c0burn re changing CHAN_VOICE to CHAN_ITEM
