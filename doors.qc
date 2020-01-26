@@ -382,6 +382,8 @@ Key doors are always wait -1.
 "dmg"		damage to inflict when blocked (2 default)
 "cnt"		if 1, leave a used key in the player's inventory (0 default)
 "keyname"	if set, this is the keyname of the item_key_custom which unlocks this entity
+"noise3"	sound file for the "key required" sound (default is per worldtype)
+"noise4"	sound file for the "key used" sound (default is per worldtype)
 "sounds"
 0)	no sound
 1)	stone
@@ -395,7 +397,8 @@ void() func_door =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-// self.noise3 and self.noise4 are now set in keylock_init -- iw
+// self.noise3 and self.noise4 can now be overridden by the mapper, but
+// will be set to default values in keylock_init if necessary -- iw
 	keylock_init ();
 
 	if (self.sounds == 0)

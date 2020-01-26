@@ -45,26 +45,43 @@ calling these functions must not use these fields for other purposes:
 ================
 keylock_init
 
-Initialize self for use with the other keylock_* functions.  -- iw
+Initialize self for use with the other keylock_* functions.
+
+The following fields will be set to default values if they have not
+already been set:
+
+    - self.noise3 (the "key required" sound file).
+
+    - self.noise4 (the "key used" sound file).
+
+The default values are determined by world.worldtype.  -- iw
 ================
 */
 void() keylock_init =
 {
+	local string default_noise3;
+	local string default_noise4;
+
 	if (world.worldtype == WORLDTYPE_BASE)
 	{
-		self.noise3 = "doors/basetry.wav";
-		self.noise4 = "doors/baseuse.wav";
+		default_noise3 = "doors/basetry.wav";
+		default_noise4 = "doors/baseuse.wav";
 	}
 	else if (world.worldtype == WORLDTYPE_METAL)
 	{
-		self.noise3 = "doors/runetry.wav";
-		self.noise4 = "doors/runeuse.wav";
+		default_noise3 = "doors/runetry.wav";
+		default_noise4 = "doors/runeuse.wav";
 	}
 	else
 	{
-		self.noise3 = "doors/medtry.wav";
-		self.noise4 = "doors/meduse.wav";
+		default_noise3 = "doors/medtry.wav";
+		default_noise4 = "doors/meduse.wav";
 	}
+
+	if (self.noise3 == "")
+		self.noise3 = default_noise3;
+	if (self.noise4 == "")
+		self.noise4 = default_noise4;
 
 	precache_sound (self.noise3);
 	precache_sound (self.noise4);

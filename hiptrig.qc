@@ -58,6 +58,8 @@ Variable sized single use trigger that requires a key to trigger targets.  Must 
 "cnt"     if 1, leave a used key in the player's inventory (0 default).
 "keyname" if set, this is the keyname of the item_key_custom which unlocks this entity.
 "message" is printed when the trigger is touched without having the right key.
+"noise3"  sound file for the "key required" sound (default is per worldtype).
+"noise4"  sound file for the "key used" sound (default is per worldtype).
 */
 
 void() trigger_usekey =
@@ -65,7 +67,8 @@ void() trigger_usekey =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-// self.noise3 and self.noise4 are now set in keylock_init -- iw
+// self.noise3 and self.noise4 can now be overridden by the mapper, but
+// will be set to default values in keylock_init if necessary -- iw
 	keylock_init ();
 
 	if (self.spawnflags & USE_SILV_KEY) //dumptruck_ds
