@@ -215,42 +215,8 @@ void() door_touch =
 // FIXME: blink key on player's status bar
 	if ( (self.items & other.items) != self.items )
 	{
-		if (self.owner.items == IT_KEY1)
-		{
-			if (world.worldtype == WORLDTYPE_BASE)
-			{
-				centerprint (other, "You need the silver keycard");
-				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-			}
-			else if (world.worldtype == WORLDTYPE_METAL)
-			{
-				centerprint (other, "You need the silver runekey");
-				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-			}
-			else if (world.worldtype == WORLDTYPE_MEDIEVAL)
-			{
-				centerprint (other, "You need the silver key");
-				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-			}
-		}
-		else
-		{
-			if (world.worldtype == WORLDTYPE_BASE)
-			{
-				centerprint (other, "You need the gold keycard");
-				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-			}
-			else if (world.worldtype == WORLDTYPE_METAL)
-			{
-				centerprint (other, "You need the gold runekey");
-				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-			}
-			else if (world.worldtype == WORLDTYPE_MEDIEVAL)
-			{
-				centerprint (other, "You need the gold key");
-				sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-			}
-		}
+		centerprint2 (other, "You need the ", self.netname);
+		sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 		return;
 	}
 if (!self.cnt) //dumptruck_ds thanks RennyC -- set cnt 1 to leave key in player inventory
@@ -497,9 +463,15 @@ void() func_door =
 	self.use = door_use;
 
 	if (self.spawnflags & DOOR_SILVER_KEY)
+	{
 		self.items = IT_KEY1;
+		self.netname = SilverKeyName ();
+	}
 	if (self.spawnflags & DOOR_GOLD_KEY)
+	{
 		self.items = IT_KEY2;
+		self.netname = GoldKeyName ();
+	}
 
 	if (!self.speed)
 		self.speed = 100;

@@ -1168,6 +1168,43 @@ KEYS
 ===============================================================================
 */
 
+
+/*
+============
+SilverKeyName
+
+Return the name that should be used for the silver key as per
+world.worldtype.  -- iw
+============
+*/
+string() SilverKeyName =
+{
+	if (world.worldtype == WORLDTYPE_BASE)
+		return "silver keycard";
+	if (world.worldtype == WORLDTYPE_METAL)
+		return "silver runekey";
+	return "silver key";
+};
+
+
+/*
+============
+GoldKeyName
+
+Return the name that should be used for the gold key as per
+world.worldtype.  -- iw
+============
+*/
+string() GoldKeyName =
+{
+	if (world.worldtype == WORLDTYPE_BASE)
+		return "gold keycard";
+	if (world.worldtype == WORLDTYPE_METAL)
+		return "gold runekey";
+	return "gold key";
+};
+
+
 void() key_touch =
 {
 
@@ -1235,20 +1272,18 @@ void() item_key1 =
 	{
 		precache_model ("progs/w_s_key.mdl");
 		setmodel (self, "progs/w_s_key.mdl");
-		self.netname = "silver key";
 	}
 	else if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_model ("progs/m_s_key.mdl");
 		setmodel (self, "progs/m_s_key.mdl");
-		self.netname = "silver runekey";
 	}
 	else if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_model2 ("progs/b_s_key.mdl");
 		setmodel (self, "progs/b_s_key.mdl");
-		self.netname = "silver keycard";
 	}
+	self.netname = SilverKeyName ();
 	key_setsounds();
 	self.touch = key_touch;
 	self.items = IT_KEY1;
@@ -1274,20 +1309,18 @@ void() item_key2 =
 	{
 		precache_model ("progs/w_g_key.mdl");
 		setmodel (self, "progs/w_g_key.mdl");
-		self.netname = "gold key";
 	}
 	if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_model ("progs/m_g_key.mdl");
 		setmodel (self, "progs/m_g_key.mdl");
-		self.netname = "gold runekey";
 	}
 	if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_model2 ("progs/b_g_key.mdl");
 		setmodel (self, "progs/b_g_key.mdl");
-		self.netname = "gold keycard";
 	}
+	self.netname = GoldKeyName ();
 	key_setsounds();
 	self.touch = key_touch;
 	self.items = IT_KEY2;

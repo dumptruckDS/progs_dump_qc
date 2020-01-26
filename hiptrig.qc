@@ -26,26 +26,7 @@ void() keytrigger_use =
 		if (self.message != "")
 			centerprint (activator, self.message);
 		else
-		{
-			if (self.items == IT_KEY1) //self.items was incorrect here, thanks Khreathor and spike
-			{
-				if (world.worldtype == WORLDTYPE_BASE)
-					centerprint (activator, "You need the silver keycard");
-				else if (world.worldtype == WORLDTYPE_METAL)
-					centerprint (activator, "You need the silver runekey");
-				else if (world.worldtype == WORLDTYPE_MEDIEVAL)
-					centerprint (activator, "You need the silver key");
-			}
-			else
-			{
-				if (world.worldtype == WORLDTYPE_BASE)
-					centerprint (activator, "You need the gold keycard");
-				else if (world.worldtype == WORLDTYPE_METAL)
-					centerprint (activator, "You need the gold runekey");
-				else if (world.worldtype == WORLDTYPE_MEDIEVAL)
-					centerprint (activator, "You need the gold key");
-			}
-		}
+			centerprint2 (activator, "You need the ", self.netname);
 		sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 		return;
 	}
@@ -115,9 +96,15 @@ void() trigger_usekey =
 	}
 
 	if (self.spawnflags & USE_SILV_KEY) //dumptruck_ds
+	{
 		self.items = IT_KEY1;
+		self.netname = SilverKeyName ();
+	}
 	if (self.spawnflags & USE_GOLD_KEY) //dumptruck_ds
-	self.items = IT_KEY2;
+	{
+		self.items = IT_KEY2;
+		self.netname = GoldKeyName ();
+	}
 
 	self.use = keytrigger_use;
 	self.touch = keytrigger_touch;
