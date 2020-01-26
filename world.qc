@@ -287,7 +287,7 @@ void() worldspawn =
 	precache_sound ("demon/dland2.wav");		// landing thud
 	precache_sound ("misc/h2ohit1.wav");		// landing splash
 
-// setup precaches allways needed
+// setup precaches always needed
 	precache_sound ("items/itembk2.wav");		// item respawn sound
 	precache_sound ("player/plyrjmp8.wav");		// player jump
 	precache_sound ("player/land.wav");			// player landing

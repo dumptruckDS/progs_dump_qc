@@ -363,7 +363,7 @@ void(entity attacker, float damage)	hknight_pain =
 	sound (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);
 
 	if (time - self.pain_finished > 5)
-	{	// allways go into pain frame if it has been a while
+	{	// always go into pain frame if it has been a while
 		hknight_pain1 ();
 		self.pain_finished = time + 1;
 		return;

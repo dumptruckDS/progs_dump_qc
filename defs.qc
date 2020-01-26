@@ -357,7 +357,7 @@ float	TE_TELEPORT		= 11;
 
 // sound channels
 // channel 0 never willingly overrides
-// other channels (1-7) allways override a playing sound on that channel
+// other channels (1-7) always override a playing sound on that channel
 float	CHAN_AUTO		= 0;
 float	CHAN_WEAPON		= 1;
 float	CHAN_VOICE		= 2;
