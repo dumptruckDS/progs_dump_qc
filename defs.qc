@@ -678,6 +678,28 @@ void(string var, string val) cvar_set = #72;	// sets cvar.value
 
 void(entity client, string s) centerprint = #73;	// sprint, but in middle
 
+// The following function definitions allow the engine's builtin
+// centerprint function (builtin #73) to be called with different
+// numbers of string arguments.  The string that will be printed is the
+// concatenation of the string arguments.
+//
+// These definitions work because builtin #73 is implemented in such
+// a way that it can accept multiple string arguments in this manner,
+// even though the original QuakeC code didn't take advantage of this
+// fact.  A maximum of seven string arguments can be passed because
+// a function is limited to a total of eight arguments (and the first
+// argument is the client).  Note that in the original engine, all of
+// the strings for a centerprint message are concatenated into a single
+// 256-char buffer, therefore excessively long messages should be
+// avoided.  -- iw
+//
+void(entity client, string s1, string s2) centerprint2 = #73;
+void(entity client, string s1, string s2, string s3) centerprint3 = #73;
+void(entity client, string s1, string s2, string s3, string s4) centerprint4 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5) centerprint5 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5, string s6) centerprint6 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5, string s6, string s7) centerprint7 = #73;
+
 void(vector pos, string samp, float vol, float atten) ambientsound = #74;
 
 string(string s) precache_model2	= #75;		// registered version only
