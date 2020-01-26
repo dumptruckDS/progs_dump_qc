@@ -564,6 +564,7 @@ void() PutClientInServer =
 	self.gravity = 0;
 	self.wantedgravity = 0;
 	self.onladder = 0;
+	self.customkeys = 0;  // support for item_key_custom -- iw
 
 	DecodeLevelParms ();
 

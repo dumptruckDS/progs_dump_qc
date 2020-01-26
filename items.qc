@@ -1169,50 +1169,15 @@ KEYS
 */
 
 
-/*
-============
-SilverKeyName
-
-Return the name that should be used for the silver key as per
-world.worldtype.  -- iw
-============
-*/
-string() SilverKeyName =
-{
-	if (world.worldtype == WORLDTYPE_BASE)
-		return "silver keycard";
-	if (world.worldtype == WORLDTYPE_METAL)
-		return "silver runekey";
-	return "silver key";
-};
-
-
-/*
-============
-GoldKeyName
-
-Return the name that should be used for the gold key as per
-world.worldtype.  -- iw
-============
-*/
-string() GoldKeyName =
-{
-	if (world.worldtype == WORLDTYPE_BASE)
-		return "gold keycard";
-	if (world.worldtype == WORLDTYPE_METAL)
-		return "gold runekey";
-	return "gold key";
-};
-
-
 void() key_touch =
 {
-
 	if (other.classname != "player")
 		return;
 	if (other.health <= 0)
 		return;
-	if (other.items & self.items)
+
+// support for item_key_custom -- iw
+	if (HasKeys (other, self.items, self.customkeys))
 		return;
 
 	sprint (other, "You got the ");
@@ -1221,7 +1186,9 @@ void() key_touch =
 
 	sound (other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
-	other.items = other.items | self.items;
+
+// support for item_key_custom -- iw
+	GiveKeys (other, self.items, self.customkeys);
 
 	if (!coop)
 	{
@@ -1238,6 +1205,13 @@ void() key_touch =
 
 void() key_setsounds =
 {
+// support for item_key_custom -- iw
+	if (self.noise != "")
+	{
+		precache_sound (self.noise);
+		return;
+	}
+
 	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_sound ("misc/medkey.wav");
@@ -1303,8 +1277,14 @@ void() item_key1 =
 	}
 	self.netname = SilverKeyName ();
 	self.items = IT_KEY1;
+
+// support for item_key_custom -- iw
+	self.customkeys = 0;  // ignore any mapper-set value
+	self.noise = "";  // ignore any mapper-set value
+
 	key_start ();
 };
+
 
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
 GOLD key
@@ -1336,9 +1316,75 @@ void() item_key2 =
 	}
 	self.netname = GoldKeyName ();
 	self.items = IT_KEY2;
+
+// support for item_key_custom -- iw
+	self.customkeys = 0;  // ignore any mapper-set value
+	self.noise = "";  // ignore any mapper-set value
+
 	key_start ();
 };
 
+
+// item_key_custom is a brand-spanking-new entity class created for
+// progs_dump -- iw
+
+/*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32)
+A customizable key item.
+
+"keyname"  name of the key, e.g. "bronze key" (required)
+"mdl"      model file (required)
+"noise"    sound file for the pickup sound (default is per worldtype)
+"skin"     skin index (default 0)
+
+The "keyname" value is used both for the pickup message and to associate
+the key with the entity that it unlocks.
+
+To make a func_door or trigger_usekey require this key, set the
+"keyname" value of that entity so that it matches the "keyname" value of
+the key.
+
+If different item_key_custom entities have the same "keyname" value,
+they will be treated as different copies of the same key and may be used
+interchangeably.
+
+A map may have a maximum of 23 unique "keyname" values across all
+entities.
+
+The behavior of an item_key_custom should be as the player expects
+(based on the behavior of the silver and gold keys), except for the fact
+that it will not appear as an icon in the player's status bar when
+picked up.  This is a limitation of the engine.
+*/
+
+void() item_key_custom =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	if (self.keyname == "")
+	{
+		objerror ("no keyname specified");
+		return;
+	}
+
+	if (self.mdl == "")
+	{
+		objerror ("no mdl specified");
+		return;
+	}
+
+	precache_model (self.mdl);
+	setmodel (self, self.mdl);
+	self.mdl = "";  // this should not be referenced again
+
+	self.netname = self.keyname;
+	self.keyname = "";  // this should not be referenced again
+
+	self.items = 0;  // ignore any mapper-set value
+	self.customkeys = CustomKeyFlag (self.netname);
+
+	key_start ();
+};
 
 
 /*

@@ -30,6 +30,7 @@ Fields Set By These Functions
 The functions in this file set the following fields, therefore code
 calling these functions must not use these fields for other purposes:
 
+    - self.customkeys
     - self.items
     - self.netname
     - self.noise3
@@ -81,6 +82,7 @@ unlock self.  -- iw
 void() keylock_set_silver_key =
 {
 	self.items = IT_KEY1;
+	self.customkeys = 0;  // support for item_key_custom -- iw
 	self.netname = SilverKeyName ();
 };
 
@@ -96,7 +98,25 @@ unlock self.  -- iw
 void() keylock_set_gold_key =
 {
 	self.items = IT_KEY2;
+	self.customkeys = 0;  // support for item_key_custom -- iw
 	self.netname = GoldKeyName ();
+};
+
+
+// support for item_key_custom -- iw
+/*
+================
+keylock_set_custom_key
+
+Make it so that the player will need to use the custom key named
+key_name in order to unlock self.  -- iw
+================
+*/
+void(string key_name) keylock_set_custom_key =
+{
+	self.items = 0;
+	self.customkeys = CustomKeyFlag (key_name);
+	self.netname = key_name;
 };
 
 
@@ -110,7 +130,8 @@ for self, otherwise return FALSE.  -- iw
 */
 float() keylock_has_key_set =
 {
-	return self.items != 0;
+// support for item_key_custom -- iw
+	return self.items != 0 || self.customkeys != 0;
 };
 
 
@@ -152,7 +173,8 @@ void(entity client, string custom_message,
 {
 	local string s;
 
-	if ((self.items & client.items) != self.items)
+// support for item_key_custom -- iw
+	if (!HasKeys (client, self.items, self.customkeys))
 	{
 		if (custom_message != "")
 			centerprint (client, custom_message);
@@ -170,7 +192,8 @@ void(entity client, string custom_message,
 	}
 	else
 	{
-		client.items = client.items - (client.items & self.items);
+	// support for item_key_custom -- iw
+		RemoveKeys (client, self.items, self.customkeys);
 		s = "You used the ";
 	}
 

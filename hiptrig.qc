@@ -56,6 +56,7 @@ void() keytrigger_touch =
 Variable sized single use trigger that requires a key to trigger targets.  Must be targeted at one or more entities.
 
 "cnt"     if 1, leave a used key in the player's inventory (0 default).
+"keyname" if set, this is the keyname of the item_key_custom which unlocks this entity.
 "message" is printed when the trigger is touched without having the right key.
 */
 
@@ -67,16 +68,23 @@ void() trigger_usekey =
 // self.noise3 and self.noise4 are now set in keylock_init -- iw
 	keylock_init ();
 
-	if (!(self.spawnflags & (USE_SILV_KEY | USE_GOLD_KEY))) //dumptruck_ds thanks c0burn //iw further tweaked
-	{
-		objerror ("no key specified!");
-		return;
-	}
-
 	if (self.spawnflags & USE_SILV_KEY) //dumptruck_ds
 		keylock_set_silver_key ();
 	if (self.spawnflags & USE_GOLD_KEY) //dumptruck_ds
 		keylock_set_gold_key ();
+
+// support for item_key_custom -- iw
+	if (self.keyname != "")
+	{
+		keylock_set_custom_key (self.keyname);
+		self.keyname = "";  // this should not be referenced again
+	}
+
+	if (!keylock_has_key_set ())
+	{
+		objerror ("no key specified!");
+		return;
+	}
 
 	self.use = keytrigger_use;
 	self.touch = keytrigger_touch;

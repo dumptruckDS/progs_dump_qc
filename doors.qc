@@ -381,6 +381,7 @@ Key doors are always wait -1.
 "lip"		lip remaining at end of move (8 default)
 "dmg"		damage to inflict when blocked (2 default)
 "cnt"		if 1, leave a used key in the player's inventory (0 default)
+"keyname"	if set, this is the keyname of the item_key_custom which unlocks this entity
 "sounds"
 0)	no sound
 1)	stone
@@ -450,6 +451,13 @@ void() func_door =
 		keylock_set_silver_key ();
 	if (self.spawnflags & DOOR_GOLD_KEY)
 		keylock_set_gold_key ();
+
+// support for item_key_custom -- iw
+	if (self.keyname != "")
+	{
+		keylock_set_custom_key (self.keyname);
+		self.keyname = "";  // this should not be referenced again
+	}
 
 	if (!self.speed)
 		self.speed = 100;

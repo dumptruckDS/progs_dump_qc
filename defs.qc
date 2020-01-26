@@ -563,6 +563,13 @@ float	AS_MISSILE		= 4;
 .float		volume;
 
 
+//
+// support for item_key_custom -- iw
+//
+.string keyname;
+.float customkeys;
+
+
 // variables for enhanced triggering from Custents - dumptruck_ds
 .string target2;		// second target's name
 .string target3;		// third target's name

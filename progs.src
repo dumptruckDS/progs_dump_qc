@@ -6,6 +6,7 @@ subs.qc //modified targets, triggers and killtargets
 fight.qc
 ai.qc
 combat.qc
+keydata.qc //functions which deal with key item bitflags and names
 items.qc
 weapons.qc
 world.qc
