@@ -72,9 +72,10 @@ void() keytrigger_touch =
 	keytrigger_use();
 };
 
-/*QUAKED trigger_usekey (0 .5 0) ? USE_GOLD_KEY
+/*QUAKED trigger_usekey (0 .5 0) ? x x x USE_SILV_KEY USE_GOLD_KEY
 Variable sized single use trigger that requires a key to trigger targets.  Must be targeted at one or more entities.
 
+"cnt"     if 1, leave a used key in the player's inventory (0 default).
 "message" is printed when the trigger is touched without having the right key.
 */
 
