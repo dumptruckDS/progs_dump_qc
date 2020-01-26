@@ -1338,7 +1338,7 @@ ClientObituary
 called when a player dies
 ============
 */
-void(entity targ, entity attacker) ClientObituary =
+void(entity targ, entity inflictor, entity attacker) ClientObituary =
 {
 	local	float rnum;
 	local	string deathstring, deathstring2;
@@ -1470,6 +1470,22 @@ void(entity targ, entity attacker) ClientObituary =
 		{
 			targ.frags = targ.frags - 1;
 			bprint (targ.netname);
+
+			// custom obituary messages
+			if (inflictor.deathtype != "")
+			{
+				bprint (" ");
+				bprint (inflictor.deathtype);
+				bprint ("\n");
+				return;
+			}
+			if (attacker.deathtype != "")
+			{
+				bprint (" ");
+				bprint (attacker.deathtype);
+				bprint ("\n");
+				return;
+			}
 
 			// killed by a montser?
 			if (attacker.flags & FL_MONSTER)
