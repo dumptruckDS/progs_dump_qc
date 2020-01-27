@@ -205,6 +205,34 @@ state(choices) =
 @PointClass base(Key) studio("progs/w_g_key.mdl") =
 	item_key2 : "Gold key" []
 
+@PointClass base(Key) =
+	item_key_custom :
+"A customizable key item.
+
+'keyname': name of the key, e.g. 'bronze key' (required)
+
+'mdl': model file (required)
+
+'noise': sound file for the pickup sound (default is per worldtype)
+
+'skin': skin index (default 0)
+
+The 'keyname' value is used both for the pickup message and to associate the key with the entity that it unlocks.
+
+To make a func_door or trigger_usekey require this key, set the 'keyname' value of that entity so that it matches the 'keyname' value of the key.
+
+If different item_key_custom entities have the same 'keyname' value, they will be treated as different copies of the same key and may be used interchangeably.
+
+A map may have a maximum of 23 unique 'keyname' values across all entities.
+
+The behavior of an item_key_custom should be as the player expects (based on the behavior of the silver and gold keys), except for the fact that it will not appear as an icon in the player's status bar when picked up.  This is a limitation of the engine."
+[
+	keyname(string) : "Name of the key, e.g. 'bronze key' (required)"
+	mdl(string) : "Model file (required)"
+	noise(string) : "Sound file for the pickup sound (default is per worldtype)"
+	skin(integer) : "Skin index (default 0)"
+]
+
 @PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem) studio("progs/end1.mdl") =
 	item_sigil : "Sigil"
 [
@@ -1037,6 +1065,11 @@ Default is 0.3 seconds.
 		0 : "Don't leave key in player's inventory"
 		1 : "Leave key in player's inventory"
 	]
+	keyname(string) : "If set, this is the keyname of the item_key_custom which unlocks this entity"
+	noise1(string) : "Sound file for the 'stop moving' sound (if set, overrides 'sounds')"
+	noise2(string) : "Sound file for the 'move' sound (if set, overrides 'sounds')"
+	noise3(string) : "Sound file for the 'key required' sound (default is per worldtype)"
+	noise4(string) : "Sound file for the 'key used' sound (default is per worldtype)"
 	spawnflags(flags) =
 	[
 		1 : "Starts Open" : 0
@@ -1400,7 +1433,11 @@ spawnflags(Flags) =
 		gravity(integer) : "Gravity : Normal (Default)" : 0
 	]
 
-@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey : "Trigger: Requires a Key NOTE: You must select a Key spawnflag" //dumptruck_ds added from Hipnotic Mission Pack
+//dumptruck_ds added from Hipnotic Mission Pack
+@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey :
+"Trigger: Requires a Key
+
+NOTE: You must specify either the silver or gold key by setting the relevant spawnflag, or specify an item_key_custom by setting the 'keyname' value so that it matches the 'keyname' value of the item_key_custom."
 [
 	cnt(choices) : "Leave key in player's inventory?" : 0 =
 	[
@@ -1408,7 +1445,10 @@ spawnflags(Flags) =
 		1 : "Leave key in player's inventory"
 	]
 	delay(float) : "Delay before trigger" : 0
+	keyname(string) : "If set, this is the keyname of the item_key_custom which unlocks this entity"
 	message(string) : "Custom message"
+	noise1(string) : "Sound file for the 'key required' sound (default is per worldtype)"
+	noise2(string) : "Sound file for the 'key used' sound (default is per worldtype)"
 	spawnflags(flags) =
 	[
 		8 : "Silver Key Required" : 0

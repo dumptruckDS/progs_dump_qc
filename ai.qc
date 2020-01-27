@@ -57,7 +57,7 @@ float(float v) anglemod =
 
 MOVETARGET CODE
 
-The angle of the movetarget effects standing and bowing direction, but has no effect on movement, which allways heads to the next target.
+The angle of the movetarget effects standing and bowing direction, but has no effect on movement, which always heads to the next target.
 
 targetname
 must be present.  The name of this movetarget.

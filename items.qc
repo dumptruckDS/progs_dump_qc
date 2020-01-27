@@ -1168,14 +1168,16 @@ KEYS
 ===============================================================================
 */
 
+
 void() key_touch =
 {
-
 	if (other.classname != "player")
 		return;
 	if (other.health <= 0)
 		return;
-	if (other.items & self.items)
+
+// support for item_key_custom -- iw
+	if (HasKeys (other, self.items, self.customkeys))
 		return;
 
 	sprint (other, "You got the ");
@@ -1184,7 +1186,9 @@ void() key_touch =
 
 	sound (other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
-	other.items = other.items | self.items;
+
+// support for item_key_custom -- iw
+	GiveKeys (other, self.items, self.customkeys);
 
 	if (!coop)
 	{
@@ -1201,29 +1205,51 @@ void() key_touch =
 
 void() key_setsounds =
 {
-	if (world.worldtype == 0)
+// support for item_key_custom -- iw
+	if (self.noise != "")
+	{
+		precache_sound (self.noise);
+		return;
+	}
+
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_sound ("misc/medkey.wav");
 		self.noise = "misc/medkey.wav";
 	}
-	if (world.worldtype == 1)
+	if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_sound ("misc/runekey.wav");
 		self.noise = "misc/runekey.wav";
 	}
-	if (world.worldtype == 2)
+	if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_sound2 ("misc/basekey.wav");
 		self.noise = "misc/basekey.wav";
 	}
 };
 
+
+/*
+============
+key_start
+
+Finish initializing self as a key item.  -- iw
+============
+*/
+void() key_start =
+{
+	key_setsounds ();
+	self.particles_offset = '0 0 18';
+	self.touch = key_touch;
+	setsize (self, '-16 -16 -24', '16 16 32');
+	StartItem ();
+};
+
+
 /*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32)
 SILVER key
-In order for keys to work
-you MUST set your maps
-worldtype to one of the
-following:
+In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
 1: metal
 2: base
@@ -1234,38 +1260,35 @@ void() item_key1 =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_model ("progs/w_s_key.mdl");
 		setmodel (self, "progs/w_s_key.mdl");
-		self.netname = "silver key";
 	}
-	else if (world.worldtype == 1)
+	else if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_model ("progs/m_s_key.mdl");
 		setmodel (self, "progs/m_s_key.mdl");
-		self.netname = "silver runekey";
 	}
-	else if (world.worldtype == 2)
+	else if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_model2 ("progs/b_s_key.mdl");
 		setmodel (self, "progs/b_s_key.mdl");
-		self.netname = "silver keycard";
 	}
-	key_setsounds();
-	self.touch = key_touch;
+	self.netname = SilverKeyName ();
 	self.items = IT_KEY1;
-	setsize (self, '-16 -16 -24', '16 16 32');
-	self.particles_offset = '0 0 18';
-	StartItem ();
+
+// support for item_key_custom -- iw
+	self.customkeys = 0;  // ignore any mapper-set value
+	self.noise = "";  // ignore any mapper-set value
+
+	key_start ();
 };
+
 
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
 GOLD key
-In order for keys to work
-you MUST set your maps
-worldtype to one of the
-following:
+In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
 1: metal
 2: base
@@ -1276,32 +1299,92 @@ void() item_key2 =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_model ("progs/w_g_key.mdl");
 		setmodel (self, "progs/w_g_key.mdl");
-		self.netname = "gold key";
 	}
-	if (world.worldtype == 1)
+	if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_model ("progs/m_g_key.mdl");
 		setmodel (self, "progs/m_g_key.mdl");
-		self.netname = "gold runekey";
 	}
-	if (world.worldtype == 2)
+	if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_model2 ("progs/b_g_key.mdl");
 		setmodel (self, "progs/b_g_key.mdl");
-		self.netname = "gold keycard";
 	}
-	key_setsounds();
-	self.touch = key_touch;
+	self.netname = GoldKeyName ();
 	self.items = IT_KEY2;
-	setsize (self, '-16 -16 -24', '16 16 32');
-	self.particles_offset = '0 0 18';
-	StartItem ();
+
+// support for item_key_custom -- iw
+	self.customkeys = 0;  // ignore any mapper-set value
+	self.noise = "";  // ignore any mapper-set value
+
+	key_start ();
 };
 
+
+// item_key_custom is a brand-spanking-new entity class created for
+// progs_dump -- iw
+
+/*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32)
+A customizable key item.
+
+"keyname"  name of the key, e.g. "bronze key" (required)
+"mdl"      model file (required)
+"noise"    sound file for the pickup sound (default is per worldtype)
+"skin"     skin index (default 0)
+
+The "keyname" value is used both for the pickup message and to associate
+the key with the entity that it unlocks.
+
+To make a func_door or trigger_usekey require this key, set the
+"keyname" value of that entity so that it matches the "keyname" value of
+the key.
+
+If different item_key_custom entities have the same "keyname" value,
+they will be treated as different copies of the same key and may be used
+interchangeably.
+
+A map may have a maximum of 23 unique "keyname" values across all
+entities.
+
+The behavior of an item_key_custom should be as the player expects
+(based on the behavior of the silver and gold keys), except for the fact
+that it will not appear as an icon in the player's status bar when
+picked up.  This is a limitation of the engine.
+*/
+
+void() item_key_custom =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	if (self.keyname == "")
+	{
+		objerror ("no keyname specified");
+		return;
+	}
+
+	if (self.mdl == "")
+	{
+		objerror ("no mdl specified");
+		return;
+	}
+
+	precache_model (self.mdl);
+	setmodel (self, self.mdl);
+	self.mdl = "";  // this should not be referenced again
+
+	self.netname = self.keyname;
+	self.keyname = "";  // this should not be referenced again
+
+	self.items = 0;  // ignore any mapper-set value
+	self.customkeys = CustomKeyFlag (self.netname);
+
+	key_start ();
+};
 
 
 /*

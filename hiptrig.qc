@@ -10,49 +10,20 @@
 float USE_SILV_KEY = 8;
 float USE_GOLD_KEY = 16;
 
-void() keytrigger_use =
+/*
+================
+keytrigger_unlock
+
+Perform the actions which should be performed when self is successfully
+unlocked with a key.
+
+This function exists so that it can be passed as an argument to the new
+keylock_try_to_unlock function.  This code was previously part of the
+keytrigger_use function.  -- iw
+================
+*/
+void() keytrigger_unlock =
 {
-	if (activator.classname != "player")
-		return;
-	if (self.attack_finished > time)
-		return;
-
-	self.attack_finished = time + 2;
-
-// FIXME: blink key on player's status bar
-	if ( (self.items & activator.items) != self.items )
-
-	{
-		if (self.message != "")
-			centerprint (activator, self.message);
-		else
-		{
-			if (self.items == IT_KEY1) //self.items was incorrect here, thanks Khreathor and spike
-			{
-				if (world.worldtype == 2)
-					centerprint (activator, "You need the silver keycard");
-				else if (world.worldtype == 1)
-					centerprint (activator, "You need the silver runekey");
-				else if (world.worldtype == 0)
-					centerprint (activator, "You need the silver key");
-			}
-			else
-			{
-				if (world.worldtype == 2)
-					centerprint (activator, "You need the gold keycard");
-				else if (world.worldtype == 1)
-					centerprint (activator, "You need the gold runekey");
-				else if (world.worldtype == 0)
-					centerprint (activator, "You need the gold key");
-			}
-		}
-		sound (self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
-		return;
-	}
-
-	if (!self.cnt) //dumptruck_ds thanks RennyC -- set cnt 1 to leave key in player inventory
-	activator.items = activator.items - self.items;
-
 	// we can't just remove (self) here, because this is a touch function
 	// called while C code is looping through area links...
 	self.touch = SUB_Null;
@@ -61,9 +32,18 @@ void() keytrigger_use =
 	self.think = SUB_Remove;
 	self.message = "";
 
-	sound (self, CHAN_ITEM, self.noise4, 1, ATTN_NORM); //dumptruck_ds CHAN_VOICE becomes CHAN_ITEM
-
 	SUB_UseTargets();
+};
+
+void() keytrigger_use =
+{
+	if (activator.classname != "player")
+		return;
+	if (self.attack_finished > time)
+		return;
+
+	self.attack_finished = time + 2;
+	keylock_try_to_unlock (activator, self.message, keytrigger_unlock);
 };
 
 void() keytrigger_touch =
@@ -72,10 +52,14 @@ void() keytrigger_touch =
 	keytrigger_use();
 };
 
-/*QUAKED trigger_usekey (0 .5 0) ? USE_GOLD_KEY
+/*QUAKED trigger_usekey (0 .5 0) ? x x x USE_SILV_KEY USE_GOLD_KEY
 Variable sized single use trigger that requires a key to trigger targets.  Must be targeted at one or more entities.
 
+"cnt"     if 1, leave a used key in the player's inventory (0 default).
+"keyname" if set, this is the keyname of the item_key_custom which unlocks this entity.
 "message" is printed when the trigger is touched without having the right key.
+"noise1"  sound file for the "key required" sound (default is per worldtype).
+"noise2"  sound file for the "key used" sound (default is per worldtype).
 */
 
 void() trigger_usekey =
@@ -83,41 +67,35 @@ void() trigger_usekey =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
-	{
-		precache_sound ("doors/medtry.wav");
-		precache_sound ("doors/meduse.wav");
-		self.noise3 = "doors/medtry.wav";
-		self.noise4 = "doors/meduse.wav";
-	}
-	else if (world.worldtype == 1)
-	{
-		precache_sound ("doors/runetry.wav");
-		precache_sound ("doors/runeuse.wav");
-		self.noise3 = "doors/runetry.wav";
-		self.noise4 = "doors/runeuse.wav";
-	}
-	else if (world.worldtype == 2)
-	{
-		precache_sound ("doors/basetry.wav");
-		precache_sound ("doors/baseuse.wav");
-		self.noise3 = "doors/basetry.wav";
-		self.noise4 = "doors/baseuse.wav";
-	}
-	else
-		dprint ("no worldtype set!\n");
+// the keylock_* functions use self.noise3 and self.noise4 internally,
+// but trigger_usekey doesn't use the self.noise1 or self.noise2 fields
+// for anything, so we allow the mapper to specify custom sound files by
+// setting self.noise1 and self.noise2, but we move those values into
+// self.noise3 and self.noise4 -- iw
+	self.noise3 = self.noise1;
+	self.noise4 = self.noise2;
+	self.noise1 = "";
+	self.noise2 = "";
 
-	if (!self.spawnflags) //dumptruck_ds thanks c0burn
-	{
-		objerror ("no spawnflags set!\n");
-		remove(self);
-		return;
-	}
+	keylock_init ();
 
 	if (self.spawnflags & USE_SILV_KEY) //dumptruck_ds
-		self.items = IT_KEY1;
+		keylock_set_silver_key ();
 	if (self.spawnflags & USE_GOLD_KEY) //dumptruck_ds
-	self.items = IT_KEY2;
+		keylock_set_gold_key ();
+
+// support for item_key_custom -- iw
+	if (self.keyname != "")
+	{
+		keylock_set_custom_key (self.keyname);
+		self.keyname = "";  // this should not be referenced again
+	}
+
+	if (!keylock_has_key_set ())
+	{
+		objerror ("no key specified!");
+		return;
+	}
 
 	self.use = keytrigger_use;
 	self.touch = keytrigger_touch;

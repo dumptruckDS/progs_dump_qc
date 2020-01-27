@@ -227,6 +227,11 @@ void		end_sys_fields;			// flag for structure dumping
 float	FALSE					= 0;
 float 	TRUE					= 1;
 
+// worldtype values
+float	WORLDTYPE_MEDIEVAL		= 0;
+float	WORLDTYPE_METAL			= 1;
+float	WORLDTYPE_BASE			= 2;
+
 // edict.flags
 float	FL_FLY					= 1;
 float	FL_SWIM					= 2;
@@ -357,7 +362,7 @@ float	TE_TELEPORT		= 11;
 
 // sound channels
 // channel 0 never willingly overrides
-// other channels (1-7) allways override a playing sound on that channel
+// other channels (1-7) always override a playing sound on that channel
 float	CHAN_AUTO		= 0;
 float	CHAN_WEAPON		= 1;
 float	CHAN_VOICE		= 2;
@@ -558,6 +563,13 @@ float	AS_MISSILE		= 4;
 .float		volume;
 
 
+//
+// support for item_key_custom -- iw
+//
+.string keyname;
+.float customkeys;
+
+
 // variables for enhanced triggering from Custents - dumptruck_ds
 .string target2;		// second target's name
 .string target3;		// third target's name
@@ -672,6 +684,28 @@ void(string s) changelevel = #70;
 void(string var, string val) cvar_set = #72;	// sets cvar.value
 
 void(entity client, string s) centerprint = #73;	// sprint, but in middle
+
+// The following function definitions allow the engine's builtin
+// centerprint function (builtin #73) to be called with different
+// numbers of string arguments.  The string that will be printed is the
+// concatenation of the string arguments.
+//
+// These definitions work because builtin #73 is implemented in such
+// a way that it can accept multiple string arguments in this manner,
+// even though the original QuakeC code didn't take advantage of this
+// fact.  A maximum of seven string arguments can be passed because
+// a function is limited to a total of eight arguments (and the first
+// argument is the client).  Note that in the original engine, all of
+// the strings for a centerprint message are concatenated into a single
+// 256-char buffer, therefore excessively long messages should be
+// avoided.  -- iw
+//
+void(entity client, string s1, string s2) centerprint2 = #73;
+void(entity client, string s1, string s2, string s3) centerprint3 = #73;
+void(entity client, string s1, string s2, string s3, string s4) centerprint4 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5) centerprint5 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5, string s6) centerprint6 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5, string s6, string s7) centerprint7 = #73;
 
 void(vector pos, string samp, float vol, float atten) ambientsound = #74;
 
