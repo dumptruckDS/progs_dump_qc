@@ -405,8 +405,8 @@ Default health = 80" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
 
 Default health = 25" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 32) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath" []
-@PointClass base(Monster) size(-16 -16 -24, 16 16 32) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath" []
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath" []
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/zombie.mdl","skin" : skin, "frame" : frame}) = monster_zombie : "Zombie
 
 Default health = 60
