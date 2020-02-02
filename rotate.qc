@@ -38,11 +38,6 @@ float PATH_ROTATE_DAMAGE      = 16;
 float PATH_ROTATE_MOVETIME    = 32;
 float PATH_ROTATE_SET_DAMAGE  = 64;
 
-// spawnflags for func_movewall
-float MOVEWALL_VISIBLE     = 1;
-float MOVEWALL_TOUCH       = 2;
-float MOVEWALL_NONBLOCKING = 4;
-
 // spawnflags for func_rotate_door
 float ROTATE_DOOR_STAYOPEN = 1;
 

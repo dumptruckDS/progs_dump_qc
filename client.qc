@@ -1545,9 +1545,11 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 				bprint (" discovered that lasers are hot\n");
 				return;
 			}
-			if (attacker.solid == SOLID_BSP &&
+			if ((attacker.solid == SOLID_BSP &&
 					attacker != world &&
-					attacker.classname != "togglewall")
+					attacker.classname != "togglewall") ||
+					(inflictor.classname == "func_movewall" &&
+					!(inflictor.spawnflags & MOVEWALL_TOUCH)))
 			{
 				bprint (" was squished\n");
 				return;
