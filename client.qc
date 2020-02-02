@@ -1562,6 +1562,12 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 				bprint (" was unlucky\n"); //changed for custom shooters --dumptruck_ds
 				return;
 			}
+			if (attacker.classname == "ltrail_start" ||
+					attacker.classname == "ltrail_relay")
+			{
+				bprint (" had an electrifying experience\n");
+				return;
+			}
 			if (attacker.classname == "fireball")
 			{
 				bprint (" ate a lavaball\n");
