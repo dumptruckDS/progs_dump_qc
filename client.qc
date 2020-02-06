@@ -848,7 +848,7 @@ void() PlayerJump =
 
 	self.button2 = 0;
 // player jumping sound
-	sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);
+	sound (self, CHAN_AUTO, "player/plyrjmp8.wav", 1, ATTN_NORM);
 	self.velocity_z = self.velocity_z + 270;
 };
 
