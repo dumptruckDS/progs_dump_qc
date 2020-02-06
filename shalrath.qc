@@ -235,7 +235,10 @@ void() monster_shalrath =
 	self.th_walk = shal_walk1;
 	self.th_run = shal_run1;
 	self.th_die = shalrath_die;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = shalrath_pain;
+	else
+	self.th_pain = SUB_NullPain;
 	self.th_missile = shal_attack1;
 
 	self.think = walkmonster_start;

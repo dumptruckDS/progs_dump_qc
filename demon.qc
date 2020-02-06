@@ -213,7 +213,10 @@ void() monster_demon1 =
 	self.th_die = demon_die;
 	self.th_melee = Demon_MeleeAttack;		// one of two attacks
 	self.th_missile = demon1_jump1;			// jump attack
-	self.th_pain = demon1_pain;
+  if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+    self.th_pain = demon1_pain;
+  else
+    self.th_pain = SUB_NullPain;
 
 	walkmonster_start();
 };

@@ -176,7 +176,7 @@ void() monster_fish =
 	setmodel (self, "progs/fish.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 24');
-	
+
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 25;
 
@@ -184,7 +184,10 @@ void() monster_fish =
 	self.th_walk = f_walk1;
 	self.th_run = f_run1;
 	self.th_die = f_death1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = fish_pain;
+	else
+	self.th_pain = SUB_NullPain;
 	self.th_melee = f_attack1;
 
 	swimmonster_start ();

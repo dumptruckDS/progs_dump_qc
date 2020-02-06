@@ -366,7 +366,10 @@ void() monster_shambler =
 	self.th_die = sham_die;
 	self.th_melee = sham_melee;
 	self.th_missile = sham_magic1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = sham_pain;
+	else
+	self.th_pain = SUB_NullPain;
 
 	walkmonster_start();
 };

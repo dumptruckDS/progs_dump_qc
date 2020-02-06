@@ -347,7 +347,10 @@ void() monster_enforcer =
 	self.th_stand = enf_stand1;
 	self.th_walk = enf_walk1;
 	self.th_run = enf_run1;
-	self.th_pain = enf_pain;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+		self.th_pain = enf_pain;
+	else
+		self.th_pain = SUB_NullPain;
 	self.th_die = enf_die;
 	self.th_missile = enf_atk1;
 

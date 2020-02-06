@@ -429,7 +429,7 @@ void() monster_hell_knight =
 	setmodel (self, "progs/hknight.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
-	
+
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 250;
 
@@ -438,7 +438,10 @@ void() monster_hell_knight =
 	self.th_run = hknight_run1;
 	self.th_melee = hknight_melee;
 	self.th_missile = hknight_magicc1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = hknight_pain;
+	else
+	self.th_pain = SUB_NullPain;
 	self.th_die = hknight_die;
 
 	walkmonster_start ();

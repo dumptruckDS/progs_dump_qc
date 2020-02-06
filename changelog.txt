@@ -1,4 +1,4 @@
-1.1.3 January 2020
+1.1.3 February 2020
 
 * Added skins to debris.mdl for a total of 32 built-in, commonly used textures
 * Added pd_pop2.wav to sound\oldone2 for Shub pain sound effect
@@ -12,6 +12,8 @@
 * Fixed id1 DAMAGE_AIM bug in Shub and Chthon (iw)
 * Multiple fixes and optimizations to FGDs (iw)
 * Added reset_items 2 to worldspawn for axe only start (iw)
+* Added berserk key to monsters to suppress pain animations
+  (excluding Bosses, Spawn and Zombies)
 
 1.1.2 October 2019
 
