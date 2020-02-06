@@ -361,7 +361,7 @@ void() T_MissileTouch =
 	WriteCoord (MSG_BROADCAST, self.origin_z);
 
 	BecomeExplosion ();
-	
+
 };
 //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
 
@@ -378,7 +378,7 @@ void() T_GruntMisTouch =
 		return;
 	}
 
-	damg = 10 + random()*2; //dumptruck_ds
+	damg = 30 + random()*2; //dumptruck_ds
 
 	if (other.health)
 	{
@@ -389,7 +389,7 @@ void() T_GruntMisTouch =
 
 	// don't do radius damage to the other, because all the damage
 	// was done in the impact
-	T_RadiusDamage (self, self.owner, 10, other); //dumptruck_ds
+	T_RadiusDamage (self, self.owner, 40, other); //dumptruck_ds
 
 //	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
 	self.origin = self.origin - 8*normalize(self.velocity);
@@ -467,7 +467,7 @@ void() W_GruntRocket =
 // set missile speed  -- dumptruck_ds below
 
 	missile.velocity = normalize(self.enemy.origin - self.origin);
-  missile.velocity = missile.velocity * 600;
+  missile.velocity = missile.velocity * 900;
   missile.angles = vectoangles(missile.velocity);
   missile.touch = T_GruntMisTouch;
 

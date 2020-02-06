@@ -309,10 +309,7 @@ void() monster_army =
 	self.th_walk = army_walk1;
 	self.th_run = army_run1;
 	self.th_missile = army_atk1;
-	if !(self.style2) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = army_pain;
-	else
-	self.th_pain = SUB_Null; //end dumptruck_ds
 	self.th_die = army_die;
 
 	walkmonster_start ();
