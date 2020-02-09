@@ -280,7 +280,7 @@ void() walkmonster_start =
 
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = self.nextthink + .1 + (random()*0.4);
 	self.think = walkmonster_start_go;
 	total_monsters = total_monsters + 1;
 	///	Trigger enemy after spawn (khreathor)
@@ -363,7 +363,7 @@ void() flymonster_start =
     	return;
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = self.nextthink + .1 + (random()*0.4);
 	self.think = flymonster_start_go;
 	total_monsters = total_monsters + 1;
 };
@@ -434,7 +434,7 @@ void() swimmonster_start =
     	return;
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = self.nextthink + .1 + (random()*0.4);
 	self.think = swimmonster_start_go;
 	total_monsters = total_monsters + 1;
 };
