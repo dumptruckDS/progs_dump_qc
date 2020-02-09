@@ -248,6 +248,7 @@ self.owner.frame = 2;
 void() sham_magic6     =[      $magic6,       sham_magic9    ]
 {
 remove (self.owner);
+self.owner = world;
 CastLightning();
 sound (self, CHAN_WEAPON, "shambler/sboom.wav", 1, ATTN_NORM);
 };
@@ -284,6 +285,10 @@ void(entity attacker, float damage)	sham_pain =
 	if (self.pain_finished > time)
 		return;
 	self.pain_finished = time + 2;
+	
+	if (self.owner)
+		self.owner.frame = 2;
+	self.owner = world;
 
 	sham_pain1 ();
 };

@@ -380,6 +380,13 @@ float() FindTarget =
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
+	
+	if (client.health <= 0)
+		return FALSE;
+	
+	if (client.classname != "player")
+		if (client.enemy.health <= 0)
+			return FALSE;
 
 	if (client == self.enemy)
 		return FALSE;

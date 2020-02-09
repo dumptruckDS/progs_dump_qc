@@ -77,7 +77,10 @@ void() OgreGrenadeTouch =
 		OgreGrenadeExplode();
 		return;
 	}
-	sound (self, CHAN_VOICE, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	if (self.count < time) {
+		sound (self, CHAN_VOICE, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	}
+	self.count = time + .02;
 	if (self.velocity == '0 0 0')
 		self.avelocity = '0 0 0';
 };
