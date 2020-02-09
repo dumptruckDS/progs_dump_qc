@@ -14,6 +14,8 @@
 * Added reset_items 2 to worldspawn for axe only start (iw)
 * Added berserk key to monsters to suppress pain animations
   (excluding Bosses, Spawn and Zombies)
+* Added item_key_custom -- use any model as a key (iw)
+* Added skin key to monsters
 
 1.1.2 October 2019
 
