@@ -42,6 +42,18 @@ $frame prowl_17 prowl_18 prowl_19 prowl_20 prowl_21 prowl_22 prowl_23 prowl_24
 SOLDIER CODE
 ==============================================================================
 */
+void() genforcer_fire =
+{
+	local vector org;
+
+	self.effects = self.effects | EF_MUZZLEFLASH;
+	makevectors (self.angles);
+
+	org = self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16';
+
+	LaunchLaser(org, self.enemy.origin - self.origin);
+};
+
 
 void() army_fire;
 
@@ -184,6 +196,20 @@ if (self.style2 == 1)
 		W_GruntRocket();
 	}
 
+else if (self.style2 == 2)
+
+	{
+		ai_face();
+		OgreFireGrenade();
+	}
+
+else if (self.style2 == 3)
+
+	{
+		ai_face();
+		genforcer_fire();
+	}
+
 else
 
 	{
@@ -281,6 +307,7 @@ void() monster_army =
 	}
 	precache_model ("progs/soldier.mdl");
 	precache_model ("progs/h_guard.mdl");
+	precache_model2 ("progs/laser.mdl"); // used if style2 == 3
 	precache_model ("progs/gib1.mdl");
 	precache_model ("progs/gib2.mdl");
 	precache_model ("progs/gib3.mdl");
@@ -291,6 +318,8 @@ void() monster_army =
 	precache_sound ("soldier/pain2.wav");
 	precache_sound ("soldier/sattck1.wav");
 	precache_sound ("soldier/sight1.wav");
+	precache_sound2 ("enforcer/enfire.wav"); // used if style2 == 3
+	precache_sound2 ("enforcer/enfstop.wav"); // used if style2 == 3
 
 	precache_sound ("player/udeath.wav");		// gib death
 
