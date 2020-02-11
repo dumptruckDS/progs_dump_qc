@@ -53,7 +53,29 @@ void() genforcer_fire =
 
 	LaunchLaser(org, self.enemy.origin - self.origin);
 };
+/*
+================
+OgreFireSpike
+================
+*/
 
+void() OgreFireSpike =
+{
+    local vector dir;
+    // local entity old;
+
+    sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+    self.attack_finished = time + 0.2;
+
+    dir = normalize (self.enemy.origin - self.origin);
+
+    launch_spike (self.origin + '0 0 16', dir);
+
+    newmis.touch = superspike_touch;
+    setmodel (newmis, "progs/s_spike.mdl");
+
+    setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
+};
 
 void() army_fire;
 
@@ -183,7 +205,6 @@ void(entity attacker, float damage)	army_pain =
 	}
 };
 
-
 void() army_fire =
 { //dumptruck_ds start rocket grunt stuff
 
@@ -208,6 +229,13 @@ else if (self.style2 == 3)
 	{
 		ai_face();
 		genforcer_fire();
+	}
+
+else if (self.style2 == 4)
+
+	{
+		ai_face();
+		OgreFireSpike();
 	}
 
 else
