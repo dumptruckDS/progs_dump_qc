@@ -1614,7 +1614,7 @@ Causes damage."
 [
 ]
 
-// tele_fog has been replaced with ambient_fire for consistency, they work identically in QC
+// tele_fog has been replaced with play_tele for consistency, they work identically in QC
 // @PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = tele_fog : "When triggered, tele_fog shows the teleport particle effects and sound.
 //
 // Use this when killtargeting an entity if the player can see it happen."
