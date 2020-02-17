@@ -523,16 +523,25 @@ void() zombie_start =  // determine if zombie is to be lying down, or standing
 	self.use = zombie_use; //dumptruck_ds -- makes self.count = 0 so zombie_stand1 is called
 
 	if (self.spawnflags & SPAWN_SLEEPING)
+	{
+		if (!SUB_IsTargeted ())
+		{
+			dprint ("WARNING: removed untargeted sleeping zombie at ");
+			dprint (vtos (self.origin));
+			dprint ("\n");
 
-	zombie_stand1 ();
+			monster_update_total (-1);
+			remove (self);
+			return;
+		}
+		zombie_stand1 ();
+	}
 	else
-	alt_zombie_stand1 ();
+	{
+		alt_zombie_stand1 ();
+	}
 
 	self.th_stand = alt_zombie_stand1;
-
-	if (self.spawnflags & SPAWN_SLEEPING && !self.targetname)
-	objerror ("SPAWN_SLEEPING entity requires a targetname"); //duh! -- dumptruck_ds duh for mispelling this objecterror
-	return;
 };
 
 // void() zombie_start2 = //unused in progs_dump -- dumptruck_ds
