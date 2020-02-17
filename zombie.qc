@@ -534,6 +534,7 @@ void() zombie_start =  // determine if zombie is to be lying down, or standing
 			remove (self);
 			return;
 		}
+		self.inpain = 2;
 		zombie_stand1 ();
 	}
 	else
