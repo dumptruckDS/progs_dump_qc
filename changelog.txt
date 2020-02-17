@@ -20,6 +20,11 @@
 * Fixed various legacy id1 bugs (Zungryware)
 * Added ericw entries to worldspawn in FGDs
 * Added ericw entries for func_detail variants in FGDs
+* Fixed various issues involving obituary messages (iw)
+* Fixed targeting and animation issues with sleeping zombies (iw)
+* Fixes to Shambler, Impulse 255 and misc_teleporttrain
+
+
 
 1.1.2 October 2019
 
