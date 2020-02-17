@@ -152,8 +152,6 @@ void() main =
 	precache_file2 ("maps/dm4.bsp");
 	precache_file2 ("maps/dm5.bsp");
 	precache_file2 ("maps/dm6.bsp");
-	
-	precache_sound ("items/damage2.wav");
 };
 
 
@@ -312,6 +310,7 @@ void() worldspawn =
 	precache_sound ("items/armor1.wav");		// armor up
 	precache_sound ("weapons/lhit.wav");		//lightning
 	precache_sound ("weapons/lstart.wav");		//lightning start
+	precache_sound ("items/damage2.wav");
 	precache_sound ("items/damage3.wav");
 
 	precache_sound ("misc/power.wav");			//lightning for boss
