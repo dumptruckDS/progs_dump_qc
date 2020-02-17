@@ -16,6 +16,10 @@
   (excluding Bosses, Spawn and Zombies)
 * Added item_key_custom -- use any model as a key (iw)
 * Added skin key to monsters
+* Fish are now gib-able
+* Fixed various legacy id1 bugs (Zungryware)
+* Added ericw entries to worldspawn in FGDs
+* Added ericw entries for func_detail variants in FGDs
 
 1.1.2 October 2019
 
