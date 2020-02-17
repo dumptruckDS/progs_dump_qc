@@ -395,6 +395,11 @@ float	MSG_ONE			= 1;		// reliable to one (msg_entity)
 float	MSG_ALL			= 2;		// reliable to all
 float	MSG_INIT		= 3;		// write to the init string
 
+// spawnflags for func_movewall
+float	MOVEWALL_VISIBLE		= 1;
+float	MOVEWALL_TOUCH			= 2;
+float	MOVEWALL_NONBLOCKING	= 4;
+
 // known_release values -- iw
 float	KNOWN_RELEASE_NOT			= 0;
 float	KNOWN_RELEASE_ID1			= 1;

@@ -208,6 +208,7 @@ When triggered, creates a explosion at it's origin. Causes damage.
 void () play_explosion_fx = //thanks Khreathor -- dumptruck_ds
 
 {
+  self.owner = self;  // GrenadeExplode uses self.owner as the attacker -- iw
   GrenadeExplode();
 }
 

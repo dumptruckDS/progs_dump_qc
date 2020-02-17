@@ -505,6 +505,9 @@ If a targetname is set, it must be triggered to start moving, otherwise it will 
 */
 void() misc_teleporttrain =
 {
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
 	if (!self.target)
 	{
 		objerror ("no target");
