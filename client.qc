@@ -561,6 +561,7 @@ void() PutClientInServer =
 	self.invincible_finished = 0;
 	self.effects = 0;
 	self.invincible_time = 0;
+	self.deathtype = "";
 	self.gravity = 0;
 	self.wantedgravity = 0;
 	self.onladder = 0;
@@ -885,7 +886,9 @@ void() WaterMove =
 			self.dmg = self.dmg + 2;
 			if (self.dmg > 15)
 				self.dmg = 10;
+			self.deathtype = "drowning";
 			T_Damage (self, world, world, self.dmg);
+			self.deathtype = "";
 			self.pain_finished = time + 1;
 		}
 	}
@@ -910,7 +913,9 @@ void() WaterMove =
 			else
 				self.dmgtime = time + 0.2;
 
+			self.deathtype = "lava";
 			T_Damage (self, world, world, 10*self.waterlevel);
+			self.deathtype = "";
 		}
 	}
 	else if (self.watertype == CONTENT_SLIME)
@@ -918,7 +923,9 @@ void() WaterMove =
 		if (self.dmgtime < time && self.radsuit_finished < time)
 		{
 			self.dmgtime = time + 1;
+			self.deathtype = "slime";
 			T_Damage (self, world, world, 4*self.waterlevel);
+			self.deathtype = "";
 		}
 	}
 
@@ -1251,9 +1258,10 @@ void() PlayerPostThink =
 			sound (self, CHAN_BODY, "player/h2ojump.wav", 1, ATTN_NORM);
 		else if (self.jump_flag < -650)
 		{
-			T_Damage (self, world, world, 5);
-			sound (self, CHAN_VOICE, "player/land2.wav", 1, ATTN_NORM);
 			self.deathtype = "falling";
+			T_Damage (self, world, world, 5);
+			self.deathtype = "";
+			sound (self, CHAN_VOICE, "player/land2.wav", 1, ATTN_NORM);
 		}
 		else
 			sound (self, CHAN_VOICE, "player/land.wav", 1, ATTN_NORM);
@@ -1330,7 +1338,7 @@ ClientObituary
 called when a player dies
 ============
 */
-void(entity targ, entity attacker) ClientObituary =
+void(entity targ, entity inflictor, entity attacker) ClientObituary =
 {
 	local	float rnum;
 	local	string deathstring, deathstring2;
@@ -1463,6 +1471,22 @@ void(entity targ, entity attacker) ClientObituary =
 			targ.frags = targ.frags - 1;
 			bprint (targ.netname);
 
+			// custom obituary messages
+			if (inflictor.deathtype != "")
+			{
+				bprint (" ");
+				bprint (inflictor.deathtype);
+				bprint ("\n");
+				return;
+			}
+			if (attacker.deathtype != "")
+			{
+				bprint (" ");
+				bprint (attacker.deathtype);
+				bprint ("\n");
+				return;
+			}
+
 			// killed by a montser?
 			if (attacker.flags & FL_MONSTER)
 			{
@@ -1509,20 +1533,39 @@ void(entity targ, entity attacker) ClientObituary =
 			}
 
 			// tricks and traps
-			if (attacker.classname == "explo_box")
+			if (attacker.classname == "explo_box" ||
+					attacker.classname == "play_explosion" ||
+					attacker.classname == "play_tbabyexplode")
 			{
 				bprint (" blew up\n");
 				return;
 			}
-			if (attacker.solid == SOLID_BSP && attacker != world)
+			if (attacker.classname == "func_laser")
+			{
+				bprint (" discovered that lasers are hot\n");
+				return;
+			}
+			if ((attacker.solid == SOLID_BSP &&
+					attacker != world &&
+					attacker.classname != "togglewall") ||
+					(inflictor.classname == "func_movewall" &&
+					!(inflictor.spawnflags & MOVEWALL_TOUCH)))
 			{
 				bprint (" was squished\n");
 				return;
 			}
-			if (attacker.classname == "trap_shooter" || attacker.classname == "trap_spikeshooter")
+			if (attacker.classname == "trap_shooter" ||
+					attacker.classname == "trap_spikeshooter" ||
+					attacker.classname == "trap_switched_shooter")
 			{
 				// bprint (" was spiked\n");
 				bprint (" was unlucky\n"); //changed for custom shooters --dumptruck_ds
+				return;
+			}
+			if (attacker.classname == "ltrail_start" ||
+					attacker.classname == "ltrail_relay")
+			{
+				bprint (" had an electrifying experience\n");
 				return;
 			}
 			if (attacker.classname == "fireball")
@@ -1536,9 +1579,8 @@ void(entity targ, entity attacker) ClientObituary =
 				return;
 			}
 
-			// in-water deaths
-			rnum = targ.watertype;
-			if (rnum == -3)
+			// in-liquid deaths
+			if (targ.deathtype == "drowning")
 			{
 				if (random() < 0.5)
 					bprint (" sleeps with the fishes\n");
@@ -1546,7 +1588,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" sucks it down\n");
 				return;
 			}
-			else if (rnum == -4)
+			if (targ.deathtype == "slime")
 			{
 				if (random() < 0.5)
 					bprint (" gulped a load of slime\n");
@@ -1554,7 +1596,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" can't exist on slime alone\n");
 				return;
 			}
-			else if (rnum == -5)
+			if (targ.deathtype == "lava")
 			{
 				if (targ.health < -15)
 				{
@@ -1571,7 +1613,6 @@ void(entity targ, entity attacker) ClientObituary =
 			// fell to their death?
 			if (targ.deathtype == "falling")
 			{
-				targ.deathtype = "";
 				bprint (" fell to his death\n");
 				return;
 			}
