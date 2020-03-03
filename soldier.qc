@@ -46,7 +46,7 @@ void() genforcer_fire =
 {
 	local vector org;
 
-	self.effects = self.effects | EF_MUZZLEFLASH;
+	// self.effects = self.effects | EF_MUZZLEFLASH; //redundant -- dumptruck_ds
 	makevectors (self.angles);
 
 	org = self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16';
@@ -68,8 +68,10 @@ void() OgreFireSpike =
     self.attack_finished = time + 0.2;
 
     dir = normalize (self.enemy.origin - self.origin);
+		makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
 
-    launch_spike (self.origin + '0 0 16', dir);
+    launch_spike (self.origin + v_forward * 30 + v_right * 5 + '0 0 16', dir);  //dumptruck_ds
+    // launch_spike (self.origin + '0 0 16', dir);
 
     newmis.touch = superspike_touch;
     setmodel (newmis, "progs/s_spike.mdl");
