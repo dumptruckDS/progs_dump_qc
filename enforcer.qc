@@ -98,10 +98,52 @@ void(vector org, vector vec) LaunchLaser =
 	newmis.touch = Laser_Touch;
 };
 
+//============================================================================
+// right now this is a WIP ENforcers still fire 2x which is too many grenades
+// I need to hack a fix in the animation frames to limit to 1
+// also need to fix where "flame" is coming out of weapon on various firing modes
+// see makevectors in soldier qc for ref.
+//============================================================================
 
-
+// style2 stuff -- dumptruck_ds
 void() enforcer_fire =
 {
+
+if (self.style2 == 1)
+
+	{
+		ai_face();
+		sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
+
+		W_GruntRocket();
+		return;
+	}
+
+else if (self.style2 == 2)
+
+	{
+		ai_face();
+		OgreFireGrenade();
+		return;
+	}
+
+// else if (self.style2 == 3)
+//
+// 	{
+// 		ai_face();
+// 		genforcer_fire();
+// 	}
+
+else if (self.style2 == 4)
+
+	{
+		ai_face();
+		MonFireSpike();
+		return;
+	}
+
+else
+
 	local vector org;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
@@ -168,6 +210,11 @@ void()	enf_atk11	=[	$attack7,	enf_atk12	] {ai_face();};
 void()	enf_atk12	=[	$attack8,	enf_atk13	] {ai_face();};
 void()	enf_atk13	=[	$attack9,	enf_atk14	] {ai_face();};
 void()	enf_atk14	=[	$attack10,	enf_run1	] {ai_face();
+	if (self.style == 1)
+	{
+		SUB_PD_Refire (enf_atk1);
+	}
+	else
 SUB_CheckRefire (enf_atk1);
 };
 

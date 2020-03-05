@@ -55,11 +55,11 @@ void() genforcer_fire =
 };
 /*
 ================
-OgreFireSpike
+MonFireSpike // used for Grunts, Enforcers and Ogres WIP
 ================
 */
 
-void() OgreFireSpike =
+void() MonFireSpike =
 {
     local vector dir;
     // local entity old;
@@ -137,7 +137,13 @@ void()	army_atk4	=[	$shoot4,	army_atk5	] {ai_face();};
 void()	army_atk5	=[	$shoot5,	army_atk6	] {ai_face();army_fire();
 self.effects = self.effects | EF_MUZZLEFLASH;};
 void()	army_atk6	=[	$shoot6,	army_atk7	] {ai_face();};
-void()	army_atk7	=[	$shoot7,	army_atk8	] {ai_face();SUB_CheckRefire (army_atk1);};
+void()	army_atk7	=[	$shoot7,	army_atk8	] {ai_face();
+	if (self.style == 1)
+	{
+		SUB_PD_Refire (army_atk1);
+	}
+	else
+SUB_CheckRefire (army_atk1);};
 void()	army_atk8	=[	$shoot8,	army_atk9	] {ai_face();};
 void()	army_atk9	=[	$shoot9,	army_run1	] {ai_face();};
 
@@ -237,7 +243,7 @@ else if (self.style2 == 4)
 
 	{
 		ai_face();
-		OgreFireSpike();
+		MonFireSpike();
 	}
 
 else
@@ -290,7 +296,7 @@ void()	army_cdie3	=[	$deathc3,	army_cdie4	]
 	}
 	else
 		self.ammo_shells = 5;
-if(!self.keep_ammo)DropBackpack();ai_back(4);};
+if(!self.keep_ammo)DropBackpack();ai_back(4);}; //dumptruck_ds
 void()	army_cdie4	=[	$deathc4,	army_cdie5	] {ai_back(13);};
 void()	army_cdie5	=[	$deathc5,	army_cdie6	] {ai_back(3);};
 void()	army_cdie6	=[	$deathc6,	army_cdie7	] {ai_back(4);};
