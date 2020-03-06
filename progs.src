@@ -38,7 +38,7 @@ fish.qc			// registered
 shalrath.qc		// registered
 enforcer.qc		// registered
 oldone.qc		// registered
-oldone2.qc		// killable Shub 
+oldone2.qc		// killable Shub
 
 dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
 math.qc // Code by Joshua Skelton
@@ -52,5 +52,5 @@ elevatr.qc //Rogue elevator code
 rubicon2.qc //selections from Rubicon2 QC
 dtquake.qc //triggerable earthquake from Zer cutscenes
 rotate.qc //from Hipnotic thanks RennyC
-func_bob.qc //RennyC's stand alone version based on Acrcane Dimensions
-//func_fall2.qc //Renny's improved version. I gave up on this.
+func_bob.qc //RennyC's stand alone version based on Arcane Dimensions
+func_fall2.qc //Renny's improved version
