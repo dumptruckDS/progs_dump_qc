@@ -83,7 +83,7 @@ void() movetarget_f =
 
 };
 
-/*QUAKED path_corner (0.5 0.3 0) (-8 -8 -8) (8 8 8)
+/*QUAKED path_corner (0.5 0.3 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP X NOT_IN_HARD_ONLY
 Monsters will continue walking towards the next target corner.
 */
 void() path_corner =
@@ -380,10 +380,10 @@ float() FindTarget =
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
-	
+
 	if (client.health <= 0)
 		return FALSE;
-	
+
 	if (client.classname != "player")
 		if (client.enemy.health <= 0)
 			return FALSE;

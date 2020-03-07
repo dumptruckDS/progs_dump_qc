@@ -237,7 +237,7 @@ float (entity e, float healamount, float ignore) T_Heal =
 	return 1;
 };
 
-/*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) rotten megahealth
+/*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) rotten megahealth X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 Health box. Normally gives 25 points.
 Rotten box heals 5-10 points,
 megahealth will add 100 health, then
@@ -441,7 +441,7 @@ void() armor_touch =
 };
 
 
-/*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_armor1 =
@@ -458,7 +458,7 @@ void() item_armor1 =
 	StartItem ();
 };
 
-/*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_armor2 =
@@ -475,7 +475,7 @@ void() item_armor2 =
 	StartItem ();
 };
 
-/*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_armorInv =
@@ -716,7 +716,7 @@ void() weapon_axe =
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
 };
-/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32) X metlslime_mdl Slapmap_mdl X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 Shotgun
 */
 
@@ -751,7 +751,7 @@ void() weapon_shotgun =
 };
 // johnfitz
 
-/*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() weapon_supershotgun =
@@ -769,7 +769,7 @@ void() weapon_supershotgun =
 	StartItem ();
 };
 
-/*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() weapon_nailgun =
@@ -787,7 +787,7 @@ void() weapon_nailgun =
 	StartItem ();
 };
 
-/*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() weapon_supernailgun =
@@ -805,7 +805,7 @@ void() weapon_supernailgun =
 	StartItem ();
 };
 
-/*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() weapon_grenadelauncher =
@@ -823,7 +823,7 @@ void() weapon_grenadelauncher =
 	StartItem ();
 };
 
-/*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() weapon_rocketlauncher =
@@ -842,7 +842,7 @@ void() weapon_rocketlauncher =
 };
 
 
-/*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() weapon_lightning =
@@ -962,7 +962,7 @@ local float		best;
 
 float WEAPON_BIG2 = 1;
 
-/*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_shells =
@@ -992,7 +992,7 @@ void() item_shells =
 	StartItem ();
 };
 
-/*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_spikes =
@@ -1022,7 +1022,7 @@ void() item_spikes =
 	StartItem ();
 };
 
-/*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_rockets =
@@ -1053,7 +1053,7 @@ void() item_rockets =
 };
 
 
-/*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
 */
 
 void() item_cells =

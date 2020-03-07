@@ -1,0 +1,1221 @@
+/*QUAKED path_corner (0.5 0.3 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP X NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+Monsters will continue walking towards the next target corner.
+*/
+/*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) rotten megahealth X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+Health box. Normally gives 25 points.
+Rotten box heals 5-10 points,
+megahealth will add 100 health, then
+rot you down to your maximum health limit,
+one point per second.
+*/
+/*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32) X metlslime_mdl Slapmap_mdl X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+Shotgun
+*/
+/*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) Large_Box X X X X Spawn_Silent Trigger_Spawned Suspended_in_Air NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD_OR_NIGHTMARE NOT_IN_DM NOT_IN_COOP NOT_IN_SP Spawn_DM_style NOT_IN_HARD_ONLY NOT_IN_NIGHTMARE_ONLY
+*/
+/*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32)
+SILVER key
+In order for keys to work you MUST set your map's worldtype to one of the following:
+0: medieval
+1: metal
+2: base
+*/
+/*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
+GOLD key
+In order for keys to work you MUST set your map's worldtype to one of the following:
+0: medieval
+1: metal
+2: base
+*/
+/*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32)
+A customizable key item.
+
+"keyname"  name of the key, e.g. "bronze key" (required)
+"mdl"      model file (required)
+"noise"    sound file for the pickup sound (default is per worldtype)
+"skin"     skin index (default 0)
+
+The "keyname" value is used both for the pickup message and to associate
+the key with the entity that it unlocks.
+
+To make a func_door or trigger_usekey require this key, set the
+"keyname" value of that entity so that it matches the "keyname" value of
+the key.
+
+If different item_key_custom entities have the same "keyname" value,
+they will be treated as different copies of the same key and may be used
+interchangeably.
+
+A map may have a maximum of 23 unique "keyname" values across all
+entities.
+
+The behavior of an item_key_custom should be as the player expects
+(based on the behavior of the silver and gold keys), except for the fact
+that it will not appear as an icon in the player's status bar when
+picked up.  This is a limitation of the engine.
+*/
+/*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4
+End of level sigil, pick up to end episode and return to jrstart.
+*/
+/*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32)
+Player is invulnerable for 30 seconds
+*/
+/*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32)
+Player takes no damage from water or slime for 30 seconds
+*/
+/*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32)
+Player is invisible for 30 seconds
+*/
+/*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32)
+The next attack from the player will do 4x damage
+*/
+/*QUAKED worldspawn (0 0 0) ?
+Only used for the world entity.
+Set message to the level name.
+Set sounds to the cd track to play.
+
+World Types:
+0: medieval
+1: metal
+2: base
+
+Optionally set reset_items to one of the following values:
+0: don't reset the player's inventory
+1: reset to shotgun, axe, and 25 shells
+2: reset to axe only
+*/
+/*QUAKED info_intermission (1 0.5 0.5) (-16 -16 -16) (16 16 16)
+This is the camera point for the intermission.
+Use mangle instead of angle, so you can set pitch or roll as well as yaw.  'pitch roll yaw'
+*/
+/*QUAKED trigger_changelevel (0.5 0.5 0.5) ? NO_INTERMISSION
+When the player touches this, he gets sent to the map listed in the "map" variable.  Unless the NO_INTERMISSION flag is set, the view will go to the info_intermission spot and display stats.
+*/
+/*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 24)
+The normal starting point for a level.
+*/
+/*QUAKED info_player_start2 (1 0 0) (-16 -16 -24) (16 16 24)
+Only used on start map for the return point from an episode.
+*/
+/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 24)
+potential spawning position for deathmatch games
+*/
+/*QUAKED info_player_coop (1 0 1) (-16 -16 -24) (16 16 24)
+potential spawning position for coop games
+*/
+/*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED player_dead_face_down (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED player_dead_on_side (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED func_door (0 .5 .8) ? START_OPEN x DOOR_DONT_LINK GOLD_KEY SILVER_KEY TOGGLE
+if two doors touch, they are assumed to be connected and operate as a unit.
+
+TOGGLE causes the door to wait in both the start and end states for a trigger event.
+
+START_OPEN causes the door to move to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not useful for touch or takedamage doors).
+
+Key doors are always wait -1.
+
+"message"	is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"angle"		determines the opening direction
+"targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"	if set, door must be shot open
+"speed"		movement speed (100 default)
+"wait"		wait before returning (3 default, -1 = never return)
+"lip"		lip remaining at end of move (8 default)
+"dmg"		damage to inflict when blocked (2 default)
+"cnt"		if 1, leave a used key in the player's inventory (0 default)
+"keyname"	if set, this is the keyname of the item_key_custom which unlocks this entity
+"noise1"	sound file for the "stop moving" sound (if set, overrides "sounds")
+"noise2"	sound file for the "move" sound (if set, overrides "sounds")
+"noise3"	sound file for the "key required" sound (default is per worldtype)
+"noise4"	sound file for the "key used" sound (default is per worldtype)
+"sounds"
+0)	no sound
+1)	stone
+2)	base
+3)	stone chain
+4)	screechy metal
+*/
+/*QUAKED func_door_secret (0 .5 .8) ? open_once 1st_left 1st_down no_shoot always_shoot
+Basic secret door. Slides back, then to the side. Angle determines direction.
+wait  = # of seconds before coming back
+1st_left = 1st move is left of arrow
+1st_down = 1st move is down from arrow
+always_shoot = even if targeted, keep shootable
+t_width = override WIDTH to move back (or height if going down)
+t_length = override LENGTH to move sideways
+"dmg"		damage to inflict when blocked (2 default)
+
+If a secret door has a targetname, it will only be opened by it's botton or trigger, not by damage.
+"sounds"
+1) medieval
+2) metal
+3) base
+*/
+/*QUAKED func_button (0 .5 .8) ?
+When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again.
+
+"angle"		determines the opening direction
+"target"	all entities with a matching targetname will be used
+"speed"		override the default 40 speed
+"wait"		override the default 1 second wait (-1 = never return)
+"lip"		override the default 4 pixel lip remaining at end of move
+"health"	if set, the button must be killed instead of touched
+"sounds"
+0) steam metal
+1) wooden clunk
+2) metallic click
+3) in-out
+*/
+/*QUAKED trigger_multiple (.5 .5 .5) ? notouch
+Variable sized repeatable trigger.  Must be targeted at one or more entities.  If "health" is set, the trigger must be killed to activate each time.
+If "delay" is set, the trigger waits some time after activating before firing.
+"wait" : Seconds between triggerings. (.2 default)
+If notouch is set, the trigger is only fired by other entities, not by touching.
+NOTOUCH has been obsoleted by trigger_relay!
+sounds
+1)	secret
+2)	beep beep
+3)	large switch
+4)
+set "message" to text string
+"is_waiting" : If set to 1, this trigger will do nothing until another trigger activates it
+*/
+/*QUAKED trigger_once (.5 .5 .5) ? notouch
+Variable sized trigger. Triggers once, then removes itself.  You must set the key "target" to the name of another object in the level that has a matching
+"targetname".  If "health" is set, the trigger must be killed to activate.
+If notouch is set, the trigger is only fired by other entities, not by touching.
+if "killtarget" is set, any objects that have a matching "target" will be removed when the trigger is fired.
+if "angle" is set, the trigger will only fire when someone is facing the direction of the angle.  Use "360" for an angle of 0.
+sounds
+1)	secret
+2)	beep beep
+3)	large switch
+4)
+set "message" to text string
+*/
+/*QUAKED trigger_relay (.5 .5 .5) (-8 -8 -8) (8 8 8)
+This fixed size trigger cannot be touched, it can only be fired by other events.  It can contain killtargets, targets, delays, and messages.
+*/
+/*QUAKED trigger_secret (.5 .5 .5) ?
+secret counter trigger
+sounds
+1)	secret
+2)	beep beep
+3)
+4)
+set "message" to text string
+*/
+/*QUAKED trigger_counter (.5 .5 .5) ? nomessage
+Acts as an intermediary for an action that takes multiple inputs.
+
+If nomessage is not set, t will print "1 more.. " etc when triggered and "sequence complete" when finished.
+
+After the counter has been triggered "count" times (default 2), it will fire all of it's targets and remove itself.
+*/
+/*QUAKED info_teleport_destination (.5 .5 .5) (-8 -8 -8) (8 8 32)
+This is the destination marker for a teleporter.  It should have a "targetname" field with the same value as a teleporter's "target" field.
+*/
+/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT
+Any object touching this will be transported to the corresponding info_teleport_destination entity. You must set the "target" field, and create an object with a "targetname" field that matches.
+
+If the trigger_teleport has a targetname, it will only teleport entities when it has been fired.
+*/
+/*QUAKED trigger_setskill (.5 .5 .5) ?
+sets skill level to the value of "message".
+Only used on start map.
+*/
+/*QUAKED trigger_onlyregistered (.5 .5 .5) ?
+Only fires if playing the registered version, otherwise prints the message
+*/
+/*QUAKED trigger_hurt (.5 .5 .5) ?
+Any object touching this will be hurt
+set dmg to damage amount
+defalt dmg = 5
+*/
+/*QUAKED trigger_push (.5 .5 .5) ? PUSH_ONCE
+Pushes the player
+*/
+/*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT
+
+dumptruck_ds
+
+trigger_push_custom is a new entity. This can be used to create traps,
+jumppads, currents in water and more.
+
+If DT_STARTOFF flag is set, this moves the trigger
+brush out of the playable area. This can be targeted
+and toggled off and on. If the DT_SILENT flag is set it
+won't make the windfly sound. Use DT_CUSTOM spawnflag
+and the noise key/value to use a custom push sound. Custom
+sounds should be "one off" sounds NOT be looping.
+
+Adapted from Hipnotic's func_togglewall */
+/*QUAKED trigger_monsterjump (.5 .5 .5) ?
+Walking monsters that touch this will jump in the direction of the trigger's angle
+"speed" default to 200, the speed thrown forward
+"height" default to 200, the speed thrown upwards
+
+If DT_STARTOFF flag is set, this moves the trigger
+brush out of the playable area. This can be targeted
+and toggled off and on.
+*/
+/*QUAKED trigger_void (.5 .5 .5) ?
+Use this for a 'void' area.  removes monsters, gibs, ammo, etc...  also kills player.
+*/
+/*QUAKED trigger_take_weapon (.5 .5 .5) ?
+
+Removes shotgun upon touch.
+*/
+/*QUAKED func_plat (0 .5 .8) ? PLAT_LOW_TRIGGER
+speed	default 150
+
+Plats are always drawn in the extended position, so they will light correctly.
+
+If the plat is the target of another trigger or button, it will start out disabled in the extended position until it is trigger, when it will lower and become a normal plat.
+
+If the "height" key is set, that will determine the amount the plat moves, instead of being implicitly determined by the model's height.
+Set "sounds" to one of the following:
+1) base fast
+2) chain slow
+*/
+/*QUAKED func_train (0 .5 .8) ? RETRIGGER
+Trains are moving platforms that players can ride.
+The targets origin specifies the min point of the train at each corner.
+The train spawns at the first target it is pointing at.
+If the train is the target of a button or trigger, it will not begin moving until activated.
+
+RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
+
+speed	default 100
+dmg		default	2
+noise path to custom sound
+sounds
+1) ratchet metal
+2) base
+3) custom
+
+*/
+/*QUAKED misc_teleporttrain (.5 .5 .5) (-16 -16 -16) (16 16 16) X X X X X X X X NOT_IN_EASY NOT_IN_NORMAL NOT_IN_HARD NOT_IN_DM
+{	model("progs/teleport.mdl");	}
+
+Teleporter target for final boss level. Must target a series of 'path_corner' entities.
+It will position itself on its first target at map load.
+If a targetname is set, it must be triggered to start moving, otherwise it will start automatically.
+*/
+// /*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
+// Used as a positional target for spotlights, etc.
+// */
+// /*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4)
+// Used as a positional target for lightning.
+// */
+// /*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) START_OFF
+// Non-displayed light.
+// Default light value is 300
+// Default style is 0
+// If targeted, it will toggle between on or off.
+// */
+// /*QUAKED light_fluoro (0 1 0) (-8 -8 -8) (8 8 8) START_OFF
+// Non-displayed light.
+// Default light value is 300
+// Default style is 0
+// If targeted, it will toggle between on or off.
+// Makes steady fluorescent humming sound
+// */
+// /*QUAKED light_fluorospark (0 1 0) (-8 -8 -8) (8 8 8)
+// Non-displayed light.
+// Default light value is 300
+// Default style is 10
+// Makes sparking, broken fluorescent sound
+// */
+// /*QUAKED light_globe (0 1 0) (-8 -8 -8) (8 8 8)
+// Sphere globe light.
+// Default light value is 300
+// Default style is 0
+// */
+/*QUAKED FireAmbient (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_fire (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+ambinet fire sound effects added for consistency
+same as FireAmbient
+*/
+// /*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20)
+// Short wall torch
+// Default light value is 200
+// Default style is 0
+// */
+// /*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18)
+// Large yellow flame ball
+// */
+// /*QUAKED light_flame_small_yellow (0 1 0) (-8 -8 -8) (8 8 8) START_OFF
+// Small yellow flame ball
+// */
+// /*QUAKED light_flame_small_white (0 1 0) (-10 -10 -40) (10 10 40) START_OFF
+// Small white flame ball
+// */
+/*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) START_OFF //dumptruck_ds taken from honey (originally from Rogue)
+White candle
+*/
+/*QUAKED misc_fireball (0 .5 .8) (-8 -8 -8) (8 8 8)
+Lava Balls
+*/
+/*QUAKED misc_explobox (0 .5 .8) (0 0 0) (32 32 64)
+TESTING THING
+*/
+/*QUAKED misc_explobox2 (0 .5 .8) (0 0 0) (32 32 64)
+Smaller exploding box, REGISTERED ONLY
+*/
+/*QUAKED trap_spikeshooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
+When triggered, fires a spike in the direction set in QuakeEd.
+Laser is only for REGISTERED.
+*/
+/*QUAKED trap_shooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
+Continuously fires spikes.
+"wait" time between spike (1.0 default)
+"nextthink" delay before firing first spike, so multiple shooters can be stagered.
+*/
+/*QUAKED trap_switched_shooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
+Continuously fires spikes.
+"wait" time between spike (1.0 default)
+"nextthink" delay before firing first spike, so multiple shooters can be stagered.
+"state" 0 initially off, 1 initially on. (0 default)
+*/
+/*QUAKED air_bubbles (0 .5 .8) (-8 -8 -8) (8 8 8)
+
+testing air bubbles
+*/
+/*QUAKED viewthing (0 .5 .8) (-8 -8 -8) (8 8 8)
+
+Just for the debugging level.  Don't use
+*/
+/*QUAKED func_wall (0 .5 .8) ?
+This is just a solid wall if not inhibitted
+*/
+/*QUAKED func_illusionary (0 .5 .8) ?
+A simple entity that looks solid but lets you walk through it.
+*/
+/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4
+This bmodel will appear if the episode has allready been completed, so players can't reenter it.
+*/
+/*QUAKED func_bossgate (0 .5 .8) ?
+This bmodel appears unless players have all of the episode sigils.
+*/
+/*QUAKED ambient_suck_wind (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_drone (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_flouro_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_drip (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_comp_hum (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_thunder (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_light_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_swamp1 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_swamp2 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_water1 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_wind2 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED ambient_thunder (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+*/
+/*QUAKED misc_noisemaker (1 0.5 0) (-10 -10 -10) (10 10 10)
+
+For optimzation testing, starts a lot of sounds.
+*/
+/*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
+Used as a positional target for spotlights, etc.
+*/
+/*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4)
+Never used in the or
+*/
+/*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT
+Light
+
+==========
+Spawnflags
+==========
+START_OFF - switchable lights only - light is off by default
+FADE_IN_OUT - switchable lights only - light fades in and out. can't be combined with animated lights.
+
+==========
+Keys
+==========
+"light" "n"
+Set the light intensity. Negative values are also allowed and will cause the entity to subtract light cast by other entities. Default 300.
+
+"wait" "n"
+Scale the fade distance of the light by "n". Values of n > 1 make the light fade more quickly with distance, and values < 1 make the light fade more slowly (and thus reach further). Default 1.
+
+"delay" "n"
+Select an attenuation formaula for the light:
+0 => Linear attenuation (default)
+1 => 1/x attenuation
+2 => 1/(x^2) attenuation
+3 => No attenuation (same brightness at any distance)
+4 => "local minlight" - No attenuation and like minlight,
+it won�t raise the lighting above it�s light value.
+Unlike minlight, it will only affect surfaces within
+line of sight of the entity.
+5 => 1/(x^2) attenuation, but slightly more attenuated and
+without the extra bright effect that "delay 2" has
+near the source.
+
+"_falloff" "n"
+Sets the distance at which the light drops to 0, in map units.
+In this mode, "wait" is ignored and "light" only controls the brightness at the center of the light, and no longer affects the falloff distance.
+Only supported on linear attenuation (delay 0) lights currently.
+
+"_color" "r g b"
+Specify red(r), green(g) and blue(b) components for the colour of the light. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light ("255 255 255").
+
+"target" "name"
+Turns the light into a spotlight, with the direction of light being towards another entity with it�s "targetname" key set to "name".
+"mangle" "yaw pitch roll"
+Turns the light into a spotlight and specifies the direction of light using yaw, pitch and roll in degrees. Yaw specifies the angle around the Z-axis from 0 to 359 degrees and pitch specifies the angle from 90 (straight up) to -90 (straight down). Roll has no effect, so use any value (e.g. 0). Often easier than the "target" method.
+
+"angle" "n"
+Specifies the angle in degrees for a spotlight cone. Default 40.
+
+"_softangle" "n"
+Specifies the angle in degrees for an inner spotlight cone (must be less than the "angle" cone. Creates a softer transition between the full brightness of the inner cone to the edge of the outer cone. Default 0 (disabled).
+
+"targetname" "name"
+Turns the light into a switchable light, toggled by another entity targeting it�s name.
+
+"speed" "n"
+If the light is switchable and FADE_IN_OUT is set, the speed at which the light transitions. Default 0.1.
+
+"style" "n"
+Set the animated light style. Default 0.
+
+"style2" "n"
+Set the animated light style for a switchable light, because style will be overriden if a targetname is set. Default 0.
+
+"_anglescale" "n" | "_anglesense" "n"
+Sets a scaling factor for how much influence the angle of incidence of light on a surface has on the brightness of the surface. n must be between 0.0 and 1.0. Smaller values mean less attenuation, with zero meaning that angle of incidence has no effect at all on the brightness. Default 0.5.
+
+"_dirtscale" "n" | "_dirtgain" "n"
+Override the global "_dirtscale" or "_dirtgain" settings to change how this light is affected by dirtmapping (ambient occlusion). See descriptions of these keys in the worldspawn section.
+
+"_dirt" "n"
+Overrides the worldspawn setting of "_dirt" for this particular light. -1 to disable dirtmapping (ambient occlusion) for this light, making it illuminate the dirtmapping shadows. 1 to enable ambient occlusion for this light. Default is to defer to the worldspawn setting.
+
+"_deviance" "n"
+Split up the light into a sphere of randomly positioned lights within radius "n" (in world units). Useful to give shadows a wider penumbra. "_samples" specifies the number of lights in the sphere. The "light" value is automatically scaled down for most lighting formulas (except linear and non-additive minlight) to attempt to keep the brightness equal. Default is 0, do not split up lights.
+
+"_samples" "n"
+Number of lights to use for "_deviance". Default 16 (only used if "_deviance" is set).
+
+"_surface" "texturename"
+Makes surfaces with the given texture name emit light, by using this light as a template which is copied across those surfaces. Lights are spaced about 128 units (though possibly closer due to bsp splitting) apart and positioned 2 units above the surfaces.
+
+"_surface_offset" "n"
+Controls the offset lights are placed above surfaces for "_surface". Default 2.
+
+"_surface_spotlight" "n"
+For a surface light template (i.e. a light with "_surface" set), setting this to "1" makes each instance into a spotlight, with the direction of light pointing along the surface normal. In other words, it automatically sets "mangle" on each of the generated lights.
+
+"_project_texture" "texture"
+Specifies that a light should project this texture. The texture must be used in the map somewhere.
+
+"_project_mangle" "yaw pitch roll"
+Specifies the yaw/pitch/roll angles for a texture projection (overriding mangle).
+
+"_project_fov" "n"
+Specifies the fov angle for a texture projection. Default 90.
+
+"_bouncescale" "n"
+Scales the amount of light that is contributed by bounces. Default is 1.0, 0.0 disables bounce lighting for this light.
+
+"_sun" "n"
+Set to 1 to make this entity a sun, as an alternative to using the sunlight worldspawn keys. If the light targets an info_null entity, the direction towards that entity sets sun direction. The light itself is disabled, so it can be placed anywhere in the map.
+
+The following light properties correspond to these sunlight settings:
+light => _sunlight
+mangle => _sunlight_mangle
+deviance => _sunlight_penumbra
+_color => _sunlight_color
+_dirt => _sunlight_dirt
+_anglescale => _anglescale
+*/
+/*QUAKED light_fluoro (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT
+Non-displayed light.
+Makes steady fluorescent humming sound.
+See the "light" entity for a full description.
+*/
+/*QUAKED light_fluorospark (0 1 0) (-8 -8 -8) (8 8 8)
+Non-displayed light.
+Makes sparking, broken fluorescent sound.
+Can't be toggled.
+Default style is 10.
+See the "light" entity for a full description.
+*/
+/*QUAKED light_globe (0 1 0) (-8 -8 -8) (8 8 8)
+Sphere globe light.
+Can't be toggled.
+See the "light" entity for a full description.
+*/
+/*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20)
+Short wall torch
+See the "light" entity for a full description.
+*/
+/*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18)
+Large yellow flame ball
+See the "light" entity for a full description.
+*/
+/*QUAKED light_flame_small_yellow (0 1 0) (-8 -8 -8) (8 8 8)
+Small yellow flame ball
+See the "light" entity for a full description.
+*/
+/*QUAKED light_flame_small_white (0 1 0) (-8 -8 -8) (8 8 8)
+Left for compatability
+Identical to "light_flame_small_yellow"
+*/
+/*QUAKED monster_ogre (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+
+*/
+/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+*/
+/*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
+/*QUAKED monster_demon1 (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+
+*/
+/*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
+/*QUAKED monster_shambler (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+*/
+/*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
+/*QUAKED monster_knight (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+*/
+/*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED monster_army (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+*/
+/*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+*/
+/*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED monster_dog (1 0 0) (-32 -32 -24) (32 32 40) Ambush
+
+*/
+/*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
+/*QUAKED monster_zombie (1 0 0) (-16 -16 -24) (16 16 32) Crucified ambush
+
+If crucified, stick the bounding box 12 pixels back into a wall to look right.
+*/
+/*QUAKED monster_boss (1 0 0) (-128 -128 -24) (128 128 256)
+*/
+/*QUAKED event_lightning (0 1 1) (-16 -16 -16) (16 16 16)
+Just for boss level.
+*/
+/*QUAKED monster_boss2 (1 0 0) (-128 -128 -24) (128 128 256)
+*/
+/*QUAKED monster_tarbaby (1 0 0) (-16 -16 -24) (16 16 24) Ambush
+*/
+/*QUAKED monster_hell_knight (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+*/
+/*QUAKED monster_dead_hell_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) Ambush
+*/
+/*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) Ambush
+*/
+/*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+*/
+/*QUAKED monster_enforcer (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+
+*/
+/*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+*/
+/*QUAKED monster_oldone (1 0 0) (-160 -128 -24) (160 128 256)
+*/
+/*QUAKED monster_oldone2 (1 0 0) (-160 -128 -24) (160 128 256)
+*/
+/*QUAKED play_sound_triggered (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) toggle
+play a sound when it is used
+"toggle" determines whether sound should be stopped when triggered again
+"volume" how loud (1 default full volume)
+"noise" sound to play
+"impulse" channel on which to play sound (0-7) (0 automatic is default)
+"speed" attenuation factor
+   -1 - no attenuation
+    1 - normal
+    2 - idle
+    3 - static
+*/
+/*QUAKED play_sound (0.3 0.1 0.6) (-8 -8 -8) (8 8 8)
+play a sound on a periodic basis
+"volume" how loud (1 default full volume)
+"noise" sound to play
+"wait" random time between sounds (default 20)
+"delay" minimum delay between sounds (default 2)
+"impulse" channel on which to play sound (0-7) (0 automatic is default)
+"speed" attenuation factor
+   -1 - no attenuation
+    1 - normal
+    2 - idle
+    3 - static
+*/
+/*QUAKED ambient_general (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+Plays any looped sound
+
+Keys:
+
+"noise" is the wav file to play
+
+"volume" default 1
+
+"speed" attenuation, default 3
+*/
+/*QUAKED tele_fog (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, tele_fog shows the teleport particle effects and sounds.
+
+Use this when killtageting an entity if the player can see.
+
+*/
+/*QUAKED play_tele (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, tele_fog shows the teleport particle effects and sounds.
+Same os tele_fog.
+
+Use this when killtageting an entity if the player can see.
+
+*/
+/*QUAKED play_explosion (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, creates a explosion at it's origin. Causes damage.
+
+*/
+/*QUAKED play_tbabyexplode (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, creates a Spawn death explosion at it's origin. Causes damage.
+
+*/
+/*QUAKED play_lavasplash (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, plays the lavasplash effect from E1M7.
+
+Use noise key for a custom sound.
+
+*/
+/*QUAKED meat_shower (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, plays a gib effect.
+
+Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
+
+*/
+/*QUAKED play_gibs (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, plays a gib effect. Same as meat_shower.
+
+Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
+
+*/
+/*QUAKED play_mflash (0 .5 .8) (-8 -8 -8) (8 8 8)
+triggable muzzle flash effect entity
+*/
+/*QUAKED play_bfield (0 .5 .8) (-8 -8 -8) (8 8 8)
+a triggerable, spherical field of yellow particles
+state 1 = start on
+*/
+/*QUAKED play_brlight (0 .5 .8) (-8 -8 -8) (8 8 8)
+a triggerable bright lighting effect
+state 1 = start on
+*/
+/*QUAKED play_dimlight (0 .5 .8) (-8 -8 -8) (8 8 8)
+a triggerable lighting effect
+state 1 = start on
+*/
+/*QUAKED gib_head_demon (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_dog (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_army (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_hell_knight (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_knight (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_enforcer (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_ogre (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_player (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_shalrath (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_shambler (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_head_wizard (0 0.5 0.8) (-16 -16 0) (16 16 56)
+*/
+/*QUAKED gib_misc_1 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
+/*QUAKED gib_misc_2 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
+/*QUAKED gib_misc_3 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
+/*QUAKED func_fall (0 .5 .8) ?
+Falling brush upon touch
+*/
+/*QUAKED misc_particle_stream (0 .5 .8) (-8 -8 -8) (8 8 8)
+A particle stream!  It appears when triggered.  This entity is
+one end of the stream, target another entity as the other end-point.
+I used the info_notnull, but you should be able to target anything
+(like monsters).
+
+"target"   This entities origin is the end-point of the stream
+"dmg"  1st Color  -  Use if you want a single color stream
+"cnt"  2nd Color  -  Mixes particles of both colors
+"noise"  Sound to play when triggered
+*/
+/*QUAKED misc_model (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+An entity for displaying models. A frame range can be given to animate the
+model.
+
+mdl: The model to display. Can be of type mdl, bsp, or spr.
+
+frame: The frame to display. Can be used to offset the animation.
+
+first_frame: The starting frame of the animation.
+
+last_frame: The last frame of the animation.
+*/
+/*QUAKED func_counter (0 0 0.5) (0 0 0) (32 32 32) TOGGLE LOOP STEP RESET RANDOM FINISHCOUNT START_ON
+TOGGLE causes the counter to switch between an on and off state
+each time the counter is triggered.
+
+LOOP causes the counter to repeat infinitly.  The count resets to zero
+after reaching the value in "count".
+
+STEP causes the counter to only increment when triggered.  Effectively,
+this turns the counter into a relay with counting abilities.
+
+RESET causes the counter to reset to 0 when restarted.
+
+RANDOM causes the counter to generate random values in the range 1 to "count"
+at the specified interval.
+
+FINISHCOUNT causes the counter to continue counting until it reaches "count"
+before shutting down even after being set to an off state.
+
+START_ON causes the counter to be on when the level starts.
+
+"count" specifies how many times to repeat the event.  If LOOP is set,
+it specifies how high to count before reseting to zero.  Default is 10.
+
+"wait"  the length of time between each trigger event. Default is 1 second.
+
+"delay" how much time to wait before firing after being switched on.
+*/
+/*QUAKED func_oncount (0 0 0.5) (0 0 0) (16 16 16)
+Must be used as the target for func_counter.  When the counter
+reaches the value set by count, func_oncount triggers its targets.
+
+"count" specifies the value to trigger on.  Default is 1.
+
+"delay" how much time to wait before firing after being triggered.
+*/
+/*QUAKED func_particlefield (0 .5 .8) ? USE_COUNT
+Creates a brief particle flash roughly the size of the defining
+brush each time it is triggered.
+
+USE_COUNT when the activator is a func_counter, the field will only
+   activate when count is equal to "cnt".  Same as using a func_oncount
+   to trigger.
+
+"cnt" is the count to activate on when USE_COUNT is set.
+"color" is the color of the particles.  Default is 192 (yellow).
+"count" is the density of the particles.  Default is 2.
+"noise" is the sound to play when triggered.  Do not use a looping sound here.
+"dmg" is the amount of damage to cause when touched.
+*/
+/*QUAKED func_togglewall (0 .5 .8) ? START_OFF
+Creates a invisible wall that can be toggled on and off.
+
+START_OFF wall doesn't block until triggered.
+
+"noise" is the sound to play when wall is turned off.
+"noise1" is the sound to play when wall is blocking.
+"dmg" is the amount of damage to cause when touched.
+*/
+/*QUAKED trigger_usekey (0 .5 0) ? x x x USE_SILV_KEY USE_GOLD_KEY
+Variable sized single use trigger that requires a key to trigger targets.  Must be targeted at one or more entities.
+
+"cnt"     if 1, leave a used key in the player's inventory (0 default).
+"keyname" if set, this is the keyname of the item_key_custom which unlocks this entity.
+"message" is printed when the trigger is touched without having the right key.
+"noise1"  sound file for the "key required" sound (default is per worldtype).
+"noise2"  sound file for the "key used" sound (default is per worldtype).
+*/
+// /*QUAKED trigger_remove (.5 .5 .5) ? ignoremonsters ignoreplayers
+// Variable sized trigger that removes the thing
+// that touches it.  Does not affect monsters or
+// players.
+// */
+/*QUAKED trigger_setgravity (.5 .5 .5) ?
+set the gravity of a player
+"gravity" what to set the players gravity to
+ - 0 (default) normal gravity
+ - 1 no gravity
+ - 2 almost no gravity
+ - 10 is a good setting
+ - ...
+ - 101 normal gravity
+ - 102 slightly higher gravity
+ - ...
+ - 1000 very high gravity
+*/
+/*QUAKED ltrail_start (0 1 0) (-8 -8 -8) (8 8 8) LT_TOGGLE
+Starting point of a lightning trail.
+Set currentammo to amount of damage you want the lightning to do.
+Default is 25.
+
+Set frags to amount of time before next item is triggered.
+Default is 0.3 seconds.
+
+Set weapon to amount of time to be firing the lightning.
+Default is 0.3 seconds.
+
+Set the LT_TOGGLE checkbox if you want the lightning shooter to continuously fire until triggered again.
+*/
+/*QUAKED ltrail_relay (0 1 0) (-8 -8 -8) (8 8 8)
+Relay point of a lightning trail.
+Set currentammo to amount of damage you want the lightning to do.
+Default is 25.
+
+Set frags to amount of time before next item is triggered.
+Default is 0.3 seconds.
+
+Set weapon to amount of time to be firing the lightning.
+Default is 0.3 seconds.
+*/
+/*QUAKED ltrail_end (0 1 0) (-8 -8 -8) (8 8 8)
+Ending point of a lightning trail.
+Does not fire any lightning.
+
+Set frags to amount of time before next item is triggered.
+Default is 0.3 seconds.
+*/
+/*QUAKED func_new_plat (0 .5 .8) ? DN_N_WAIT PLT_TOGGLE ELEVATOR START_AT_TOP PLAT2 P2_BOTTOM
+
+--------------
+DN_N_WAIT is a plat that starts at the top and when triggered, goes down, waits, then comes back up.
+health - number of seconds to wait (default 5)
+
+--------------
+PLT_TOGGLE is a plat that will change between the top and bottom each time it is triggered.
+
+--------------
+ELEVATOR is an elevator plat. You can have as many levels as you want but they must be all the same distance away. Use elevator button entity as the trigger.
+  cnt is the number of floors
+  height is the distance between floors
+  wait is the number of seconds before the elevator can be activated again after starting or stopping (default 0)
+
+START_AT_TOP is an optional flag for elevators. It just tells the elevator that it's position is the top floor. (Default is the bottom floor) USE THIS ONLY WITH ELEVATORS!
+
+--------------
+PLAT2 is a fixed version of the original plat. If you want the plat to start at the bottom and move to the top on demand, use a negative height. That will tell Quake to lower the plat at spawn time. Always place this plat type in the top position when making the map. This will ensure correct lighting, hopefully. If a plat2 is the target of a trigger, it will be disabled until it has been triggered. Delay is the wait before the plat returns to original position.
+
+If you don't want to bother figuring out the height, don't put a
+value in the height
+
+delay		default 3
+speed		default 150
+cnt			default 2
+
+P2_BOTTOM is an optional switch to have an auto-sized plat2 start at the bottom.
+--------------
+Plats are always drawn in the extended position, so they will light correctly.
+
+If the plat is the target of another trigger or button, it will start out disabled in the extended position until it is trigger, when it will lower and become a normal plat.
+
+If the "height" key is set, that will determine the amount the plat moves, instead of being implicitly determined by the model's height.
+Set "sounds" to one of the following:
+1) base fast
+2) chain slow
+*/
+/*QUAKED func_elvtr_button (0 .5 .8) ? ELVTR_DOWN
+ELEVATOR BUTTON ONLY!
+
+ELVTR_DOWN causes this to be a DOWN button.
+Default is UP.
+
+When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again.
+
+"angle"		determines the opening direction
+"target"	all entities with a matching targetname will be used
+"speed"		override the default 40 speed
+"wait"		override the default 1 second wait (-1 = never return)
+"lip"		override the default 4 pixel lip remaining at end of move
+"health"	if set, the button must be killed instead of touched
+"sounds"
+0) steam metal
+1) wooden clunk
+2) metallic click
+3) in-out
+*/
+/*QUAKED func_explobox (0 .5 .8) ? START_OFF
+An exploding brush entity.  Works just like misc_explobox.
+
+Keys:
+
+"health" Default 20
+
+"dmg" default 100
+
+*/
+/*QUAKED func_breakable (0 .5 .8) ? NO_MONSTERS
+A visible object that can be destroyed by shooting it. If it has a targetname, it will not be directly damageable.
+
+BREAKABLE_NO_MONSTERS: object ignores damage from monsters
+
+"health" Default 20
+
+"cnt" number of pieces of debris to spawn. default 5. (was 6 -- dumptruck_ds)
+
+"style" The style of the debris:
+0 = green metal (default)
+1 = red metal
+2 = concrete
+3 - 24 additional skins
+*/
+/*QUAKED trigger_ladder (.5 .5 .5) ?
+invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'
+
+Keys:
+
+"angle" the direction player must be facing to climb ladder
+*/
+/*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID
+A togglable laser, hurts to touch, can be used to block players
+
+START_OFF: Laser starts off.
+
+LASER_SOLID: Laser blocks movement while turned on.
+
+Keys:
+
+"dmg" damage to do on touch. default 1
+
+"alpha" approximate alpha you want the laser drawn at. default 0.5. alpha will vary by 20% of this value.
+
+"message" message to display when activated
+
+"message2" message to display when deactivated
+
+*/
+/*QUAKED misc_sparks (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF SPARKS_BLUE SPARKS_PALE
+Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash allong with each burst of sparks. Note: targeted lights should be set to START_OFF.
+
+SPARKS_BLUE: sparks are blue in color
+
+SPARKS_PALE: sparks are pale yellow in color
+
+Keys:
+
+"wait" is the average delay between bursts (variance is 1/2 wait). Default is 2.
+
+"cnt" is the average number of sparks in a burst (variance is 1/4 cnt). Default is 15.
+
+"sounds"
+0)	no sound
+1)	sparks
+*/
+/*QUAKED misc_particles (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF
+Produces a continuous particle splash for waterfalls and other effects
+
+"color" color of particles.  0 through 15, corresponds to a row of the quake palette. (default 0)
+
+"movedir" average movement vector of particles (default 0 0 4)
+
+"wait" time between particle generation cycles.  (default 0.1)
+
+"volume" density of particles. (default 10)
+
+
+*/
+/*QUAKED misc_particlespray (0 .5 .8) (-8 -8 -8) (8 8 8)
+Shoots particles either when triggered, or contiuously when not triggered by anything.
+"color" is the palette color of the particles
+
+"count" is the number of particles to make each time
+
+"delay" is the delay between each triggering
+
+"noise" is the name of the wav file to play when triggered
+
+"movedir" is the vector distance that the particles will travel before disappearing. (in x y z)
+
+"duration" is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering.*/
+/*QUAKED trigger_shake (.5 .5 .5) (-8 -8 -8) (8 8 8) VIEWONLY
+Earthquake trigger - shakes players in it's radius when active.
+Strength of tremor is greatest at the centre.
+
+"dmg"			Strength at center (default is 120)
+"wait"			Duration of shake (default is 1)
+"count"			Affect radius (defalt is 200)
+"noise"			Noise to play when starting to shake
+"noise1"		Noise to play when stopping
+"targetname"	Must be triggered
+
+Spawnflags:
+"VIEWONLY"		Shakes the view, but player movement is not affected
+
+*/
+/*QUAKED info_rotate (0 0.5 0) (-4 -4 -4) (4 4 4)
+Used as the point of rotation for rotatable objects.
+*/
+/*QUAKED func_rotate_entity (0 .5 .8) (-8 -8 -8) (8 8 8) TOGGLE START_ON
+Creates an entity that continually rotates.  Can be toggled on and
+off if targeted.
+
+TOGGLE = allows the rotation to be toggled on/off
+
+START_ON = wether the entity is spinning when spawned.  If TOGGLE is 0, entity can be turned on, but not off.
+
+If "deathtype" is set with a string, this is the message that will appear when a player is killed by the train.
+
+"rotate" is the rate to rotate.
+"target" is the center of rotation.
+"speed"  is how long the entity takes to go from standing still to full speed and vice-versa.
+*/
+/*QUAKED path_rotate (0.5 0.3 0) (-8 -8 -8) (8 8 8) ROTATION ANGLES STOP NO_ROTATE DAMAGE MOVETIME SET_DAMAGE
+ Path for rotate_train.
+
+ ROTATION tells train to rotate at rate specified by "rotate".  Use '0 0 0' to stop rotation.
+
+ ANGLES tells train to rotate to the angles specified by "angles" while traveling to this path_rotate.  Use values < 0 or > 360 to guarantee that it turns in a certain direction.  Having this flag set automatically clears any rotation.
+
+ STOP tells the train to stop and wait to be retriggered.
+
+ NO_ROTATE tells the train to stop rotating when waiting to be triggered.
+
+ DAMAGE tells the train to cause damage based on "dmg".
+
+ MOVETIME tells the train to interpret "speed" as the length of time to take moving from one corner to another.
+
+ SET_DAMAGE tells the train to set all targets damage to "dmg"
+
+ "noise" contains the name of the sound to play when train stops.
+ "noise1" contains the name of the sound to play when train moves.
+ "event" is a target to trigger when train arrives at path_rotate.
+*/
+/*QUAKED func_rotate_train (0 .5 .8) (-8 -8 -8) (8 8 8)
+In path_rotate, set speed to be the new speed of the train after it reaches
+the path change.  If speed is -1, the train will warp directly to the next
+path change after the specified wait time.  If MOVETIME is set on the
+path_rotate, the train to interprets "speed" as the length of time to
+take moving from one corner to another.
+
+"noise" contains the name of the sound to play when train stops.
+"noise1" contains the name of the sound to play when train moves.
+Both "noise" and "noise1" defaults depend upon "sounds" variable and
+can be overridden by the "noise" and "noise1" variable in path_rotate.
+
+Also in path_rotate, if STOP is set, the train will wait until it is
+retriggered before moving on to the next goal.
+
+Trains are moving platforms that players can ride.
+"path" specifies the first path_rotate and is the starting position.
+If the train is the target of a button or trigger, it will not begin moving until activated.
+The func_rotate_train entity is the center of rotation of all objects targeted by it.
+
+If "deathtype" is set with a string, this is the message that will appear when a player is killed by the train.
+
+speed	default 100
+dmg      default  0
+sounds
+1) ratchet metal
+*/
+/*QUAKED func_movewall (0 .5 .8) ? VISIBLE TOUCH NONBLOCKING
+Used to emulate collision on rotating objects.
+
+VISIBLE causes brush to be displayed.
+
+TOUCH specifies whether to cause damage when touched by player.
+
+NONBLOCKING makes the brush non-solid.  This is useless if VISIBLE is set.
+
+"dmg" specifies the damage to cause when touched or blocked.
+*/
+/*QUAKED rotate_object (0 .5 .8) ?
+This defines an object to be rotated.  Used as the target of func_rotate_door.
+*/
+/*QUAKED func_rotate_door (0 .5 .8) (-8 -8 -8) (8 8 8) STAYOPEN
+Creates a door that rotates between two positions around a point of
+rotation each time it's triggered.
+
+STAYOPEN tells the door to reopen after closing.  This prevents a trigger-
+once door from closing again when it's blocked.
+
+"dmg" specifies the damage to cause when blocked.  Defaults to 2.  Negative numbers indicate no damage.
+"speed" specifies how the time it takes to rotate
+
+"sounds"
+1) medieval (default)
+2) metal
+3) base
+*/
+/*QUAKED func_bob (0 .5 .8) ?
+A SOLID bmodel that gently moves back and forth
+-------- KEYS --------
+targetname : trigger entity (works with entity state system)
+angle    : direction movement, use "360" for angle 0
+height   : direction intensity (def=8)
+count    : direction cycle timer (def=2s, minimum=1s)
+waitmin  : Speed up scale (def=1) 1+=non linear
+waitmin2 : Slow down scale (def=0.75)
+delay    : Starting time delay (def=0, -1=random)
+style 	 : If set to 1, starts off and waits for trigger
+_dirt       : -1 = will be excluded from dirtmapping
+_minlight   : Minimum light level for any surface of the brush model
+_mincolor   : Minimum light color for any surface (def='1 1 1' RGB)
+_shadow     : Will cast shadows on other models and itself
+_shadowself : Will cast shadows on itself
+-------- SPAWNFLAGS --------
+STARTOFF : Starts off and waits for trigger - DISABLED, Ripped out ESTATE System (RennyC)
+-------- NOTES --------
+A SOLID bmodel that gently moves back and forth
+*/
+/*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+*/
