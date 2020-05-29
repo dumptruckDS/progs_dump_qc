@@ -2010,6 +2010,12 @@ delay how much time to wait before firing after being switched on."
 	]
 	dmg(integer) : "Damage"
 ]
+
+@SolidClass base(Appearflags) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in /sounds/ just like worldspawn."
+[
+sounds(integer) : "CD track or audio file to play from within music folder" : 0
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////

@@ -986,3 +986,32 @@ void() trigger_take_weapon =
 	trigger_multiple();
 	self.touch = take_weapon_use;
 };
+
+//thanks to Johnny Lew via changemusic.rar --dumptruck_ds
+
+void() trigger_changemusic_touch =
+{
+	if (!(other.flags & FL_CLIENT))
+	{
+		return;
+	}
+	if (!self.sounds)
+	{
+		objerror("ERROR: trigger_changemusic needs valid track number in sounds field");
+		return;
+	}
+	WriteByte(FL_SWIM, FL_MONSTER);
+	WriteByte(FL_SWIM, self.sounds);
+	WriteByte(FL_SWIM, self.sounds);
+	self.touch = SUB_Null;
+	self.nextthink = (time + 0.1);
+	self.think = SUB_Remove;
+};
+
+void() trigger_changemusic =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+	InitTrigger();
+	self.touch = trigger_changemusic_touch;
+};

@@ -2133,6 +2133,11 @@ delay how much time to wait before firing after being switched on."
 // @PointClass size(-4 -4 -16, 4 4 22) base(TorchLight) model("progs/flame.mdl") = light_torch_small_walltorch : "Small walltorch" []
 // @PointClass size(-8 -8 -48, 8 8 24) base(TorchLight) model("progs/flame3.mdl") = light_torch_small_walltorch : "Large walltorch" []
 
+@SolidClass base(Appearflags) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in /sounds/ just like worldspawn."
+[
+sounds(integer) : "CD track or audio file to play from within music folder" : 0
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////
