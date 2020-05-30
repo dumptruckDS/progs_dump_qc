@@ -986,3 +986,59 @@ void() trigger_take_weapon =
 	trigger_multiple();
 	self.touch = take_weapon_use;
 };
+
+void(float newtrack) changemusic =
+{
+  *world_sounds = newtrack;  //changing the field via a pointer
+  //world.sounds has now been changed via our pointer, newly connecting players (like those connecting after the game is loaded) will get sent the new cd track's number.
+
+  //let everyone currently on the server know.
+  WriteByte(MSG_ALL, SVC_CDTRACK);
+  WriteByte(MSG_ALL, newtrack);  //initial track
+  WriteByte(MSG_ALL, newtrack);  //looped track... should generally be set the same as the initial track as most engines ignore it entirely so it might as well be sane for those that care.
+};
+
+//thanks to jleww via changemusic.rar --dumptruck_ds
+
+void() trigger_changemusic_touch =
+{
+	if (!(other.flags & FL_CLIENT))
+	{
+		return;
+	}
+	changemusic(self.sounds);
+	self.touch = SUB_Null;
+	self.nextthink = (time + 0.1);
+	self.think = SUB_Remove;
+};
+
+void() trigger_changemusic =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+		if (!self.sounds)
+		{
+			objerror("ERROR: trigger_changemusic needs valid track number in sounds field");
+			return;
+		}
+	InitTrigger();
+	self.touch = trigger_changemusic_touch;
+};
+
+void() trigger_cdtrack_use = //point entity version uses count for music track number for backwards compatibly in Adoria mod -- dumptruck_ds
+{
+	changemusic(self.count);
+};
+
+void() trigger_cdtrack =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+		if (!self.count)
+		{
+			objerror("ERROR: trigger_cdtrack needs valid track number in count field");
+			return;
+		}
+	InitTrigger();
+	self.use = trigger_cdtrack_use;
+};
