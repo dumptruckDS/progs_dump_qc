@@ -1,6 +1,6 @@
-1.1.3 March 2020
+1.1.3 May 2020
 
-* FIXME
+* Added trigger_changemusic and trigger_cdtrack
 
 1.1.2.1 February 2020
 
