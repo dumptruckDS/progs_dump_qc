@@ -2141,7 +2141,9 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 @PointClass base(Appearflags, Targetname) size(-8 -8 -8, 8 8 8) color(200 128 0) = trigger_cdtrack : "Trigger that changes the currently playing music track. The number of the track to play goes in the count key." [
     count(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to play from within music folder"
 ]
-
+@SolidClass base(Appearflags,Trigger) = trigger_look : "Trigger: On look at first target"
+[
+]
 
 //////////////////////
 // end dumptruck_ds //
