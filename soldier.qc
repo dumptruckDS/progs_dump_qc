@@ -96,7 +96,7 @@ void() GruntFireGrenade =
 
 /*
 ================
-MonFireSpike // used for Grunts, Enforcers and Ogres WIP
+MonFireSpike // used for Grunts
 ================
 */
 

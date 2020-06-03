@@ -98,18 +98,37 @@ void(vector org, vector vec) LaunchLaser =
 	newmis.touch = Laser_Touch;
 };
 
-//============================================================================
-// right now this is a WIP ENforcers still fire 2x which is too many grenades
-// I need to hack a fix in the animation frames to limit to 1
-// also need to fix where "flame" is coming out of weapon on various firing modes
-// see makevectors in soldier qc for ref.
-//============================================================================
+void(vector org, vector vec) EnfLaunchSpike =
+{
 
-// style2 stuff -- dumptruck_ds
+	sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+
+	vec = normalize(vec);
+
+	newmis = spawn();
+	newmis.owner = self;
+	newmis.movetype = MOVETYPE_FLY;
+	newmis.solid = SOLID_BBOX;
+	// newmis.effects = EF_DIMLIGHT;
+
+	setmodel (newmis, "progs/s_spike.mdl");
+	setsize (newmis, '0 0 0', '0 0 0');
+
+	setorigin (newmis, org);
+
+	newmis.velocity = vec * 600;
+	newmis.angles = vectoangles(newmis.velocity);
+
+	newmis.nextthink = time + 5;
+	newmis.think = SUB_Remove;
+	newmis.touch = superspike_touch;
+};
+
+// style stuff -- dumptruck_ds
 void() enforcer_fire =
 {
 
-if (self.style2 == 1)
+if (self.style == 1)
 
 	{
 		ai_face();
@@ -119,7 +138,7 @@ if (self.style2 == 1)
 		return;
 	}
 
-else if (self.style2 == 2)
+else if (self.style == 2)
 
 	{
 		ai_face();
@@ -127,18 +146,17 @@ else if (self.style2 == 2)
 		return;
 	}
 
-// else if (self.style2 == 3)
-//
-// 	{
-// 		ai_face();
-// 		genforcer_fire();
-// 	}
-
-else if (self.style2 == 4)
+else if (self.style == 3)
 
 	{
-		ai_face();
-		MonFireSpike();
+		local vector foo;
+
+		self.effects = self.effects | EF_MUZZLEFLASH;
+		makevectors (self.angles);
+
+		foo = self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16';
+
+		EnfLaunchSpike(foo, self.enemy.origin - self.origin);
 		return;
 	}
 
@@ -210,6 +228,18 @@ void()	enf_atk11	=[	$attack7,	enf_atk12	] {ai_face();};
 void()	enf_atk12	=[	$attack8,	enf_atk13	] {ai_face();};
 void()	enf_atk13	=[	$attack9,	enf_atk14	] {ai_face();};
 void()	enf_atk14	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_atk1);
+};
+/* modified animation frames for style Enforcers */ // dumptruck_ds
+void()	enf_2atk1	=[	$attack1,	enf_2atk2	] {ai_face();};
+void()	enf_2atk2	=[	$attack2,	enf_2atk3	] {ai_face();};
+void()	enf_2atk3	=[	$attack3,	enf_2atk4	] {ai_face();};
+void()	enf_2atk4	=[	$attack4,	enf_2atk5	] {ai_face();};
+void()	enf_2atk5	=[	$attack5,	enf_2atk6	] {ai_face();};
+void()	enf_2atk6	=[	$attack6,	enf_2atk7	] {enforcer_fire();};
+void()	enf_2atk7	=[	$attack7,	enf_2atk8	] {ai_face();};
+void()	enf_2atk8	=[	$attack8,	enf_2atk9	] {ai_face();};
+void()	enf_2atk9	=[	$attack9,	enf_2atk10	] {ai_face();};
+void()	enf_2atk10	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_2atk1);
 };
 
 void()	enf_paina1	=[	$paina1,	enf_paina2	] {};
@@ -363,6 +393,7 @@ void() monster_enforcer =
 	precache_model2 ("progs/enforcer.mdl");
 	precache_model2 ("progs/h_mega.mdl");
 	precache_model2 ("progs/laser.mdl");
+	precache_model2 ("progs/s_spike.mdl");
 
 	precache_sound2 ("enforcer/death1.wav");
 	precache_sound2 ("enforcer/enfire.wav");
@@ -390,8 +421,22 @@ void() monster_enforcer =
 	self.th_run = enf_run1;
 	self.th_pain = enf_pain;
 	self.th_die = enf_die;
-	self.th_missile = enf_atk1;
-
+	if (self.style == 1) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_2atk1;
+		}
+	if (self.style == 2) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_2atk1;
+		}
+	if (self.style == 3) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_atk1;
+		}
+	else if (self.style == 0) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_atk1;
+		}
 	walkmonster_start();
 };
 
