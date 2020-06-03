@@ -55,6 +55,47 @@ void() genforcer_fire =
 };
 /*
 ================
+GruntFireGrenade
+================
+*/
+void() GruntFireGrenade =
+{
+	local	entity missile;
+
+	self.effects = self.effects | EF_MUZZLEFLASH;
+
+	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+
+// set missile speed
+
+	makevectors (self.angles);
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+	missile.velocity = missile.velocity * 600;
+	missile.velocity_z = 200;
+
+	missile.avelocity = '300 300 300';
+
+	missile.angles = vectoangles(missile.velocity);
+
+	missile.touch = OgreGrenadeTouch;
+
+// set missile duration
+	missile.nextthink = time + 2.5;
+	missile.think = OgreGrenadeExplode;
+
+	setmodel (missile, "progs/grenade.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin + v_forward * 30 + v_right * 5 + '0 0 16'); //dumptruck_ds
+};
+
+/*
+================
 MonFireSpike // used for Grunts, Enforcers and Ogres WIP
 ================
 */
@@ -137,13 +178,7 @@ void()	army_atk4	=[	$shoot4,	army_atk5	] {ai_face();};
 void()	army_atk5	=[	$shoot5,	army_atk6	] {ai_face();army_fire();
 self.effects = self.effects | EF_MUZZLEFLASH;};
 void()	army_atk6	=[	$shoot6,	army_atk7	] {ai_face();};
-void()	army_atk7	=[	$shoot7,	army_atk8	] {ai_face();
-	if (self.style == 1)
-	{
-		SUB_PD_Refire (army_atk1);
-	}
-	else
-SUB_CheckRefire (army_atk1);};
+void()	army_atk7	=[	$shoot7,	army_atk8	] {ai_face();SUB_CheckRefire (army_atk1);};
 void()	army_atk8	=[	$shoot8,	army_atk9	] {ai_face();};
 void()	army_atk9	=[	$shoot9,	army_run1	] {ai_face();};
 
@@ -229,7 +264,7 @@ else if (self.style2 == 2)
 
 	{
 		ai_face();
-		OgreFireGrenade();
+		GruntFireGrenade();
 	}
 
 else if (self.style2 == 3)

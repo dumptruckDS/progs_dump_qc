@@ -209,13 +209,7 @@ void()	enf_atk10	=[	$attack6,	enf_atk11	] {enforcer_fire();};
 void()	enf_atk11	=[	$attack7,	enf_atk12	] {ai_face();};
 void()	enf_atk12	=[	$attack8,	enf_atk13	] {ai_face();};
 void()	enf_atk13	=[	$attack9,	enf_atk14	] {ai_face();};
-void()	enf_atk14	=[	$attack10,	enf_run1	] {ai_face();
-	if (self.style == 1)
-	{
-		SUB_PD_Refire (enf_atk1);
-	}
-	else
-SUB_CheckRefire (enf_atk1);
+void()	enf_atk14	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_atk1);
 };
 
 void()	enf_paina1	=[	$paina1,	enf_paina2	] {};

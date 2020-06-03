@@ -522,16 +522,6 @@ void (void() thinkst) SUB_CheckRefire =
 	self.think = thinkst;
 };
 
-void (void() thinkst) SUB_PD_Refire = // for style 1 Grunt, Enforcer and Ogre -- dumptruck_ds
-{
-	if (self.cnt == 1)
-		return;
-	if (!visible (self.enemy))
-		return;
-	self.cnt = 1;
-	self.think = thinkst;
-};
-
 /*
 ================
 SUB_DislodgeRestingEntities
