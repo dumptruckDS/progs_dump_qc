@@ -434,7 +434,6 @@ style(Choices) : "Attack type" : 0 =
 		2 : "grenades"
 		3 : "nails"
 	]
-
 ]
 
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
