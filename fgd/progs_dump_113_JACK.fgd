@@ -378,6 +378,14 @@ keep_ammo(integer) : "Don't drop backpack" : 0
 @PointClass base(Monster) size(-128 -128 -24, 128 128 256) studio("progs/boss.mdl") = monster_boss : "Chthon" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_enforcer : "Enforcer Default health = 80" [
 keep_ammo(integer) : "Don't drop backpack" : 0
+style(Choices) : "Attack type" : 0 =
+	[
+		0 : "Default (lasers)"
+		1	: "rockets"
+		2 : "grenades"
+		3 : "nails"
+	]
+
 ]
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath Default health = 400" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_tarbaby : "Spawn Default health = 80" []

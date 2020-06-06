@@ -427,6 +427,14 @@ Default health = 600" []
 
 Default health = 80" [
 keep_ammo(integer) : "Don't drop backpack" : 0
+style(Choices) : "Attack type" : 0 =
+	[
+		0 : "Default (lasers)"
+		1	: "rockets"
+		2 : "grenades"
+		3 : "nails"
+	]
+
 ]
 
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
