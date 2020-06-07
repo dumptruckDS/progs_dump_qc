@@ -1047,10 +1047,10 @@ void() trigger_cdtrack =
 ///////////////////////////////////////////////////////////////
 void() onlookat_touch =
 {
-    if (self.nextthink > time)
-    {
+  if (self.nextthink > time)
+  {
         return;        // allready been triggered
-    }
+  }
 
     //added player view offset to make this more accurate to the player crosshairs
     local vector player_offset;
@@ -1062,15 +1062,21 @@ void() onlookat_touch =
     if(!self.speed)
         self.speed = 500;
     traceline(player_offset, (player_offset + (v_forward * self.speed)), FALSE, other);
+		
     if ((trace_ent.targetname == self.target))
     {
-        // Play message if available
-        if (self.message != "")
-        {
-            centerprint (other, self.message);
-        }
+        // Play message if available // -- removed as message was redundant in SUB_UseTargets
+        // if (self.message != "")
+        // {
+        //     centerprint (other, self.message);
+        // }
         self.use = multi_trigger;
         SUB_UseTargets();
+
+				if (self.noise != "")
+				sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
+				else
+				sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
 
         // added wait
         if (self.wait > 0)
@@ -1093,8 +1099,13 @@ void() trigger_look =
     if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
         return;
 
-    // play all the sounds available for a normal trigger
-    if (self.sounds == 1)
+    //play all the sounds available for a normal trigger
+    if (self.sounds == 0)
+    {
+        precache_sound ("misc/null.wav");
+        self.noise = "misc/null.wav";
+    }
+    else if (self.sounds == 1)
     {
         precache_sound ("misc/secret.wav");
         self.noise = "misc/secret.wav";
@@ -1108,6 +1119,18 @@ void() trigger_look =
     {
         precache_sound ("misc/trigger1.wav");
         self.noise = "misc/trigger1.wav";
+    }
+    else if (self.sounds == 4)
+    {
+			if (!self.noise1) //dumptruck_ds
+			{
+				objerror ("no soundfile set in noise1!\n");
+				remove(self);
+				return;
+			}
+			else
+        precache_sound (self.noise1);
+				self.noise = self.noise1;
     }
 
     InitTrigger();
