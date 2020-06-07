@@ -1,17 +1,18 @@
 to-do list for 1.1.3  -- WIP and subject to change!
 
+*alternate monster attacks (in progress)
 *trigger_script based on cutscene sdk for custom messages
 *custom monster sounds
 *custom monster models
-*alternate monster attacks
 *custom backpack entity
 *custom item drop (e.g. monster drops a key)
 *play_debris (trigger debris without breakables)
 *complete .def file
+*add lspike.mdl and mervbomb.mdl to official assets
 
 *** these are wish listed but may not happen:
 
 *func_fall2
 *angle functionality to trigger_monster_jump
 *monster only teleport
-* "stealth" trigger_teleport
+* "stealth" trigger_teleport (reference Zer)
