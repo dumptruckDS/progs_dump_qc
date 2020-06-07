@@ -2019,8 +2019,23 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 @PointClass base(Appearflags, Targetname) size(-8 -8 -8, 8 8 8) color(200 128 0) = trigger_cdtrack : "Trigger that changes the currently playing music track. The number of the track to play goes in the count key." [
     count(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to play from within music folder"
 ]
-
-
+@SolidClass base(Appearflags,Trigger) = trigger_look : "Trigger: On look at first target"
+[
+]
+@SolidClass base(Appearflags, Trigger, Target) = trigger_look : "Trigger: Trigger something when a player enters this volume and looks directly at a targeted entity. Use the first target key for the looked at item and subsequent targets to trigger events. Add a wait key to make this a trigger_multiple"
+[
+	speed(integer) : "Distance from player to search for trigger, adjust if the target is too far from the trigger" : 500
+	wait(integer) : "Time between re-triggering"
+	sounds(choices) : "Sound style" : 0 =
+	[
+		0 : "None"
+		1 : "Secret sound"
+		2 : "Beep beep"
+		3 : "Large switch"
+		4 : "Custom sound, requires a path set in noise1 key"
+	]
+	noise1(float) : "Path to custom sound. Use with sounds key set to 4"
+]
 //////////////////////
 // end dumptruck_ds //
 //////////////////////

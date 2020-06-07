@@ -1042,3 +1042,97 @@ void() trigger_cdtrack =
 	InitTrigger();
 	self.use = trigger_cdtrack_use;
 };
+///////////////////////////////////////////////////////////////
+//trigger_look (a.k.a. trigger_onlookat from NullPointPaladin!)
+///////////////////////////////////////////////////////////////
+void() onlookat_touch =
+{
+  if (self.nextthink > time)
+  {
+        return;        // allready been triggered
+  }
+
+    //added player view offset to make this more accurate to the player crosshairs
+    local vector player_offset;
+    player_offset = other.origin + other.view_ofs;
+
+    makevectors(other.v_angle);
+
+    //using speed to determine the reach of the trace
+    if(!self.speed)
+        self.speed = 500;
+    traceline(player_offset, (player_offset + (v_forward * self.speed)), FALSE, other);
+		
+    if ((trace_ent.targetname == self.target))
+    {
+        // Play message if available // -- removed as message was redundant in SUB_UseTargets
+        // if (self.message != "")
+        // {
+        //     centerprint (other, self.message);
+        // }
+        self.use = multi_trigger;
+        SUB_UseTargets();
+
+				if (self.noise != "")
+				sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
+				else
+				sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
+
+        // added wait
+        if (self.wait > 0)
+        {
+            self.think = multi_wait;
+            self.nextthink = time + self.wait;
+        }
+        else
+        {    // we can't just remove (self) here, because this is a touch function
+            // called wheil C code is looping through area links...
+            self.touch = SUB_Null;
+            self.nextthink = time + 0.1;
+            self.think = SUB_Remove;
+        }
+    }
+};
+
+void() trigger_look =
+{
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+
+    //play all the sounds available for a normal trigger
+    if (self.sounds == 0)
+    {
+        precache_sound ("misc/null.wav");
+        self.noise = "misc/null.wav";
+    }
+    else if (self.sounds == 1)
+    {
+        precache_sound ("misc/secret.wav");
+        self.noise = "misc/secret.wav";
+    }
+    else if (self.sounds == 2)
+    {
+        precache_sound ("misc/talk.wav");
+        self.noise = "misc/talk.wav";
+    }
+    else if (self.sounds == 3)
+    {
+        precache_sound ("misc/trigger1.wav");
+        self.noise = "misc/trigger1.wav";
+    }
+    else if (self.sounds == 4)
+    {
+			if (!self.noise1) //dumptruck_ds
+			{
+				objerror ("no soundfile set in noise1!\n");
+				remove(self);
+				return;
+			}
+			else
+        precache_sound (self.noise1);
+				self.noise = self.noise1;
+    }
+
+    InitTrigger();
+    self.touch = onlookat_touch;
+};

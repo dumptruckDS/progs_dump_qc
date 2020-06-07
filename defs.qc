@@ -833,3 +833,4 @@ void() SUB_UsePain; //dumptruck_ds
 .float berserk; //dumptruck_ds
 nosave float *world_sounds;  //via Spike fun times! nosave=noclobber
 void() trigger_changemusic; // dumptruck_ds
+void() onlookat_touch; // dumptruck_ds
