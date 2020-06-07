@@ -1471,6 +1471,8 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" was slashed by a Knight\n");
 				if (attacker.classname == "monster_ogre")
 					bprint (" was destroyed by an Ogre\n");
+				if (attacker.classname == "monster_ogre_marksman")
+					bprint (" was felled by a Marksman\n");
 				if (attacker.classname == "monster_oldone")
 					bprint (" became one with Shub-Niggurath\n");
 				if (attacker.classname == "monster_shalrath")

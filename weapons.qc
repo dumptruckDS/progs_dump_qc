@@ -827,7 +827,38 @@ void() superspike_touch =
 	remove(self);
 
 };
+void() superduperspike_touch = //dumptruck_ds for Style 2 Ogre see ogre.qc
+{
+	if (other == self.owner)
+		return;
 
+	if (other.solid == SOLID_TRIGGER)
+		return;	// trigger field, do nothing
+
+	if (pointcontents(self.origin) == CONTENT_SKY)
+	{
+		remove(self);
+		return;
+	}
+
+// hit something that bleeds
+	if (other.takedamage)
+	{
+		spawn_touchblood (36);
+		T_Damage (other, self, self.owner, 36);
+		sound(self, CHAN_VOICE, "fish/bite.wav", 1, ATTN_NORM);
+	}
+	else
+	{
+		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+		WriteByte (MSG_BROADCAST, TE_SUPERSPIKE);
+		WriteCoord (MSG_BROADCAST, self.origin_x);
+		WriteCoord (MSG_BROADCAST, self.origin_y);
+		WriteCoord (MSG_BROADCAST, self.origin_z);
+	}
+
+	remove(self);
+};
 
 /*
 ===============================================================================

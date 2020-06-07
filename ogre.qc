@@ -1,3 +1,7 @@
+float MONSTER_FLAK_OGRE				= 4;
+float	FL_NOSELECT			= 8192;	//ignored by entity selector
+.float spikecount;	//bdw - saves up flak hits to do a single damage next frame - currently only used for flak ogre
+
 /*
 ==============================================================================
 
@@ -82,14 +86,209 @@ void() OgreGrenadeTouch =
 		self.avelocity = '0 0 0';
 };
 
+//BDW 31/08/00 - evil, nasty red-hot nail cluster-bomb attack... from Marcher -- dumptruck_ds
+
+void() FlakDoDamage =
+{
+	self.origin = self.oldenemy.origin + self.oldorigin;	//get correct gib direction
+	T_Damage(self.oldenemy, self, self.owner, self.oldenemy.spikecount);
+	self.oldenemy.spikecount = 0;
+	remove(self);
+};
+
+void() FlakTouch =
+{
+	if (other.solid == SOLID_TRIGGER)
+		return;
+
+	if (pointcontents(self.origin) == CONTENT_SKY)
+	{
+		remove(self);
+		return;
+	}
+
+// hit something that bleeds
+	if (other.takedamage)
+	{
+		spawn_touchblood(self.dmg);
+
+		sound(self, CHAN_VOICE, "fish/bite.wav", 1, ATTN_NORM);
+
+		if (other.spikecount)	//not the first one
+		{
+			other.spikecount = other.spikecount + self.dmg;
+			remove(self);
+			return;
+		}
+
+		// the first one...
+
+		other.spikecount = self.dmg;
+
+		// stick around for a little while...
+		self.velocity = '0 0 0';
+		self.solid = SOLID_NOT;
+		self.touch = SUB_Null;
+		self.model = string_null;
+		self.oldorigin = self.origin - other.origin;	//displacement from enemy origin (its gonna move next frame)
+		self.oldenemy = other;
+		self.think = FlakDoDamage;
+		self.nextthink = time + 0.05;
+		return;
+	}
+
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_SUPERSPIKE);
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+
+	if (self.spawnflags & MONSTER_FLAK_OGRE)	//bit of a hack
+	{
+		remove(self);
+		return;
+	}
+
+	self.dmg = self.dmg - 5;	//gets weaker with each bounce. also stops them getting stuck in world.
+	if (self.dmg <= 0)
+	{
+		remove(self);
+		return;
+	}
+	self.velocity = self.velocity * 0.5;	//reduce crazy ricochets
+	self.movetype = MOVETYPE_BOUNCE;
+};
+
+void() BDW_OgreFireFlak =
+{
+	local float flakcount;
+	local vector dir, ang;
+	local entity flak;
+
+	flakcount = 8;
+
+	self.effects = self.effects | EF_MUZZLEFLASH;
+	sound(self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+
+// make angles out of the current displacement vector...
+	ang = vectoangles(self.enemy.origin - self.origin);
+// then get the required components...
+	makevectors(ang);
+
+	while (flakcount > 0)
+	{
+	//tighter spread...
+		dir = v_forward*10 + crandom()*v_right + crandom()*v_up;
+		dir = normalize(dir);
+	// f*cking hack...is this a v_forward problem?
+		dir_z = dir_z * -1;
+		//dir = dir*1000;
+		dir = dir*800;
+
+
+		flak = spawn();
+
+		flak.owner = self;
+		//flymissile is a bit too all-seeing for this gun...
+		flak.movetype = MOVETYPE_FLY;
+		//flak.movetype = MOVETYPE_FLYMISSILE;
+		flak.solid = SOLID_BBOX;
+		flak.flags = FL_NOSELECT;
+		flak.touch = FlakTouch;
+		flak.angles = vectoangles(dir);
+		flak.velocity = dir;
+		flak.think = SUB_Remove;
+		flak.nextthink = time + 6;
+		flak.dmg = 4;
+
+		flak.spawnflags = MONSTER_FLAK_OGRE;	//this is a hack to tell FlakTouch that it came from an ogre
+
+		setmodel(flak, "progs/spike.mdl");
+		setsize(flak, '0 0 0', '0 0 0');
+		setorigin(flak, self.origin + '0 0 16');
+
+		flakcount = flakcount - 1;
+	}
+};
+/////////////////////////////////////////////////////////////
+/* start Preach Ogre Marksman tutorial here -- dumptruck_ds*/
+/////////////////////////////////////////////////////////////
+
+//speed an ogre grenade is fired at
+float OGRE_G_VEL = 600;
+
+//fixme: get the correct gravity strength for the level
+float pgrav = 800;
+
+//a default angle to fire at if the enemy is too far away
+float OGRE_DEFAULT_ELEVATION = 30;
+
+//uses QuakeC builtins to calculate tan of angle
+//WARNING: uses makevectors! This overwrites the v_forward... globals
+float(float theta) tan =
+{
+  local vector ang; //temporary used to calculate trig values
+  ang = '0 0 0';
+  ang_y = theta; //assign theta to the yaw to simplify reasoning
+  makevectors(ang);
+  return v_forward_y / v_forward_x;
+}
+
+//inverse tan function
+//takes two parameters, numerator and denominator
+//this copes better with denominator 0 and gets quadrant correct
+float(float y, float x) atan2 =
+{
+  local vector ang; //temporary used to calculate trig values
+  ang = '0 0 0';
+  ang_x = x;
+  ang_y = y;
+  return vectoyaw(ang);
+}
+
+float(float theta, vector dest) IterateElevation =
+{
+  local float a, b, c; //constants in the equation to be solved
+  local vector ofs; //displacement we wish the projectile to travel
+  local float y, z; //horizontal and vertical components of ofs
+  local float tan_theta; //trig values of the angle theta
+
+  //calculate how far we are firing
+  ofs = dest - self.origin;
+  z = ofs_z;
+  ofs_z = 0;
+  y = vlen(ofs);
+
+  //find the coefficients of the quadratic in tan(theta)
+  a = 0.5 * pgrav * y * y / (OGRE_G_VEL * OGRE_G_VEL);
+  b = -y;
+  c = a + z;
+
+  //check if the destination is too far to reach
+  if(b*b < 4*a*c)
+    return OGRE_DEFAULT_ELEVATION;
+
+  //calculate the tan value of the given theta
+  tan_theta = tan(theta);
+
+  //reuse ang to create the improved firing direction
+  theta = atan2(a*tan_theta*tan_theta - c,
+                      2*a*tan_theta + b);
+
+  //constrain the values to stop anything too mad happening
+  while(theta > 90)
+    theta = theta - 180;
+  return theta;
+}
 /*
 ================
-OgreFireGrenade
+PreachFireGrenade
 ================
 */
-void() OgreFireGrenade =
+void(float elevation) PreachFireGrenade =
 {
 	local	entity missile;
+	local vector ang;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
 
@@ -101,12 +300,11 @@ void() OgreFireGrenade =
 	missile.solid = SOLID_BBOX;
 
 // set missile speed
+	ang = self.angles;
+  ang_x = -elevation;
+  makevectors (ang);
 
-	makevectors (self.angles);
-
-	missile.velocity = normalize(self.enemy.origin - self.origin);
-	missile.velocity = missile.velocity * 600;
-	missile.velocity_z = 200;
+  missile.velocity = v_forward * OGRE_G_VEL;
 
 	missile.avelocity = '300 300 300';
 
@@ -123,7 +321,250 @@ void() OgreFireGrenade =
 	setorigin (missile, self.origin);
 };
 
+// end Preach tutorial
 
+/*
+================
+OgreFireGrenade
+================
+*/
+void() MultiGrenadeTouch;
+void() MultiGrenadeExplode;
+
+void() OgreFireGrenade =
+{
+	local	entity missile;
+
+	self.effects = self.effects | EF_MUZZLEFLASH;
+
+	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+
+// set missile speed
+
+	makevectors (self.angles);
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+	missile.velocity = missile.velocity * 600;
+	missile.velocity_z = 200;
+	missile.avelocity = '300 300 300';
+	missile.angles = vectoangles(missile.velocity);
+
+	// set missile duration
+		if(self.style == 3)
+		{
+			missile.touch = MultiGrenadeTouch;
+			missile.nextthink = time + 2.5;
+			missile.think = MultiGrenadeExplode;
+			setmodel (missile, "progs/mervup.mdl");
+			setsize (missile, '0 0 0', '0 0 0');
+			setorigin (missile, self.origin);
+			missile.classname = "MultiGrenade";
+		}
+		else
+		{
+			missile.touch = OgreGrenadeTouch;
+			missile.nextthink = time + 2.5;
+			missile.think = OgreGrenadeExplode;
+			setmodel (missile, "progs/grenade.mdl");
+			setsize (missile, '0 0 0', '0 0 0');
+			setorigin (missile, self.origin);
+		}
+	};
+
+	// missile.touch = OgreGrenadeTouch;
+
+// // set missile duration
+// 	missile.nextthink = time + 2.5;
+// 	missile.think = OgreGrenadeExplode;
+//
+// 	setmodel (missile, "progs/grenade.mdl");
+// 	setsize (missile, '0 0 0', '0 0 0');
+// 	setorigin (missile, self.origin);
+// };
+
+/*
+================
+OgreFireSpike from insideqc tutorial here: http://www.insideqc.com/qctut/lesson-33.shtml
+================
+*/
+void() OgreFireSpike =
+{
+    local vector dir;
+    // local entity old;
+
+
+    sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+    self.attack_finished = time + 0.2;
+		self.effects = self.effects | EF_MUZZLEFLASH; // -- dumptruck_ds
+
+    dir = normalize (self.enemy.origin - self.origin);
+
+    launch_spike (self.origin + v_right * 4 + '0 0 16', dir);
+
+    newmis.touch = superduperspike_touch; //dumptruck_ds found in client.qc
+    setmodel (newmis, "progs/lspike.mdl");
+
+    setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
+};
+//=============================================================================
+// Multi Grenade Code from doe progs MULT_WPN.QC -- dumptruck_ds
+//=============================================================================
+void() MultiGrenadeTouch;
+
+//================================
+//================================
+void() MiniGrenadeExplode =
+{
+	if ( self.owner.classname == "player")
+		T_RadiusDamage (self, self.owner, 90, world);
+	else
+		T_RadiusDamage (self, self.owner, 60, world);
+
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_EXPLOSION2);
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+    WriteByte (MSG_BROADCAST, 230);
+    WriteByte (MSG_BROADCAST, 5);
+
+	BecomeExplosion ();
+};
+
+//================================
+//================================
+void(float offsetAngle) MiniGrenadeLaunch =
+{
+	local	entity missile/*, mpuff*/;
+	local	float	tempRand;
+
+	missile = spawn ();
+	missile.owner = self.owner;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+	missile.classname = "MiniGrenade";
+
+// set missile speed
+	missile.v_angle = self.v_angle;
+	missile.v_angle_y = missile.v_angle_y + offsetAngle;
+	makevectors (missile.v_angle);
+
+		missile.velocity = v_forward*100 + v_up*400;
+		tempRand = (crandom()*60) - 30;
+		missile.velocity = missile.velocity + tempRand * v_forward;
+		tempRand = (crandom()*40) - 20;
+		missile.velocity = missile.velocity + tempRand * v_right;
+		tempRand = (crandom()*60) - 30;
+		missile.velocity = missile.velocity + tempRand * v_up;
+
+	missile.avelocity = '300 300 300';
+	missile.angles = vectoangles(missile.velocity);
+	missile.touch = MultiGrenadeTouch;
+
+	setmodel (missile, "progs/mervup.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin);
+
+// set missile duration
+	missile.nextthink = time + 1 + (crandom() * 0.5);
+	missile.think = MiniGrenadeExplode;
+};
+
+//================================
+//================================
+void() MultiGrenadeExplode =
+{
+	MiniGrenadeLaunch(0);
+	MiniGrenadeLaunch(72);
+	MiniGrenadeLaunch(144);
+	MiniGrenadeLaunch(216);
+	MiniGrenadeLaunch(288);
+
+	remove (self);
+};
+
+//================================
+//================================
+void() MultiGrenadeTouch =
+{
+	if (other == self.owner)
+		return;		// don't explode on owner
+	if (other.takedamage == DAMAGE_AIM)
+	{
+		if (self.classname == "MiniGrenade")
+			MiniGrenadeExplode();
+		else
+		{
+			if (self.owner.classname == "player")
+				GrenadeExplode();
+			else
+				MiniGrenadeExplode();
+		}
+		return;
+	}
+	// bounce sound
+	sound (self, CHAN_WEAPON, "weapons/bounce.wav", 1, ATTN_NORM);
+	if (self.velocity == '0 0 0')
+		self.avelocity = '0 0 0';
+};
+
+//================================
+//================================
+void() W_FireMultiGrenade =
+{
+	local	entity missile/*, mpuff*/;
+
+	// self.currentammo = self.ammo_multi_rockets = self.ammo_multi_rockets - 1;
+	// UpdateAmmoCounts (self);
+
+	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+
+	// self.punchangle_x = -2;
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+	missile.classname = "MultiGrenade";
+
+	makevectors (self.angles);
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+	missile.velocity = missile.velocity * 600;
+	missile.velocity_z = 200;
+	missile.avelocity = '300 300 300';
+	missile.angles = vectoangles(missile.velocity);
+
+
+// set missile speed
+	// makevectors (self.v_angle);
+	// if (self.v_angle_x)
+	// 	missile.velocity = v_forward*600 + v_up * 200 + crandom()*v_right*10 + crandom()*v_up*10;
+	// else
+	// {
+	// 	missile.velocity = aim(self, 10000);
+	// 	missile.velocity = missile.velocity * 600;
+	// 	missile.velocity_z = 200;
+	// }
+	//
+	// missile.avelocity = '300 300 300';
+	// missile.angles = vectoangles(missile.velocity);
+	missile.touch = MultiGrenadeTouch;
+
+// set missile duration
+	missile.nextthink = time + 1;
+	missile.think = MultiGrenadeExplode;
+
+	setmodel (missile, "progs/mervup.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin);
+};
+
+//=============================================================================
+//end doe qc -- dumptruck_ds
 //=============================================================================
 
 /*
@@ -162,7 +603,6 @@ local float 	ldmg;
 			SpawnMeatSpray (self.origin + v_forward*16, side * v_right);
 	}
 };
-
 
 void() ogre_stand1	=[	$stand1,	ogre_stand2	] {ai_stand();};
 void() ogre_stand2	=[	$stand2,	ogre_stand3	] {ai_stand();};
@@ -250,10 +690,40 @@ void() ogre_smash12	=[	$smash12,		ogre_smash13 ] {ai_charge(0);};
 void() ogre_smash13	=[	$smash13,		ogre_smash14 ] {ai_charge(4);};
 void() ogre_smash14	=[	$smash14,		ogre_run1	] {ai_charge(12);};
 
+// Preach tutorial alternate animation frames for monster_ogre_marksman -- dumptruck_ds
+.float attack_elevation;
+void() ogre2_nail1   =[  $shoot1,        ogre2_nail2  ] {ai_face();
+self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void() ogre2_nail2   =[  $shoot2,        ogre2_nail3  ] {ai_face();
+self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() ogre2_nail3   =[  $shoot2,        ogre2_nail4  ] {ai_face();
+self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() ogre2_nail4   =[  $shoot3,        ogre_nail5  ] {ai_face();
+	PreachFireGrenade(self.attack_elevation);
+};
+//end Preach -- dumptruck_ds
 void() ogre_nail1	=[	$shoot1,		ogre_nail2	] {ai_face();};
 void() ogre_nail2	=[	$shoot2,		ogre_nail3	] {ai_face();};
 void() ogre_nail3	=[	$shoot2,		ogre_nail4	] {ai_face();};
-void() ogre_nail4	=[	$shoot3,		ogre_nail5	] {ai_face();OgreFireGrenade();};
+void() ogre_nail4	=[	$shoot3,		ogre_nail5	] {ai_face();
+	if (self.style == 0)
+		{
+			OgreFireGrenade();
+		}
+	if (self.style == 1)
+		{
+			BDW_OgreFireFlak();
+			// OgreFireSpike();
+		}
+	else if (self.style == 2)
+		{
+			OgreFireSpike();
+		}
+		if (self.style == 3)
+		{
+			W_FireMultiGrenade();
+		}
+};
 void() ogre_nail5	=[	$shoot4,		ogre_nail6	] {ai_face();};
 void() ogre_nail6	=[	$shoot5,		ogre_nail7	] {ai_face();};
 void() ogre_nail7	=[	$shoot6,		ogre_run1	] {ai_face();};
@@ -355,7 +825,24 @@ void()	ogre_die1	=[	$death1,	ogre_die2	] {};
 void()	ogre_die2	=[	$death2,	ogre_die3	] {};
 void()	ogre_die3	=[	$death3,	ogre_die4	]
 {self.solid = SOLID_NOT;
-self.ammo_rockets = 2;if(!self.keep_ammo)DropBackpack();};
+	// style ammotype check -- dumptruck_ds
+		if (self.style == 1) // flak style
+		{
+			self.ammo_nails = 5;
+		}
+		if (self.style == 2) // super nail style
+		{
+			self.ammo_nails = 5;
+		}
+		if (self.style == 3) //DOE multi-grenade
+		{
+			self.ammo_rockets = 2;
+		}
+		else if (self.style == 0) //default Ogre
+		{
+			self.ammo_rockets = 2;
+		}
+if(!self.keep_ammo)DropBackpack();};
 void()	ogre_die4	=[	$death4,	ogre_die5	] {};
 void()	ogre_die5	=[	$death5,	ogre_die6	] {};
 void()	ogre_die6	=[	$death6,	ogre_die7	] {};
@@ -372,7 +859,24 @@ void()	ogre_bdie1	=[	$bdeath1,	ogre_bdie2	] {};
 void()	ogre_bdie2	=[	$bdeath2,	ogre_bdie3	] {ai_forward(5);};
 void()	ogre_bdie3	=[	$bdeath3,	ogre_bdie4	]
 {self.solid = SOLID_NOT;
-self.ammo_rockets = 2;if(!self.keep_ammo)DropBackpack();};
+	// style ammotype check -- dumptruck_ds
+		if (self.style == 1)
+		{
+			self.ammo_nails = 5;
+		}
+		if (self.style == 2)
+		{
+			self.ammo_nails = 5;
+		}
+		if (self.style == 3) //DOE multi-grenade
+		{
+			self.ammo_rockets = 2;
+		}
+		else if (self.style == 0)
+		{
+			self.ammo_rockets = 2;
+		}
+if(!self.keep_ammo)DropBackpack();};
 void()	ogre_bdie4	=[	$bdeath4,	ogre_bdie5	] {ai_forward(1);};
 void()	ogre_bdie5	=[	$bdeath5,	ogre_bdie6	] {ai_forward(3);};
 void()	ogre_bdie6	=[	$bdeath6,	ogre_bdie7	] {ai_forward(7);};
@@ -427,6 +931,8 @@ void() monster_ogre =
 	precache_model ("progs/ogre.mdl");
 	precache_model ("progs/h_ogre.mdl");
 	precache_model ("progs/grenade.mdl");
+	precache_model ("progs/mervup.mdl"); //for style 3 Orge dumptruck_ds
+	precache_model ("progs/lspike.mdl"); //for style 2 Ogre dumptruck_ds
 
 	precache_sound ("ogre/ogdrag.wav");
 	precache_sound ("ogre/ogdth.wav");
@@ -435,6 +941,7 @@ void() monster_ogre =
 	precache_sound ("ogre/ogpain1.wav");
 	precache_sound ("ogre/ogsawatk.wav");
 	precache_sound ("ogre/ogwake.wav");
+	precache_sound ("fish/bite.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
@@ -458,14 +965,60 @@ void() monster_ogre =
 };
 
 /*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+Unlike vanilla Quake, this is more accurate Orge based on a tutorial from
+Preach which can be found here:
+https://tomeofpreach.wordpress.com/2014/01/03/proper-ogre-aiming/
 */
 void() monster_ogre_marksman =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	monster_ogre ();
+	if (deathmatch)
+	{
+		remove(self);
+		return;
+	}
+	precache_model ("progs/ogre.mdl");
+	precache_model ("progs/h_ogre.mdl");
+	precache_model ("progs/grenade.mdl");
+
+	precache_sound ("ogre/ogdrag.wav");
+	precache_sound ("ogre/ogdth.wav");
+	precache_sound ("ogre/ogidle.wav");
+	precache_sound ("ogre/ogidle2.wav");
+	precache_sound ("ogre/ogpain1.wav");
+	precache_sound ("ogre/ogsawatk.wav");
+	precache_sound ("ogre/ogwake.wav");
+	precache_sound ("fish/bite.wav");
+
+	self.solid = SOLID_SLIDEBOX;
+	self.movetype = MOVETYPE_STEP;
+
+	setmodel (self, "progs/ogre.mdl");
+
+	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+
+	if (!self.health) //thanks RennyC -- dumptruck_ds
+	self.health = 200;
+
+	self.th_stand = ogre_stand1;
+	self.th_walk = ogre_walk1;
+	self.th_run = ogre_run1;
+	self.th_die = ogre_die;
+	self.th_melee = ogre_melee;
+	self.th_missile = ogre2_nail1;
+	self.th_pain = ogre_pain;
+
+	walkmonster_start();
 };
+
+// {
+// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+// 		return;
+//
+// 	monster_ogre ();
+// };
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 

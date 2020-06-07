@@ -345,6 +345,7 @@ float	TE_SPIKE		= 0;
 float	TE_SUPERSPIKE	= 1;
 float	TE_GUNSHOT		= 2;
 float	TE_EXPLOSION	= 3;
+float TE_EXPLOSION2   = 12; // from doe -- dumptruck_ds
 float	TE_TAREXPLOSION	= 4;
 float	TE_LIGHTNING1	= 5;
 float	TE_LIGHTNING2	= 6;
