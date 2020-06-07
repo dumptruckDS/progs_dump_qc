@@ -485,7 +485,7 @@ void() W_GruntRocket =
 	setmodel (missile, "progs/missile.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
-	setorigin (missile, self.origin + v_forward * 30 + v_right * 5 + '0 0 16');
+	setorigin (missile, self.origin + v_forward * 30 + v_right * 5 + '0 0 12');
 	// setorigin (missile, self.origin + v_forward*8 + '0 0 16');
 };
 

@@ -354,11 +354,20 @@
 	pain_target(string)
 	pain_threshold(integer)
 	sight_trigger(integer)
+	skin(integer)
 ]
 //dumptruck_ds
 //@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []
 @PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt" [
 keep_ammo(integer) : "Don't drop backpack" : 0
+style(Choices) : "Attack type" : 0 =
+	[
+		0 : "Default (shotgun)"
+		1	: "rockets"
+		2 : "grenades"
+		3 : "lasers"
+		4 : "nails"
+	]
 ]
 @PointClass base(Monster) size(-32 -32 -24, 32 32 40) studio("progs/dog.mdl") = monster_dog : "Nasty Doggie Default health 25" []
 @PointClass base(Monster) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre : "Ogre Default health = 200" [
