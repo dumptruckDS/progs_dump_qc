@@ -14,5 +14,3 @@ to-do list for 1.1.3  -- WIP and subject to change!
 
 *func_fall2
 *angle functionality to trigger_monster_jump
-*monster only teleport
-* "stealth" trigger_teleport (reference Zer)

@@ -314,13 +314,18 @@ void() trigger_counter =
 /*
 ==============================================================================
 
-TELEPORT TRIGGERS
+TELEPORT TRIGGERS with added functions from Zerstrorer and Qmaster
+-- dumptruck_ds
 
 ==============================================================================
 */
 
 float	PLAYER_ONLY	= 1;
 float	SILENT = 2;
+float RANDOM = 4;
+float TELE_STEALTH = 8;
+float MONSTER_ONLY = 16;
+float TELE_DD = 32;
 
 void() play_teleport =
 {
@@ -347,6 +352,7 @@ void(vector org) spawn_tfog =
 {
 	s = spawn ();
 	s.origin = org;
+	s.spawnflags = self.spawnflags; //dumptruck_ds
 	s.nextthink = time + 0.2;
 	s.think = play_teleport;
 
@@ -402,6 +408,40 @@ local entity	death;
 	force_retouch = 2;		// make sure even still objects get hit
 };
 
+/*-----------------------------------------------*/
+/*| more Zerstrorer-- dumptruck_ds  						 |*/
+/*| teleport_randomspot - returns a random spot |*/
+/*|   to teleport to among all of the           |*/
+/*|   "info_teleport_random" entities in the    |*/
+/*|   level.  self.count is number of spots     |*/
+/*-----------------------------------------------*/
+entity() teleport_randomspot =
+{
+local float		rndm;
+// local float		rndm, num1;
+local entity	spot,first;
+
+	rndm = rint(random() * (self.count - 1));
+	spot = find(world, classname, "info_teleport_random");
+	if(!spot)
+		dprint("No random teleport points found!\n");
+	first = spot;
+
+	while (rndm > 0)
+	{
+		rndm = rndm - 1;
+		spot = find(spot, classname, "info_teleport_random");
+	}
+
+	if (spot == world)
+	{
+		dprint("Random spot found world!!\n");
+		spot = first;
+	}
+
+	return spot;
+};
+// end dumptruck_ds
 void() teleport_touch =
 {
 local entity	t;
@@ -418,6 +458,12 @@ local vector	org;
 	if (self.spawnflags & PLAYER_ONLY)
 	{
 		if (other.classname != "player")
+			return;
+	}
+
+	if (self.spawnflags & MONSTER_ONLY) // is this going to work? dumptruck_ds
+	{
+		if (other.classname == "player")
 			return;
 	}
 
@@ -439,18 +485,37 @@ local vector	org;
 
 	SUB_UseTargets ();
 
-// put a tfog where the player was
-	spawn_tfog (other.origin);
+	// put a tfog where the player was
+	// ### dhm - if stealth, don't spawn a fog
+		if (!(self.spawnflags & TELE_STEALTH))
+			spawn_tfog (other.origin);
 
-	t = find (world, targetname, self.target);
-	if (!t)
-		objerror ("couldn't find target");
+	//dhm - if this is a random teleporter, pick a random spot!
+		if (self.spawnflags & RANDOM)
+			t = teleport_randomspot();
+		else if ((self.spawnflags & TELE_DD) && other.classname == "player")
+			t = find (world, targetname, self.noise);
+		else
+			t = find (world, targetname, self.target);
+
+		if (!t)
+			objerror ("couldn't find target");
+
+// // put a tfog where the player was
+// 	spawn_tfog (other.origin);
+//
+// 	t = find (world, targetname, self.target);
+// 	if (!t)
+// 		objerror ("couldn't find target");
 
 // spawn a tfog flash in front of the destination
 	makevectors (t.mangle);
 	org = t.origin + 32 * v_forward;
 
+// ### dhm - if stealth, don't spawn a fog
+if (!(self.spawnflags & TELE_STEALTH))
 	spawn_tfog (org);
+
 	spawn_tdeath(t.origin, other);
 
 // move the player and lock him down for a little while
@@ -472,6 +537,84 @@ local vector	org;
 		other.velocity = v_forward * 300;
 	}
 	other.flags = other.flags - other.flags & FL_ONGROUND;
+
+	if ((self.spawnflags & MONSTER_ONLY) && other.classname != "player")
+	{
+		other.fixangle = 1;		// turn this way immediately
+		other.teleport_time = time + 0.7;
+		if (other.flags & FL_ONGROUND)
+			other.flags = other.flags - FL_ONGROUND;
+		other.velocity = v_forward * 300;
+	}
+	other.flags = other.flags - other.flags & FL_ONGROUND;
+};
+// this is from Qmaster:
+
+// "I created an info_teleport_changedest
+// target = targetname of trigger_teleport to affect
+// message = targetname of new info_teleport_destination (or whatever entity
+// really) to now teleport to
+
+// So that I can automatically update the teleporter under my coagula map as you
+// progress rather than have a bunch of triggers that I need to killtarget.
+// Falling is not fatal then, but it does put you back some.  Works as a sorta
+// checkpoint system but also builds on my older idea for saving time in coop
+// implemented in my Terracity map eons ago.
+
+// looking at vanilla, you would only need to change trig.target to match
+// self.message if you were to add this.""
+
+void() teleport_destchange =
+{
+    local entity trig;
+
+    trig = find(world,targetname,self.target);
+    if (!trig || trig.classname != "trigger_teleport") {
+        dprint("\b[TELEPORT_DESTCHANGE]\b Cannot find trigger_teleport\n");
+        return;
+    }
+
+    trig.goalentity = find (world, targetname, self.message);
+    if (!trig.goalentity) {
+        dprint("\b[TELEPORT_DESTCHANGE]\b Cannot find teleport destination\n");
+        return;
+    }
+
+    makevectors (trig.goalentity.mangle);
+    trig.goalentity.movedir = v_forward;
+    trig.goalentity.pos1 = trig.goalentity.origin + 32 * trig.goalentity.movedir;
+
+		trig.target = self.message; //dumptruck_ds see comment above
+};
+
+/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4)
+Allows a mapper to change the target of a teleport_trigger. Useful in maps where
+the player may fall into a void and the mapper wants to update where they "respawn"
+as they progress through the level. Could also be used for teleport puzzles and more.
+target = trigger_teleport to change
+message = new info_teleport_destination's targetname to switch to
+targetname = name of this entity so we can use it
+*/
+void() info_teleport_changedest =
+{
+		if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+			return;
+
+    self.use = teleport_destchange;
+    if (self.targetname == "") {
+        dprint("\b[ERROR]\b info_teleport_changedest with no targetname");
+        remove(self);
+    }
+
+    if (self.target == "") {
+        dprint("\b[ERROR]\b info_teleport_changedest with no target");
+        remove(self);
+    }
+
+    if (self.message == "") {
+        dprint("\b[ERROR]\b info_teleport_changedest with no message set for new destination");
+        remove(self);
+    }
 };
 
 /*QUAKED info_teleport_destination (.5 .5 .5) (-8 -8 -8) (8 8 32)
@@ -491,6 +634,18 @@ void() info_teleport_destination =
 		objerror ("no targetname");
 };
 
+/*QUAKED info_teleport_random (.5 .5 .5) (-8 -8 -8) (8 8 32)
+This is a random destination marker for a teleporter.
+*/
+void() info_teleport_random =
+{
+// this does nothing, just serves as a target spot
+	self.mangle = self.angles;
+	self.angles = '0 0 0';
+	self.model = "";
+	self.origin = self.origin + '0 0 27';
+};
+
 void() teleport_use =
 {
 	if (self.is_waiting)	// Supa, if this trigger is waiting to be activated we'll tell it to get ready!
@@ -505,12 +660,23 @@ void() teleport_use =
 	self.think = SUB_Null;
 };
 
-/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT
-Any object touching this will be transported to the corresponding info_teleport_destination entity. You must set the "target" field, and create an object with a "targetname" field that matches.
+// -------------------------
+/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT RANDOM STEALTH
+Any object touching this will be transported to the corresponding
+info_teleport_destination entity. You must set the "target" field,
+and create an object with a "targetname" field that matches.
 
-If the trigger_teleport has a targetname, it will only teleport entities when it has been fired.
-*/
-void() trigger_teleport =
+If the trigger_teleport has a targetname, it will only teleport entities
+when it has been fired.
+
+SILENT(2) eliminates the teleporter ambient noise (good for hidden monster teleporters.
+RANDOM(4) causes the teleporter to send the player to a random destination
+ among the info_teleport_random markers in the level.  You MUST place a
+ "count" field that is the number of info_teleport_random entities you
+ placed.
+STEALTH(8) eliminates the particle flash and noise when an entity is teleported.
+MONSTER_ONLY(16) will only teleport monsters
+*/void() trigger_teleport =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
@@ -1062,7 +1228,7 @@ void() onlookat_touch =
     if(!self.speed)
         self.speed = 500;
     traceline(player_offset, (player_offset + (v_forward * self.speed)), FALSE, other);
-		
+
     if ((trace_ent.targetname == self.target))
     {
         // Play message if available // -- removed as message was redundant in SUB_UseTargets

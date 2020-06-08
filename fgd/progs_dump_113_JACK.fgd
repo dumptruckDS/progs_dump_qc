@@ -153,9 +153,22 @@ state(choices) =
 @PointClass base(PlayerClass) = info_player_coop : "Player cooperative start" []
 @PointClass base(PlayerClass) = info_player_start2 : "Player episode return point" []
 @PointClass base(PlayerClass, Targetname) = info_teleport_destination : "Teleport destination" []
+@PointClass size(-32 -32 0, 32 32 64) base(PlayerClass, Targetname) = info_teleport_random : "Random Teleporter destination" []
 @PointClass = info_null : "info_null (spotlight target)"
 [
 	targetname(target_source) : "Name"
+]
+@PointClass base(Appearflags) color(0 255 0) = info_teleport_changedest : "info_teleport_changedest allows a mapper to change the target of a teleport_trigger.
+
+Useful in maps where the player may fall into a void and the mapper wants to update where they respawn as they progress through the level. Could also be used for teleport puzzles and more.
+
+target = trigger_teleport to change, message = new info_teleport_destination's targetname to switch to, targetname = name of this entity so we can use it.
+
+NOTE when a trigger_teleport has a targetname it must be triggered to operate, so adding an overlapping trigger_multiple targeting the trigger_teleport will be neccessary"
+[
+	targetname(target_source) : "name of this entity so we can trigger it"
+	target(target_source) : "trigger_teleport to change"
+	message(string) : "new info_teleport_destination's targetname to switch to"
 ]
 @PointClass base(Appearflags, Target, Targetname) color(200 150 150) = info_notnull : "Wildcard entity" // dumptruck_ds
 [
@@ -1564,11 +1577,14 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 
 NOTE: To use is_waiting function, use targetname2 only."
 [
-	spawnflags(Flags) =
-	[
-		1 : "Player only" : 0
-		2 : "Silent" : 0
-	]
+spawnflags(Flags) =
+[
+	1 : "Player only" : 0
+	2 : "Silent" : 0
+	4 : "Random" : 0
+	8 : "Stealth" : 0
+	16 : "Monster only" : 0
+]
 	is_waiting(choices) : "Trigger" : 0 =
 	[
 		0 : "Default"

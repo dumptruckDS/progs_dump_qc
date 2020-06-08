@@ -2,6 +2,11 @@
 
 * Added trigger_changemusic and trigger_cdtrack
 * Added trigger_look from NullPointPaladin
+* Added new features to trigger_teleport from Zerstörer
+* including "stealth" teleporting (no sound or particles) and random destinations
+* Added Monster only spawnflag to trigger_teleport
+* Added info_teleport_changedest from Qmaster
+* this allows mappers to dynamically change the destination of a trigger_teleport
 
 1.1.2.1 February 2020
 
