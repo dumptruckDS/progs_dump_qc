@@ -2038,7 +2038,7 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 @SolidClass base(Appearflags,Trigger) = trigger_look : "Trigger: On look at first target"
 [
 ]
-@SolidClass base(Appearflags, Trigger, Target) = trigger_look : "Trigger: Trigger something when a player enters this volume and looks directly at a targeted entity. Use the first target key for the looked at item and subsequent targets to trigger events. Add a wait key to make this a trigger_multiple"
+@SolidClass base(Appearflags, Trigger, Target) = trigger_look : "Trigger: Trigger something when a player enters this volume and looks directly at a targeted brush entity. Use the first target key for the looked at item and subsequent targets to trigger events. Add a wait key to make this a trigger_multiple"
 [
 	speed(integer) : "Distance from player to search for trigger, adjust if the target is too far from the trigger" : 500
 	wait(integer) : "Time between re-triggering"
