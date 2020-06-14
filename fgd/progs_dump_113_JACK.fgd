@@ -203,7 +203,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 [
 	spawnflags(flags) =
 	[
-		16384 : "Respawn DM style" : 0
+		16384 : "Respawn with DM effects" : 0
 	]
 	ritem(integer) : "Respawn item?"
 	respawndelay(integer) : "Respawn time"

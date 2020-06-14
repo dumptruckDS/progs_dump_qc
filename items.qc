@@ -9,7 +9,7 @@ void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
-	if (deathmatch || (self.spawnflags & 16384))	// respawn DM style
+	if (deathmatch || (self.spawnflags & 16384))	// Respawn with DM effects
 		sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
 	else
 		spawn_tfog (self.origin + self.particles_offset);	// play teleport sound and display particles
