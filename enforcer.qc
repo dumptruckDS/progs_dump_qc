@@ -51,7 +51,7 @@ void() Laser_Touch =
 		return;
 	}
 
-	sound (self, CHAN_WEAPON, "enforcer/enfstop.wav", 1, ATTN_STATIC);
+	sound_hit (self, CHAN_WEAPON, "enforcer/enfstop.wav", 1, ATTN_STATIC); //dumptruck_ds
 	org = self.origin - 8*normalize(self.velocity);
 
 	if (other.health)
@@ -75,11 +75,12 @@ void(vector org, vector vec) LaunchLaser =
 {
 
 	if (self.classname == "monster_enforcer")
-		sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
+		sound_attack (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM); //dumptruck_ds
 
 	vec = normalize(vec);
 
 	newmis = spawn();
+	newmis.snd_hit = self.snd_hit; // dumptruck_ds
 	newmis.owner = self;
 	newmis.movetype = MOVETYPE_FLY;
 	newmis.solid = SOLID_BBOX;
@@ -124,7 +125,7 @@ void()	enf_stand7	=[	$stand7,	enf_stand1	] {ai_stand();};
 
 void()	enf_walk1	=[	$walk1 ,	enf_walk2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "enforcer/idle1.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "enforcer/idle1.wav", 1, ATTN_IDLE); //dumptruck_ds
 ai_walk(2);};
 void()	enf_walk2	=[	$walk2 ,	enf_walk3	] {ai_walk(4);};
 void()	enf_walk3	=[	$walk3 ,	enf_walk4	] {ai_walk(4);};
@@ -144,7 +145,7 @@ void()	enf_walk16	=[	$walk16,	enf_walk1	] {ai_walk(2);};
 
 void()	enf_run1	=[	$run1  ,	enf_run2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "enforcer/idle1.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "enforcer/idle1.wav", 1, ATTN_IDLE); //dumptruck_ds
 ai_run(18);};
 void()	enf_run2	=[	$run2  ,	enf_run3	] {ai_run(14);};
 void()	enf_run3	=[	$run3  ,	enf_run4	] {ai_run(7);};
@@ -221,9 +222,9 @@ void(entity attacker, float damage)	enf_pain =
 
 
 	if (r < 0.5)
-		sound (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM);
+		sound_pain (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM); //dumptruck_ds
 	else
-		sound (self, CHAN_VOICE, "enforcer/pain2.wav", 1, ATTN_NORM);
+		sound_pain (self, CHAN_VOICE, "enforcer/pain2.wav", 1, ATTN_NORM); // dumptruck_ds
 
 	if (r < 0.2)
 	{
@@ -298,7 +299,7 @@ void() enf_die =
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "enforcer/death1.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "enforcer/death1.wav", 1, ATTN_NORM); //dumptruck_ds
 	if (random() > 0.5)
 		enf_die1 ();
 	else
@@ -322,17 +323,17 @@ void() monster_enforcer =
 	precache_model2 ("progs/enforcer.mdl");
 	precache_model2 ("progs/h_mega.mdl");
 	precache_model2 ("progs/laser.mdl");
-
-	precache_sound2 ("enforcer/death1.wav");
-	precache_sound2 ("enforcer/enfire.wav");
-	precache_sound2 ("enforcer/enfstop.wav");
-	precache_sound2 ("enforcer/idle1.wav");
-	precache_sound2 ("enforcer/pain1.wav");
-	precache_sound2 ("enforcer/pain2.wav");
-	precache_sound2 ("enforcer/sight1.wav");
-	precache_sound2 ("enforcer/sight2.wav");
-	precache_sound2 ("enforcer/sight3.wav");
-	precache_sound2 ("enforcer/sight4.wav");
+ //dumptruck_ds
+	precache_sound2_death ("enforcer/death1.wav");
+	precache_sound2_attack ("enforcer/enfire.wav");
+	precache_sound2_hit ("enforcer/enfstop.wav");
+	precache_sound2_idle ("enforcer/idle1.wav");
+	precache_sound2_pain ("enforcer/pain1.wav");
+	precache_sound2_pain ("enforcer/pain2.wav");
+	precache_sound2_sight ("enforcer/sight1.wav");
+	precache_sound2_sight ("enforcer/sight2.wav"); // these will be replaced with custom noise fields eventually - dumptruck_ds
+	precache_sound2_sight ("enforcer/sight3.wav");
+	precache_sound2_sight ("enforcer/sight4.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

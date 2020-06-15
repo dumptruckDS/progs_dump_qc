@@ -295,7 +295,7 @@ local float	rsnd;
 	else if (self.classname == "monster_zombie")
 		sound (self, CHAN_VOICE, "zombie/z_idle.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_dog")
-		sound (self, CHAN_VOICE, "dog/dsight.wav", 1, ATTN_NORM);
+		sound_sight (self, CHAN_VOICE, "dog/dsight.wav", 1, ATTN_NORM); //dumptruck_ds
 	else if (self.classname == "monster_hell_knight")
 		sound (self, CHAN_VOICE, "hknight/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_tarbaby")
@@ -304,13 +304,13 @@ local float	rsnd;
 	{
 		rsnd = rint(random() * 3);
 		if (rsnd == 1)
-			sound (self, CHAN_VOICE, "enforcer/sight1.wav", 1, ATTN_NORM);
+			sound_sight (self, CHAN_VOICE, "enforcer/sight1.wav", 1, ATTN_NORM); //dumptruck_ds
 		else if (rsnd == 2)
-			sound (self, CHAN_VOICE, "enforcer/sight2.wav", 1, ATTN_NORM);
+			sound_sight (self, CHAN_VOICE, "enforcer/sight2.wav", 1, ATTN_NORM);
 		else if (rsnd == 0)
-			sound (self, CHAN_VOICE, "enforcer/sight3.wav", 1, ATTN_NORM);
+			sound_sight (self, CHAN_VOICE, "enforcer/sight3.wav", 1, ATTN_NORM);
 		else
-			sound (self, CHAN_VOICE, "enforcer/sight4.wav", 1, ATTN_NORM);
+			sound_sight (self, CHAN_VOICE, "enforcer/sight4.wav", 1, ATTN_NORM);
 	}
 	else if (self.classname == "monster_army")
 		sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
@@ -380,10 +380,10 @@ float() FindTarget =
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
-	
+
 	if (client.health <= 0)
 		return FALSE;
-	
+
 	if (client.classname != "player")
 		if (client.enemy.health <= 0)
 			return FALSE;

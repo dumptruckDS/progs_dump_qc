@@ -834,3 +834,17 @@ void() SUB_UsePain; //dumptruck_ds
 nosave float *world_sounds;  //via Spike fun times! nosave=noclobber
 void() trigger_changemusic; // dumptruck_ds
 void() onlookat_touch; // dumptruck_ds
+
+// Custom Monster Sounds START -- dumptruck_ds
+
+.string snd_death;
+.string snd_pain;
+.string snd_sight;
+.string snd_attack;
+.string snd_hit;
+.string snd_idle;
+.string snd_land;
+.string snd_move;
+.string snd_misc;
+
+// Custom Monster Sounds END -- dumptruck_ds

@@ -113,7 +113,7 @@ void() dog_stand9	=[	$stand9,	dog_stand1	] {ai_stand();};
 
 void() dog_walk1	=[	$walk1 ,	dog_walk2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE); //dumptruck_ds
 ai_walk(8);};
 void() dog_walk2	=[	$walk2 ,	dog_walk3	] {ai_walk(8);};
 void() dog_walk3	=[	$walk3 ,	dog_walk4	] {ai_walk(8);};
@@ -125,7 +125,7 @@ void() dog_walk8	=[	$walk8 ,	dog_walk1	] {ai_walk(8);};
 
 void() dog_run1		=[	$run1  ,	dog_run2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "dog/idle.wav", 1, ATTN_IDLE); //dumptruck_ds
 ai_run(16);};
 void() dog_run2		=[	$run2  ,	dog_run3	] {ai_run(32);};
 void() dog_run3		=[	$run3  ,	dog_run4	] {ai_run(32);};
@@ -143,7 +143,7 @@ void() dog_atta1	=[	$attack1,	dog_atta2	] {ai_charge(10);};
 void() dog_atta2	=[	$attack2,	dog_atta3	] {ai_charge(10);};
 void() dog_atta3	=[	$attack3,	dog_atta4	] {ai_charge(10);};
 void() dog_atta4	=[	$attack4,	dog_atta5	] {
-sound (self, CHAN_VOICE, "dog/dattack1.wav", 1, ATTN_NORM);
+sound_attack (self, CHAN_VOICE, "dog/dattack1.wav", 1, ATTN_NORM); //dumptruck_ds
 dog_bite();};
 void() dog_atta5	=[	$attack5,	dog_atta6	] {ai_charge(10);};
 void() dog_atta6	=[	$attack6,	dog_atta7	] {ai_charge(10);};
@@ -197,7 +197,7 @@ void() dog_painb16	=[	$painb16 ,	dog_run1	] {};
 
 void(entity attacker, float damage) dog_pain =
 {
-	sound (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM);
+	sound_pain (self, CHAN_VOICE, "dog/dpain1.wav", 1, ATTN_NORM); //dumptruck_ds
 
 	if (random() > 0.5)
 		dog_pain1 ();
@@ -240,7 +240,7 @@ void() dog_die =
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "dog/ddeath.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "dog/ddeath.wav", 1, ATTN_NORM); //dumptruck_ds
 	self.solid = SOLID_NOT;
 
 	if (random() > 0.5)
@@ -338,12 +338,12 @@ void() monster_dog =
 	}
 	precache_model ("progs/h_dog.mdl");
 	precache_model ("progs/dog.mdl");
-
-	precache_sound ("dog/dattack1.wav");
-	precache_sound ("dog/ddeath.wav");
-	precache_sound ("dog/dpain1.wav");
-	precache_sound ("dog/dsight.wav");
-	precache_sound ("dog/idle.wav");
+//dumptruck_ds
+	precache_sound_attack ("dog/dattack1.wav");
+	precache_sound_death ("dog/ddeath.wav");
+	precache_sound_pain ("dog/dpain1.wav");
+	precache_sound_sight ("dog/dsight.wav");
+	precache_sound_idle ("dog/idle.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
