@@ -320,9 +320,10 @@ void() monster_enforcer =
 		remove(self);
 		return;
 	}
-	precache_model2 ("progs/enforcer.mdl");
+	precache_body_model2 ("progs/enforcer.mdl");  // this may not be doing anything -- dumptruck_ds
 	precache_model2 ("progs/h_mega.mdl");
 	precache_model2 ("progs/laser.mdl");
+	// precache_model2 ("progs/enforcer.mdl");
  //dumptruck_ds
 	precache_sound2_death ("enforcer/death1.wav");
 	precache_sound2_attack ("enforcer/enfire.wav");
@@ -338,7 +339,9 @@ void() monster_enforcer =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/enforcer.mdl");
+	body_model ("progs/enforcer.mdl"); // SPIKE to the RESCUE!!!! - got this fixed. -- dumptruck_ds
+	// body_model (self.mdl_body); // this works!!!!! BUT default is not loading unless added in mdl_body field -- dumptruck_ds
+	// // setmodel (self, "progs/enforcer.mdl"); //orginal dumptruck_ds
 
 	setsize (self, '-16 -16 -24', '16 16 40');
 

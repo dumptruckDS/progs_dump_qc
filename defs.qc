@@ -848,3 +848,11 @@ void() onlookat_touch; // dumptruck_ds
 .string snd_misc;
 
 // Custom Monster Sounds END -- dumptruck_ds
+
+// Custom Model Start -- dumptruck_ds
+
+.string mdl_head;
+.string mdl_body;
+.string mdl_projectile;
+
+// Custom Model Start -- dumptruck_ds

@@ -5,6 +5,7 @@ newflags.qc //new spawnflags for all entities
 subs.qc //modified targets, triggers and killtargets
 fight.qc
 customsounds.qc //mapper-settable custom sound effects for monsters - iw
+custom_mdls.qc //mapper-settable custom models for monsters - iw
 ai.qc
 combat.qc
 keydata.qc //functions which deal with key item bitflags and names
@@ -40,8 +41,6 @@ shalrath.qc		// registered
 enforcer.qc		// registered
 oldone.qc		// registered
 oldone2.qc		// killable Shub
-
-monster_custom.qc //  prototyping this -- dumptruck_ds
 
 dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
 math.qc // Code by Joshua Skelton
