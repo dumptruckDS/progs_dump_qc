@@ -480,6 +480,10 @@ void(string gibname, float dm) ThrowGib =
 void(string gibname, float dm) ThrowHead =
 {
 	setmodel (self, gibname);
+	self.skin = self.skin_head; // dumptruck_ds custom_mdl changes
+	if !(self.skin_head)
+	self.skin_head = 0;
+	// end dumptruck_ds
 	self.frame = 0;
 	self.nextthink = -1;
 	self.movetype = MOVETYPE_BOUNCE;

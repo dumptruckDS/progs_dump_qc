@@ -86,7 +86,26 @@ void(vector org, vector vec) LaunchLaser =
 	newmis.solid = SOLID_BBOX;
 	newmis.effects = EF_DIMLIGHT;
 
-	setmodel (newmis, "progs/laser.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (newmis, self.mdl_proj);
+			dprint("CUSTOM MODEL LOADED\n");
+		}
+		else
+		{
+			setmodel (newmis, "progs/laser.mdl");
+	}
+
+	if (!self.skin_proj) // dumptruck_ds
+	{
+			newmis.skin = self.skin_proj;
+			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n");
+		}
+		else
+		{
+			newmis.skin = 0;
+	}
+	// setmodel (newmis, "progs/laser.mdl");
 	setsize (newmis, '0 0 0', '0 0 0');
 
 	setorigin (newmis, org);
@@ -291,7 +310,14 @@ void() enf_die =
 	if (self.health < -35)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_mega.mdl", self.health);
+			if (self.mdl_head != "")
+			{
+				ThrowHead (self.mdl_head, self.health);
+			}
+			else
+			{
+				ThrowHead ("progs/h_mega.mdl", self.health);
+			}
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
@@ -320,9 +346,11 @@ void() monster_enforcer =
 		remove(self);
 		return;
 	}
-	precache_body_model2 ("progs/enforcer.mdl");  // this may not be doing anything -- dumptruck_ds
-	precache_model2 ("progs/h_mega.mdl");
-	precache_model2 ("progs/laser.mdl");
+	precache_body_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
+	// precache_model2 ("progs/h_mega.mdl");
+	precache_head_model2 ("progs/h_mega.mdl");
+	// precache_model2 ("progs/laser.mdl");
+	precache_proj_model2 ("progs/laser.mdl");
 	// precache_model2 ("progs/enforcer.mdl");
  //dumptruck_ds
 	precache_sound2_death ("enforcer/death1.wav");
@@ -340,7 +368,6 @@ void() monster_enforcer =
 	self.movetype = MOVETYPE_STEP;
 
 	body_model ("progs/enforcer.mdl"); // SPIKE to the RESCUE!!!! - got this fixed. -- dumptruck_ds
-	// body_model (self.mdl_body); // this works!!!!! BUT default is not loading unless added in mdl_body field -- dumptruck_ds
 	// // setmodel (self, "progs/enforcer.mdl"); //orginal dumptruck_ds
 
 	setsize (self, '-16 -16 -24', '16 16 40');

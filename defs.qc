@@ -853,6 +853,8 @@ void() onlookat_touch; // dumptruck_ds
 
 .string mdl_head;
 .string mdl_body;
-.string mdl_projectile;
+.string mdl_proj;
+.float skin_head;
+.float skin_proj;
 
 // Custom Model Start -- dumptruck_ds
