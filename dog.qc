@@ -235,7 +235,14 @@ void() dog_die =
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
-		ThrowHead ("progs/h_dog.mdl", self.health);
+		if (self.mdl_head != "")
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_dog.mdl", self.health);
+		}
 		return;
 	}
 
@@ -336,19 +343,21 @@ void() monster_dog =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/h_dog.mdl");
-	precache_model ("progs/dog.mdl");
-//dumptruck_ds
+	//dumptruck_ds --  model_custom and sounds changes
+	precache_head_model ("progs/h_dog.mdl");
+	precache_body_model ("progs/dog.mdl");
 	precache_sound_attack ("dog/dattack1.wav");
 	precache_sound_death ("dog/ddeath.wav");
 	precache_sound_pain ("dog/dpain1.wav");
 	precache_sound_sight ("dog/dsight.wav");
 	precache_sound_idle ("dog/idle.wav");
+	// dumptruck_ds
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/dog.mdl");
+	body_model ("progs/dog.mdl"); //dumptruck_ds
+	// setmodel (self, "progs/dog.mdl");
 
 	setsize (self, '-32 -32 -24', '32 32 40');
 
