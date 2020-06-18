@@ -348,11 +348,8 @@ void() monster_enforcer =
 		return;
 	}
 	precache_body_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
-	// precache_model2 ("progs/h_mega.mdl");
 	precache_head_model2 ("progs/h_mega.mdl");
-	// precache_model2 ("progs/laser.mdl");
 	precache_proj_model2 ("progs/laser.mdl");
-	// precache_model2 ("progs/enforcer.mdl");
  //dumptruck_ds
 	precache_sound2_death ("enforcer/death1.wav");
 	precache_sound2_attack ("enforcer/enfire.wav");

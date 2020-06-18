@@ -344,7 +344,14 @@ void() wiz_die =
 	if (self.health < -40)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_wizard.mdl", self.health);
+		if (self.mdl_head != "") //dumptruck_ds custom_mdls
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_wizard.mdl", self.health);
+		}
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
@@ -382,10 +389,12 @@ void() monster_wizard =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/wizard.mdl");
-	precache_model ("progs/h_wizard.mdl");
-	precache_model ("progs/w_spike.mdl");
 
+	// dumptruck_ds custom_mdls
+	precache_body_model ("progs/wizard.mdl");
+	precache_head_model ("progs/h_wizard.mdl");
+	precache_model ("progs/w_spike.mdl");
+	////dumptruck_ds
 	precache_sound ("wizard/hit.wav");		// used by c code
 	precache_sound ("wizard/wattack.wav");
 	precache_sound ("wizard/wdeath.wav");
@@ -397,7 +406,8 @@ void() monster_wizard =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/wizard.mdl");
+	body_model ("progs/wizard.mdl");
+	// setmodel (self, "progs/wizard.mdl"); //dumptruck_ds
 
 	setsize (self, '-16 -16 -24', '16 16 40');
 
