@@ -68,11 +68,13 @@ model_custom
 void(.string mdl_field, string default_file) model_custom =
 {
 	if (self.mdl_field != "")
-{		setmodel (self, self.mdl_field);
+	{
+		setmodel (self, self.mdl_field);
 		dprint("CUSTOM MODEL LOADED\n");
-}	else
-{		setmodel (self, default_file);
-		dprint("CUSTOM MODEL NOT LOADED\n");
-}};
+	}
+	else
+		setmodel (self, default_file);
+};
 
 void(string default_file) body_model = { model_custom (mdl_body, default_file); };
+void(string default_file) proj_model = { model_custom (mdl_proj, default_file); };

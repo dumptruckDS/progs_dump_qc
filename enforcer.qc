@@ -85,6 +85,7 @@ void(vector org, vector vec) LaunchLaser =
 	newmis.movetype = MOVETYPE_FLY;
 	newmis.solid = SOLID_BBOX;
 	newmis.effects = EF_DIMLIGHT;
+	newmis.skin = self.skin_proj; //dumptruck_ds
 
 	if (self.mdl_proj != "") // dumptruck_ds
 	{
@@ -96,7 +97,7 @@ void(vector org, vector vec) LaunchLaser =
 			setmodel (newmis, "progs/laser.mdl");
 	}
 
-	if (!self.skin_proj) // dumptruck_ds
+	if (!newmis.skin_proj) // dumptruck_ds
 	{
 			newmis.skin = self.skin_proj;
 			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n");
@@ -310,7 +311,7 @@ void() enf_die =
 	if (self.health < -35)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-			if (self.mdl_head != "")
+			if (self.mdl_head != "") //dumptruck_ds custom_mdls
 			{
 				ThrowHead (self.mdl_head, self.health);
 			}
