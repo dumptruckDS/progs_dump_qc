@@ -380,10 +380,10 @@ float() FindTarget =
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
-	
+
 	if (client.health <= 0)
 		return FALSE;
-	
+
 	if (client.classname != "player")
 		if (client.enemy.health <= 0)
 			return FALSE;
@@ -597,6 +597,10 @@ float()	DogCheckAttack;
 
 float() CheckAnyAttack =
 {
+	if (cutscene)  // Drake devkit -- dumptruck_ds
+			if (self.enemy.classname == "camera")
+					return FALSE;   // Don't attack the camera (player)!
+
 	if (!enemy_vis)
 		return FALSE;
 	if (self.classname == "monster_army")

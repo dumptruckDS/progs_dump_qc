@@ -38,6 +38,8 @@ void() multi_trigger =
 	{
 		if (self.enemy.classname != "player")
 			return;
+		if (cutscene)
+				return;     // Don't activate in cutscene mode
 		found_secrets = found_secrets + 1;
 		WriteByte (MSG_ALL, SVC_FOUNDSECRET);
 	}
@@ -98,6 +100,9 @@ void() multi_touch = //dumptruck_ds
 {
 	if (other.classname != "player")
 		return;
+		// Drake -- dumptruck_ds (possible pd_ feature)
+	// if (other.classname != "actor")     // Zerstorer's cutscene drone.
+	// 		return;
 
 	if (self.is_waiting)	// Supa, is this trigger waiting to be activated?
 		return;

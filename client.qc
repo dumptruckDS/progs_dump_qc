@@ -302,6 +302,18 @@ void() execute_changelevel =
 		setorigin (other, pos.origin);
 		other = find (other, classname, "player");
 	}
+	// Drake -- dumptruck_ds
+	if (cutscene)
+	{   // If player was in a cutscene when the level ended, restore viewsize.
+			pos = find (world, classname, "camera");
+			if (pos)
+			{
+					local   string  val;
+
+					val = ftos (pos.cnt);
+					cvar_set ("viewsize", val);
+			}
+	}
 
 	WriteByte (MSG_ALL, SVC_INTERMISSION);
 };
@@ -567,6 +579,12 @@ void() PutClientInServer =
 	self.onladder = 0;
 	self.customkeys = 0;  // support for item_key_custom -- iw
 
+	// Setup cutscene stuff.  Legacy code from Zerstorer. --dumptruck_ds
+	    self.script_count = 2;
+	    self.script_delay = 1;
+	    self.script_time  = 0;
+
+
 	DecodeLevelParms ();
 
 	W_SetCurrentAmmo ();
@@ -588,6 +606,9 @@ void() PutClientInServer =
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
+
+	setmodel (self, "progs/null_256.spr");     // Drake -- dumptruck_ds
+	mindex_inviso = self.modelindex;
 
 	setmodel (self, "progs/player.mdl");
 	modelindex_player = self.modelindex;
@@ -997,7 +1018,10 @@ void() PlayerPreThink =
 	}
 
 	if (self.view_ofs == '0 0 0')
-		return;		// intermission or finale
+		{
+			Cutscene_Think ();      // Check for cutscene stuff.
+			return;        // intermission or finale
+	}
 
 	// note that this code block is here, before the tests which check
 	// whether the player is dead, so that the player's gravity will be

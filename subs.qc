@@ -44,6 +44,20 @@ void() InitTrigger =
 	self.model = "";
 };
 
+// Drake -- dumptruck_ds
+// PM:  The point trigger version of InitTrigger.
+void() InitPointTrigger =
+{
+    local   vector  v1, v2;
+
+    v1 = self.origin;
+    v2 = v1 + self.mangle;
+    self.model = "";
+    setorigin (self, '0 0 0');
+    InitTrigger ();     // Calls 'setmodel', so do first.
+    setsize (self, v1, v2);     // Calling 'setmodel' resets entity size.
+};
+
 /*
 =============
 SUB_CalcMove
@@ -548,4 +562,16 @@ void() SUB_DislodgeRestingEntities =
 			e.flags = e.flags - (e.flags & FL_ONGROUND);
 		e = nextent (e);
 	}
+};
+//------------------------------------------------------------------------//
+//  Drake -- This makes an entity do a think function right now.
+//------------------------------------------------------------------------//
+void(entity ent, void() thinkst) SUB_Think =
+{
+    local   entity  swap;
+
+    swap = self;
+    self = ent;
+    thinkst ();
+    self = swap;
 };
