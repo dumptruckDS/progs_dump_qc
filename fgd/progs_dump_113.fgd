@@ -9,6 +9,11 @@
 // Modified by CZG : grawert@online.no : http://www.planetquake.com/greyvoid/
 // further modified by various authors
 
+//for reference:
+//name(string) : "Short description" : "Default" : "Long description"
+//name(integer) : "Short description" : 1 : "Long description"
+//name(float) : "Short description" : "1.5" : "Long description"
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Modified by dumptruck_ds 2018/27/4 to include custents 6 features, Hipnotic sounds and Joshua Skelton's misc_model code////
 // among other mods detailed in the progs_dump manual.																																	/////
@@ -316,7 +321,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
 	item_key2 : "Gold key" []
 
-@PointClass base(Key) model({ "path": mdl, "skin": skin }) =
+@PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
 	item_key_custom :
 "A customizable key item.
 
@@ -2169,6 +2174,48 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 		4 : "Custom sound, requires a path set in noise1 key"
 	]
 	noise1(float) : "Path to custom sound. Use with sounds key set to 4"
+]
+@SolidClass base(Appearflags, OneTarget, OneTargetname) = trigger_camera :
+"A player touching this will be transported to the corresponding " +
+"info_movie_camera entity.  You must set the target field, and put an " +
+"info_movie_camera with a targetname field that matches.  At least one script is required, however it can have a blank message. The script " +
+"key gives a starting script number, and the script_delay key is the " +
+"amount of time(seconds) to stay on the first script page.
+
+If the trigger_camera has a targetname, it will only enter camera mode after it has been fired."
+[
+focal_point(string) : "Name of info_focal_point to face" : "This is the point that the info_movie_camera will face."
+script(integer) : "Starting script number" : 1 : "Should match first script_num key in targeted info_script"
+script_delay(integer) : "How long on first page" : 3 : "Amount of time(seconds) to stay on the first script page"
+]
+@PointClass size(-8 -8 -8, 8 8 32) color(21 59 194) base(OneTargetname) = info_movie_camera :
+"This is the destination marker for a camera.  It should have a targetname " +
+"field with the same value as a camera-trigger's target field. The focal_point is the name of info_focal_point to focus on. Set delay to 1 to "+
+"use the mangle values (yaw, pitch, roll similar to info_intermission) this will "+
+"ignore the focal_point key. Use the speed key to set the rate of travel to next info_movie_camera. "+
+"The target key names the next info_movie_camera in a sequence."
+[
+delay(integer) : "Use mangle" : 0 : "This will use mangle (yaw, pitch, roll) instead of focal point"
+focal_point(integer) : "info_focal_point to face" : 0 : "Name of info_focal_point to face"
+speed(integer) : "Speed of travel to next info_movie_camera if in a sequence" : 0 :"Rate of travel to next info_movie_camera if part of a sequence"
+target(string) : "Next info_movie_camera if part of a sequence"
+wait(integer) : "Wait at this point (seconds)" : 0 : "Wait in seconds before moving to next info_movie_camera if part of a sequence"
+]
+@PointClass size(-8 -8 -8, 8 8 16) color(27 45 247) base(Appearflags, OneTargetname) = info_focal_point :
+"This is the point that the camera will face.  It should have a targetname "+
+"field with the same value as a camera-trigger's focal_point field."
+[]
+@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags) = info_script :
+"This is the destination marker for a script." +
+"It should have a script_num field that signifies the script number, and "+
+"a next_script to signal the next script (0 if this is the last page of "+
+"the script), a script_delay to signify how many seconds to display this "+
+"page, and of course a message field with the text to display. "
+[
+message(string) : "Text of script"
+script_num(integer) : "Number of script" : 1 : "Number of script matching the script key in trigger_camera"
+script_delay(integer) : "Seconds on this page" : 0 : "How many seconds on this page "
+next_script(integer) : "Next script in sequence" : 0 : "The next script (0 if this is the last page)"
 ]
 
 //////////////////////
