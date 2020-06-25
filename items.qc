@@ -1828,4 +1828,33 @@ void() DropBackpack =
 	item.nextthink = time + 120;	// remove after 2 minutes
 	item.think = SUB_Remove;
 };
-//laptop Git test - ignore me
+// Some of this text is from Drake -- dumptruck_ds
+//============
+// --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56) big weapon
+// Pack of assorted ammo by default or you can set custom amounts with
+// the following key: ammo_shells, ammo_nails, ammo_rockets or ammo_cells
+//============
+void() item_backpack =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	self.flags = FL_ITEM;
+	self.solid = SOLID_TRIGGER;
+	self.movetype = MOVETYPE_TOSS;
+	// mapper can set amounts -- dumptruck_ds
+	if !(self.ammo_shells)
+	self.ammo_shells    = 5;
+	if !(self.ammo_nails)
+	self.ammo_nails     = 25;
+	if !(self.ammo_rockets)
+	self.ammo_rockets   = 5;
+	if !(self.ammo_cells)
+	self.ammo_cells     = 15;
+
+	self.touch = BackpackTouch;
+
+	setmodel (self, "progs/backpack.mdl");
+	setsize (self, '-16 -16 0', '16 16 56');
+	StartItem ();
+};
