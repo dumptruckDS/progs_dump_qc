@@ -1827,6 +1827,37 @@ void() DropBackpack =
 	item.nextthink = time + 120;	// remove after 2 minutes
 	item.think = SUB_Remove;
 };
+// gah!
+// void() item_backpackTouch =
+// 	{
+// 		if (other.ammo_shells + self.ammo_shells > 100)
+// 		{
+// 			self.ammo_shells = 100 - other.ammo_shells;
+// 		}
+// 		if (other.ammo_nails + self.ammo_nails > 200)
+// 		{
+// 			self.ammo_nails = 200 - other.ammo_nails;
+// 		}
+// 		if (other.ammo_rockets + self.ammo_rockets > 100)
+// 		{
+// 			self.ammo_rockets = 100 - other.ammo_rockets;
+// 		}
+// 		if (other.ammo_cells + self.ammo_cells > 100)
+// 		{
+// 			self.ammo_cells = 100 - other.ammo_cells;
+// 		}
+// 		// try this later #########################
+// 		// if (!deathmatch)
+// 		// 	CheckItemRespawn(self, 30);
+// 		// else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
+// 		// 	self.nextthink = time + 20;
+// 		// self.think = SUB_regen;
+// 		if (other.ammo_shells > 100 & other.ammo_nails > 200 & other.ammo_rockets > 100 & other.ammo_cells > 100)
+// 		return;
+//
+// 		BackpackTouch();
+// 	};
+
 float SHELLS = 1;
 float NAILS = 2;
 float ROCKETS = 4;
@@ -1838,6 +1869,7 @@ float CELLS = 8;
 // Pack of assorted ammo by default.
 // Or you can set custom amounts with spawnflags and the following keys:
 // ammo_shells, ammo_nails, ammo_rockets or ammo_cells
+// all_ammo 1 sets this to default ammo pickup values
 //============
 void() item_backpack =
 {
@@ -1848,6 +1880,7 @@ void() item_backpack =
 	self.solid = SOLID_TRIGGER;
 	self.movetype = MOVETYPE_TOSS;
 	self.classname = "item_backpack";
+
 		// mapper can set amounts -- dumptruck_ds
 	if (self.spawnflags & SHELLS)
 		{
@@ -1877,7 +1910,7 @@ void() item_backpack =
 				self.ammo_cells    = 6;
 				}
 		}
-	else if (self.style2)
+	else if (self.all_ammo)
 	{
 		self.ammo_shells    = 20;
 		self.ammo_nails     = 25;

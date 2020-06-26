@@ -834,3 +834,4 @@ void() SUB_UsePain; //dumptruck_ds
 nosave float *world_sounds;  //via Spike fun times! nosave=noclobber
 void() trigger_changemusic; // dumptruck_ds
 void() onlookat_touch; // dumptruck_ds
+.float all_ammo; //dumptruck_ds for backpacks
