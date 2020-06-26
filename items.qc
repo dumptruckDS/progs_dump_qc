@@ -1572,8 +1572,6 @@ void() powerup_touch =
 	SUB_UseTargets();				// fire all targets / killtargets
 };
 
-
-
 /*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32)
 Player is invulnerable for 30 seconds
 */
@@ -1772,6 +1770,7 @@ void() BackpackTouch =
 		Deathmatch_Weapon (old, new);
 
 	W_SetCurrentAmmo ();
+
 };
 
 /*
@@ -1828,11 +1827,17 @@ void() DropBackpack =
 	item.nextthink = time + 120;	// remove after 2 minutes
 	item.think = SUB_Remove;
 };
+float SHELLS = 1;
+float NAILS = 2;
+float ROCKETS = 4;
+float CELLS = 8;
+// float ALL_AMMO = 16;
 // Some of this text is from Drake -- dumptruck_ds
 //============
-// --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56) big weapon
-// Pack of assorted ammo by default or you can set custom amounts with
-// the following key: ammo_shells, ammo_nails, ammo_rockets or ammo_cells
+// --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56)
+// Pack of assorted ammo by default.
+// Or you can set custom amounts with spawnflags and the following keys:
+// ammo_shells, ammo_nails, ammo_rockets or ammo_cells
 //============
 void() item_backpack =
 {
@@ -1842,16 +1847,43 @@ void() item_backpack =
 	self.flags = FL_ITEM;
 	self.solid = SOLID_TRIGGER;
 	self.movetype = MOVETYPE_TOSS;
-	// mapper can set amounts -- dumptruck_ds
-	if !(self.ammo_shells)
-	self.ammo_shells    = 5;
-	if !(self.ammo_nails)
-	self.ammo_nails     = 25;
-	if !(self.ammo_rockets)
-	self.ammo_rockets   = 5;
-	if !(self.ammo_cells)
-	self.ammo_cells     = 15;
-
+	self.classname = "item_backpack";
+		// mapper can set amounts -- dumptruck_ds
+	if (self.spawnflags & SHELLS)
+		{
+			if !(self.ammo_shells)
+				{
+				self.ammo_shells    = 20;
+				}
+		}
+	if (self.spawnflags & NAILS)
+		{
+			if !(self.ammo_nails)
+				{
+				self.ammo_nails    = 25;
+				}
+		}
+	if (self.spawnflags & ROCKETS)
+		{
+			if !(self.ammo_rockets)
+				{
+				self.ammo_rockets   = 5;
+				}
+		}
+	if (self.spawnflags & CELLS)
+		{
+			if !(self.ammo_cells)
+				{
+				self.ammo_cells    = 6;
+				}
+		}
+	else if (self.style2)
+	{
+		self.ammo_shells    = 20;
+		self.ammo_nails     = 25;
+		self.ammo_rockets   = 5;
+		self.ammo_cells     = 6;
+	}
 	self.touch = BackpackTouch;
 
 	setmodel (self, "progs/backpack.mdl");

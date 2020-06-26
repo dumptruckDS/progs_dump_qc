@@ -2168,7 +2168,44 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 		3 : "Large switch"
 		4 : "Custom sound, requires a path set in noise1 key"
 	]
-	noise1(float) : "Path to custom sound. Use with sounds key set to 4"
+	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
+]
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
+:"Placeable backpack
+
+Defaults to the amount of ammo from standard pickups:
+
+20 Shells
+25 Nails
+5 Rockets
+6 Cells
+
+Or you can use the spawnflags to mix and match types.
+
+Override the spawnflags defaults by adding custom amounts to:
+
+ammo_shells
+ammo_nails
+ammo_rockets
+ammo_cells
+
+Cannot be set to respawn"
+[
+ammo_shells(integer) : "Custom amount of shells" : 0
+ammo_nails(integer) : "Custom amount of nails" : 0
+ammo_rockets(integer) : "Custom amount of rockets" : 0
+ammo_cells(integer) : "Custom amount of cells" : 0
+spawnflags(flags) =
+	[
+		1 : "Shells" : 0
+		2 : "Nails"	: 0
+		4 : "Rockets"	: 0
+		8 : "Cells" : 0
+		// 16 : "Full Ammo" : 0
+		32 : "Spawn silent" : 0
+		64 : "Trigger spawned" : 0
+		128 : "Suspended in air" : 0
+	]
 ]
 
 //////////////////////
