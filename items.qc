@@ -1717,7 +1717,7 @@ void() BackpackTouch =
 
 	bound_other_ammo ();
 
-	if (self.ammo_shells)
+	if (self.ammo_shells < 100)
 	{
 		if (acount)
 			sprint(other, ", ");
@@ -1827,97 +1827,113 @@ void() DropBackpack =
 	item.nextthink = time + 120;	// remove after 2 minutes
 	item.think = SUB_Remove;
 };
-// gah!
-// void() item_backpackTouch =
-// 	{
-// 		if (other.ammo_shells + self.ammo_shells > 100)
-// 		{
-// 			self.ammo_shells = 100 - other.ammo_shells;
-// 		}
-// 		if (other.ammo_nails + self.ammo_nails > 200)
-// 		{
-// 			self.ammo_nails = 200 - other.ammo_nails;
-// 		}
-// 		if (other.ammo_rockets + self.ammo_rockets > 100)
-// 		{
-// 			self.ammo_rockets = 100 - other.ammo_rockets;
-// 		}
-// 		if (other.ammo_cells + self.ammo_cells > 100)
-// 		{
-// 			self.ammo_cells = 100 - other.ammo_cells;
-// 		}
-// 		// try this later #########################
-// 		// if (!deathmatch)
-// 		// 	CheckItemRespawn(self, 30);
-// 		// else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
-// 		// 	self.nextthink = time + 20;
-// 		// self.think = SUB_regen;
-// 		if (other.ammo_shells > 100 & other.ammo_nails > 200 & other.ammo_rockets > 100 & other.ammo_cells > 100)
-// 		return;
-//
-// 		BackpackTouch();
-// 	};
 
+// dumptruck_ds
 float SHELLS = 1;
 float NAILS = 2;
 float ROCKETS = 4;
 float CELLS = 8;
-// float ALL_AMMO = 16;
+void() item_backpack_message =
+
+{
+	other.ammo_shells = other.ammo_shells + self.ammo_shells;
+	other.ammo_nails = other.ammo_nails + self.ammo_nails;
+	other.ammo_rockets = other.ammo_rockets + self.ammo_rockets;
+	other.ammo_cells = other.ammo_cells + self.ammo_cells;
+
+	if (self.netname != "")
+	{
+		sprint (other, "You got ");
+		sprint (other, self.netname);
+		sprint (other, "\n");
+	}
+		else
+		sprint (other, "You got a backpack!\n");
+
+	// backpack touch sound
+	sound (other, CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
+	stuffcmd (other, "bf\n");
+	remove(self);
+	self = other;
+	bound_other_ammo();
+	W_SetCurrentAmmo ();
+
+}
 // Some of this text is from Drake -- dumptruck_ds
 //============
 // --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56)
-// Pack of assorted ammo by default.
-// Or you can set custom amounts with spawnflags and the following keys:
-// ammo_shells, ammo_nails, ammo_rockets or ammo_cells
-// all_ammo 1 sets this to default ammo pickup values
+// By default, gives roughly half the ammo from the 4 standard pickups:
+//
+// 10 Shells
+// 12 Nails
+// 2 Rockets
+// 3 Cells
+//
+// Or you can use the spawnflags to mix and match types.
+// Override the spawnflags defaults by adding custom amounts to:
+//
+// ammo_shells
+// ammo_nails
+// ammo_rockets
+// ammo_cells
+//
+// Can trigger spawn and suspend in air, but not respawn. You can set a skin
+// index if you are using a custom model with skins.
+//
+// The default pickup message is `You got a backpack.` But you can
+// set a custom message with the netname key. 'You got' will be the prefix
+// and the mapper chooses the rest of the message.
+//
+// e.g. For 'You got a bunch of rockets!' the netname key would be
+// 'a bunch of rockets!'
 //============
 void() item_backpack =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	if (deathmatch)
+	{
+		remove(self);
+		return;
+	}
+
 	self.flags = FL_ITEM;
 	self.solid = SOLID_TRIGGER;
 	self.movetype = MOVETYPE_TOSS;
 	self.classname = "item_backpack";
+	// self.netname = self.netname;
 
-		// mapper can set amounts -- dumptruck_ds
 	if (self.spawnflags & SHELLS)
 		{
 			if !(self.ammo_shells)
 				{
-				self.ammo_shells    = 20;
+				self.ammo_shells    = 10;
 				}
 		}
 	if (self.spawnflags & NAILS)
 		{
 			if !(self.ammo_nails)
 				{
-				self.ammo_nails    = 25;
+				self.ammo_nails    = 12;
 				}
 		}
 	if (self.spawnflags & ROCKETS)
 		{
 			if !(self.ammo_rockets)
 				{
-				self.ammo_rockets   = 5;
+				self.ammo_rockets   = 2;
 				}
 		}
 	if (self.spawnflags & CELLS)
 		{
 			if !(self.ammo_cells)
 				{
-				self.ammo_cells    = 6;
+				self.ammo_cells    = 3;
 				}
 		}
-	else if (self.all_ammo)
-	{
-		self.ammo_shells    = 20;
-		self.ammo_nails     = 25;
-		self.ammo_rockets   = 5;
-		self.ammo_cells     = 6;
-	}
-	self.touch = BackpackTouch;
+
+	self.touch = item_backpack_message;
 
 	setmodel (self, "progs/backpack.mdl");
 	setsize (self, '-16 -16 0', '16 16 56');

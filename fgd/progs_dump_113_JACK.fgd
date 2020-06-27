@@ -2055,15 +2055,14 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 @PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
 :"Placeable backpack
 
-Defaults to the amount of ammo from standard pickups:
+By default, gives roughly half the ammo from the 4 standard pickups:
 
-20 Shells
-25 Nails
-5 Rockets
-6 Cells
+10 Shells
+12 Nails
+2 Rockets
+3 Cells
 
 Or you can use the spawnflags to mix and match types.
-
 Override the spawnflags defaults by adding custom amounts to:
 
 ammo_shells
@@ -2071,8 +2070,17 @@ ammo_nails
 ammo_rockets
 ammo_cells
 
-Cannot be set to respawn"
+Can trigger spawn and suspend in air, but not respawn. You can set a skin
+index if you are using a custom model with skins.
+
+The default pickup message is `You got a backpack.` But you can
+set a custom message with the netname key. 'You got' will be the prefix
+and the mapper chooses the rest of the message.
+
+e.g. For 'You got a bunch of rockets!' the netname key would be
+'a bunch of rockets!'"
 [
+skin(integer) : "Skin index" : 0
 ammo_shells(integer) : "Custom amount of shells" : 0
 ammo_nails(integer) : "Custom amount of nails" : 0
 ammo_rockets(integer) : "Custom amount of rockets" : 0
@@ -2083,6 +2091,7 @@ spawnflags(flags) =
 		2 : "Nails"	: 0
 		4 : "Rockets"	: 0
 		8 : "Cells" : 0
+		// 16 : "Full Ammo" : 0
 		32 : "Spawn silent" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
