@@ -826,7 +826,7 @@ void() SUB_UsePain; //dumptruck_ds
 .float color; //Hipnotic
 .float megahealth_rottime; // dumptruck_ds
 .float alpha; // from RennyC func_fall in dtmisc.qc
-.float		ltrailLastUsed;  //from DOE lighnin
+.float ltrailLastUsed;  //from DOE lighnin
 .float style2; //c0burn's switchable lights
 .float sight_trigger; //dumptruck_ds
 .float keep_ammo; //dumptruck_ds
@@ -834,3 +834,13 @@ void() SUB_UsePain; //dumptruck_ds
 nosave float *world_sounds;  //via Spike fun times! nosave=noclobber
 void() trigger_changemusic; // dumptruck_ds
 void() onlookat_touch; // dumptruck_ds
+
+// from Custents
+// variable for healing trigger
+.float	heal_timer;
+.float	heal_amount;
+.float	health_max;
+// Constants for the healing trigger
+float HEAL_START_ON	= 1;
+float HEAL_PLAYER_ONLY	= 2;
+float HEAL_MONSTER_ONLY	= 4;
