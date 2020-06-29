@@ -983,3 +983,87 @@ void() misc_particle_stream =
 	self.think = particle_stream_start;
 	self.nextthink = time + 0.2;
 };
+//  from custents, modified by dumptruck_ds
+//##########################################
+//#### HEAL TRIGGER                     ####
+//##########################################
+// Original entity submitted by Jan Martin Mathiassen, aka. TGR
+
+void() heal_touch =
+{
+	if(self.spawnflags & HEAL_PLAYER_ONLY && other.classname != "player")
+		return;
+	if(self.spawnflags & HEAL_MONSTER_ONLY && !(other.flags & FL_MONSTER))
+		return;
+	if(other.classname != "player" && !(other.flags & FL_MONSTER))
+		return;
+
+	if(other.heal_timer > time)
+		return;
+
+	if ((other.takedamage) && (other.health < self.health_max))
+	{
+		sound (self, CHAN_VOICE, "items/r_item1.wav", 1, ATTN_NORM);
+
+		if ((other.health + self.heal_amount) > self.health_max)
+		{
+			// if(self.spawnflags & HEAL_OBEY_MAX)
+			// 	T_Heal (other, (self.health - other.health), 0);
+			// else
+				T_Heal (other, (self.health_max - other.health), 1);
+		}
+		else
+		{
+			// if(self.spawnflags & HEAL_OBEY_MAX)
+			// 	T_Heal (other, self.cnt, 0);
+			// else
+				T_Heal (other, self.heal_amount, 1);
+		}
+
+		other.heal_timer = time + self.wait;
+	}
+};
+
+void() heal_toggle=
+{
+	if(self.touch == SUB_Null)
+		self.touch = heal_touch;
+	else
+		self.touch = SUB_Null;
+};
+
+/*QUAKED trigger_heal (.5 .5 .5) ? HEAL_START_ON HEAL_PLAYER_ONLY HEAL_MONSTER_ONLY
+Any object touching this will be healed
+cnt -- the amount to heal each time (default 5)
+wait -- the time between each healing (default 1)
+health -- the upper limit for the healing (default 100, max 250)
+*/
+void() trigger_heal =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+
+	precache_sound ("items/r_item1.wav");
+
+	InitTrigger ();
+
+	if (self.wait == 0)
+		self.wait = 1;
+	if (self.heal_amount == 0)
+		self.heal_amount = 5;
+	if (self.health_max == 0)
+		self.health_max = 100;
+	else if (self.health_max > 250)
+		self.health_max = 250;
+
+	if(self.targetname)
+	{
+		self.use = heal_toggle;
+		if(self.spawnflags & HEAL_START_ON)
+			self.touch = heal_touch;
+		else
+			self.touch = SUB_Null;
+	}
+	else
+		self.touch = heal_touch;
+};
