@@ -2097,6 +2097,17 @@ spawnflags(flags) =
 		128 : "Suspended in air" : 0
 	]
 ]
+@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal"
+[
+	heal_amount(integer) : "Healing per second" : 5
+	health_max(integer) : "Maximum heath given" : 0 : "The upper limit for healing (default 100, max 250)"
+	spawnflags(Flags) =
+	[
+		1 : "Start on (if targeted)" : 0 : "Start on if using targetname. Only needed if triggered by something other than touching."
+		2 : "Players only" : 0 : "Will not heal monsters."
+		4 : "Monsters only" : 0 : "Will not heal players."
+	]
+]
 
 //////////////////////
 // end dumptruck_ds //
