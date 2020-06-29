@@ -2171,6 +2171,7 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 	]
 	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
+item-backpack
 @PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
 :"Placeable backpack
 
@@ -2216,6 +2217,7 @@ spawnflags(flags) =
 		128 : "Suspended in air" : 0
 	]
 ]
+
 @SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal"
 [
 	heal_amount(integer) : "Healing per second" : 5
