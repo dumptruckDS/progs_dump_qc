@@ -2052,7 +2052,7 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 	]
 	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
-item-backpack
+//item-backpack
 @PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
 :"Placeable backpack
 
@@ -2078,7 +2078,7 @@ The default pickup message is `You got a backpack.` But you can
 set a custom message with the netname key. 'You got' will be the prefix
 and the mapper chooses the rest of the message.
 
-e.g. For 'You got a bunch of rockets!' the netname key would be
+e.g. For 'You got a bunch of rockets!' the netname value would be
 'a bunch of rockets!'"
 [
 skin(integer) : "Skin index" : 0
