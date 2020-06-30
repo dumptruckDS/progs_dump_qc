@@ -549,3 +549,22 @@ void() SUB_DislodgeRestingEntities =
 		e = nextent (e);
 	}
 };
+/// from Copper -- dumptruck_ds (orginally found in triggers.qc)
+/*
+================================
+CheckValidTouch
+health and playerhood checks were duplicated everywhere
+added noclip check because Quake's default still-touch-everything noclip is awful
+================================
+*/
+float() CheckValidTouch =
+{
+	if (other.classname != "player")
+		return FALSE;
+	if (other.health <= 0)
+		return FALSE;
+	if (other.movetype == MOVETYPE_NOCLIP)
+		return FALSE;
+	return TRUE;
+}
+float(float a, float b) not = { return a - (a & b); } // fix not issue in client.qc - Copper -- dumptruck_ds

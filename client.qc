@@ -310,8 +310,8 @@ void() execute_changelevel =
 void() changelevel_touch =
 {
 
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
 	{
@@ -837,19 +837,29 @@ void() PlayerJump =
 		return;
 	}
 
-	if (!(self.flags & FL_ONGROUND))
-		return;
+	// refactoring from Copper -- dumptruck_ds
+	if (self.movetype != MOVETYPE_NOCLIP)
+	{
+		if (!(self.flags & FL_ONGROUND)) return;
+		if ( !(self.flags & FL_JUMPRELEASED) ) return;		// don't pogo stick
+		// player jumping sound
+		sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);	// h00rt
+	}
 
-	if ( !(self.flags & FL_JUMPRELEASED) )
-		return;		// don't pogo stick
+	// if (!(self.flags & FL_ONGROUND))
+	// 	return;
+	//
+	// if ( !(self.flags & FL_JUMPRELEASED) )
+	// 	return;		// don't pogo stick
+	// refactoring from Copper -- dumptruck_ds
+	// self.flags = not(self.flags, FL_JUMPRELEASED | FL_ONGROUND);	// don't stairwalk
 
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 
 	self.flags = self.flags - FL_ONGROUND;	// don't stairwalk
 
 	self.button2 = 0;
-// player jumping sound
-	sound (self, CHAN_AUTO, "player/plyrjmp8.wav", 1, ATTN_NORM);
+	// sound (self, CHAN_AUTO, "player/plyrjmp8.wav", 1, ATTN_NORM);
 	self.velocity_z = self.velocity_z + 270;
 };
 
@@ -865,8 +875,15 @@ WaterMove
 void() WaterMove =
 {
 //dprint (ftos(self.waterlevel));
+	// if (self.movetype == MOVETYPE_NOCLIP)
+	// 	return;
+	//from Copper -- dumptruck_ds
 	if (self.movetype == MOVETYPE_NOCLIP)
+	{
+		self.air_finished = time + 120;
 		return;
+	}
+
 	if (self.health < 0)
 		return;
 
@@ -951,6 +968,9 @@ void() WaterMove =
 
 void() CheckWaterJump =
 {
+	if (self.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return;
+
 	local vector start, end;
 
 // check for a jump-out-of-water
@@ -1075,6 +1095,11 @@ else
 	{
 		self.weapon = W_BestWeapon ();
 		W_SetCurrentAmmo ();
+	}
+	// from copper -- dumptruck_ds
+	if (self.movetype == MOVETYPE_NOCLIP)
+	{
+		self.flags = self.flags | FL_FLY;
 	}
 };
 
@@ -1286,6 +1311,11 @@ void() PlayerPostThink =
 }
 
 CheckPowerups ();
+// from Copper -- dumptruck_ds
+if (self.movetype != MOVETYPE_NOCLIP)
+{
+	self.flags = not(self.flags, FL_FLY);
+}
 
 };
 

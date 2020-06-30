@@ -96,8 +96,8 @@ void() multi_use = //dumptruck_ds
 
 void() multi_touch = //dumptruck_ds
 {
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (self.is_waiting)	// Supa, is this trigger waiting to be activated?
 		return;
@@ -467,6 +467,9 @@ local vector	org;
 			return;
 	}
 
+	if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return;
+
 	if (self.is_waiting == TRUE)	// Supa, is this trigger waiting to be activated?
 		return;
 
@@ -708,8 +711,8 @@ trigger_setskill
 
 void() trigger_skill_touch =
 {
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	cvar_set ("skill", self.message);
 };
@@ -738,10 +741,10 @@ ONLY REGISTERED TRIGGERS
 
 void() trigger_onlyregistered_touch =
 {
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 	if (self.attack_finished > time)
-		return;
+	return;
 
 	self.attack_finished = time + 2;
 	if (cvar("registered"))
@@ -783,6 +786,8 @@ void() hurt_on =
 
 void() hurt_touch =
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 	if (other.takedamage && self.nextthink < time)
 	{
 		//self.solid = SOLID_NOT;
@@ -824,6 +829,9 @@ float DT_NOISE = 32; // use custom sound using noise key/value
 void() trigger_push_touch =
 {
 	if (self.is_waiting) return;
+	// from Copper -- dumptruck_ds
+	if (other.movetype == MOVETYPE_NOCLIP)
+		return;
 	if (other.classname == "grenade")
 		other.velocity = self.speed * self.movedir * 10;
 	else if (other.health > 0)
@@ -997,6 +1005,9 @@ float 	PLAYER_SAFE = 2;
 
 void() trigger_void_touch =
 {
+	if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return FALSE;
+
 	if (self.spawnflags & MONSTER_SAFE && other.flags & FL_MONSTER) return; //ignore monsters
 	if (self.spawnflags & PLAYER_SAFE && other.flags & FL_CLIENT) return; // ignore players
 

@@ -844,3 +844,5 @@ void() onlookat_touch; // dumptruck_ds
 float HEAL_START_ON	= 1;
 float HEAL_PLAYER_ONLY	= 2;
 float HEAL_MONSTER_ONLY	= 4;
+
+.string _notes; // notes for each entity for in-editor commentary
