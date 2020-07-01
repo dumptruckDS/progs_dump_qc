@@ -302,8 +302,8 @@ void() health_touch =
 	local	float amount;
 	local	string	s;
 	amount = self.healamount;
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (self.healtype == 2) // Megahealth?  Ignore max_health...
 	{
@@ -384,10 +384,8 @@ void() armor_touch =
 {
 	local	float	type, value, bit;
 
-	if (other.health <= 0)
-		return;
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (self.classname == "item_armor1")
 	{
@@ -561,6 +559,9 @@ void() weapon_touch =
 	local	float	hadammo, best, new, old;
 	local	entity	stemp;
 	local	float	leave;
+
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (!(other.flags & FL_CLIENT))
 		return;
@@ -874,10 +875,8 @@ void() ammo_touch =
 local entity	stemp;
 local float		best;
 
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 // if the player was using his best weapon, change up to the new one if better
 	stemp = self;
@@ -1171,10 +1170,8 @@ KEYS
 
 void() key_touch =
 {
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 // support for item_key_custom -- iw
 	if (HasKeys (other, self.items, self.customkeys))
@@ -1397,10 +1394,8 @@ END OF LEVEL RUNES
 
 void() sigil_touch =
 {
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	centerprint (other, "You got the rune!");
 
@@ -1491,10 +1486,8 @@ void() powerup_touch;
 
 void() powerup_touch =
 {
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	sprint (other, "You got the ");
 	sprint (other, self.netname);
@@ -1834,8 +1827,10 @@ float NAILS = 2;
 float ROCKETS = 4;
 float CELLS = 8;
 void() item_backpack_message =
-
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
 	other.ammo_shells = other.ammo_shells + self.ammo_shells;
 	other.ammo_nails = other.ammo_nails + self.ammo_nails;
 	other.ammo_rockets = other.ammo_rockets + self.ammo_rockets;
