@@ -444,8 +444,8 @@ trigger_ladder
 
 void() ladder_touch =
 {
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	// prevent the player "sticking" to a ladder if they are standing on
 	// the platform at the top of the ladder with the bottom of their
@@ -515,6 +515,9 @@ void() laser_helper_think =
 
 void() func_laser_touch =
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
 	if (other.takedamage && self.attack_finished < time)
 	{
 		T_Damage (other, self, self, self.dmg);

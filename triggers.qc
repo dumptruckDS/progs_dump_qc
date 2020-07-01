@@ -1053,6 +1053,9 @@ This is Axe only at the moment. Need to research removing all weapons.
 void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
 	if (!(other.flags & FL_CLIENT))
 	return;
 
@@ -1179,6 +1182,9 @@ void(float newtrack) changemusic =
 
 void() trigger_changemusic_touch =
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
 	if (!(other.flags & FL_CLIENT))
 	{
 		return;
@@ -1224,6 +1230,9 @@ void() trigger_cdtrack =
 ///////////////////////////////////////////////////////////////
 void() onlookat_touch =
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
   if (self.nextthink > time)
   {
         return;        // allready been triggered

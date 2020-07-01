@@ -991,6 +991,8 @@ void() misc_particle_stream =
 
 void() heal_touch =
 {
+  if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+    return FALSE;
 	if(self.spawnflags & HEAL_PLAYER_ONLY && other.classname != "player")
 		return;
 	if(self.spawnflags & HEAL_MONSTER_ONLY && !(other.flags & FL_MONSTER))
@@ -1003,7 +1005,11 @@ void() heal_touch =
 
 	if ((other.takedamage) && (other.health < self.health_max))
 	{
-		sound (self, CHAN_VOICE, "items/r_item1.wav", 1, ATTN_NORM);
+
+    if (self.noise != "")
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    else
+        sound (self, CHAN_AUTO, "items/r_item1.wav", 1, ATTN_NORM);
 
 		if ((other.health + self.heal_amount) > self.health_max)
 		{
@@ -1034,16 +1040,19 @@ void() heal_toggle=
 
 /*QUAKED trigger_heal (.5 .5 .5) ? HEAL_START_ON HEAL_PLAYER_ONLY HEAL_MONSTER_ONLY
 Any object touching this will be healed
-cnt -- the amount to heal each time (default 5)
+heal_amount -- the amount to heal each time (default 5)
 wait -- the time between each healing (default 1)
-health -- the upper limit for the healing (default 100, max 250)
+health_max -- the upper limit for the healing (default 100, max 250)
+sounds -- set to 1 to enable the noise1 field for custom healing sound
+noise1 -- path to custom sound file
 */
 void() trigger_heal =
-{
+  {
   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
-    return;
-
-	precache_sound ("items/r_item1.wav");
+  return;
+  //play custom sound for healing if noise key exists
+  precache_sound("items/r_item1.wav");
+  if (self.noise != "") precache_sound (self.noise);
 
 	InitTrigger ();
 

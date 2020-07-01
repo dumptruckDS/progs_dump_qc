@@ -2099,10 +2099,16 @@ spawnflags(flags) =
 	]
 ]
 
-@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal"
+@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal
+Any object touching this will be healed
+heal_amount -- the amount to heal each time (default 5)
+wait -- the time between each healing (default 1)
+health_max -- the upper limit for the healing (default 100, max 250)
+noise -- path to custom sound file"
 [
 	heal_amount(integer) : "Healing per second" : 5
 	health_max(integer) : "Maximum heath given" : 0 : "The upper limit for healing (default 100, max 250)"
+	noise(string) : "Path to custom healing sound."
 	spawnflags(Flags) =
 	[
 		1 : "Start on (if targeted)" : 0 : "Start on if using targetname. Only needed if triggered by something other than touching."
