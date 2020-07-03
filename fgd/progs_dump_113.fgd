@@ -2204,7 +2204,7 @@ wait(integer) : "Wait at this point (seconds)" : 0 : "Wait in seconds before mov
 "This is the point that the camera will face.  It should have a targetname "+
 "field with the same value as a camera-trigger's focal_point field."
 []
-@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags) = info_script :
+@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags, OneTarget) = info_script :
 "This is the destination marker for a script." +
 "It should have a script_num field that signifies the script number, and "+
 "a next_script to signal the next script (0 if this is the last page of "+

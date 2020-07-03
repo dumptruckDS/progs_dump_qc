@@ -779,11 +779,11 @@ void() Cutscene_Think =
                 local   entity  goback;     // PM:  dhm's cutscene code.
 
                 self.script_count = 1000000;
-                if (world.model == "maps/soeexit.bsp")
-                {   // Hack:  Jump directly to intermission/credits.
-                    NextLevel ();
-                    return;
-                }
+                // if (world.model == "maps/soeexit.bsp")
+                // {   // Hack:  Jump directly to intermission/credits.
+                //     NextLevel ();
+                //     return;
+                // }
                 // If cut-scene has ended, and user tries to exit, don't
                 // spawn a second go_back control entity.
                 goback = find(world, classname, "going_back");
