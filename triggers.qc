@@ -1236,11 +1236,11 @@ void() onlookat_touch =
 
     if ((trace_ent.targetname == self.target))
     {
-        // Play message if available // -- removed as message was redundant in SUB_UseTargets
-        // if (self.message != "")
-        // {
-        //     centerprint (other, self.message);
-        // }
+        // Play message if available
+        if (self.message != "")
+        {
+            centerprint (other, self.message);
+        }
         self.use = multi_trigger;
         SUB_UseTargets();
 

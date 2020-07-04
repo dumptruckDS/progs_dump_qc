@@ -31,6 +31,13 @@ local   entity  s;
     s.classname     = "dummy";
     s.movetype      = MOVETYPE_NONE;
     s.solid         = SOLID_NOT;
+    setmodel (s, "progs/player.mdl"); // set temp player model in case camera can see -- dumptruck_ds
+    if (s.weapon == IT_AXE)
+    {
+      s.frame = 0; // standing there with axe -- dumptruck_ds
+    }
+    else
+    s.frame = 12; // standing there with gun -- dumptruck_ds
     s.weaponmodel   = o.weaponmodel;
     s.flags         = o.flags;
     s.effects       = o.effects;
@@ -131,6 +138,7 @@ local   string  val;
     if (!t)
         objerror ("couldn't find dummy");
     t.solid = SOLID_NOT;    // So player won't bounce back.
+    setmodel (t, ""); // remove temp player model upon return -- dumptruck_ds
 
     c = find (world, classname, "camera");
     if (!c)
@@ -803,8 +811,58 @@ void() Cutscene_Think =
             if (self.script_time < time)
                 Script_play ();
 };
-//- - - - - - - - -
 
+void() script_sound_play =
+{
+  if (self.noise != "")
+  	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NONE);
+  	else
+  	sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NONE);
+};
+//- - - - - - - - -
+//============
+// --> QUAKED info_script_sound (.5 .5 .5) (-8 -8 -8) (8 8 32)
+// This is the noise player for a script.
+
+void() info_script_sound =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+  return;
+  //play all the sounds available for a normal trigger
+  if (self.sounds == 0)
+  {
+      precache_sound ("misc/null.wav");
+      self.noise = "misc/null.wav";
+  }
+  else if (self.sounds == 1)
+  {
+      precache_sound ("misc/secret.wav");
+      self.noise = "misc/secret.wav";
+  }
+  else if (self.sounds == 2)
+  {
+      precache_sound ("misc/talk.wav");
+      self.noise = "misc/talk.wav";
+  }
+  else if (self.sounds == 3)
+  {
+      precache_sound ("misc/trigger1.wav");
+      self.noise = "misc/trigger1.wav";
+  }
+  else if (self.sounds == 4)
+  {
+    if (!self.noise1) //dumptruck_ds
+    {
+      objerror ("no soundfile set in noise1!\n");
+      remove(self);
+      return;
+    }
+    else
+      precache_sound (self.noise1);
+      self.noise = self.noise1;
+  }
+    self.use = script_sound_play;
+};
 
 //============
 // --> QUAKED info_script (.5 .5 .5) (-8 -8 -8) (8 8 32)
@@ -816,7 +874,11 @@ void() Cutscene_Think =
 //
 // PM:  Use 'info_notnull' instead.
 //============
-void() info_script = {};
+void() info_script =
+{
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+};
 
 
 // ------------------------------ //
