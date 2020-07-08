@@ -815,9 +815,9 @@ void() Cutscene_Think =
 void() script_sound_play =
 {
   if (self.noise != "")
-  	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NONE);
+  	sound (other, CHAN_VOICE, self.noise, 1, ATTN_NONE);
   	else
-  	sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NONE);
+  	sound (other, CHAN_VOICE, self.noise1, 1, ATTN_NONE);
 };
 //- - - - - - - - -
 //============
