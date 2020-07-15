@@ -2222,7 +2222,7 @@ wait(integer) : "Wait at this point (seconds) if animated" : 0 : "Wait in second
 "This is the point that the camera will face.  It should have a targetname "+
 "field with the same value as a camera-trigger's focal_point field."
 []
-@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags, Target) = info_script :
+@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags) = info_script :
 "This is the destination marker for a script." +
 "It should have a script_num field that signifies the script number, and "+
 "a next_script to signal the next script (0 if this is the last page of "+
@@ -2233,6 +2233,10 @@ message(string) : "Text of script"
 script_num(integer) : "Number of script (REQUIRED)" : 0 : "Number of script matching the script key in trigger_camera"
 script_delay(integer) : "Seconds on this page (REQUIRED)" : 0 : "How many seconds on this page "
 next_script(integer) : "Next script in sequence (REQUIRED)" : 0 : "The next script (0 if this is the last page)"
+target(target_destination) : "Target"
+target2(target_destination) : "Target2"
+target3(target_destination) : "Target3"
+target4(target_destination) : "Target4"
 ]
 @PointClass size(-8 -8 -8, 8 8 8) color(115 100 240) base(Appearflags, OneTargetname) = info_script_sound :
 "A sound player targeted by info_script. You only need this if you want a sound to play when text is "+
