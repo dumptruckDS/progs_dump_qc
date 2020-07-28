@@ -159,6 +159,9 @@ void() door_trigger_touch =
 	if (other.health <= 0)
 		return;
 
+	if (other.movetype == MOVETYPE_NOCLIP) // from copper -- dumptruck_ds
+		return;
+
 	if (time < self.attack_finished)
 		return;
 	self.attack_finished = time + 1;
@@ -213,8 +216,11 @@ Prints messages and opens key doors
 */
 void() door_touch =
 {
-	if (other.classname != "player")
-		return;
+	// if (other.classname != "player")
+	// 	return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
 	if (self.owner.attack_finished > time)
 		return;
 
@@ -645,15 +651,17 @@ void () secret_blocked =
 
 /*
 ================
-secret_touch
+ouch
 
 Prints messages
 ================
 */
 void() secret_touch =
 {
-	if (other.classname != "player")
-		return;
+
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+	
 	if (self.attack_finished > time)
 		return;
 

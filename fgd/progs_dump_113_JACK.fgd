@@ -2050,8 +2050,9 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 		3 : "Large switch"
 		4 : "Custom sound, requires a path set in noise1 key"
 	]
-	noise1(float) : "Path to custom sound. Use with sounds key set to 4"
+	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///////////// CUTSCENE ENTITIES ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -2129,6 +2130,72 @@ sounds(choices) : "Sound style" : 0 =
 		4 : "Custom sound set in noise1 key"
 	]
 ]
+=======
+//item-backpack
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
+:"Placeable backpack
+
+By default, gives roughly half the ammo from the 4 standard pickups:
+
+10 Shells
+12 Nails
+2 Rockets
+3 Cells
+
+Or you can use the spawnflags to mix and match types.
+Override the spawnflags defaults by adding custom amounts to:
+
+ammo_shells
+ammo_nails
+ammo_rockets
+ammo_cells
+
+Can trigger spawn and suspend in air, but not respawn. You can set a skin
+index if you are using a custom model with skins.
+
+The default pickup message is `You got a backpack.` But you can
+set a custom message with the netname key. 'You got' will be the prefix
+and the mapper chooses the rest of the message.
+
+e.g. For 'You got a bunch of rockets!' the netname value would be
+'a bunch of rockets!'"
+[
+skin(integer) : "Skin index" : 0
+ammo_shells(integer) : "Custom amount of shells" : 0
+ammo_nails(integer) : "Custom amount of nails" : 0
+ammo_rockets(integer) : "Custom amount of rockets" : 0
+ammo_cells(integer) : "Custom amount of cells" : 0
+spawnflags(flags) =
+	[
+		1 : "Shells" : 0
+		2 : "Nails"	: 0
+		4 : "Rockets"	: 0
+		8 : "Cells" : 0
+		// 16 : "Full Ammo" : 0
+		32 : "Spawn silent" : 0
+		64 : "Trigger spawned" : 0
+		128 : "Suspended in air" : 0
+	]
+]
+
+@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal
+Any object touching this will be healed
+heal_amount -- the amount to heal each time (default 5)
+wait -- the time between each healing (default 1)
+health_max -- the upper limit for the healing (default 100, max 250)
+noise -- path to custom sound file"
+[
+	heal_amount(integer) : "Healing per second" : 5
+	health_max(integer) : "Maximum heath given" : 0 : "The upper limit for healing (default 100, max 250)"
+	noise(string) : "Path to custom healing sound."
+	spawnflags(Flags) =
+	[
+		1 : "Start on (if targeted)" : 0 : "Start on if using targetname. Only needed if triggered by something other than touching."
+		2 : "Players only" : 0 : "Will not heal monsters."
+		4 : "Monsters only" : 0 : "Will not heal players."
+	]
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////

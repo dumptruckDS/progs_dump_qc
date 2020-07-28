@@ -381,6 +381,9 @@ float() FindTarget =
 			return FALSE;	// current check entity isn't in PVS
 	}
 
+	if (client.flags & FL_NOTARGET || client.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return FALSE;
+ 
 	if (client.health <= 0)
 		return FALSE;
 

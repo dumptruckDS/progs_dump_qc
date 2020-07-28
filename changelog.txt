@@ -1,4 +1,4 @@
-1.1.3 May 2020
+1.1.3 July 2020
 
 * Added trigger_changemusic and trigger_cdtrack
 * Added trigger_look from NullPointPaladin
@@ -7,6 +7,9 @@
 * Added Monster only spawnflag to trigger_teleport
 * Added info_teleport_changedest from Qmaster
 * this allows mappers to dynamically change the destination of a trigger_teleport
+* Added trigger_heal from Custents mod
+* Replaced default id1-style noclip behavior with Copper's version
+* players will not interact with any touchable objects while in noclip
 
 1.1.2.1 February 2020
 
@@ -33,8 +36,6 @@
 * Fixed various issues involving obituary messages (iw)
 * Fixed targeting and animation issues with sleeping zombies (iw)
 * Fixes to Shambler, Impulse 255 and misc_teleporttrain
-
-
 
 1.1.2 October 2019
 

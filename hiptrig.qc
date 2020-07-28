@@ -37,8 +37,9 @@ void() keytrigger_unlock =
 
 void() keytrigger_use =
 {
-	if (activator.classname != "player")
-		return;
+  // from Copper -- dumptruck_ds
+  if (!CheckValidTouch()) return;
+  
 	if (self.attack_finished > time)
 		return;
 
@@ -157,6 +158,9 @@ else
 
 void() trigger_gravity_touch =
 {
+  // from Copper -- dumptruck_ds
+  if (!CheckValidTouch()) return;
+
 	local float grav;
 
 //	This is commented out so that the changing gravity will
