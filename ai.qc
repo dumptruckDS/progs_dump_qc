@@ -383,6 +383,7 @@ float() FindTarget =
 
 	if (client.flags & FL_NOTARGET || client.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
 		return FALSE;
+ 
 	if (client.health <= 0)
 		return FALSE;
 
@@ -599,6 +600,10 @@ float()	DogCheckAttack;
 
 float() CheckAnyAttack =
 {
+	if (cutscene)  // Drake devkit -- dumptruck_ds
+			if (self.enemy.classname == "camera")
+					return FALSE;   // Don't attack the camera (player)!
+
 	if (!enemy_vis)
 		return FALSE;
 	if (self.classname == "monster_army")
