@@ -38,6 +38,8 @@ void() multi_trigger =
 	{
 		if (self.enemy.classname != "player")
 			return;
+		if (cutscene)
+				return;     // Don't activate in cutscene mode
 		found_secrets = found_secrets + 1;
 		WriteByte (MSG_ALL, SVC_FOUNDSECRET);
 	}
@@ -96,6 +98,12 @@ void() multi_use = //dumptruck_ds
 
 void() multi_touch = //dumptruck_ds
 {
+	if (other.classname != "player")
+		return;
+		// Drake -- dumptruck_ds (possible pd_ feature)
+	// if (other.classname != "actor")     // Zerstorer's cutscene drone.
+	// 		return;
+
 	// from Copper -- dumptruck_ds
 	if (!CheckValidTouch()) return;
 
@@ -1251,11 +1259,11 @@ void() onlookat_touch =
 
     if ((trace_ent.targetname == self.target))
     {
-        // Play message if available // -- removed as message was redundant in SUB_UseTargets
-        // if (self.message != "")
-        // {
-        //     centerprint (other, self.message);
-        // }
+        // Play message if available
+        if (self.message != "")
+        {
+            centerprint (other, self.message);
+        }
         self.use = multi_trigger;
         SUB_UseTargets();
 
