@@ -74,7 +74,26 @@ void(float offset) hknight_shot =
 
 	launch_spike (org, vec);
 	newmis.classname = "knightspike";
-	setmodel (newmis, "progs/k_spike.mdl");
+	// setmodel (newmis, "progs/k_spike.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (newmis, self.mdl_proj);
+			dprint("CUSTOM MODEL LOADED\n");
+		}
+		else
+		{
+			setmodel (newmis, "progs/k_spike.mdl");
+	}
+
+	if (!newmis.skin_proj) // dumptruck_ds
+	{
+			newmis.skin = self.skin_proj;
+			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n");
+		}
+		else
+		{
+			newmis.skin = 0;
+	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
 	sound (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
@@ -203,7 +222,14 @@ void() hknight_die =
 	if (self.health < -40)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_hellkn.mdl", self.health);
+		if (self.mdl_head != "") //dumptruck_ds custom_mdls
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_hellkn.mdl", self.health);
+		}
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
@@ -409,7 +435,11 @@ void() monster_hell_knight =
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/k_spike.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
-
+	//dumptruck_ds custom_mdls
+	precache_body_model2 ("progs/hknight.mdl");
+	precache_head_model2 ("progs/h_hellkn.mdl");
+	precache_proj_model2 ("progs/k_spike.mdl");
+// dumptruck_ds
 
 	precache_sound2 ("hknight/attack1.wav");
 	precache_sound2 ("hknight/death1.wav");
@@ -426,7 +456,8 @@ void() monster_hell_knight =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/hknight.mdl");
+	body_model ("progs/hknight.mdl"); // custom_mdls dumptruck_ds
+	// setmodel (self, "progs/hknight.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
 
