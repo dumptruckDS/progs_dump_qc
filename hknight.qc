@@ -78,7 +78,6 @@ void(float offset) hknight_shot =
 	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
 	{
 			setmodel (newmis, self.mdl_proj);
-			dprint("CUSTOM MODEL LOADED\n");
 		}
 		else
 		{
@@ -88,7 +87,6 @@ void(float offset) hknight_shot =
 	if (!newmis.skin_proj) // dumptruck_ds
 	{
 			newmis.skin = self.skin_proj;
-			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n");
 		}
 		else
 		{

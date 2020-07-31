@@ -107,7 +107,6 @@ void() OgreFireGrenade =
 	if (self.mdl_proj != "") // dumptruck_ds
 	{
 			setmodel (missile, self.mdl_proj);
-			dprint("CUSTOM MODEL LOADED\n");
 		}
 		else
 		{
@@ -117,7 +116,6 @@ void() OgreFireGrenade =
 	if (!missile.skin_proj) // dumptruck_ds
 	{
 			missile.skin = self.skin_proj;
-			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n");
 		}
 		else
 		{

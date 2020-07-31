@@ -90,7 +90,6 @@ void(vector org, vector vec) LaunchLaser =
 	if (self.mdl_proj != "") // dumptruck_ds
 	{
 			setmodel (newmis, self.mdl_proj);
-			dprint("CUSTOM MODEL LOADED\n");
 		}
 		else
 		{
@@ -100,7 +99,6 @@ void(vector org, vector vec) LaunchLaser =
 	if (!newmis.skin_proj) // dumptruck_ds
 	{
 			newmis.skin = self.skin_proj;
-			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n");
 		}
 		else
 		{
