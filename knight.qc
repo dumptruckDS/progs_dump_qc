@@ -269,7 +269,10 @@ void() monster_knight =
 	self.th_walk = knight_walk1;
 	self.th_run = knight_run1;
 	self.th_melee = knight_atk1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = knight_pain;
+	else
+	self.th_pain = SUB_NullPain;
 	self.th_die = knight_die;
 
 	walkmonster_start ();

@@ -77,7 +77,10 @@ void() OgreGrenadeTouch =
 		OgreGrenadeExplode();
 		return;
 	}
-	sound (self, CHAN_VOICE, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	if (self.count < time) {
+		sound (self, CHAN_VOICE, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	}
+	self.count = time + .02;
 	if (self.velocity == '0 0 0')
 		self.avelocity = '0 0 0';
 };
@@ -452,7 +455,11 @@ void() monster_ogre =
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre_nail1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = ogre_pain;
+	else
+	self.th_pain = SUB_NullPain;
+
 
 	walkmonster_start();
 };

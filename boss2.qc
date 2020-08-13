@@ -39,7 +39,6 @@ void(vector p) boss2_missile;
 
 void() boss2_face =
 {
-
 // go for another player if multi player
 	if (self.enemy.health <= 0 || random() < 0.02)
 	{
@@ -51,10 +50,10 @@ void() boss2_face =
 };
 
 void() boss2_rise1	=[	$rise1, boss2_rise2 ] {
-sound (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
 };
 void() boss2_rise2	=[	$rise2, boss2_rise3 ] {
-sound (self, CHAN_AUTO, "boss1/sight1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_AUTO, "boss1/sight1.wav", 1, ATTN_NORM);
 };
 void() boss2_rise3	=[	$rise3, boss2_rise4 ] {};
 void() boss2_rise4	=[	$rise4, boss2_rise5 ] {};
@@ -168,20 +167,102 @@ void() boss2_pain1 =[ $shocka1, boss2_pain2 ] {};
 void() boss2_pain2 =[ $shocka2, boss2_pain3 ] {};
 void() boss2_pain3 =[ $shocka3, boss2_pain4 ] {};
 void() boss2_pain4 =[ $shocka4, boss2_pain5 ] {
-sound (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM);}; // pain noise
+	sound (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM); // pain noise
+};
 void() boss2_pain5 =[ $shocka5, boss2_pain6 ] {};
 void() boss2_pain6 =[ $shocka6, bos2s_pain7 ] {};
 void() bos2s_pain7 =[ $shocka7, boss2_pain8 ] {};
 void() boss2_pain8 =[ $shocka8, boss2_pain9 ] {};
 void() boss2_pain9 =[ $shocka9, boss2_missile1 ] {}; // auto shoot a lavaball
 
+
+void() GibBoss2 =
+{
+	sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
+	// throw tons of meat chunks
+
+	local vector boss;
+	local float x, y, z;
+	local float r;
+	// local entity n;
+
+	boss = self.origin;
+	z = 16;
+	while (z <= 144)
+	{
+		x = -64;
+		while (x <= 64)
+		{
+			y = -64;
+			while (y <= 64)
+			{
+				self.origin_x = boss_x + x;
+				self.origin_y = boss_y + y;
+				self.origin_z = boss_z + z;
+
+				r = random();
+				if (r < 0.3)
+					ThrowGib ("progs/gib1.mdl", -120);
+				else if (r < 0.5)
+					ThrowGib ("progs/gib2.mdl", -120);
+				else if (r < 0.7)
+					ThrowGib ("progs/lavaball.mdl", -120);
+				else
+					ThrowGib ("progs/gib3.mdl", -120);
+				y = y + 32;
+			}
+			x = x + 32;
+		}
+		z = z + 96;
+	}
+
+	local entity head;
+
+	head = spawn();
+	head.origin = self.origin + '0 0 128';
+	head.velocity_z = 600; + (random() * 200);
+	head.velocity_x = -300 + (random() * 600);
+	head.velocity_y = -200 + (random() * 600);
+	head.avelocity_x = random()*120;
+	head.avelocity_y = random()*120;
+	head.avelocity_z = random()*120;
+	head.flags = self.flags - (self.flags & FL_ONGROUND);
+	head.solid = SOLID_NOT;
+	head.movetype = MOVETYPE_BOUNCE;
+	head.takedamage = DAMAGE_NO;
+	setmodel (head, "progs/h_boss.mdl");
+	setsize (head, '-67 -60 -6', '62 52 88');
+	// setsize (head, '-16 -16 0', '16 16 56');
+	head.touch = SUB_Null;
+	head.think = SUB_Remove;
+	head.nextthink = time + 120;
+
+	// killed_monsters = killed_monsters + 1; //already done in combat.qc since this is now FL_MONSTER
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
+	// WriteByte (MSG_ALL, SVC_KILLEDMONSTER); //already done in combat.qc since this is now FL_MONSTER -- dumptruck_ds
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+	remove (self);
+};
+
 void() boss2_die =
 {
-	boss2_death1 (); // normal death
+	if (self.health < -50) // if health under -15
+	{
+		GibBoss2 ();
+		return;
+	}
+	else // otherwise
+	{
+		boss2_death1 (); // normal death
+		return;
+	}
 };
 
 void() boss2_death1 = [$death1, boss2_death2] {
-sound (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
 };
 void() boss2_death2 = [$death2, boss2_death3] {};
 void() boss2_death3 = [$death3, boss2_death4] {};
@@ -205,16 +286,19 @@ void(entity attacker, float damage) boss2_pain_go =
 	if (self.pain_finished > time)
 		return;
 
-		boss2_pain1();
-		self.pain_finished = time + 4;
+	boss2_pain1();
+	self.pain_finished = time + 4;
 };
 
 
 void() boss2_death10 = [$death9, boss2_death10]
 {
-	killed_monsters = killed_monsters + 1;
-	WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// FIXME: reliable broadcast
-	SUB_UseTargets ();
+// unlike the code for the original monster_boss, this function doesn't
+// need to increment killed_monsters or call SUB_UseTargets(); this
+// entity gets killed by regular damage and has FL_MONSTER, so the
+// Killed() function (in combat.qc) will already have taken care of
+// those things -- iw
+
 	remove (self);
 };
 
@@ -267,15 +351,27 @@ void() boss2_awake =
 	setmodel (self, "progs/boss.mdl");
 	setsize (self, '-128 -128 -24', '128 128 256');
 
-	if(!self.health)
-{
-	if (skill == 0)
-		self.health = 1000;
-	else
-		self.health = 3000;
-}
+	if (!self.health)
+	{
+		if (skill == 0)
+			self.health = 1000;
+		else
+			self.health = 3000;
+	}
+
+// note that self.th_run has to be set in order to avoid a "NULL
+// function" Host_Error in the case where T_Damage() calls
+// FoundTarget(), which calls HuntTarget(), which uses self.th_run as
+// the next self.think -- iw
+	self.th_run = boss2_missile1;
+
 	self.th_pain = boss2_pain_go;
 	self.th_die = boss2_die;
+
+// give the boss a couple of seconds to finish rising before allowing it
+// to go into its pain animation -- iw
+	self.pain_finished = time + 2;
+
 	self.enemy = activator;
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
@@ -302,6 +398,7 @@ void() monster_boss2 =
 		return;
 	}
 	precache_model ("progs/boss.mdl");
+	precache_model ("progs/h_boss.mdl");
 	precache_model ("progs/lavaball.mdl");
 
 	precache_sound ("weapons/rocket1i.wav");

@@ -110,8 +110,17 @@ void() f_attack18       =[      $attack18,      f_run1    ] {ai_charge(10);};
 
 void() f_death1 =[      $death1,        f_death2        ]
 {
-self.solid = SOLID_NOT;
-sound (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
+	if (self.health < -35) //fish gibs -- dumptruck_ds
+	{
+		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
+		ThrowGib ("progs/gib3.mdl", self.health);
+		ThrowGib ("progs/gib1.mdl", self.health);
+		ThrowGib ("progs/gib3.mdl", self.health);
+		SUB_Remove();
+	}
+	else
+	self.solid = SOLID_NOT;
+	sound (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
 };
 void() f_death2 =[      $death2,        f_death3        ] {};
 void() f_death3 =[      $death3,        f_death4        ] {};
@@ -146,7 +155,7 @@ void() f_pain9  =[      $pain9, f_run1 ] {ai_pain(6);};
 
 void(entity attacker, float damage)	fish_pain =
 {
-// fish allways do pain frames
+// fish always do pain frames
 	f_pain1 ();
 };
 
@@ -176,7 +185,7 @@ void() monster_fish =
 	setmodel (self, "progs/fish.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 24');
-	
+
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 25;
 
@@ -184,7 +193,10 @@ void() monster_fish =
 	self.th_walk = f_walk1;
 	self.th_run = f_run1;
 	self.th_die = f_death1;
+	if !(self.berserk) //Berserk from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = fish_pain;
+	else
+	self.th_pain = SUB_NullPain;
 	self.th_melee = f_attack1;
 
 	swimmonster_start ();

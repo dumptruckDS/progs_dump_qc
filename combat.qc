@@ -1,7 +1,7 @@
 
 void() T_MissileTouch;
 void() info_player_start;
-void(entity targ, entity attacker) ClientObituary;
+void(entity targ, entity inflictor, entity attacker) ClientObituary;
 
 void() monster_death_use;
 
@@ -53,7 +53,7 @@ float(entity targ, entity inflictor) CanDamage =
 Killed
 ============
 */
-void(entity targ, entity attacker) Killed =
+void(entity targ, entity inflictor, entity attacker) Killed =
 {
 	local entity oself;
 
@@ -79,7 +79,7 @@ void(entity targ, entity attacker) Killed =
 		WriteByte (MSG_ALL, SVC_KILLEDMONSTER);
 	}
 
-	ClientObituary(self, attacker);
+	ClientObituary (self, inflictor, attacker);
 
 	self.takedamage = DAMAGE_NO;
 	self.touch = SUB_Null;
@@ -188,7 +188,7 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 
 	if (targ.health <= 0)
 	{
-		Killed (targ, attacker);
+		Killed (targ, inflictor, attacker);
 		return;
 	}
 

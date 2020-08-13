@@ -105,7 +105,7 @@ void() zombie_cruc5     =       [       $cruc_5,                zombie_cruc6    
 void() zombie_cruc6     =       [       $cruc_6,                zombie_cruc1    ] {self.nextthink = time + 0.1 + random()*0.1;};
 
 void() zombie_walk1             =[      $walk1,         zombie_walk2    ] {
-	self.solid = SOLID_BBOX;
+	self.solid = SOLID_SLIDEBOX;
 	self.health = 60;   //so he doesn't fall
 	ai_walk(0);};
 void() zombie_walk2             =[      $walk2,         zombie_walk3    ] {ai_walk(2);};
@@ -438,7 +438,7 @@ zombie_pain
 Zombies can only be killed (gibbed) by doing 60 hit points of damage
 in a single frame (rockets, grenades, quad shotgun, quad nailgun).
 
-A hit of 25 points or more (super shotgun, quad nailgun) will allways put it
+A hit of 25 points or more (super shotgun, quad nailgun) will always put it
 down to the ground.
 
 A hit of from 10 to 40 points in one frame will cause it to go down if it
@@ -454,7 +454,7 @@ void(entity attacker, float take) zombie_pain =
 {
 	local float r;
 
-	self.health = 60;               // allways reset health
+	self.health = 60;               // always reset health
 
 	if (take < 9)
 		return;                         // totally ignore
@@ -523,16 +523,26 @@ void() zombie_start =  // determine if zombie is to be lying down, or standing
 	self.use = zombie_use; //dumptruck_ds -- makes self.count = 0 so zombie_stand1 is called
 
 	if (self.spawnflags & SPAWN_SLEEPING)
+	{
+		if (!SUB_IsTargeted ())
+		{
+			dprint ("WARNING: removed untargeted sleeping zombie at ");
+			dprint (vtos (self.origin));
+			dprint ("\n");
 
-	zombie_stand1 ();
+			monster_update_total (-1);
+			remove (self);
+			return;
+		}
+		self.inpain = 2;
+		zombie_stand1 ();
+	}
 	else
-	alt_zombie_stand1 ();
+	{
+		alt_zombie_stand1 ();
+	}
 
 	self.th_stand = alt_zombie_stand1;
-
-	if (self.spawnflags & SPAWN_SLEEPING && !self.targetname)
-	objerror ("SPAWN_SLEEPING entity requires a targetname"); //duh! -- dumptruck_ds duh for mispelling this objecterror
-	return;
 };
 
 // void() zombie_start2 = //unused in progs_dump -- dumptruck_ds

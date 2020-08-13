@@ -52,7 +52,7 @@ void() dn_and_wait_go_up =
 void() dn_and_wait_crush =
 {
 	T_Damage (other, self, self, 1);
-	
+
 	if (self.state == STATE_UP)
 		dn_and_wait_go_down ();
 	else if (self.state == STATE_DOWN)
@@ -65,7 +65,7 @@ void() dn_and_wait_use =
 {
 	if (self.state != STATE_TOP)
 		return;
-	
+
 	dn_and_wait_go_down ();
 };
 
@@ -106,7 +106,7 @@ void() toggle_go_up =
 void() toggle_crush =
 {
 	T_Damage (other, self, self, 1);
-	
+
 	if (self.state == STATE_UP)
 		toggle_go_down ();
 	else if (self.state == STATE_DOWN)
@@ -140,7 +140,7 @@ void() elvtr_stop =
 void() elvtr_go =
 {
 	self.elevatorDestination = self.pos2;
-	self.elevatorDestination_z = self.pos2_z + 
+	self.elevatorDestination_z = self.pos2_z +
 								(self.height * self.elevatorToFloor);
 	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
 	self.state = STATE_UP;
@@ -159,7 +159,7 @@ void() elvtr_crush =
 	tmp = self.elevatorOnFloor;
 	self.elevatorOnFloor = self.elevatorToFloor;
 	self.elevatorToFloor = tmp;
-	
+
 	elvtr_go ();
 };
 
@@ -170,7 +170,7 @@ void() elvtr_crush =
 void() elvtr_use =
 {
 	local float		tempDist, elvPos, btnPos;
-	
+
 	// the original DoE code allowed an elevator to be activated again
 	// when it was in the process of moving between floors (assuming the
 	// wait period was over); this resulted in sometimes unintuitive
@@ -183,9 +183,9 @@ void() elvtr_use =
 	// instead -- iw
 	if ((self.elevatorLastUse + self.wait) > time)
 		return;
-	
+
 	self.elevatorLastUse = time;
-	
+
 	if (elv_butn_dir == 0)
 		return;
 
@@ -212,9 +212,9 @@ void() elvtr_use =
 			return;
 		}
 	}
-		
+
 	if (elv_butn_dir == -1)
-	{	
+	{
 		if(self.elevatorOnFloor > 0)
 		{
 			self.elevatorToFloor = self.elevatorOnFloor - 1;
@@ -247,20 +247,20 @@ void() plat2_spawn_inside_trigger =
 
 //
 // middle trigger
-//	
+//
 	trigger = spawn();
 	trigger.touch = plat2_center_touch;
 	trigger.movetype = MOVETYPE_NONE;
 	trigger.solid = SOLID_TRIGGER;
 	trigger.enemy = self;
-	
+
 	tmin = self.mins + '25 25 0';
 	tmax = self.maxs - '25 25 -8';
 	tmin_z = tmax_z - (self.pos1_z - self.pos2_z + 8);
 
 	if (self.spawnflags & PLAT_LOW_TRIGGER)
 		tmax_z = tmin_z + 8;
-	
+
 	if (self.size_x <= 50)
 	{
 		tmin_x = (self.mins_x + self.maxs_x) / 2;
@@ -271,7 +271,7 @@ void() plat2_spawn_inside_trigger =
 		tmin_y = (self.mins_y + self.maxs_y) / 2;
 		tmax_y = tmin_y + 1;
 	}
-	
+
 	setsize (trigger, tmin, tmax);
 };
 
@@ -279,7 +279,7 @@ void() plat2_hit_top =
 {
 	sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
 	self.state = STATE_TOP;
-	
+
 	self.plat2LastMove = time;
 	if(self.plat2Called == 1)
 	{
@@ -310,7 +310,7 @@ void() plat2_hit_bottom =
 		self.plat2LastMove = 0; // allow immediate move
 	}
 	else if(self.spawnflags & START_AT_TOP)
-	{	
+	{
 		self.think = plat2_go_up;
 		self.nextthink = self.ltime + self.delay;
 		self.plat2Called = 0;
@@ -331,10 +331,10 @@ void() plat2_go_up =
 	SUB_CalcMove (self.pos1, self.speed, plat2_hit_top);
 };
 
-void() plat2_use = 
+void() plat2_use =
 {
 	if(self.state > 4)
-		self.state = self.state - 10;	
+		self.state = self.state - 10;
 
 	self.use = SUB_Null;
 };
@@ -344,11 +344,8 @@ void() plat2_center_touch =
 	local float		otherState;
 	local vector	platPosition;
 
-	if (other.classname != "player")
-		return;
-		
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	// at this point, self is the trigger. self.enemy is the plat.
 	// this changes self to be the plat, other is the player.
@@ -359,16 +356,16 @@ void() plat2_center_touch =
 
 	if (self.state > 4)		// disabled.
 		return;
-		
+
 	if (self.plat2GoTo > STATE_BOTTOM)
 	{
 		if (self.plat2GoTime < time)
 		{
 			if (self.plat2GoTo == STATE_UP)
-				plat2_go_up();		
+				plat2_go_up();
 			else
 				plat2_go_down();
-				
+
 			self.plat2GoTo = 0;
 		}
 		return;
@@ -390,7 +387,7 @@ void() plat2_center_touch =
 		otherState = STATE_BOTTOM;
 		if ( (other.origin_z - platPosition_z) > self.height)
 			otherState = STATE_TOP;
-	}	
+	}
 
 	if (self.state == otherState)
 	{
@@ -401,7 +398,7 @@ void() plat2_center_touch =
 	{
 		self.plat2GoTime = time + 0.1;
 		self.plat2Called = 1;
-	}	
+	}
 
 	if (self.state == STATE_BOTTOM)
 		self.plat2GoTo = STATE_UP;
@@ -412,7 +409,7 @@ void() plat2_center_touch =
 void() plat2_crush =
 {
 	T_Damage (other, self, self, 1);
-	
+
 	if (self.state == STATE_UP)
 		plat2_go_down ();
 	else if (self.state == STATE_DOWN)
@@ -435,7 +432,7 @@ health - number of seconds to wait (default 5)
 PLT_TOGGLE is a plat that will change between the top and bottom each time it is triggered.
 
 --------------
-ELEVATOR is an elevator plat. You can have as many levels as you want but they must be all the same distance away. Use elevator button entity as the trigger. 
+ELEVATOR is an elevator plat. You can have as many levels as you want but they must be all the same distance away. Use elevator button entity as the trigger.
   cnt is the number of floors
   height is the distance between floors
   wait is the number of seconds before the elevator can be activated again after starting or stopping (default 0)
@@ -445,8 +442,8 @@ START_AT_TOP is an optional flag for elevators. It just tells the elevator that 
 --------------
 PLAT2 is a fixed version of the original plat. If you want the plat to start at the bottom and move to the top on demand, use a negative height. That will tell Quake to lower the plat at spawn time. Always place this plat type in the top position when making the map. This will ensure correct lighting, hopefully. If a plat2 is the target of a trigger, it will be disabled until it has been triggered. Delay is the wait before the plat returns to original position.
 
-If you don't want to bother figuring out the height, don't put a 
-value in the height 
+If you don't want to bother figuring out the height, don't put a
+value in the height
 
 delay		default 3
 speed		default 150
@@ -473,7 +470,7 @@ void() func_new_plat =
 local float negativeHeight;
 
 	negativeHeight = 0;
-	
+
 	if (!self.t_length)
 		self.t_length = 80;
 	if (!self.t_width)
@@ -506,13 +503,13 @@ local float negativeHeight;
 	self.classname = "plat";
 	self.solid = SOLID_BSP;
 	self.movetype = MOVETYPE_PUSH;
-	setorigin (self, self.origin);	
+	setorigin (self, self.origin);
 	setmodel (self, self.model);
 	setsize (self, self.mins , self.maxs);
 
 	if (!self.speed)
 		self.speed = 150;
-		
+
 // pos1 is the top position, pos2 is the bottom
 	self.pos1 = self.origin;
 	self.pos2 = self.origin;
@@ -522,7 +519,7 @@ local float negativeHeight;
 		negativeHeight = 1;
 		self.height = 0 - self.height;
 	}
-	
+
 	if (self.height)
 		self.pos2_z = self.origin_z - self.height;
 	else
@@ -531,7 +528,7 @@ local float negativeHeight;
 		self.height = self.size_z - 8;
 		self.pos2_z = self.origin_z - self.height;
 	}
-		
+
 	if (self.spawnflags & DN_N_WAIT)
 	{
 		self.use = dn_and_wait_use;
@@ -540,7 +537,7 @@ local float negativeHeight;
 		if (negativeHeight == 1)
 		{
 			self.state = STATE_BOTTOM;
-			setorigin (self, self.pos2);	
+			setorigin (self, self.pos2);
 		}
 		else
 			self.state = STATE_TOP;
@@ -553,7 +550,7 @@ local float negativeHeight;
 		self.use = toggle_use;
 		self.blocked = toggle_crush;
 		if (negativeHeight == 1)
-		{	
+		{
 			setorigin (self, self.pos2);
 			self.state = STATE_BOTTOM;
 		}
@@ -565,7 +562,7 @@ local float negativeHeight;
 	else if (self.spawnflags & ELEVATOR)
 	{
 		self.elevatorLastUse = 0;
-		
+
 		// allow the mapper to set self.wait, but don't allow a negative
 		// wait period -- iw
 		if (self.wait < 0)
@@ -587,28 +584,28 @@ local float negativeHeight;
 			self.elevatorOnFloor = 0;
 			self.elevatorToFloor = self.elevatorOnFloor;
 		}
-		
+
 		self.use = elvtr_use;
 		self.blocked = elvtr_crush;
 	}
 	else if (self.spawnflags & PLAT2)
 	{
-		plat2_spawn_inside_trigger ();	// the "start moving" trigger	
+		plat2_spawn_inside_trigger ();	// the "start moving" trigger
 		self.plat2Called = 0;
 		self.plat2LastMove = 0;
 		self.plat2GoTo = 0;
 		self.plat2GoTime = 0;
 		self.blocked = plat2_crush;
-		
+
 		if (!self.delay)
 			self.delay = 3;
-			
+
 		if (negativeHeight == 1)
 		{
 			self.state = STATE_BOTTOM;
 			// make sure START_AT_TOP isn't set. We need that...
 			self.spawnflags = PLAT2;
-			setorigin (self, self.pos2);	
+			setorigin (self, self.pos2);
 		}
 		else
 		{
@@ -616,7 +613,7 @@ local float negativeHeight;
 			self.spawnflags = self.spawnflags | START_AT_TOP;
 			self.state = STATE_TOP;
 		}
-				
+
 		if (self.targetname != "")
 		{
 			self.use = plat2_use;
@@ -625,4 +622,3 @@ local float negativeHeight;
 	}
 
 };
-

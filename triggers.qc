@@ -38,6 +38,8 @@ void() multi_trigger =
 	{
 		if (self.enemy.classname != "player")
 			return;
+		if (cutscene)
+				return;     // Don't activate in cutscene mode
 		found_secrets = found_secrets + 1;
 		WriteByte (MSG_ALL, SVC_FOUNDSECRET);
 	}
@@ -98,6 +100,12 @@ void() multi_touch = //dumptruck_ds
 {
 	if (other.classname != "player")
 		return;
+		// Drake -- dumptruck_ds (possible pd_ feature)
+	// if (other.classname != "actor")     // Zerstorer's cutscene drone.
+	// 		return;
+
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (self.is_waiting)	// Supa, is this trigger waiting to be activated?
 		return;
@@ -314,13 +322,18 @@ void() trigger_counter =
 /*
 ==============================================================================
 
-TELEPORT TRIGGERS
+TELEPORT TRIGGERS with added functions from Zerstrorer and Qmaster
+-- dumptruck_ds
 
 ==============================================================================
 */
 
 float	PLAYER_ONLY	= 1;
 float	SILENT = 2;
+float RANDOM = 4;
+float TELE_STEALTH = 8;
+float MONSTER_ONLY = 16;
+float TELE_DD = 32;
 
 void() play_teleport =
 {
@@ -347,6 +360,7 @@ void(vector org) spawn_tfog =
 {
 	s = spawn ();
 	s.origin = org;
+	s.spawnflags = self.spawnflags; //dumptruck_ds
 	s.nextthink = time + 0.2;
 	s.think = play_teleport;
 
@@ -402,6 +416,40 @@ local entity	death;
 	force_retouch = 2;		// make sure even still objects get hit
 };
 
+/*-----------------------------------------------*/
+/*| more Zerstrorer-- dumptruck_ds  						 |*/
+/*| teleport_randomspot - returns a random spot |*/
+/*|   to teleport to among all of the           |*/
+/*|   "info_teleport_random" entities in the    |*/
+/*|   level.  self.count is number of spots     |*/
+/*-----------------------------------------------*/
+entity() teleport_randomspot =
+{
+local float		rndm;
+// local float		rndm, num1;
+local entity	spot,first;
+
+	rndm = rint(random() * (self.count - 1));
+	spot = find(world, classname, "info_teleport_random");
+	if(!spot)
+		dprint("No random teleport points found!\n");
+	first = spot;
+
+	while (rndm > 0)
+	{
+		rndm = rndm - 1;
+		spot = find(spot, classname, "info_teleport_random");
+	}
+
+	if (spot == world)
+	{
+		dprint("Random spot found world!!\n");
+		spot = first;
+	}
+
+	return spot;
+};
+// end dumptruck_ds
 void() teleport_touch =
 {
 local entity	t;
@@ -421,6 +469,15 @@ local vector	org;
 			return;
 	}
 
+	if (self.spawnflags & MONSTER_ONLY) // is this going to work? dumptruck_ds
+	{
+		if (other.classname == "player")
+			return;
+	}
+
+	if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return;
+
 	if (self.is_waiting == TRUE)	// Supa, is this trigger waiting to be activated?
 		return;
 
@@ -439,18 +496,37 @@ local vector	org;
 
 	SUB_UseTargets ();
 
-// put a tfog where the player was
-	spawn_tfog (other.origin);
+	// put a tfog where the player was
+	// ### dhm - if stealth, don't spawn a fog
+		if (!(self.spawnflags & TELE_STEALTH))
+			spawn_tfog (other.origin);
 
-	t = find (world, targetname, self.target);
-	if (!t)
-		objerror ("couldn't find target");
+	//dhm - if this is a random teleporter, pick a random spot!
+		if (self.spawnflags & RANDOM)
+			t = teleport_randomspot();
+		else if ((self.spawnflags & TELE_DD) && other.classname == "player")
+			t = find (world, targetname, self.noise);
+		else
+			t = find (world, targetname, self.target);
+
+		if (!t)
+			objerror ("couldn't find target");
+
+// // put a tfog where the player was
+// 	spawn_tfog (other.origin);
+//
+// 	t = find (world, targetname, self.target);
+// 	if (!t)
+// 		objerror ("couldn't find target");
 
 // spawn a tfog flash in front of the destination
 	makevectors (t.mangle);
 	org = t.origin + 32 * v_forward;
 
+// ### dhm - if stealth, don't spawn a fog
+if (!(self.spawnflags & TELE_STEALTH))
 	spawn_tfog (org);
+
 	spawn_tdeath(t.origin, other);
 
 // move the player and lock him down for a little while
@@ -472,6 +548,84 @@ local vector	org;
 		other.velocity = v_forward * 300;
 	}
 	other.flags = other.flags - other.flags & FL_ONGROUND;
+
+	if ((self.spawnflags & MONSTER_ONLY) && other.classname != "player")
+	{
+		other.fixangle = 1;		// turn this way immediately
+		other.teleport_time = time + 0.7;
+		if (other.flags & FL_ONGROUND)
+			other.flags = other.flags - FL_ONGROUND;
+		other.velocity = v_forward * 300;
+	}
+	other.flags = other.flags - other.flags & FL_ONGROUND;
+};
+// this is from Qmaster:
+
+// "I created an info_teleport_changedest
+// target = targetname of trigger_teleport to affect
+// message = targetname of new info_teleport_destination (or whatever entity
+// really) to now teleport to
+
+// So that I can automatically update the teleporter under my coagula map as you
+// progress rather than have a bunch of triggers that I need to killtarget.
+// Falling is not fatal then, but it does put you back some.  Works as a sorta
+// checkpoint system but also builds on my older idea for saving time in coop
+// implemented in my Terracity map eons ago.
+
+// looking at vanilla, you would only need to change trig.target to match
+// self.message if you were to add this.""
+
+void() teleport_destchange =
+{
+    local entity trig;
+
+    trig = find(world,targetname,self.target);
+    if (!trig || trig.classname != "trigger_teleport") {
+        dprint("\b[TELEPORT_DESTCHANGE]\b Cannot find trigger_teleport\n");
+        return;
+    }
+
+    trig.goalentity = find (world, targetname, self.message);
+    if (!trig.goalentity) {
+        dprint("\b[TELEPORT_DESTCHANGE]\b Cannot find teleport destination\n");
+        return;
+    }
+
+    makevectors (trig.goalentity.mangle);
+    trig.goalentity.movedir = v_forward;
+    trig.goalentity.pos1 = trig.goalentity.origin + 32 * trig.goalentity.movedir;
+
+		trig.target = self.message; //dumptruck_ds see comment above
+};
+
+/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4)
+Allows a mapper to change the target of a teleport_trigger. Useful in maps where
+the player may fall into a void and the mapper wants to update where they "respawn"
+as they progress through the level. Could also be used for teleport puzzles and more.
+target = trigger_teleport to change
+message = new info_teleport_destination's targetname to switch to
+targetname = name of this entity so we can use it
+*/
+void() info_teleport_changedest =
+{
+		if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+			return;
+
+    self.use = teleport_destchange;
+    if (self.targetname == "") {
+        dprint("\b[ERROR]\b info_teleport_changedest with no targetname");
+        remove(self);
+    }
+
+    if (self.target == "") {
+        dprint("\b[ERROR]\b info_teleport_changedest with no target");
+        remove(self);
+    }
+
+    if (self.message == "") {
+        dprint("\b[ERROR]\b info_teleport_changedest with no message set for new destination");
+        remove(self);
+    }
 };
 
 /*QUAKED info_teleport_destination (.5 .5 .5) (-8 -8 -8) (8 8 32)
@@ -491,6 +645,18 @@ void() info_teleport_destination =
 		objerror ("no targetname");
 };
 
+/*QUAKED info_teleport_random (.5 .5 .5) (-8 -8 -8) (8 8 32)
+This is a random destination marker for a teleporter.
+*/
+void() info_teleport_random =
+{
+// this does nothing, just serves as a target spot
+	self.mangle = self.angles;
+	self.angles = '0 0 0';
+	self.model = "";
+	self.origin = self.origin + '0 0 27';
+};
+
 void() teleport_use =
 {
 	if (self.is_waiting)	// Supa, if this trigger is waiting to be activated we'll tell it to get ready!
@@ -505,12 +671,23 @@ void() teleport_use =
 	self.think = SUB_Null;
 };
 
-/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT
-Any object touching this will be transported to the corresponding info_teleport_destination entity. You must set the "target" field, and create an object with a "targetname" field that matches.
+// -------------------------
+/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT RANDOM STEALTH
+Any object touching this will be transported to the corresponding
+info_teleport_destination entity. You must set the "target" field,
+and create an object with a "targetname" field that matches.
 
-If the trigger_teleport has a targetname, it will only teleport entities when it has been fired.
-*/
-void() trigger_teleport =
+If the trigger_teleport has a targetname, it will only teleport entities
+when it has been fired.
+
+SILENT(2) eliminates the teleporter ambient noise (good for hidden monster teleporters.
+RANDOM(4) causes the teleporter to send the player to a random destination
+ among the info_teleport_random markers in the level.  You MUST place a
+ "count" field that is the number of info_teleport_random entities you
+ placed.
+STEALTH(8) eliminates the particle flash and noise when an entity is teleported.
+MONSTER_ONLY(16) will only teleport monsters
+*/void() trigger_teleport =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
@@ -542,8 +719,8 @@ trigger_setskill
 
 void() trigger_skill_touch =
 {
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	cvar_set ("skill", self.message);
 };
@@ -572,10 +749,10 @@ ONLY REGISTERED TRIGGERS
 
 void() trigger_onlyregistered_touch =
 {
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 	if (self.attack_finished > time)
-		return;
+	return;
 
 	self.attack_finished = time + 2;
 	if (cvar("registered"))
@@ -617,9 +794,11 @@ void() hurt_on =
 
 void() hurt_touch =
 {
-	if (other.takedamage)
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+	if (other.takedamage && self.nextthink < time)
 	{
-		self.solid = SOLID_NOT;
+		//self.solid = SOLID_NOT;
 		T_Damage (other, self, self, self.dmg);
 		self.think = hurt_on;
 		self.nextthink = time + 1;
@@ -658,6 +837,9 @@ float DT_NOISE = 32; // use custom sound using noise key/value
 void() trigger_push_touch =
 {
 	if (self.is_waiting) return;
+	// from Copper -- dumptruck_ds
+	if (other.movetype == MOVETYPE_NOCLIP)
+		return;
 	if (other.classname == "grenade")
 		other.velocity = self.speed * self.movedir * 10;
 	else if (other.health > 0)
@@ -831,6 +1013,9 @@ float 	PLAYER_SAFE = 2;
 
 void() trigger_void_touch =
 {
+	if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return FALSE;
+
 	if (self.spawnflags & MONSTER_SAFE && other.flags & FL_MONSTER) return; //ignore monsters
 	if (self.spawnflags & PLAYER_SAFE && other.flags & FL_CLIENT) return; // ignore players
 
@@ -876,6 +1061,9 @@ This is Axe only at the moment. Need to research removing all weapons.
 void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
 	if (!(other.flags & FL_CLIENT))
 	return;
 
@@ -985,4 +1173,160 @@ void() trigger_take_weapon =
 	self.wait = -1;
 	trigger_multiple();
 	self.touch = take_weapon_use;
+};
+
+void(float newtrack) changemusic =
+{
+  *world_sounds = newtrack;  //changing the field via a pointer
+  //world.sounds has now been changed via our pointer, newly connecting players (like those connecting after the game is loaded) will get sent the new cd track's number.
+
+  //let everyone currently on the server know.
+  WriteByte(MSG_ALL, SVC_CDTRACK);
+  WriteByte(MSG_ALL, newtrack);  //initial track
+  WriteByte(MSG_ALL, newtrack);  //looped track... should generally be set the same as the initial track as most engines ignore it entirely so it might as well be sane for those that care.
+};
+
+//thanks to jleww via changemusic.rar --dumptruck_ds
+
+void() trigger_changemusic_touch =
+{
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
+	if (!(other.flags & FL_CLIENT))
+	{
+		return;
+	}
+	changemusic(self.sounds);
+	self.touch = SUB_Null;
+	self.nextthink = (time + 0.1);
+	self.think = SUB_Remove;
+};
+
+void() trigger_changemusic =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+		if (!self.sounds)
+		{
+			objerror("ERROR: trigger_changemusic needs valid track number in sounds field");
+			return;
+		}
+	InitTrigger();
+	self.touch = trigger_changemusic_touch;
+};
+
+void() trigger_cdtrack_use = //point entity version uses count for music track number for backwards compatibly in Adoria mod -- dumptruck_ds
+{
+	changemusic(self.count);
+};
+
+void() trigger_cdtrack =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+		if (!self.count)
+		{
+			objerror("ERROR: trigger_cdtrack needs valid track number in count field");
+			return;
+		}
+	InitTrigger();
+	self.use = trigger_cdtrack_use;
+};
+///////////////////////////////////////////////////////////////
+//trigger_look (a.k.a. trigger_onlookat from NullPointPaladin!)
+///////////////////////////////////////////////////////////////
+void() onlookat_touch =
+{
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
+  if (self.nextthink > time)
+  {
+        return;        // allready been triggered
+  }
+
+    //added player view offset to make this more accurate to the player crosshairs
+    local vector player_offset;
+    player_offset = other.origin + other.view_ofs;
+
+    makevectors(other.v_angle);
+
+    //using speed to determine the reach of the trace
+    if(!self.speed)
+        self.speed = 500;
+    traceline(player_offset, (player_offset + (v_forward * self.speed)), FALSE, other);
+
+    if ((trace_ent.targetname == self.target))
+    {
+        // Play message if available
+        if (self.message != "")
+        {
+            centerprint (other, self.message);
+        }
+        self.use = multi_trigger;
+        SUB_UseTargets();
+
+				if (self.noise != "")
+				sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
+				else
+				sound (self, CHAN_VOICE, self.noise1, 1, ATTN_NORM);
+
+        // added wait
+        if (self.wait > 0)
+        {
+            self.think = multi_wait;
+            self.nextthink = time + self.wait;
+        }
+        else
+        {    // we can't just remove (self) here, because this is a touch function
+            // called wheil C code is looping through area links...
+            self.touch = SUB_Null;
+            self.nextthink = time + 0.1;
+            self.think = SUB_Remove;
+        }
+    }
+};
+
+void() trigger_look =
+{
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+
+    //play all the sounds available for a normal trigger
+    if (self.sounds == 0)
+    {
+        precache_sound ("misc/null.wav");
+        self.noise = "misc/null.wav";
+    }
+    else if (self.sounds == 1)
+    {
+        precache_sound ("misc/secret.wav");
+        self.noise = "misc/secret.wav";
+    }
+    else if (self.sounds == 2)
+    {
+        precache_sound ("misc/talk.wav");
+        self.noise = "misc/talk.wav";
+    }
+    else if (self.sounds == 3)
+    {
+        precache_sound ("misc/trigger1.wav");
+        self.noise = "misc/trigger1.wav";
+    }
+    else if (self.sounds == 4)
+    {
+			if (!self.noise1) //dumptruck_ds
+			{
+				objerror ("no soundfile set in noise1!\n");
+				remove(self);
+				return;
+			}
+			else
+        precache_sound (self.noise1);
+				self.noise = self.noise1;
+    }
+
+    InitTrigger();
+    self.touch = onlookat_touch;
 };

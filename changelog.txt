@@ -1,9 +1,22 @@
-1.1.3 January 2020
+1.1.3 July 2020
+
+* Added trigger_changemusic and trigger_cdtrack
+* Added trigger_look from NullPointPaladin
+* Added new features to trigger_teleport from Zerstörer
+* including "stealth" teleporting (no sound or particles) and random destinations
+* Added Monster only spawnflag to trigger_teleport
+* Added info_teleport_changedest from Qmaster
+* this allows mappers to dynamically change the destination of a trigger_teleport
+* Added trigger_heal from Custents mod
+* Replaced default id1-style noclip behavior with Copper's version
+* players will not interact with any touchable objects while in noclip
+
+1.1.2.1 February 2020
 
 * Added skins to debris.mdl for a total of 32 built-in, commonly used textures
 * Added pd_pop2.wav to sound\oldone2 for Shub pain sound effect
-* Added oldone2.qc for killable Shub entity
-* Added boss2.qc for killable Chthon
+* Added oldone2.qc for killable Shub entity (now gib-able)
+* Added boss2.qc for killable Chthon (now gib-able)
 * Added play_brlight, play_dimlight, play_mflash, play_bfield effects
 * Added play_gibs for consistency (same as meat_shower)
 * Added play_tele for consistency (same as tele_fog)
@@ -12,6 +25,17 @@
 * Fixed id1 DAMAGE_AIM bug in Shub and Chthon (iw)
 * Multiple fixes and optimizations to FGDs (iw)
 * Added reset_items 2 to worldspawn for axe only start (iw)
+* Added berserk key to monsters to suppress pain animations
+  (excluding Bosses, Spawn and Zombies)
+* Added item_key_custom -- use any model as a key (iw)
+* Added skin key to monsters
+* Fish are now gib-able
+* Fixed various legacy id1 bugs (Zungryware)
+* Added ericw entries to worldspawn in FGDs
+* Added ericw entries for func_detail variants in FGDs
+* Fixed various issues involving obituary messages (iw)
+* Fixed targeting and animation issues with sleeping zombies (iw)
+* Fixes to Shambler, Impulse 255 and misc_teleporttrain
 
 1.1.2 October 2019
 

@@ -23,7 +23,6 @@ $frame shake15 shake16 shake17 shake18 shake19 shake20
 
 void() shub_face =
 {
-
 // go for another player if multi player
 	if (self.enemy.health <= 0 || random() < 0.02)
 	{
@@ -34,55 +33,6 @@ void() shub_face =
 	ai_face();
 };
 
-
-// CHANGE BEGINS HERE -- iw
-
-//void() old2_idle1        =[      $old1,  old2_idle2       ] {};
-//void() old2_idle2        =[      $old2,  old2_idle3       ] {};
-//void() old2_idle3        =[      $old3,  old2_idle4       ] {};
-//void() old2_idle4        =[      $old4,  old2_idle5       ] {};
-//void() old2_idle5        =[      $old5,  old2_idle6       ] {};
-//void() old2_idle6        =[      $old6,  old2_idle7       ] {};
-//void() old2_idle7        =[      $old7,  old2_idle8       ] {};
-//void() old2_idle8        =[      $old8,  old2_idle9       ] {};
-//void() old2_idle9        =[      $old9,  old2_idle10      ] {};
-//void() old2_idle10       =[      $old10, old2_idle11      ] {};
-//void() old2_idle11       =[      $old11, old2_idle12      ] {};
-//void() old2_idle12       =[      $old12, old2_idle13      ] {};
-//void() old2_idle13       =[      $old13, old2_idle14      ] {};
-//void() old2_idle14       =[      $old14, old2_idle15      ] {};
-//void() old2_idle15       =[      $old15, old2_idle16      ] {};
-//void() old2_idle16       =[      $old16, old2_idle17      ] {};
-//void() old2_idle17       =[      $old17, old2_idle18      ] {};
-//void() old2_idle18       =[      $old18, old2_idle19      ] {};
-//void() old2_idle19       =[      $old19, old2_idle20      ] {};
-//void() old2_idle20       =[      $old20, old2_idle21      ] {};
-//void() old2_idle21       =[      $old21, old2_idle22      ] {};
-//void() old2_idle22       =[      $old22, old2_idle23      ] {};
-//void() old2_idle23       =[      $old23, old2_idle24      ] {};
-//void() old2_idle24       =[      $old24, old2_idle25      ] {};
-//void() old2_idle25       =[      $old25, old2_idle26      ] {};
-//void() old2_idle26       =[      $old26, old2_idle27      ] {};
-//void() old2_idle27       =[      $old27, old2_idle28      ] {};
-//void() old2_idle28       =[      $old28, old2_idle29      ] {};
-//void() old2_idle29       =[      $old29, old2_idle30      ] {};
-//void() old2_idle30       =[      $old30, old2_idle31      ] {};
-//void() old2_idle31       =[      $old31, old2_idle32      ] {};
-//void() old2_idle32       =[      $old32, old2_idle33      ] {};
-//void() old2_idle33       =[      $old33, old2_idle34      ] {};
-//void() old2_idle34       =[      $old34, old2_idle35      ] {};
-//void() old2_idle35       =[      $old35, old2_idle36      ] {};
-//void() old2_idle36       =[      $old36, old2_idle37      ] {};
-//void() old2_idle37       =[      $old37, old2_idle38      ] {};
-//void() old2_idle38       =[      $old38, old2_idle39      ] {};
-//void() old2_idle39       =[      $old39, old2_idle40      ] {};
-//void() old2_idle40       =[      $old40, old2_idle41      ] {};
-//void() old2_idle41       =[      $old41, old2_idle42      ] {};
-//void() old2_idle42       =[      $old42, old2_idle43      ] {};
-//void() old2_idle43       =[      $old43, old2_idle44      ] {};
-//void() old2_idle44       =[      $old44, old2_idle45      ] {};
-//void() old2_idle45       =[      $old45, old2_idle46      ] {};
-//void() old2_idle46       =[      $old46, old2_idle1       ] {};
 
 void() old2_stand =
 {
@@ -136,8 +86,6 @@ void() old2_idle44       =[      $old44, old2_idle45      ] {old2_stand();};
 void() old2_idle45       =[      $old45, old2_idle46      ] {old2_stand();};
 void() old2_idle46       =[      $old46, old2_idle1       ] {old2_stand();};
 
-// CHANGE ENDS HERE -- iw
-
 void(vector p) shub_missile =
 {
 	local	vector	offang;
@@ -164,13 +112,12 @@ void(vector p) shub_missile =
 
 	vec = normalize (d - org);
 
-  particle (org, '0 0 0', 239, 64);
+	particle (org, '0 0 0', 239, 64);
 	launch_spike (org, vec);
 	setmodel (newmis, "progs/lavaball.mdl");
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	// newmis.velocity = vec*300;
-	newmis.velocity = vec*600;
+	newmis.velocity = vec*300;
 	newmis.touch = T_MissileTouch; // rocket explosion
 	sound (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
 
@@ -226,7 +173,7 @@ void() old2_attk44       =[      $old44, old2_attk45      ] {shub_face();};
 void() old2_attk45       =[      $old45, old2_attk46      ] {shub_missile('0 -16 416');};
 void() old2_attk46       =[      $old46, old2_attk1       ] {shub_face();};
 //death twitch --dumptruck_ds
-void() old2_twitch1        =[ 		 $shake1,  old2_twitch2       ] {sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
+void() old2_twitch1        =[      $shake1,  old2_twitch2       ] {sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
 void() old2_twitch2        =[      $shake2,  old2_twitch3       ] {};
 void() old2_twitch3        =[      $shake3,  old2_twitch4       ] {};
 void() old2_twitch4        =[      $shake4,  old2_twitch5       ] {};
@@ -253,16 +200,16 @@ void() old2_twitch24       =[      $shake20, old2_twitch25      ] {};
 void() old2_twitch25       =[      $shake17, old2_twitch26      ] {};
 void() old2_twitch26       =[      $shake18, old2_twitch27      ] {};
 void() old2_twitch27       =[      $shake19, old2_twitch28      ] {};
-void() old2_twitch28       =[      $shake20, oldone2_die     ] {};
+void() old2_twitch28       =[      $shake20, oldone2_die        ] {};
 
 void(entity attacker, float damage) oldone2_pain =
 {
 	if (self.pain_finished > time)
 		return;
 
-		sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
-		old2_attk1();
-		self.pain_finished = time + 4;
+	sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
+	old2_attk1();
+	self.pain_finished = time + 4;
 };
 
 void() oldone2_die =
@@ -304,14 +251,10 @@ void() oldone2_die =
 	particle (oldo, '128 128 128', 0, 255);
 	sound (self, CHAN_VOICE, "player/teledth1.wav", 1, ATTN_NONE);
 
-	killed_monsters = killed_monsters + 1;
-	WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// FIXME: reliable broadcast
-	SUB_UseTargets ();
-
 	remove (self);
 }
 
-/*QUAKED monster_oldone2 (1 0 0) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_oldone2 (1 0 0) (-160 -128 -24) (160 128 256)
 */
 void() monster_oldone2 =
 {
@@ -341,21 +284,18 @@ void() monster_oldone2 =
 	setsize (self, '-160 -128 -24', '160 128 256');
 
 	if (!self.health)
-		{
-			if (skill == 0)
-				self.health = 1000;
-			else
-				self.health = 3000;
-		}
+	{
+		if (skill == 0)
+			self.health = 1000;
+		else
+			self.health = 3000;
+	}
 
 	self.flags = FL_MONSTER;
 	self.think = old2_idle1;
 	self.nextthink = time + 0.1;
-// CHANGE BEGINS HERE -- iw
-	//self.takedamage = DAMAGE_YES;
 	self.takedamage = DAMAGE_AIM;
 	self.th_run = old2_attk1;
-// CHANGE ENDS HERE -- iw
 	self.th_pain = oldone2_pain;
 	self.th_die = old2_twitch1;
 

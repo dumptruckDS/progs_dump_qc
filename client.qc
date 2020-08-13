@@ -302,6 +302,18 @@ void() execute_changelevel =
 		setorigin (other, pos.origin);
 		other = find (other, classname, "player");
 	}
+	// Drake -- dumptruck_ds
+	if (cutscene)
+	{   // If player was in a cutscene when the level ended, restore viewsize.
+			pos = find (world, classname, "camera");
+			if (pos)
+			{
+					local   string  val;
+
+					val = ftos (pos.cnt);
+					cvar_set ("viewsize", val);
+			}
+	}
 
 	WriteByte (MSG_ALL, SVC_INTERMISSION);
 };
@@ -310,8 +322,8 @@ void() execute_changelevel =
 void() changelevel_touch =
 {
 
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
 	{
@@ -561,9 +573,17 @@ void() PutClientInServer =
 	self.invincible_finished = 0;
 	self.effects = 0;
 	self.invincible_time = 0;
+	self.deathtype = "";
 	self.gravity = 0;
 	self.wantedgravity = 0;
 	self.onladder = 0;
+	self.customkeys = 0;  // support for item_key_custom -- iw
+
+	// Setup cutscene stuff.  Legacy code from Zerstorer. --dumptruck_ds
+	    self.script_count = 2;
+	    self.script_delay = 1;
+	    self.script_time  = 0;
+
 
 	DecodeLevelParms ();
 
@@ -586,6 +606,9 @@ void() PutClientInServer =
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
+
+	setmodel (self, "progs/null_256.spr");     // Drake -- dumptruck_ds
+	mindex_inviso = self.modelindex;
 
 	setmodel (self, "progs/player.mdl");
 	modelindex_player = self.modelindex;
@@ -835,19 +858,29 @@ void() PlayerJump =
 		return;
 	}
 
-	if (!(self.flags & FL_ONGROUND))
-		return;
+	// refactoring from Copper -- dumptruck_ds
+	if (self.movetype != MOVETYPE_NOCLIP)
+	{
+		if (!(self.flags & FL_ONGROUND)) return;
+		if ( !(self.flags & FL_JUMPRELEASED) ) return;		// don't pogo stick
+		// player jumping sound
+		sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);	// h00rt
+	}
 
-	if ( !(self.flags & FL_JUMPRELEASED) )
-		return;		// don't pogo stick
+	// if (!(self.flags & FL_ONGROUND))
+	// 	return;
+	//
+	// if ( !(self.flags & FL_JUMPRELEASED) )
+	// 	return;		// don't pogo stick
+	// refactoring from Copper -- dumptruck_ds
+	// self.flags = not(self.flags, FL_JUMPRELEASED | FL_ONGROUND);	// don't stairwalk
 
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 
 	self.flags = self.flags - FL_ONGROUND;	// don't stairwalk
 
 	self.button2 = 0;
-// player jumping sound
-	sound (self, CHAN_BODY, "player/plyrjmp8.wav", 1, ATTN_NORM);
+	// sound (self, CHAN_AUTO, "player/plyrjmp8.wav", 1, ATTN_NORM);
 	self.velocity_z = self.velocity_z + 270;
 };
 
@@ -863,8 +896,15 @@ WaterMove
 void() WaterMove =
 {
 //dprint (ftos(self.waterlevel));
+	// if (self.movetype == MOVETYPE_NOCLIP)
+	// 	return;
+	//from Copper -- dumptruck_ds
 	if (self.movetype == MOVETYPE_NOCLIP)
+	{
+		self.air_finished = time + 120;
 		return;
+	}
+
 	if (self.health < 0)
 		return;
 
@@ -884,7 +924,9 @@ void() WaterMove =
 			self.dmg = self.dmg + 2;
 			if (self.dmg > 15)
 				self.dmg = 10;
+			self.deathtype = "drowning";
 			T_Damage (self, world, world, self.dmg);
+			self.deathtype = "";
 			self.pain_finished = time + 1;
 		}
 	}
@@ -909,7 +951,9 @@ void() WaterMove =
 			else
 				self.dmgtime = time + 0.2;
 
+			self.deathtype = "lava";
 			T_Damage (self, world, world, 10*self.waterlevel);
+			self.deathtype = "";
 		}
 	}
 	else if (self.watertype == CONTENT_SLIME)
@@ -917,7 +961,9 @@ void() WaterMove =
 		if (self.dmgtime < time && self.radsuit_finished < time)
 		{
 			self.dmgtime = time + 1;
+			self.deathtype = "slime";
 			T_Damage (self, world, world, 4*self.waterlevel);
+			self.deathtype = "";
 		}
 	}
 
@@ -943,6 +989,9 @@ void() WaterMove =
 
 void() CheckWaterJump =
 {
+	if (self.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return;
+
 	local vector start, end;
 
 // check for a jump-out-of-water
@@ -989,7 +1038,10 @@ void() PlayerPreThink =
 	}
 
 	if (self.view_ofs == '0 0 0')
-		return;		// intermission or finale
+		{
+			Cutscene_Think ();      // Check for cutscene stuff.
+			return;        // intermission or finale
+	}
 
 	// note that this code block is here, before the tests which check
 	// whether the player is dead, so that the player's gravity will be
@@ -1067,6 +1119,11 @@ else
 	{
 		self.weapon = W_BestWeapon ();
 		W_SetCurrentAmmo ();
+	}
+	// from copper -- dumptruck_ds
+	if (self.movetype == MOVETYPE_NOCLIP)
+	{
+		self.flags = self.flags | FL_FLY;
 	}
 };
 
@@ -1250,9 +1307,10 @@ void() PlayerPostThink =
 			sound (self, CHAN_BODY, "player/h2ojump.wav", 1, ATTN_NORM);
 		else if (self.jump_flag < -650)
 		{
-			T_Damage (self, world, world, 5);
-			sound (self, CHAN_VOICE, "player/land2.wav", 1, ATTN_NORM);
 			self.deathtype = "falling";
+			T_Damage (self, world, world, 5);
+			self.deathtype = "";
+			sound (self, CHAN_VOICE, "player/land2.wav", 1, ATTN_NORM);
 		}
 		else
 			sound (self, CHAN_VOICE, "player/land.wav", 1, ATTN_NORM);
@@ -1277,6 +1335,11 @@ void() PlayerPostThink =
 }
 
 CheckPowerups ();
+// from Copper -- dumptruck_ds
+if (self.movetype != MOVETYPE_NOCLIP)
+{
+	self.flags = not(self.flags, FL_FLY);
+}
 
 };
 
@@ -1329,7 +1392,7 @@ ClientObituary
 called when a player dies
 ============
 */
-void(entity targ, entity attacker) ClientObituary =
+void(entity targ, entity inflictor, entity attacker) ClientObituary =
 {
 	local	float rnum;
 	local	string deathstring, deathstring2;
@@ -1462,6 +1525,22 @@ void(entity targ, entity attacker) ClientObituary =
 			targ.frags = targ.frags - 1;
 			bprint (targ.netname);
 
+			// custom obituary messages
+			if (inflictor.deathtype != "")
+			{
+				bprint (" ");
+				bprint (inflictor.deathtype);
+				bprint ("\n");
+				return;
+			}
+			if (attacker.deathtype != "")
+			{
+				bprint (" ");
+				bprint (attacker.deathtype);
+				bprint ("\n");
+				return;
+			}
+
 			// killed by a montser?
 			if (attacker.flags & FL_MONSTER)
 			{
@@ -1508,20 +1587,39 @@ void(entity targ, entity attacker) ClientObituary =
 			}
 
 			// tricks and traps
-			if (attacker.classname == "explo_box")
+			if (attacker.classname == "explo_box" ||
+					attacker.classname == "play_explosion" ||
+					attacker.classname == "play_tbabyexplode")
 			{
 				bprint (" blew up\n");
 				return;
 			}
-			if (attacker.solid == SOLID_BSP && attacker != world)
+			if (attacker.classname == "func_laser")
+			{
+				bprint (" discovered that lasers are hot\n");
+				return;
+			}
+			if ((attacker.solid == SOLID_BSP &&
+					attacker != world &&
+					attacker.classname != "togglewall") ||
+					(inflictor.classname == "func_movewall" &&
+					!(inflictor.spawnflags & MOVEWALL_TOUCH)))
 			{
 				bprint (" was squished\n");
 				return;
 			}
-			if (attacker.classname == "trap_shooter" || attacker.classname == "trap_spikeshooter")
+			if (attacker.classname == "trap_shooter" ||
+					attacker.classname == "trap_spikeshooter" ||
+					attacker.classname == "trap_switched_shooter")
 			{
 				// bprint (" was spiked\n");
 				bprint (" was unlucky\n"); //changed for custom shooters --dumptruck_ds
+				return;
+			}
+			if (attacker.classname == "ltrail_start" ||
+					attacker.classname == "ltrail_relay")
+			{
+				bprint (" had an electrifying experience\n");
 				return;
 			}
 			if (attacker.classname == "fireball")
@@ -1535,9 +1633,8 @@ void(entity targ, entity attacker) ClientObituary =
 				return;
 			}
 
-			// in-water deaths
-			rnum = targ.watertype;
-			if (rnum == -3)
+			// in-liquid deaths
+			if (targ.deathtype == "drowning")
 			{
 				if (random() < 0.5)
 					bprint (" sleeps with the fishes\n");
@@ -1545,7 +1642,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" sucks it down\n");
 				return;
 			}
-			else if (rnum == -4)
+			if (targ.deathtype == "slime")
 			{
 				if (random() < 0.5)
 					bprint (" gulped a load of slime\n");
@@ -1553,7 +1650,7 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" can't exist on slime alone\n");
 				return;
 			}
-			else if (rnum == -5)
+			if (targ.deathtype == "lava")
 			{
 				if (targ.health < -15)
 				{
@@ -1570,7 +1667,6 @@ void(entity targ, entity attacker) ClientObituary =
 			// fell to their death?
 			if (targ.deathtype == "falling")
 			{
-				targ.deathtype = "";
 				bprint (" fell to his death\n");
 				return;
 			}

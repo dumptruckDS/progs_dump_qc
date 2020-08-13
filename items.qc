@@ -9,7 +9,7 @@ void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
-	if (deathmatch || (self.spawnflags & 16384))	// respawn DM style
+	if (deathmatch || (self.spawnflags & 16384))	// Respawn with DM effects
 		sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
 	else
 		spawn_tfog (self.origin + self.particles_offset);	// play teleport sound and display particles
@@ -302,8 +302,8 @@ void() health_touch =
 	local	float amount;
 	local	string	s;
 	amount = self.healamount;
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (self.healtype == 2) // Megahealth?  Ignore max_health...
 	{
@@ -384,10 +384,8 @@ void() armor_touch =
 {
 	local	float	type, value, bit;
 
-	if (other.health <= 0)
-		return;
-	if (other.classname != "player")
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (self.classname == "item_armor1")
 	{
@@ -561,6 +559,9 @@ void() weapon_touch =
 	local	float	hadammo, best, new, old;
 	local	entity	stemp;
 	local	float	leave;
+
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	if (!(other.flags & FL_CLIENT))
 		return;
@@ -874,10 +875,8 @@ void() ammo_touch =
 local entity	stemp;
 local float		best;
 
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 // if the player was using his best weapon, change up to the new one if better
 	stemp = self;
@@ -1168,14 +1167,14 @@ KEYS
 ===============================================================================
 */
 
+
 void() key_touch =
 {
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
-	if (other.items & self.items)
+// support for item_key_custom -- iw
+	if (HasKeys (other, self.items, self.customkeys))
 		return;
 
 	sprint (other, "You got the ");
@@ -1184,7 +1183,9 @@ void() key_touch =
 
 	sound (other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
-	other.items = other.items | self.items;
+
+// support for item_key_custom -- iw
+	GiveKeys (other, self.items, self.customkeys);
 
 	if (!coop)
 	{
@@ -1201,29 +1202,51 @@ void() key_touch =
 
 void() key_setsounds =
 {
-	if (world.worldtype == 0)
+// support for item_key_custom -- iw
+	if (self.noise != "")
+	{
+		precache_sound (self.noise);
+		return;
+	}
+
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_sound ("misc/medkey.wav");
 		self.noise = "misc/medkey.wav";
 	}
-	if (world.worldtype == 1)
+	if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_sound ("misc/runekey.wav");
 		self.noise = "misc/runekey.wav";
 	}
-	if (world.worldtype == 2)
+	if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_sound2 ("misc/basekey.wav");
 		self.noise = "misc/basekey.wav";
 	}
 };
 
+
+/*
+============
+key_start
+
+Finish initializing self as a key item.  -- iw
+============
+*/
+void() key_start =
+{
+	key_setsounds ();
+	self.particles_offset = '0 0 18';
+	self.touch = key_touch;
+	setsize (self, '-16 -16 -24', '16 16 32');
+	StartItem ();
+};
+
+
 /*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32)
 SILVER key
-In order for keys to work
-you MUST set your maps
-worldtype to one of the
-following:
+In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
 1: metal
 2: base
@@ -1234,38 +1257,35 @@ void() item_key1 =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_model ("progs/w_s_key.mdl");
 		setmodel (self, "progs/w_s_key.mdl");
-		self.netname = "silver key";
 	}
-	else if (world.worldtype == 1)
+	else if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_model ("progs/m_s_key.mdl");
 		setmodel (self, "progs/m_s_key.mdl");
-		self.netname = "silver runekey";
 	}
-	else if (world.worldtype == 2)
+	else if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_model2 ("progs/b_s_key.mdl");
 		setmodel (self, "progs/b_s_key.mdl");
-		self.netname = "silver keycard";
 	}
-	key_setsounds();
-	self.touch = key_touch;
+	self.netname = SilverKeyName ();
 	self.items = IT_KEY1;
-	setsize (self, '-16 -16 -24', '16 16 32');
-	self.particles_offset = '0 0 18';
-	StartItem ();
+
+// support for item_key_custom -- iw
+	self.customkeys = 0;  // ignore any mapper-set value
+	self.noise = "";  // ignore any mapper-set value
+
+	key_start ();
 };
+
 
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
 GOLD key
-In order for keys to work
-you MUST set your maps
-worldtype to one of the
-following:
+In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
 1: metal
 2: base
@@ -1276,32 +1296,92 @@ void() item_key2 =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (world.worldtype == 0)
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
 		precache_model ("progs/w_g_key.mdl");
 		setmodel (self, "progs/w_g_key.mdl");
-		self.netname = "gold key";
 	}
-	if (world.worldtype == 1)
+	if (world.worldtype == WORLDTYPE_METAL)
 	{
 		precache_model ("progs/m_g_key.mdl");
 		setmodel (self, "progs/m_g_key.mdl");
-		self.netname = "gold runekey";
 	}
-	if (world.worldtype == 2)
+	if (world.worldtype == WORLDTYPE_BASE)
 	{
 		precache_model2 ("progs/b_g_key.mdl");
 		setmodel (self, "progs/b_g_key.mdl");
-		self.netname = "gold keycard";
 	}
-	key_setsounds();
-	self.touch = key_touch;
+	self.netname = GoldKeyName ();
 	self.items = IT_KEY2;
-	setsize (self, '-16 -16 -24', '16 16 32');
-	self.particles_offset = '0 0 18';
-	StartItem ();
+
+// support for item_key_custom -- iw
+	self.customkeys = 0;  // ignore any mapper-set value
+	self.noise = "";  // ignore any mapper-set value
+
+	key_start ();
 };
 
+
+// item_key_custom is a brand-spanking-new entity class created for
+// progs_dump -- iw
+
+/*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32)
+A customizable key item.
+
+"keyname"  name of the key, e.g. "bronze key" (required)
+"mdl"      model file (required)
+"noise"    sound file for the pickup sound (default is per worldtype)
+"skin"     skin index (default 0)
+
+The "keyname" value is used both for the pickup message and to associate
+the key with the entity that it unlocks.
+
+To make a func_door or trigger_usekey require this key, set the
+"keyname" value of that entity so that it matches the "keyname" value of
+the key.
+
+If different item_key_custom entities have the same "keyname" value,
+they will be treated as different copies of the same key and may be used
+interchangeably.
+
+A map may have a maximum of 23 unique "keyname" values across all
+entities.
+
+The behavior of an item_key_custom should be as the player expects
+(based on the behavior of the silver and gold keys), except for the fact
+that it will not appear as an icon in the player's status bar when
+picked up.  This is a limitation of the engine.
+*/
+
+void() item_key_custom =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	if (self.keyname == "")
+	{
+		objerror ("no keyname specified");
+		return;
+	}
+
+	if (self.mdl == "")
+	{
+		objerror ("no mdl specified");
+		return;
+	}
+
+	precache_model (self.mdl);
+	setmodel (self, self.mdl);
+	self.mdl = "";  // this should not be referenced again
+
+	self.netname = self.keyname;
+	self.keyname = "";  // this should not be referenced again
+
+	self.items = 0;  // ignore any mapper-set value
+	self.customkeys = CustomKeyFlag (self.netname);
+
+	key_start ();
+};
 
 
 /*
@@ -1314,10 +1394,8 @@ END OF LEVEL RUNES
 
 void() sigil_touch =
 {
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	centerprint (other, "You got the rune!");
 
@@ -1408,10 +1486,8 @@ void() powerup_touch;
 
 void() powerup_touch =
 {
-	if (other.classname != "player")
-		return;
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	sprint (other, "You got the ");
 	sprint (other, self.netname);
@@ -1488,8 +1564,6 @@ void() powerup_touch =
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
 };
-
-
 
 /*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32)
 Player is invulnerable for 30 seconds
@@ -1573,7 +1647,6 @@ void() item_artifact_super_damage =
 
 	precache_model ("progs/quaddama.mdl");
 	precache_sound ("items/damage.wav");
-	precache_sound ("items/damage2.wav");
 	precache_sound ("items/damage3.wav");
 	self.noise = "items/damage.wav";
 	setmodel (self, "progs/quaddama.mdl");
@@ -1637,7 +1710,7 @@ void() BackpackTouch =
 
 	bound_other_ammo ();
 
-	if (self.ammo_shells)
+	if (self.ammo_shells < 100)
 	{
 		if (acount)
 			sprint(other, ", ");
@@ -1690,6 +1763,7 @@ void() BackpackTouch =
 		Deathmatch_Weapon (old, new);
 
 	W_SetCurrentAmmo ();
+
 };
 
 /*
@@ -1746,4 +1820,117 @@ void() DropBackpack =
 	item.nextthink = time + 120;	// remove after 2 minutes
 	item.think = SUB_Remove;
 };
-//laptop Git test - ignore me
+
+// dumptruck_ds
+float SHELLS = 1;
+float NAILS = 2;
+float ROCKETS = 4;
+float CELLS = 8;
+void() item_backpack_message =
+{
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
+	other.ammo_shells = other.ammo_shells + self.ammo_shells;
+	other.ammo_nails = other.ammo_nails + self.ammo_nails;
+	other.ammo_rockets = other.ammo_rockets + self.ammo_rockets;
+	other.ammo_cells = other.ammo_cells + self.ammo_cells;
+
+	if (self.netname != "")
+	{
+		sprint (other, "You got ");
+		sprint (other, self.netname);
+		sprint (other, "\n");
+	}
+		else
+		sprint (other, "You got a backpack!\n");
+
+	// backpack touch sound
+	sound (other, CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
+	stuffcmd (other, "bf\n");
+	remove(self);
+	self = other;
+	bound_other_ammo();
+	W_SetCurrentAmmo ();
+
+}
+// Some of this text is from Drake -- dumptruck_ds
+//============
+// --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56)
+// By default, gives roughly half the ammo from the 4 standard pickups:
+//
+// 10 Shells
+// 12 Nails
+// 2 Rockets
+// 3 Cells
+//
+// Or you can use the spawnflags to mix and match types.
+// Override the spawnflags defaults by adding custom amounts to:
+//
+// ammo_shells
+// ammo_nails
+// ammo_rockets
+// ammo_cells
+//
+// Can trigger spawn and suspend in air, but not respawn. You can set a skin
+// index if you are using a custom model with skins.
+//
+// The default pickup message is `You got a backpack.` But you can
+// set a custom message with the netname key. 'You got' will be the prefix
+// and the mapper chooses the rest of the message.
+//
+// e.g. For 'You got a bunch of rockets!' the netname key would be
+// 'a bunch of rockets!'
+//============
+void() item_backpack =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	if (deathmatch)
+	{
+		remove(self);
+		return;
+	}
+
+	self.flags = FL_ITEM;
+	self.solid = SOLID_TRIGGER;
+	self.movetype = MOVETYPE_TOSS;
+	self.classname = "item_backpack";
+	// self.netname = self.netname;
+
+	if (self.spawnflags & SHELLS)
+		{
+			if !(self.ammo_shells)
+				{
+				self.ammo_shells    = 10;
+				}
+		}
+	if (self.spawnflags & NAILS)
+		{
+			if !(self.ammo_nails)
+				{
+				self.ammo_nails    = 12;
+				}
+		}
+	if (self.spawnflags & ROCKETS)
+		{
+			if !(self.ammo_rockets)
+				{
+				self.ammo_rockets   = 2;
+				}
+		}
+	if (self.spawnflags & CELLS)
+		{
+			if !(self.ammo_cells)
+				{
+				self.ammo_cells    = 3;
+				}
+		}
+
+	self.touch = item_backpack_message;
+
+	setmodel (self, "progs/backpack.mdl");
+	setsize (self, '-16 -16 0', '16 16 56');
+	StartItem ();
+};

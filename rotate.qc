@@ -25,22 +25,21 @@ float OBJECT_ROTATE = 0;
 float OBJECT_MOVEWALL  = 1;
 float OBJECT_SETORIGIN = 2;
 
-float TOGGLE   = 1;
-float START_ON = 2;
+// spawnflags for func_rotate_entity
+float ROTATE_ENTITY_TOGGLE    = 1;
+float ROTATE_ENTITY_START_ON  = 2;
 
-float ROTATION = 1;
-float ANGLES   = 2;
-float STOP     = 4;
-float NO_ROTATE = 8;
-float DAMAGE   = 16;
-float MOVETIME = 32;
-float SET_DAMAGE = 64;
+// spawnflags for path_rotate
+float PATH_ROTATE_ROTATION    = 1;
+float PATH_ROTATE_ANGLES      = 2;
+float PATH_ROTATE_STOP        = 4;
+float PATH_ROTATE_NO_ROTATE   = 8;
+float PATH_ROTATE_DAMAGE      = 16;
+float PATH_ROTATE_MOVETIME    = 32;
+float PATH_ROTATE_SET_DAMAGE  = 64;
 
-float VISIBLE = 1;
-float TOUCH = 2;
-float NONBLOCKING = 4;
-
-float STAYOPEN = 1;
+// spawnflags for func_rotate_door
+float ROTATE_DOOR_STAYOPEN = 1;
 
 .float rotate_type;
 .vector neworigin;
@@ -310,7 +309,7 @@ void() rotate_entity_use =
 
    if ( self.state == STATE_ACTIVE )
       {
-      if ( self.spawnflags & TOGGLE )
+      if ( self.spawnflags & ROTATE_ENTITY_TOGGLE )
          {
          if ( self.speed )
             {
@@ -341,7 +340,7 @@ void() rotate_entity_use =
       }
    else if ( self.state == STATE_SPEEDINGUP )
       {
-      if ( self.spawnflags & TOGGLE )
+      if ( self.spawnflags & ROTATE_ENTITY_TOGGLE )
          {
          self.state = STATE_SLOWINGDOWN;
          }
@@ -355,7 +354,7 @@ void() rotate_entity_use =
 void() rotate_entity_firstthink =
    {
    LinkRotateTargets();
-   if ( self.spawnflags & START_ON )
+   if ( self.spawnflags & ROTATE_ENTITY_START_ON )
       {
       self.state = STATE_ACTIVE;
       self.think = rotate_entity_think;
@@ -513,12 +512,12 @@ void() rotate_train_wait =
       {
       sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
       }
-   if ( self.goalentity.spawnflags & ANGLES )
+   if ( self.goalentity.spawnflags & PATH_ROTATE_ANGLES )
       {
       self.rotate = '0 0 0';
       self.angles = self.finalangle;
       }
-   if ( self.goalentity.spawnflags & NO_ROTATE )
+   if ( self.goalentity.spawnflags & PATH_ROTATE_NO_ROTATE )
       {
       self.rotate = '0 0 0';
       }
@@ -538,12 +537,12 @@ void() rotate_train_stop =
       {
       sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
       }
-   if ( self.goalentity.spawnflags & ANGLES )
+   if ( self.goalentity.spawnflags & PATH_ROTATE_ANGLES )
       {
       self.rotate = '0 0 0';
       self.angles = self.finalangle;
       }
-   if ( self.goalentity.spawnflags & NO_ROTATE )
+   if ( self.goalentity.spawnflags & PATH_ROTATE_NO_ROTATE )
       {
       self.rotate = '0 0 0';
       }
@@ -578,7 +577,7 @@ void() rotate_train_next =
    if (!self.path )
       objerror ("rotate_train_next: no next target");
 
-   if ( targ.spawnflags & STOP )
+   if ( targ.spawnflags & PATH_ROTATE_STOP )
       {
       self.think1 = rotate_train_stop;
       }
@@ -602,23 +601,23 @@ void() rotate_train_next =
       self.message = string_null;
       }
 
-   if ( current.spawnflags & ANGLES )
+   if ( current.spawnflags & PATH_ROTATE_ANGLES )
       {
       self.rotate = '0 0 0';
       self.angles = self.finalangle;
       }
 
-   if ( current.spawnflags & ROTATION )
+   if ( current.spawnflags & PATH_ROTATE_ROTATION )
       {
       self.rotate = current.rotate;
       }
 
-   if ( current.spawnflags & DAMAGE )
+   if ( current.spawnflags & PATH_ROTATE_DAMAGE )
       {
       self.dmg = current.dmg;
       }
 
-   if ( current.spawnflags & SET_DAMAGE )
+   if ( current.spawnflags & PATH_ROTATE_SET_DAMAGE )
       {
       SetDamageOnTargets( current.dmg );
       }
@@ -630,7 +629,7 @@ void() rotate_train_next =
       self.endtime = self.ltime + 0.01;
       SetTargetOrigin();
 
-      if ( targ.spawnflags & ANGLES )
+      if ( targ.spawnflags & PATH_ROTATE_ANGLES )
          {
          self.angles = targ.angles;
          }
@@ -664,7 +663,7 @@ void() rotate_train_next =
       // calculate length of vector
       len = vlen (vdestdelta);
 
-      if ( current.spawnflags & MOVETIME )
+      if ( current.spawnflags & PATH_ROTATE_MOVETIME )
          {
          traveltime = current.speed;
          }
@@ -685,7 +684,7 @@ void() rotate_train_next =
          {
          self.velocity = '0 0 0';
          self.endtime = self.ltime + 0.1;
-         if ( targ.spawnflags & ANGLES )
+         if ( targ.spawnflags & PATH_ROTATE_ANGLES )
             {
             self.angles = targ.angles;
             }
@@ -695,7 +694,7 @@ void() rotate_train_next =
       // qcc won't take vec/float
       div = 1 / traveltime;
 
-      if ( targ.spawnflags & ANGLES )
+      if ( targ.spawnflags & PATH_ROTATE_ANGLES )
          {
          self.finalangle = SUB_NormalizeAngles( targ.angles );
          self.rotate = ( targ.angles - self.angles ) * div;
@@ -731,7 +730,7 @@ void() rotate_train_find =
    // Save the current entity
    self.goalentity = targ;
 
-   if ( targ.spawnflags & ANGLES )
+   if ( targ.spawnflags & PATH_ROTATE_ANGLES )
       {
       self.angles = targ.angles;
       self.finalangle = SUB_NormalizeAngles( targ.angles );
@@ -934,7 +933,7 @@ void() func_movewall =
 
    self.angles = '0 0 0';
    self.movetype = MOVETYPE_PUSH;
-   if ( self.spawnflags & NONBLOCKING )
+   if ( self.spawnflags & MOVEWALL_NONBLOCKING )
       {
       self.solid = SOLID_NOT;
       }
@@ -943,12 +942,12 @@ void() func_movewall =
       self.solid = SOLID_BSP;
       self.blocked = movewall_blocked;
       }
-   if ( self.spawnflags & TOUCH )
+   if ( self.spawnflags & MOVEWALL_TOUCH )
       {
       self.touch = movewall_touch;
       }
    setmodel (self,self.model);
-   if ( !( self.spawnflags & VISIBLE ) )
+   if ( !( self.spawnflags & MOVEWALL_VISIBLE ) )
       {
       self.model = string_null;
       }
@@ -997,7 +996,7 @@ void() rotate_door_think2 =
       }
    else
       {
-      if ( self.spawnflags & STAYOPEN )
+      if ( self.spawnflags & ROTATE_DOOR_STAYOPEN )
          {
          rotate_door_group_reversedirection();
          return;

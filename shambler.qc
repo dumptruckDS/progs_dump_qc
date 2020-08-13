@@ -190,6 +190,15 @@ void() sham_melee =
 
 //============================================================================
 
+
+void() sham_arc_think =
+{
+	if (self.owner != world && self.owner.trigger_field == self)
+		self.owner.trigger_field = world;
+	remove (self);
+};
+
+
 void() CastLightning =
 {
 	local	vector	org, dir;
@@ -227,27 +236,29 @@ local entity o;
 
 self.effects = self.effects | EF_MUZZLEFLASH;
 ai_face();
-self.owner = spawn();
-o = self.owner;
+self.trigger_field = spawn();
+o = self.trigger_field;
 setmodel (o, "progs/s_light.mdl");
 setorigin (o, self.origin);
+o.owner = self;
 o.angles = self.angles;
 o.nextthink = time + 0.7;
-o.think = SUB_Remove;
+o.think = sham_arc_think;
 };
 void() sham_magic4     =[      $magic4,       sham_magic5    ]
 {
 self.effects = self.effects | EF_MUZZLEFLASH;
-self.owner.frame = 1;
+self.trigger_field.frame = 1;
 };
 void() sham_magic5     =[      $magic5,       sham_magic6    ]
 {
 self.effects = self.effects | EF_MUZZLEFLASH;
-self.owner.frame = 2;
+self.trigger_field.frame = 2;
 };
 void() sham_magic6     =[      $magic6,       sham_magic9    ]
 {
-remove (self.owner);
+remove (self.trigger_field);
+self.trigger_field = world;
 CastLightning();
 sound (self, CHAN_WEAPON, "shambler/sboom.wav", 1, ATTN_NORM);
 };
@@ -284,6 +295,10 @@ void(entity attacker, float damage)	sham_pain =
 	if (self.pain_finished > time)
 		return;
 	self.pain_finished = time + 2;
+	
+	if (self.trigger_field != world && self.trigger_field.owner == self)
+		self.trigger_field.frame = 2;
+	self.trigger_field = world;
 
 	sham_pain1 ();
 };
@@ -366,7 +381,10 @@ void() monster_shambler =
 	self.th_die = sham_die;
 	self.th_melee = sham_melee;
 	self.th_missile = sham_magic1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = sham_pain;
+	else
+	self.th_pain = SUB_NullPain;
 
 	walkmonster_start();
 };

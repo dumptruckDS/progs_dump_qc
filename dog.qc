@@ -390,7 +390,10 @@ void() monster_dog =
 	self.th_stand = dog_stand1;
 	self.th_walk = dog_walk1;
 	self.th_run = dog_run1;
-	self.th_pain = dog_pain;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+		self.th_pain = dog_pain;
+	else
+		self.th_pain = SUB_NullPain;
 	self.th_die = dog_die;
 	self.th_melee = dog_atta1;
 	self.th_missile = dog_leap1;

@@ -602,7 +602,10 @@ void() GrenadeTouch =
 		GrenadeExplode ();
 		return;
 	}
-	sound (self, CHAN_WEAPON, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	if (self.count < time) {
+		sound (self, CHAN_WEAPON, "weapons/bounce.wav", 1, ATTN_NORM);	// bounce sound
+	}
+	self.count = time + .02;
 	if (self.velocity == '0 0 0')
 		self.avelocity = '0 0 0';
 };
@@ -1110,8 +1113,8 @@ void() CheatCommand =
 		IT_NAILGUN |
 		IT_SUPER_NAILGUN |
 		IT_GRENADE_LAUNCHER |
-		IT_ROCKET_LAUNCHER |
-		IT_KEY1 | IT_KEY2;
+		IT_ROCKET_LAUNCHER;
+	GiveAllKeys (self);  // support for item_key_custom -- iw
 
 	self.ammo_cells = 200;
 	self.items = self.items | IT_LIGHTNING;

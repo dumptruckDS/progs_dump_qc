@@ -408,7 +408,10 @@ void() monster_wizard =
 	self.th_walk = wiz_walk1;
 	self.th_run = wiz_run1;
 	self.th_missile = Wiz_Missile;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = Wiz_Pain;
+	else
+	self.th_pain = SUB_NullPain;
 	self.th_die = wiz_die;
 
 	flymonster_start ();
