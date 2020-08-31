@@ -867,3 +867,26 @@ float HEAL_START_ON	= 1;
 float HEAL_PLAYER_ONLY	= 2;
 float HEAL_MONSTER_ONLY	= 4;
 
+// Custom Monster Sounds START -- dumptruck_ds
+
+.string snd_death;
+.string snd_pain;
+.string snd_sight;
+.string snd_attack;
+.string snd_hit;
+.string snd_idle;
+.string snd_land;
+.string snd_move;
+.string snd_misc;
+
+// Custom Monster Sounds END -- dumptruck_ds
+
+// Custom Model Start -- dumptruck_ds
+
+.string mdl_head;
+.string mdl_body;
+.string mdl_proj;
+.float skin_head;
+.float skin_proj;
+
+// Custom Model Start -- dumptruck_ds
