@@ -102,7 +102,26 @@ void() OgreFireGrenade =
 	missile.owner = self;
 	missile.movetype = MOVETYPE_BOUNCE;
 	missile.solid = SOLID_BBOX;
+	missile.skin = self.skin_proj; //dumptruck_ds
 
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/grenade.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+// dumptruck_ds - end
 // set missile speed
 
 	makevectors (self.angles);
@@ -121,7 +140,7 @@ void() OgreFireGrenade =
 	missile.nextthink = time + 2.5;
 	missile.think = OgreGrenadeExplode;
 
-	setmodel (missile, "progs/grenade.mdl");
+	// setmodel (missile, "progs/grenade.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin);
 };
@@ -390,7 +409,14 @@ void() ogre_die =
 	if (self.health < -80)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_ogre.mdl", self.health);
+		if (self.mdl_head != "") //dumptruck_ds custom_mdls
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_ogre.mdl", self.health);
+		}
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
@@ -427,10 +453,11 @@ void() monster_ogre =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/ogre.mdl");
-	precache_model ("progs/h_ogre.mdl");
-	precache_model ("progs/grenade.mdl");
-
+	// custom_mdls dumptruck_ds
+	precache_body_model ("progs/ogre.mdl");
+	precache_head_model ("progs/h_ogre.mdl");
+	precache_proj_model ("progs/grenade.mdl");
+	// custom_mdls dumptruck_ds
 	precache_sound ("ogre/ogdrag.wav");
 	precache_sound ("ogre/ogdth.wav");
 	precache_sound ("ogre/ogidle.wav");
@@ -442,7 +469,9 @@ void() monster_ogre =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/ogre.mdl");
+	// custom_mdls dumptruck_ds
+	body_model ("progs/ogre.mdl");
+	// setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 

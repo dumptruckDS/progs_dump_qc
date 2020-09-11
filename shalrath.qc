@@ -103,7 +103,14 @@ void() shalrath_die =
 	if (self.health < -90)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_shal.mdl", self.health);
+		if (self.mdl_head != "") //dumptruck_ds custom_mdls
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_shal.mdl", self.health);
+		}
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
@@ -143,7 +150,28 @@ void() ShalMissile =
 
 	missile.solid = SOLID_BBOX;
 	missile.movetype = MOVETYPE_FLYMISSILE;
-	setmodel (missile, "progs/v_spike.mdl");
+
+	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (missile, self.mdl_proj);
+			dprint("CUSTOM MODEL LOADED\n"); //FIXME
+		}
+		else
+		{
+			setmodel (missile, "progs/v_spike.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n"); //FIXME
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+
+	// setmodel (missile, "progs/v_spike.mdl");
 
 	setsize (missile, '0 0 0', '0 0 0');
 
@@ -211,10 +239,11 @@ void() monster_shalrath =
 		remove(self);
 		return;
 	}
-	precache_model2 ("progs/shalrath.mdl");
-	precache_model2 ("progs/h_shal.mdl");
-	precache_model2 ("progs/v_spike.mdl");
-
+	//dumptruck_ds custom_mdls
+	precache_body_model2 ("progs/shalrath.mdl");
+	precache_head_model2 ("progs/h_shal.mdl");
+	precache_proj_model2 ("progs/v_spike.mdl");
+// dumptruck_ds
 	precache_sound2 ("shalrath/attack.wav");
 	precache_sound2 ("shalrath/attack2.wav");
 	precache_sound2 ("shalrath/death.wav");
@@ -225,7 +254,8 @@ void() monster_shalrath =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/shalrath.mdl");
+	body_model ("progs/shalrath.mdl");
+	// setmodel (self, "progs/shalrath.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds

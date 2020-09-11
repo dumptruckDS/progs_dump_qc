@@ -112,9 +112,35 @@ void(vector p) shub_missile =
 
 	vec = normalize (d - org);
 
-	particle (org, '0 0 0', 239, 64);
-	launch_spike (org, vec);
-	setmodel (newmis, "progs/lavaball.mdl");
+	local entity puff; // added this to motivate fireballs dumptruck_ds
+
+	puff = spawn ();
+
+	setmodel (puff, "progs/s_explod.spr");
+	puff.origin = (org);
+	puff.think = s_explode1;
+	puff.nextthink = time;
+
+	launch_spike (org, vec); // lavaball in your face!
+	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (newmis, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (newmis, "progs/lavaball.mdl");
+	}
+
+	if (!newmis.skin_proj) // dumptruck_ds
+	{
+			newmis.skin = self.skin_proj;
+		}
+		else
+		{
+			newmis.skin = 0;
+	}
+
+	// setmodel (newmis, "progs/lavaball.mdl");
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
@@ -267,7 +293,8 @@ void() monster_oldone2 =
 		return;
 	}
 
-	precache_model2 ("progs/oldone.mdl");
+	precache_body_model2 ("progs/oldone.mdl");
+	// precache_model2 ("progs/oldone.mdl");
 
 	precache_sound2 ("boss2/death.wav");
 	precache_sound2 ("boss2/idle.wav");
@@ -280,7 +307,8 @@ void() monster_oldone2 =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/oldone.mdl");
+	body_model ("progs/oldone.mdl"); //custom_mdls dumptruck_ds
+	// setmodel (self, "progs/oldone.mdl");
 	setsize (self, '-160 -128 -24', '160 128 256');
 
 	if (!self.health)

@@ -224,7 +224,14 @@ void() army_die =
 	if (self.health < -35)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_guard.mdl", self.health);
+		if (self.mdl_head != "") //dumptruck_ds custom_mdls
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_guard.mdl", self.health);
+		}
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
@@ -252,8 +259,10 @@ void() monster_army =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/soldier.mdl");
-	precache_model ("progs/h_guard.mdl");
+	//dumptruck_ds custom_mdls
+	precache_body_model ("progs/soldier.mdl");
+	precache_head_model ("progs/h_guard.mdl");
+	//dumptruck_ds custom_mdls
 	precache_model ("progs/gib1.mdl");
 	precache_model ("progs/gib2.mdl");
 	precache_model ("progs/gib3.mdl");
@@ -271,7 +280,8 @@ void() monster_army =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/soldier.mdl");
+	//dumptruck_ds custom_mdls
+	body_model ("progs/soldier.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
 
