@@ -295,7 +295,7 @@ void(entity attacker, float damage)	sham_pain =
 	if (self.pain_finished > time)
 		return;
 	self.pain_finished = time + 2;
-	
+
 	if (self.trigger_field != world && self.trigger_field.owner == self)
 		self.trigger_field.frame = 2;
 	self.trigger_field = world;
@@ -324,7 +324,14 @@ void() sham_die =
 	if (self.health < -60)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowHead ("progs/h_shams.mdl", self.health);
+		if (self.mdl_head != "") //dumptruck_ds custom_mdls
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_shams.mdl", self.health);
+		}
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
@@ -351,9 +358,11 @@ void() monster_shambler =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/shambler.mdl");
+	precache_body_model ("progs/shambler.mdl"); // custom_mdls dumptruck_ds
+	precache_head_model ("progs/h_shams.mdl"); // custom_mdls dumptruck_ds
+	// precache_model ("progs/shambler.mdl");
 	precache_model ("progs/s_light.mdl");
-	precache_model ("progs/h_shams.mdl");
+	// precache_model ("progs/h_shams.mdl");
 	precache_model ("progs/bolt.mdl");
 
 	precache_sound ("shambler/sattck1.wav");
@@ -368,7 +377,8 @@ void() monster_shambler =
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
-	setmodel (self, "progs/shambler.mdl");
+	body_model ("progs/shambler.mdl");
+	// setmodel (self, "progs/shambler.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 

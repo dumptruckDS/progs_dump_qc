@@ -230,7 +230,23 @@ void() GibBoss2 =
 	head.solid = SOLID_NOT;
 	head.movetype = MOVETYPE_BOUNCE;
 	head.takedamage = DAMAGE_NO;
-	setmodel (head, "progs/h_boss.mdl");
+	if (self.mdl_head != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (head, self.mdl_head);
+		}
+		else
+		{
+			setmodel (head, "progs/h_boss.mdl");
+	}
+
+	if (!self.skin_head) // dumptruck_ds
+	{
+			head.skin = self.skin_proj;
+		}
+		else
+		{
+			head.skin = 0;
+	}
 	setsize (head, '-67 -60 -6', '62 52 88');
 	// setsize (head, '-16 -16 0', '16 16 56');
 	head.touch = SUB_Null;
@@ -290,7 +306,6 @@ void(entity attacker, float damage) boss2_pain_go =
 	self.pain_finished = time + 4;
 };
 
-
 void() boss2_death10 = [$death9, boss2_death10]
 {
 // unlike the code for the original monster_boss, this function doesn't
@@ -348,7 +363,8 @@ void() boss2_awake =
 	self.movetype = MOVETYPE_STEP;
 	self.takedamage = DAMAGE_AIM;
 
-	setmodel (self, "progs/boss.mdl");
+	body_model ("progs/boss.mdl");
+	// setmodel (self, "progs/boss.mdl");
 	setsize (self, '-128 -128 -24', '128 128 256');
 
 	if (!self.health)
@@ -397,10 +413,11 @@ void() monster_boss2 =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/boss.mdl");
-	precache_model ("progs/h_boss.mdl");
+	precache_body_model ("progs/boss.mdl");
+	precache_head_model ("progs/h_boss.mdl");
 	precache_model ("progs/lavaball.mdl");
-
+	// precache_model ("progs/boss.mdl");
+	precache_model ("progs/h_boss.mdl");
 	precache_sound ("weapons/rocket1i.wav");
 	precache_sound ("boss1/out1.wav");
 	precache_sound ("boss1/sight1.wav");

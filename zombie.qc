@@ -133,7 +133,8 @@ if (random() < 0.2)
 void() zombie_run1              =[      $run1,          zombie_run2     ] {
 	if (self.spawnflags & SPAWN_SLEEPING)
 		{  // sloppy hack, but it fixes the illusionary zombie bug
-		setmodel (self, "progs/zombie.mdl");
+		body_model ("progs/zombie.mdl"); //custom_mdls dumptruck_ds
+		// setmodel (self, "progs/zombie.mdl");
 		setsize (self, '-16 -16 -24', '16 16 40');
 		}
 	ai_run(1);
@@ -222,8 +223,25 @@ void(vector st) ZombieFireGrenade =
 // set missile duration
 	missile.nextthink = time + 2.5;
 	missile.think = SUB_Remove;
+	// setmodel (missile, "progs/zom_gib.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/zom_gib.mdl");
+	}
 
-	setmodel (missile, "progs/zom_gib.mdl");
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, org);
 };
@@ -425,7 +443,14 @@ void() zombie_paine30   =[      $paine30,       zombie_run1             ] {};
 void() zombie_die =
 {
 	sound (self, CHAN_VOICE, "zombie/z_gib.wav", 1, ATTN_NORM);
-	ThrowHead ("progs/h_zombie.mdl", self.health/*, self.dest*/); //commented out dest -- dumptruck_ds
+	if (self.mdl_head != "") //dumptruck_ds custom_mdls
+	{
+		ThrowHead (self.mdl_head, self.health);
+	}
+	else
+	{
+		ThrowHead ("progs/h_zombie.mdl", self.health/*, self.dest*/); //commented out dest -- dumptruck_ds
+	}
 	ThrowGib ("progs/gib1.mdl", self.health/*, self.dest*/);
 	ThrowGib ("progs/gib2.mdl", self.health/*, self.dest*/);
 	ThrowGib ("progs/gib3.mdl", self.health/*, self.dest*/);
@@ -590,9 +615,12 @@ void() monster_zombie =
 		return;
 	}
 
-	precache_model ("progs/zombie.mdl");
-	precache_model ("progs/h_zombie.mdl");
-	precache_model ("progs/zom_gib.mdl");
+	precache_body_model ("progs/zombie.mdl"); //custom_mdls dumptruck_ds
+	precache_head_model ("progs/h_zombie.mdl");
+	precache_proj_model ("progs/zom_gib.mdl");
+	// precache_model ("progs/zombie.mdl");
+	// precache_model ("progs/h_zombie.mdl");
+	// precache_model ("progs/zom_gib.mdl");
 
 	precache_sound ("zombie/z_idle.wav");
 	precache_sound ("zombie/z_idle1.wav");
@@ -623,7 +651,8 @@ void() monster_zombie =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/zombie.mdl");
+	body_model ("progs/zombie.mdl"); //custom_mdls dumptruck_ds
+	// setmodel (self, "progs/zombie.mdl");
 
 	setsize (self, '-16 -16 -24', '16 16 40');
 	self.health = 61;
