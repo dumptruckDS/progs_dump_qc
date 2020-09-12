@@ -74,8 +74,8 @@ void() Laser_Touch =
 void(vector org, vector vec) LaunchLaser =
 {
 
-	if (self.classname == "monster_enforcer")
-		sound_attack (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM); //dumptruck_ds
+	if (self.classname == "monster_enforcer" || "monster_army")
+		sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
 
 	vec = normalize(vec);
 
@@ -117,10 +117,201 @@ void(vector org, vector vec) LaunchLaser =
 	newmis.touch = Laser_Touch;
 };
 
+void(vector org, vector vec) EnfLaunchSpike =
+{
+
+	sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+
+	vec = normalize(vec);
+
+	newmis = spawn();
+	newmis.owner = self;
+	newmis.movetype = MOVETYPE_FLY;
+	newmis.solid = SOLID_BBOX;
+	// newmis.effects = EF_DIMLIGHT;
+
+	setmodel (newmis, "progs/s_spike.mdl");
+	setsize (newmis, '0 0 0', '0 0 0');
+
+	setorigin (newmis, org);
+
+	newmis.velocity = vec * 600;
+	newmis.angles = vectoangles(newmis.velocity);
+
+	newmis.nextthink = time + 5;
+	newmis.think = SUB_Remove;
+	newmis.touch = superspike_touch;
+};
+
+//dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
+
+void() EnfMisTouch =
+{
+	local float	damg;
+
+	if (other == self.owner)
+		return;		// don't explode on owner
+
+	if (pointcontents(self.origin) == CONTENT_SKY)
+	{
+		remove(self);
+		return;
+	}
+
+	damg = 30 + random()*2; //dumptruck_ds
+
+	if (other.health)
+	{
+		if (other.classname == "monster_shambler")
+			damg = damg * 0.5;	// mostly immune
+		T_Damage (other, self, self.owner, damg );
+	}
+
+	// don't do radius damage to the other, because all the damage
+	// was done in the impact
+	T_RadiusDamage (self, self.owner, 40, other); //dumptruck_ds
+
+//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
+	self.origin = self.origin - 8*normalize(self.velocity);
+
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+
+	BecomeExplosion ();
+};
+
+/*
+================
+EnfRocket //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
+================
+*/
+void() EnfRocket =
+{
+	local	entity missile;
+
+	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
+
+	sound (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
+
+	self.punchangle_x = -2;
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_FLYMISSILE;
+	missile.solid = SOLID_BBOX;
+	missile.classname = "missile";
+
+// set missile speed  -- dumptruck_ds below
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+  missile.velocity = missile.velocity * 900;
+  missile.angles = vectoangles(missile.velocity);
+  missile.touch = EnfMisTouch;
+
+	// makevectors (self.v_angle);
+	// missile.velocity = aim(self, 1000);
+	// missile.velocity = missile.velocity * 1000;
+	// missile.angles = vectoangles(missile.velocity);
+
+	// missile.touch = T_MissileTouch;
+
+// set missile duration
+	missile.nextthink = time + 5;
+	missile.think = SUB_Remove;
+
+	setmodel (missile, "progs/missile.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
+	setorigin (missile, self.origin + v_forward * 30 + v_right * 8.5 + '0 0 12'); //last number was 16 - dumptruck_ds
+	// setorigin (missile, self.origin + v_forward*8 + '0 0 16');
+};
+//end dumptruck_ds grunt missle end
+/*
+================
+EnfFireGrenade
+================
+*/
+void() EnfFireGrenade =
+{
+	local	entity missile;
+
+	self.effects = self.effects | EF_MUZZLEFLASH;
+
+	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+
+// set missile speed
+
+	makevectors (self.angles);
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+	missile.velocity = missile.velocity * 600;
+	missile.velocity_z = 200;
+
+	missile.avelocity = '300 300 300';
+
+	missile.angles = vectoangles(missile.velocity);
+
+	missile.touch = OgreGrenadeTouch;
+
+// set missile duration
+	missile.nextthink = time + 2.5;
+	missile.think = OgreGrenadeExplode;
+
+	setmodel (missile, "progs/grenade.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16');
+	// setorigin (missile, self.origin);
+};
 
 
+// style stuff -- dumptruck_ds
 void() enforcer_fire =
 {
+
+if (self.style == 1)
+
+	{
+		self.effects = self.effects | EF_MUZZLEFLASH;
+		ai_face();
+		sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
+
+		EnfRocket();
+		return;
+	}
+
+else if (self.style == 2)
+
+	{
+		self.effects = self.effects | EF_MUZZLEFLASH;
+		ai_face();
+		EnfFireGrenade();
+		return;
+	}
+
+else if (self.style == 3)
+
+	{
+		local vector foo;
+
+		self.effects = self.effects | EF_MUZZLEFLASH;
+		makevectors (self.angles);
+
+		foo = self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16';
+
+		EnfLaunchSpike(foo, self.enemy.origin - self.origin);
+		return;
+	}
+
+else
+
 	local vector org;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
@@ -186,8 +377,19 @@ void()	enf_atk10	=[	$attack6,	enf_atk11	] {enforcer_fire();};
 void()	enf_atk11	=[	$attack7,	enf_atk12	] {ai_face();};
 void()	enf_atk12	=[	$attack8,	enf_atk13	] {ai_face();};
 void()	enf_atk13	=[	$attack9,	enf_atk14	] {ai_face();};
-void()	enf_atk14	=[	$attack10,	enf_run1	] {ai_face();
-SUB_CheckRefire (enf_atk1);
+void()	enf_atk14	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_atk1);
+};
+/* modified animation frames for style Enforcers */ // dumptruck_ds
+void()	enf_2atk1	=[	$attack1,	enf_2atk2	] {ai_face();};
+void()	enf_2atk2	=[	$attack2,	enf_2atk3	] {ai_face();};
+void()	enf_2atk3	=[	$attack3,	enf_2atk4	] {ai_face();};
+void()	enf_2atk4	=[	$attack4,	enf_2atk5	] {ai_face();};
+void()	enf_2atk5	=[	$attack5,	enf_2atk6	] {ai_face();};
+void()	enf_2atk6	=[	$attack6,	enf_2atk7	] {enforcer_fire();};
+void()	enf_2atk7	=[	$attack7,	enf_2atk8	] {ai_face();};
+void()	enf_2atk8	=[	$attack8,	enf_2atk9	] {ai_face();};
+void()	enf_2atk9	=[	$attack9,	enf_2atk10	] {ai_face();};
+void()	enf_2atk10	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_2atk1);
 };
 
 void()	enf_paina1	=[	$paina1,	enf_paina2	] {};
@@ -274,7 +476,26 @@ void(entity attacker, float damage)	enf_pain =
 void()	enf_die1	=[	$death1,	enf_die2	] {};
 void()	enf_die2	=[	$death2,	enf_die3	] {};
 void()	enf_die3	=[	$death3,	enf_die4	]
-{self.solid = SOLID_NOT;self.ammo_cells = 5;if(!self.keep_ammo)DropBackpack();};
+{
+	self.solid = SOLID_NOT;
+	if (self.style == 1) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_rockets = 2;
+		}
+	if (self.style == 2) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_rockets = 2;
+		}
+	if (self.style == 3) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_nails = 5;
+		}
+	else if (self.style == 0) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_cells = 5;
+		}
+	if(!self.keep_ammo)DropBackpack();
+};
 void()	enf_die4	=[	$death4,	enf_die5	] {ai_forward(14);};
 void()	enf_die5	=[	$death5,	enf_die6	] {ai_forward(2);};
 void()	enf_die6	=[	$death6,	enf_die7	] {};
@@ -292,7 +513,26 @@ void()	enf_fdie1	=[	$fdeath1,	enf_fdie2	] {
 };
 void()	enf_fdie2	=[	$fdeath2,	enf_fdie3	] {};
 void()	enf_fdie3	=[	$fdeath3,	enf_fdie4	]
-{self.solid = SOLID_NOT;self.ammo_cells = 5;if(!self.keep_ammo)DropBackpack();};
+{
+	self.solid = SOLID_NOT;
+	if (self.style == 1) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_rockets = 2;
+		}
+	if (self.style == 2) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_rockets = 2;
+		}
+	if (self.style == 3) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_nails = 5;
+		}
+	else if (self.style == 0) // style ammotype check -- dumptruck_ds
+		{
+			self.ammo_cells = 5;
+		}
+	if(!self.keep_ammo)DropBackpack();
+};
 void()	enf_fdie4	=[	$fdeath4,	enf_fdie5	] {};
 void()	enf_fdie5	=[	$fdeath5,	enf_fdie6	] {};
 void()	enf_fdie6	=[	$fdeath6,	enf_fdie7	] {};
@@ -348,6 +588,7 @@ void() monster_enforcer =
 	precache_body_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
 	precache_head_model2 ("progs/h_mega.mdl");
 	precache_proj_model2 ("progs/laser.mdl");
+	precache_proj_model2 ("progs/s_spike.mdl");
  //dumptruck_ds
 	precache_sound2_death ("enforcer/death1.wav");
 	precache_sound2_attack ("enforcer/enfire.wav");
@@ -379,8 +620,22 @@ void() monster_enforcer =
 	else
 		self.th_pain = SUB_NullPain;
 	self.th_die = enf_die;
-	self.th_missile = enf_atk1;
-
+	if (self.style == 1) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_2atk1;
+		}
+	if (self.style == 2) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_2atk1;
+		}
+	if (self.style == 3) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_atk1;
+		}
+	else if (self.style == 0) // new animation frame check -- dumptruck_ds
+		{
+			self.th_missile = enf_atk1;
+		}
 	walkmonster_start();
 };
 

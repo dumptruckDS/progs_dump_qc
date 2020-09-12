@@ -202,7 +202,7 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		if (self != attacker && attacker != self.enemy)
 		{
 			if ( (self.classname != attacker.classname)
-			|| (self.classname == "monster_army" ) )
+			|| (self.classname == "monster_army") && (self.style2 == attacker.style2) ) //soldiers of the same style2 will infight -- dumptruck_ds
 			{
 				if (self.enemy.classname == "player")
 					self.oldenemy = self.enemy;

@@ -42,6 +42,83 @@ $frame prowl_17 prowl_18 prowl_19 prowl_20 prowl_21 prowl_22 prowl_23 prowl_24
 SOLDIER CODE
 ==============================================================================
 */
+void() genforcer_fire =
+{
+	local vector org;
+
+	// self.effects = self.effects | EF_MUZZLEFLASH; //redundant -- dumptruck_ds
+	makevectors (self.angles);
+
+	org = self.origin + v_forward * 30 + v_right * 5 + '0 0 12';
+
+	LaunchLaser(org, self.enemy.origin - self.origin);
+};
+/*
+================
+GruntFireGrenade
+================
+*/
+void() GruntFireGrenade =
+{
+	local	entity missile;
+
+	// self.effects = self.effects | EF_MUZZLEFLASH; //redundant -- dumptruck_ds
+
+	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+
+// set missile speed
+
+	makevectors (self.angles);
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+	missile.velocity = missile.velocity * 600;
+	missile.velocity_z = 200;
+
+	missile.avelocity = '300 300 300';
+
+	missile.angles = vectoangles(missile.velocity);
+
+	missile.touch = OgreGrenadeTouch;
+
+// set missile duration
+	missile.nextthink = time + 2.5;
+	missile.think = OgreGrenadeExplode;
+
+	setmodel (missile, "progs/grenade.mdl");
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin + v_forward * 30 + v_right * 5 + '0 0 16'); //dumptruck_ds
+};
+
+/*
+================
+MonFireSpike // used for Grunts
+================
+*/
+
+void() MonFireSpike =
+{
+    local vector dir;
+    // local entity old;
+
+    sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+    self.attack_finished = time + 0.2;
+
+    dir = normalize (self.enemy.origin - self.origin);
+		makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
+
+    launch_spike (self.origin + v_forward * 30 + v_right * 5 + '0 0 12', dir);  //dumptruck_ds
+    // launch_spike (self.origin + '0 0 16', dir);
+
+    newmis.touch = superspike_touch;
+    setmodel (newmis, "progs/s_spike.mdl");
+
+    setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
+};
 
 void() army_fire;
 
@@ -171,31 +248,86 @@ void(entity attacker, float damage)	army_pain =
 	}
 };
 
-
 void() army_fire =
-{
-	local	vector	dir;
-	local	entity	en;
+{ //dumptruck_ds start rocket grunt stuff
 
-	ai_face();
+if (self.style == 1)
 
-	sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);
+	{
+		ai_face();
+		sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);
 
-// fire somewhat behind the player, so a dodging player is harder to hit
-	en = self.enemy;
+		W_GruntRocket();
+	}
 
-	dir = en.origin - en.velocity*0.2;
-	dir = normalize (dir - self.origin);
+else if (self.style == 2)
 
-	FireBullets (4, dir, '0.1 0.1 0');
+	{
+		ai_face();
+		GruntFireGrenade();
+	}
+
+else if (self.style == 3)
+
+	{
+		ai_face();
+		genforcer_fire();
+	}
+
+else if (self.style == 4)
+
+	{
+		ai_face();
+		MonFireSpike();
+	}
+
+else
+
+	{
+		local	vector	dir;
+		local	entity	en;
+
+		ai_face();
+
+		sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);
+
+		// fire somewhat behind the player, so a dodging player is harder to hit
+		en = self.enemy;
+
+		dir = en.origin - en.velocity*0.2;
+		dir = normalize (dir - self.origin);
+
+		FireBullets (4, dir, '0.1 0.1 0');
+	}
+
 };
-
-
 
 void()	army_die1	=[	$death1,	army_die2	] {};
 void()	army_die2	=[	$death2,	army_die3	] {};
 void()	army_die3	=[	$death3,	army_die4	]
-{self.solid = SOLID_NOT;self.ammo_shells = 5;if(!self.keep_ammo)DropBackpack();};
+{self.solid = SOLID_NOT;
+// style ammotype check -- dumptruck_ds
+	if (self.style == 1)
+	{
+		self.ammo_rockets = 2;
+	}
+	if (self.style == 2)
+	{
+		self.ammo_rockets = 2;
+	}
+	if (self.style == 3)
+	{
+		self.ammo_cells = 5;
+	}
+	if (self.style == 4)
+	{
+		self.ammo_nails = 5;
+	}
+	else if (self.style == 0)
+	{
+		self.ammo_shells = 5;
+	}
+if(!self.keep_ammo)DropBackpack();};
 void()	army_die4	=[	$death4,	army_die5	] {};
 void()	army_die5	=[	$death5,	army_die6	] {};
 void()	army_die6	=[	$death6,	army_die7	] {};
@@ -207,7 +339,29 @@ void()	army_die10	=[	$death10,	army_die10	] {};
 void()	army_cdie1	=[	$deathc1,	army_cdie2	] {};
 void()	army_cdie2	=[	$deathc2,	army_cdie3	] {ai_back(5);};
 void()	army_cdie3	=[	$deathc3,	army_cdie4	]
-{self.solid = SOLID_NOT;self.ammo_shells = 5;if(!self.keep_ammo)DropBackpack();ai_back(4);};
+{self.solid = SOLID_NOT;
+// style ammotype check -- dumptruck_ds
+	if (self.style == 1)
+	{
+		self.ammo_rockets = 2;
+	}
+	if (self.style == 2)
+	{
+		self.ammo_rockets = 2;
+	}
+	if (self.style == 3)
+	{
+		self.ammo_cells = 5;
+	}
+	if (self.style == 4)
+	{
+		self.ammo_nails = 5;
+	}
+	else if (self.style == 0)
+	{
+		self.ammo_shells = 5;
+	}
+if(!self.keep_ammo)DropBackpack();ai_back(4);}; //dumptruck_ds
 void()	army_cdie4	=[	$deathc4,	army_cdie5	] {ai_back(13);};
 void()	army_cdie5	=[	$deathc5,	army_cdie6	] {ai_back(3);};
 void()	army_cdie6	=[	$deathc6,	army_cdie7	] {ai_back(4);};
@@ -262,6 +416,7 @@ void() monster_army =
 	//dumptruck_ds custom_mdls
 	precache_body_model ("progs/soldier.mdl");
 	precache_head_model ("progs/h_guard.mdl");
+	precache_model2 ("progs/laser.mdl"); // used if style == 3
 	//dumptruck_ds custom_mdls
 	precache_model ("progs/gib1.mdl");
 	precache_model ("progs/gib2.mdl");
@@ -273,6 +428,8 @@ void() monster_army =
 	precache_sound ("soldier/pain2.wav");
 	precache_sound ("soldier/sattck1.wav");
 	precache_sound ("soldier/sight1.wav");
+	precache_sound2 ("enforcer/enfire.wav"); // used if style == 3
+	precache_sound2 ("enforcer/enfstop.wav"); // used if style == 3
 
 	precache_sound ("player/udeath.wav");		// gib death
 
