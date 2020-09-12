@@ -1,15 +1,21 @@
-1.1.3 July 2020
+1.1.3 September 2020
 
 * Added trigger_changemusic and trigger_cdtrack
 * Added trigger_look from NullPointPaladin
 * Added new features to trigger_teleport from Zerstörer
-* including "stealth" teleporting (no sound or particles) and random destinations
+  including "stealth" teleporting (no sound or particles) and random destinations
 * Added Monster only spawnflag to trigger_teleport
 * Added info_teleport_changedest from Qmaster
-* this allows mappers to dynamically change the destination of a trigger_teleport
+  this allows mappers to dynamically change the destination of a trigger_teleport
 * Added trigger_heal from Custents mod
 * Replaced default id1-style noclip behavior with Copper's version
-* players will not interact with any touchable objects while in noclip
+  players will not interact with any touchable objects while in noclip
+* Added custom monster skins keys for head, bodies and projectiles
+  (excluding Shambler and Scrags)
+* Added alternate attacks to Grunt, Enforcer and Ogres.
+* Added improved z-awareness to Ogre Marksman
+* Added item_backpack with options for custom messages and ammo counts
+* Added cutscene system from Drake devkit with some additions
 
 1.1.2.1 February 2020
 
