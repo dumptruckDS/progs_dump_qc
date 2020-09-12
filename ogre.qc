@@ -581,7 +581,7 @@ void() W_FireMultiGrenade =
 	missile.think = MultiGrenadeExplode;
 
 	// setmodel (missile, "progs/grenade.mdl");
-	//setmodel (missile, "progs/mervup.mdl");
+	setmodel (missile, "progs/mervup.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin);
 };
@@ -962,10 +962,10 @@ void() monster_ogre =
 	precache_body_model ("progs/ogre.mdl");
 	precache_head_model ("progs/h_ogre.mdl");
 	precache_proj_model ("progs/grenade.mdl");
-	precache_proj_model ("progs/mervup.mdl"); //for style 3 Orge dumptruck_ds
-	precache_proj_model ("progs/lspike.mdl"); //for style 2 Ogre dumptruck_ds
 
 	// custom_mdls dumptruck_ds
+	precache_model ("progs/mervup.mdl"); //for style 3 Orge dumptruck_ds
+	precache_model ("progs/lspike.mdl"); //for style 2 Ogre dumptruck_ds
 	precache_sound ("ogre/ogdrag.wav");
 	precache_sound ("ogre/ogdth.wav");
 	precache_sound ("ogre/ogidle.wav");
