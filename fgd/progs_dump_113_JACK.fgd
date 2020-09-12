@@ -2050,8 +2050,152 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 		3 : "Large switch"
 		4 : "Custom sound, requires a path set in noise1 key"
 	]
-	noise1(float) : "Path to custom sound. Use with sounds key set to 4"
+	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
+
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////// CUTSCENE ENTITIES ////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
+@SolidClass color(27 45 240) base(Appearflags, OneTarget, OneTargetname) = trigger_camera :
+"A player touching this will be transported to the corresponding " +
+"info_movie_camera entity.  You must set the target field, and put an " +
+"info_movie_camera with a targetname field that matches.  At least one script is required, however it can have a blank message. The script " +
+"key gives a starting script number, and the script_delay key is the " +
+"amount of time(seconds) to stay on the first script page.
+
+If the trigger_camera has a targetname, it will only enter camera mode after it has been fired."
+[
+focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : 0 : "This is the point that the info_movie_camera will face."
+script(integer) : "Starting script number (REQUIRED)" : 0 : "Should match first script_num key in targeted info_script"
+script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of time(seconds) to stay on the first script page. NOTE: This is overidden by the info_script script_delay but is still required. Set this to 1."
+]
+
+@PointClass size(-8 -8 -8, 8 8 8) color(27 45 240) base(Appearflags, OneTarget, OneTargetname) = trigger_camera_point :
+"Point entity version of trigger_camera, when targeted will behave the same as the brush-based version. " +
+"info_movie_camera entity.  You must set the target field, and put an " +
+"info_movie_camera with a targetname field that matches.  At least one script is required, however it can have a blank message. The script " +
+"key gives a starting script number, and the script_delay key is the " +
+"amount of time(seconds) to stay on the first script page.
+
+A trigger_camera_point requires a targetname unlike the brush-based version."
+[
+focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : 0 : "This is the point that the info_movie_camera will face."
+script(integer) : "Starting script number (REQUIRED)" : 0 : "Should match first script_num key in targeted info_script"
+script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of time(seconds) to stay on the first script page. NOTE: This is overidden by the info_script script_delay but is still required."
+]
+@PointClass size(-8 -8 -8, 8 8 32) color(21 59 194) base(OneTargetname) = info_movie_camera :
+"This is the destination marker for a camera.  It should have a targetname " +
+"field with the same value as a camera-trigger's target field. The focal_point is the name of info_focal_point to focus on. Set delay to 1 to "+
+"ignore the focal_point when moving the camera. Setting the speed key on an info_movie_camera controls the rate of travel TO THAT CAMERA from another camera position. "+
+"The target key names the next info_movie_camera in a sequence."
+[
+delay(integer) : "Don't track focal_point when animated" : 0 : "When camera moves, don't track the focal_point, keep existing view angle."
+focal_point(string) : "info_focal_point to face (REQUIRED)" : 0 : "Name of info_focal_point to face"
+speed(integer) : "Speed of travel to the info_movie_camera if in a sequence" : 0 :"Rate of travel to an info_movie_camera if part of a sequence"
+target(string) : "Next info_movie_camera if part of a sequence"
+wait(integer) : "Wait at this point (seconds) if animated" : 0 : "Wait in seconds before moving to next info_movie_camera if part of a sequence"
+]
+@PointClass size(-8 -8 -8, 8 8 16) color(27 45 247) base(Appearflags, OneTargetname) = info_focal_point :
+"This is the point that the camera will face.  It should have a targetname "+
+"field with the same value as a camera-trigger's focal_point field."
+[]
+@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags) = info_script :
+"This is the destination marker for a script." +
+"It should have a script_num field that signifies the script number, and "+
+"a next_script to signal the next script (0 if this is the last page of "+
+"the script), a script_delay to signify how many seconds to display this "+
+"page, and of course a message field with the text to display. "
+[
+message(string) : "Text of script"
+script_num(integer) : "Number of script (REQUIRED)" : 0 : "Number of script matching the script key in trigger_camera"
+script_delay(integer) : "Seconds on this page (REQUIRED)" : 0 : "How many seconds on this page "
+next_script(integer) : "Next script in sequence (REQUIRED)" : 0 : "The next script (0 if this is the last page)"
+target(target_destination) : "Target"
+target2(target_destination) : "Target2"
+target3(target_destination) : "Target3"
+target4(target_destination) : "Target4"
+]
+@PointClass size(-8 -8 -8, 8 8 8) color(115 100 240) base(Appearflags, OneTargetname) = info_script_sound :
+"A sound player targeted by info_script. You only need this if you want a sound to play when text is "+
+"printed on the screen. You can use one for multiple info scripts. You can also trigger custom dialogue tracks with this entity. "
+[
+noise1(string) : "Path to custom sound file. Requires sounds key set to 4"
+sounds(choices) : "Sound style" : 0 =
+	[
+		// 0 : "None (Default)" not needed as scripts are silent by default
+		1 : "Secret sound"
+		2 : "Beep beep"
+		3 : "Large switch"
+		4 : "Custom sound set in noise1 key"
+	]
+]
+=======
+//item-backpack
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
+:"Placeable backpack
+
+By default, gives roughly half the ammo from the 4 standard pickups:
+
+10 Shells
+12 Nails
+2 Rockets
+3 Cells
+
+Or you can use the spawnflags to mix and match types.
+Override the spawnflags defaults by adding custom amounts to:
+
+ammo_shells
+ammo_nails
+ammo_rockets
+ammo_cells
+
+Can trigger spawn and suspend in air, but not respawn. You can set a skin
+index if you are using a custom model with skins.
+
+The default pickup message is `You got a backpack.` But you can
+set a custom message with the netname key. 'You got' will be the prefix
+and the mapper chooses the rest of the message.
+
+e.g. For 'You got a bunch of rockets!' the netname value would be
+'a bunch of rockets!'"
+[
+skin(integer) : "Skin index" : 0
+ammo_shells(integer) : "Custom amount of shells" : 0
+ammo_nails(integer) : "Custom amount of nails" : 0
+ammo_rockets(integer) : "Custom amount of rockets" : 0
+ammo_cells(integer) : "Custom amount of cells" : 0
+spawnflags(flags) =
+	[
+		1 : "Shells" : 0
+		2 : "Nails"	: 0
+		4 : "Rockets"	: 0
+		8 : "Cells" : 0
+		// 16 : "Full Ammo" : 0
+		32 : "Spawn silent" : 0
+		64 : "Trigger spawned" : 0
+		128 : "Suspended in air" : 0
+	]
+]
+
+@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal
+Any object touching this will be healed
+heal_amount -- the amount to heal each time (default 5)
+wait -- the time between each healing (default 1)
+health_max -- the upper limit for the healing (default 100, max 250)
+noise -- path to custom sound file"
+[
+	heal_amount(integer) : "Healing per second" : 5
+	health_max(integer) : "Maximum heath given" : 0 : "The upper limit for healing (default 100, max 250)"
+	noise(string) : "Path to custom healing sound."
+	spawnflags(Flags) =
+	[
+		1 : "Start on (if targeted)" : 0 : "Start on if using targetname. Only needed if triggered by something other than touching."
+		2 : "Players only" : 0 : "Will not heal monsters."
+		4 : "Monsters only" : 0 : "Will not heal players."
+	]
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////

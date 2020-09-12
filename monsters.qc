@@ -142,7 +142,9 @@ void() monster_use =
 		return;
 	if (activator.flags & FL_NOTARGET)
 		return;
-	if (activator.classname != "player")
+	if (activator.movetype == MOVETYPE_NOCLIP) // Copper -- dumptruck_ds
+		return FALSE;
+		if (activator.classname != "player")
 		return;
 
 

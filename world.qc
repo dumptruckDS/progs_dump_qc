@@ -278,6 +278,8 @@ void() worldspawn =
 	else
 		cvar_set ("sv_gravity", "800");
 
+	cutscene = 0;   // No cutscene is active during worldspawn. Drake -- dumptruck_ds
+
 	world_sounds = &world.sounds;  //Spike via dumptruck_ds || not read-only yet...
 
 // the area based ambient sounds MUST be the first precache_sounds
@@ -356,6 +358,7 @@ void() worldspawn =
 	precache_sound ("misc/water2.wav");			// swimming
 
 	precache_model ("progs/player.mdl");
+	precache_model ("progs/null_256.spr");  // Invisible -- Drake -- dumptruck_ds
 	precache_model ("progs/eyes.mdl");
 	precache_model ("progs/h_player.mdl");
 	precache_model ("progs/gib1.mdl");

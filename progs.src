@@ -13,6 +13,7 @@ items.qc
 weapons.qc
 world.qc
 client.qc
+cutscene.qc //  Drake version -- dumptruck_ds
 player.qc
 monsters.qc //modified by dumptruck_ds from Preach's spawning tutorial | fish count fixed
 keylock.qc //common code for entities which can be unlocked with keys

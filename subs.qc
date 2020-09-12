@@ -44,6 +44,20 @@ void() InitTrigger =
 	self.model = "";
 };
 
+// Drake -- dumptruck_ds
+// PM:  The point trigger version of InitTrigger.
+void() InitPointTrigger =
+{
+    local   vector  v1, v2;
+
+    v1 = self.origin;
+    v2 = v1 + self.mangle;
+    self.model = "";
+    setorigin (self, '0 0 0');
+    InitTrigger ();     // Calls 'setmodel', so do first.
+    setsize (self, v1, v2);     // Calling 'setmodel' resets entity size.
+};
+
 /*
 =============
 SUB_CalcMove
@@ -549,3 +563,35 @@ void() SUB_DislodgeRestingEntities =
 		e = nextent (e);
 	}
 };
+//------------------------------------------------------------------------//
+//  Drake -- This makes an entity do a think function right now.
+//------------------------------------------------------------------------//
+void(entity ent, void() thinkst) SUB_Think =
+{
+    local   entity  swap;
+
+    swap = self;
+    self = ent;
+    thinkst ();
+    self = swap;
+};
+
+/// from Copper -- dumptruck_ds (orginally found in triggers.qc)
+/*
+================================
+CheckValidTouch
+health and playerhood checks were duplicated everywhere
+added noclip check because Quake's default still-touch-everything noclip is awful
+================================
+*/
+float() CheckValidTouch =
+{
+	if (other.classname != "player")
+		return FALSE;
+	if (other.health <= 0)
+		return FALSE;
+	if (other.movetype == MOVETYPE_NOCLIP)
+		return FALSE;
+	return TRUE;
+}
+float(float a, float b) not = { return a - (a & b); } // fix not issue in client.qc - Copper -- dumptruck_ds

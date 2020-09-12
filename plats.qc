@@ -72,11 +72,8 @@ void() plat_go_up =
 
 void() plat_center_touch =
 {
-	if (other.classname != "player")
-		return;
-
-	if (other.health <= 0)
-		return;
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
 
 	self = self.enemy;
 	if (self.state == STATE_BOTTOM)
@@ -87,12 +84,9 @@ void() plat_center_touch =
 
 void() plat_outside_touch =
 {
-	if (other.classname != "player")
-		return;
-
-	if (other.health <= 0)
-		return;
-
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+	
 //dprint ("plat_outside_touch\n");
 	self = self.enemy;
 	if (self.state == STATE_TOP)
@@ -418,7 +412,7 @@ void() teleporttrain_next =
 {
 	local vector dir;
 	setorigin(self, self.enemy.origin + '16 16 16');
-	
+
 	if (!self.target)
 	{
 		self.enemy = world;
@@ -445,18 +439,18 @@ void() teleporttrain_wait =
 		wait_time = self.enemy.wait;
 	else
 		wait_time = .1;
-	
+
 	self.velocity = '0 0 0';
 	self.nextthink = time + wait_time;
 	self.think = teleporttrain_next;
-	
+
 }
 void() teleporttrain_calcmove =
 {
 	local float len;
 	local vector delta;
 	local float spd;
-	
+
 	delta = (self.enemy.origin + '16 16 16') - self.origin;
 	len = vlen(delta);
 	spd = vlen(self.velocity);
@@ -485,7 +479,7 @@ void() teleporttrain_find =
 		remove(self);
 		return;
 	}
-	
+
 	// not triggered, so start immediately
 	if (!self.targetname)
 	{
@@ -528,7 +522,7 @@ void() misc_teleporttrain =
 	//Causes the ball to spin around like it was originally intended to.
 	self.avelocity = '40 80 120';
 	//self.avelocity = '100 200 300';
-	
+
 	self.think = teleporttrain_find;
 	self.nextthink = time + 0.1;
 };

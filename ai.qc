@@ -295,7 +295,7 @@ local float	rsnd;
 	else if (self.classname == "monster_zombie")
 		sound (self, CHAN_VOICE, "zombie/z_idle.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_dog")
-		sound_sight (self, CHAN_VOICE, "dog/dsight.wav", 1, ATTN_NORM); //dumptruck_ds
+	sound (self, CHAN_VOICE, "dog/dsight.wav", 1, ATTN_NORM); //dumptruck_ds
 	else if (self.classname == "monster_hell_knight")
 		sound (self, CHAN_VOICE, "hknight/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_tarbaby")
@@ -304,13 +304,13 @@ local float	rsnd;
 	{
 		rsnd = rint(random() * 3);
 		if (rsnd == 1)
-			sound_sight (self, CHAN_VOICE, "enforcer/sight1.wav", 1, ATTN_NORM); //dumptruck_ds
+			sound (self, CHAN_VOICE, "enforcer/sight1.wav", 1, ATTN_NORM); //dumptruck_ds
 		else if (rsnd == 2)
-			sound_sight (self, CHAN_VOICE, "enforcer/sight2.wav", 1, ATTN_NORM);
+			sound (self, CHAN_VOICE, "enforcer/sight2.wav", 1, ATTN_NORM);
 		else if (rsnd == 0)
-			sound_sight (self, CHAN_VOICE, "enforcer/sight3.wav", 1, ATTN_NORM);
+			sound (self, CHAN_VOICE, "enforcer/sight3.wav", 1, ATTN_NORM);
 		else
-			sound_sight (self, CHAN_VOICE, "enforcer/sight4.wav", 1, ATTN_NORM);
+			sound (self, CHAN_VOICE, "enforcer/sight4.wav", 1, ATTN_NORM);
 	}
 	else if (self.classname == "monster_army")
 		sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
@@ -380,6 +380,9 @@ float() FindTarget =
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
+
+	if (client.flags & FL_NOTARGET || client.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+		return FALSE;
 
 	if (client.health <= 0)
 		return FALSE;
@@ -597,6 +600,10 @@ float()	DogCheckAttack;
 
 float() CheckAnyAttack =
 {
+	if (cutscene)  // Drake devkit -- dumptruck_ds
+			if (self.enemy.classname == "camera")
+					return FALSE;   // Don't attack the camera (player)!
+
 	if (!enemy_vis)
 		return FALSE;
 	if (self.classname == "monster_army")

@@ -338,6 +338,8 @@ vector	VEC_HULL2_MAX = '32 32 64';
 vector	VEC_HULL2_SIZE = '64 64 88';
 
 // protocol bytes
+float SVC_SETVIEWPORT     =  5;   // -> Camera <- Hipnotic Drake devkit -- dumptruck_ds
+float SVC_SETVIEWANGLES   = 10;   // -> Camera <- Hipnotic Drake devkit -- dumptruck_ds
 float	SVC_TEMPENTITY		= 23;
 float	SVC_KILLEDMONSTER	= 27;
 float	SVC_FOUNDSECRET		= 28;
@@ -345,6 +347,8 @@ float	SVC_INTERMISSION	= 30;
 float	SVC_FINALE			= 31;
 float	SVC_CDTRACK			= 32;
 float	SVC_SELLSCREEN		= 33;
+float SVC_CUTSCENE        = 34;   // Hipnotic Drake devkit -- dumptruck_ds
+
 
 
 float	TE_SPIKE		= 0;
@@ -826,7 +830,7 @@ void() SUB_UsePain; //dumptruck_ds
 .float color; //Hipnotic
 .float megahealth_rottime; // dumptruck_ds
 .float alpha; // from RennyC func_fall in dtmisc.qc
-.float		ltrailLastUsed;  //from DOE lighnin
+.float ltrailLastUsed;  //from DOE lighnin
 .float style2; //c0burn's switchable lights
 .float sight_trigger; //dumptruck_ds
 .float keep_ammo; //dumptruck_ds
@@ -834,6 +838,34 @@ void() SUB_UsePain; //dumptruck_ds
 nosave float *world_sounds;  //via Spike fun times! nosave=noclobber
 void() trigger_changemusic; // dumptruck_ds
 void() onlookat_touch; // dumptruck_ds
+
+
+// Drake Cutscenes -- Borrowed from Zerstorer.
+.string     script;         //dhm - denotes which script to read.
+.string     next_script;    //dhm - denotes the current script.
+.string     script_num;     //dhm - number for info_scripts.
+//.string     camera_point;   //dhm - target for camera to move to.
+.string     focal_point;    //dhm - focus point for camera.
+.float      script_delay;   //dhm - time until next script.
+.float      script_time;    //dhm - used for script timing.
+.float      script_count;   //dhm - ditto.
+// cutscene.qc - - -
+void() Cutscene_Think;
+float  cutscene;       // Set to TRUE during a cutscene.
+float  mindex_inviso;  // Invisible (null sprite)
+.string     null_string;    // Replace 'string_null' with 'world.null_string'.
+                            //  null string, nothing should be held here.
+// Drake Cutscenes end
+
+// from Custents
+// variable for healing trigger
+.float	heal_timer;
+.float	heal_amount;
+.float	health_max;
+// Constants for the healing trigger
+float HEAL_START_ON	= 1;
+float HEAL_PLAYER_ONLY	= 2;
+float HEAL_MONSTER_ONLY	= 4;
 
 // Custom Monster Sounds START -- dumptruck_ds
 

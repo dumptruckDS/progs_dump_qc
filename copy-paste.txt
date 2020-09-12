@@ -1,0 +1,4 @@
+// Drake -- dumptruck_ds
+
+if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+  return;
