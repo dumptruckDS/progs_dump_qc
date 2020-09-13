@@ -661,7 +661,7 @@ void() secret_touch =
 
 	// from Copper -- dumptruck_ds
 	if (!CheckValidTouch()) return;
-	
+
 	if (self.attack_finished > time)
 		return;
 

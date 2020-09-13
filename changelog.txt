@@ -16,6 +16,7 @@
 * Added improved z-awareness to Ogre Marksman
 * Added item_backpack with options for custom messages and ammo counts
 * Added cutscene system from Drake devkit with some additions
+* Fixed noise1 and noise2 not working in func_door
 
 1.1.2.1 February 2020
 

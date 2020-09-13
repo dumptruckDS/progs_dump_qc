@@ -1710,7 +1710,8 @@ void() BackpackTouch =
 
 	bound_other_ammo ();
 
-	if (self.ammo_shells < 100)
+	if (self.ammo_shells) // hack to fix an issue with custom Grunt, Ogre and Enf amo types. - dumptruck_ds
+	// if (self.ammo_shells < 100)
 	{
 		if (acount)
 			sprint(other, ", ");

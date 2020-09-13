@@ -39,7 +39,7 @@ void() keytrigger_use =
 {
   // from Copper -- dumptruck_ds
   if (!CheckValidTouch()) return;
-  
+
 	if (self.attack_finished > time)
 		return;
 
@@ -159,7 +159,7 @@ else
 void() trigger_gravity_touch =
 {
   // from Copper -- dumptruck_ds
-  if (!CheckValidTouch()) return;
+  // if (!CheckValidTouch()) return;
 
 	local float grav;
 
