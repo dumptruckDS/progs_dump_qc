@@ -1,26 +1,11 @@
 /*
 
-from Spike:first thing that comes to mind is that its probably easier to just do
-if (!self.mdl_field) self.mdl_field = "thedefault"; then just
-precache_model(self.mdl_field); instead (and with setmodel)
-
-you could even do
-setmodel(self,precache_model(self.foo?self.foo:"progs/foo.mdl")); if you wanted a one-liner.
 ========================================================================
 
-MAPPER-SETTABLE CUSTOM SOUND EFFECTS FOR MONSTERS
-
-========================================================================
-
-
-This file was created for progs_dump by Ian "iw" Walshaw, January 2020.
-
-TODO: iw to add descriptive comments to this file.
-
+MAPPER-SETTABLE CUSTOM MODELS FOR MONSTERS
 
 ========================================================================
 */
-
 
 /*
 ================

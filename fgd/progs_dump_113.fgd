@@ -2222,8 +2222,11 @@ ammo_nails
 ammo_rockets
 ammo_cells
 
-Can trigger spawn and suspend in air, but not respawn. You can set a skin
-index if you are using a custom model with skins.
+Can trigger spawn and suspend in air, but not respawn.
+NOTE: If these are set, you'll need to set spawnflags for ammo
+otherwise, the backpack will default to empty.
+
+You can set a skin index if you are using a custom model with skins.
 
 The default pickup message is `You got a backpack.` But you can
 set a custom message with the netname key. 'You got' will be the prefix

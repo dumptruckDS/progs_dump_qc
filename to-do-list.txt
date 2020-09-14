@@ -1,7 +1,6 @@
 to-do list for 1.1.3  -- WIP and subject to change!
 
 *custom monster sounds
-*play_debris (trigger debris without breakables)
 *complete .def file
 *add lspike.mdl and mervbomb.mdl to official assets
 

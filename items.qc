@@ -1900,6 +1900,14 @@ void() item_backpack =
 	self.classname = "item_backpack";
 	// self.netname = self.netname;
 
+	if (self.spawnflags == 0)
+		{
+			self.ammo_shells    = 10;
+			self.ammo_nails    = 12;
+			self.ammo_rockets   = 2;
+			self.ammo_cells    = 3;
+		}
+
 	if (self.spawnflags & SHELLS)
 		{
 			if !(self.ammo_shells)
