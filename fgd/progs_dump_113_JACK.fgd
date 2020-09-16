@@ -1114,7 +1114,7 @@ Default is 0.3 seconds.
 	weapon(integer) : "Duration of each strike" : 0.3
 ]
 
-@SolidClass = func_group : "Group of brushes for in-editor use" []
+//@SolidClass = func_group : "Group of brushes for in-editor use" []
 // @SolidClass = func_detail : "Group of brushes for certain compilers " []
 //dumptruck_ds end
 //
