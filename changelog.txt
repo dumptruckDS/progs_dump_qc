@@ -18,6 +18,8 @@
 * Added cutscene system from Drake devkit with some additions
 * Fixed noise1 and noise2 not working in func_door
 * Added fog and sky settings to worldspawn in FGDs
+* Fixed precache error in trigger_push_custom when no custom sound was selected
+* Added custom model functionality to misc_teleporttrain
 
 1.1.2.1 February 2020
 

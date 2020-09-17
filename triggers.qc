@@ -929,6 +929,7 @@ void() trigger_push_custom =
 		return;
 
 	InitTrigger();
+	precache_sound ("ambience/windfly.wav");
 	self.use = push_toggle;
 	self.touch = trigger_push_touch;
 	if ( self.spawnflags & DT_STARTOFF )
@@ -942,7 +943,7 @@ void() trigger_push_custom =
 	 	}
 	if ( self.noise != "" )
     {
-    precache_sound( self.noise );
+    precache_sound(self.noise);
 	  }
 		if (!self.speed)
 			self.speed = 1000;

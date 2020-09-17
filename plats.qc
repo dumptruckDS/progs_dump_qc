@@ -86,7 +86,7 @@ void() plat_outside_touch =
 {
 	// from Copper -- dumptruck_ds
 	if (!CheckValidTouch()) return;
-	
+
 //dprint ("plat_outside_touch\n");
 	self = self.enemy;
 	if (self.state == STATE_TOP)
@@ -515,8 +515,10 @@ void() misc_teleporttrain =
 
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_FLY;
-	precache_model ("progs/teleport.mdl");
-	setmodel (self, "progs/teleport.mdl");
+	precache_body_model ("progs/teleport.mdl");
+	// precache_model ("progs/teleport.mdl");
+	body_model ("progs/teleport.mdl");
+	// setmodel (self, "progs/teleport.mdl");
 	setsize (self, '-16 -16 -16', '16 16 16');
 
 	//Causes the ball to spin around like it was originally intended to.
