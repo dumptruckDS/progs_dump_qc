@@ -67,6 +67,10 @@
 	_dirtscale(integer) : "Dirt scale" : 1 : "Scale factor used in dirt calculations, default 1. Lower values (e.g. 0.5) make the dirt fainter, 2.0 would create much darker shadows"
 	_dirtgain(integer) : "Dirt gain" : 1 : "Exponent used in dirt calculation, default 1. Lower values (e.g. 0.5) make the shadows darker and stretch further away from corners"
 	_gamma(integer) : "Lightmap gamma" : 1 : "Adjust brightness of final lightmap. Default 1, >1 is brighter, <1 is darker"
+	fog(string) : "Fog Command" :  : "ENGINE only 'console command' for setting fog parameters, Density/R/G/B example = (0.05 0.3 0.3 0.3)."
+	fog_density(string) : "Fog Density example = (0.05)"
+	fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
+	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 ]
 
 //
@@ -368,6 +372,8 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	pain_threshold(integer)
 	sight_trigger(integer)
 	skin(integer) : "Skin index (default 0)"
+	obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+	obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name will set part of the text for a custom obituary. e.g. eviscerated"
 ]
 //dumptruck_ds
 //@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []
@@ -388,7 +394,7 @@ keep_ammo(integer) : "Don't drop backpack" : 0
 ]
 
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre_marksman : "Ogre marksman Default health = 200
-The monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres)." [
+The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation." [
 keep_ammo(integer) : "Don't drop backpack" : 0
 ]
 

@@ -783,12 +783,16 @@ float STAT_TOTALMONSTERS = 12;
 .float		plat2LastMove;
 .float		plat2GoTime;
 .float		plat2GoTo;
-
+//
+// misc pd_additions
+//
 .float		reset_items; //dumptruck_ds
 .float		spawn_angry; //dumptruck_ds
 .string		mdl_debris; //dumptruck_ds
 .float		keep_ammo; //dumptruck_ds
-.string class; //dumptruck_ds
+.string 	obit_name; //dumptruck_ds
+.string 	obit_method; //dumptruck_ds
+.float 		damage_mod; //dumptruck_ds
 
 /*============================================================================
 johnfitz new defs from Rubicon2

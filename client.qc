@@ -1542,7 +1542,7 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 			}
 
 			// killed by a montser?
-			if (attacker.flags & FL_MONSTER)
+			if ((attacker.flags & FL_MONSTER) & (attacker.obit_name == ""))
 			{
 				if (attacker.classname == "monster_army")
 					bprint (" was shot by a Grunt\n");
@@ -1563,7 +1563,7 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 				if (attacker.classname == "monster_ogre")
 					bprint (" was destroyed by an Ogre\n");
 				if (attacker.classname == "monster_ogre_marksman")
-					bprint (" was felled by a Marksman\n");
+					bprint (" was felled by a Marksman\n"); // dumptruck_ds
 				if (attacker.classname == "monster_oldone")
 					bprint (" became one with Shub-Niggurath\n");
 				if (attacker.classname == "monster_oldone2")// dumptruck_ds
@@ -1585,6 +1585,16 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 				if (attacker.classname == "monster_zombie")
 					bprint (" joins the Zombies\n");
 
+				return;
+			}
+			// obits for custom monsters -- progs_dump -- dumptruck_ds
+			if (attacker.obit_name != "")
+			{
+				bprint (" was ");
+				bprint (attacker.obit_method); // e.g. ripped apart
+				bprint (" by ");
+				bprint (attacker.obit_name); // a bad monster
+				bprint ("\n");
 				return;
 			}
 

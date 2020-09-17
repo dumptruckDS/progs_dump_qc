@@ -124,6 +124,10 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	if (attacker.super_damage_finished > time)
 		damage = damage * 4;
 
+// damage mod for monsters -- dumptruck_ds
+	if (attacker.damage_mod)
+		damage = damage * attacker.damage_mod;
+
 // save damage based on the target's armor level
 
 	save = ceil(targ.armortype*damage);
@@ -202,7 +206,7 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		if (self != attacker && attacker != self.enemy)
 		{
 			if ( (self.classname != attacker.classname)
-			|| (self.classname == "monster_army") && (self.style2 == attacker.style2) ) //soldiers of the same style2 will infight -- dumptruck_ds
+			|| (self.classname == "monster_army") && (self.style == attacker.style) ) //soldiers of the same style will infight -- dumptruck_ds
 			{
 				if (self.enemy.classname == "player")
 					self.oldenemy = self.enemy;

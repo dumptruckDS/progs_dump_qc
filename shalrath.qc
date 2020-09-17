@@ -154,7 +154,6 @@ void() ShalMissile =
 	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
 	{
 			setmodel (missile, self.mdl_proj);
-			dprint("CUSTOM MODEL LOADED\n"); //FIXME
 		}
 		else
 		{
@@ -164,7 +163,6 @@ void() ShalMissile =
 	if (!missile.skin_proj) // dumptruck_ds
 	{
 			missile.skin = self.skin_proj;
-			dprint("\bCUSTOM PROJECTILE SKIN LOADED\n"); //FIXME
 		}
 		else
 		{
