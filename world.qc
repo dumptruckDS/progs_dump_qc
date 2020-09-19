@@ -314,6 +314,7 @@ void() worldspawn =
 	precache_sound ("items/armor1.wav");		// armor up
 	precache_sound ("weapons/lhit.wav");		//lightning
 	precache_sound ("weapons/lstart.wav");		//lightning start
+	precache_sound ("items/damage.wav"); // added for Epochs of Enmity (just in case) -- dumptruck_ds
 	precache_sound ("items/damage2.wav");
 	precache_sound ("items/damage3.wav");
 
@@ -358,7 +359,8 @@ void() worldspawn =
 	precache_sound ("misc/water2.wav");			// swimming
 
 	precache_model ("progs/player.mdl");
-	precache_model ("progs/null_256.spr");  // Invisible -- Drake -- dumptruck_ds
+	// this is commented out for Greenwood's Epochs of Enmity Custom build
+	// precache_model ("progs/null_256.spr");  // Invisible -- Drake -- dumptruck_ds
 	precache_model ("progs/eyes.mdl");
 	precache_model ("progs/h_player.mdl");
 	precache_model ("progs/gib1.mdl");

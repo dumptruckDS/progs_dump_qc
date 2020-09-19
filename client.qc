@@ -606,8 +606,9 @@ void() PutClientInServer =
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
-
-	setmodel (self, "progs/null_256.spr");     // Drake -- dumptruck_ds
+	// this is changed to s_bubble.spr for Greenwood's Epochs of Enmity Custom build
+	setmodel (self, "progs/s_bubble.spr");     // Drake -- dumptruck_ds
+	// setmodel (self, "progs/null_256.spr");     // Drake -- dumptruck_ds
 	mindex_inviso = self.modelindex;
 
 	setmodel (self, "progs/player.mdl");

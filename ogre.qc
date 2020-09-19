@@ -381,7 +381,9 @@ void() OgreFireGrenade =
 			missile.touch = MultiGrenadeTouch;
 			missile.nextthink = time + 2.5;
 			missile.think = MultiGrenadeExplode;
-			setmodel (missile, "progs/mervup.mdl");
+			setmodel (missile, "progs/grenade.mdl");
+			// this is changed to grenade.mdl for Greenwood's Epochs of Enmity Custom build
+			// setmodel (missile, "progs/mervup.mdl");
 			setsize (missile, '0 0 0', '0 0 0');
 			setorigin (missile, self.origin);
 			missile.classname = "MultiGrenade";
@@ -428,7 +430,9 @@ void() OgreFireSpike =
     launch_spike (self.origin + v_right * 4 + '0 0 16', dir);
 
     newmis.touch = superduperspike_touch; //dumptruck_ds found in client.qc
-    setmodel (newmis, "progs/lspike.mdl");
+		// this is changed to spike for Greenwood's Epochs of Enmity Custom build
+    setmodel (newmis, "progs/spike.mdl");
+    // setmodel (newmis, "progs/lspike.mdl");
 
     setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 };
@@ -486,8 +490,9 @@ void(float offsetAngle) MiniGrenadeLaunch =
 	missile.avelocity = '300 300 300';
 	missile.angles = vectoangles(missile.velocity);
 	missile.touch = MultiGrenadeTouch;
-
-	setmodel (missile, "progs/mervup.mdl");
+	// this is changed to grenade for Greenwood's Epochs of Enmity Custom build
+	// setmodel (missile, "progs/mervup.mdl");
+	setmodel (missile, "progs/grenade.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin);
 
@@ -579,9 +584,9 @@ void() W_FireMultiGrenade =
 // set missile duration
 	missile.nextthink = time + 1;
 	missile.think = MultiGrenadeExplode;
-
-	// setmodel (missile, "progs/grenade.mdl");
-	setmodel (missile, "progs/mervup.mdl");
+	// this is changed to grenade for Greenwood's Epochs of Enmity Custom build
+	setmodel (missile, "progs/grenade.mdl");
+	// setmodel (missile, "progs/mervup.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin);
 };
@@ -962,10 +967,10 @@ void() monster_ogre =
 	precache_body_model ("progs/ogre.mdl");
 	precache_head_model ("progs/h_ogre.mdl");
 	precache_proj_model ("progs/grenade.mdl");
-
+	// changes below for Greenwood's Epochs of Enmity Custom build
 	// custom_mdls dumptruck_ds
-	precache_model ("progs/mervup.mdl"); //for style 3 Orge dumptruck_ds
-	precache_model ("progs/lspike.mdl"); //for style 2 Ogre dumptruck_ds
+	// precache_model ("progs/mervup.mdl"); //for style 3 Orge dumptruck_ds
+	// precache_model ("progs/lspike.mdl"); //for style 2 Ogre dumptruck_ds
 	precache_sound ("ogre/ogdrag.wav");
 	precache_sound ("ogre/ogdth.wav");
 	precache_sound ("ogre/ogidle.wav");
