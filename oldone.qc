@@ -260,7 +260,8 @@ void() monster_oldone =
 		return;
 	}
 
-	precache_model2 ("progs/oldone.mdl");
+	precache_body_model2 ("progs/oldone.mdl");
+	// precache_model2 ("progs/oldone.mdl");
 
 	precache_sound2 ("boss2/death.wav");
 	precache_sound2 ("boss2/idle.wav");
@@ -270,7 +271,8 @@ void() monster_oldone =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/oldone.mdl");
+	body_model ("progs/oldone.mdl"); //custom_mdls dumptruck_ds
+	// setmodel (self, "progs/oldone.mdl");
 	setsize (self, '-160 -128 -24', '160 128 256');
 
 	self.health = 40000;		// kill by telefrag

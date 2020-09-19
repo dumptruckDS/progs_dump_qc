@@ -893,5 +893,8 @@ float HEAL_MONSTER_ONLY	= 4;
 .string mdl_proj;
 .float skin_head;
 .float skin_proj;
+.string mdl_gib1;
+.string mdl_gib2;
+.string mdl_gib3;
 
 // Custom Model End -- dumptruck_ds

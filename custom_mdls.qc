@@ -24,6 +24,9 @@ void(.string mdl_field, string default_file) precache_model_custom =
 void(string default_file) precache_head_model = { precache_model_custom (mdl_head, default_file); };
 void(string default_file) precache_body_model = { precache_model_custom (mdl_body, default_file); };
 void(string default_file) precache_proj_model = { precache_model_custom (mdl_proj, default_file); };
+void(string default_file) precache_gib1 = { precache_model_custom (mdl_gib1, default_file); };
+void(string default_file) precache_gib2 = { precache_model_custom (mdl_gib2, default_file); };
+void(string default_file) precache_gib3 = { precache_model_custom (mdl_gib3, default_file); };
 
 
 /*
@@ -55,7 +58,7 @@ void(.string mdl_field, string default_file) model_custom =
 	if (self.mdl_field != "")
 	{
 		setmodel (self, self.mdl_field);
-		dprint("CUSTOM MODEL LOADED\n");
+		// dprint("CUSTOM MODEL LOADED\n");
 	}
 	else
 		setmodel (self, default_file);

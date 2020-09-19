@@ -344,7 +344,25 @@ void(vector p) boss2_missile =
 	vec = normalize (d - org);
 
 	launch_spike (org, vec);
-	setmodel (newmis, "progs/lavaball.mdl");
+	// setmodel (newmis, "progs/lavaball.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (newmis, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (newmis, "progs/lavaball.mdl");
+	}
+
+	if (!newmis.skin_proj) // dumptruck_ds
+	{
+			newmis.skin = self.skin_proj;
+		}
+		else
+		{
+			newmis.skin = 0;
+	}
+
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;

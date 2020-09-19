@@ -232,9 +232,31 @@ void() dog_die =
 	if (self.health < -35)
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowGib ("progs/gib3.mdl", self.health);
-		ThrowGib ("progs/gib3.mdl", self.health);
-		ThrowGib ("progs/gib3.mdl", self.health);
+		
+		if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+		{
+			ThrowGib (self.mdl_gib1, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_gib2 != "")
+		{
+			ThrowGib (self.mdl_gib2, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_gib3 != "")
+		{
+			ThrowGib (self.mdl_gib3, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
 		if (self.mdl_head != "")
 		{
 			ThrowHead (self.mdl_head, self.health);
@@ -351,6 +373,11 @@ void() monster_dog =
 	precache_sound_pain ("dog/dpain1.wav");
 	precache_sound_sight ("dog/dsight.wav");
 	precache_sound_idle ("dog/idle.wav");
+
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
+
 	// dumptruck_ds
 
 	self.solid = SOLID_SLIDEBOX;

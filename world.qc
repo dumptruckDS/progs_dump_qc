@@ -387,7 +387,7 @@ void() worldspawn =
 	// dumptruck_ds added w_spike due to errors
 	// with custom_mdls in precache_proj_model in wizard.qc
 	// precache_model ("progs/w_spike.mdl");
-	// this is on hold for now head and boy are working
+	// this is on hold for now head and body are working
 	precache_model ("progs/s_spike.mdl");
 
 	precache_model ("progs/backpack.mdl");

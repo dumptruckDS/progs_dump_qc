@@ -165,9 +165,34 @@ void() demon_die =
       ThrowHead ("progs/h_demon.mdl", self.health);
     }
 		// ThrowHead ("progs/h_demon.mdl", self.health);
-		ThrowGib ("progs/gib1.mdl", self.health);
-		ThrowGib ("progs/gib1.mdl", self.health);
-		ThrowGib ("progs/gib1.mdl", self.health);
+		// ThrowGib ("progs/gib1.mdl", self.health);
+		// ThrowGib ("progs/gib1.mdl", self.health);
+		// ThrowGib ("progs/gib1.mdl", self.health);
+    if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+    {
+      ThrowGib (self.mdl_gib1, self.health);
+    }
+    else
+    {
+      ThrowGib ("progs/gib1.mdl", self.health);
+    }
+    if (self.mdl_gib2 != "")
+    {
+      ThrowGib (self.mdl_gib2, self.health);
+    }
+    else
+    {
+      ThrowGib ("progs/gib1.mdl", self.health);
+    }
+    if (self.mdl_gib3 != "")
+    {
+      ThrowGib (self.mdl_gib3, self.health);
+    }
+    else
+    {
+      ThrowGib ("progs/gib1.mdl", self.health);
+    }
+
 		return;
 	}
 
@@ -205,6 +230,10 @@ void() monster_demon1 =
 	precache_sound ("demon/dpain1.wav");
 	precache_sound ("demon/idle1.wav");
 	precache_sound ("demon/sight2.wav");
+
+  precache_gib1 ("progs/gib1.mdl");
+  // precache_gib2 ("progs/gib2.mdl");
+  // precache_gib3 ("progs/gib3.mdl");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
