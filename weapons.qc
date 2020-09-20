@@ -5,6 +5,7 @@ void () player_run;
 void(entity bomb, entity attacker, float rad, entity ignore) T_RadiusDamage;
 void(vector org, vector vel, float damage) SpawnBlood;
 void() SuperDamageSound;
+void() create_mobot; //dumptruck_ds mobot.qc
 
 
 // called by worldspawn
@@ -22,6 +23,17 @@ void() W_Precache =
 	precache_sound ("weapons/grenade.wav");	// grenade launcher
 	precache_sound ("weapons/bounce.wav");		// grenade bounce
 	precache_sound ("weapons/shotgn2.wav");	// super shotgun
+// dumptruck_ds mobot.qc
+	precache_model ("progs/ogre.mdl");
+	precache_model ("progs/h_ogre.mdl");
+	precache_model ("progs/grenade.mdl");
+	precache_sound ("ogre/ogdrag.wav");
+	precache_sound ("ogre/ogdth.wav");
+	precache_sound ("ogre/ogidle.wav");
+	precache_sound ("ogre/ogidle2.wav");
+	precache_sound ("ogre/ogpain1.wav");
+	precache_sound ("ogre/ogsawatk.wav");
+	precache_sound ("ogre/ogwake.wav");
 };
 
 float() crandom =
@@ -1434,6 +1446,9 @@ void() ImpulseCommands =
 
 	if (self.impulse == 255)
 		QuadCheat ();
+///dumptruck_ds mobot.qc
+	if (self.impulse == 100)
+		create_mobot();
 
 	self.impulse = 0;
 };
