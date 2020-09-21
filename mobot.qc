@@ -27,7 +27,7 @@ local entity bot, spawn_spot;
 // start entity and place it in world
 	bot = spawn();
 	spawn_spot =  MobotSpawnPoint();
-	// spawn_spot = SelectSpawnPoint ();
+	// spawn_spot = SelectSpawnPoint (); // let's not use deathmatch points for this -- dumptruck_ds
 	bot.origin = spawn_spot.origin + '0 0 1';
 	bot.angles = spawn_spot.angles;
 	bot.fixangle = TRUE;
@@ -70,14 +70,19 @@ local entity bot, spawn_spot;
 void() think_mobot =
 	{
 		self.count = self.count - 1;
-		if (self.count < 0)
-			return;
 
-			if (self.count != 0)
-			{
-				self.nextthink = time + 0.1;
-				self.think = create_mobot;
-			}
+		if (self.count < 0)
+		return;
+
+		if (self.count!=0) create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
+
+		if !(self.wait)
+		self.nextthink = time + 5;
+
+		else
+		self.nextthink = time + self.wait;
+
+		self.think = think_mobot; // qthink I didn't realize I could do this! -- dumptruck_ds
 	};
 
 /*QUAKED func_monster_spawner (1 0 0) (-32 -32 -24) (32 32 64) Ambush FIXME
@@ -87,9 +92,10 @@ void() func_monster_spawner =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (!self.count)
-		self.count = 2;
+		if (!self.count)
+			self.count = 5;
 
- 	// self.use = create_mobot;
- 	self.use = think_mobot;
+	self.count = self.count + 1; // fixes count display
+
+	self.use = think_mobot;
 };
