@@ -23,7 +23,9 @@ void() W_Precache =
 	precache_sound ("weapons/grenade.wav");	// grenade launcher
 	precache_sound ("weapons/bounce.wav");		// grenade bounce
 	precache_sound ("weapons/shotgn2.wav");	// super shotgun
-// dumptruck_ds mobot.qc
+
+// dumptruck_ds mobot.qc START
+
 	precache_model ("progs/ogre.mdl");
 	precache_model ("progs/h_ogre.mdl");
 	precache_model ("progs/grenade.mdl");
@@ -34,6 +36,80 @@ void() W_Precache =
 	precache_sound ("ogre/ogpain1.wav");
 	precache_sound ("ogre/ogsawatk.wav");
 	precache_sound ("ogre/ogwake.wav");
+
+	precache_model ("progs/demon.mdl");
+	precache_model ("progs/h_demon.mdl");
+
+	precache_sound ("demon/ddeath.wav");
+	precache_sound ("demon/dhit2.wav");
+	precache_sound ("demon/djump.wav");
+	precache_sound ("demon/dpain1.wav");
+	precache_sound ("demon/idle1.wav");
+	precache_sound ("demon/sight2.wav");
+
+	precache_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
+	precache_model2 ("progs/h_mega.mdl");
+	precache_model2 ("progs/laser.mdl");
+	precache_model2 ("progs/s_spike.mdl");
+ //dumptruck_ds
+	precache_sound2 ("enforcer/death1.wav");
+	precache_sound2 ("enforcer/enfire.wav");
+	precache_sound2 ("enforcer/enfstop.wav");
+	precache_sound2("enforcer/idle1.wav");
+	precache_sound2 ("enforcer/pain1.wav");
+	precache_sound2 ("enforcer/pain2.wav");
+	precache_sound2 ("enforcer/sight1.wav");
+	precache_sound2 ("enforcer/sight2.wav"); // these will be replaced with custom noise fields eventually - dumptruck_ds
+	precache_sound2 ("enforcer/sight3.wav");
+	precache_sound2("enforcer/sight4.wav");
+
+	precache_model ("progs/soldier.mdl");
+	precache_model ("progs/h_guard.mdl");
+
+	precache_model ("progs/gib1.mdl");
+	precache_model ("progs/gib2.mdl");
+	precache_model ("progs/gib3.mdl");
+
+	precache_sound ("soldier/death1.wav");
+	precache_sound ("soldier/idle.wav");
+	precache_sound ("soldier/pain1.wav");
+	precache_sound ("soldier/pain2.wav");
+	precache_sound ("soldier/sattck1.wav");
+	precache_sound ("soldier/sight1.wav");
+	precache_sound ("player/udeath.wav");		// gib death
+
+	precache_model ("progs/h_dog.mdl");
+	precache_model ("progs/dog.mdl");
+	precache_sound ("dog/dattack1.wav");
+	precache_sound("dog/ddeath.wav");
+	precache_sound ("dog/dpain1.wav");
+	precache_sound ("dog/dsight.wav");
+	precache_sound ("dog/idle.wav");
+
+	precache_model ("progs/wizard.mdl");
+	precache_model ("progs/h_wizard.mdl");
+	precache_model ("progs/w_spike.mdl");
+
+	precache_sound ("wizard/hit.wav");		// used by c code
+	precache_sound ("wizard/wattack.wav");
+	precache_sound ("wizard/wdeath.wav");
+	precache_sound ("wizard/widle1.wav");
+	precache_sound ("wizard/widle2.wav");
+	precache_sound ("wizard/wpain.wav");
+	precache_sound ("wizard/wsight.wav");
+
+	precache_model2 ("progs/shalrath.mdl");
+	precache_model2 ("progs/h_shal.mdl");
+	precache_model2 ("progs/v_spike.mdl");
+
+	precache_sound2 ("shalrath/attack.wav");
+	precache_sound2 ("shalrath/attack2.wav");
+	precache_sound2 ("shalrath/death.wav");
+	precache_sound2 ("shalrath/idle.wav");
+	precache_sound2 ("shalrath/pain.wav");
+	precache_sound2 ("shalrath/sight.wav");
+
+	// dumptruck_ds mobot.qc END
 };
 
 float() crandom =
@@ -1447,8 +1523,8 @@ void() ImpulseCommands =
 	if (self.impulse == 255)
 		QuadCheat ();
 ///dumptruck_ds mobot.qc
-	if (self.impulse == 100)
-		create_mobot();
+	// if (self.impulse == 100)
+	// 	create_mobot();
 
 	self.impulse = 0;
 };
