@@ -34,12 +34,10 @@ local entity bot, spawn_spot;
 	spawn_tfog (bot.origin);
 	spawn_tdeath (bot.origin, bot);
 
-	if !(self.style)
-		self.style = floor(random() * 7) + 1;
+	// 	self.style = floor(random() * 7) + 1;
 
 	if (self.style == 1) // spawn a Doggo
 	{
-		bot.origin = spawn_spot.origin + '0 0 4'; // adjust for spawn in ground
 		// set size and shape
 		bot.solid = SOLID_SLIDEBOX;
 		bot.movetype = MOVETYPE_STEP;
@@ -181,7 +179,6 @@ if (self.style == 5) // spawn an Fiend
 
 if (self.style == 6) // spawn a Wizard / Scrag
 	{
-	bot.origin = spawn_spot.origin + '0 0 8'; // adjust for spawn in ground
 	// set size and shape
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
@@ -209,7 +206,6 @@ if (self.style == 6) // spawn a Wizard / Scrag
 
 if (self.style == 7) // spawn a Shalrath
 	{
-	bot.origin = spawn_spot.origin + '0 0 4'; // adjust for spawn in ground
 	// set size and shape
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
@@ -237,6 +233,93 @@ if (self.style == 7) // spawn a Shalrath
 	bot.view_ofs = '0 0 22';
 	}
 
+if (self.style == 8) // spawn a Knight
+	{
+	// set size and shape
+	bot.solid = SOLID_SLIDEBOX;
+	bot.movetype = MOVETYPE_STEP;
+	setmodel(bot, "progs/knight.mdl");
+	setsize (self, '-16 -16 -24', '16 16 40');
+	bot.flags = bot.flags | FL_MONSTER;
+	bot.takedamage = DAMAGE_AIM;
+
+	// define his animation
+	bot.th_stand = knight_stand1;
+	bot.th_walk = knight_walk1;
+	bot.th_run = knight_run1;
+	bot.th_die = knight_die;
+	bot.th_missile = knight_atk1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+	bot.th_pain = knight_pain;
+	else
+	bot.th_pain = SUB_NullPain;
+	bot.health = 75;
+
+	// polish him up
+	bot.classname = "monster_knight";
+	bot.ideal_yaw = bot.angles * '0 1 0';
+	bot.yaw_speed = 120;
+	bot.view_ofs = '0 0 22';
+	}
+
+if (self.style == 9) // spawn a HellKnight
+	{
+	// set size and shape
+	bot.solid = SOLID_SLIDEBOX;
+	bot.movetype = MOVETYPE_STEP;
+	setmodel(bot, "progs/hknight.mdl");
+	setsize (self, '-16 -16 -24', '16 16 40');
+	bot.flags = bot.flags | FL_MONSTER;
+	bot.takedamage = DAMAGE_AIM;
+
+	// define his animation
+	bot.th_stand = hknight_stand1;
+	bot.th_walk = hknight_walk1;
+	bot.th_run = hknight_run1;
+	self.th_melee = hknight_melee;
+	bot.th_die = hknight_die;
+	bot.th_missile = hknight_magicc1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+	bot.th_pain = hknight_pain;
+	else
+	bot.th_pain = SUB_NullPain;
+	bot.health = 250;
+
+	// polish him up
+	bot.classname = "monster_hell_knight";
+	bot.ideal_yaw = bot.angles * '0 1 0';
+	bot.yaw_speed = 120;
+	bot.view_ofs = '0 0 22';
+	}
+
+if (self.style == 10) // spawn a Spawn
+	{
+	bot.origin = spawn_spot.origin + '0 0 -8';
+	// set size and shape
+	bot.solid = SOLID_SLIDEBOX;
+	bot.movetype = MOVETYPE_STEP;
+	setmodel(bot, "progs/tarbaby.mdl");
+	setsize (self, '-16 -16 -24', '16 16 40');
+	bot.flags = bot.flags | FL_MONSTER;
+	bot.takedamage = DAMAGE_AIM;
+
+	// define his animation
+	bot.th_stand = tbaby_stand1;
+	bot.th_walk = tbaby_walk1;
+	bot.th_run = tbaby_run1;
+	self.th_melee = tbaby_jump1;
+	bot.th_die = tbaby_die1;
+	bot.th_missile = tbaby_jump1;
+	bot.health = 80;
+
+	// polish him up
+	bot.classname = "monster_tarbaby";
+	bot.ideal_yaw = bot.angles * '0 1 0';
+	bot.yaw_speed = 120;
+	bot.view_ofs = '0 0 2';
+	// bot.view_ofs = '0 0 22';
+	}
+
 // begin his thinking
 	bot.nextthink = time + 0.1 + random();
 	bot.think = bot.th_walk;
@@ -251,7 +334,16 @@ void() think_mobot =
 		if (self.count < 0)
 		return;
 
-		if (self.count!=0) create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
+		if (self.count!=0)
+		{
+			if (self.style2 == 1)
+			{
+				self.style = floor(random() * 7) + 1;
+				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
+			}
+			else
+				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
+		}
 
 		if !(self.wait)
 		self.nextthink = time + 5;
@@ -267,6 +359,9 @@ void() func_monster_spawner =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
+
+	if !(self.style)
+		self.style = 1;
 
 	if (!self.count)
 		self.count = 5;

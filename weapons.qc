@@ -109,6 +109,39 @@ void() W_Precache =
 	precache_sound2 ("shalrath/pain.wav");
 	precache_sound2 ("shalrath/sight.wav");
 
+	precache_model ("progs/knight.mdl");
+	precache_model ("progs/h_knight.mdl");
+	precache_sound ("knight/kdeath.wav");
+	precache_sound ("knight/khurt.wav");
+	precache_sound ("knight/ksight.wav");
+	precache_sound ("knight/sword1.wav");
+	precache_sound ("knight/sword2.wav");
+	precache_sound ("knight/idle.wav");
+
+	precache_model2 ("progs/hknight.mdl");
+	precache_model2 ("progs/k_spike.mdl");
+	precache_model2 ("progs/h_hellkn.mdl");
+	precache_model2 ("progs/hknight.mdl");
+	precache_model2 ("progs/h_hellkn.mdl");
+	precache_model2 ("progs/k_spike.mdl");
+	precache_sound2 ("hknight/attack1.wav");
+	precache_sound2 ("hknight/death1.wav");
+	precache_sound2 ("hknight/pain1.wav");
+	precache_sound2 ("hknight/sight1.wav");
+	precache_sound ("hknight/hit.wav");		// used by C code, so don't sound2
+	precache_sound2 ("hknight/slash1.wav");
+	precache_sound2 ("hknight/idle.wav");
+	precache_sound2 ("hknight/grunt.wav");
+	precache_sound ("knight/sword1.wav");
+	precache_sound ("knight/sword2.wav");
+
+	precache_model2 ("progs/tarbaby.mdl");
+	precache_sound2 ("blob/death1.wav");
+	precache_sound2 ("blob/hit1.wav");
+	precache_sound2 ("blob/land1.wav");
+	precache_sound2 ("blob/sight1.wav");
+
+
 	// dumptruck_ds mobot.qc END
 };
 
