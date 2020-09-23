@@ -42,7 +42,7 @@ local entity bot, spawn_spot;
 		bot.solid = SOLID_SLIDEBOX;
 		bot.movetype = MOVETYPE_STEP;
 		setmodel(bot, "progs/dog.mdl");
-		setsize (self, '-32 -32 -24', '32 32 40');
+		setsize (bot, '-32 -32 -24', '32 32 40');
 		bot.flags = bot.flags | FL_MONSTER;
 		bot.takedamage = DAMAGE_AIM;
 
@@ -183,7 +183,7 @@ if (self.style == 6) // spawn a Wizard / Scrag
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
 	setmodel(bot, "progs/wizard.mdl");
-	setsize (self, '-16 -16 -24', '16 16 40');
+	setsize (bot, '-16 -16 -24', '16 16 40');
 	bot.flags = bot.flags | FL_FLY;
 	bot.flags = bot.flags | FL_MONSTER;
 	bot.takedamage = DAMAGE_AIM;
@@ -210,7 +210,7 @@ if (self.style == 7) // spawn a Shalrath
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
 	setmodel(bot, "progs/shalrath.mdl");
-	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	setsize (bot, VEC_HULL2_MIN, VEC_HULL2_MAX);
 	bot.flags = bot.flags | FL_MONSTER;
 	bot.takedamage = DAMAGE_AIM;
 
@@ -239,7 +239,7 @@ if (self.style == 8) // spawn a Knight
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
 	setmodel(bot, "progs/knight.mdl");
-	setsize (self, '-16 -16 -24', '16 16 40');
+	setsize (bot, '-16 -16 -24', '16 16 40');
 	bot.flags = bot.flags | FL_MONSTER;
 	bot.takedamage = DAMAGE_AIM;
 
@@ -268,7 +268,7 @@ if (self.style == 9) // spawn a HellKnight
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
 	setmodel(bot, "progs/hknight.mdl");
-	setsize (self, '-16 -16 -24', '16 16 40');
+	setsize (bot, '-16 -16 -24', '16 16 40');
 	bot.flags = bot.flags | FL_MONSTER;
 	bot.takedamage = DAMAGE_AIM;
 
@@ -294,12 +294,11 @@ if (self.style == 9) // spawn a HellKnight
 
 if (self.style == 10) // spawn a Spawn
 	{
-	bot.origin = spawn_spot.origin + '0 0 -8';
 	// set size and shape
 	bot.solid = SOLID_SLIDEBOX;
 	bot.movetype = MOVETYPE_STEP;
 	setmodel(bot, "progs/tarbaby.mdl");
-	setsize (self, '-16 -16 -24', '16 16 40');
+	setsize (bot, '-16 -16 -24', '16 16 40');
 	bot.flags = bot.flags | FL_MONSTER;
 	bot.takedamage = DAMAGE_AIM;
 
@@ -307,13 +306,40 @@ if (self.style == 10) // spawn a Spawn
 	bot.th_stand = tbaby_stand1;
 	bot.th_walk = tbaby_walk1;
 	bot.th_run = tbaby_run1;
-	self.th_melee = tbaby_jump1;
+	bot.th_melee = tbaby_jump1;
 	bot.th_die = tbaby_die1;
 	bot.th_missile = tbaby_jump1;
 	bot.health = 80;
 
 	// polish him up
 	bot.classname = "monster_tarbaby";
+	bot.ideal_yaw = bot.angles * '0 1 0';
+	bot.yaw_speed = 120;
+	bot.view_ofs = '0 0 2';
+	// bot.view_ofs = '0 0 22';
+	}
+
+if (self.style == 11) // spawn a Zombie
+	{
+	// set size and shape
+	bot.solid = SOLID_SLIDEBOX;
+	bot.movetype = MOVETYPE_STEP;
+	setmodel(bot, "progs/zombie.mdl");
+	setsize (bot, '-16 -16 -24', '16 16 40');
+	bot.flags = bot.flags | FL_MONSTER;
+	bot.takedamage = DAMAGE_AIM;
+
+	// define his animation
+	bot.th_stand = zombie_start;
+	bot.th_walk = zombie_walk1;
+	bot.th_run = zombie_decide;
+	bot.th_pain = zombie_pain;
+	bot.th_die = zombie_die;
+	bot.th_missile = zombie_missile;
+	bot.health = 61;
+
+	// polish him up
+	bot.classname = "monster_zombie";
 	bot.ideal_yaw = bot.angles * '0 1 0';
 	bot.yaw_speed = 120;
 	bot.view_ofs = '0 0 2';
@@ -338,11 +364,11 @@ void() think_mobot =
 		{
 			if (self.style2 == 1)
 			{
-				self.style = floor(random() * 7) + 1;
+				self.style = floor(random() * 11) + 1;
 				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
 			}
 			else
-				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
+				create_mobot();
 		}
 
 		if !(self.wait)

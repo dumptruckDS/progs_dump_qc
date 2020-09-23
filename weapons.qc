@@ -24,7 +24,7 @@ void() W_Precache =
 	precache_sound ("weapons/bounce.wav");		// grenade bounce
 	precache_sound ("weapons/shotgn2.wav");	// super shotgun
 
-// dumptruck_ds mobot.qc START
+// dumptruck_ds mobot.qc precaches START
 
 	precache_model ("progs/ogre.mdl");
 	precache_model ("progs/h_ogre.mdl");
@@ -47,11 +47,11 @@ void() W_Precache =
 	precache_sound ("demon/idle1.wav");
 	precache_sound ("demon/sight2.wav");
 
-	precache_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
+	precache_model2 ("progs/enforcer.mdl");
 	precache_model2 ("progs/h_mega.mdl");
 	precache_model2 ("progs/laser.mdl");
 	precache_model2 ("progs/s_spike.mdl");
- //dumptruck_ds
+
 	precache_sound2 ("enforcer/death1.wav");
 	precache_sound2 ("enforcer/enfire.wav");
 	precache_sound2 ("enforcer/enfstop.wav");
@@ -59,7 +59,7 @@ void() W_Precache =
 	precache_sound2 ("enforcer/pain1.wav");
 	precache_sound2 ("enforcer/pain2.wav");
 	precache_sound2 ("enforcer/sight1.wav");
-	precache_sound2 ("enforcer/sight2.wav"); // these will be replaced with custom noise fields eventually - dumptruck_ds
+	precache_sound2 ("enforcer/sight2.wav");
 	precache_sound2 ("enforcer/sight3.wav");
 	precache_sound2("enforcer/sight4.wav");
 
@@ -111,6 +111,7 @@ void() W_Precache =
 
 	precache_model ("progs/knight.mdl");
 	precache_model ("progs/h_knight.mdl");
+
 	precache_sound ("knight/kdeath.wav");
 	precache_sound ("knight/khurt.wav");
 	precache_sound ("knight/ksight.wav");
@@ -124,6 +125,7 @@ void() W_Precache =
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
 	precache_model2 ("progs/k_spike.mdl");
+
 	precache_sound2 ("hknight/attack1.wav");
 	precache_sound2 ("hknight/death1.wav");
 	precache_sound2 ("hknight/pain1.wav");
@@ -141,6 +143,20 @@ void() W_Precache =
 	precache_sound2 ("blob/land1.wav");
 	precache_sound2 ("blob/sight1.wav");
 
+	precache_model ("progs/zombie.mdl");
+	precache_model ("progs/h_zombie.mdl");
+	precache_model ("progs/zom_gib.mdl");
+
+	precache_sound ("zombie/z_idle.wav");
+	precache_sound ("zombie/z_idle1.wav");
+	precache_sound ("zombie/z_shot1.wav");
+	precache_sound ("zombie/z_gib.wav");
+	precache_sound ("zombie/z_pain.wav");
+	precache_sound ("zombie/z_pain1.wav");
+	precache_sound ("zombie/z_fall.wav");
+	precache_sound ("zombie/z_miss.wav");
+	precache_sound ("zombie/z_hit.wav");
+	precache_sound ("zombie/idle_w2.wav");
 
 	// dumptruck_ds mobot.qc END
 };
