@@ -480,8 +480,12 @@ void() teleporttrain_find =
 		return;
 	}
 
+	if (self.spawnflags & 4) // start immediately even with a targetname
+	{
+		teleporttrain_next();
+	}
 	// not triggered, so start immediately
-	if (!self.targetname)
+	else if (!self.targetname)
 	{
 		teleporttrain_next();
 	}
@@ -515,15 +519,16 @@ void() misc_teleporttrain =
 
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_FLY;
-	precache_body_model ("progs/teleport.mdl");
-	// precache_model ("progs/teleport.mdl");
+	precache_body_model ("progs/teleport.mdl");  // custom custom_mdls -- dumptruck_ds
 	body_model ("progs/teleport.mdl");
+	// precache_model ("progs/teleport.mdl");
 	// setmodel (self, "progs/teleport.mdl");
 	setsize (self, '-16 -16 -16', '16 16 16');
 
 	//Causes the ball to spin around like it was originally intended to.
+	if (!(self.spawnflags & 2)) 			//don't spin - helpful for invisible spawner
 	self.avelocity = '40 80 120';
-	//self.avelocity = '100 200 300';
+	// self.avelocity = '100 200 300';
 
 	self.think = teleporttrain_find;
 	self.nextthink = time + 0.1;
