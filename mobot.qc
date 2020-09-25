@@ -8,12 +8,13 @@ Returns the entity to spawn at
 entity() MobotSpawnPoint =
 {
 	local	entity spot;
+
 	spot = find (world, targetname, self.target);
 
 	if (!spot)
 		objerror ("couldn't find target");
 
-		return spot;
+	return spot;
 };
 
 
@@ -31,6 +32,7 @@ local entity bot, spawn_spot;
 	bot.origin = spawn_spot.origin + '0 0 1';
 	bot.angles = spawn_spot.angles;
 	bot.fixangle = TRUE;
+	if (!(self.spawnflags & 32)) 			// SILENT
 	spawn_tfog (bot.origin);
 	spawn_tdeath (bot.origin, bot);
 
@@ -348,6 +350,9 @@ if (self.style == 11) // spawn a Zombie
 
 // begin his thinking
 	bot.nextthink = time + 0.1 + random();
+	if (bot.classname != "monster_zombie")
+	bot.think = monster_use;
+	else
 	bot.think = bot.th_walk;
 	monster_update_total (1); // repacement function from iw -- dumptruck_ds
 
