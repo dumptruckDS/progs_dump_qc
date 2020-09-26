@@ -1,3 +1,8 @@
+// Using "bot" creation code for func_monster_spawner
+// most of the code is from a tutorial on creating a bot monster found here:
+// https://www.quaddicted.com/webarchive/minion.planetquake.gamespy.com/tutorial/tutor9.htm
+// I added the MobotSpawnPoint, retriggering and random gen with help from
+// kreathor, 4LT, Paril, Spoike and others on the Quake Mapping Discord.
 /*
 ============
 MobotSpawnPoint
@@ -9,6 +14,7 @@ entity() MobotSpawnPoint =
 {
 	local	entity spot;
 
+	// spot = find (world, classname, "info_monster_spawnpoint");
 	spot = find (world, targetname, self.target);
 
 	if (!spot)
@@ -35,8 +41,6 @@ local entity bot, spawn_spot;
 	if (!(self.spawnflags & 32)) 			// SILENT
 	spawn_tfog (bot.origin);
 	spawn_tdeath (bot.origin, bot);
-
-	// 	self.style = floor(random() * 7) + 1;
 
 	if (self.style == 1) // spawn a Doggo
 	{
@@ -250,7 +254,8 @@ if (self.style == 8) // spawn a Knight
 	bot.th_walk = knight_walk1;
 	bot.th_run = knight_run1;
 	bot.th_die = knight_die;
-	bot.th_missile = knight_atk1;
+	bot.th_melee = knight_atk1;
+	// bot.th_missile = knight_atk1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	bot.th_pain = knight_pain;
 	else
@@ -278,7 +283,7 @@ if (self.style == 9) // spawn a HellKnight
 	bot.th_stand = hknight_stand1;
 	bot.th_walk = hknight_walk1;
 	bot.th_run = hknight_run1;
-	self.th_melee = hknight_melee;
+	bot.th_melee = hknight_melee;
 	bot.th_die = hknight_die;
 	bot.th_missile = hknight_magicc1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
@@ -348,9 +353,38 @@ if (self.style == 11) // spawn a Zombie
 	// bot.view_ofs = '0 0 22';
 	}
 
+if (self.style == 12) // spawn a Shambler
+	{
+	// set size and shape
+	bot.solid = SOLID_SLIDEBOX;
+	bot.movetype = MOVETYPE_STEP;
+	setmodel(bot, "progs/shambler.mdl");
+	setsize (bot, '-16 -16 -24', '16 16 40');
+	bot.flags = bot.flags | FL_MONSTER;
+	bot.takedamage = DAMAGE_AIM;
+
+	// define his animation
+	bot.th_stand = sham_stand1;
+	bot.th_walk = sham_walk1;
+	bot.th_run = sham_run1;
+	bot.th_pain = sham_pain;
+	bot.th_die = sham_die;
+	bot.th_missile = sham_magic1;
+	bot.th_melee = sham_melee;
+	bot.health = 600;
+
+	// polish him up
+	bot.classname = "monster_shambler";
+	bot.ideal_yaw = bot.angles * '0 1 0';
+	bot.yaw_speed = 120;
+	bot.view_ofs = '0 0 2';
+	// bot.view_ofs = '0 0 22';
+	}
+
 // begin his thinking
-	bot.nextthink = time + 0.1 + random();
-	if (bot.classname != "monster_zombie")
+	bot.nextthink = time + 0.2; // this seems better with monster_use -- dumptruck_ds
+	// bot.nextthink = time + 0.1 + random();
+	if (bot.classname != "monster_zombie") // required to avoid animation issues -- dumptruck_ds
 	bot.think = monster_use;
 	else
 	bot.think = bot.th_walk;
@@ -369,7 +403,7 @@ void() think_mobot =
 		{
 			if (self.style2 == 1)
 			{
-				self.style = floor(random() * 11) + 1;
+				self.style = floor(random() * 12) + 1;
 				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
 			}
 			else

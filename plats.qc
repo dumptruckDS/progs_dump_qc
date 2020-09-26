@@ -526,7 +526,7 @@ void() misc_teleporttrain =
 	setsize (self, '-16 -16 -16', '16 16 16');
 
 	//Causes the ball to spin around like it was originally intended to.
-	if (!(self.spawnflags & 2)) 			//don't spin - helpful for invisible spawner
+	if (!(self.spawnflags & 2)) 			//don't spin - helpful for invisible spawner -- dumptruck_ds
 	self.avelocity = '40 80 120';
 	// self.avelocity = '100 200 300';
 
