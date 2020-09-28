@@ -151,7 +151,10 @@ state(choices) =
 //
 
 @baseclass base(Appearflags) flags(Angle) size(-16 -16 -24, 16 16 32) offset(0 0 24) color(0 255 0) = PlayerClass []
+@baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)
+color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
+@PointClass base(MonsterClass) = info_monster_spawnpoint : "Destination for func_monster_spawner" []
 @PointClass base(PlayerClass) = info_player_start : "Player 1 start" []
 @PointClass base(PlayerClass) = info_player_deathmatch : "Player deathmatch start" []
 @PointClass base(PlayerClass) = info_player_coop : "Player cooperative start" []
