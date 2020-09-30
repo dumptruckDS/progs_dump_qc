@@ -1,15 +1,10 @@
+.float alpha; // translucency in supported engines
+.entity char; // linker entity
 
-/*
-I am giving up on this. Some notes:
-
-Monsters take too long to trigger this or the collision is strange. I only tested a dog
-but triggering the fall was not predicible enough.
-Sounds will loop when touching the entity. Couldn't figure out how to have it play once.
---dumptruck_ds
-*/
-
-void() func_fall2_think =
+void() func_fall_think =
 {
+	self.waterlevel = self.watertype = 0; // turn off quake engine splash sound
+
 	if (self.attack_finished < time)
 	{
 		if (self.target) // fire other targets
@@ -49,11 +44,8 @@ void() func_fall2_think =
 				self.alpha = self.alpha - self.pain_finished;
 			else
 			{
-				if (self.noise != "")
-						sound (self, CHAN_AUTO, self.noise2, 1, ATTN_NORM);
-				else
-						sound (self, CHAN_AUTO, "misc/null.wav", 1, ATTN_NORM);
-				// sound (self, CHAN_AUTO, self.noise2, 1, ATTN_NORM);
+				if (self.noise2)
+					sound (self, CHAN_AUTO, self.noise2, 1, ATTN_NORM);
 				remove(self);
 				return;
 			}
@@ -62,44 +54,62 @@ void() func_fall2_think =
 	self.nextthink = self.ltime + 0.1;
 };
 
-void() fall_touch2 =
+void() fall_touch =
 {
-	if (!other.takedamage || self.cnt == TRUE)
+	if (!other.takedamage)
 		return;
-	if (self.spawnflags & 2 && other.classname != "player") // Player activated only
+	if (other.classname != "player") // player activated only
 		return;
-	if ((self.spawnflags & 4) && !(other.flags & FL_MONSTER)) // Monster activated only
+	if (self.spawnflags & 2) // disable on monster only, also fixes weird issue
 		return;
 
-	self.think = func_fall2_think;
+	self.think = func_fall_think;
 	self.nextthink = self.ltime + 0.1;
 
 	self.attack_finished = time + self.wait;
 
-	if (self.noise != "")
-	sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-	else
-	sound (self, CHAN_AUTO, "misc/null.wav", 1, ATTN_NORM);
+	if (self.noise)
+		sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 
-	// sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+	self.touch = SUB_Null; // disable touch, only do this once!
+
+	if (self.char)
+		remove(self.char);
 };
 
-void() func_fall2_use =
+void() func_fall_use =
 {
-	self.think = func_fall2_think;
+	self.think = func_fall_think;
 	self.nextthink = self.ltime + 0.1;
+	self.touch = SUB_Null; // disable touch when used
 
 	self.attack_finished = time + self.wait;
-
-	if (self.noise != "")
-			sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-	else
-			sound (self, CHAN_AUTO, "misc/null.wav", 1, ATTN_NORM);
-
-	// sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+	if (self.noise)
+		sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 };
 
-/*QUAKED func_fall2 (0 .5 .8) ?
+void() func_fall_field_touch =
+{
+	if (other.flags & FL_FLY) // flying monsters shouldn't trigger falling platforms
+		return;
+
+	if (other.flags & FL_MONSTER)
+	{
+		local entity oself;
+
+		oself = self;
+
+		self = self.owner;
+		self.think = func_fall_use;
+		self.nextthink = self.owner.ltime + 0.1;
+
+		self = oself;
+
+		remove(self);
+	}
+};
+
+/*QUAKED func_fall (0 .5 .8) ?
 Falling brush by RennyC
 
 wait - how long until the brush begins falling
@@ -114,24 +124,38 @@ lip - maximum fall speed that can be achieved, caps 'speed' variable. Default is
 avelocity - have it spin when activated using X, Y, Z vector coordinates. MOVETYPE_BOUNCE ignores avelocity !Use an origin brush for proper spin!
 
 spawnflags:
-	Default behavior allows anyone to activate func_fall2 on touch
-	2 - Player activated only
-	4 - Monster activated only
+	Default behavior allows anyone to activate func_fall on touch ONLY
+	1 - Player activated only
+	2 - Monster activated only
 
-Able to .target other entities, including other func_fall2s
+Able to .target other entities, including other func_falls
 */
 
-void() func_fall2 =
+void() func_fall =
 {
-	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
-		 return;
+	//
+	// This is a hack to have monsters be able to trigger it by fake touch - Thanks to Nahuel
+	//
 
-	precache_sound("misc/null.wav");
-	if (self.noise != "") precache_sound (self.noise);
-	if (self.noise2 != "") precache_sound (self.noise2);
+	// Don't spawn on player only or if I'm a targetable
+	if (!(self.spawnflags & 1) && !(self.targetname))
+	{
+		local entity func_fall_field;
 
-	// precache_sound(self.noise);
-	// precache_sound(self.noise2);
+		func_fall_field = spawn();
+		func_fall_field.owner = self;
+		self.char = func_fall_field; // Link 'em
+		func_fall_field.solid = SOLID_TRIGGER;
+		setsize (func_fall_field, self.absmin, self.absmax + '0 0 8');
+		setorigin (func_fall_field, self.origin);
+		setmodel (func_fall_field, self.model);
+		func_fall_field.touch = func_fall_field_touch;
+	}
+
+	if (self.noise)
+		precache_sound(self.noise);
+	if (self.noise2)
+		precache_sound(self.noise2);
 
 	self.alpha = 1;
 	self.solid = SOLID_BSP;
@@ -140,7 +164,7 @@ void() func_fall2 =
 	if (!self.pain_finished)
 		self.pain_finished = 0.01;
 	if (!self.targetname)
-		self.touch = fall_touch2;
+		self.touch = fall_touch; // .touch in this instance is for players only
 	if (!self.speed)
 		self.speed = 10;
 	if (!self.lip)
@@ -150,7 +174,11 @@ void() func_fall2 =
 		self.pos1 = self.avelocity; // store it
 		self.avelocity = '0 0 0';
 	}
+	self.use = func_fall_use;
 
-	self.use = func_fall2_use;
 	setmodel (self, self.model);
 };
+
+//	* You may have to modify your multi_touch(); command in triggers.qc to allow
+//	* both monsters & players to activate trigger_once/multiple. I recommend allowing
+//	* the mapper themselves to select how that occurs. Default behavior is player only.
