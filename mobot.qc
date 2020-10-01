@@ -23,7 +23,6 @@ entity() MobotSpawnPoint =
 	return spot;
 };
 
-
 // ------------------------------------------------
 void() create_mobot =
 // ------------------------------------------------
@@ -210,34 +209,33 @@ if (self.style == 6) // spawn a Wizard / Scrag
 	bot.view_ofs = '0 0 22';
 	}
 
-if (self.style == 7) // spawn a Shalrath
-	{
-	// set size and shape
-	bot.solid = SOLID_SLIDEBOX;
-	bot.movetype = MOVETYPE_STEP;
-	setmodel(bot, "progs/shalrath.mdl");
-	setsize (bot, VEC_HULL2_MIN, VEC_HULL2_MAX);
-	bot.flags = bot.flags | FL_MONSTER;
-	bot.takedamage = DAMAGE_AIM;
+	if (self.style == 7) // spawn a Shambler
+		{
+		// set size and shape
+		bot.solid = SOLID_SLIDEBOX;
+		bot.movetype = MOVETYPE_STEP;
+		setmodel(bot, "progs/shambler.mdl");
+		setsize (bot, '-16 -16 -24', '16 16 40');
+		bot.flags = bot.flags | FL_MONSTER;
+		bot.takedamage = DAMAGE_AIM;
 
-	// define his animation
-	bot.th_stand = shal_stand;
-	bot.th_walk = shal_walk1;
-	bot.th_run = shal_run1;
-	bot.th_die = shalrath_die;
-	bot.th_missile = shal_attack1;
-	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
-	bot.th_pain = shalrath_pain;
-	else
-	bot.th_pain = SUB_NullPain;
-	bot.health = 400;
+		// define his animation
+		bot.th_stand = sham_stand1;
+		bot.th_walk = sham_walk1;
+		bot.th_run = sham_run1;
+		bot.th_pain = sham_pain;
+		bot.th_die = sham_die;
+		bot.th_missile = sham_magic1;
+		bot.th_melee = sham_melee;
+		bot.health = 600;
 
-	// polish him up
-	bot.classname = "monster_shalrath";
-	bot.ideal_yaw = bot.angles * '0 1 0';
-	bot.yaw_speed = 120;
-	bot.view_ofs = '0 0 22';
-	}
+		// polish him up
+		bot.classname = "monster_shambler";
+		bot.ideal_yaw = bot.angles * '0 1 0';
+		bot.yaw_speed = 120;
+		bot.view_ofs = '0 0 2';
+		// bot.view_ofs = '0 0 22';
+		}
 
 if (self.style == 8) // spawn a Knight
 	{
@@ -353,32 +351,33 @@ if (self.style == 11) // spawn a Zombie
 	// bot.view_ofs = '0 0 22';
 	}
 
-if (self.style == 12) // spawn a Shambler
+if (self.style == 12) // spawn a Shalrath
 	{
-	// set size and shape
-	bot.solid = SOLID_SLIDEBOX;
-	bot.movetype = MOVETYPE_STEP;
-	setmodel(bot, "progs/shambler.mdl");
-	setsize (bot, '-16 -16 -24', '16 16 40');
-	bot.flags = bot.flags | FL_MONSTER;
-	bot.takedamage = DAMAGE_AIM;
+		// set size and shape
+		bot.solid = SOLID_SLIDEBOX;
+		bot.movetype = MOVETYPE_STEP;
+		setmodel(bot, "progs/shalrath.mdl");
+		setsize (bot, VEC_HULL2_MIN, VEC_HULL2_MAX);
+		bot.flags = bot.flags | FL_MONSTER;
+		bot.takedamage = DAMAGE_AIM;
 
-	// define his animation
-	bot.th_stand = sham_stand1;
-	bot.th_walk = sham_walk1;
-	bot.th_run = sham_run1;
-	bot.th_pain = sham_pain;
-	bot.th_die = sham_die;
-	bot.th_missile = sham_magic1;
-	bot.th_melee = sham_melee;
-	bot.health = 600;
+		// define his animation
+		bot.th_stand = shal_stand;
+		bot.th_walk = shal_walk1;
+		bot.th_run = shal_run1;
+		bot.th_die = shalrath_die;
+		bot.th_missile = shal_attack1;
+		if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+		bot.th_pain = shalrath_pain;
+		else
+		bot.th_pain = SUB_NullPain;
+		bot.health = 400;
 
-	// polish him up
-	bot.classname = "monster_shambler";
-	bot.ideal_yaw = bot.angles * '0 1 0';
-	bot.yaw_speed = 120;
-	bot.view_ofs = '0 0 2';
-	// bot.view_ofs = '0 0 22';
+		// polish him up
+		bot.classname = "monster_shalrath";
+		bot.ideal_yaw = bot.angles * '0 1 0';
+		bot.yaw_speed = 120;
+		bot.view_ofs = '0 0 22';
 	}
 
 // begin his thinking
@@ -401,19 +400,22 @@ void() think_mobot =
 
 		if (self.count!=0)
 		{
+			if !(self.wait)
+			self.nextthink = time + 5;
+			else
+			self.nextthink = time + self.wait;
+
+			if (self.style == 12)
+			self.nextthink = time + self.wait + 10; // Shalrath respawn time needs to be longer to avoid spawnfrags
+
 			if (self.style2 == 1)
 			{
-				self.style = floor(random() * 12) + 1;
+				self.style = floor(random() * 11) + 1; // no Shalrath in random due to spawnfrags
 				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
 			}
 			else
 				create_mobot();
 		}
-
-		if !(self.wait)
-		self.nextthink = time + 5;
-		else
-		self.nextthink = time + self.wait;
 
 		self.think = think_mobot; // qthink I didn't realize I could do this! -- dumptruck_ds
 	};
