@@ -60,7 +60,7 @@ void() fall_touch =
 		return;
 	if (other.classname != "player") // player activated only
 		return;
-	if (self.spawnflags & 2) // disable on monster only, also fixes weird issue
+	if (self.spawnflags & MONSTER_TRIGGERED) // disable on monster only, also fixes weird issue
 		return;
 
 	self.think = func_fall_think;
@@ -125,8 +125,8 @@ avelocity - have it spin when activated using X, Y, Z vector coordinates. MOVETY
 
 spawnflags:
 	Default behavior allows anyone to activate func_fall on touch ONLY
-	1 - Player activated only
-	2 - Monster activated only
+	262144 - Player activated only  // was 1
+	131072 - Monster activated only // was 2
 
 Able to .target other entities, including other func_falls
 */
@@ -138,7 +138,7 @@ void() func_fall =
 	//
 
 	// Don't spawn on player only or if I'm a targetable
-	if (!(self.spawnflags & 1) && !(self.targetname))
+	if (!(self.spawnflags & PLAYER_TRIGGERED) && !(self.targetname))
 	{
 		local entity func_fall_field;
 
