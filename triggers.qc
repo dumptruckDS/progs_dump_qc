@@ -1,5 +1,3 @@
-float	MONSTER_TRIGGERED = 131072;
-float	PLAYER_TRIGGERED = 262144;
 
 entity	s;
 
@@ -100,11 +98,6 @@ void() multi_use = //dumptruck_ds
 
 void() multi_touch = //dumptruck_ds
 {
-	// RennyC: Monsters and players can hit touch triggers, mapper selectable
-
-	// no spawnflags = player only (default Quake behavior!)
-	// spawnflag 2 = monster only
-	// spawnflag 4 = both player / monster
 
 	// if (other.classname != "player")
 	// 	return;
@@ -114,8 +107,6 @@ void() multi_touch = //dumptruck_ds
 
 	if (self.is_waiting)	// Supa, is this trigger waiting to be activated?
 		return;
-
-	if ((self.spawnflags & MONSTER_TRIGGERED && other.flags & FL_MONSTER) || (!(self.spawnflags) && (other.classname == "player")) || (self.spawnflags & PLAYER_TRIGGERED))
 
 // if the trigger has an angles field, check player's facing direction
 	if (self.movedir != '0 0 0')

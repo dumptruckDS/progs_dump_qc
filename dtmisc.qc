@@ -818,91 +818,91 @@ void() gib_misc_3 =
 // noise = sound to play when triggered
 // wait = wait this long before falling
 // ==============================================================================*/
-// float DONT_FADE = 1;
-//
-// void() func_fall_think =
-// {
-//     if (self.cnt == TRUE && self.attack_finished < time)
-//     {
-//         self.solid = SOLID_BBOX;
-//         // self.solid = SOLID_NOT;
-//         self.movetype = MOVETYPE_TOSS;
-//
-//         if (!(self.spawnflags & DONT_FADE))
-//         {
-//
-//           if (self.alpha > 0.1)
-//               self.alpha = self.alpha - 0.03;
-//           else
-//           {
-//               remove(self);
-//               return;
-//           }
-//         }
-//     }
-//     self.nextthink = time + 0.1;
-// };
-//
-// void() fall_touch =
-// {
-//     if (other.classname == "player")
-//     {
-//         if (!(other.flags & FL_ONGROUND))
-//             other.flags = other.flags | FL_ONGROUND;
-//     }
-//
-//     else if (other.flags & FL_MONSTER)
-//     T_Damage (other, self, other, 50000);
-//
-//     else
-//         return;
-//
-//     if (self.cnt == TRUE)
-//         return;
-//
-//     self.attack_finished = time + self.wait;
-//     self.cnt = TRUE;
-//
-//     if (self.noise != "")
-//         sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-//     else
-//         sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
-// };
-//
-// void() fall_use =  // thanks again RennyC for help on revisions --dumptruck_ds
-//     {
-//       self.attack_finished = time + self.wait;
-//       self.cnt = TRUE;
-//
-//       if (self.noise != "")
-//           sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-//       else
-//           sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
-//     };
-//
-// /*QUAKED func_fall (0 .5 .8) ?
-// Falling brush upon touch
-// */
-//
-// void() func_fall =
-// {
-//     if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
-//         return;
-//
-//     precache_sound("buttons/switch21.wav");
-//     if (self.noise != "") precache_sound (self.noise);
-//
-//
-//     self.alpha = 1;
-//     self.cnt = FALSE;
-//     self.solid = SOLID_BSP;
-//     self.movetype = MOVETYPE_PUSH;
-//     self.think = func_fall_think;
-//     self.nextthink = time;
-//     self.touch = fall_touch;
-//     self.use = fall_use;
-//     setmodel (self, self.model);
-// };
+float DONT_FADE = 1;
+
+void() func_fall_think =
+{
+    if (self.cnt == TRUE && self.attack_finished < time)
+    {
+        self.solid = SOLID_BBOX;
+        // self.solid = SOLID_NOT;
+        self.movetype = MOVETYPE_TOSS;
+
+        if (!(self.spawnflags & DONT_FADE))
+        {
+
+          if (self.alpha > 0.1)
+              self.alpha = self.alpha - 0.03;
+          else
+          {
+              remove(self);
+              return;
+          }
+        }
+    }
+    self.nextthink = time + 0.1;
+};
+
+void() fall_touch =
+{
+    if (other.classname == "player")
+    {
+        if (!(other.flags & FL_ONGROUND))
+            other.flags = other.flags | FL_ONGROUND;
+    }
+
+    else if (other.flags & FL_MONSTER)
+    T_Damage (other, self, other, 50000);
+
+    else
+        return;
+
+    if (self.cnt == TRUE)
+        return;
+
+    self.attack_finished = time + self.wait;
+    self.cnt = TRUE;
+
+    if (self.noise != "")
+        sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+    else
+        sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
+};
+
+void() fall_use =  // thanks again RennyC for help on revisions --dumptruck_ds
+    {
+      self.attack_finished = time + self.wait;
+      self.cnt = TRUE;
+
+      if (self.noise != "")
+          sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
+      else
+          sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
+    };
+
+/*QUAKED func_fall (0 .5 .8) ?
+Falling brush upon touch
+*/
+
+void() func_fall =
+{
+    if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+        return;
+
+    precache_sound("buttons/switch21.wav");
+    if (self.noise != "") precache_sound (self.noise);
+
+
+    self.alpha = 1;
+    self.cnt = FALSE;
+    self.solid = SOLID_BSP;
+    self.movetype = MOVETYPE_PUSH;
+    self.think = func_fall_think;
+    self.nextthink = time;
+    self.touch = fall_touch;
+    self.use = fall_use;
+    setmodel (self, self.model);
+};
 
 //=START PARTICLE-STREAM==================================================
 // from Zerstrorer mod -- dumptruck_ds

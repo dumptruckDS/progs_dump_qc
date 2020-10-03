@@ -1,14 +1,18 @@
 .float alpha; // translucency in supported engines
 .entity char; // linker entity
+float	PLAYER_TRIGGERED = 1;
+float	MONSTER_TRIGGERED = 2;
 
-void() func_fall_think =
+
+void() func_fall2_think =
 {
 	self.waterlevel = self.watertype = 0; // turn off quake engine splash sound
 
 	if (self.attack_finished < time)
 	{
 		if (self.target) // fire other targets
-			SUB_UseTargets();
+			SUB_UseAndForgetTargets();
+			// SUB_UseTargets();
 
 		self.solid = SOLID_NOT;
 		if (self.pos1 != '0 0 0')
@@ -54,7 +58,7 @@ void() func_fall_think =
 	self.nextthink = self.ltime + 0.1;
 };
 
-void() fall_touch =
+void() fall2_touch =
 {
 	if (!other.takedamage)
 		return;
@@ -63,7 +67,7 @@ void() fall_touch =
 	if (self.spawnflags & MONSTER_TRIGGERED) // disable on monster only, also fixes weird issue
 		return;
 
-	self.think = func_fall_think;
+	self.think = func_fall2_think;
 	self.nextthink = self.ltime + 0.1;
 
 	self.attack_finished = time + self.wait;
@@ -77,9 +81,9 @@ void() fall_touch =
 		remove(self.char);
 };
 
-void() func_fall_use =
+void() func_fall2_use =
 {
-	self.think = func_fall_think;
+	self.think = func_fall2_think;
 	self.nextthink = self.ltime + 0.1;
 	self.touch = SUB_Null; // disable touch when used
 
@@ -88,7 +92,7 @@ void() func_fall_use =
 		sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
 };
 
-void() func_fall_field_touch =
+void() func_fall2_field_touch =
 {
 	if (other.flags & FL_FLY) // flying monsters shouldn't trigger falling platforms
 		return;
@@ -100,7 +104,7 @@ void() func_fall_field_touch =
 		oself = self;
 
 		self = self.owner;
-		self.think = func_fall_use;
+		self.think = func_fall2_use;
 		self.nextthink = self.owner.ltime + 0.1;
 
 		self = oself;
@@ -109,7 +113,7 @@ void() func_fall_field_touch =
 	}
 };
 
-/*QUAKED func_fall (0 .5 .8) ?
+/*QUAKED func_fall2 (0 .5 .8) ?
 Falling brush by RennyC
 
 wait - how long until the brush begins falling
@@ -124,14 +128,14 @@ lip - maximum fall speed that can be achieved, caps 'speed' variable. Default is
 avelocity - have it spin when activated using X, Y, Z vector coordinates. MOVETYPE_BOUNCE ignores avelocity !Use an origin brush for proper spin!
 
 spawnflags:
-	Default behavior allows anyone to activate func_fall on touch ONLY
-	262144 - Player activated only  // was 1
-	131072 - Monster activated only // was 2
+	Default behavior allows anyone to activate func_fall2 on touch ONLY
+	1 - Player activated only
+	2 - Monster activated only
 
-Able to .target other entities, including other func_falls
+Able to .target other entities, including other func_fall2s
 */
 
-void() func_fall =
+void() func_fall2 =
 {
 	//
 	// This is a hack to have monsters be able to trigger it by fake touch - Thanks to Nahuel
@@ -140,16 +144,16 @@ void() func_fall =
 	// Don't spawn on player only or if I'm a targetable
 	if (!(self.spawnflags & PLAYER_TRIGGERED) && !(self.targetname))
 	{
-		local entity func_fall_field;
+		local entity func_fall2_field;
 
-		func_fall_field = spawn();
-		func_fall_field.owner = self;
-		self.char = func_fall_field; // Link 'em
-		func_fall_field.solid = SOLID_TRIGGER;
-		setsize (func_fall_field, self.absmin, self.absmax + '0 0 8');
-		setorigin (func_fall_field, self.origin);
-		setmodel (func_fall_field, self.model);
-		func_fall_field.touch = func_fall_field_touch;
+		func_fall2_field = spawn();
+		func_fall2_field.owner = self;
+		self.char = func_fall2_field; // Link 'em
+		func_fall2_field.solid = SOLID_TRIGGER;
+		setsize (func_fall2_field, self.absmin, self.absmax + '0 0 8');
+		setorigin (func_fall2_field, self.origin);
+		setmodel (func_fall2_field, self.model);
+		func_fall2_field.touch = func_fall2_field_touch;
 	}
 
 	if (self.noise)
@@ -164,7 +168,7 @@ void() func_fall =
 	if (!self.pain_finished)
 		self.pain_finished = 0.01;
 	if (!self.targetname)
-		self.touch = fall_touch; // .touch in this instance is for players only
+		self.touch = fall2_touch; // .touch in this instance is for players only
 	if (!self.speed)
 		self.speed = 10;
 	if (!self.lip)
@@ -174,7 +178,7 @@ void() func_fall =
 		self.pos1 = self.avelocity; // store it
 		self.avelocity = '0 0 0';
 	}
-	self.use = func_fall_use;
+	self.use = func_fall2_use;
 
 	setmodel (self, self.model);
 };
