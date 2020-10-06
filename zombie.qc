@@ -451,9 +451,33 @@ void() zombie_die =
 	{
 		ThrowHead ("progs/h_zombie.mdl", self.health/*, self.dest*/); //commented out dest -- dumptruck_ds
 	}
-	ThrowGib ("progs/gib1.mdl", self.health/*, self.dest*/);
-	ThrowGib ("progs/gib2.mdl", self.health/*, self.dest*/);
-	ThrowGib ("progs/gib3.mdl", self.health/*, self.dest*/);
+	// ThrowGib ("progs/gib1.mdl", self.health/*, self.dest*/);
+	// ThrowGib ("progs/gib2.mdl", self.health/*, self.dest*/);
+	// ThrowGib ("progs/gib3.mdl", self.health/*, self.dest*/);
+	if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+	{
+		ThrowGib (self.mdl_gib1, self.health);
+	}
+	else
+	{
+		ThrowGib ("progs/gib1.mdl", self.health);
+	}
+	if (self.mdl_gib2 != "")
+	{
+		ThrowGib (self.mdl_gib2, self.health);
+	}
+	else
+	{
+		ThrowGib ("progs/gib2.mdl", self.health);
+	}
+	if (self.mdl_gib3 != "")
+	{
+		ThrowGib (self.mdl_gib3, self.health);
+	}
+	else
+	{
+		ThrowGib ("progs/gib3.mdl", self.health);
+	}
 };
 
 /*
@@ -632,6 +656,10 @@ void() monster_zombie =
 	precache_sound ("zombie/z_miss.wav");
 	precache_sound ("zombie/z_hit.wav");
 	precache_sound ("zombie/idle_w2.wav");
+
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
 
 	self.th_stand = zombie_start;
 	self.th_walk = zombie_walk1;

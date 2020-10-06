@@ -113,9 +113,41 @@ void() f_death1 =[      $death1,        f_death2        ]
 	if (self.health < -35) //fish gibs -- dumptruck_ds
 	{
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
-		ThrowGib ("progs/gib3.mdl", self.health);
-		ThrowGib ("progs/gib1.mdl", self.health);
-		ThrowGib ("progs/gib3.mdl", self.health);
+		// ThrowGib ("progs/gib3.mdl", self.health);
+		// ThrowGib ("progs/gib1.mdl", self.health);
+		// ThrowGib ("progs/gib3.mdl", self.health);
+		if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+		{
+			ThrowGib (self.mdl_gib1, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_gib2 != "")
+		{
+			ThrowGib (self.mdl_gib2, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_gib3 != "")
+		{
+			ThrowGib (self.mdl_gib3, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_head != "")
+		{
+			ThrowHead (self.mdl_head, self.health);
+		}
+		else
+		{
+			ThrowHead ("progs/h_dog.mdl", self.health);
+		}
 		SUB_Remove();
 	}
 	else
@@ -179,6 +211,10 @@ void() monster_fish =
 	precache_sound2 ("fish/death.wav");
 	precache_sound2 ("fish/bite.wav");
 	precache_sound2 ("fish/idle.wav");
+
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
