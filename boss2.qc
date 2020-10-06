@@ -50,10 +50,10 @@ void() boss2_face =
 };
 
 void() boss2_rise1	=[	$rise1, boss2_rise2 ] {
-	sound (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
+	sound_move (self, CHAN_AUTO, "boss1/out1.wav", 1, ATTN_NORM);
 };
 void() boss2_rise2	=[	$rise2, boss2_rise3 ] {
-	sound (self, CHAN_AUTO, "boss1/sight1.wav", 1, ATTN_NORM);
+	sound_sight (self, CHAN_AUTO, "boss1/sight1.wav", 1, ATTN_NORM);
 };
 void() boss2_rise3	=[	$rise3, boss2_rise4 ] {};
 void() boss2_rise4	=[	$rise4, boss2_rise5 ] {};
@@ -167,7 +167,7 @@ void() boss2_pain1 =[ $shocka1, boss2_pain2 ] {};
 void() boss2_pain2 =[ $shocka2, boss2_pain3 ] {};
 void() boss2_pain3 =[ $shocka3, boss2_pain4 ] {};
 void() boss2_pain4 =[ $shocka4, boss2_pain5 ] {
-	sound (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM); // pain noise
+	sound_pain (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM); // pain noise
 };
 void() boss2_pain5 =[ $shocka5, boss2_pain6 ] {};
 void() boss2_pain6 =[ $shocka6, bos2s_pain7 ] {};
@@ -302,7 +302,7 @@ void() boss2_die =
 };
 
 void() boss2_death1 = [$death1, boss2_death2] {
-	sound (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
 };
 void() boss2_death2 = [$death2, boss2_death3] {};
 void() boss2_death3 = [$death3, boss2_death4] {};
@@ -313,7 +313,7 @@ void() boss2_death7 = [$death7, boss2_death8] {};
 void() boss2_death8 = [$death8, boss2_death9] {};
 void() boss2_death9 = [$death9, boss2_death10]
 {
-	sound (self, CHAN_BODY, "boss1/out1.wav", 1, ATTN_NORM);
+	sound_move (self, CHAN_BODY, "boss1/out1.wav", 1, ATTN_NORM);
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
 	WriteCoord (MSG_BROADCAST, self.origin_x);
@@ -391,7 +391,7 @@ void(vector p) boss2_missile =
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
 	newmis.touch = T_MissileTouch; // rocket explosion
-	sound (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
 
 // check for dead enemy
 	if (self.enemy.health <= 0)
@@ -454,19 +454,20 @@ void() monster_boss2 =
 	{
 		remove(self);
 		return;
-	}
+	} //custom sounds and models -- dumptruck_ds
 	precache_body_model ("progs/boss.mdl");
 	precache_head_model ("progs/h_boss.mdl");
 	precache_model ("progs/lavaball.mdl");
 	// precache_model ("progs/boss.mdl");
 	precache_model ("progs/h_boss.mdl");
+
 	precache_sound ("weapons/rocket1i.wav");
-	precache_sound ("boss1/out1.wav");
-	precache_sound ("boss1/sight1.wav");
+	precache_sound_move ("boss1/out1.wav");
+	precache_sound_sight ("boss1/sight1.wav");
 	precache_sound ("misc/power.wav");
-	precache_sound ("boss1/throw.wav");
-	precache_sound ("boss1/pain.wav");
-	precache_sound ("boss1/death.wav");
+	precache_sound_attack ("boss1/throw.wav");
+	precache_sound_pain ("boss1/pain.wav");
+	precache_sound_death ("boss1/death.wav");
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");

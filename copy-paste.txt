@@ -2,3 +2,15 @@
 
 if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
   return;
+
+  //dumptruck_ds FIXME - make these per monster
+
+  snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+  snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+  snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+  snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
+  snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound e.g. Enforcer laser hit"
+  snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+  snd_land(string) : "Path to custom landing sound" : "Path to custom landing sound"
+  snd_move(string) : "Path to custom movement sound" : "Path to custom movement sound"
+  snd_misc(string) : "Path to custom sound" : "Path to custom sound"
