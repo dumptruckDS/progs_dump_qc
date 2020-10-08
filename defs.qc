@@ -883,6 +883,9 @@ float HEAL_MONSTER_ONLY	= 4;
 .string snd_land;
 .string snd_move;
 .string snd_misc;
+.string snd_misc1;
+.string snd_misc2;
+.string snd_misc3;
 
 // Custom Monster Sounds END -- dumptruck_ds
 

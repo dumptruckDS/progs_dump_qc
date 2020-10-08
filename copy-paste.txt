@@ -14,3 +14,6 @@ if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
   snd_land(string) : "Path to custom landing sound" : "Path to custom landing sound"
   snd_move(string) : "Path to custom movement sound" : "Path to custom movement sound"
   snd_misc(string) : "Path to custom sound" : "Path to custom sound"
+  snd_misc1(string) : "Path to custom sound" : "Path to custom sound"
+  snd_misc2(string) : "Path to custom sound" : "Path to custom sound"
+  snd_misc3(string) : "Path to custom sound" : "Path to custom sound"

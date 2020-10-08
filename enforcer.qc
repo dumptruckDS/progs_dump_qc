@@ -75,7 +75,7 @@ void(vector org, vector vec) LaunchLaser =
 {
 
 	if (self.classname == "monster_enforcer" || "monster_army")
-		sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
+		sound_attack (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
 
 	vec = normalize(vec);
 
@@ -120,7 +120,7 @@ void(vector org, vector vec) LaunchLaser =
 void(vector org, vector vec) EnfLaunchSpike =
 {
 
-	sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
 
 	vec = normalize(vec);
 
@@ -194,7 +194,7 @@ void() EnfRocket =
 
 	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
 
-	sound (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
 
 	self.punchangle_x = -2;
 
@@ -240,7 +240,7 @@ void() EnfFireGrenade =
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
 
-	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
 
 	missile = spawn ();
 	missile.owner = self;
@@ -281,7 +281,7 @@ if (self.style == 1)
 	{
 		self.effects = self.effects | EF_MUZZLEFLASH;
 		ai_face();
-		sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
+		sound_attack (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
 
 		EnfRocket();
 		return;
@@ -444,7 +444,7 @@ void(entity attacker, float damage)	enf_pain =
 	if (r < 0.5)
 		sound_pain (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM); //dumptruck_ds
 	else
-		sound_pain (self, CHAN_VOICE, "enforcer/pain2.wav", 1, ATTN_NORM); // dumptruck_ds
+		sound_misc3 (self, CHAN_VOICE, "enforcer/pain2.wav", 1, ATTN_NORM); // dumptruck_ds
 
 	if (r < 0.2)
 	{
@@ -619,11 +619,11 @@ void() monster_enforcer =
 	precache_sound2_hit ("enforcer/enfstop.wav");
 	precache_sound2_idle ("enforcer/idle1.wav");
 	precache_sound2_pain ("enforcer/pain1.wav");
-	precache_sound2_pain ("enforcer/pain2.wav");
+	precache_sound2_misc3 ("enforcer/pain2.wav");
 	precache_sound2_sight ("enforcer/sight1.wav");
-	precache_sound2_sight ("enforcer/sight2.wav"); // these will be replaced with custom noise fields eventually - dumptruck_ds
-	precache_sound2_sight ("enforcer/sight3.wav");
-	precache_sound2_sight ("enforcer/sight4.wav");
+	precache_sound2_misc ("enforcer/sight2.wav"); // these will be replaced with custom noise fields eventually - dumptruck_ds
+	precache_sound2_misc1 ("enforcer/sight3.wav");
+	precache_sound2_misc2 ("enforcer/sight4.wav");
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");
@@ -660,7 +660,7 @@ void() monster_enforcer =
 		{
 			self.th_missile = enf_atk1;
 		}
-	else if (self.style == 0) // new animation frame check -- dumptruck_ds
+	if (self.style == 0) // new animation frame check -- dumptruck_ds
 		{
 			self.th_missile = enf_atk1;
 		}

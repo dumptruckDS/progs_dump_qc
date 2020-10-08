@@ -440,7 +440,11 @@ The behavior of an item_key_custom should be as the player expects (based on the
 		0: "Teleport Effects (Default)"
 		1 : "Spawn Silently"
 	]
-	spawn_angry(integer)
+	spawn_angry(Choices) =
+[
+	0 : "Deafult behavior - not angry"
+	1 : "Only use when trigger spawned, set to 1 to spawn angry at player"
+]
 	health(integer)
 	pain_target(string)
 	pain_threshold(integer)
@@ -466,7 +470,14 @@ style(Choices) : "Attack type" : 0 =
 ]
 @PointClass base(Monster, Berserk, CustomSnds) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
 
-Default health = 25" []
+Default health = 25"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+]
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
 
 Default health = 200" [
@@ -490,8 +501,15 @@ Default health = 250" []
 
 Default health = 80" []
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
+Default heath = 300"
+[ snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+  snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+  snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+  snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
+  snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound e.g. Enforcer laser hit"
+  snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+]
 
-Default heath = 300" []
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
 
 Default health = 600" []
@@ -514,6 +532,16 @@ style(Choices) : "Attack type" : 0 =
 		2 : "grenades"
 		3 : "nails"
 	]
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom 1st pain sound" : "Path to 1st custom pain sound"
+snd_sight(string) : "Path to custom sight sound for STOP!" : "Path to custom sight sound for STOP!"
+snd_attack(string) : "Path to custom attack sound e.g Llaser firing" : "Path to custom attack sound e.g laser firing"
+snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound e.g. laser hits wall"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sight sound for FREEZE!" : "Path to custom sight sound for FREEZE!"
+snd_misc1(string) : "Path to custom sight sound for YOU THERE!" : "Path to custom sight sound for YOU THERE!"
+snd_misc2(string) : "Path to custom sight sound for HALT!" : "Path to custom sight sound for HALT!"
+snd_misc3(string) : "Path to 2nd custom pain sound" : "Path to 2nd custom pain sound"
 ]
 
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath

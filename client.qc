@@ -1591,6 +1591,9 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 			if (attacker.obit_name != "")
 			{
 				bprint (" was ");
+				if !(attacker.obit_method)
+				bprint ("killed");
+				else
 				bprint (attacker.obit_method); // e.g. ripped apart
 				bprint (" by ");
 				bprint (attacker.obit_name); // a bad monster
