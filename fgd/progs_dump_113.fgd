@@ -480,8 +480,16 @@ snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
 ]
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
 
-Default health = 200" [
+Default health = 200"
+[
 keep_ammo(integer) : "Don't drop backpack" : 0
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (CHAINSAW)" : "Path to custom attack sound (CHAINSAW)"
+snd_idle(string) : "Path to custom idle sound (IDLE)" : "Path to custom idle sound (IDLE)"
+snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : "Path to custom sound (IDLE CHAINSAW DRAG)"
+snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : "Path to custom sound (ATTACK GRUNT)"
 ]
 
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
@@ -493,16 +501,33 @@ keep_ammo(integer) : "Don't drop backpack" : 0
 ]
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
 
-Default heath = 75" []
+Default heath = 75"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (SWORD SLASH 1)" : "Path to custom attack sound (SWORD SLASH 1)"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : "Path to custom sound (SWORD SLASH 2)"
+]
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl" }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
 
-Default health = 250" []
+Default health = 250"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (MAGIC BOING)" : "Path to custom attack sound (MAGIC BOING)"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom SWORD SLASH sound" : "Path to custom SWORD SLASH sound"
+]
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
 
 Default health = 80" []
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
 Default heath = 300"
-[ snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
   snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
   snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
   snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
@@ -514,7 +539,8 @@ Default heath = 300"
 
 Default health = 600" []
 @PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
-@PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon" [
+@PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon"
+[
 snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
@@ -552,9 +578,26 @@ Default health = 400" []
 Default health = 80" []
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
 
-Default health = 25" []
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath" []
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath" []
+Default health = 25"
+[
+snd_death(string) : "Path to custom death sound (BUBBLES)" : "Path to custom death sound (BUBBLES)"
+snd_attack(string) : "Path to custom attack sound (CRUNCHY BITE)" : "Path to custom attack sound (CRUNCHY BITE)"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+]
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath"
+[
+snd_death(string) : "Path to custom death sound PART 1" : "Path to custom death sound PART 1"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_misc(string) : "Path to custom death sound PART 2" : "Path to custom death sound PART 2"
+]
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath"
+[
+snd_death(string) : "Path to custom death sound (PART 2 GIBBING)" : "Path to custom death sound (PART 2 GIBBING)"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_misc(string) : "Path to custom death sound (PART 1 DEATH SCREAM)" : "Path to custom death sound (PART 1 DEATH SCREAM)"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_attack(string) : "Path to custom attack sound (FIREBALL WHOOSH)" : "Path to custom attack sound (FIREBALL WHOOSH)"
+]
 @PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/zombie.mdl","skin" : skin, "frame" : frame}) = monster_zombie : "Zombie
 
 Default health = 60

@@ -118,7 +118,7 @@ local entity	temp;
 	other = temp;
 
 	if (self.classname == "monster_ogre")
-		sound (self, CHAN_VOICE, "ogre/ogdrag.wav", 1, ATTN_IDLE);// play chainsaw drag sound
+		sound_misc (self, CHAN_VOICE, "ogre/ogdrag.wav", 1, ATTN_IDLE);// play chainsaw drag sound -- sound_custom -- dumptruck_ds
 
 //dprint ("t_movetarget\n");
 	self.goalentity = self.movetarget = find (world, targetname, other.target);
