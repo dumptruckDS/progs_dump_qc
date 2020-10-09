@@ -236,7 +236,8 @@ void() GibBoss2 =
 		}
 		else
 		{
-			setmodel (head, "progs/h_boss.mdl");
+			// setmodel (head, "progs/h_boss.mdl");
+			setmodel (head, "progs/s_null.spr");
 	}
 
 	if (!self.skin_head) // dumptruck_ds
@@ -265,16 +266,16 @@ void() GibBoss2 =
 
 void() boss2_die =
 {
-	if (self.health < -50) // if health under -15
-	{
-		GibBoss2 ();
-		return;
-	}
-	else // otherwise
-	{
+	// if (self.health < -50) // if health under -15
+	// {
+	// 	GibBoss2 ();
+	// 	return;
+	// }
+	// else // otherwise
+	// {
 		boss2_death1 (); // normal death
 		return;
-	}
+	// }
 };
 
 void() boss2_death1 = [$death1, boss2_death2] {
@@ -432,10 +433,12 @@ void() monster_boss2 =
 		return;
 	}
 	precache_body_model ("progs/boss.mdl");
-	precache_head_model ("progs/h_boss.mdl");
+	// precache_head_model ("progs/h_boss.mdl");
+	precache_head_model ("progs/s_null.spr");
 	precache_model ("progs/lavaball.mdl");
 	// precache_model ("progs/boss.mdl");
-	precache_model ("progs/h_boss.mdl");
+	// precache_model ("progs/h_boss.mdl");
+	precache_model ("progs/s_null.spr");
 	precache_sound ("weapons/rocket1i.wav");
 	precache_sound ("boss1/out1.wav");
 	precache_sound ("boss1/sight1.wav");
