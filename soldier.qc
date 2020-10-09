@@ -133,7 +133,7 @@ void()	army_stand8	=[	$stand8,	army_stand1	] {ai_stand();};
 
 void()	army_walk1	=[	$prowl_1,	army_walk2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "soldier/idle.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "soldier/idle.wav", 1, ATTN_IDLE);
 ai_walk(1);};
 void()	army_walk2	=[	$prowl_2,	army_walk3	] {ai_walk(1);};
 void()	army_walk3	=[	$prowl_3,	army_walk4	] {ai_walk(1);};
@@ -161,7 +161,7 @@ void()	army_walk24	=[	$prowl_24,	army_walk1	] {ai_walk(1);};
 
 void()	army_run1	=[	$run1,		army_run2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "soldier/idle.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "soldier/idle.wav", 1, ATTN_IDLE);
 ai_run(11);};
 void()	army_run2	=[	$run2,		army_run3	] {ai_run(15);};
 void()	army_run3	=[	$run3,		army_run4	] {ai_run(10);};
@@ -232,19 +232,19 @@ void(entity attacker, float damage)	army_pain =
 	{
 		self.pain_finished = time + 0.6;
 		army_pain1 ();
-		sound (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
+		sound_pain (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
 	}
 	else if (r < 0.6)
 	{
 		self.pain_finished = time + 1.1;
 		army_painb1 ();
-		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+		sound_misc (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
 	}
 	else
 	{
 		self.pain_finished = time + 1.1;
 		army_painc1 ();
-		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+		sound_misc (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
 	}
 };
 
@@ -255,7 +255,6 @@ if (self.style == 1)
 
 	{
 		ai_face();
-		sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);
 
 		W_GruntRocket();
 	}
@@ -289,7 +288,7 @@ else
 
 		ai_face();
 
-		sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);
+		sound_attack (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);
 
 		// fire somewhat behind the player, so a dodging player is harder to hit
 		en = self.enemy;
@@ -417,7 +416,7 @@ void() army_die =
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "soldier/death1.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "soldier/death1.wav", 1, ATTN_NORM);
 	if (random() < 0.5)
 		army_die1 ();
 	else
@@ -446,12 +445,12 @@ void() monster_army =
 	precache_model ("progs/gib2.mdl");
 	precache_model ("progs/gib3.mdl");
 
-	precache_sound ("soldier/death1.wav");
-	precache_sound ("soldier/idle.wav");
-	precache_sound ("soldier/pain1.wav");
-	precache_sound ("soldier/pain2.wav");
-	precache_sound ("soldier/sattck1.wav");
-	precache_sound ("soldier/sight1.wav");
+	precache_sound_death ("soldier/death1.wav");
+	precache_sound_idle ("soldier/idle.wav");
+	precache_sound_pain ("soldier/pain1.wav");
+	precache_sound_misc ("soldier/pain2.wav");
+	precache_sound_attack ("soldier/sattck1.wav");
+	precache_sound_sight ("soldier/sight1.wav");
 	precache_sound2 ("enforcer/enfire.wav"); // used if style == 3
 	precache_sound2 ("enforcer/enfstop.wav"); // used if style == 3
 

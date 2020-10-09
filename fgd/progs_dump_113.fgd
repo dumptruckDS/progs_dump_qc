@@ -450,8 +450,8 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	pain_threshold(integer)
 	sight_trigger(integer)
 	skin(integer) : "Skin index (default 0)"
-	obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
-	obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name will set part of the text for a custom obituary. e.g. eviscerated"
+	obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+	obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 ]
 
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
@@ -459,6 +459,12 @@ The behavior of an item_key_custom should be as the player expects (based on the
 Default health = 30"
 [
 keep_ammo(integer) : "Don't drop backpack" : 0
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (GUNSHOT)" : "Path to custom attack sound (GUNSHOT)"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (PAIN 2)" : "Path to custom sound (PAIN 2)"
 style(Choices) : "Attack type" : 0 =
 	[
 		0 : "Default (shotgun)"
@@ -523,7 +529,15 @@ snd_misc(string) : "Path to custom SWORD SLASH sound" : "Path to custom SWORD SL
 ]
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
 
-Default health = 80" []
+Default health = 80"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (IDLE 2)" : "Path to custom sound (IDLE 2)"
+]
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
 Default heath = 300"
 [
@@ -537,7 +551,18 @@ snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
 
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
 
-Default health = 600" []
+Default health = 600"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (GRUNT)" : "Path to custom attack sound (GRUNT)"
+snd_hit(string) : "Path to custom hit sound (FLESH TEARING)" : "Path to custom hit sound (FLESH TEARING)"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (GRUNT 2)" : "Path to custom sound (GRUNT 2)"
+snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : "Path to custom sound (LIGHTNING ZAP)"
+snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : "Path to custom sound (LIGHTNING BOOM)"
+]
 @PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
 @PointClass base(Monster) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon"
 [
@@ -572,10 +597,24 @@ snd_misc3(string) : "Path to 2nd custom pain sound" : "Path to 2nd custom pain s
 
 @PointClass base(Monster, Berserk) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
 
-Default health = 400" []
+Default health = 400"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : "Path to custom attack sound (VORE SNARL)"
+snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : "Path to custom attack2 sound (VOREBALL FIRE)"
+]
 @PointClass base(Monster) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/tarbaby.mdl" }) = monster_tarbaby : "Spawn
 
-Default health = 80" []
+Default health = 80"
+[
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound"
+snd_misc(string) : "Path to custom sound (WET SLAPPING)" : "Path to custom sound (WET SLAPPING)"
+]
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
 
 Default health = 25"
