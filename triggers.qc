@@ -104,8 +104,8 @@ void() multi_touch = //dumptruck_ds
 	// if (other.classname != "actor")     // Zerstorer's cutscene drone.
 	// 		return;
 
-	// from Copper -- dumptruck_ds
-	if (!CheckValidTouch()) return;
+	if (other.movetype == MOVETYPE_NOCLIP)
+		return;
 
 	if (self.is_waiting)	// Supa, is this trigger waiting to be activated?
 		return;
@@ -795,7 +795,10 @@ void() hurt_on =
 void() hurt_touch =
 {
 	// from Copper -- dumptruck_ds
-	if (!CheckValidTouch()) return;
+	// if (!CheckValidTouch()) return;
+	if (other.movetype == MOVETYPE_NOCLIP)
+		return;
+
 	if (other.takedamage && self.nextthink < time)
 	{
 		//self.solid = SOLID_NOT;
