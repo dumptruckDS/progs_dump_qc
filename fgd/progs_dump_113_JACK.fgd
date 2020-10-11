@@ -536,6 +536,14 @@ snd_attack(string) : "Path to custom attack sound (FIREBALL WHOOSH)" : "Path to 
 ]
 @PointClass base(Monster) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie Default health = 60 If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
 [
+snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
+snd_attack(string) : "Path to custom attack sound (WHOOSH)" : "Path to custom attack sound (WHOOSH)"
+snd_idle(string) : "Path to custom idle sound (CRUCIFIED ONLY)" : "Path to custom idle sound (CRUCIFIED ONLY)"
+snd_misc(string) : "Path to custom (IDLE 2) sound" : "Path to custom (IDLE 2) sound"
+snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+snd_misc2(string) : "Path to custom (PAIN 2) sound" : "Path to custom (PAIN 2) sound"
+snd_misc3(string) : "Path to custom (FALLING) sound" : "Path to custom (FALLING) sound"
 	spawnflags(Flags) =
 	[
 		1 : "Crucified" : 0
