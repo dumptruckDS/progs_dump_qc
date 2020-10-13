@@ -12,8 +12,7 @@ void() W_Precache =
 {
 	precache_sound ("weapons/r_exp3.wav");	// new rocket explosion
 	precache_sound ("weapons/rocket1i.wav");	// spike gun
-	precache_sound_attack ("weapons/sgun1.wav"); //custom sounds -- dumptruck_ds
-	// precache_sound ("weapons/sgun1.wav");
+	precache_sound ("weapons/sgun1.wav");
 	precache_sound ("weapons/guncock.wav");	// player shotgun
 	precache_sound ("weapons/ric1.wav");	// ricochet (used in c code)
 	precache_sound ("weapons/ric2.wav");	// ricochet (used in c code)
@@ -455,8 +454,7 @@ void() W_GruntRocket =
 
 	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
 
-	sound_attack (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
-	// sound (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
 
 	self.punchangle_x = -2;
 
