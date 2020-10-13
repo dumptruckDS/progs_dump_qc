@@ -1543,7 +1543,7 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 			}
 
 			// killed by a montser?
-			if ((attacker.flags & FL_MONSTER) & (attacker.obit_name == ""))
+			if ((attacker.flags & FL_MONSTER) && (attacker.obit_name == ""))
 			{
 				if (attacker.classname == "monster_army")
 					bprint (" was shot by a Grunt\n");
