@@ -59,7 +59,10 @@ local entity bot, spawn_spot;
 		bot.th_die = dog_die;
 		bot.th_melee = dog_atta1;
 		bot.th_missile = dog_leap1;
-		bot.th_pain = dog_pain;
+		if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+			bot.th_pain = dog_pain;
+		else
+			bot.th_pain = SUB_NullPain;
 		bot.health = 25;
 
 		// polish him up
@@ -146,7 +149,10 @@ if (self.style == 4) // spawn an Ogre
 	bot.th_die = ogre_die;
 	bot.th_melee = ogre_melee;
 	bot.th_missile = ogre_nail1;
-	bot.th_pain = ogre_pain;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+		bot.th_pain = ogre_pain;
+	else
+		bot.th_pain = SUB_NullPain;
 	bot.health = 200;
 
 	// polish him up
@@ -173,7 +179,10 @@ if (self.style == 5) // spawn an Fiend
 	bot.th_die = demon_die;
 	bot.th_melee = Demon_MeleeAttack;		// one of two attacks
 	bot.th_missile = demon1_jump1;			// jump attack
-	bot.th_pain = demon1_pain;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
+    bot.th_pain = demon1_pain;
+  else
+    bot.th_pain = SUB_NullPain;
 	bot.health = 300;
 
 	// polish him up
@@ -200,7 +209,10 @@ if (self.style == 6) // spawn a Wizard / Scrag
 	bot.th_run = wiz_run1;
 	bot.th_die = wiz_die;
 	bot.th_missile = Wiz_Missile;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	bot.th_pain = Wiz_Pain;
+	else
+	bot.th_pain = SUB_NullPain;
 	bot.health = 80;
 
 	// polish him up
@@ -224,7 +236,10 @@ if (self.style == 6) // spawn a Wizard / Scrag
 		bot.th_stand = sham_stand1;
 		bot.th_walk = sham_walk1;
 		bot.th_run = sham_run1;
+		if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 		bot.th_pain = sham_pain;
+		else
+		bot.th_pain = SUB_NullPain;
 		bot.th_die = sham_die;
 		bot.th_missile = sham_magic1;
 		bot.th_melee = sham_melee;
@@ -427,6 +442,13 @@ void() func_monster_spawner =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
+
+	if !(self.target)
+		{
+			objerror("func_monster_spawner needs a target");
+			remove(self);
+			return;
+	 	}
 
 	if !(self.style)
 		self.style = 1;
