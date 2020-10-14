@@ -122,7 +122,7 @@ snd_misc(string) : "FIXME"
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @baseclass = Berserk [
-berserk(choices) =
+berserk(choices) : "skip certain pain animations" =
 			[
 				0 : "Off (Default)"
 				1 : "Berserk (skip pain animations)"
@@ -177,7 +177,42 @@ state(choices) =
 
 @baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)
 	color(0 255 0) model({ "path": ":progs/player.mdl" }) = PlayerClass []
+@baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)
+color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
+@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
+
+Choose Style via dropdown
+
+Style 2 overrides Style and chooses a random monster (excluding Zombies and Vores)
+
+Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags
+
+Can set Berserk to 1 to skip most pain anaimations.
+
+Can only use default health, models and sounds.
+"
+[
+style(Choices) =
+[
+	1 : "Dog (Default)"
+	2 : "Grunt"
+	3 : "Enforcer"
+	4 : "Ogre"
+	5 : "Fiend"
+	6 : "Wizard"
+	7 : "Shambler"
+	8 : "Knight"
+	9 : "HellKnight"
+	10 : "Spawn"
+	11 : "Zombie"
+	12 : "Shalrath"
+]
+style2(integer) : "Overrides Style and selects random monster (excluding Zombies and Vores)"
+wait(integer) : "Wait this long between spawns (Default 5, 12 for Zombies and Vores)"
+count(integer) : "How many monsters to spawn"
+]
+@PointClass base(MonsterClass, OneTargetname) = info_monster_spawnpoint : "Destination for func_monster_spawner" []
 @PointClass base(PlayerClass) = info_player_start : "Player 1 start" []
 @PointClass base(PlayerClass) = info_player_coop : "Player cooperative start" []
 @PointClass base(PlayerClass) = info_player_start2 : "Player episode return point" []
@@ -449,7 +484,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	]
 	wait(choices) =
 	[
-		0: "Teleport Effects (Default)"
+		0 : "Teleport Effects (Default)"
 		1 : "Spawn Silently"
 	]
 	spawn_angry(integer)
@@ -940,7 +975,7 @@ spawnflags(Flags) =
 	[ speed(integer) : "Speed" : 40 ]
 @PointClass base(Appearflags) size(0 0 0, 32 32 64) model({ "path": ":maps/b_explob.bsp" }) = misc_explobox : "Large exploding container" []
 @PointClass base(Appearflags) size(0 0 0, 32 32 32) model({ "path": ":maps/b_exbox2.bsp" }) = misc_explobox2 : "Small exploding container" []
-@PointClass base(Appearflags) size(-8 -8 -8, 8 8 8) model({ "path": ":progs/teleport.mdl" }) = misc_teleporttrain : "Flying teleporter destination"
+@PointClass base(Appearflags, Effects) size(-8 -8 -8, 8 8 8) model({ "path": ":progs/teleport.mdl" }) = misc_teleporttrain : "Flying teleporter destination"
 [
 	target(string) : "First stop target"
 	targetname(target_source) : "Name"
@@ -1483,7 +1518,7 @@ spawnflags(Flags) =
 // triggers
 //
 
-@baseclass base(Appearflags, Target, Killarget, Targetname) = Trigger
+@baseclass base(Appearflags, Target, Targetname) = Trigger
 [
 	sounds(choices) : "Sound style" : 0 =
 	[

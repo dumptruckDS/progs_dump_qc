@@ -683,6 +683,15 @@ void() info_player_coop =
 		return;
 };
 
+/*QUAKED info_monster_spawnpoint (1 0 1) (-16 -16 -24) (16 16 24)
+ spawning position for func_monster_spawner
+*/
+void() info_monster_spawnpoint =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+};
+
 /*
 ===============================================================================
 
