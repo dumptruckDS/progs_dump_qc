@@ -405,12 +405,12 @@ void() think_mobot =
 			else
 			self.nextthink = time + self.wait;
 
-			if (self.style == 12)
-			self.nextthink = time + self.wait + 10; // Shalrath respawn time needs to be longer to avoid spawnfrags
+			if ((self.style == 11) || (self.style == 12))
+			self.nextthink = time + self.wait + 7; // Shalrath and Zombie respawn times need to be longer to avoid spawnfrags
 
 			if (self.style2 == 1)
 			{
-				self.style = floor(random() * 11) + 1; // no Shalrath in random due to spawnfrags
+				self.style = floor(random() * 10) + 1; // no Shalrath or zombies in random due to spawnfrags
 				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
 			}
 			else
