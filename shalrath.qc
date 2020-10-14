@@ -27,7 +27,7 @@ void() shal_stand     =[      $walk1,       shal_stand    ] {ai_stand();};
 
 void() shal_walk1     =[      $walk2,       shal_walk2    ] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
 ai_walk(6);};
 void() shal_walk2     =[      $walk3,       shal_walk3    ] {ai_walk(4);};
 void() shal_walk3     =[      $walk4,       shal_walk4    ] {ai_walk(0);};
@@ -43,7 +43,7 @@ void() shal_walk12    =[      $walk1,       shal_walk1    ] {ai_walk(5);};
 
 void() shal_run1     =[      $walk2,       shal_run2    ] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
+	sound_idle (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
 ai_run(6);};
 void() shal_run2     =[      $walk3,       shal_run3    ] {ai_run(4);};
 void() shal_run3     =[      $walk4,       shal_run4    ] {ai_run(0);};
@@ -58,7 +58,7 @@ void() shal_run11    =[      $walk12,       shal_run12    ] {ai_run(4);};
 void() shal_run12    =[      $walk1,       shal_run1    ] {ai_run(5);};
 
 void() shal_attack1     =[      $attack1,       shal_attack2    ] {
-sound (self, CHAN_VOICE, "shalrath/attack.wav", 1, ATTN_NORM);
+sound_attack (self, CHAN_VOICE, "shalrath/attack.wav", 1, ATTN_NORM);
 ai_face();
 };
 void() shal_attack2     =[      $attack2,       shal_attack3    ] {ai_face();};
@@ -92,7 +92,7 @@ void(entity attacker, float damage) shalrath_pain =
 	if (self.pain_finished > time)
 		return;
 
-	sound (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
+	sound_pain (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
 	shal_pain1();
 	self.pain_finished = time + 3;
 };
@@ -141,7 +141,7 @@ void() shalrath_die =
 		return;
 	}
 
-	sound (self, CHAN_VOICE, "shalrath/death.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "shalrath/death.wav", 1, ATTN_NORM);
 	shal_death1();
 	self.solid = SOLID_NOT;
 	// insert death sounds here
@@ -167,7 +167,7 @@ void() ShalMissile =
 		flytime = 0.1;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	sound (self, CHAN_WEAPON, "shalrath/attack2.wav", 1, ATTN_NORM);
+	sound_misc (self, CHAN_WEAPON, "shalrath/attack2.wav", 1, ATTN_NORM);
 
 	missile = spawn ();
 	missile.owner = self;
@@ -266,12 +266,12 @@ void() monster_shalrath =
 	precache_head_model2 ("progs/h_shal.mdl");
 	precache_proj_model2 ("progs/v_spike.mdl");
 // dumptruck_ds
-	precache_sound2 ("shalrath/attack.wav");
-	precache_sound2 ("shalrath/attack2.wav");
-	precache_sound2 ("shalrath/death.wav");
-	precache_sound2 ("shalrath/idle.wav");
-	precache_sound2 ("shalrath/pain.wav");
-	precache_sound2 ("shalrath/sight.wav");
+	precache_sound2_attack ("shalrath/attack.wav");
+	precache_sound2_misc ("shalrath/attack2.wav");
+	precache_sound2_death ("shalrath/death.wav");
+	precache_sound2_idle ("shalrath/idle.wav");
+	precache_sound2_pain ("shalrath/pain.wav");
+	precache_sound2_sight ("shalrath/sight.wav");
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");

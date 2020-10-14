@@ -145,7 +145,7 @@ void(vector p) shub_missile =
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
 	newmis.touch = T_MissileTouch; // rocket explosion
-	sound (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
 
 // check for dead enemy
 	if (self.enemy.health <= 0)
@@ -199,7 +199,7 @@ void() old2_attk44       =[      $old44, old2_attk45      ] {shub_face();};
 void() old2_attk45       =[      $old45, old2_attk46      ] {shub_missile('0 -16 416');};
 void() old2_attk46       =[      $old46, old2_attk1       ] {shub_face();};
 //death twitch --dumptruck_ds
-void() old2_twitch1        =[      $shake1,  old2_twitch2       ] {sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
+void() old2_twitch1        =[      $shake1,  old2_twitch2       ] {sound_misc (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NONE);};
 void() old2_twitch2        =[      $shake2,  old2_twitch3       ] {};
 void() old2_twitch3        =[      $shake3,  old2_twitch4       ] {};
 void() old2_twitch4        =[      $shake4,  old2_twitch5       ] {};
@@ -233,7 +233,7 @@ void(entity attacker, float damage) oldone2_pain =
 	if (self.pain_finished > time)
 		return;
 
-	sound (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
+	sound_pain (self, CHAN_AUTO, "oldone2/pd_pop2.wav", 1, ATTN_NORM); //new pain sound
 	old2_attk1();
 	self.pain_finished = time + 4;
 };
@@ -299,7 +299,7 @@ void() oldone2_die =
 	}
 	particle (oldo, '0 0 0', 0, 255);
 	particle (oldo, '128 128 128', 0, 255);
-	sound (self, CHAN_VOICE, "player/teledth1.wav", 1, ATTN_NONE);
+	sound_death (self, CHAN_VOICE, "player/teledth1.wav", 1, ATTN_NONE);
 
 	remove (self);
 }
@@ -320,11 +320,12 @@ void() monster_oldone2 =
 	precache_body_model2 ("progs/oldone.mdl");
 	// precache_model2 ("progs/oldone.mdl");
 
-	precache_sound2 ("boss2/death.wav");
-	precache_sound2 ("boss2/idle.wav");
-	precache_sound2 ("boss2/sight.wav");
-	precache_sound2 ("boss2/pop2.wav");
-	precache_sound2 ("oldone2/pd_pop2.wav");
+	precache_sound2_death ("boss2/death.wav");
+	// precache_sound2_idle ("boss2/idle.wav");
+	precache_sound2_sight ("boss2/sight.wav");
+	precache_sound2_misc ("boss2/pop2.wav");
+	precache_sound2_pain ("oldone2/pd_pop2.wav");
+
 	precache_model ("progs/lavaball.mdl");
 	precache_sound ("boss1/throw.wav");
 

@@ -186,6 +186,10 @@ FAST ATTACKS
 
 ==============================================================================
 */
+void() Wiz_AttackSound = // this is a hack to fix Wizard custom attack sounds
+{
+	sound_attack (self, CHAN_AUTO, "wizard/wattack.wav", 1, ATTN_NORM);
+};
 
 void() Wiz_FastFire =
 {
@@ -200,7 +204,7 @@ void() Wiz_FastFire =
 		dst = self.enemy.origin - 13*self.movedir;
 
 		vec = normalize(dst - self.origin);
-		sound (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
+		// sound_attack (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
 		launch_spike (self.origin, vec);
 		newmis.velocity = vec*600;
 		newmis.owner = self.owner;
@@ -217,7 +221,7 @@ void() Wiz_StartFast =
 {
 	local	entity	missile;
 
-	sound (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
+	// sound_attack (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
 	self.v_angle = self.angles;
 	makevectors (self.angles);
 
@@ -242,8 +246,6 @@ void() Wiz_StartFast =
 	missile.movedir = VEC_ORIGIN - v_right;
 };
 
-
-
 void() Wiz_idlesound =
 {
 local float wr;
@@ -253,9 +255,9 @@ local float wr;
 	{
 	 	self.waitmin = time + 2;
 	 	if (wr > 4.5)
-	 		sound (self, CHAN_VOICE, "wizard/widle1.wav", 1,  ATTN_IDLE);
+	 		sound_idle (self, CHAN_VOICE, "wizard/widle1.wav", 1,  ATTN_IDLE);
 	 	if (wr < 1.5)
-	 		sound (self, CHAN_VOICE, "wizard/widle2.wav", 1, ATTN_IDLE);
+	 		sound_misc (self, CHAN_VOICE, "wizard/widle2.wav", 1, ATTN_IDLE);
 	}
 	return;
 };
@@ -306,13 +308,13 @@ void()	wiz_run12	=[	$fly12,		wiz_run13	] {ai_run(16);};
 void()	wiz_run13	=[	$fly13,		wiz_run14	] {ai_run(16);};
 void()	wiz_run14	=[	$fly14,		wiz_run1	] {ai_run(16);};
 
-void()	wiz_fast1	=[	$magatt1,		wiz_fast2	] {ai_face();Wiz_StartFast();};
+void()	wiz_fast1	=[	$magatt1,		wiz_fast2	] {ai_face();Wiz_StartFast();Wiz_AttackSound();};
 void()	wiz_fast2	=[	$magatt2,		wiz_fast3	] {ai_face();};
 void()	wiz_fast3	=[	$magatt3,		wiz_fast4	] {ai_face();};
 void()	wiz_fast4	=[	$magatt4,		wiz_fast5	] {ai_face();};
 void()	wiz_fast5	=[	$magatt5,		wiz_fast6	] {ai_face();};
 void()	wiz_fast6	=[	$magatt6,		wiz_fast7	] {ai_face();};
-void()	wiz_fast7	=[	$magatt5,		wiz_fast8	] {ai_face();};
+void()	wiz_fast7	=[	$magatt5,		wiz_fast8	] {ai_face();Wiz_AttackSound();};
 void()	wiz_fast8	=[	$magatt4,		wiz_fast9	] {ai_face();};
 void()	wiz_fast9	=[	$magatt3,		wiz_fast10	] {ai_face();};
 void()	wiz_fast10	=[	$magatt2,		wiz_run1	] {ai_face();SUB_AttackFinished(2);WizardAttackFinished ();};
@@ -328,7 +330,7 @@ self.velocity_x = -200 + 400*random();
 self.velocity_y = -200 + 400*random();
 self.velocity_z = 100 + 100*random();
 self.flags = self.flags - (self.flags & FL_ONGROUND);
-sound (self, CHAN_VOICE, "wizard/wdeath.wav", 1, ATTN_NORM);
+sound_death (self, CHAN_VOICE, "wizard/wdeath.wav", 1, ATTN_NORM);
 };
 void()	wiz_death2	=[	$death2,		wiz_death3	] {};
 void()	wiz_death3	=[	$death3,		wiz_death4	]{self.solid = SOLID_NOT;};
@@ -388,7 +390,7 @@ void() wiz_die =
 
 void(entity attacker, float damage) Wiz_Pain =
 {
-	sound (self, CHAN_VOICE, "wizard/wpain.wav", 1, ATTN_NORM);
+	sound_pain (self, CHAN_VOICE, "wizard/wpain.wav", 1, ATTN_NORM);
 	if (random()*70 > damage)
 		return;		// didn't flinch
 
@@ -420,12 +422,12 @@ void() monster_wizard =
 	precache_model ("progs/w_spike.mdl");
 	////dumptruck_ds
 	precache_sound ("wizard/hit.wav");		// used by c code
-	precache_sound ("wizard/wattack.wav");
-	precache_sound ("wizard/wdeath.wav");
-	precache_sound ("wizard/widle1.wav");
-	precache_sound ("wizard/widle2.wav");
-	precache_sound ("wizard/wpain.wav");
-	precache_sound ("wizard/wsight.wav");
+	precache_sound_attack ("wizard/wattack.wav");
+	precache_sound_death ("wizard/wdeath.wav");
+	precache_sound_idle ("wizard/widle1.wav");
+	precache_sound_misc ("wizard/widle2.wav");
+	precache_sound_pain ("wizard/wpain.wav");
+	precache_sound_sight ("wizard/wsight.wav");
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");

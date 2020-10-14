@@ -60,7 +60,7 @@ void() f_walk18 =[      $swim18, f_walk1 ] {ai_walk(8);};
 
 void() f_run1  =[      $swim1, f_run2 ] {ai_run(12);
 	if (random() < 0.5)
-		sound (self, CHAN_VOICE, "fish/idle.wav", 1, ATTN_NORM);
+		sound_idle (self, CHAN_VOICE, "fish/idle.wav", 1, ATTN_NORM);
 };
 void() f_run2  =[      $swim3, f_run3 ] {ai_run(12);};
 void() f_run3  =[      $swim5, f_run4 ] {ai_run(12);};
@@ -84,7 +84,7 @@ void() fish_melee =
 	if (vlen(delta) > 60)
 		return;
 
-	sound (self, CHAN_VOICE, "fish/bite.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_VOICE, "fish/bite.wav", 1, ATTN_NORM);
 	ldmg = (random() + random()) * 3;
 	T_Damage (self.enemy, self, self, ldmg);
 };
@@ -152,7 +152,7 @@ void() f_death1 =[      $death1,        f_death2        ]
 	}
 	else
 	self.solid = SOLID_NOT;
-	sound (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
 };
 void() f_death2 =[      $death2,        f_death3        ] {};
 void() f_death3 =[      $death3,        f_death4        ] {};
@@ -208,9 +208,9 @@ void() monster_fish =
 	precache_body_model2 ("progs/fish.mdl");
 	// precache_model2 ("progs/fish.mdl");
 
-	precache_sound2 ("fish/death.wav");
-	precache_sound2 ("fish/bite.wav");
-	precache_sound2 ("fish/idle.wav");
+	precache_sound2_death ("fish/death.wav");
+	precache_sound2_attack ("fish/bite.wav");
+	precache_sound2_idle ("fish/idle.wav");
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");

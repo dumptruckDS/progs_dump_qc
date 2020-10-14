@@ -98,11 +98,11 @@ void()	Tar_JumpTouch =
 		{
 			ldmg = 10 + 10*random();
 			T_Damage (other, self, self, ldmg);
-			sound (self, CHAN_WEAPON, "blob/hit1.wav", 1, ATTN_NORM);
+			sound_hit (self, CHAN_WEAPON, "blob/hit1.wav", 1, ATTN_NORM);
 		}
 	}
 	else
-		sound (self, CHAN_WEAPON, "blob/land1.wav", 1, ATTN_NORM);
+		sound_misc (self, CHAN_WEAPON, "blob/land1.wav", 1, ATTN_NORM);
 
 	if (!checkbottom(self))
 	{
@@ -170,7 +170,7 @@ void()	tbaby_die2	=[	$exp,		tbaby_run1	]
 {
 	T_RadiusDamage (self, self, 120, world);
 
-	sound (self, CHAN_VOICE, "blob/death1.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "blob/death1.wav", 1, ATTN_NORM);
 	self.origin = self.origin - 8*normalize(self.velocity);
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
@@ -200,10 +200,10 @@ void() monster_tarbaby =
 	precache_body_model2 ("progs/tarbaby.mdl"); //custom_mdls dumptruck_ds
 	// precache_model2 ("progs/tarbaby.mdl");
 
-	precache_sound2 ("blob/death1.wav");
-	precache_sound2 ("blob/hit1.wav");
-	precache_sound2 ("blob/land1.wav");
-	precache_sound2 ("blob/sight1.wav");
+	precache_sound2_death ("blob/death1.wav");
+	precache_sound2_hit ("blob/hit1.wav");
+	precache_sound2_misc ("blob/land1.wav");
+	precache_sound2_sight ("blob/sight1.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

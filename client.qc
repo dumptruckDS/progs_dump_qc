@@ -1551,7 +1551,8 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 			}
 
 			// killed by a montser?
-			if ((attacker.flags & FL_MONSTER) & (attacker.obit_name == ""))
+			// if (attacker.flags & FL_MONSTER)
+			if ((attacker.flags & FL_MONSTER) && (attacker.obit_name == ""))
 			{
 				if (attacker.classname == "monster_army")
 					bprint (" was shot by a Grunt\n");
@@ -1600,6 +1601,9 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 			if (attacker.obit_name != "")
 			{
 				bprint (" was ");
+				if !(attacker.obit_method)
+				bprint ("killed");
+				else
 				bprint (attacker.obit_method); // e.g. ripped apart
 				bprint (" by ");
 				bprint (attacker.obit_name); // a bad monster

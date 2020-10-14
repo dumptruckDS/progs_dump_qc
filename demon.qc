@@ -49,7 +49,7 @@ void()	demon1_stand13	=[	$stand13,	demon1_stand1	] {ai_stand();};
 
 void()	demon1_walk1	=[	$walk1,		demon1_walk2	] {
 if (random() < 0.2)
-    sound (self, CHAN_VOICE, "demon/idle1.wav", 1, ATTN_IDLE);
+    sound_idle (self, CHAN_VOICE, "demon/idle1.wav", 1, ATTN_IDLE);
 ai_walk(8);
 };
 void()	demon1_walk2	=[	$walk2,		demon1_walk3	] {ai_walk(6);};
@@ -62,7 +62,7 @@ void()	demon1_walk8	=[	$walk8,		demon1_walk1	] {ai_walk(10);};
 
 void()	demon1_run1	=[	$run1,		demon1_run2	] {
 if (random() < 0.2)
-    sound (self, CHAN_VOICE, "demon/idle1.wav", 1, ATTN_IDLE);
+    sound_idle (self, CHAN_VOICE, "demon/idle1.wav", 1, ATTN_IDLE);
 ai_run(20);};
 void()	demon1_run2	=[	$run2,		demon1_run3	] {ai_run(15);};
 void()	demon1_run3	=[	$run3,		demon1_run4	] {ai_run(36);};
@@ -130,7 +130,7 @@ void(entity attacker, float damage)	demon1_pain =
 		return;
 
 	self.pain_finished = time + 1;
-    sound (self, CHAN_VOICE, "demon/dpain1.wav", 1, ATTN_NORM);
+    sound_pain (self, CHAN_VOICE, "demon/dpain1.wav", 1, ATTN_NORM);
 
 	if (random()*200 > damage)
 		return;		// didn't flinch
@@ -139,7 +139,7 @@ void(entity attacker, float damage)	demon1_pain =
 };
 
 void()	demon1_die1		=[	$death1,		demon1_die2	] {
-sound (self, CHAN_VOICE, "demon/ddeath.wav", 1, ATTN_NORM);};
+sound_death (self, CHAN_VOICE, "demon/ddeath.wav", 1, ATTN_NORM);};
 void()	demon1_die2		=[	$death2,		demon1_die3	] {};
 void()	demon1_die3		=[	$death3,		demon1_die4	] {};
 void()	demon1_die4		=[	$death4,		demon1_die5	] {};
@@ -224,12 +224,12 @@ void() monster_demon1 =
 	precache_body_model ("progs/demon.mdl");
 	precache_head_model ("progs/h_demon.mdl");
 
-	precache_sound ("demon/ddeath.wav");
-	precache_sound ("demon/dhit2.wav");
-	precache_sound ("demon/djump.wav");
-	precache_sound ("demon/dpain1.wav");
-	precache_sound ("demon/idle1.wav");
-	precache_sound ("demon/sight2.wav");
+	precache_sound_death ("demon/ddeath.wav");
+	precache_sound_hit ("demon/dhit2.wav");
+	precache_sound_attack ("demon/djump.wav");
+	precache_sound_pain ("demon/dpain1.wav");
+	precache_sound_idle ("demon/idle1.wav");
+	precache_sound_sight ("demon/sight2.wav");
 
   precache_gib1 ("progs/gib1.mdl");
   // precache_gib2 ("progs/gib2.mdl");
@@ -335,7 +335,7 @@ float()	DemonCheckAttack =
 	if (CheckDemonJump ())
 	{
 		self.attack_state = AS_MISSILE;
-        sound (self, CHAN_VOICE, "demon/djump.wav", 1, ATTN_NORM);
+        sound_attack (self, CHAN_VOICE, "demon/djump.wav", 1, ATTN_NORM);
 		return TRUE;
 	}
 
@@ -360,7 +360,7 @@ void(float side)	Demon_Melee =
 	if (!CanDamage (self.enemy, self))
 		return;
 
-    sound (self, CHAN_WEAPON, "demon/dhit2.wav", 1, ATTN_NORM);
+    sound_hit (self, CHAN_WEAPON, "demon/dhit2.wav", 1, ATTN_NORM);
 	ldmg = 10 + 5*random();
 	T_Damage (self.enemy, self, self, ldmg);
 
@@ -422,7 +422,7 @@ void() monster_dead_demon =
         if (self.spawnflags & 1)
 	{
 		self.solid = SOLID_BBOX;
-                setsize(self,'-43.63 -47.26 -50.53','32.48 24.65 30');
+    setsize(self,'-43.63 -47.26 -50.53','32.48 24.65 30');
 	}
 	else
 	{

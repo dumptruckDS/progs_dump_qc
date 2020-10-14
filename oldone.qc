@@ -174,7 +174,7 @@ void() finale_3 =
 {
 	// start shub thrashing wildly
 	shub.think = old_thrash1;
-	sound (shub, CHAN_VOICE, "boss2/death.wav", 1, ATTN_NORM);
+	sound_death (shub, CHAN_VOICE, "boss2/death.wav", 1, ATTN_NORM);
 	lightstyle(0, "abcdefghijklmlkjihgfedcb");
 };
 
@@ -186,7 +186,7 @@ void() finale_4 =
 	local	float	r;
 	local entity	n;
 
-	sound (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NORM);
+	sound_misc (self, CHAN_VOICE, "boss2/pop2.wav", 1, ATTN_NORM);
 
 	oldo = self.origin;
 
@@ -263,10 +263,10 @@ void() monster_oldone =
 	precache_body_model2 ("progs/oldone.mdl");
 	// precache_model2 ("progs/oldone.mdl");
 
-	precache_sound2 ("boss2/death.wav");
-	precache_sound2 ("boss2/idle.wav");
-	precache_sound2 ("boss2/sight.wav");
-	precache_sound2 ("boss2/pop2.wav");
+	precache_sound2_death ("boss2/death.wav");
+//	precache_sound2_idle ("boss2/idle.wav");
+	precache_sound2_sight ("boss2/sight.wav");
+	precache_sound2_misc ("boss2/pop2.wav");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

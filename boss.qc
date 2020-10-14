@@ -51,10 +51,10 @@ void() boss_face =
 };
 
 void() boss_rise1	=[	$rise1, boss_rise2 ] {
-sound (self, CHAN_WEAPON, "boss1/out1.wav", 1, ATTN_NORM);
+sound_move (self, CHAN_WEAPON, "boss1/out1.wav", 1, ATTN_NORM);
 };
 void() boss_rise2	=[	$rise2, boss_rise3 ] {
-sound (self, CHAN_VOICE, "boss1/sight1.wav", 1, ATTN_NORM);
+sound_sight (self, CHAN_VOICE, "boss1/sight1.wav", 1, ATTN_NORM);
 };
 void() boss_rise3	=[	$rise3, boss_rise4 ] {};
 void() boss_rise4	=[	$rise4, boss_rise5 ] {};
@@ -165,7 +165,7 @@ void() boss_shockc9 =[	$shockc9, boss_shockc10 ] {};
 void() boss_shockc10 =[	$shockc10, boss_death1 ] {};
 
 void() boss_death1 = [$death1, boss_death2] {
-sound (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
+sound_death (self, CHAN_VOICE, "boss1/death.wav", 1, ATTN_NORM);
 };
 void() boss_death2 = [$death2, boss_death3] {};
 void() boss_death3 = [$death3, boss_death4] {};
@@ -176,7 +176,7 @@ void() boss_death7 = [$death7, boss_death8] {};
 void() boss_death8 = [$death8, boss_death9] {};
 void() boss_death9 = [$death9, boss_death10]
 {
-	sound (self, CHAN_BODY, "boss1/out1.wav", 1, ATTN_NORM);
+	sound_move (self, CHAN_BODY, "boss1/out1.wav", 1, ATTN_NORM);
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_LAVASPLASH);
 	WriteCoord (MSG_BROADCAST, self.origin_x);
@@ -242,7 +242,7 @@ void(vector p) boss_missile =
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
 	newmis.touch = T_MissileTouch; // rocket explosion
-	sound (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
 
 // check for dead enemy
 	if (self.enemy.health <= 0)
@@ -297,12 +297,12 @@ void() monster_boss =
 	precache_model ("progs/lavaball.mdl");
 
 	precache_sound ("weapons/rocket1i.wav");
-	precache_sound ("boss1/out1.wav");
-	precache_sound ("boss1/sight1.wav");
+	precache_sound_move ("boss1/out1.wav");
+	precache_sound_sight ("boss1/sight1.wav");
 	precache_sound ("misc/power.wav");
-	precache_sound ("boss1/throw.wav");
-	precache_sound ("boss1/pain.wav");
-	precache_sound ("boss1/death.wav");
+	precache_sound_attack ("boss1/throw.wav");
+	precache_sound_pain ("boss1/pain.wav");
+	precache_sound_death ("boss1/death.wav");
 
 	total_monsters = total_monsters + 1;
 
@@ -388,7 +388,7 @@ void() lightning_use =
 	self.enemy = activator;
 	if (le1.state == STATE_TOP && self.health > 0)
 	{
-		sound (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM);
+		sound_pain (self, CHAN_VOICE, "boss1/pain.wav", 1, ATTN_NORM);
 		self.health = self.health - 1;
 		if (self.health >= 2)
 			boss_shocka1();

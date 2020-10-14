@@ -94,7 +94,7 @@ void(float offset) hknight_shot =
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
-	sound (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
 };
 
 void() CheckForCharge =
@@ -181,7 +181,7 @@ void()	hknight_run8	=[	$run8,		hknight_run1	] {ai_run(13);};
 
 //============================================================================
 
-void()	hknight_pain1	=[	$pain1,		hknight_pain2	] {sound (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);};
+void()	hknight_pain1	=[	$pain1,		hknight_pain2	] {sound_pain (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);};
 void()	hknight_pain2	=[	$pain2,		hknight_pain3	] {};
 void()	hknight_pain3	=[	$pain3,		hknight_pain4	] {};
 void()	hknight_pain4	=[	$pain4,		hknight_pain5	] {};
@@ -259,7 +259,7 @@ void() hknight_die =
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "hknight/death1.wav", 1, ATTN_NORM);
+	sound_death (self, CHAN_VOICE, "hknight/death1.wav", 1, ATTN_NORM);
 	if (random() > 0.5)
 		hknight_die1 ();
 	else
@@ -400,7 +400,7 @@ void()	hknight_watk22	=[	$w_attack22,	hknight_run1	] {ai_charge(3);};
 void() hk_idle_sound =
 {
 	if (random() < 0.2)
-		sound (self, CHAN_VOICE, "hknight/idle.wav", 1, ATTN_NORM);
+		sound_idle (self, CHAN_VOICE, "hknight/idle.wav", 1, ATTN_NORM);
 };
 
 void(entity attacker, float damage)	hknight_pain =
@@ -408,7 +408,7 @@ void(entity attacker, float damage)	hknight_pain =
 	if (self.pain_finished > time)
 		return;
 
-	sound (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);
+	sound_pain (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);
 
 	if (time - self.pain_finished > 5)
 	{	// always go into pain frame if it has been a while
@@ -430,7 +430,7 @@ void() hknight_melee =
 {
 	hknight_type = hknight_type + 1;
 
-	sound (self, CHAN_WEAPON, "hknight/slash1.wav", 1, ATTN_NORM);
+	sound_misc (self, CHAN_WEAPON, "hknight/slash1.wav", 1, ATTN_NORM);
 	if (hknight_type == 1)
 		hknight_slice1 ();
 	else if (hknight_type == 2)
@@ -463,14 +463,14 @@ void() monster_hell_knight =
 	precache_proj_model2 ("progs/k_spike.mdl");
 // dumptruck_ds
 
-	precache_sound2 ("hknight/attack1.wav");
-	precache_sound2 ("hknight/death1.wav");
-	precache_sound2 ("hknight/pain1.wav");
-	precache_sound2 ("hknight/sight1.wav");
+	precache_sound2_attack ("hknight/attack1.wav");
+	precache_sound2_death ("hknight/death1.wav");
+	precache_sound2_pain ("hknight/pain1.wav");
+	precache_sound2_sight ("hknight/sight1.wav");
 	precache_sound ("hknight/hit.wav");		// used by C code, so don't sound2
-	precache_sound2 ("hknight/slash1.wav");
-	precache_sound2 ("hknight/idle.wav");
-	precache_sound2 ("hknight/grunt.wav");
+	precache_sound2_misc ("hknight/slash1.wav");
+	precache_sound2_idle ("hknight/idle.wav");
+	precache_sound2 ("hknight/grunt.wav"); // what??? never knew about this! -- dumptruck_ds
 
 	precache_sound ("knight/sword1.wav");
 	precache_sound ("knight/sword2.wav");
