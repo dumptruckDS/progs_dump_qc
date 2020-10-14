@@ -516,8 +516,9 @@ void() laser_helper_think =
 void() func_laser_touch =
 {
 	// from Copper -- dumptruck_ds
-	if (!CheckValidTouch()) return;
-
+	if (other.movetype == MOVETYPE_NOCLIP)
+			return;
+			
 	if (other.takedamage && self.attack_finished < time)
 	{
 		T_Damage (other, self, self, self.dmg);

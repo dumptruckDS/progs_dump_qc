@@ -607,7 +607,8 @@ void() PutClientInServer =
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
 
-	setmodel (self, "progs/null_256.spr");     // Drake -- dumptruck_ds
+	setmodel (self, "progs/s_null.spr");     // Drake -- dumptruck_ds
+	// setmodel (self, "progs/null_256.spr");     // Drake -- dumptruck_ds
 	mindex_inviso = self.modelindex;
 
 	setmodel (self, "progs/player.mdl");
