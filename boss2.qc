@@ -202,13 +202,37 @@ void() GibBoss2 =
 
 				r = random();
 				if (r < 0.3)
-					ThrowGib ("progs/gib1.mdl", -120);
+					// ThrowGib ("progs/gib1.mdl", -120);
+					if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+					{
+						ThrowGib (self.mdl_gib1, -120);
+					}
+					else
+					{
+						ThrowGib ("progs/gib1.mdl", -120);
+					}
 				else if (r < 0.5)
-					ThrowGib ("progs/gib2.mdl", -120);
+					// ThrowGib ("progs/gib2.mdl", -120);
+					if (self.mdl_gib2 != "") // custom models -- dumptruck_ds
+					{
+						ThrowGib (self.mdl_gib2, -120);
+					}
+					else
+					{
+						ThrowGib ("progs/gib2.mdl", -120);
+					}
 				else if (r < 0.7)
 					ThrowGib ("progs/lavaball.mdl", -120);
 				else
-					ThrowGib ("progs/gib3.mdl", -120);
+					// ThrowGib ("progs/gib3.mdl", -120);
+					if (self.mdl_gib3 != "") // custom models -- dumptruck_ds
+					{
+						ThrowGib (self.mdl_gib3, -120);
+					}
+					else
+					{
+						ThrowGib ("progs/gib3.mdl", -120);
+					}
 				y = y + 32;
 			}
 			x = x + 32;
@@ -443,6 +467,10 @@ void() monster_boss2 =
 	precache_sound ("boss1/throw.wav");
 	precache_sound ("boss1/pain.wav");
 	precache_sound ("boss1/death.wav");
+
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
 
 	total_monsters = total_monsters + 1;
 	self.flags = FL_MONSTER;

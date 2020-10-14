@@ -557,9 +557,33 @@ void() enf_die =
 			{
 				ThrowHead ("progs/h_mega.mdl", self.health);
 			}
-		ThrowGib ("progs/gib1.mdl", self.health);
-		ThrowGib ("progs/gib2.mdl", self.health);
-		ThrowGib ("progs/gib3.mdl", self.health);
+		// ThrowGib ("progs/gib1.mdl", self.health);
+		// ThrowGib ("progs/gib2.mdl", self.health);
+		// ThrowGib ("progs/gib3.mdl", self.health);
+		if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+		{
+			ThrowGib (self.mdl_gib1, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib1.mdl", self.health);
+		}
+		if (self.mdl_gib2 != "")
+		{
+			ThrowGib (self.mdl_gib2, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib2.mdl", self.health);
+		}
+		if (self.mdl_gib3 != "")
+		{
+			ThrowGib (self.mdl_gib3, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
 		return;
 	}
 
@@ -600,6 +624,10 @@ void() monster_enforcer =
 	precache_sound2_sight ("enforcer/sight2.wav"); // these will be replaced with custom noise fields eventually - dumptruck_ds
 	precache_sound2_sight ("enforcer/sight3.wav");
 	precache_sound2_sight ("enforcer/sight4.wav");
+
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

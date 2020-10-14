@@ -262,11 +262,35 @@ void() oldone2_die =
 
 				r = random();
 				if (r < 0.3)
-					ThrowGib ("progs/gib1.mdl", -120);
+					// ThrowGib ("progs/gib1.mdl", -120);
+					if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+					{
+						ThrowGib (self.mdl_gib1, -120);
+					}
+					else
+					{
+						ThrowGib ("progs/gib1.mdl", -120);
+					}
 				else if (r < 0.6)
-					ThrowGib ("progs/gib2.mdl", -120);
+					// ThrowGib ("progs/gib2.mdl", -120);
+					if (self.mdl_gib2 != "") // custom models -- dumptruck_ds
+					{
+						ThrowGib (self.mdl_gib2, -120);
+					}
+					else
+					{
+						ThrowGib ("progs/gib2.mdl", -120);
+					}
 				else
-					ThrowGib ("progs/gib3.mdl", -120);
+					// ThrowGib ("progs/gib3.mdl", -120);
+					if (self.mdl_gib3 != "") // custom models -- dumptruck_ds
+					{
+						ThrowGib (self.mdl_gib3, -120);
+					}
+					else
+					{
+						ThrowGib ("progs/gib3.mdl", -120);
+					}
 				y = y + 32;
 			}
 			x = x + 32;
@@ -303,6 +327,10 @@ void() monster_oldone2 =
 	precache_sound2 ("oldone2/pd_pop2.wav");
 	precache_model ("progs/lavaball.mdl");
 	precache_sound ("boss1/throw.wav");
+
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;

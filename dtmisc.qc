@@ -809,15 +809,15 @@ void() gib_misc_3 =
 };
 /* END Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
-/*==============================================================================
-func_fall from RennyC
-
-A brush that drops and fades away when touched or triggered.
-
-dumptruck_ds
-noise = sound to play when triggered
-wait = wait this long before falling
-==============================================================================*/
+// /*==============================================================================
+// func_fall from RennyC
+//
+// A brush that drops and fades away when touched or triggered.
+//
+// dumptruck_ds
+// noise = sound to play when triggered
+// wait = wait this long before falling
+// ==============================================================================*/
 float DONT_FADE = 1;
 
 void() func_fall_think =

@@ -922,9 +922,33 @@ void() ogre_die =
 		{
 			ThrowHead ("progs/h_ogre.mdl", self.health);
 		}
-		ThrowGib ("progs/gib3.mdl", self.health);
-		ThrowGib ("progs/gib3.mdl", self.health);
-		ThrowGib ("progs/gib3.mdl", self.health);
+		// ThrowGib ("progs/gib3.mdl", self.health);
+		// ThrowGib ("progs/gib3.mdl", self.health);
+		// ThrowGib ("progs/gib3.mdl", self.health);
+		if (self.mdl_gib1 != "") // custom models -- dumptruck_ds
+		{
+			ThrowGib (self.mdl_gib1, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_gib2 != "")
+		{
+			ThrowGib (self.mdl_gib2, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
+		if (self.mdl_gib3 != "")
+		{
+			ThrowGib (self.mdl_gib3, self.health);
+		}
+		else
+		{
+			ThrowGib ("progs/gib3.mdl", self.health);
+		}
 		return;
 	}
 
@@ -998,7 +1022,6 @@ void() monster_ogre =
 	else
 	self.th_pain = SUB_NullPain;
 
-
 	walkmonster_start();
 };
 
@@ -1029,6 +1052,10 @@ void() monster_ogre_marksman =
 	precache_sound ("ogre/ogsawatk.wav");
 	precache_sound ("ogre/ogwake.wav");
 	precache_sound ("fish/bite.wav");
+	
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
 
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
@@ -1046,7 +1073,10 @@ void() monster_ogre_marksman =
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre2_nail1;
+	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = ogre_pain;
+	else
+	self.th_pain = SUB_NullPain;
 
 	walkmonster_start();
 };

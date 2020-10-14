@@ -98,11 +98,9 @@ void() multi_use = //dumptruck_ds
 
 void() multi_touch = //dumptruck_ds
 {
-	if (other.classname != "player")
-		return;
-		// Drake -- dumptruck_ds (possible pd_ feature)
-	// if (other.classname != "actor")     // Zerstorer's cutscene drone.
-	// 		return;
+
+	// if (other.classname != "player")
+	// 	return;
 
 	// from Copper -- dumptruck_ds
 	if (!CheckValidTouch()) return;

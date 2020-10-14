@@ -1843,6 +1843,41 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 			]
 	]
 
+	@SolidClass base(Appearflags, OneTargetname, Target) = func_fall2 : "Enhanced version with different behaviors. A brush that drops and fades away when touched. Can be targeted by triggers etc and can target other entities.
+
+	wait = how long until the brush begins falling
+	noise = the sound to make when touched / activated
+	noise2 = the sound to make before it's removed, pain_finished of -1 disables noise2 as the object stays forever
+	cnt = 0 is default behavior, 1 means collisions are disabled while falling, 2 turns the brush into a bouncing entity
+	pain_finished = default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever
+	speed = speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1.
+	Recommended to use lip for max fall speed on cnt 0 and 2 as they follow Quake's default gravity
+	lip = maximum fall speed that can be achieved, caps 'speed' variable. Default is -800
+	avelocity = have it spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity. Use an origin brush for proper spin!
+
+	spawnflags
+		Default behavior allows anyone to activate func_fall2 on touch ONLY
+		1 - Player activated only
+		2 - Monster activated only
+
+	Able to target other entities, including other func_fall2s"
+	[
+	cnt(integer) : "Collision type, 0 is normal, 1 has no collision and 2 will bounce" : 0
+	speed(integer) : "use with cnt 1 only, speed as to how fast something falls per game frame, default is 10"
+	lip(integer) : "use with cnt 0 and 2, maximum fall speed that can be achieved, caps 'speed' variable." : -800
+	noise(string) : "the sound to make when touched / activated" : "the sound to make when touched / activated"
+	noise2(string) : "the sound to make before it's removed" : "the sound to make before it's removed"
+	wait(integer) : "Wait this long before falling"
+	pain_finished(integer) : "fade out speed, default 0.01 higher numbers fade out faster, -1 stays forever"
+	avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : "spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity Use an origin brush for proper spin!
+	"
+	spawnflags(flags) =
+			[
+				1 : "Player Activated only" : 0
+				2 : "Monster Activated only" : 0
+			]
+	]
+
 @SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details
 
 Defaults to built-in .mdl file with 3 styles, cnt is number of pieces of debris to spawn (built-in only)
