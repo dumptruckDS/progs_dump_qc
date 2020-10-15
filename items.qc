@@ -1673,7 +1673,9 @@ void() BackpackTouch =
 	local	float	best, old, new;
 	local		entity	stemp;
 	local	float	acount;
-
+	// from Copper -- dumptruck_ds
+	if (other.movetype == MOVETYPE_NOCLIP)
+			return;
 	if (other.classname != "player")
 		return;
 	if (other.health <= 0)
@@ -1829,9 +1831,6 @@ float ROCKETS = 4;
 float CELLS = 8;
 void() item_backpack_message =
 {
-	// from Copper -- dumptruck_ds
-	if (!CheckValidTouch()) return;
-
 	other.ammo_shells = other.ammo_shells + self.ammo_shells;
 	other.ammo_nails = other.ammo_nails + self.ammo_nails;
 	other.ammo_rockets = other.ammo_rockets + self.ammo_rockets;

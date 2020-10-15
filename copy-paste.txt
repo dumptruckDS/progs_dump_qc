@@ -1,3 +1,20 @@
+.string mdl_head;
+.string mdl_body;
+.string mdl_proj;
+.float skin_head;
+.float skin_proj;
+.string mdl_gib1;
+.string mdl_gib2;
+.string mdl_gib3;
+
+if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
+    return;
+
+
+//name(string) : "Short description" : "Default" : "Long description"
+//name(integer) : "Short description" : 1 : "Long description"
+//name(float) : "Short description" : "1.5" : "Long description"
+
 // Drake -- dumptruck_ds
 
 if (SUB_Inhibit ())  // new spawnflags for all entities -- iw

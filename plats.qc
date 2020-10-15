@@ -439,7 +439,6 @@ void() teleporttrain_wait =
 		wait_time = self.enemy.wait;
 	else
 		wait_time = .1;
-
 	self.velocity = '0 0 0';
 	self.nextthink = time + wait_time;
 	self.think = teleporttrain_next;
@@ -472,7 +471,7 @@ void() teleporttrain_find =
 	{
 		setorigin (self, self.enemy.origin + '16 16 16');
 		self.target = self.enemy.target;
-	}
+		}
 	else
 	{
 		objerror("unable to find target\n");
@@ -508,7 +507,7 @@ void() misc_teleporttrain =
 
 	if (!self.target)
 	{
-		objerror ("no target");
+		objerror ("misc_teleporttrain has no target");
 		remove(self);
 		return;
 	}
@@ -520,9 +519,13 @@ void() misc_teleporttrain =
 	self.solid = SOLID_NOT;
 	self.movetype = MOVETYPE_FLY;
 	precache_body_model ("progs/teleport.mdl");  // custom custom_mdls -- dumptruck_ds
+	precache_model ("progs/s_null.spr");  // invisble -- dumptruck_ds
+	if (self.spawnflags & 8)
+	// setmodel (self, "progs/s_null.spr");
+	body_model ("progs/s_null.spr");
+	else
 	body_model ("progs/teleport.mdl");
 	// precache_model ("progs/teleport.mdl");
-	// setmodel (self, "progs/teleport.mdl");
 	setsize (self, '-16 -16 -16', '16 16 16');
 
 	//Causes the ball to spin around like it was originally intended to.
