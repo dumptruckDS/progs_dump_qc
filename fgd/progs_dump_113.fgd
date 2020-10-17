@@ -1749,7 +1749,7 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 		0 : "Don't leave key in player's inventory"
 		1 : "Leave key in player's inventory"
 	]
-	delay(float) : "Delay before trigger" : 0
+	delay(float) : "Delay before trigger" : "0" : "Delay before trigger"
 	keyname(string) : "If set, this is the keyname of the item_key_custom which unlocks this entity"
 	message(string) : "Custom message"
 	noise1(string) : "Sound file for the 'key required' sound (default is per worldtype)"
@@ -2067,7 +2067,7 @@ spawnflags(flags) =
 		]
 ]
 
-@SolidClass base(Target, Targetname, Appearflags, Break) = func_breakable : "Breakable - See manual for full details
+@SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details
 
 Defaults to built-in .mdl file with 32 styles, cnt is number of pieces of debris to spawn (built-in only)
 
@@ -2482,6 +2482,7 @@ ammo_shells(integer) : "Custom amount of shells" : 0
 ammo_nails(integer) : "Custom amount of nails" : 0
 ammo_rockets(integer) : "Custom amount of rockets" : 0
 ammo_cells(integer) : "Custom amount of cells" : 0
+netname(string) : "Custom text for ammo pickups"
 spawnflags(flags) =
 	[
 		1 : "Shells" : 0

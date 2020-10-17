@@ -2455,6 +2455,7 @@ ammo_shells(integer) : "Custom amount of shells" : 0
 ammo_nails(integer) : "Custom amount of nails" : 0
 ammo_rockets(integer) : "Custom amount of rockets" : 0
 ammo_cells(integer) : "Custom amount of cells" : 0
+netname(string) ; "Custom text for ammo pickups"
 spawnflags(flags) =
 	[
 		1 : "Shells" : 0
