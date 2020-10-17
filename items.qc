@@ -1831,6 +1831,10 @@ float ROCKETS = 4;
 float CELLS = 8;
 void() item_backpack_message =
 {
+	// from Copper -- dumptruck_ds
+
+	if (!CheckValidTouch()) return;
+
 	other.ammo_shells = other.ammo_shells + self.ammo_shells;
 	other.ammo_nails = other.ammo_nails + self.ammo_nails;
 	other.ammo_rockets = other.ammo_rockets + self.ammo_rockets;
@@ -1853,7 +1857,7 @@ void() item_backpack_message =
 	bound_other_ammo();
 	W_SetCurrentAmmo ();
 
-}
+};
 // Some of this text is from Drake -- dumptruck_ds
 //============
 // --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56)
