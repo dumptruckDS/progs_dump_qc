@@ -435,6 +435,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	skin(integer) : "Skin index (default 0)"
 	obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 	obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+	damage_mod(float) : "Damage multiplier (e.g. 4 = Quad damage)" : : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 ]
 //dumptruck_ds
 //@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []
@@ -1022,12 +1023,12 @@ _color(color255) : "Light color"
 		0 : "Inherit from worldspawn _dirt"
 		1 : "Dirtmapping enabled"
 	]
-	_dirtscale(float) : "Light dirtmapping scale" : 1
-	_dirtgain(float) : "Light dirtmapping gain" : 1
-	_deviance(float) : "Light sphere radius" : 0
-	_samples(float) : "Light sphere samples" : 16
+	_dirtscale(float) : "Light dirtmapping scale" : "1"
+	_dirtgain(float) : "Light dirtmapping gain" : "1"
+	_deviance(float) : "Light sphere radius" : "0"
+	_samples(float) : "Light sphere samples" : "16"
 	_surface(string) : "Surface light texturename"
-	_surface_offset(float) : "Surface light offset" : 2
+	_surface_offset(float) : "Surface light offset" : "2"
 	_surface_spotlight(choices) : "Surface light spotlight" : 0 =
 	[
 		0 : "Not a spotlight"
@@ -1316,8 +1317,8 @@ spawnflags(Flags) =
 	2 : "Start On" : 0
 ]
 	currentammo(integer) : "Damage" : 0
-	frags(integer) : "Time before next trigger" : 0.3
-	weapon(integer) : "Duration of each strike" : 0.3
+	frags(float) : "Time before next trigger" : "0.3"
+	weapon(float) : "Duration of each strike" : "0.3"
 	sounds(integer) : "Set to 1 for silence (?)" : 0
 ]
 
@@ -1329,7 +1330,7 @@ Set frags to amount of time before next item is triggered.
 Default is 0.3 seconds.
 "
 [
-	frags(integer) : "Time before next trigger" : 0.3
+	frags(float) : "Time before next trigger" : "0.3"
 ]
 
 @PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 300) = ltrail_relay : "Relay point of a lightning trail.
@@ -1345,8 +1346,8 @@ Default is 0.3 seconds.
 "
 [
 	currentammo(integer) : "Damage" : 0
-	frags(integer) : "Time before next trigger" : 0.3
-	weapon(integer) : "Duration of each strike" : 0.3
+	frags(float) : "Time before next trigger" : "0.3"
+	weapon(float) : "Duration of each strike" : "0.3"
 ]
 
 //@SolidClass = func_group : "Group of brushes for in-editor use" []
@@ -1540,7 +1541,6 @@ dmg is the amount of damage to cause when touched."
 	waitmin(integer) : "Speed up scale default = 1, 1+ =non linear" : 1
 	waitmin2(integer) : "Slow down scale default = 0.75"
 	delay(integer) : "Starting time delay defualt = 0, -1 = random"
-	style(integer) : "If set to 1, starts off and waits for trigger"
 	style(integer) : "If set to 1, starts off and waits for trigger"
 	mdl(string) : "Path to mdl file"
 	spawnflags(flags) =
@@ -1992,8 +1992,8 @@ This is the same effect as FireAmbient in earlier versions of progs_dump"
 
 Plays a one off sound on a periodic basis.
 Do NOT use looped sounds with this entity. For looped sounds use ambient_general.
-volume: how loud (1 is default full volume)
-noise: sound to play
+volume: how loud (range is 0.1 to 1 default is 1 = full volume)
+noise: path of sound to play
 wait: random time between sounds (default 20)
 delay: minimum delay between sounds (default 2)
 impulse: sound channel 0-7 (0 automatic is default)
@@ -2018,8 +2018,8 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 @PointClass base(Targetname, Appearflags) size (16 16 24) color(30 200 35) = play_sound_triggered : "Custom sound trigger
 
 toggle (spawnflags): stopped when triggered again
-volume: how loud (1 default full volume)
-noise: sound to play
+volume: how loud (range is 0.1 to 1 default is 1 = full volume)
+noise: path of sound to play
 impulse: sound channel 0-7 (0 automatic is default)
 speed: attenuation factor
 
@@ -2314,6 +2314,21 @@ delay how much time to wait before firing after being switched on."
 	dmg(integer) : "Damage"
 ]
 
+@SolidClass base(Targetname) = func_laser: "A togglable laser, hurts to touch, can be used to block players"
+[
+	spawnflags(flags) =
+	[
+		1 : "Start Off" : 1
+		2 : "Solid Laser" : 0
+	]
+	dmg(integer) : "Damage" : 1
+	alpha(float) : "Alpha of Laser Effect" : "0.5"
+	message(string) : "Message Upon Activation"
+	message2(string) : "Message Upon Deactivation"
+	noise(string) : "Sound Upon Activation"
+	noise1(string) : "Sound Upon Deactivation"
+]
+
 @SolidClass base(Appearflags) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
 [
 sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to play from within music folder"
@@ -2353,7 +2368,7 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 
 If the trigger_camera has a targetname, it will only enter camera mode after it has been fired."
 [
-focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : 0 : "This is the point that the info_movie_camera will face."
+focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : : "This is the point that the info_movie_camera will face."
 script(integer) : "Starting script number (REQUIRED)" : 0 : "Should match first script_num key in targeted info_script"
 script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of time(seconds) to stay on the first script page. NOTE: This is overidden by the info_script script_delay but is still required. Set this to 1."
 ]
@@ -2367,11 +2382,11 @@ script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of tim
 
 A trigger_camera_point requires a targetname unlike the brush-based version."
 [
-focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : 0 : "This is the point that the info_movie_camera will face."
+focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : : "This is the point that the info_movie_camera will face."
 script(integer) : "Starting script number (REQUIRED)" : 0 : "Should match first script_num key in targeted info_script"
 script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of time(seconds) to stay on the first script page. NOTE: This is overidden by the info_script script_delay but is still required."
 ]
-@PointClass size(-8 -8 -8, 8 8 32) color(21 59 194) base(OneTargetname) = info_movie_camera :
+@PointClass size(-8 -8 -8, 8 8 32) color(21 59 194) base(OneTargetname, Appearflags) = info_movie_camera :
 "This is the destination marker for a camera.  It should have a targetname " +
 "field with the same value as a camera-trigger's target field. The focal_point is the name of info_focal_point to focus on. Set delay to 1 to "+
 "ignore the focal_point when moving the camera. Setting the speed key on an info_movie_camera controls the rate of travel TO THAT CAMERA from another camera position. "+
@@ -2417,7 +2432,6 @@ sounds(choices) : "Sound style" : 0 =
 		4 : "Custom sound set in noise1 key"
 	]
 ]
-=======
 //item-backpack
 @PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
 :"Placeable backpack
@@ -2462,7 +2476,6 @@ spawnflags(flags) =
 		2 : "Nails"	: 0
 		4 : "Rockets"	: 0
 		8 : "Cells" : 0
-		// 16 : "Full Ammo" : 0
 		32 : "Spawn silent" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
