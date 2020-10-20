@@ -103,8 +103,8 @@
 	mdl_head(string) : "Path to custom head model"
 	mdl_body(string) : "Path to custom body model"
 	mdl_proj(string) : "Path to custom projectile model"
-	skin_head(float) : "Path to custom head skin"
-	skin_proj(float) : "Path to custom projectile skin"
+	skin_head(float) : "Skin index of custom head model"
+	skin_proj(float) : "Skin index of custom projectile model"
 	mdl_gib1(string) : "Path to custom 1st gib model"
 	mdl_gib2(string) : "Path to custom 2nd gib model"
 	mdl_gib3(string) : "Path to custom 3rd gib model"
@@ -113,7 +113,7 @@
 [
 	mdl_head(string) : "Path to custom head model"
 	mdl_body(string) : "Path to custom body model"
-	skin_head(float) : "Path to custom head skin"
+	skin_head(float) : "Skin index of custom head model"
 	mdl_gib1(string) : "Path to custom 1st gib model"
 	mdl_gib2(string) : "Path to custom 2nd gib model"
 	mdl_gib3(string) : "Path to custom 3rd gib model"
@@ -123,7 +123,7 @@
 	mdl_body(string) : "Path to custom body model"
 ]
 @baseclass = Berserk [
-berserk(choices) =
+berserk(choices) : "skip certain pain animations" : : "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)" =
 			[
 				0 : "Off (Default)"
 				1 : "Berserk (skip pain animations)"
@@ -131,7 +131,7 @@ berserk(choices) =
 ]
 
 @baseclass = Effects [
-effects(choices) =
+effects(choices) : "Various visual effects" : : "Add a visual effect to an entity" =
 			[
 				0: "None (Default)"
 				1 : "Brightfield (yellow particles)"
@@ -174,6 +174,7 @@ state(choices) =
 //
 
 @baseclass base(Appearflags) flags(Angle) size(-16 -16 -24, 16 16 32) offset(0 0 24) color(0 255 0) = PlayerClass []
+@baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)color(0 255 0) model({ "path": ":progs/player.mdl" , "frame": 120}) = PlayerClassAlt []
 @baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
 @PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
@@ -214,7 +215,9 @@ count(integer) : 5 : "How many monsters to spawn (default 5)"
 @PointClass base(PlayerClass) = info_player_coop : "Player cooperative start" []
 @PointClass base(PlayerClass) = info_player_start2 : "Player episode return point" []
 @PointClass base(PlayerClass, Targetname) = info_teleport_destination : "Teleport destination" []
-@PointClass size(-32 -32 0, 32 32 64) base(PlayerClass, Targetname) = info_teleport_random : "Random Teleporter destination" []
+@PointClass size(-32 -32 0, 32 32 64) base(PlayerClassAlt, Targetname) = info_teleport_random : "Random Teleporter destination
+
+Only for use with trigger_teleport entities set to RANDOM" []
 @PointClass = info_null : "info_null (spotlight target)"
 [
 	targetname(target_source) : "Name"
@@ -409,7 +412,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 		1 : "Ambush" : 0
 		8 : "Trigger Spawn" : 0
 	]
-	delay(choices) =
+	delay(choices) : "Trigger spawn delay time" : : "Delay spawn in for this amount of time" =
 	[
 		0: "No delay (Default)"
 		0.2 : "Second delay"
@@ -418,21 +421,21 @@ The behavior of an item_key_custom should be as the player expects (based on the
 		0.5 : "Second delay"
 		1 : "Second delay"
 	]
-	wait(choices) =
+	wait(choices) : "Play an effect when trigger spawned?" : : "Play an effect when trigger spawned?" =
 	[
 		0: "Teleport Effects (Default)"
 		1 : "Spawn Silently"
 	]
 	spawn_angry(Choices) =
 [
-	0 : "Deafult behavior - not angry"
+	0 : "Only when trigger spawned, default behavior - not angry"
 	1 : "Only use when trigger spawned, set to 1 to spawn angry at player"
 ]
-	health(integer)
-	pain_target(string)
-	pain_threshold(integer)
-	sight_trigger(integer)
-	skin(integer) : "Skin index (default 0)"
+health(integer) : "Cutom health amount" : : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached" : : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount" : : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "Fire this target upon seeing the player" : : "Fire this target upon seeing the player"
+skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
 	obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 	obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 	damage_mod(float) : "Damage multiplier (e.g. 4 = Quad damage)" : : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
@@ -443,7 +446,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 
 Default health = 30"
 [
-keep_ammo(integer) : "Don't drop backpack" : 0
+keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
@@ -473,7 +476,7 @@ snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
 
 Default health = 200"
 [
-keep_ammo(integer) : "Don't drop backpack" : 0
+keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
@@ -481,6 +484,13 @@ snd_attack(string) : "Path to custom attack sound (CHAINSAW)" : "Path to custom 
 snd_idle(string) : "Path to custom idle sound (IDLE)" : "Path to custom idle sound (IDLE)"
 snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : "Path to custom sound (IDLE CHAINSAW DRAG)"
 snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : "Path to custom sound (ATTACK GRUNT)"
+style(Choices) : "Attack type" =
+	[
+		0 : "Default (grenade)"
+		1	: "Flak Ogre (Marcher, Quoth)"
+		2 : "sniper (shoots single, deadly lava round)"
+		3 : "multi-grenade (Mission Pack 2)"
+	]
 ]
 
 @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
@@ -488,7 +498,7 @@ snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : "Path to custom soun
 Default health = 200
 
 The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation." [
-keep_ammo(integer) : "Don't drop backpack" : 0
+keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 ]
 @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
 
@@ -560,7 +570,7 @@ snd_move(string) : "Path to custom rising and lowering sound" : "Path to custom 
 @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl" }) = monster_enforcer : "Enforcer
 
 Default health = 80" [
-keep_ammo(integer) : "Don't drop backpack" : 0
+keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 style(Choices) : "Attack type" : 0 =
 	[
 		0 : "Default (lasers)"
@@ -1425,7 +1435,7 @@ Default is 0.3 seconds.
 		8 : "Gold Key required" : 0
 		16: "Silver Key required" : 0
 		32: "Toggle" : 0
-		64: "Doom-style Unlock"
+		64: "Doom-style Unlock" : 0
 	]
 ]
 
@@ -1827,16 +1837,36 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 
 @SolidClass base(Appearflags, OneTarget, Targetname) = trigger_teleport : "Trigger: Teleporter
 
-NOTE: To use is_waiting function, use targetname2 only."
+Any object touching this will be transported to the corresponding
+info_teleport_destination entity. Or if RANDOM is chosen, info_teleport_random
+entities will be used. (See below.)
+
+NOTE To have a dormant trigger_teleport (will not teleport until unlocked),
+set is_waiting to 1 and use targetname2 on the trigger_teleport. Target this
+targetname2 with another trigger entity to unlock it.
+
+If the trigger_teleport has a targetname, it will only teleport entities
+when it has been fired. NOTE This is not compatible with is_waiting.
+
+SILENT(2) eliminates the teleporter ambient noise (good for hidden monster teleporters.
+
+RANDOM(4) causes the teleporter to send the traveller to a random destination
+among the info_teleport_random markers in the level.  You MUST place a
+count field that is the number of info_teleport_random entities you placed.
+
+STEALTH(8) eliminates the particle flash and noise when an entity is teleported.
+
+MONSTER_ONLY(16) will only teleport monsters"
 [
-spawnflags(Flags) =
-[
-	1 : "Player only" : 0
-	2 : "Silent" : 0
-	4 : "Random" : 0
-	8 : "Stealth" : 0
-	16 : "Monster only" : 0
-]
+	spawnflags(Flags) =
+	[
+		1 : "Player only" : 0
+		2 : "Silent" : 0
+		4 : "Random" : 0
+		8 : "Stealth" : 0
+		16 : "Monster only" : 0
+	]
+	count(integer) : "Number of info_teleport_random entities" : : "Number of info_teleport_random entities"
 	is_waiting(choices) : "Trigger" : 0 =
 	[
 		0 : "Default"
