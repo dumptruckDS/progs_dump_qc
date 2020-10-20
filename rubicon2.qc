@@ -415,11 +415,27 @@ void () func_breakable = {
 	precache_sound ("blob/hit1.wav");
 
 	if (self.noise1 != "") precache_sound(self.noise1);
-
-	if (self.style == 6)
+// adding new default sounds for "simple" breakables in 1.2.0 -- dumptruck_ds
+	if (self.style == 0 || self.style == 1 || self.style == 2)
 		if !(self.noise1)
 	{
-		precache_sound("break/pd_metal1.wav");
+		precache_sound("break/pd_metal2.wav"); // this is more of a shattering sound than metal
+		self.noise1 = "break/pd_metal2.wav";
+	}
+	if (self.style == 3 || self.style == 4 || self.style == 5)
+		if !(self.noise1)
+	{
+		precache_sound("break/pd_wood1.wav"); // wood
+		precache_sound("break/pd_wood2.wav"); // wood
+		if (random() > 0.6)
+		self.noise1 = "break/pd_wood1.wav";
+		else
+		self.noise1 = "break/pd_wood2.wav";
+	}
+	if (self.style == 6 || self.style == 7 || self.style == 8 || self.style == 9 || self.style == 10)
+		if !(self.noise1)
+	{
+		precache_sound("break/pd_metal1.wav"); //
 		self.noise1 = "break/pd_metal1.wav";
 	}
 	// else
