@@ -416,8 +416,14 @@ void () func_breakable = {
 
 	if (self.noise1 != "") precache_sound(self.noise1);
 
-	else
-		(self.noise1 = "blob/hit1.wav");
+	if (self.style == 6)
+		if !(self.noise1)
+	{
+		precache_sound("break/pd_metal1.wav");
+		self.noise1 = "break/pd_metal1.wav";
+	}
+	// else
+	// 	(self.noise1 = "blob/hit1.wav");
 
 	if (!self.health)
 		self.health = 20;
@@ -518,7 +524,7 @@ void() func_laser_touch =
 	// from Copper -- dumptruck_ds
 	if (other.movetype == MOVETYPE_NOCLIP)
 			return;
-			
+
 	if (other.takedamage && self.attack_finished < time)
 	{
 		T_Damage (other, self, self, self.dmg);
