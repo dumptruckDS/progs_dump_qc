@@ -1,3 +1,16 @@
+1.2.0 October 2020
+
+* Added custom sound support to most monsters (idle, attack, sights et al.)
+* Added default noise1 breakable sounds for the "Built-in" method
+  including glass, bricks, metal sounds per style key selection
+* Added Doom style unlock to key doors. (from ILove80sRock branch)
+* Added func_monster_spawner and info_monster_spawnpoint
+  allows specific and random spawning of most standard monsters
+* Added Don't Rotate and Invisible spawnflags to misc_teleporttrain
+  this allows the entity to be a moving spawn point for a
+  func_monster_spawner
+* Fixes and additions to FGDs
+
 1.1.3 September 2020
 
 * Added trigger_changemusic and trigger_cdtrack
@@ -19,11 +32,13 @@
 * Fixed noise1 and noise2 not working in func_door
 * Added fog and sky settings to worldspawn in FGDs
 * Fixed precache error in trigger_push_custom when no custom sound was selected
+* Added custom model support to monsters including bodies, heads and projectiles
+  (excluding Wizard projectiles and Shambler bolts)
 * Added custom model support to misc_teleporttrain
 * Added custom projectile model to boss2 (killable Chthon version)
 * Added custom body model support to oldone and boss
 * Added custom projectile model support to boss (standard Chthon)
-* Added custom gib model support (WIP)
+* Added custom gib model support to most monsters
 
 1.1.2.1 February 2020
 
