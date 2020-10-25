@@ -1,5 +1,5 @@
 /*
- * misc_model.qc
+ * misc_model.qc requires math.qc
  *
  * Author: Joshua Skelton joshua.skelton@gmail.com
  */

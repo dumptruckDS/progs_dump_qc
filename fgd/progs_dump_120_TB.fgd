@@ -200,7 +200,7 @@ Style 2 overrides Style and chooses a random monster (excluding Zombies and Vore
 
 Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags
 
-Can set Berserk to 1 to skip most pain anaimations.
+Can set Berserk to 1 to skip most pain animations.
 
 Can only use default health, models and sounds.
 "
@@ -1140,7 +1140,7 @@ spawnflags(Flags) =
 @PointClass base(Appearflags) size(0 0 0, 32 32 32) model({ "path": ":maps/b_exbox2.bsp" }) = misc_explobox2 : "Small exploding container" []
 @PointClass base(Appearflags, Effects) size(-8 -8 -8, 8 8 8) model({ "path": ":progs/teleport.mdl" }) = misc_teleporttrain : "Flying teleporter destination
 
-This was used for the final boss level in the orginal game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the Don't Rotate spawnflag though or you'll experience a pretty hilarious effect!
+This was used for the final boss level in the original game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the Don't Rotate spawnflag though or you'll experience a pretty hilarious effect!
 
 You set this up like a func_train using path_corners. By default, it will move automatically between path corners upon map load. However, you can have it wait to move by giving it a targetname. If you need to target it as a spawner and want it to move on map load, use the Start On spawnflag.
 
@@ -1347,7 +1347,9 @@ spawnflags(Flags) =
 @PointClass base(Appearflags) color(150 0 150) = ambient_suck_wind : "Wind sound" []
 @PointClass base(Appearflags) color(150 0 150) = ambient_swamp1 : "Frogs croaking" []
 @PointClass base(Appearflags) color(150 0 150) = ambient_swamp2 : "Frogs croaking B" []
-@PointClass base(Appearflags) color(255 0 150) = ambient_thunder : "Random Thunder sound" []
+@PointClass base(Appearflags) color(255 0 150) = ambient_thunder : "Random Thunder sound
+
+Originally unused in the game. Plays the sound of thunder at a random interval. You only need one of these in your map. It will play everywhere. If you want it to play locally instead, use a play_sound with the appropriate speed setting. The path for the sound is: ambience/thunder1.wav" []
 @PointClass base(Appearflags) color(255 0 150) = ambient_water1 : "Swirling Water Sound" []
 @PointClass base(Appearflags) color(255 0 150) = ambient_wind2 : "Sky Wind Sound" []
 
@@ -1906,6 +1908,7 @@ speed: The frames per second of animation. Divide 1 by the fps for this value.
 angles: pitch roll yaw (up/down, angle, tilt left/right)
 NOTE: set angle value to 0 if using angles key to rotate mdls"
 [
+	skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
 	mdl(string) : "Model Selection (ex progs/model.mdl)"
 	frame(integer)
 	first_frame(integer)
@@ -2533,8 +2536,9 @@ wait -- the time between each healing (default 1)
 health_max -- the upper limit for the healing (default 100, max 250)
 noise -- path to custom sound file"
 [
+	wait(integer) : "Time between each healing (default 1)" : 1
 	heal_amount(integer) : "Healing per second" : 5
-	health_max(integer) : "Maximum heath given" : 0 : "The upper limit for healing (default 100, max 250)"
+	health_max(integer) : "Maximum heath given" : 100 : "The upper limit for healing (default 100, max 250)"
 	noise(string) : "Path to custom healing sound."
 	spawnflags(Flags) =
 	[

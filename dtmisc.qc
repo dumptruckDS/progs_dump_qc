@@ -1044,7 +1044,7 @@ heal_amount -- the amount to heal each time (default 5)
 wait -- the time between each healing (default 1)
 health_max -- the upper limit for the healing (default 100, max 250)
 sounds -- set to 1 to enable the noise1 field for custom healing sound
-noise1 -- path to custom sound file
+noise -- path to custom sound file
 */
 void() trigger_heal =
   {
