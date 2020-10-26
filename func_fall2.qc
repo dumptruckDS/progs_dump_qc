@@ -18,6 +18,9 @@ void() func_fall2_think =
 		if (self.pos1 != '0 0 0')
 			self.avelocity = self.pos1; // apply stored avelocity vector values
 
+		if (self.pos2 && !self.velocity) // Add velocity movement
+			self.velocity = self.pos2;
+
 		if (self.cnt > 0) // cnt over 0
 		{
 			if (self.cnt >= 2)
