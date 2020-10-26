@@ -1737,9 +1737,12 @@ spawnflags(Flags) =
 
 gravity = what to set the players gravity to
 
+If using multiple triggers, do not have them touching. Leave a 'buffer' between them.
+
  - 0 (default) normal gravity
  - 1 no gravity
  - 2 almost no gravity
+ - 15 floaty
  - ...
  - 101 normal gravity
  - 102 slightly higher gravity
@@ -1748,7 +1751,7 @@ gravity = what to set the players gravity to
 "
 [
 	spawnflags(flags) = [ 8: "Start Off (can be toggled)" : 0 ]
-	gravity(integer) : "Gravity : Normal (Default)" : 0
+	gravity(integer) : "Gravity : Normal = 0" : 0
 ]
 
 //dumptruck_ds added from Hipnotic Mission Pack
@@ -2088,11 +2091,11 @@ Able to target other entities, including other func_fall2s"
 cnt(integer) : "Collision type, 0 is normal, 1 has no collision and 2 will bounce" : 0
 speed(integer) : "use with cnt 1 only, speed as to how fast something falls per game frame, default is 10"
 lip(integer) : "use with cnt 0 and 2, maximum fall speed that can be achieved, caps 'speed' variable." : -800
-noise(string) : "the sound to make when touched / activated" : "the sound to make when touched / activated"
-noise2(string) : "the sound to make before it's removed" : "the sound to make before it's removed"
+noise(string) : "the sound to make when touched / activated" : : "the sound to make when touched / activated"
+noise2(string) : "the sound to make before it's removed" :: "the sound to make before it's removed"
 wait(integer) : "Wait this long before falling"
 pain_finished(integer) : "fade out speed, default 0.01 higher numbers fade out faster, -1 stays forever"
-avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : "spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity Use an origin brush for proper spin!
+avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : : "spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity Use an origin brush for proper spin!
 "
 spawnflags(flags) =
 		[
