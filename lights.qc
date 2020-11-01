@@ -248,7 +248,7 @@ Select an attenuation formaula for the light:
 2 => 1/(x^2) attenuation
 3 => No attenuation (same brightness at any distance)
 4 => "local minlight" - No attenuation and like minlight,
-it won�t raise the lighting above it�s light value.
+it won't raise the lighting above it's light value.
 Unlike minlight, it will only affect surfaces within
 line of sight of the entity.
 5 => 1/(x^2) attenuation, but slightly more attenuated and
@@ -416,7 +416,7 @@ void() light_globe =
 };
 
 /*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{	model ("progs/flame.mdl");	}
 Short wall torch
 See the "light" entity for a full description.
 */
@@ -432,7 +432,8 @@ void() light_torch_small_walltorch =
 };
 
 /*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Large yellow flame ball
+{	model ( { "path" : "progs/flame2.mdl", "frame" : 1 } );	}
+Large yellow flame
 See the "light" entity for a full description.
 */
 void() light_flame_large_yellow =
@@ -448,7 +449,8 @@ void() light_flame_large_yellow =
 };
 
 /*QUAKED light_flame_small_yellow (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Small yellow flame ball
+{	model ("progs/flame2.mdl");	}
+Small yellow flame
 See the "light" entity for a full description.
 */
 void() light_flame_small_yellow =
@@ -463,6 +465,7 @@ void() light_flame_small_yellow =
 };
 
 /*QUAKED light_flame_small_white (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model ("progs/flame2.mdl");	}
 Left for compatability
 Identical to "light_flame_small_yellow"
 */

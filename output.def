@@ -5,12 +5,14 @@ Monsters will continue walking towards the next target corner.
 prints a warning message when spawned
 */
 /*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) ROTTEN MEGAHEALTH X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_bh10.bsp" }, spawnflags & 2 -> { "path" : "maps/b_bh100.bsp" },
+	 "maps/b_bh25.bsp" }} );
+}
 Health box. Normally gives 25 points.
-Rotten box heals 5-10 points,
-megahealth will add 100 health, then
-rot you down to your maximum health limit,
-one point per second.
+Rotten box heals 15 points.
+Megahealth will add 100 health, then start to
+rot the player back down to 100 health after 5 seconds.
 */
 /*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -28,36 +30,67 @@ model({ "path": ":progs/armor.mdl", "skin": 2 });
 /*QUAKED weapon_axe (0 .5 .8) (-16 -16 0) (16 16 32)
 Axe
 */
-/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32) X STYLE_1 STYLE_2 X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/g_shotgn.mdl");	}
+This is a pickup model that should be used when you want a player to spawn with only an axe and then later get the shotgun: (trigger_take_weapon or reset_items 2 in worldspawn). There are two models to choose from. Spawnflag 2 (the default) selects an unused “classic look” model from Rubicon 2 by metlslime. Spawnflag 4 is an alternate from Slapmap and has been used in a few mods.
+Single-barrelled Shotgun
 Shotgun
 */
 /*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_shot.mdl");	}
+Double-barrelled Shotgun
 */
 /*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_nail.mdl");	}
+Nailgun
 */
 /*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_nail2.mdl");	}
+Perforator
 */
 /*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_rock.mdl");	}
+Grenade Launcher
 */
 /*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_rock2.mdl");	}
+Rocket Launcher
 */
 /*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_light.mdl");	}
+Thunderbolt
 */
 /*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_shell1.bsp" }, "maps/b_shell0.bsp" }} );
+}
+Box of 20 shells.
+LARGE_BOX is a box of 40 shells.
 */
 /*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_nail1.bsp" }, "maps/b_nail0.bsp" }} );
+}
+Box of 25 nails.
+LARGE_BOX is a box of 50 nails.
 */
 /*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_rock1.bsp" }, "maps/b_rock0.bsp" }} );
+}
 */
 /*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_batt1.bsp" }, "maps/b_batt0.bsp" }} );
+}
+Box of 6 cells.
+LARGE_BOX is a box of 12 cells.
 */
 /*QUAKED item_weapon (0 .5 .8) (0 0 0) (32 32 32) shotgun rocket spikes big
 DO NOT USE THIS!!!! IT WILL BE REMOVED!
 */
 /*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/w_s_key.mdl");	}
 SILVER key
 In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
@@ -65,6 +98,9 @@ In order for keys to work you MUST set your map's worldtype to one of the follow
 2: base
 */
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/w_g_key.mdl");
+}
 GOLD key
 In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
@@ -72,6 +108,9 @@ In order for keys to work you MUST set your map's worldtype to one of the follow
 2: base
 */
 /*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path" : "progs/pd_wiz_key.mdl", "skin" : 1});
+}
 A customizable key item.
 
 "keyname"  name of the key, e.g. "bronze key" (required)
@@ -99,22 +138,40 @@ that it will not appear as an icon in the player's status bar when
 picked up.  This is a limitation of the engine.
 */
 /*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4 X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
-End of level sigil, pick up to end episode and return to jrstart.
+{
+	model ( {{ spawnflags & 1 -> { "path" : "progs/end1.mdl" }, spawnflags & 2 -> { "path" : "progs/end2.mdl" },
+	spawnflags & 4 -> { "path" : "progs/end3.mdl" }, spawnflags & 8 -> { "path" : "progs/end4.mdl" },
+	 "progs/end1.mdl" }} );
+}
+End of episode rune. Use in conjuction with func_bossgate and func_episodegate.
+Spawnflag must be set to the appropriate episode.
+Episode 1 - Dimension of the Doomed - Rune of Earth Magic
+Episode 2 - The Realm of Black Magic - Rune of Black Magic
+Episode 3 - The Netherworld - Rune of Hell Magic
+Episode 4 - The Elder World - Run of Elder Magic
 */
 /*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/invulner.mdl");	}
+Pentagram of Protection
 Player is invulnerable for 30 seconds
 */
 /*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/suit.mdl");	}
+Biosuit
 Player takes no damage from water or slime for 30 seconds
 */
 /*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/invisibl.mdl");	}
+Ring of Shadows
 Player is invisible for 30 seconds
 */
 /*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-The next attack from the player will do 4x damage
+{	model("progs/quaddama.mdl");	}
+Quad Damage
+Player does 4x damage for 30 seconds
 */
 /*QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 72) SHELLS NAILS ROCKETS CELLS X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/backpack.mdl");	}
 By default, gives roughly half the ammo from the 4 standard pickups:
 
 10 Shells
@@ -188,7 +245,9 @@ model ("progs/player.mdl");
 potential spawning position for coop games
 */
 /*QUAKED info_monster_spawnpoint (1 0 1) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+model ("progs/teleport.mdl");
+}
  spawning position for func_monster_spawner
 */
 /*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32)
@@ -416,7 +475,7 @@ sounds
 
 */
 /*QUAKED misc_teleporttrain (.5 .5 .5) (-16 -16 -16) (16 16 16) X DONT_ROTATE START_ON_WITH_TARGETNAME INVISIBLE X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{	model("progs/teleport.mdl");	}
 This was used for the final boss level in the original game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the Don't Rotate spawnflag though or you'll experience a pretty hilarious effect!
 
 You set this up like a func_train using path_corners. By default, it will move automatically between path corners upon map load. However, you can have it wait to move by giving it a targetname. If you need to target it as a spawner and want it to move on map load, use the Start On spawnflag.
@@ -485,19 +544,133 @@ same as FireAmbient
 // Small white flame ball
 // */
 /*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/candle.mdl");	}
+==========
+Spawnflags
+==========
+START_OFF - switchable lights only - light is off by default
+FADE_IN_OUT - switchable lights only - light fades in and out. can't be combined with animated lights.
+
+==========
+Keys
+==========
+"light" "n"
+Set the light intensity. Negative values are also allowed and will cause the entity to subtract light cast by other entities. Default 300.
+
+"wait" "n"
+Scale the fade distance of the light by "n". Values of n > 1 make the light fade more quickly with distance, and values < 1 make the light fade more slowly (and thus reach further). Default 1.
+
+"delay" "n"
+Select an attenuation formaula for the light:
+0 => Linear attenuation (default)
+1 => 1/x attenuation
+2 => 1/(x^2) attenuation
+3 => No attenuation (same brightness at any distance)
+4 => "local minlight" - No attenuation and like minlight,
+it won't raise the lighting above it's light value.
+Unlike minlight, it will only affect surfaces within
+line of sight of the entity.
+5 => 1/(x^2) attenuation, but slightly more attenuated and
+without the extra bright effect that "delay 2" has
+near the source.
+
+"_falloff" "n"
+Sets the distance at which the light drops to 0, in map units.
+In this mode, "wait" is ignored and "light" only controls the brightness at the center of the light, and no longer affects the falloff distance.
+Only supported on linear attenuation (delay 0) lights currently.
+
+"_color" "r g b"
+Specify red(r), green(g) and blue(b) components for the colour of the light. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light ("255 255 255").
+
+"target" "name"
+Turns the light into a spotlight, with the direction of light being towards another entity with it�s "targetname" key set to "name".
+"mangle" "yaw pitch roll"
+Turns the light into a spotlight and specifies the direction of light using yaw, pitch and roll in degrees. Yaw specifies the angle around the Z-axis from 0 to 359 degrees and pitch specifies the angle from 90 (straight up) to -90 (straight down). Roll has no effect, so use any value (e.g. 0). Often easier than the "target" method.
+
+"angle" "n"
+Specifies the angle in degrees for a spotlight cone. Default 40.
+
+"_softangle" "n"
+Specifies the angle in degrees for an inner spotlight cone (must be less than the "angle" cone. Creates a softer transition between the full brightness of the inner cone to the edge of the outer cone. Default 0 (disabled).
+
+"targetname" "name"
+Turns the light into a switchable light, toggled by another entity targeting it�s name.
+
+"speed" "n"
+If the light is switchable and FADE_IN_OUT is set, the speed at which the light transitions. Default 0.1.
+
+"style" "n"
+Set the animated light style. Default 0.
+
+"style2" "n"
+Set the animated light style for a switchable light, because style will be overriden if a targetname is set. Default 0.
+
+"_anglescale" "n" | "_anglesense" "n"
+Sets a scaling factor for how much influence the angle of incidence of light on a surface has on the brightness of the surface. n must be between 0.0 and 1.0. Smaller values mean less attenuation, with zero meaning that angle of incidence has no effect at all on the brightness. Default 0.5.
+
+"_dirtscale" "n" | "_dirtgain" "n"
+Override the global "_dirtscale" or "_dirtgain" settings to change how this light is affected by dirtmapping (ambient occlusion). See descriptions of these keys in the worldspawn section.
+
+"_dirt" "n"
+Overrides the worldspawn setting of "_dirt" for this particular light. -1 to disable dirtmapping (ambient occlusion) for this light, making it illuminate the dirtmapping shadows. 1 to enable ambient occlusion for this light. Default is to defer to the worldspawn setting.
+
+"_deviance" "n"
+Split up the light into a sphere of randomly positioned lights within radius "n" (in world units). Useful to give shadows a wider penumbra. "_samples" specifies the number of lights in the sphere. The "light" value is automatically scaled down for most lighting formulas (except linear and non-additive minlight) to attempt to keep the brightness equal. Default is 0, do not split up lights.
+
+"_samples" "n"
+Number of lights to use for "_deviance". Default 16 (only used if "_deviance" is set).
+
+"_surface" "texturename"
+Makes surfaces with the given texture name emit light, by using this light as a template which is copied across those surfaces. Lights are spaced about 128 units (though possibly closer due to bsp splitting) apart and positioned 2 units above the surfaces.
+
+"_surface_offset" "n"
+Controls the offset lights are placed above surfaces for "_surface". Default 2.
+
+"_surface_spotlight" "n"
+For a surface light template (i.e. a light with "_surface" set), setting this to "1" makes each instance into a spotlight, with the direction of light pointing along the surface normal. In other words, it automatically sets "mangle" on each of the generated lights.
+
+"_project_texture" "texture"
+Specifies that a light should project this texture. The texture must be used in the map somewhere.
+
+"_project_mangle" "yaw pitch roll"
+Specifies the yaw/pitch/roll angles for a texture projection (overriding mangle).
+
+"_project_fov" "n"
+Specifies the fov angle for a texture projection. Default 90.
+
+"_bouncescale" "n"
+Scales the amount of light that is contributed by bounces. Default is 1.0, 0.0 disables bounce lighting for this light.
+
+"_sun" "n"
+Set to 1 to make this entity a sun, as an alternative to using the sunlight worldspawn keys. If the light targets an info_null entity, the direction towards that entity sets sun direction. The light itself is disabled, so it can be placed anywhere in the map.
+
+The following light properties correspond to these sunlight settings:
+light => _sunlight
+mangle => _sunlight_mangle
+deviance => _sunlight_penumbra
+_color => _sunlight_color
+_dirt => _sunlight_dirt
+_anglescale => _anglescale
 
  //dumptruck_ds taken from honey (originally from Rogue)
 White candle
 */
 /*QUAKED misc_fireball (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Lava Balls
+{	model ("progs/lavaball.mdl");	}
+Flying lava balls
+speed - set vertical speed of fireballs. default 1000.
 */
 /*QUAKED misc_explobox (0 .5 .8) (0 0 0) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-TESTING THING
+{
+	model("maps/b_explob.bsp");
+}
+Explosive box
 */
 /*QUAKED misc_explobox2 (0 .5 .8) (0 0 0) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
-Smaller exploding box, REGISTERED ONLY
+{
+	model("maps/b_exbox2.bsp");
+}
+Smaller explosive box
 */
 /*QUAKED trap_spikeshooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
 When triggered, fires a spike in the direction set in QuakeEd.
@@ -603,7 +776,7 @@ Select an attenuation formaula for the light:
 2 => 1/(x^2) attenuation
 3 => No attenuation (same brightness at any distance)
 4 => "local minlight" - No attenuation and like minlight,
-it won�t raise the lighting above it�s light value.
+it won't raise the lighting above it's light value.
 Unlike minlight, it will only affect surfaces within
 line of sight of the entity.
 5 => 1/(x^2) attenuation, but slightly more attenuated and
@@ -708,61 +881,293 @@ Can't be toggled.
 See the "light" entity for a full description.
 */
 /*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{	model ("progs/flame.mdl");	}
 Short wall torch
 See the "light" entity for a full description.
 */
 /*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Large yellow flame ball
+{	model ( { "path" : "progs/flame2.mdl", "frame" : 1 } );	}
+Large yellow flame
 See the "light" entity for a full description.
 */
 /*QUAKED light_flame_small_yellow (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Small yellow flame ball
+{	model ("progs/flame2.mdl");	}
+Small yellow flame
 See the "light" entity for a full description.
 */
 /*QUAKED light_flame_small_white (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model ("progs/flame2.mdl");	}
 Left for compatability
 Identical to "light_flame_small_yellow"
 */
-/*QUAKED monster_ogre (1 0 0) (-32 -32 -24) (32 32 64) Ambush
-
+/*QUAKED monster_ogre (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/ogre.mdl");
+}
+Ogre.
 */
-/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) Ambush
-Unlike vanilla Quake, this is more accurate Orge based on a tutorial from
-Preach which can be found here:
-https://tomeofpreach.wordpress.com/2014/01/03/proper-ogre-aiming/
+/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ({ "path" : "progs/ogre.mdl",	"frame": 63 });
+}
+Ogre Marksman.
+Unlike vanilla Quake, this is a slightly more accurate Orge.
 */
 /*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64)
 */
-/*QUAKED monster_demon1 (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+/*QUAKED monster_demon1 (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/demon.mdl");
+}
+Fiend.
+
+Default heath = 300"
+
+snd_death(string) : "Path to custom death sound"
+snd_pain(string) : ""Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound"
+snd_hit(string) : "Path to custom hit sound (DEMON SLASHING)"
+snd_idle(string) : "Path to custom idle sound"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+skin_head(float) : "Skin index of custom head model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+
+effects(choices) : "Add a visual effect to an entity"
+0 : "None (Default)"
+1 : "Brightfield (yellow particles)"
+4 : "Bright light"
+8 : "Dim light"
+
+berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)"
+0 : "Off (Default)"
+1 : "Berserk (skip pain animations)"
+
+delay(float) : "Delay spawn in for this amount of time"
+
+wait(choices) : "Play an effect when trigger spawned?"
+0 : "Teleport Effects (Default)"
+1 : "Spawn Silently"
+
+spawn_angry(Choices)
+0 : "Only when trigger spawned, default behavior - not angry"
+1 : "Only when trigger spawned, set to 1 to spawn angry at player"
+
+health(integer) : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "1 = Fire target upon seeing the player instead of death"
+skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
+obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
 /*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64)
 */
-/*QUAKED monster_shambler (1 0 0) (-32 -32 -24) (32 32 64) Ambush
+/*QUAKED monster_shambler (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/shambler.mdl");
+}
+Shambler.
 */
 /*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64)
 */
-/*QUAKED monster_knight (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+/*QUAKED monster_knight (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/knight.mdl");
+}
+Knight.
 */
 /*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
 */
-/*QUAKED monster_army (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+/*QUAKED monster_army (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/soldier.mdl");
+}
+Grunt.
+
+Default health = 30"
+
+keep_ammo "1 = Don't drop backpack upon death"
+snd_death "Path to custom death sound"
+snd_pain "Path to custom pain sound"
+snd_sight "Path to custom sight sound"
+snd_attack "Path to custom attack sound (GUNSHOT)"
+snd_idle "Path to custom idle sound"
+snd_misc "Path to custom sound (PAIN 2)"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+skin_head(float) : "Skin index of custom head model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+mdl_gib2(string) : "Path to custom 2nd gib model"
+mdl_gib3(string) : "Path to custom 3rd gib model"
+
+style "Attack type"
+0 "Default (shotgun)"
+1 "Rockets"
+2 "Grenades"
+3 "lasers"
+4 "Nails"
+
+effects(choices) : "Add a visual effect to an entity"
+0 : "None (Default)"
+1 : "Brightfield (yellow particles)"
+4 : "Bright light"
+8 : "Dim light"
+
+berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)"
+0 : "Off (Default)"
+1 : "Berserk (skip pain animations)"
+
+delay(float) : "Delay spawn in for this amount of time"
+
+wait(choices) : "Play an effect when trigger spawned?"
+0 : "Teleport Effects (Default)"
+1 : "Spawn Silently"
+
+spawn_angry(Choices)
+0 : "Only when trigger spawned, default behavior - not angry"
+1 : "Only when trigger spawned, set to 1 to spawn angry at player"
+
+health(integer) : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "1 = Fire target upon seeing the player instead of death"
+skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
+obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+
 */
 /*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32)
 */
-/*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+/*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/wizard.mdl");
+}
+Wizard a.k.a. Scrag.
 */
 /*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32)
 */
-/*QUAKED monster_dog (1 0 0) (-32 -32 -24) (32 32 40) Ambush
+/*QUAKED monster_dog (1 0 0) (-32 -32 -24) (32 32 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/dog.mdl");
+}
+Rottweiler.
+
+Default health = 25
+
+snd_death(string) : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound"
+snd_idle(string) : "Path to custom idle sound"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+skin_head(float) : "Skin index of custom head model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+mdl_gib2(string) : "Path to custom 2nd gib model"
+mdl_gib3(string) : "Path to custom 3rd gib model"
+
+effects(choices) : "Add a visual effect to an entity"
+0 : "None (Default)"
+1 : "Brightfield (yellow particles)"
+4 : "Bright light"
+8 : "Dim light"
+
+berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)"
+0 : "Off (Default)"
+1 : "Berserk (skip pain animations)"
+
+delay(float) : "Delay spawn in for this amount of time"
+
+wait(choices) : "Play an effect when trigger spawned?"
+0 : "Teleport Effects (Default)"
+1 : "Spawn Silently"
+
+spawn_angry(Choices)
+0 : "Only when trigger spawned, default behavior - not angry"
+1 : "Only when trigger spawned, set to 1 to spawn angry at player"
+
+health(integer) : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "1 = Fire target upon seeing the player instead of death"
+skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
+obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
 /*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64)
 */
-/*QUAKED monster_zombie (1 0 0) (-16 -16 -24) (16 16 32) Crucified ambush
-
+/*QUAKED monster_zombie (1 0 0) (-16 -16 -24) (16 16 32) CRUCIFIED AMBUSH CRUCIFIED_MOTIONLESS TRIGGER_SPAWNED SPAWN_SLEEPING X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ( {{ spawnflags & 1 -> { "path" : "progs/zombie.mdl", "frame" : 192 }, "progs/zombie.mdl" }} );
+}
 If crucified, stick the bounding box 12 pixels back into a wall to look right.
+
+Default health = 60
+
+If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
+
+snd_death(string) : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound"
+snd_attack(string) : "Path to custom attack sound (WHOOSH)"
+snd_idle(string) : "Path to custom idle sound (CRUCIFIED ONLY)"
+snd_misc(string) : "Path to custom (IDLE 2) sound"
+snd_sight(string) : "Path to custom sight sound"
+snd_misc2(string) : "Path to custom (PAIN 2) sound"
+snd_misc3(string) : "Path to custom (FALLING) sound"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+mdl_proj(string) : "Path to custom projectile model"
+skin_head(float) : "Skin index of custom head model"
+skin_proj(float) : "Skin index of custom projectile model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+mdl_gib2(string) : "Path to custom 2nd gib model"
+mdl_gib3(string) : "Path to custom 3rd gib model"
+
+effects(choices) : "Add a visual effect to an entity"
+0 : "None (Default)"
+1 : "Brightfield (yellow particles)"
+4 : "Bright light"
+8 : "Dim light"
+
+berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)"
+0 : "Off (Default)"
+1 : "Berserk (skip pain animations)"
+
+delay(float) : "Delay spawn in for this amount of time"
+
+wait(choices) : "Play an effect when trigger spawned?"
+0 : "Teleport Effects (Default)"
+1 : "Spawn Silently"
+
+spawn_angry(Choices)
+0 : "Only when trigger spawned, default behavior - not angry"
+1 : "Only when trigger spawned, set to 1 to spawn angry at player"
+
+health(integer) : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "1 = Fire target upon seeing the player instead of death"
+skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
+obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+
+spawnflags(Flags) =
+1 : "Crucified"
+2 : "Ambush"
+4 : "Crucified motionless"
+16 : "Spawn Sleeping"
 */
 /*QUAKED monster_boss (1 0 0) (-128 -128 -24) (128 128 256)
 */
@@ -771,20 +1176,39 @@ Just for boss level.
 */
 /*QUAKED monster_boss2 (1 0 0) (-128 -128 -24) (128 128 256)
 */
-/*QUAKED monster_tarbaby (1 0 0) (-16 -16 -24) (16 16 24) Ambush
+/*QUAKED monster_tarbaby (1 0 0) (-16 -16 -24) (16 16 24) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/tarbaby.mdl");
+}
+Spawn.
 */
-/*QUAKED monster_hell_knight (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+/*QUAKED monster_hell_knight (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/hknight.mdl");
+}
+Hellknight.
 */
 /*QUAKED monster_dead_hell_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
 */
-/*QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) Ambush
+/*QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/fish.mdl");
+}
+Rotfish.
 */
-/*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) Ambush
+/*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({ "path" : "progs/shalrath.mdl",	"frame": 23 });
+}
+Vore.
 */
 /*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64)
 */
-/*QUAKED monster_enforcer (1 0 0) (-16 -16 -24) (16 16 40) Ambush
-
+/*QUAKED monster_enforcer (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/enforcer.mdl");
+}
+Enforcer.
 */
 /*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32)
 */
@@ -972,6 +1396,9 @@ sounds -- set to 1 to enable the noise1 field for custom healing sound
 noise -- path to custom sound file
 */
 /*QUAKED misc_model (0 0.5 0.8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path" : mdl, "skin" : skin, "frame": frame});
+}
 An entity for displaying models. A frame range can be given to animate the
 model.
 
@@ -1387,7 +1814,10 @@ STARTOFF : Starts off and waits for trigger - DISABLED, Ripped out ESTATE System
 A SOLID bmodel that gently moves back and forth
 */
 /*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8) X BOB_COLLISION BOB_NONSOLID X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ({"path" : mdl, "skin" : skin, "frame": frame});
+}
+Same as func_bob but uses a custom model instead of a brush. Use the mdl key to set the path of the model.
 */
 /*QUAKED func_fall2 (0 .5 .8) ?
 Falling brush by RennyC
@@ -1410,10 +1840,7 @@ spawnflags:
 
 Able to .target other entities, including other func_fall2s
 */
-/*QUAKED func_monster_spawner (1 0 0) (-32 -32 -24) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-{
-model ("progs/teleport.mdl");
-}
+/*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Spawns monsters to targeted info_monster_spawnpoint
 
 Choose Style

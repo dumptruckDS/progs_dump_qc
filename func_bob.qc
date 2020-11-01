@@ -180,7 +180,10 @@ void() func_bob =
 //----------------------------------------------------------------------
 
 /*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8) X BOB_COLLISION BOB_NONSOLID X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ({"path" : mdl, "skin" : skin, "frame": frame});
+}
+Same as func_bob but uses a custom model instead of a brush. Use the mdl key to set the path of the model.
 */
 void() misc_bob =
 {

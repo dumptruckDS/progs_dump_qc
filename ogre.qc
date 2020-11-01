@@ -969,8 +969,11 @@ void() ogre_melee =
 };
 
 
-/*QUAKED monster_ogre (1 0 0) (-32 -32 -24) (32 32 64) Ambush
-
+/*QUAKED monster_ogre (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/ogre.mdl");
+}
+Ogre.
 */
 void() monster_ogre =
 {
@@ -1025,10 +1028,12 @@ void() monster_ogre =
 	walkmonster_start();
 };
 
-/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) Ambush
-Unlike vanilla Quake, this is more accurate Orge based on a tutorial from
-Preach which can be found here:
-https://tomeofpreach.wordpress.com/2014/01/03/proper-ogre-aiming/
+/*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ({ "path" : "progs/ogre.mdl",	"frame": 63 });
+}
+Ogre Marksman.
+Unlike vanilla Quake, this is a slightly more accurate Orge.
 */
 void() monster_ogre_marksman =
 {

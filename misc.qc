@@ -207,6 +207,113 @@ FireAmbient();
 // };
 //
 /*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/candle.mdl");	}
+==========
+Spawnflags
+==========
+START_OFF - switchable lights only - light is off by default
+FADE_IN_OUT - switchable lights only - light fades in and out. can't be combined with animated lights.
+
+==========
+Keys
+==========
+"light" "n"
+Set the light intensity. Negative values are also allowed and will cause the entity to subtract light cast by other entities. Default 300.
+
+"wait" "n"
+Scale the fade distance of the light by "n". Values of n > 1 make the light fade more quickly with distance, and values < 1 make the light fade more slowly (and thus reach further). Default 1.
+
+"delay" "n"
+Select an attenuation formaula for the light:
+0 => Linear attenuation (default)
+1 => 1/x attenuation
+2 => 1/(x^2) attenuation
+3 => No attenuation (same brightness at any distance)
+4 => "local minlight" - No attenuation and like minlight,
+it won't raise the lighting above it's light value.
+Unlike minlight, it will only affect surfaces within
+line of sight of the entity.
+5 => 1/(x^2) attenuation, but slightly more attenuated and
+without the extra bright effect that "delay 2" has
+near the source.
+
+"_falloff" "n"
+Sets the distance at which the light drops to 0, in map units.
+In this mode, "wait" is ignored and "light" only controls the brightness at the center of the light, and no longer affects the falloff distance.
+Only supported on linear attenuation (delay 0) lights currently.
+
+"_color" "r g b"
+Specify red(r), green(g) and blue(b) components for the colour of the light. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light ("255 255 255").
+
+"target" "name"
+Turns the light into a spotlight, with the direction of light being towards another entity with it�s "targetname" key set to "name".
+"mangle" "yaw pitch roll"
+Turns the light into a spotlight and specifies the direction of light using yaw, pitch and roll in degrees. Yaw specifies the angle around the Z-axis from 0 to 359 degrees and pitch specifies the angle from 90 (straight up) to -90 (straight down). Roll has no effect, so use any value (e.g. 0). Often easier than the "target" method.
+
+"angle" "n"
+Specifies the angle in degrees for a spotlight cone. Default 40.
+
+"_softangle" "n"
+Specifies the angle in degrees for an inner spotlight cone (must be less than the "angle" cone. Creates a softer transition between the full brightness of the inner cone to the edge of the outer cone. Default 0 (disabled).
+
+"targetname" "name"
+Turns the light into a switchable light, toggled by another entity targeting it�s name.
+
+"speed" "n"
+If the light is switchable and FADE_IN_OUT is set, the speed at which the light transitions. Default 0.1.
+
+"style" "n"
+Set the animated light style. Default 0.
+
+"style2" "n"
+Set the animated light style for a switchable light, because style will be overriden if a targetname is set. Default 0.
+
+"_anglescale" "n" | "_anglesense" "n"
+Sets a scaling factor for how much influence the angle of incidence of light on a surface has on the brightness of the surface. n must be between 0.0 and 1.0. Smaller values mean less attenuation, with zero meaning that angle of incidence has no effect at all on the brightness. Default 0.5.
+
+"_dirtscale" "n" | "_dirtgain" "n"
+Override the global "_dirtscale" or "_dirtgain" settings to change how this light is affected by dirtmapping (ambient occlusion). See descriptions of these keys in the worldspawn section.
+
+"_dirt" "n"
+Overrides the worldspawn setting of "_dirt" for this particular light. -1 to disable dirtmapping (ambient occlusion) for this light, making it illuminate the dirtmapping shadows. 1 to enable ambient occlusion for this light. Default is to defer to the worldspawn setting.
+
+"_deviance" "n"
+Split up the light into a sphere of randomly positioned lights within radius "n" (in world units). Useful to give shadows a wider penumbra. "_samples" specifies the number of lights in the sphere. The "light" value is automatically scaled down for most lighting formulas (except linear and non-additive minlight) to attempt to keep the brightness equal. Default is 0, do not split up lights.
+
+"_samples" "n"
+Number of lights to use for "_deviance". Default 16 (only used if "_deviance" is set).
+
+"_surface" "texturename"
+Makes surfaces with the given texture name emit light, by using this light as a template which is copied across those surfaces. Lights are spaced about 128 units (though possibly closer due to bsp splitting) apart and positioned 2 units above the surfaces.
+
+"_surface_offset" "n"
+Controls the offset lights are placed above surfaces for "_surface". Default 2.
+
+"_surface_spotlight" "n"
+For a surface light template (i.e. a light with "_surface" set), setting this to "1" makes each instance into a spotlight, with the direction of light pointing along the surface normal. In other words, it automatically sets "mangle" on each of the generated lights.
+
+"_project_texture" "texture"
+Specifies that a light should project this texture. The texture must be used in the map somewhere.
+
+"_project_mangle" "yaw pitch roll"
+Specifies the yaw/pitch/roll angles for a texture projection (overriding mangle).
+
+"_project_fov" "n"
+Specifies the fov angle for a texture projection. Default 90.
+
+"_bouncescale" "n"
+Scales the amount of light that is contributed by bounces. Default is 1.0, 0.0 disables bounce lighting for this light.
+
+"_sun" "n"
+Set to 1 to make this entity a sun, as an alternative to using the sunlight worldspawn keys. If the light targets an info_null entity, the direction towards that entity sets sun direction. The light itself is disabled, so it can be placed anywhere in the map.
+
+The following light properties correspond to these sunlight settings:
+light => _sunlight
+mangle => _sunlight_mangle
+deviance => _sunlight_penumbra
+_color => _sunlight_color
+_dirt => _sunlight_dirt
+_anglescale => _anglescale
 
  //dumptruck_ds taken from honey (originally from Rogue)
 White candle
@@ -245,7 +352,9 @@ void() model_candle =
 
 
 /*QUAKED misc_fireball (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Lava Balls
+{	model ("progs/lavaball.mdl");	}
+Flying lava balls
+speed - set vertical speed of fireballs. default 1000.
 */
 
 void() fire_fly;
@@ -312,7 +421,10 @@ void() barrel_explode =
 
 
 /*QUAKED misc_explobox (0 .5 .8) (0 0 0) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-TESTING THING
+{
+	model("maps/b_explob.bsp");
+}
+Explosive box
 */
 
 void() misc_explobox =
@@ -347,8 +459,10 @@ void() misc_explobox =
 
 
 /*QUAKED misc_explobox2 (0 .5 .8) (0 0 0) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
-Smaller exploding box, REGISTERED ONLY
+{
+	model("maps/b_exbox2.bsp");
+}
+Smaller explosive box
 */
 
 void() misc_explobox2 =

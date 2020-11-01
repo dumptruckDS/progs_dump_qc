@@ -249,7 +249,11 @@ void() ShalHome =
 
 //=================================================================
 
-/*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) Ambush
+/*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({ "path" : "progs/shalrath.mdl",	"frame": 23 });
+}
+Vore.
 */
 void() monster_shalrath =
 {

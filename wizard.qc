@@ -403,7 +403,11 @@ void() Wiz_Missile =
 	wiz_fast1();
 };
 
-/*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) Ambush
+/*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/wizard.mdl");
+}
+Wizard a.k.a. Scrag.
 */
 void() monster_wizard =
 {

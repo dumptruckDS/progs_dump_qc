@@ -436,10 +436,7 @@ void() think_mobot =
 		self.think = think_mobot; // qthink I didn't realize I could do this! -- dumptruck_ds
 	};
 
-/*QUAKED func_monster_spawner (1 0 0) (-32 -32 -24) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-{
-model ("progs/teleport.mdl");
-}
+/*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Spawns monsters to targeted info_monster_spawnpoint
 
 Choose Style

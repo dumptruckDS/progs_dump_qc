@@ -635,9 +635,68 @@ void() zombie_start =  // determine if zombie is to be lying down, or standing
 
 //============================================================================
 
-/*QUAKED monster_zombie (1 0 0) (-16 -16 -24) (16 16 32) Crucified ambush
-
+/*QUAKED monster_zombie (1 0 0) (-16 -16 -24) (16 16 32) CRUCIFIED AMBUSH CRUCIFIED_MOTIONLESS TRIGGER_SPAWNED SPAWN_SLEEPING X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ( {{ spawnflags & 1 -> { "path" : "progs/zombie.mdl", "frame" : 192 }, "progs/zombie.mdl" }} );
+}
 If crucified, stick the bounding box 12 pixels back into a wall to look right.
+
+Default health = 60
+
+If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
+
+snd_death(string) : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound"
+snd_attack(string) : "Path to custom attack sound (WHOOSH)"
+snd_idle(string) : "Path to custom idle sound (CRUCIFIED ONLY)"
+snd_misc(string) : "Path to custom (IDLE 2) sound"
+snd_sight(string) : "Path to custom sight sound"
+snd_misc2(string) : "Path to custom (PAIN 2) sound"
+snd_misc3(string) : "Path to custom (FALLING) sound"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+mdl_proj(string) : "Path to custom projectile model"
+skin_head(float) : "Skin index of custom head model"
+skin_proj(float) : "Skin index of custom projectile model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+mdl_gib2(string) : "Path to custom 2nd gib model"
+mdl_gib3(string) : "Path to custom 3rd gib model"
+
+effects(choices) : "Add a visual effect to an entity"
+0 : "None (Default)"
+1 : "Brightfield (yellow particles)"
+4 : "Bright light"
+8 : "Dim light"
+
+berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)"
+0 : "Off (Default)"
+1 : "Berserk (skip pain animations)"
+
+delay(float) : "Delay spawn in for this amount of time"
+
+wait(choices) : "Play an effect when trigger spawned?"
+0 : "Teleport Effects (Default)"
+1 : "Spawn Silently"
+
+spawn_angry(Choices)
+0 : "Only when trigger spawned, default behavior - not angry"
+1 : "Only when trigger spawned, set to 1 to spawn angry at player"
+
+health(integer) : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "1 = Fire target upon seeing the player instead of death"
+skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
+obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+
+spawnflags(Flags) =
+1 : "Crucified"
+2 : "Ambush"
+4 : "Crucified motionless"
+16 : "Spawn Sleeping"
 */
 void() monster_zombie =
 {

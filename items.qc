@@ -238,12 +238,14 @@ float (entity e, float healamount, float ignore) T_Heal =
 };
 
 /*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) ROTTEN MEGAHEALTH X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_bh10.bsp" }, spawnflags & 2 -> { "path" : "maps/b_bh100.bsp" },
+	 "maps/b_bh25.bsp" }} );
+}
 Health box. Normally gives 25 points.
-Rotten box heals 5-10 points,
-megahealth will add 100 health, then
-rot you down to your maximum health limit,
-one point per second.
+Rotten box heals 15 points.
+Megahealth will add 100 health, then start to
+rot the player back down to 100 health after 5 seconds.
 */
 
 float	H_ROTTEN = 1;
@@ -725,7 +727,10 @@ void() weapon_axe =
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
 };
-/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32) X STYLE_1 STYLE_2 X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/g_shotgn.mdl");	}
+This is a pickup model that should be used when you want a player to spawn with only an axe and then later get the shotgun: (trigger_take_weapon or reset_items 2 in worldspawn). There are two models to choose from. Spawnflag 2 (the default) selects an unused “classic look” model from Rubicon 2 by metlslime. Spawnflag 4 is an alternate from Slapmap and has been used in a few mods.
+Single-barrelled Shotgun
 Shotgun
 */
 
@@ -761,6 +766,8 @@ void() weapon_shotgun =
 // johnfitz
 
 /*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_shot.mdl");	}
+Double-barrelled Shotgun
 */
 
 void() weapon_supershotgun =
@@ -779,6 +786,8 @@ void() weapon_supershotgun =
 };
 
 /*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_nail.mdl");	}
+Nailgun
 */
 
 void() weapon_nailgun =
@@ -797,6 +806,8 @@ void() weapon_nailgun =
 };
 
 /*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_nail2.mdl");	}
+Perforator
 */
 
 void() weapon_supernailgun =
@@ -815,6 +826,8 @@ void() weapon_supernailgun =
 };
 
 /*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_rock.mdl");	}
+Grenade Launcher
 */
 
 void() weapon_grenadelauncher =
@@ -833,6 +846,8 @@ void() weapon_grenadelauncher =
 };
 
 /*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_rock2.mdl");	}
+Rocket Launcher
 */
 
 void() weapon_rocketlauncher =
@@ -852,6 +867,8 @@ void() weapon_rocketlauncher =
 
 
 /*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32)
+{	model("progs/g_light.mdl");	}
+Thunderbolt
 */
 
 void() weapon_lightning =
@@ -970,6 +987,11 @@ local float		best;
 float WEAPON_BIG2 = 1;
 
 /*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_shell1.bsp" }, "maps/b_shell0.bsp" }} );
+}
+Box of 20 shells.
+LARGE_BOX is a box of 40 shells.
 */
 
 void() item_shells =
@@ -1000,7 +1022,11 @@ void() item_shells =
 };
 
 /*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_nail1.bsp" }, "maps/b_nail0.bsp" }} );
+}
+Box of 25 nails.
+LARGE_BOX is a box of 50 nails.
 */
 
 void() item_spikes =
@@ -1031,7 +1057,9 @@ void() item_spikes =
 };
 
 /*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_rock1.bsp" }, "maps/b_rock0.bsp" }} );
+}
 */
 
 void() item_rockets =
@@ -1063,7 +1091,11 @@ void() item_rockets =
 
 
 /*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
+{
+	model ( {{ spawnflags & 1 -> { "path" : "maps/b_batt1.bsp" }, "maps/b_batt0.bsp" }} );
+}
+Box of 6 cells.
+LARGE_BOX is a box of 12 cells.
 */
 
 void() item_cells =
@@ -1256,6 +1288,7 @@ void() key_start =
 
 
 /*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/w_s_key.mdl");	}
 SILVER key
 In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
@@ -1295,6 +1328,9 @@ void() item_key1 =
 
 
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ("progs/w_g_key.mdl");
+}
 GOLD key
 In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
@@ -1337,6 +1373,9 @@ void() item_key2 =
 // progs_dump -- iw
 
 /*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path" : "progs/pd_wiz_key.mdl", "skin" : 1});
+}
 A customizable key item.
 
 "keyname"  name of the key, e.g. "bronze key" (required)
@@ -1443,8 +1482,17 @@ void() sigil_touch2 = //replacement for Skill Select Rune hack -- uses info_play
 
 
 /*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4 X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
-End of level sigil, pick up to end episode and return to jrstart.
+{
+	model ( {{ spawnflags & 1 -> { "path" : "progs/end1.mdl" }, spawnflags & 2 -> { "path" : "progs/end2.mdl" },
+	spawnflags & 4 -> { "path" : "progs/end3.mdl" }, spawnflags & 8 -> { "path" : "progs/end4.mdl" },
+	 "progs/end1.mdl" }} );
+}
+End of episode rune. Use in conjuction with func_bossgate and func_episodegate.
+Spawnflag must be set to the appropriate episode.
+Episode 1 - Dimension of the Doomed - Rune of Earth Magic
+Episode 2 - The Realm of Black Magic - Rune of Black Magic
+Episode 3 - The Netherworld - Rune of Hell Magic
+Episode 4 - The Elder World - Run of Elder Magic
 */
 
 void() item_sigil =
@@ -1578,6 +1626,8 @@ void() powerup_touch =
 };
 
 /*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/invulner.mdl");	}
+Pentagram of Protection
 Player is invulnerable for 30 seconds
 */
 void() item_artifact_invulnerability =
@@ -1601,6 +1651,8 @@ void() item_artifact_invulnerability =
 };
 
 /*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/suit.mdl");	}
+Biosuit
 Player takes no damage from water or slime for 30 seconds
 */
 void() item_artifact_envirosuit =
@@ -1624,6 +1676,8 @@ void() item_artifact_envirosuit =
 
 
 /*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/invisibl.mdl");	}
+Ring of Shadows
 Player is invisible for 30 seconds
 */
 void() item_artifact_invisibility =
@@ -1648,7 +1702,9 @@ void() item_artifact_invisibility =
 
 
 /*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-The next attack from the player will do 4x damage
+{	model("progs/quaddama.mdl");	}
+Quad Damage
+Player does 4x damage for 30 seconds
 */
 void() item_artifact_super_damage =
 {
@@ -1872,6 +1928,7 @@ void() item_backpack_message =
 };
 // Some of this text is from Drake -- dumptruck_ds
 /*QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 72) SHELLS NAILS ROCKETS CELLS X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model("progs/backpack.mdl");	}
 By default, gives roughly half the ammo from the 4 standard pickups:
 
 10 Shells
