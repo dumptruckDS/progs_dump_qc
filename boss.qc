@@ -400,7 +400,7 @@ void() lightning_use =
 };
 
 
-/*QUAKED event_lightning (0 1 1) (-16 -16 -16) (16 16 16)
+/*QUAKED event_lightning (0 1 1) (-16 -16 -16) (16 16 16) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Just for boss level.
 */
 void() event_lightning =

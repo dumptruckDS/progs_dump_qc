@@ -5,7 +5,8 @@ lights.qc taken from c0burn's Slipgate mod -- dumptruck_ds
 float START_OFF		= 1;
 float FADE_IN_OUT	= 2;
 
-/*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
+/*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Used as a positional target for spotlights, etc.
 */
 void() info_null =
@@ -16,7 +17,8 @@ void() info_null =
 	remove(self);
 };
 
-/*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4)
+/*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Never used in the or
 */
 void() info_notnull =
@@ -220,7 +222,8 @@ void() light_use =
 	}
 };
 
-/*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT
+/*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Light
 
 ==========
@@ -363,7 +366,8 @@ void() light =
 	}
 };
 
-/*QUAKED light_fluoro (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT
+/*QUAKED light_fluoro (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Non-displayed light.
 Makes steady fluorescent humming sound.
 See the "light" entity for a full description.
@@ -377,7 +381,8 @@ void() light_fluoro =
 	light();
 };
 
-/*QUAKED light_fluorospark (0 1 0) (-8 -8 -8) (8 8 8)
+/*QUAKED light_fluorospark (0 1 0) (-8 -8 -8) (8 8 8) START_OFF FADE_IN_OUT X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Non-displayed light.
 Makes sparking, broken fluorescent sound.
 Can't be toggled.
@@ -395,7 +400,7 @@ void() light_fluorospark =
 	remove(self);
 };
 
-/*QUAKED light_globe (0 1 0) (-8 -8 -8) (8 8 8)
+/*QUAKED light_globe (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Sphere globe light.
 Can't be toggled.
 See the "light" entity for a full description.
@@ -410,7 +415,8 @@ void() light_globe =
 	makestatic(self);
 };
 
-/*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20)
+/*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Short wall torch
 See the "light" entity for a full description.
 */
@@ -425,7 +431,7 @@ void() light_torch_small_walltorch =
 	makestatic(self);
 };
 
-/*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18)
+/*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Large yellow flame ball
 See the "light" entity for a full description.
 */
@@ -441,7 +447,7 @@ void() light_flame_large_yellow =
 	makestatic(self);
 };
 
-/*QUAKED light_flame_small_yellow (0 1 0) (-8 -8 -8) (8 8 8)
+/*QUAKED light_flame_small_yellow (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Small yellow flame ball
 See the "light" entity for a full description.
 */
@@ -456,7 +462,7 @@ void() light_flame_small_yellow =
 	makestatic(self);
 };
 
-/*QUAKED light_flame_small_white (0 1 0) (-8 -8 -8) (8 8 8)
+/*QUAKED light_flame_small_white (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Left for compatability
 Identical to "light_flame_small_yellow"
 */

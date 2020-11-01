@@ -134,7 +134,7 @@ void() FireAmbient =
 	ambientsound (self.origin, "ambience/fire1.wav", 0.5, ATTN_STATIC);
 };
 
-/*QUAKED ambient_fire (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_fire (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 ambinet fire sound effects added for consistency
 same as FireAmbient
 */
@@ -206,7 +206,9 @@ FireAmbient();
 // 	makestatic (self);
 // };
 //
-/*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) START_OFF //dumptruck_ds taken from honey (originally from Rogue)
+/*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
+ //dumptruck_ds taken from honey (originally from Rogue)
 White candle
 */
 void() light_candle =
@@ -242,7 +244,7 @@ void() model_candle =
 //============================================================================
 
 
-/*QUAKED misc_fireball (0 .5 .8) (-8 -8 -8) (8 8 8)
+/*QUAKED misc_fireball (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Lava Balls
 */
 
@@ -309,7 +311,7 @@ void() barrel_explode =
 
 
 
-/*QUAKED misc_explobox (0 .5 .8) (0 0 0) (32 32 64)
+/*QUAKED misc_explobox (0 .5 .8) (0 0 0) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 TESTING THING
 */
 
@@ -344,7 +346,8 @@ void() misc_explobox =
 
 
 
-/*QUAKED misc_explobox2 (0 .5 .8) (0 0 0) (32 32 64)
+/*QUAKED misc_explobox2 (0 .5 .8) (0 0 0) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Smaller exploding box, REGISTERED ONLY
 */
 
@@ -695,9 +698,10 @@ void() make_bubbles;
 void() bubble_remove;
 void() bubble_bob;
 
-/*QUAKED air_bubbles (0 .5 .8) (-8 -8 -8) (8 8 8)
+/*QUAKED air_bubbles (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-testing air bubbles
+air bubbles entity
+
 */
 
 void() air_bubbles =
@@ -906,7 +910,7 @@ void() func_bossgate =
 };
 
 //============================================================================
-/*QUAKED ambient_suck_wind (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_suck_wind (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_suck_wind =
 {
@@ -917,7 +921,7 @@ void() ambient_suck_wind =
 	ambientsound (self.origin, "ambience/suck1.wav", 1, ATTN_STATIC);
 };
 
-/*QUAKED ambient_drone (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_drone (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_drone =
 {
@@ -928,7 +932,7 @@ void() ambient_drone =
 	ambientsound (self.origin, "ambience/drone6.wav", 0.5, ATTN_STATIC);
 };
 
-/*QUAKED ambient_flouro_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_flouro_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_flouro_buzz =
 {
@@ -938,7 +942,7 @@ void() ambient_flouro_buzz =
 	precache_sound ("ambience/buzz1.wav");
 	ambientsound (self.origin, "ambience/buzz1.wav", 1, ATTN_STATIC);
 };
-/*QUAKED ambient_drip (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_drip (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_drip =
 {
@@ -948,7 +952,8 @@ void() ambient_drip =
 	precache_sound ("ambience/drip1.wav");
 	ambientsound (self.origin, "ambience/drip1.wav", 0.5, ATTN_STATIC);
 };
-/*QUAKED ambient_comp_hum (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_comp_hum (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 */
 void() ambient_comp_hum =
 {
@@ -968,7 +973,7 @@ void() ambient_comp_hum =
 // 	precache_sound ("ambience/thunder1.wav");
 // 	ambientsound (self.origin, "ambience/thunder1.wav", 0.5, ATTN_STATIC);
 // };
-/*QUAKED ambient_light_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_light_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_light_buzz =
 {
@@ -978,7 +983,7 @@ void() ambient_light_buzz =
 	precache_sound ("ambience/fl_hum1.wav");
 	ambientsound (self.origin, "ambience/fl_hum1.wav", 0.5, ATTN_STATIC);
 };
-/*QUAKED ambient_swamp1 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_swamp1 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_swamp1 =
 {
@@ -988,7 +993,7 @@ void() ambient_swamp1 =
 	precache_sound ("ambience/swamp1.wav");
 	ambientsound (self.origin, "ambience/swamp1.wav", 0.5, ATTN_STATIC);
 };
-/*QUAKED ambient_swamp2 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_swamp2 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_swamp2 =
 {
@@ -1007,7 +1012,7 @@ void() ambient_swamp2 =
    you'd prefer to use these in custom setups, you can use the command line
    switch -nomabient in when you VIS your map to disable the hard coded sounds. */
 
-/*QUAKED ambient_water1 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_water1 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_water1 =
 {
@@ -1017,7 +1022,7 @@ void() ambient_water1 =
 	precache_sound ("ambience/water1.wav");
 	ambientsound (self.origin, "ambience/water1.wav", 1, ATTN_STATIC);
 };
-/*QUAKED ambient_wind2 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_wind2 (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 void() ambient_wind2 =
 {
@@ -1048,7 +1053,12 @@ void() thunder_go_boom =
 	self.nextthink = time + 40*random();
 };
 
-/*QUAKED ambient_thunder (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_thunder (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+The original ambient_thunder was included in Quake but the code was missing.
+This version is borrowed from the Zerstörer mod but modified to only play the
+original thumder1.wav included in the game. This is also different than the
+other  ambient sounds as it plays back randomly as opposed to looping. You
+only need one  of these in your level. It will play everywhere.
 */
 void() ambient_thunder =
 {
@@ -1078,7 +1088,7 @@ void() noise_think =
 	sound (self, 7, "enforcer/pain1.wav", 1, ATTN_NORM);
 };
 
-/*QUAKED misc_noisemaker (1 0.5 0) (-10 -10 -10) (10 10 10)
+/*QUAKED misc_noisemaker (1 0.5 0) (-10 -10 -10) (10 10 10) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 For optimzation testing, starts a lot of sounds.
 */

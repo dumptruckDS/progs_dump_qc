@@ -758,7 +758,8 @@ void() make_sparks =
 
 };
 
-/*QUAKED misc_sparks (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF SPARKS_BLUE SPARKS_PALE
+/*QUAKED misc_sparks (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF SPARKS_BLUE SPARKS_PALE X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash allong with each burst of sparks. Note: targeted lights should be set to START_OFF.
 
 SPARKS_BLUE: sparks are blue in color
@@ -834,7 +835,8 @@ void() splash_think =
 // renamed from misc_splash (Rubcion 2)  --dumptruck_ds
 //
 
-/*QUAKED misc_particles (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF
+/*QUAKED misc_particles (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Produces a continuous particle splash for waterfalls and other effects
 
 "color" color of particles.  0 through 15, corresponds to a row of the quake palette. (default 0)
@@ -872,7 +874,7 @@ void() misc_particles =
 //this is from Custents not Rubicon2  -- dumptruck_ds
 //renamed from func to misc
 
-/*QUAKED misc_particlespray (0 .5 .8) (-8 -8 -8) (8 8 8)
+/*QUAKED misc_particlespray (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Shoots particles either when triggered, or contiuously when not triggered by anything.
 "color" is the palette color of the particles
 

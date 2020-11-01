@@ -90,7 +90,7 @@ vector (vector ang) SUB_NormalizeAngles =
    return ang;
 };
 
-/*QUAKED info_rotate (0 0.5 0) (-4 -4 -4) (4 4 4)
+/*QUAKED info_rotate (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Used as the point of rotation for rotatable objects.
 */
 void() info_rotate =
@@ -369,7 +369,8 @@ void() rotate_entity_firstthink =
    self.use = rotate_entity_use;
    };
 
-/*QUAKED func_rotate_entity (0 .5 .8) (-8 -8 -8) (8 8 8) TOGGLE START_ON
+/*QUAKED func_rotate_entity (0 .5 .8) (-8 -8 -8) (8 8 8) TOGGLE START_ON X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Creates an entity that continually rotates.  Can be toggled on and
 off if targeted.
 
@@ -757,7 +758,8 @@ void() rotate_train_find =
    self.dest1 = self.origin; // original position
    };
 
-/*QUAKED func_rotate_train (0 .5 .8) (-8 -8 -8) (8 8 8)
+/*QUAKED func_rotate_train (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 In path_rotate, set speed to be the new speed of the train after it reaches
 the path change.  If speed is -1, the train will warp directly to the next
 path change after the specified wait time.  If MOVETIME is set on the
@@ -1121,7 +1123,8 @@ void() rotate_door_use =
    };
 
 
-/*QUAKED func_rotate_door (0 .5 .8) (-8 -8 -8) (8 8 8) STAYOPEN
+/*QUAKED func_rotate_door (0 .5 .8) (-8 -8 -8) (8 8 8) STAYOPEN X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Creates a door that rotates between two positions around a point of
 rotation each time it's triggered.
 

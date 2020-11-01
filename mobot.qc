@@ -436,7 +436,33 @@ void() think_mobot =
 		self.think = think_mobot; // qthink I didn't realize I could do this! -- dumptruck_ds
 	};
 
-/*QUAKED func_monster_spawner (1 0 0) (-32 -32 -24) (32 32 64) Ambush FIXME
+/*QUAKED func_monster_spawner (1 0 0) (-32 -32 -24) (32 32 64) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/teleport.mdl");
+}
+Spawns monsters to targeted info_monster_spawnpoint
+
+Choose Style
+• 1 (Dog (Default)
+• 2 (Grunt)
+• 3 (Enforcer)
+• 4 (Ogre)
+• 5 (Fiend)
+• 6 (Wizard)
+• 7 (Shambler)
+• 8 (Knight)
+• 9 (HellKnight)
+• 10 (Spawn)
+• 11 (Zombie)
+• 12 (Shalrath)
+
+Style 2 set to 1 overrides Style and chooses a random monster (excluding Zombies and Vores)
+
+Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags
+
+Can set Berserk to 1 to skip most pain animations.
+
+Can only use default health, models and sounds.
 */
 void() func_monster_spawner =
 {

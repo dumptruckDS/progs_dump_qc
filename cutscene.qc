@@ -603,7 +603,8 @@ void() camera_touch =
 void() camera_point_touch = {camera_activate (other);};
 
 //============
-// --> QUAKED info_movie_camera (.5 .5 .5) (-8 -8 -8) (8 8 32)
+// --> QUAKED info_movie_camera (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 // This is the destination marker for a camera.  It should have a "targetname"
 // field with the same value as a camera-trigger's "target" field.
 //============
@@ -674,7 +675,7 @@ void() trigger_gocamera = {self.use = gocam_use;};
 //- - - - - - - - -
 
 //============
-// --> QUAKED info_focal_point (.5 .5 .5) (-8 -8 -8) (8 8 32)
+// --> QUAKED info_focal_point (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 // This is the point that the camera will face.  It should have a "targetname"
 // field with the same value as a camera-trigger's "focal_point" field.
 //
@@ -821,7 +822,8 @@ void() script_sound_play =
 };
 //- - - - - - - - -
 //============
-// --> QUAKED info_script_sound (.5 .5 .5) (-8 -8 -8) (8 8 32)
+// --> QUAKED info_script_sound (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 // This is the noise player for a script.
 
 void() info_script_sound =

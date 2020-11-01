@@ -627,7 +627,10 @@ void() info_teleport_changedest =
     }
 };
 
-/*QUAKED info_teleport_destination (.5 .5 .5) (-8 -8 -8) (8 8 32)
+/*QUAKED info_teleport_destination (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
 This is the destination marker for a teleporter.  It should have a "targetname" field with the same value as a teleporter's "target" field.
 */
 void() info_teleport_destination =
@@ -644,7 +647,10 @@ void() info_teleport_destination =
 		objerror ("no targetname");
 };
 
-/*QUAKED info_teleport_random (.5 .5 .5) (-8 -8 -8) (8 8 32)
+/*QUAKED info_teleport_random (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
 This is a random destination marker for a teleporter.
 */
 void() info_teleport_random =

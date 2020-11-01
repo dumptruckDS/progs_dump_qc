@@ -119,7 +119,7 @@ void() play_sound =
 
  //johnfitz -- ambient_general (this is from Rubicon Rumble dev kit)
 
-/*QUAKED ambient_general (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+/*QUAKED ambient_general (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Plays any looped sound
 
 Keys:
@@ -500,7 +500,10 @@ deadstuff version 1.0 - tony collen - manero@canweb.net - EfNet IRC #QuakeEd or 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 */
 
-/*QUAKED gib_head_demon (0 0.5 0.8) (-16 -16 0) (16 16 56)
+/*QUAKED gib_head_demon (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_demon.mdl");
+}
 */
 void() gib_head_demon =
 {
@@ -522,7 +525,10 @@ void() gib_head_demon =
 	}
 };
 
-/*QUAKED gib_head_dog (0 0.5 0.8) (-16 -16 0) (16 16 56)
+/*QUAKED gib_head_dog (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_dog.mdl");
+}
 */
 void() gib_head_dog =
 {
@@ -544,7 +550,10 @@ void() gib_head_dog =
 	}
 };
 
-/*QUAKED gib_head_army (0 0.5 0.8) (-16 -16 0) (16 16 56)
+/*QUAKED gib_head_army (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_guard.mdl");
+}
 */
 void() gib_head_army =
 {
@@ -566,8 +575,10 @@ void() gib_head_army =
 	}
 };
 
-/*QUAKED gib_head_hell_knight (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_hell_knight (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_hellkn.mdl");
+}*/
 void() gib_head_hell_knight =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -588,8 +599,10 @@ void() gib_head_hell_knight =
 	}
 };
 
-/*QUAKED gib_head_knight (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_knight (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_knight.mdl");
+}*/
 void() gib_head_knight =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -610,7 +623,10 @@ void() gib_head_knight =
 	}
 };
 
-/*QUAKED gib_head_enforcer (0 0.5 0.8) (-16 -16 0) (16 16 56)
+/*QUAKED gib_head_enforcer (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_mega.mdl");
+}
 */
 void() gib_head_enforcer =
 {
@@ -632,8 +648,10 @@ void() gib_head_enforcer =
 	}
 };
 
-/*QUAKED gib_head_ogre (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_ogre (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_ogre.mdl");
+}*/
 void() gib_head_ogre =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -654,8 +672,10 @@ void() gib_head_ogre =
 	}
 };
 
-/*QUAKED gib_head_player (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_player (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_player.mdl");
+}*/
 void() gib_head_player =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -676,8 +696,10 @@ void() gib_head_player =
 	}
 };
 
-/*QUAKED gib_head_shalrath (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_shalrath (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_shal.mdl");
+}*/
 void() gib_head_shalrath =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -698,8 +720,10 @@ void() gib_head_shalrath =
 	}
 };
 
-/*QUAKED gib_head_shambler (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_shambler (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_shams.mdl");
+}*/
 void() gib_head_shambler =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -720,8 +744,10 @@ void() gib_head_shambler =
 	}
 };
 
-/*QUAKED gib_head_wizard (0 0.5 0.8) (-16 -16 0) (16 16 56)
-*/
+/*QUAKED gib_head_wizard (0 0.5 0.8) (-16 -16 0) (16 16 56) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/h_wizard.mdl");
+}*/
 void() gib_head_wizard =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -742,8 +768,10 @@ void() gib_head_wizard =
 	}
 };
 
-/*QUAKED gib_misc_1 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
-*/
+/*QUAKED gib_misc_1 (0 0.5 0.8) (-8 -8 -8) (8 8 8) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/gib1.mdl");
+}*/
 void() gib_misc_1 =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -764,8 +792,10 @@ void() gib_misc_1 =
 	}
 };
 
-/*QUAKED gib_misc_2 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
-*/
+/*QUAKED gib_misc_2 (0 0.5 0.8) (-8 -8 -8) (8 8 8) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/gib2.mdl");
+}*/
 void() gib_misc_2 =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -786,8 +816,10 @@ void() gib_misc_2 =
 	}
 };
 
-/*QUAKED gib_misc_3 (0 0.5 0.8) (-8 -8 -8) (8 8 8)
-*/
+/*QUAKED gib_misc_3 (0 0.5 0.8) (-8 -8 -8) (8 8 8) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/gib3.mdl");
+}*/
 void() gib_misc_3 =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -951,7 +983,7 @@ local entity	pspot;
 	self.enemy = pspot;
 };
 
-/*QUAKED misc_particle_stream (0 .5 .8) (-8 -8 -8) (8 8 8)
+/*QUAKED misc_particle_stream (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A particle stream!  It appears when triggered.  This entity is
 one end of the stream, target another entity as the other end-point.
 I used the info_notnull, but you should be able to target anything

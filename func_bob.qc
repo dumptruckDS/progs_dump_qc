@@ -179,7 +179,8 @@ void() func_bob =
 
 //----------------------------------------------------------------------
 
-/*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+/*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8) X BOB_COLLISION BOB_NONSOLID X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 */
 void() misc_bob =
 {

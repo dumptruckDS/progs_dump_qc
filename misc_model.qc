@@ -13,7 +13,7 @@
 // Forward declarations
 void() misc_model_think;
 
-/*QUAKED misc_model (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+/*QUAKED misc_model (0 0.5 0.8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 An entity for displaying models. A frame range can be given to animate the
 model.
 

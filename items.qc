@@ -237,7 +237,8 @@ float (entity e, float healamount, float ignore) T_Heal =
 	return 1;
 };
 
-/*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) rotten megahealth
+/*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) ROTTEN MEGAHEALTH X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Health box. Normally gives 25 points.
 Rotten box heals 5-10 points,
 megahealth will add 100 health, then
@@ -439,7 +440,10 @@ void() armor_touch =
 };
 
 
-/*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/armor.mdl");
+}
 */
 
 void() item_armor1 =
@@ -456,7 +460,8 @@ void() item_armor1 =
 	StartItem ();
 };
 
-/*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{ model({ "path": ":progs/armor.mdl", "skin": 1 }); }
 */
 
 void() item_armor2 =
@@ -473,7 +478,10 @@ void() item_armor2 =
 	StartItem ();
 };
 
-/*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model({ "path": ":progs/armor.mdl", "skin": 2 });
+}
 */
 
 void() item_armorInv =
@@ -961,7 +969,7 @@ local float		best;
 
 float WEAPON_BIG2 = 1;
 
-/*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
 
 void() item_shells =
@@ -991,7 +999,8 @@ void() item_shells =
 	StartItem ();
 };
 
-/*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 */
 
 void() item_spikes =
@@ -1021,7 +1030,8 @@ void() item_spikes =
 	StartItem ();
 };
 
-/*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 */
 
 void() item_rockets =
@@ -1052,7 +1062,8 @@ void() item_rockets =
 };
 
 
-/*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) big
+/*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 */
 
 void() item_cells =
@@ -1244,7 +1255,7 @@ void() key_start =
 };
 
 
-/*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_key1 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 SILVER key
 In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
@@ -1283,7 +1294,7 @@ void() item_key1 =
 };
 
 
-/*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 GOLD key
 In order for keys to work you MUST set your map's worldtype to one of the following:
 0: medieval
@@ -1325,7 +1336,7 @@ void() item_key2 =
 // item_key_custom is a brand-spanking-new entity class created for
 // progs_dump -- iw
 
-/*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A customizable key item.
 
 "keyname"  name of the key, e.g. "bronze key" (required)
@@ -1431,7 +1442,8 @@ void() sigil_touch2 = //replacement for Skill Select Rune hack -- uses info_play
 };
 
 
-/*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4
+/*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4 X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 End of level sigil, pick up to end episode and return to jrstart.
 */
 
@@ -1565,7 +1577,7 @@ void() powerup_touch =
 	SUB_UseTargets();				// fire all targets / killtargets
 };
 
-/*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Player is invulnerable for 30 seconds
 */
 void() item_artifact_invulnerability =
@@ -1588,7 +1600,7 @@ void() item_artifact_invulnerability =
 	StartItem ();
 };
 
-/*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Player takes no damage from water or slime for 30 seconds
 */
 void() item_artifact_envirosuit =
@@ -1611,7 +1623,7 @@ void() item_artifact_envirosuit =
 };
 
 
-/*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Player is invisible for 30 seconds
 */
 void() item_artifact_invisibility =
@@ -1635,7 +1647,7 @@ void() item_artifact_invisibility =
 };
 
 
-/*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32)
+/*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 The next attack from the player will do 4x damage
 */
 void() item_artifact_super_damage =
@@ -1859,33 +1871,32 @@ void() item_backpack_message =
 
 };
 // Some of this text is from Drake -- dumptruck_ds
-//============
-// --> QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 56)
-// By default, gives roughly half the ammo from the 4 standard pickups:
-//
-// 10 Shells
-// 12 Nails
-// 2 Rockets
-// 3 Cells
-//
-// Or you can use the spawnflags to mix and match types.
-// Override the spawnflags defaults by adding custom amounts to:
-//
-// ammo_shells
-// ammo_nails
-// ammo_rockets
-// ammo_cells
-//
-// Can trigger spawn and suspend in air, but not respawn. You can set a skin
-// index if you are using a custom model with skins.
-//
-// The default pickup message is `You got a backpack.` But you can
-// set a custom message with the netname key. 'You got' will be the prefix
-// and the mapper chooses the rest of the message.
-//
-// e.g. For 'You got a bunch of rockets!' the netname key would be
-// 'a bunch of rockets!'
-//============
+/*QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 72) SHELLS NAILS ROCKETS CELLS X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+By default, gives roughly half the ammo from the 4 standard pickups:
+
+10 Shells
+12 Nails
+2 Rockets
+3 Cells
+
+Or you can use the spawnflags to mix and match types.
+Override the spawnflags defaults by adding custom amounts to:
+
+ammo_shells
+ammo_nails
+ammo_rockets
+ammo_cells
+
+Can trigger spawn and suspend in air, but not respawn. You can set a skin
+index if you are using a custom model with skins.
+
+The default pickup message is `You got a backpack.` But you can
+set a custom message with the netname key. 'You got' will be the prefix
+and the mapper chooses the rest of the message.
+
+e.g. For 'You got a bunch of rockets!' the netname key would be
+'a bunch of rockets!'
+*/
 void() item_backpack =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw

@@ -21,7 +21,8 @@ float	modelindex_eyes, modelindex_player;
 float	intermission_running;
 float	intermission_exittime;
 
-/*QUAKED info_intermission (1 0.5 0.5) (-16 -16 -16) (16 16 16)
+/*QUAKED info_intermission (1 0.5 0.5) (-16 -16 -16) (16 16 16) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 This is the camera point for the intermission.
 Use mangle instead of angle, so you can set pitch or roll as well as yaw.  'pitch roll yaw'
 */
@@ -639,7 +640,10 @@ void() PutClientInServer =
 */
 
 
-/*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 24)
+/*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
 The normal starting point for a level.
 */
 void() info_player_start =
@@ -649,7 +653,10 @@ void() info_player_start =
 };
 
 
-/*QUAKED info_player_start2 (1 0 0) (-16 -16 -24) (16 16 24)
+/*QUAKED info_player_start2 (1 0 0) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
 Only used on start map for the return point from an episode.
 */
 void() info_player_start2 =
@@ -666,7 +673,10 @@ void() testplayerstart =
 {
 };
 
-/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 24)
+/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
 potential spawning position for deathmatch games
 */
 void() info_player_deathmatch =
@@ -675,7 +685,10 @@ void() info_player_deathmatch =
 		return;
 };
 
-/*QUAKED info_player_coop (1 0 1) (-16 -16 -24) (16 16 24)
+/*QUAKED info_player_coop (1 0 1) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
 potential spawning position for coop games
 */
 void() info_player_coop =
@@ -684,7 +697,8 @@ void() info_player_coop =
 		return;
 };
 
-/*QUAKED info_monster_spawnpoint (1 0 1) (-16 -16 -24) (16 16 24)
+/*QUAKED info_monster_spawnpoint (1 0 1) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
  spawning position for func_monster_spawner
 */
 void() info_monster_spawnpoint =

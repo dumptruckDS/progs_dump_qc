@@ -92,7 +92,8 @@ void() ltrail_start_fire =
 	}
 };
 
-/*QUAKED ltrail_start (0 1 0) (-8 -8 -8) (8 8 8) LT_TOGGLE
+/*QUAKED ltrail_start (0 1 0) (-8 -8 -8) (8 8 8) LT_TOGGLE START_ON X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Starting point of a lightning trail.
 Set currentammo to amount of damage you want the lightning to do.
 Default is 25.
@@ -134,7 +135,7 @@ void() ltrail_start =
 	}
 };
 
-/*QUAKED ltrail_relay (0 1 0) (-8 -8 -8) (8 8 8)
+/*QUAKED ltrail_relay (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Relay point of a lightning trail.
 Set currentammo to amount of damage you want the lightning to do.
 Default is 25.
@@ -165,7 +166,7 @@ void() ltrail_relay =
 		self.frags = 0.3;
 };
 
-/*QUAKED ltrail_end (0 1 0) (-8 -8 -8) (8 8 8)
+/*QUAKED ltrail_end (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Ending point of a lightning trail.
 Does not fire any lightning.
 
