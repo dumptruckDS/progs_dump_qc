@@ -601,6 +601,66 @@ void() enf_die =
 	model ("progs/enforcer.mdl");
 }
 Enforcer.
+
+Default health = 80
+
+keep_ammo(integer) : "1 = Don't drop backpack upon death"
+
+style(Choices) : "Attack type"
+0 : "Default (lasers)"
+1	: "rockets"
+2 : "grenades"
+3 : "nails"
+
+snd_death(string) : Path to custom death sound"
+snd_pain(string) : "Path to 1st custom pain sound"
+snd_sight(string) : "Path to custom sight sound for STOP!"
+snd_attack(string) : Path to custom attack sound e.g laser firing"
+snd_hit(string) : "Path to custom hit sound e.g. laser hits wall"
+snd_idle(string) : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sight sound for FREEZE!"
+snd_misc1(string) : "Path to custom sight sound for YOU THERE!"
+snd_misc2(string) : "Path to custom sight sound for HALT!"
+snd_misc3(string) : "Path to 2nd custom pain sound"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+mdl_proj(string) : "Path to custom projectile model"
+skin_head(float) : "Skin index of custom head model"
+skin_proj(float) : "Skin index of custom projectile model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+mdl_gib2(string) : "Path to custom 2nd gib model"
+mdl_gib3(string) : "Path to custom 3rd gib model"
+
+effects(choices) : "Add a visual effect to an entity"
+0 : "None (Default)"
+1 : "Brightfield (yellow particles)"
+4 : "Bright light"
+8 : "Dim light"
+
+berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)"
+0 : "Off (Default)"
+1 : "Berserk (skip pain animations)"
+
+delay(float) : "Delay spawn in for this amount of time"
+
+wait(choices) : "Play an effect when trigger spawned?"
+0 : "Teleport Effects (Default)"
+1 : "Spawn Silently"
+
+spawn_angry(Choices)
+0 : "Only when trigger spawned, default behavior - not angry"
+1 : "Only when trigger spawned, set to 1 to spawn angry at player"
+
+health(integer) : "Set this to a custom health amount"
+pain_target(string) : "Fire this target when pain_threshold is reached"
+pain_threshold(integer) : "Fire pain_target when health drops below this amount"
+sight_trigger(integer) : "1 = Fire target upon seeing the player instead of death"
+skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
+obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+
 */
 void() monster_enforcer =
 {
