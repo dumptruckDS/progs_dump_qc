@@ -147,13 +147,14 @@ void () particlefield_touch =
 	T_Damage (other, self, self, self.dmg);
    };
 
-/*QUAKED func_particlefield (0 .5 .8) ? USE_COUNT
+/*QUAKED func_particlefield (0 .5 .8) ? USE_COUNT X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Creates a brief particle flash roughly the size of the defining
 brush each time it is triggered.
 
 USE_COUNT when the activator is a func_counter, the field will only
-   activate when count is equal to "cnt".  Same as using a func_oncount
-   to trigger.
+activate when count is equal to "cnt".  Same as using a func_oncount
+to trigger.
 
 "cnt" is the count to activate on when USE_COUNT is set.
 "color" is the color of the particles.  Default is 192 (yellow).
@@ -264,7 +265,8 @@ void () blocker_use =
       }
    };
 
-/*QUAKED func_togglewall (0 .5 .8) ? START_OFF
+/*QUAKED func_togglewall (0 .5 .8) ? START_OFF X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Creates a invisible wall that can be toggled on and off.
 
 START_OFF wall doesn't block until triggered.

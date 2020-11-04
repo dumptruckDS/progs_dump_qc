@@ -917,7 +917,8 @@ void() movewall_think =
    self.nextthink = time + 0.02;
    };
 
-/*QUAKED func_movewall (0 .5 .8) ? VISIBLE TOUCH NONBLOCKING
+/*QUAKED func_movewall (0 .5 .8) ? VISIBLE TOUCH NONBLOCKING X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Used to emulate collision on rotating objects.
 
 VISIBLE causes brush to be displayed.
@@ -958,7 +959,7 @@ void() func_movewall =
    self.ltime = time;
    };
 
-/*QUAKED rotate_object (0 .5 .8) ?
+/*QUAKED rotate_object (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This defines an object to be rotated.  Used as the target of func_rotate_door.
 */
 void() rotate_object =

@@ -1,7 +1,7 @@
-/*this is a point entity from Rubicon Rumble Pack Devkit; REQUIRES A TARGETNAME*/
-
-// ===== TRIGGER_SHAKE =======================================================
-
+// /*this is a point entity from Rubicon Rumble Pack Devkit; REQUIRES A TARGETNAME*/
+//
+// // ===== TRIGGER_SHAKE =======================================================
+//
 float VIEWONLY = 1;
 
 void() shake_think =
@@ -68,20 +68,18 @@ void() shake_use =
 	self.nextthink = time + 0.1;
 };
 
-/*QUAKED trigger_shake (.5 .5 .5) (-8 -8 -8) (8 8 8) VIEWONLY
+/*QUAKED trigger_shake (.5 0 .5) (-8 -8 -8) (8 8 8) VIEWONLY X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Earthquake trigger - shakes players in it's radius when active.
 Strength of tremor is greatest at the centre.
-
-"dmg"			Strength at center (default is 120)
-"wait"			Duration of shake (default is 1)
-"count"			Affect radius (defalt is 200)
-"noise"			Noise to play when starting to shake
-"noise1"		Noise to play when stopping
-"targetname"	Must be triggered
-
-Spawnflags:
-"VIEWONLY"		Shakes the view, but player movement is not affected
-
+dmg Strength at center (default is 120)
+wait Duration of shake (default is 1)
+count Affect radius (defalt is 200)
+noise Noise to play when starting to shake
+noise1 Noise to play when stopping
+targetname Must be triggered
+Spawnflags
+VIEWONLY		Shakes the view, but player movement is not affected
 */
 void() trigger_shake =
 {

@@ -36,27 +36,27 @@ This is a pickup model that should be used when you want a player to spawn with 
 Single-barrelled Shotgun
 Shotgun
 */
-/*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_shot.mdl");	}
 Double-barrelled Shotgun
 */
-/*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_nail.mdl");	}
 Nailgun
 */
-/*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_nail2.mdl");	}
 Perforator
 */
-/*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_rock.mdl");	}
 Grenade Launcher
 */
-/*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_rock2.mdl");	}
 Rocket Launcher
 */
-/*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32)
+/*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_light.mdl");	}
 Thunderbolt
 */
@@ -217,7 +217,8 @@ Optionally set reset_items to one of the following values:
 This is the camera point for the intermission.
 Use mangle instead of angle, so you can set pitch or roll as well as yaw.  'pitch roll yaw'
 */
-/*QUAKED trigger_changelevel (0.5 0.5 0.5) ? NO_INTERMISSION
+/*QUAKED trigger_changelevel (0.5 0.5 0.5) ? NO_INTERMISSION X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 When the player touches this, he gets sent to the map listed in the "map" variable.  Unless the NO_INTERMISSION flag is set, the view will go to the info_intermission spot and display stats.
 */
 /*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -250,13 +251,44 @@ model ("progs/teleport.mdl");
 }
  spawning position for func_monster_spawner
 */
-/*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED info_focal_point (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+This is the point that the camera will face.  It should have a "targetname"
+field with the same value as a camera-trigger's "focal_point" field.
 */
-/*QUAKED player_dead_face_down (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED trigger_camera (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A player touching this will be transported to the corresponding
+info_movie_camera entity.  You must set the "target" field, and put a
+info_movie_camera with a "targetname" field that matches.  The "script"
+key gives a starting script number, and the "script_delay" key is the
+amount of time(seconds) to stay on the first script page.
+
+If the trigger_camera has a targetname, it will only enter camera mode
+after it has been fired.
 */
-/*QUAKED player_dead_on_side (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED trigger_camera_point (.5 .5 .5) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+When this is triggered the player will be transported to the corresponding
+info_movie_camera entity.  You must set the "target" field, and put a
+info_movie_camera with a "targetname" field that matches.  The "script"
+key gives a starting script number, and the "script_delay" key is the
+amount of time(seconds) to stay on the first script page.
 */
-/*QUAKED func_door (0 .5 .8) ? START_OPEN x DOOR_DONT_LINK GOLD_KEY SILVER_KEY TOGGLE
+/*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/player.mdl","frame":49});
+}
+*/
+/*QUAKED player_dead_face_down (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/player.mdl","frame":84});
+}
+*/
+/*QUAKED player_dead_on_side (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/player.mdl","frame":102});
+}
+*/
+/*QUAKED func_door (0 .5 .8) ? START_OPEN x DOOR_DONT_LINK GOLD_KEY SILVER_KEY TOGGLE X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 if two doors touch, they are assumed to be connected and operate as a unit.
 
 TOGGLE causes the door to wait in both the start and end states for a trigger event.
@@ -266,14 +298,14 @@ START_OPEN causes the door to move to its destination when spawned, and operate 
 Key doors are always wait -1.
 
 "message"	is printed when the door is touched if it is a trigger door and it hasn't been fired yet
-"angle"		determines the opening direction
+"angle"	determines the opening direction
 "targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
 "health"	if set, door must be shot open
-"speed"		movement speed (100 default)
-"wait"		wait before returning (3 default, -1 = never return)
-"lip"		lip remaining at end of move (8 default)
-"dmg"		damage to inflict when blocked (2 default)
-"cnt"		if 1, leave a used key in the player's inventory (0 default)
+"speed"	movement speed (100 default)
+"wait"	wait before returning (3 default, -1 = never return)
+"lip"	lip remaining at end of move (8 default)
+"dmg"	damage to inflict when blocked (2 default)
+"cnt"	if 1, leave a used key in the player's inventory (0 default)
 "keyname"	if set, this is the keyname of the item_key_custom which unlocks this entity
 "noise1"	sound file for the "stop moving" sound (if set, overrides "sounds")
 "noise2"	sound file for the "move" sound (if set, overrides "sounds")
@@ -286,7 +318,8 @@ Key doors are always wait -1.
 3)	stone chain
 4)	screechy metal
 */
-/*QUAKED func_door_secret (0 .5 .8) ? open_once 1st_left 1st_down no_shoot always_shoot
+/*QUAKED func_door_secret (0 .5 .8) ? open_once 1st_left 1st_down no_shoot always_shoot X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Basic secret door. Slides back, then to the side. Angle determines direction.
 wait  = # of seconds before coming back
 1st_left = 1st move is left of arrow
@@ -294,7 +327,7 @@ wait  = # of seconds before coming back
 always_shoot = even if targeted, keep shootable
 t_width = override WIDTH to move back (or height if going down)
 t_length = override LENGTH to move sideways
-"dmg"		damage to inflict when blocked (2 default)
+"dmg" damage to inflict when blocked (2 default)
 
 If a secret door has a targetname, it will only be opened by it's botton or trigger, not by damage.
 "sounds"
@@ -302,14 +335,14 @@ If a secret door has a targetname, it will only be opened by it's botton or trig
 2) metal
 3) base
 */
-/*QUAKED func_button (0 .5 .8) ?
+/*QUAKED func_button (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again.
 
-"angle"		determines the opening direction
+"angle"	determines the opening direction
 "target"	all entities with a matching targetname will be used
-"speed"		override the default 40 speed
-"wait"		override the default 1 second wait (-1 = never return)
-"lip"		override the default 4 pixel lip remaining at end of move
+"speed"	override the default 40 speed
+"wait"	override the default 1 second wait (-1 = never return)
+"lip"	override the default 4 pixel lip remaining at end of move
 "health"	if set, the button must be killed instead of touched
 "sounds"
 0) steam metal
@@ -344,7 +377,7 @@ sounds
 4)
 set "message" to text string
 */
-/*QUAKED trigger_relay (.5 .5 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED trigger_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This fixed size trigger cannot be touched, it can only be fired by other events.  It can contain killtargets, targets, delays, and messages.
 */
 /*QUAKED trigger_secret (.5 .5 .5) ?
@@ -356,7 +389,8 @@ sounds
 4)
 set "message" to text string
 */
-/*QUAKED trigger_counter (.5 .5 .5) ? nomessage
+/*QUAKED trigger_counter (.5 .5 .5) ? nomessage X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Acts as an intermediary for an action that takes multiple inputs.
 
 If nomessage is not set, t will print "1 more.. " etc when triggered and "sequence complete" when finished.
@@ -445,8 +479,16 @@ Use this for a 'void' area.  removes monsters, gibs, ammo, etc...  also kills pl
 
 Removes shotgun upon touch.
 */
-/*QUAKED func_plat (0 .5 .8) ? PLAT_LOW_TRIGGER
-speed	default 150
+/*QUAKED trigger_changemusic (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A trigger brush that changes the currently playing music track. The number of the track to play goes in the sounds key (just like worldspawn). */
+/*QUAKED trigger_cdtrack (.7 .7 .7) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A point entity that changes the currently playing music track when triggered. The number of the track to play goes in the count key. e.g. 32 for track32.ogg  See manual trigger_changemusic for more information on formats and more.
+
+NOTE: the track number uses the count key here but trigger_changemusic uses the sound key for the same info.
+*/
+/*QUAKED func_plat (0 .5 .8) ? PLAT_LOW_TRIGGER X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
+speed default 150
 
 Plats are always drawn in the extended position, so they will light correctly.
 
@@ -457,7 +499,8 @@ Set "sounds" to one of the following:
 1) base fast
 2) chain slow
 */
-/*QUAKED func_train (0 .5 .8) ? RETRIGGER
+/*QUAKED func_train (0 .5 .8) ? RETRIGGER X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Trains are moving platforms that players can ride.
 The targets origin specifies the min point of the train at each corner.
 The train spawns at the first target it is pointing at.
@@ -465,8 +508,8 @@ If the train is the target of a button or trigger, it will not begin moving unti
 
 RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
 
-speed	default 100
-dmg		default	2
+speed default 100
+dmg default 2
 noise path to custom sound
 sounds
 1) ratchet metal
@@ -672,16 +715,17 @@ Explosive box
 }
 Smaller explosive box
 */
-/*QUAKED trap_spikeshooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
+/*QUAKED trap_spikeshooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 When triggered, fires a spike in the direction set in QuakeEd.
 Laser is only for REGISTERED.
 */
-/*QUAKED trap_shooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
+/*QUAKED trap_shooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Continuously fires spikes.
 "wait" time between spike (1.0 default)
 "nextthink" delay before firing first spike, so multiple shooters can be stagered.
 */
-/*QUAKED trap_switched_shooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent
+/*QUAKED trap_switched_shooter (0 .5 .8) (-8 -8 -8) (8 8 8) superspike laser lavaball rocket silent X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Continuously fires spikes.
 "wait" time between spike (1.0 default)
 "nextthink" delay before firing first spike, so multiple shooters can be stagered.
@@ -696,10 +740,10 @@ air bubbles entity
 
 Just for the debugging level.  Don't use
 */
-/*QUAKED func_wall (0 .5 .8) ?
+/*QUAKED func_wall (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This is just a solid wall if not inhibitted
 */
-/*QUAKED func_illusionary (0 .5 .8) ?
+/*QUAKED func_illusionary (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A simple entity that looks solid but lets you walk through it.
 */
 /*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4
@@ -718,8 +762,6 @@ This bmodel appears unless players have all of the episode sigils.
 */
 /*QUAKED ambient_comp_hum (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-*/
-/*QUAKED ambient_thunder (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
 */
 /*QUAKED ambient_light_buzz (0.3 0.1 0.6) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 */
@@ -999,7 +1041,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+/*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID ON_SIDE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/ogre.mdl","frame":135});
+}
 */
 /*QUAKED monster_demon1 (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1051,7 +1096,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+/*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/demon.mdl","frame":53});
+}
 */
 /*QUAKED monster_shambler (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1108,7 +1156,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+/*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/shambler.mdl","frame":93});
+}
 */
 /*QUAKED monster_knight (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1162,7 +1213,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID ON_SIDE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/knight.mdl","frame":96});
+}
 */
 /*QUAKED monster_army (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1224,7 +1278,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID FACE_UP X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/soldier.mdl","frame":28});
+}
 */
 /*QUAKED monster_wizard (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1278,7 +1335,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/wizard.mdl","frame":53});
+}
 */
 /*QUAKED monster_dog (1 0 0) (-32 -32 -24) (32 32 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1331,7 +1391,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+/*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/dog.mdl","frame":16});
+}
 */
 /*QUAKED monster_zombie (1 0 0) (-16 -16 -24) (16 16 32) CRUCIFIED AMBUSH CRUCIFIED_MOTIONLESS TRIGGER_SPAWNED SPAWN_SLEEPING X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1502,7 +1565,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_hell_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_dead_hell_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/hknight.mdl","frame":62});
+}
 */
 /*QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1605,7 +1671,10 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64)
+/*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/shalrath.mdl","frame":22});
+}
 */
 /*QUAKED monster_enforcer (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1673,7 +1742,10 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 */
-/*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID FACE_UP X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/enforcer.mdl","frame":54});
+}
 */
 /*QUAKED monster_oldone (1 0 0) (-160 -128 -24) (160 128 256)
 */
@@ -1836,7 +1908,15 @@ model ("progs/gib2.mdl");
 {
 model ("progs/gib3.mdl");
 }*/
-/*QUAKED func_fall (0 .5 .8) ?
+/*QUAKED func_fall (0 .5 .8) ? DONT_FADE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A brush that drops and fades away when touched and/or triggered.
+Add some spice to your jumping puzzles or other scripted sequences!
+Monsters will not trigger func_fall but will be gibbed if one falls on them.
+NOTE: When a func_fall brush touches another brush or entity it will stop, which can look odd in certain situations.
+noise = sound to play when triggered, the default is a switch sound.
+wait = wait this long before falling.
+Use the DONT_FADE spawnflag if desired.
+
 Falling brush upon touch
 */
 /*QUAKED misc_particle_stream (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1908,13 +1988,14 @@ reaches the value set by count, func_oncount triggers its targets.
 
 "delay" how much time to wait before firing after being triggered.
 */
-/*QUAKED func_particlefield (0 .5 .8) ? USE_COUNT
+/*QUAKED func_particlefield (0 .5 .8) ? USE_COUNT X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Creates a brief particle flash roughly the size of the defining
 brush each time it is triggered.
 
 USE_COUNT when the activator is a func_counter, the field will only
-   activate when count is equal to "cnt".  Same as using a func_oncount
-   to trigger.
+activate when count is equal to "cnt".  Same as using a func_oncount
+to trigger.
 
 "cnt" is the count to activate on when USE_COUNT is set.
 "color" is the color of the particles.  Default is 192 (yellow).
@@ -1922,7 +2003,8 @@ USE_COUNT when the activator is a func_counter, the field will only
 "noise" is the sound to play when triggered.  Do not use a looping sound here.
 "dmg" is the amount of damage to cause when touched.
 */
-/*QUAKED func_togglewall (0 .5 .8) ? START_OFF
+/*QUAKED func_togglewall (0 .5 .8) ? START_OFF X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Creates a invisible wall that can be toggled on and off.
 
 START_OFF wall doesn't block until triggered.
@@ -1990,32 +2072,30 @@ Does not fire any lightning.
 Set frags to amount of time before next item is triggered.
 Default is 0.3 seconds.
 */
-/*QUAKED func_new_plat (0 .5 .8) ? DN_N_WAIT PLT_TOGGLE ELEVATOR START_AT_TOP PLAT2 P2_BOTTOM
+/*QUAKED func_new_plat (0 .5 .8) ? DN_N_WAIT PLT_TOGGLE ELEVATOR START_AT_TOP PLAT2 P2_BOTTOM X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 
 --------------
 DN_N_WAIT is a plat that starts at the top and when triggered, goes down, waits, then comes back up.
 health - number of seconds to wait (default 5)
-
 --------------
 PLT_TOGGLE is a plat that will change between the top and bottom each time it is triggered.
-
 --------------
 ELEVATOR is an elevator plat. You can have as many levels as you want but they must be all the same distance away. Use elevator button entity as the trigger.
-  cnt is the number of floors
-  height is the distance between floors
-  wait is the number of seconds before the elevator can be activated again after starting or stopping (default 0)
+cnt is the number of floors
+height is the distance between floors
+wait is the number of seconds before the elevator can be activated again after starting or stopping (default 0)
 
 START_AT_TOP is an optional flag for elevators. It just tells the elevator that it's position is the top floor. (Default is the bottom floor) USE THIS ONLY WITH ELEVATORS!
-
---------------
+-------------
 PLAT2 is a fixed version of the original plat. If you want the plat to start at the bottom and move to the top on demand, use a negative height. That will tell Quake to lower the plat at spawn time. Always place this plat type in the top position when making the map. This will ensure correct lighting, hopefully. If a plat2 is the target of a trigger, it will be disabled until it has been triggered. Delay is the wait before the plat returns to original position.
 
 If you don't want to bother figuring out the height, don't put a
 value in the height
 
-delay		default 3
-speed		default 150
-cnt			default 2
+delay default 3
+speed default 150
+cnt default 2
 
 P2_BOTTOM is an optional switch to have an auto-sized plat2 start at the bottom.
 --------------
@@ -2028,7 +2108,8 @@ Set "sounds" to one of the following:
 1) base fast
 2) chain slow
 */
-/*QUAKED func_elvtr_button (0 .5 .8) ? ELVTR_DOWN
+/*QUAKED func_elvtr_button (0 .5 .8) ? ELVTR_DOWN X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 ELEVATOR BUTTON ONLY!
 
 ELVTR_DOWN causes this to be a DOWN button.
@@ -2036,19 +2117,20 @@ Default is UP.
 
 When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again.
 
-"angle"		determines the opening direction
-"target"	all entities with a matching targetname will be used
-"speed"		override the default 40 speed
-"wait"		override the default 1 second wait (-1 = never return)
-"lip"		override the default 4 pixel lip remaining at end of move
-"health"	if set, the button must be killed instead of touched
+"angle" determines the opening direction
+"target" all entities with a matching targetname will be used
+"speed" override the default 40 speed
+"wait" override the default 1 second wait (-1 = never return)
+"lip" override the default 4 pixel lip remaining at end of move
+"health" if set, the button must be killed instead of touched
 "sounds"
 0) steam metal
 1) wooden clunk
 2) metallic click
 3) in-out
 */
-/*QUAKED func_explobox (0 .5 .8) ? START_OFF
+/*QUAKED func_explobox (0 .5 .8) ? START_OFF X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 An exploding brush entity.  Works just like misc_explobox.
 
 Keys:
@@ -2058,20 +2140,69 @@ Keys:
 "dmg" default 100
 
 */
-/*QUAKED func_breakable (0 .5 .8) ? NO_MONSTERS
-A visible object that can be destroyed by shooting it. If it has a targetname, it will not be directly damageable.
+/*QUAKED func_breakable (0 .5 .8) ? NO_MONSTERS X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-BREAKABLE_NO_MONSTERS: object ignores damage from monsters
+"Breakable - See manual for full details
 
-"health" Default 20
+Defaults to built-in .mdl file with 32 styles, cnt is number of pieces of debris to spawn (built-in only)
+Or use spawnflag 4 and break_template1-4 to set path of custom .mdl or .bsp models.
+brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models.
+If noise1 is not set it will default to various sounds in sounds/break folder
+Use spawnflag 2 for an explosion, dmg is amount of damage inflicted"
 
-"cnt" number of pieces of debris to spawn. default 5. (was 6 -- dumptruck_ds)
+spawnflags(flags)
+1 : "No Monster Damage" : 0 : "Only the player can break"
+2 : "Explosion" : 0 : "Produces explosion effect and sound"
+4 : "Use custom mdls or bsp models" : 0 : "Uses models specified in break_template1, 2, etc"
 
-"style" The style of the debris:
-0 = green metal (default)
-1 = red metal
-2 = concrete
-3 - 24 additional skins
+style(choices) : "Built-in debris style" : 0
+0 : "Green Metal (default)"
+1 : "Red Metal"
+2 : "Concrete"
+3 : "Pine wood"
+4 : "Brown wood"
+5 : "Red wood"
+6 : "Stained Glass Yellow Flames"
+7 : "Stained Glass Red Rays"
+8 : "Stained Glass Yellow Dragon"
+9 : "Stained Glass Blue Dragon"
+10 : "Stained Glass Red Dragon"
+11 : "Light Copper"
+12 : "Dark Copper"
+13 : "Tan Bricks Large"
+14 : "Brown Bricks Large"
+15 : "Green Bricks Large"
+16 : "Generic Light Brown"
+17 : "Red Brown Computer"
+18 : "Grey Black Computer"
+19 : "Blue Green Metal"
+20 : "Blue Green Runic Wall"
+21 : "Brown Metal"
+22 : "Dark Brown Metal"
+23 : "Medium Brown Metal"
+24 : "Blue Metal"
+25 : "Green Stonework"
+26 : "Blue Stonework"
+27 : "Brown Bricks"
+28 : "Tan Blue Bricks"
+29 : "Red Bricks"
+30 : "Blue Bricks"
+31 : "Metal Rivets"
+
+noise1(string) : "Break noise (overrides default sounds)"
+cnt(integer) : "Number of pieces of debris to spawn" : 5
+health(integer) : "Health of breakable" : 20
+dmg(integer) : "Amount of Explosive Damage" : 20
+break_template1(string) : "Template 1 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template2(string) : "Template 2 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template3(string) : "Template 3 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template4(string) : "Template 4 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template5(string) : "Template 5 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+brk_obj_count1(integer) : "Template 1 spawn count"
+brk_obj_count2(integer) : "Template 2 spawn count"
+brk_obj_count3(integer) : "Template 3 spawn count"
+brk_obj_count4(integer) : "Template 4 spawn count"
+brk_obj_count5(integer) : "Template 5 spawn count"
 */
 /*QUAKED trigger_ladder (.5 .5 .5) ?
 invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'
@@ -2080,7 +2211,8 @@ Keys:
 
 "angle" the direction player must be facing to climb ladder
 */
-/*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID
+/*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 A togglable laser, hurts to touch, can be used to block players
 
 START_OFF: Laser starts off.
@@ -2142,21 +2274,20 @@ Shoots particles either when triggered, or contiuously when not triggered by any
 
 "movedir" is the vector distance that the particles will travel before disappearing. (in x y z)
 
-"duration" is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering.*/
-/*QUAKED trigger_shake (.5 .5 .5) (-8 -8 -8) (8 8 8) VIEWONLY
+"duration" is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering.
+*/
+/*QUAKED trigger_shake (.5 0 .5) (-8 -8 -8) (8 8 8) VIEWONLY X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Earthquake trigger - shakes players in it's radius when active.
 Strength of tremor is greatest at the centre.
-
-"dmg"			Strength at center (default is 120)
-"wait"			Duration of shake (default is 1)
-"count"			Affect radius (defalt is 200)
-"noise"			Noise to play when starting to shake
-"noise1"		Noise to play when stopping
-"targetname"	Must be triggered
-
-Spawnflags:
-"VIEWONLY"		Shakes the view, but player movement is not affected
-
+dmg Strength at center (default is 120)
+wait Duration of shake (default is 1)
+count Affect radius (defalt is 200)
+noise Noise to play when starting to shake
+noise1 Noise to play when stopping
+targetname Must be triggered
+Spawnflags
+VIEWONLY		Shakes the view, but player movement is not affected
 */
 /*QUAKED info_rotate (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Used as the point of rotation for rotatable objects.
@@ -2225,7 +2356,8 @@ dmg      default  0
 sounds
 1) ratchet metal
 */
-/*QUAKED func_movewall (0 .5 .8) ? VISIBLE TOUCH NONBLOCKING
+/*QUAKED func_movewall (0 .5 .8) ? VISIBLE TOUCH NONBLOCKING X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Used to emulate collision on rotating objects.
 
 VISIBLE causes brush to be displayed.
@@ -2236,7 +2368,7 @@ NONBLOCKING makes the brush non-solid.  This is useless if VISIBLE is set.
 
 "dmg" specifies the damage to cause when touched or blocked.
 */
-/*QUAKED rotate_object (0 .5 .8) ?
+/*QUAKED rotate_object (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This defines an object to be rotated.  Used as the target of func_rotate_door.
 */
 /*QUAKED func_rotate_door (0 .5 .8) (-8 -8 -8) (8 8 8) STAYOPEN X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -2255,7 +2387,7 @@ once door from closing again when it's blocked.
 2) metal
 3) base
 */
-/*QUAKED func_bob (0 .5 .8) ?
+/*QUAKED func_bob (0 .5 .8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A SOLID bmodel that gently moves back and forth
 -------- KEYS --------
 targetname : trigger entity (works with entity state system)
@@ -2265,7 +2397,7 @@ count    : direction cycle timer (def=2s, minimum=1s)
 waitmin  : Speed up scale (def=1) 1+=non linear
 waitmin2 : Slow down scale (def=0.75)
 delay    : Starting time delay (def=0, -1=random)
-style 	 : If set to 1, starts off and waits for trigger
+style    : If set to 1, starts off and waits for trigger
 _dirt       : -1 = will be excluded from dirtmapping
 _minlight   : Minimum light level for any surface of the brush model
 _mincolor   : Minimum light color for any surface (def='1 1 1' RGB)
@@ -2282,24 +2414,23 @@ A SOLID bmodel that gently moves back and forth
 }
 Same as func_bob but uses a custom model instead of a brush. Use the mdl key to set the path of the model.
 */
-/*QUAKED func_fall2 (0 .5 .8) ?
+/*QUAKED func_fall2 (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Falling brush by RennyC
 
 wait - how long until the brush begins falling
 noise - the sound to make when touched / activated
 noise2 - the sound to make before it's removed, pain_finished of -1 disables noise2 as the object stays forever
-cnt - 0 is default behavior (MOVETYPE_TOSS), 1 means collisions are disabled while falling (MOVETYPE_NOCLIP), 2 turns the brush into a
-	   bouncing entity (MOVETYPE_BOUNCE)
+cnt - 0 is default behavior (MOVETYPE_TOSS), 1 means collisions are disabled while falling (MOVETYPE_NOCLIP), 2 turns the brush into a bouncing entity (MOVETYPE_BOUNCE)
 pain_finished - default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever
 speed - speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1 (MOVETYPE_NOCLIP).
-		Recommended to use lip for max fall speed on MOVETYPE_TOSS/BOUNCE entities (cnt 0 and 2) as they follow Quake's default gravity
+Recommended to use lip for max fall speed on MOVETYPE_TOSS/BOUNCE entities (cnt 0 and 2) as they follow Quake's default gravity
 lip - maximum fall speed that can be achieved, caps 'speed' variable. Default is -800
 avelocity - have it spin when activated using X, Y, Z vector coordinates. MOVETYPE_BOUNCE ignores avelocity !Use an origin brush for proper spin!
 
 spawnflags:
-	Default behavior allows anyone to activate func_fall2 on touch ONLY
-	1 - Player activated only
-	2 - Monster activated only
+Default behavior allows anyone to activate func_fall2 on touch ONLY
+1 - Player activated only
+2 - Monster activated only
 
 Able to .target other entities, including other func_fall2s
 */

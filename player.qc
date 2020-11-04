@@ -664,7 +664,10 @@ void()	player_die_ax9	=	[	$axdeth9,	player_die_ax9	] {PlayerDead();};
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
-/*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED player_dead_axe (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/player.mdl","frame":49});
+}
 */
 void() player_dead_axe =
 {
@@ -687,7 +690,10 @@ void() player_dead_axe =
 
 };
 
-/*QUAKED player_dead_face_down (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED player_dead_face_down (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/player.mdl","frame":84});
+}
 */
 void() player_dead_face_down =
 {
@@ -710,7 +716,10 @@ void() player_dead_face_down =
 
 };
 
-/*QUAKED player_dead_on_side (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED player_dead_on_side (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/player.mdl","frame":102});
+}
 */
 void() player_dead_on_side =
 {

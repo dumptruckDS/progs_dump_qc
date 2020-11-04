@@ -912,7 +912,15 @@ void() fall_use =  // thanks again RennyC for help on revisions --dumptruck_ds
           sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
     };
 
-/*QUAKED func_fall (0 .5 .8) ?
+/*QUAKED func_fall (0 .5 .8) ? DONT_FADE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A brush that drops and fades away when touched and/or triggered.
+Add some spice to your jumping puzzles or other scripted sequences!
+Monsters will not trigger func_fall but will be gibbed if one falls on them.
+NOTE: When a func_fall brush touches another brush or entity it will stop, which can look odd in certain situations.
+noise = sound to play when triggered, the default is a switch sound.
+wait = wait this long before falling.
+Use the DONT_FADE spawnflag if desired.
+
 Falling brush upon touch
 */
 

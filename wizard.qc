@@ -509,7 +509,10 @@ void() monster_wizard =
 
 /* Scenic Dead Monster Patch stuff here from DeadStuff mod -- dumptruck_ds */
 
-/*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32)
+/*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+	model ({"path":"progs/wizard.mdl","frame":53});
+}
 */
 void() monster_dead_wizard =
 {

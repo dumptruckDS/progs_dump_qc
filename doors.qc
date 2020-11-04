@@ -372,7 +372,8 @@ void() LinkDoors =
 };
 
 
-/*QUAKED func_door (0 .5 .8) ? START_OPEN x DOOR_DONT_LINK GOLD_KEY SILVER_KEY TOGGLE
+/*QUAKED func_door (0 .5 .8) ? START_OPEN x DOOR_DONT_LINK GOLD_KEY SILVER_KEY TOGGLE X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 if two doors touch, they are assumed to be connected and operate as a unit.
 
 TOGGLE causes the door to wait in both the start and end states for a trigger event.
@@ -382,14 +383,14 @@ START_OPEN causes the door to move to its destination when spawned, and operate 
 Key doors are always wait -1.
 
 "message"	is printed when the door is touched if it is a trigger door and it hasn't been fired yet
-"angle"		determines the opening direction
+"angle"	determines the opening direction
 "targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
 "health"	if set, door must be shot open
-"speed"		movement speed (100 default)
-"wait"		wait before returning (3 default, -1 = never return)
-"lip"		lip remaining at end of move (8 default)
-"dmg"		damage to inflict when blocked (2 default)
-"cnt"		if 1, leave a used key in the player's inventory (0 default)
+"speed"	movement speed (100 default)
+"wait"	wait before returning (3 default, -1 = never return)
+"lip"	lip remaining at end of move (8 default)
+"dmg"	damage to inflict when blocked (2 default)
+"cnt"	if 1, leave a used key in the player's inventory (0 default)
 "keyname"	if set, this is the keyname of the item_key_custom which unlocks this entity
 "noise1"	sound file for the "stop moving" sound (if set, overrides "sounds")
 "noise2"	sound file for the "move" sound (if set, overrides "sounds")
@@ -685,7 +686,8 @@ void() secret_touch =
 };
 
 
-/*QUAKED func_door_secret (0 .5 .8) ? open_once 1st_left 1st_down no_shoot always_shoot
+/*QUAKED func_door_secret (0 .5 .8) ? open_once 1st_left 1st_down no_shoot always_shoot X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Basic secret door. Slides back, then to the side. Angle determines direction.
 wait  = # of seconds before coming back
 1st_left = 1st move is left of arrow
@@ -693,7 +695,7 @@ wait  = # of seconds before coming back
 always_shoot = even if targeted, keep shootable
 t_width = override WIDTH to move back (or height if going down)
 t_length = override LENGTH to move sideways
-"dmg"		damage to inflict when blocked (2 default)
+"dmg" damage to inflict when blocked (2 default)
 
 If a secret door has a targetname, it will only be opened by it's botton or trigger, not by damage.
 "sounds"

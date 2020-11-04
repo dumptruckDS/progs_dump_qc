@@ -124,8 +124,9 @@ void() plat_use =
 };
 
 
-/*QUAKED func_plat (0 .5 .8) ? PLAT_LOW_TRIGGER
-speed	default 150
+/*QUAKED func_plat (0 .5 .8) ? PLAT_LOW_TRIGGER X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
+speed default 150
 
 Plats are always drawn in the extended position, so they will light correctly.
 
@@ -309,7 +310,8 @@ void() func_train_find =
 	}
 };
 
-/*QUAKED func_train (0 .5 .8) ? RETRIGGER
+/*QUAKED func_train (0 .5 .8) ? RETRIGGER X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Trains are moving platforms that players can ride.
 The targets origin specifies the min point of the train at each corner.
 The train spawns at the first target it is pointing at.
@@ -317,8 +319,8 @@ If the train is the target of a button or trigger, it will not begin moving unti
 
 RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
 
-speed	default 100
-dmg		default	2
+speed default 100
+dmg default 2
 noise path to custom sound
 sounds
 1) ratchet metal

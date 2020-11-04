@@ -2112,7 +2112,7 @@ Or use spawnflag 4 and break_template1-4 to set path of custom .mdl or .bsp mode
 
 brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models.
 
-If noise1 is not set it will default to blob/hit1.wav (Spawn monster hit sound)
+If noise1 is not set it will default to various sounds in sounds/break folder
 
 Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 	    spawnflags(flags) = [

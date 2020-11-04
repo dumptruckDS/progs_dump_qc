@@ -217,7 +217,7 @@ void() trigger_once =
 
 //=============================================================================
 
-/*QUAKED trigger_relay (.5 .5 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED trigger_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This fixed size trigger cannot be touched, it can only be fired by other events.  It can contain killtargets, targets, delays, and messages.
 */
 void() trigger_relay =
@@ -299,7 +299,8 @@ void() counter_use =
 	multi_trigger ();
 };
 
-/*QUAKED trigger_counter (.5 .5 .5) ? nomessage
+/*QUAKED trigger_counter (.5 .5 .5) ? nomessage X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Acts as an intermediary for an action that takes multiple inputs.
 
 If nomessage is not set, t will print "1 more.. " etc when triggered and "sequence complete" when finished.
@@ -1210,7 +1211,8 @@ void() trigger_changemusic_touch =
 	self.nextthink = (time + 0.1);
 	self.think = SUB_Remove;
 };
-
+/*QUAKED trigger_changemusic (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A trigger brush that changes the currently playing music track. The number of the track to play goes in the sounds key (just like worldspawn). */
 void() trigger_changemusic =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -1228,7 +1230,11 @@ void() trigger_cdtrack_use = //point entity version uses count for music track n
 {
 	changemusic(self.count);
 };
+/*QUAKED trigger_cdtrack (.7 .7 .7) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+A point entity that changes the currently playing music track when triggered. The number of the track to play goes in the count key. e.g. 32 for track32.ogg  See manual trigger_changemusic for more information on formats and more.
 
+NOTE: the track number uses the count key here but trigger_changemusic uses the sound key for the same info.
+*/
 void() trigger_cdtrack =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw

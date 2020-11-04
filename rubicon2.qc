@@ -40,7 +40,8 @@ void () func_explobox_die =
 	self.think = func_explobox_explode;
 };
 
-/*QUAKED func_explobox (0 .5 .8) ? START_OFF
+/*QUAKED func_explobox (0 .5 .8) ? START_OFF X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 An exploding brush entity.  Works just like misc_explobox.
 
 Keys:
@@ -377,20 +378,69 @@ void () func_breakable_use =
 	func_breakable_die ();
 };
 
-/*QUAKED func_breakable (0 .5 .8) ? NO_MONSTERS
-A visible object that can be destroyed by shooting it. If it has a targetname, it will not be directly damageable.
+/*QUAKED func_breakable (0 .5 .8) ? NO_MONSTERS X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-BREAKABLE_NO_MONSTERS: object ignores damage from monsters
+"Breakable - See manual for full details
 
-"health" Default 20
+Defaults to built-in .mdl file with 32 styles, cnt is number of pieces of debris to spawn (built-in only)
+Or use spawnflag 4 and break_template1-4 to set path of custom .mdl or .bsp models.
+brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models.
+If noise1 is not set it will default to various sounds in sounds/break folder
+Use spawnflag 2 for an explosion, dmg is amount of damage inflicted"
 
-"cnt" number of pieces of debris to spawn. default 5. (was 6 -- dumptruck_ds)
+spawnflags(flags)
+1 : "No Monster Damage" : 0 : "Only the player can break"
+2 : "Explosion" : 0 : "Produces explosion effect and sound"
+4 : "Use custom mdls or bsp models" : 0 : "Uses models specified in break_template1, 2, etc"
 
-"style" The style of the debris:
-0 = green metal (default)
-1 = red metal
-2 = concrete
-3 - 24 additional skins
+style(choices) : "Built-in debris style" : 0
+0 : "Green Metal (default)"
+1 : "Red Metal"
+2 : "Concrete"
+3 : "Pine wood"
+4 : "Brown wood"
+5 : "Red wood"
+6 : "Stained Glass Yellow Flames"
+7 : "Stained Glass Red Rays"
+8 : "Stained Glass Yellow Dragon"
+9 : "Stained Glass Blue Dragon"
+10 : "Stained Glass Red Dragon"
+11 : "Light Copper"
+12 : "Dark Copper"
+13 : "Tan Bricks Large"
+14 : "Brown Bricks Large"
+15 : "Green Bricks Large"
+16 : "Generic Light Brown"
+17 : "Red Brown Computer"
+18 : "Grey Black Computer"
+19 : "Blue Green Metal"
+20 : "Blue Green Runic Wall"
+21 : "Brown Metal"
+22 : "Dark Brown Metal"
+23 : "Medium Brown Metal"
+24 : "Blue Metal"
+25 : "Green Stonework"
+26 : "Blue Stonework"
+27 : "Brown Bricks"
+28 : "Tan Blue Bricks"
+29 : "Red Bricks"
+30 : "Blue Bricks"
+31 : "Metal Rivets"
+
+noise1(string) : "Break noise (overrides default sounds)"
+cnt(integer) : "Number of pieces of debris to spawn" : 5
+health(integer) : "Health of breakable" : 20
+dmg(integer) : "Amount of Explosive Damage" : 20
+break_template1(string) : "Template 1 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template2(string) : "Template 2 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template3(string) : "Template 3 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template4(string) : "Template 4 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+break_template5(string) : "Template 5 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
+brk_obj_count1(integer) : "Template 1 spawn count"
+brk_obj_count2(integer) : "Template 2 spawn count"
+brk_obj_count3(integer) : "Template 3 spawn count"
+brk_obj_count4(integer) : "Template 4 spawn count"
+brk_obj_count5(integer) : "Template 5 spawn count"
 */
 
 void() break_template_setup = {
@@ -598,7 +648,8 @@ void () func_laser_use =
 	}
 };
 
-/*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID
+/*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 A togglable laser, hurts to touch, can be used to block players
 
 START_OFF: Laser starts off.
@@ -886,7 +937,8 @@ Shoots particles either when triggered, or contiuously when not triggered by any
 
 "movedir" is the vector distance that the particles will travel before disappearing. (in x y z)
 
-"duration" is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering.*/
+"duration" is the amount of time that the it will continue to release particles so that it can release a long stream of particles with only one triggering.
+*/
 
 .float	endtime;
 .float	duration;

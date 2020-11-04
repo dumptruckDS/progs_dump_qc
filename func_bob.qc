@@ -6,7 +6,7 @@
 float BOB_COLLISION = 2;		// Collision for misc_bob
 float BOB_NONSOLID = 4;			// Non solid for func_bob
 
-/*QUAKED func_bob (0 .5 .8) ?
+/*QUAKED func_bob (0 .5 .8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A SOLID bmodel that gently moves back and forth
 -------- KEYS --------
 targetname : trigger entity (works with entity state system)
@@ -16,7 +16,7 @@ count    : direction cycle timer (def=2s, minimum=1s)
 waitmin  : Speed up scale (def=1) 1+=non linear
 waitmin2 : Slow down scale (def=0.75)
 delay    : Starting time delay (def=0, -1=random)
-style 	 : If set to 1, starts off and waits for trigger
+style    : If set to 1, starts off and waits for trigger
 _dirt       : -1 = will be excluded from dirtmapping
 _minlight   : Minimum light level for any surface of the brush model
 _mincolor   : Minimum light color for any surface (def='1 1 1' RGB)

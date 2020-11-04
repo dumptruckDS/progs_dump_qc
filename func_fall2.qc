@@ -116,24 +116,23 @@ void() func_fall2_field_touch =
 	}
 };
 
-/*QUAKED func_fall2 (0 .5 .8) ?
+/*QUAKED func_fall2 (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Falling brush by RennyC
 
 wait - how long until the brush begins falling
 noise - the sound to make when touched / activated
 noise2 - the sound to make before it's removed, pain_finished of -1 disables noise2 as the object stays forever
-cnt - 0 is default behavior (MOVETYPE_TOSS), 1 means collisions are disabled while falling (MOVETYPE_NOCLIP), 2 turns the brush into a
-	   bouncing entity (MOVETYPE_BOUNCE)
+cnt - 0 is default behavior (MOVETYPE_TOSS), 1 means collisions are disabled while falling (MOVETYPE_NOCLIP), 2 turns the brush into a bouncing entity (MOVETYPE_BOUNCE)
 pain_finished - default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever
 speed - speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1 (MOVETYPE_NOCLIP).
-		Recommended to use lip for max fall speed on MOVETYPE_TOSS/BOUNCE entities (cnt 0 and 2) as they follow Quake's default gravity
+Recommended to use lip for max fall speed on MOVETYPE_TOSS/BOUNCE entities (cnt 0 and 2) as they follow Quake's default gravity
 lip - maximum fall speed that can be achieved, caps 'speed' variable. Default is -800
 avelocity - have it spin when activated using X, Y, Z vector coordinates. MOVETYPE_BOUNCE ignores avelocity !Use an origin brush for proper spin!
 
 spawnflags:
-	Default behavior allows anyone to activate func_fall2 on touch ONLY
-	1 - Player activated only
-	2 - Monster activated only
+Default behavior allows anyone to activate func_fall2 on touch ONLY
+1 - Player activated only
+2 - Monster activated only
 
 Able to .target other entities, including other func_fall2s
 */
