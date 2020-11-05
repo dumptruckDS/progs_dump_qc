@@ -249,18 +249,75 @@ entity	lastspawn;
 //=======================
 /*QUAKED worldspawn (0 0 0) ?
 Only used for the world entity.
-Set message to the level name.
-Set sounds to the cd track to play.
-
-World Types:
-0: medieval
-1: metal
-2: base
 
 Optionally set reset_items to one of the following values:
 0: don't reset the player's inventory
 1: reset to shotgun, axe, and 25 shells
 2: reset to axe only
+
+message(string) : "Level name"
+
+worldtype(choices) : "Ambience" : 0 =
+0 : "Medieval"
+1 : "Runic (metal)"
+2 : "Present (base)"
+
+sounds(integer) : "CD track to play" : 0
+
+light(integer) : "Ambient light" : 0 : "Set a global minimum light level of 'n' across the whole map. This is an easy way to eliminate completely dark areas of the level, however you may lose some contrast as a result, so use with care. Default 0"
+
+reset_items(choices) : "Reset the player's inventory on spawn" : 0 =
+0 "Don't reset the player's inventory"
+1 "Reset to shotgun, axe, and 25 shells"
+2 "Reset to axe only"
+
+_sunlight(integer) : "Sunlight" : 0 : "Set the brightness of the sunlight coming from an unseen sun in the sky. Sky brushes (or more accurately bsp leafs with sky contents) will emit sunlight at an angle specified by the _sun_mangle key. Default 0"
+
+_sun_mangle(string) : "Sun mangle (Yaw pitch roll)" : "0 -90 0" : "Specifies the direction of sunlight using yaw(x), pitch(y) and roll(z) in degrees. Yaw specifies the angle around the Z-axis from 0 to 359 degrees and pitch specifies the angle from 90 (straight up) to -90 (straight down). Roll has no effect, so use any value (e.g. 0). Default is straight down (0 -90 0)"
+
+_sunlight_penumbra(integer) : "Sunlight penumbra in degrees" : 0 : "Specifies the penumbra width, in degrees, of sunlight. Useful values are 3-4 for a gentle soft edge, or 10-20+ for more diffuse sunlight. Default is 0"
+
+_sunlight_color(color255) : "Sunlight color R G B" : "255 255 255" : "Specify red(r), green(g) and blue(b) components for the colour of the sunlight. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light (255 255 255)"
+
+_sunlight2(integer) : "Sunlight 2 brightness" : 0 : "Set the brightness of a large dome of lights positioned around the map (16K unit radius). Useful for simulating higly diffused light (e.g. cloudy skies) in outdoor areas. Default 0"
+
+_sunlight2_color(color255) : "Sunlight 2 color R G B" : "255 255 255" : "Specifies the colour of _sunlight2, same format as _sunlight_color. Default is white light (255 255 255)"
+
+_sunlight3(integer) : "Sunlight 3 brightness" : 0 : "Same as _sunlight2 but creates lights on the bottom hemisphere. Default 0"
+
+_sunlight3_color(color255) : "Sunlight 3 color R G B" : "255 255 255" : "Specifies the colour of _sunlight3, same format as _sunlight_color. Default is white light (255 255 255)"
+
+_dist(integer) : "Global light scale" : 1 : "Scales the fade distance of all lights by a factor of n. If n is more than 1 lights fade more quickly with distance and if n is less than 1, lights fade more slowly with distance and light reaches further"
+
+_range(float) : "Global light range" : "0.5" : "Scales the brightness range of all lights without affecting their fade discance. Values of n more than 0.5 makes lights brighter and n less than 0.5 makes lights less bright. The same effect can be achieved on individual lights by adjusting both the 'light' and 'wait' attributes"
+
+_anglescale(float) : "Light angle scale" : "0.5" : "Sets a scaling factor for how much influence the angle of incidence of sunlight on a surface has on the brightness of the surface. n must be between 0.0 and 1.0. Smaller values mean less attenuation, with zero meaning that angle of incidence has no effect at all on the brightness. Default 0.5"
+
+_dirt(integer) : "Dirt mapping (AO)" : -1 : "1 enables dirtmapping (ambient occlusion) on all lights, borrowed from q3map2. This adds shadows to corners and crevices. You can override the global setting for specific lights with the _dirt light entity key or _sunlight_dirt, _sunlight2_dirt, and _minlight_dirt worldspawn keys. Default is no dirtmapping (-1)"
+
+_sunlight_dirt(integer) : "Sunlight dirt" : -1 : "1 enables dirtmapping (ambient occlusion) on sunlight, -1 to disable (making it illuminate the dirtmapping shadows). Default is to use the value of '_dirt'"
+
+_sunlight2_dirt(integer) : "Sublight 2 dirt" : -1 : "1 enables dirtmapping (ambient occlusion) on sunlight2, -1 to disable. Default is to use the value of '_dirt'"
+
+_minlight_dirt(integer) : "Minlight dirt" : -1 : "1 enables dirtmapping (ambient occlusion) on minlight, -1 to disable. Default is to use the value of '_dirt'"
+
+_dirtmode(integer) : "Dirt mode" : 0 : "Choose between ordered (0, default) and randomized (1) dirtmapping."
+
+_dirtdepth(integer) : "Dirt depth" : 128 : "Maximum depth of occlusion checking for dirtmapping, default 128."
+
+_dirtscale(integer) : "Dirt scale" : 1 : "Scale factor used in dirt calculations, default 1. Lower values (e.g. 0.5) make the dirt fainter, 2.0 would create much darker shadows"
+
+_dirtgain(integer) : "Dirt gain" : 1 : "Exponent used in dirt calculation, default 1. Lower values (e.g. 0.5) make the shadows darker and stretch further away from corners"
+
+_gamma(integer) : "Lightmap gamma" : 1 : "Adjust brightness of final lightmap. Default 1, >1 is brighter, <1 is darker"
+
+fog(string) : "Fog Command" :  : "ENGINE only 'console command' for setting fog parameters, Density/R/G/B example = (0.05 0.3 0.3 0.3)."
+
+fog_density(string) : "Fog Density example = (0.05)"
+
+fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
+
+sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 */
 //=======================
 void() worldspawn =

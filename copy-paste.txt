@@ -77,3 +77,27 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 
 ==========================================
+/*QUAKED yellow (0.933 0.882 0.105) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED red (0.933 0.105 0.137) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED lavender (0.933 0.105 0.819) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED green (0 0.780 0.117) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED blue1 (0.415 0.513 0.905) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED blue2 (0.258 0.792 0.960) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED orange1 (1 0.772 0.121) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
+/*QUAKED orange2 (0.960 0.615 0.258) (-8 -8 -8) (8 8 8)
+Sample for color.
+*/
