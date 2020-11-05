@@ -121,17 +121,17 @@ void() multi_touch = //dumptruck_ds
 	multi_trigger ();
 };
 
-/*QUAKED trigger_multiple (.5 .5 .5) ? notouch
+/*QUAKED trigger_multiple (.5 .5 .5) ? notouch X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Variable sized repeatable trigger.  Must be targeted at one or more entities.  If "health" is set, the trigger must be killed to activate each time.
 If "delay" is set, the trigger waits some time after activating before firing.
 "wait" : Seconds between triggerings. (.2 default)
 If notouch is set, the trigger is only fired by other entities, not by touching.
 NOTOUCH has been obsoleted by trigger_relay!
 sounds
-1)	secret
-2)	beep beep
-3)	large switch
-4)
+1) secret
+2) beep beep
+3) large switch
 set "message" to text string
 "is_waiting" : If set to 1, this trigger will do nothing until another trigger activates it
 */
@@ -193,17 +193,17 @@ void() trigger_multiple =
 };
 
 
-/*QUAKED trigger_once (.5 .5 .5) ? notouch
+/*QUAKED trigger_once (.5 .5 .5) ? notouch X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Variable sized trigger. Triggers once, then removes itself.  You must set the key "target" to the name of another object in the level that has a matching
 "targetname".  If "health" is set, the trigger must be killed to activate.
 If notouch is set, the trigger is only fired by other entities, not by touching.
 if "killtarget" is set, any objects that have a matching "target" will be removed when the trigger is fired.
 if "angle" is set, the trigger will only fire when someone is facing the direction of the angle.  Use "360" for an angle of 0.
 sounds
-1)	secret
-2)	beep beep
-3)	large switch
-4)
+1) secret
+2) beep beep
+3) large switch
 set "message" to text string
 */
 void() trigger_once =
@@ -231,13 +231,11 @@ void() trigger_relay =
 
 //=============================================================================
 
-/*QUAKED trigger_secret (.5 .5 .5) ?
+/*QUAKED trigger_secret (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 secret counter trigger
 sounds
-1)	secret
-2)	beep beep
-3)
-4)
+1) secret
+2) beep beep
 set "message" to text string
 */
 void() trigger_secret =
@@ -598,7 +596,7 @@ void() teleport_destchange =
 		trig.target = self.message; //dumptruck_ds see comment above
 };
 
-/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4)
+/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Allows a mapper to change the target of a teleport_trigger. Useful in maps where
 the player may fall into a void and the mapper wants to update where they "respawn"
 as they progress through the level. Could also be used for teleport puzzles and more.
@@ -678,7 +676,8 @@ void() teleport_use =
 };
 
 // -------------------------
-/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT RANDOM STEALTH
+/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT RANDOM STEALTH X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Any object touching this will be transported to the corresponding
 info_teleport_destination entity. You must set the "target" field,
 and create an object with a "targetname" field that matches.
@@ -731,7 +730,7 @@ void() trigger_skill_touch =
 	cvar_set ("skill", self.message);
 };
 
-/*QUAKED trigger_setskill (.5 .5 .5) ?
+/*QUAKED trigger_setskill (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 sets skill level to the value of "message".
 Only used on start map.
 */
@@ -815,7 +814,7 @@ void() hurt_touch =
 	return;
 };
 
-/*QUAKED trigger_hurt (.5 .5 .5) ?
+/*QUAKED trigger_hurt (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Any object touching this will be hurt
 set dmg to damage amount
 defalt dmg = 5
@@ -878,7 +877,7 @@ void() trigger_push_touch =
 //   self.is_waiting = !self.is_waiting;
 // }
 
-/*QUAKED trigger_push (.5 .5 .5) ? PUSH_ONCE
+/*QUAKED trigger_push (.5 .5 .5) ? PUSH_ONCE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Pushes the player
 */
 void() trigger_push = //dumptruck_ds
@@ -915,7 +914,8 @@ else
 	}
 };
 
-/*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT
+/*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 
 dumptruck_ds
 
@@ -978,7 +978,8 @@ void() trigger_monsterjump_touch =
 	other.velocity_z = self.height;
 };
 
-/*QUAKED trigger_monsterjump (.5 .5 .5) ?
+/*QUAKED trigger_monsterjump (.5 .5 .5) ? X X X DT_STARTOFF X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Walking monsters that touch this will jump in the direction of the trigger's angle
 "speed" default to 200, the speed thrown forward
 "height" default to 200, the speed thrown upwards
@@ -1049,7 +1050,7 @@ void() trigger_void_touch =
 	force_retouch = 2;
 };
 
-/*QUAKED trigger_void (.5 .5 .5) ?
+/*QUAKED trigger_void (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Use this for a 'void' area.  removes monsters, gibs, ammo, etc...  also kills player.
 */
 void() trigger_void =
@@ -1170,9 +1171,9 @@ void() take_weapon_use =  //thanks to ShanJaq and Spike for their help on this.
 		}
 */
 };
-/*QUAKED trigger_take_weapon (.5 .5 .5) ?
+/*QUAKED trigger_take_weapon (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-Removes shotgun upon touch.
+Removes shotgun upon touch. You can also set "reset_items" in the worldspawn entity to accomplish an axe only start.
 */
 void() trigger_take_weapon =
 {
@@ -1301,7 +1302,17 @@ void() onlookat_touch =
         }
     }
 };
+/*QUAKED trigger_look (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+This will trigger when a player is within the brush trigger and looks directly at a target entity.
+Use the first target key for the "looked at entity" and use the subsequent targets (2-4) to trigger other events.
 
+speed = Distance from player to search for trigger, adjust if the target is too far from the trigger  (default 500 units)
+wait = Time between re-triggering (default 0)
+sounds = 0-3 are standard Quake trigger choices, 4 allows a custom sound, requires a path set in noise1 key
+noise1 = Path to custom sound. Use with sounds key set to 4  (e.g. fish/bite.wav)
+
+See manual for complete details. See pd_cutscenes sample map for example
+*/
 void() trigger_look =
 {
     if (SUB_Inhibit ())  // new spawnflags for all entities -- iw

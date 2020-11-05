@@ -552,7 +552,7 @@ void() ladder_touch =
 	other.onladder = 1;
 }
 
-/*QUAKED trigger_ladder (.5 .5 .5) ?
+/*QUAKED trigger_ladder (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'
 
 Keys:

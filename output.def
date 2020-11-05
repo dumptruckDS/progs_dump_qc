@@ -350,43 +350,41 @@ When a button is touched, it moves some distance in the direction of it's angle,
 2) metallic click
 3) in-out
 */
-/*QUAKED trigger_multiple (.5 .5 .5) ? notouch
+/*QUAKED trigger_multiple (.5 .5 .5) ? notouch X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Variable sized repeatable trigger.  Must be targeted at one or more entities.  If "health" is set, the trigger must be killed to activate each time.
 If "delay" is set, the trigger waits some time after activating before firing.
 "wait" : Seconds between triggerings. (.2 default)
 If notouch is set, the trigger is only fired by other entities, not by touching.
 NOTOUCH has been obsoleted by trigger_relay!
 sounds
-1)	secret
-2)	beep beep
-3)	large switch
-4)
+1) secret
+2) beep beep
+3) large switch
 set "message" to text string
 "is_waiting" : If set to 1, this trigger will do nothing until another trigger activates it
 */
-/*QUAKED trigger_once (.5 .5 .5) ? notouch
+/*QUAKED trigger_once (.5 .5 .5) ? notouch X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Variable sized trigger. Triggers once, then removes itself.  You must set the key "target" to the name of another object in the level that has a matching
 "targetname".  If "health" is set, the trigger must be killed to activate.
 If notouch is set, the trigger is only fired by other entities, not by touching.
 if "killtarget" is set, any objects that have a matching "target" will be removed when the trigger is fired.
 if "angle" is set, the trigger will only fire when someone is facing the direction of the angle.  Use "360" for an angle of 0.
 sounds
-1)	secret
-2)	beep beep
-3)	large switch
-4)
+1) secret
+2) beep beep
+3) large switch
 set "message" to text string
 */
 /*QUAKED trigger_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This fixed size trigger cannot be touched, it can only be fired by other events.  It can contain killtargets, targets, delays, and messages.
 */
-/*QUAKED trigger_secret (.5 .5 .5) ?
+/*QUAKED trigger_secret (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 secret counter trigger
 sounds
-1)	secret
-2)	beep beep
-3)
-4)
+1) secret
+2) beep beep
 set "message" to text string
 */
 /*QUAKED trigger_counter (.5 .5 .5) ? nomessage X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -397,7 +395,7 @@ If nomessage is not set, t will print "1 more.. " etc when triggered and "sequen
 
 After the counter has been triggered "count" times (default 2), it will fire all of it's targets and remove itself.
 */
-/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4)
+/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Allows a mapper to change the target of a teleport_trigger. Useful in maps where
 the player may fall into a void and the mapper wants to update where they "respawn"
 as they progress through the level. Could also be used for teleport puzzles and more.
@@ -417,7 +415,8 @@ model ("progs/player.mdl");
 }
 This is a random destination marker for a teleporter.
 */
-/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT RANDOM STEALTH
+/*QUAKED trigger_teleport (.5 .5 .5) ? PLAYER_ONLY SILENT RANDOM STEALTH X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Any object touching this will be transported to the corresponding
 info_teleport_destination entity. You must set the "target" field,
 and create an object with a "targetname" field that matches.
@@ -433,22 +432,23 @@ RANDOM(4) causes the teleporter to send the player to a random destination
 STEALTH(8) eliminates the particle flash and noise when an entity is teleported.
 MONSTER_ONLY(16) will only teleport monsters
 */void() trigger_teleport =
-/*QUAKED trigger_setskill (.5 .5 .5) ?
+/*QUAKED trigger_setskill (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 sets skill level to the value of "message".
 Only used on start map.
 */
 /*QUAKED trigger_onlyregistered (.5 .5 .5) ?
 Only fires if playing the registered version, otherwise prints the message
 */
-/*QUAKED trigger_hurt (.5 .5 .5) ?
+/*QUAKED trigger_hurt (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Any object touching this will be hurt
 set dmg to damage amount
 defalt dmg = 5
 */
-/*QUAKED trigger_push (.5 .5 .5) ? PUSH_ONCE
+/*QUAKED trigger_push (.5 .5 .5) ? PUSH_ONCE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Pushes the player
 */
-/*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT
+/*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 
 dumptruck_ds
 
@@ -463,7 +463,8 @@ and the noise key/value to use a custom push sound. Custom
 sounds should be "one off" sounds NOT be looping.
 
 Adapted from Hipnotic's func_togglewall */
-/*QUAKED trigger_monsterjump (.5 .5 .5) ?
+/*QUAKED trigger_monsterjump (.5 .5 .5) ? X X X DT_STARTOFF X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Walking monsters that touch this will jump in the direction of the trigger's angle
 "speed" default to 200, the speed thrown forward
 "height" default to 200, the speed thrown upwards
@@ -472,12 +473,12 @@ If DT_STARTOFF flag is set, this moves the trigger
 brush out of the playable area. This can be targeted
 and toggled off and on.
 */
-/*QUAKED trigger_void (.5 .5 .5) ?
+/*QUAKED trigger_void (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Use this for a 'void' area.  removes monsters, gibs, ammo, etc...  also kills player.
 */
-/*QUAKED trigger_take_weapon (.5 .5 .5) ?
+/*QUAKED trigger_take_weapon (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-Removes shotgun upon touch.
+Removes shotgun upon touch. You can also set "reset_items" in the worldspawn entity to accomplish an axe only start.
 */
 /*QUAKED trigger_changemusic (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A trigger brush that changes the currently playing music track. The number of the track to play goes in the sounds key (just like worldspawn). */
@@ -485,6 +486,17 @@ A trigger brush that changes the currently playing music track. The number of th
 A point entity that changes the currently playing music track when triggered. The number of the track to play goes in the count key. e.g. 32 for track32.ogg  See manual trigger_changemusic for more information on formats and more.
 
 NOTE: the track number uses the count key here but trigger_changemusic uses the sound key for the same info.
+*/
+/*QUAKED trigger_look (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+This will trigger when a player is within the brush trigger and looks directly at a target entity.
+Use the first target key for the "looked at entity" and use the subsequent targets (2-4) to trigger other events.
+
+speed = Distance from player to search for trigger, adjust if the target is too far from the trigger  (default 500 units)
+wait = Time between re-triggering (default 0)
+sounds = 0-3 are standard Quake trigger choices, 4 allows a custom sound, requires a path set in noise1 key
+noise1 = Path to custom sound. Use with sounds key set to 4  (e.g. fish/bite.wav)
+
+See manual for complete details. See pd_cutscenes sample map for example
 */
 /*QUAKED func_plat (0 .5 .8) ? PLAT_LOW_TRIGGER X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
@@ -1930,7 +1942,8 @@ I used the info_notnull, but you should be able to target anything
 "cnt"  2nd Color  -  Mixes particles of both colors
 "noise"  Sound to play when triggered
 */
-/*QUAKED trigger_heal (.5 .5 .5) ? HEAL_START_ON HEAL_PLAYER_ONLY HEAL_MONSTER_ONLY
+/*QUAKED trigger_heal (.5 .5 .5) ? HEAL_START_ON HEAL_PLAYER_ONLY HEAL_MONSTER_ONLY X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Any object touching this will be healed
 heal_amount -- the amount to heal each time (default 5)
 wait -- the time between each healing (default 1)
@@ -2013,7 +2026,8 @@ START_OFF wall doesn't block until triggered.
 "noise1" is the sound to play when wall is blocking.
 "dmg" is the amount of damage to cause when touched.
 */
-/*QUAKED trigger_usekey (0 .5 0) ? x x x USE_SILV_KEY USE_GOLD_KEY
+/*QUAKED trigger_usekey (0 .5 0) ? X X X USE_SILV_KEY USE_GOLD_KEY X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
 Variable sized single use trigger that requires a key to trigger targets.  Must be targeted at one or more entities.
 
 "cnt"     if 1, leave a used key in the player's inventory (0 default).
@@ -2027,8 +2041,9 @@ Variable sized single use trigger that requires a key to trigger targets.  Must 
 // that touches it.  Does not affect monsters or
 // players.
 // */
-/*QUAKED trigger_setgravity (.5 .5 .5) ?
+/*QUAKED trigger_setgravity (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 set the gravity of a player
+
 "gravity" what to set the players gravity to
  - 0 (default) normal gravity
  - 1 no gravity
@@ -2039,6 +2054,15 @@ set the gravity of a player
  - 102 slightly higher gravity
  - ...
  - 1000 very high gravity
+
+ NOTE: the amount of gravity can only be changed by touching another
+ trigger_setgravity with a different setting. The gravity key defaults to 0
+ which is normal gravity. Lower numbers (e.g. 25) equal lower gravity. Setting
+ 100 is normal gravity. Numbers above 100 will make the player “heavier”, i.e.
+ harder to jump. If you want multiple trigger setgravity triggers in one room or
+ area, make sure the brushes are not touching each other. This can cause the
+ triggers not to work properly.
+
 */
 /*QUAKED ltrail_start (0 1 0) (-8 -8 -8) (8 8 8) LT_TOGGLE START_ON X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
@@ -2204,7 +2228,7 @@ brk_obj_count3(integer) : "Template 3 spawn count"
 brk_obj_count4(integer) : "Template 4 spawn count"
 brk_obj_count5(integer) : "Template 5 spawn count"
 */
-/*QUAKED trigger_ladder (.5 .5 .5) ?
+/*QUAKED trigger_ladder (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'
 
 Keys:
