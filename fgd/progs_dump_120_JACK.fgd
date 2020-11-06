@@ -155,7 +155,7 @@ state(choices) =
 @baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)color(0 255 0) studio("progs/player.mdl") = PlayerClassAlt []
 @baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)color(206 18 18) studio("progs/teleport.mdl") = MonsterClass []
 
-@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
+@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
 
 Choose Style via dropdown
 
@@ -185,7 +185,7 @@ style(Choices) =
 ]
 style2(integer) : "Overrides Style and selects random monster (excluding Zombies and Vores)"
 wait(integer) : "Wait this long between spawns (Default 5, 12 for Zombies and Vores)"
-count(integer) : 5 : "How many monsters to spawn (default 5)"
+count(integer) : : 5 : "How many monsters to spawn (default 5)"
 ]
 @PointClass base(MonsterClass) = info_monster_spawnpoint : "Destination for func_monster_spawner" []
 @PointClass base(PlayerClass) = info_player_start : "Player 1 start" []
@@ -288,8 +288,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass base(Artifact) studio("progs/invisibl.mdl") =
 	item_artifact_invisibility : "Ring of Shadows" []
 
-@BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) =
-	Armor []
+@BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) = Armor []
 
 @PointClass base(Armor) studio("progs/armor.mdl") =
 	item_armorInv : "Red armor (200%)" []
@@ -579,15 +578,26 @@ snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : "Path to custo
 snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
 snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : "Path to custom attack2 sound (VOREBALL FIRE)"
 ]
-@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_tarbaby : "Spawn
+@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_spawn : "Spawn
 
-Default health = 80"
+Default health = 80
+
+Note: this monster is renamed in progs_dump but unchnaged in all other aspects."
 [
 snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
 snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
 snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound"
 snd_misc(string) : "Path to custom sound (WET SLAPPING)" : "Path to custom sound (WET SLAPPING)"
 ]
+// @PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_tarbaby : "Spawn
+//
+// Default health = 80"
+// [
+// snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
+// snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
+// snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound"
+// snd_misc(string) : "Path to custom sound (WET SLAPPING)" : "Path to custom sound (WET SLAPPING)"
+// ]
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) studio("progs/fish.mdl") = monster_fish : "Rotfish
 
 Default health = 25"
@@ -1029,7 +1039,7 @@ _color(color255) : "Light color"
 	_sun(float) : "Turn light into a sunlight" : 0
 ]
 
-@BaseClass base(Light) = ToggleLight
+@BaseClass base(Light, Appearflags) = ToggleLight
 [
 	spawnflags(Flags) =
 	[
@@ -1049,7 +1059,7 @@ _color(color255) : "Light color"
 @PointClass base(ToggleLight) = light : "Invisible lightsource" []
 @PointClass base(ToggleLight) = light_fluoro : "Invisible lightsource, with fluorescent hum" []
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
-@PointClass base(Light) = light_globe : "Globe sprite light" []
+@PointClass base(Light, Appearflags) = light_globe : "Globe sprite light" []
 
 @PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio("progs/flame2.mdl") =
 	light_flame_large_yellow : "Large yellow flame"
@@ -1751,7 +1761,7 @@ spawnflags(Flags) =
 	message(string) : "Message"
 ]
 
-@SolidClass base(Appearflags) = trigger_changelevel : "Trigger: Change level"
+@SolidClass base(OneTarget, OneTargetname, Appearflags) = trigger_changelevel : "Trigger: Change level"
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
@@ -2246,7 +2256,7 @@ delay how much time to wait before firing after being switched on."
 	wait(string) : "Sec. between each triggering" : "1"
 	delay(string) : "Delay before first trigger"
 ]
-@PointClass size(16 14 24) color(255 175 0) base(Targetname, Target) = func_oncount : "Target for func_counter"
+@PointClass size(16 14 24) color(255 175 0) base(Targetname, Target, Appearflags) = func_oncount : "Target for func_counter"
 [
 	count(integer) : "Repeat event #" : 1
 	delay(string) : "Delay before first trigger"
@@ -2256,8 +2266,8 @@ delay how much time to wait before firing after being switched on."
 // Hipnotic Rotation Geometry
 //
 
-@PointClass size(-4 -4 -4, 4 4 4) base(Targetname) = info_rotate : "Point of rotation" []
-@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target) = func_rotate_entity : "Creates rotating entity"
+@PointClass size(-4 -4 -4, 4 4 4) base(Targetname, Appearflags) = info_rotate : "Point of rotation" []
+@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target, Appearflags) = func_rotate_entity : "Creates rotating entity"
 [
 	spawnflags(flags) =
 	[
@@ -2291,7 +2301,7 @@ delay how much time to wait before firing after being switched on."
 	dmg(integer) : "Damage"
 	speed(integer) : "Move Time(if flaged) or Speed"
 ]
-@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target) = func_rotate_train : "Moving platform"
+@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target, Appearflags) = func_rotate_train : "Moving platform"
 [
 	noise1(string) : "Train move noise"
 	noise(string) : "Train stop noise"
@@ -2305,8 +2315,8 @@ delay how much time to wait before firing after being switched on."
 		1: "Ratchet Metal"
 	]
 ]
-@SolidClass base(Targetname, Target) = rotate_object : "Object to be rotated"[]
-@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target) = func_rotate_door : "Create rotating door"
+@SolidClass base(Targetname, Target, Appearflags) = rotate_object : "Object to be rotated"[]
+@PointClass size(-8 -8 -8, 8 8 8) base(Targetname, Target, Appearflags) = func_rotate_door : "Create rotating door"
 [
 	spawnflags(flags) =
 	[

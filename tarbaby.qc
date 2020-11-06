@@ -268,3 +268,11 @@ void() monster_tarbaby =
 
 	walkmonster_start ();
 };
+
+void() monster_spawn =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+self.classname = "monster_tarbaby";
+monster_tarbaby();
+};
