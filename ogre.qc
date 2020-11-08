@@ -1152,6 +1152,24 @@ model ({ "path" : "progs/ogre.mdl",	"frame": 63 });
 Ogre Marksman.
 Unlike vanilla Quake, this is a slightly more accurate Orge.
 
+keep_ammo(integer) : "1 = Don't drop backpack upon death"
+snd_death(string) : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (CHAINSAW)"
+snd_idle(string) : "Path to custom idle sound (IDLE)"
+snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)"
+snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)"
+
+mdl_head(string) : "Path to custom head model"
+mdl_body(string) : "Path to custom body model"
+mdl_proj(string) : "Path to custom projectile model"
+skin_head(float) : "Skin index of custom head model"
+skin_proj(float) : "Skin index of custom projectile model"
+mdl_gib1(string) : "Path to custom 1st gib model"
+mdl_gib2(string) : "Path to custom 2nd gib model"
+mdl_gib3(string) : "Path to custom 3rd gib model"
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"

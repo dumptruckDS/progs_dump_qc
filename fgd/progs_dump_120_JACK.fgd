@@ -464,6 +464,13 @@ Default health = 200
 
 The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation." [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (CHAINSAW)" : : "Path to custom attack sound (CHAINSAW)"
+snd_idle(string) : "Path to custom idle sound (IDLE)" : : "Path to custom idle sound (IDLE)"
+snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : : "Path to custom sound (IDLE CHAINSAW DRAG)"
+snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : : "Path to custom sound (ATTACK GRUNT)"
 ]
 @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) studio("progs/knight.mdl") = monster_knight : "Knight
 
