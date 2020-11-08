@@ -8,9 +8,9 @@
 /*QUAKED path_corner (0.5 0.3 0) (-8 -8 -8) (8 8 8)
 Monsters will continue walking towards the next target corner.
 */
-/*QUAKED noclass (0 0 0) (-8 -8 -8) (8 8 8)
-prints a warning message when spawned
-*/
+///*QUAKED noclass (0 0 0) (-8 -8 -8) (8 8 8)
+//prints a warning message when spawned
+//*/
 /*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32) ROTTEN MEGAHEALTH X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
 	model ( {{ spawnflags & 1 -> { "path" : "maps/b_bh10.bsp" }, spawnflags & 2 -> { "path" : "maps/b_bh100.bsp" },
@@ -34,9 +34,9 @@ model ("progs/armor.mdl");
 model({ "path": ":progs/armor.mdl", "skin": 2 });
 }
 */
-/*QUAKED weapon_axe (0 .5 .8) (-16 -16 0) (16 16 32)
-Axe
-*/
+///*QUAKED weapon_axe (0 .5 .8) (-16 -16 0) (16 16 32)
+//Axe
+//*/
 /*QUAKED weapon_shotgun (0 .5 .8) (-16 -16 0) (16 16 32) X STYLE_1 STYLE_2 X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_shotgn.mdl");	}
 This is a pickup model that should be used when you want a player to spawn with only an axe and then later get the shotgun: (trigger_take_weapon or reset_items 2 in worldspawn). There are two models to choose from. Spawnflag 2 (the default) selects an unused “classic look” model from Rubicon 2 by metlslime. Spawnflag 4 is an alternate from Slapmap and has been used in a few mods.
@@ -276,7 +276,7 @@ fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 
 sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 */
-/*QUAKED info_intermission (1 0.5 0.5) (-16 -16 -16) (16 16 16) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED info_intermission (1 0.5 0.5) (-12 -12 -12) (12 12 12) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 This is the camera point for the intermission.
 Use mangle instead of angle, so you can set pitch or roll as well as yaw.  'pitch roll yaw'
@@ -459,7 +459,7 @@ If nomessage is not set, t will print "1 more.. " etc when triggered and "sequen
 
 After the counter has been triggered "count" times (default 2), it will fire all of it's targets and remove itself.
 */
-/*QUAKED info_teleport_changedest (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED info_teleport_changedest (0 0.5 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Allows a mapper to change the target of a teleport_trigger. Useful in maps where
 the player may fall into a void and the mapper wants to update where they "respawn"
 as they progress through the level. Could also be used for teleport puzzles and more.
@@ -642,8 +642,8 @@ If a targetname is set, it must be triggered to start moving, otherwise it will 
 // Default light value is 300
 // Default style is 0
 // */
-/*QUAKED FireAmbient (0 0.780 0.117) (-10 -10 -8) (10 10 8)
-*/
+///*QUAKED FireAmbient (0 0.780 0.117) (-10 -10 -8) (10 10 8)
+//*/
 /*QUAKED ambient_fire (0 0.780 0.117) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 ambinet fire sound effects added for consistency
 same as FireAmbient
@@ -812,10 +812,10 @@ Continuously fires spikes.
 air bubbles entity
 
 */
-/*QUAKED viewthing (0 .5 .8) (-8 -8 -8) (8 8 8)
-
-Just for the debugging level.  Don't use
-*/
+///*QUAKED viewthing (0 .5 .8) (-8 -8 -8) (8 8 8)
+//
+//Just for the debugging level.  Don't use
+//*/
 /*QUAKED func_wall (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This is just a solid wall if not inhibitted
 */
@@ -860,11 +860,11 @@ only need one  of these in your level. It will play everywhere.
 
 //For optimzation testing, starts a lot of sounds.
 //*/
-/*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED info_null (0 0.5 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 Used as a positional target for spotlights, etc.
 */
-/*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED info_notnull (0 0.5 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 Never used in the or
 */
@@ -1558,7 +1558,7 @@ spawnflags(Flags) =
 	model ("progs/boss.mdl");
 }
 */
-/*QUAKED event_lightning (0 1 1) (-16 -16 -16) (16 16 16) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED event_lightning (0 1 1) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Just for boss level.
 */
 /*QUAKED monster_boss2 (1 0 0) (-128 -128 -24) (128 128 256) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1890,13 +1890,13 @@ Keys:
 
 "speed" attenuation, default 3
 */
-/*QUAKED tele_fog (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
-
-When triggered, tele_fog shows the teleport particle effects and sounds.
-
-Use this when killtageting an entity if the player can see.
-
-*/
+///*QUAKED tele_fog (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+//
+//When triggered, tele_fog shows the teleport particle effects and sounds.
+//
+//Use this when killtageting an entity if the player can see.
+//
+//*/
 /*QUAKED play_tele (0.933 0.105 0.819) (-10 -10 -8) (10 10 8)
 
 When triggered, tele_fog shows the teleport particle effects and sounds.
@@ -1922,13 +1922,13 @@ When triggered, plays the lavasplash effect from E1M7.
 Use noise key for a custom sound.
 
 */
-/*QUAKED meat_shower (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
-
-When triggered, plays a gib effect.
-
-Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
-
-*/
+///*QUAKED meat_shower (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+//
+//When triggered, plays a gib effect.
+//
+//Use style 0 for normal and 1 for extra large. fly_sound 0 is silent, 1 for regular gib sounds.
+//
+//*/
 /*QUAKED play_gibs (0.933 0.105 0.819) (-10 -10 -8) (10 10 8)
 
 When triggered, plays a gib effect. Same as meat_shower.
@@ -2042,7 +2042,7 @@ health_max -- the upper limit for the healing (default 100, max 250)
 sounds -- set to 1 to enable the noise1 field for custom healing sound
 noise -- path to custom sound file
 */
-/*QUAKED misc_model (0 0.5 0.8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED misc_model (.5 0.5 0.8) (-12 -12 -12) (12 12 12) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
 	model ({"path" : mdl, "skin" : skin, "frame": frame});
 }
