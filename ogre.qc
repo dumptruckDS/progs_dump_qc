@@ -205,8 +205,28 @@ void() BDW_OgreFireFlak =
 		flak.dmg = 4;
 
 		flak.spawnflags = MONSTER_FLAK_OGRE;	//this is a hack to tell FlakTouch that it came from an ogre
+		// setmodel(flak, "progs/spike.mdl");
+		flak.skin = self.skin_proj; //dumptruck_ds
 
-		setmodel(flak, "progs/spike.mdl");
+		if (self.mdl_proj != "") // dumptruck_ds
+		{
+				setmodel (flak, self.mdl_proj);
+			}
+			else
+			{
+				setmodel (flak, "progs/spike.mdl");
+		}
+
+		if (!flak.skin_proj) // dumptruck_ds
+		{
+				flak.skin = self.skin_proj;
+			}
+			else
+			{
+				flak.skin = 0;
+		}
+	// dumptruck_ds - end
+
 		setsize(flak, '0 0 0', '0 0 0');
 		setorigin(flak, self.origin + '0 0 16');
 
@@ -445,7 +465,27 @@ void() OgreFireSpike =
     launch_spike (self.origin + v_right * 4 + '0 0 16', dir);
 
     newmis.touch = superduperspike_touch; //dumptruck_ds found in client.qc
-    setmodel (newmis, "progs/lspike.mdl");
+    // setmodel (newmis, "progs/lspike.mdl");
+		newmis.skin = self.skin_proj; //dumptruck_ds
+
+		if (self.mdl_proj != "") // dumptruck_ds
+		{
+				setmodel (newmis, self.mdl_proj);
+			}
+			else
+			{
+				setmodel (newmis, "progs/lspike.mdl");
+		}
+
+		if (!newmis.skin_proj) // dumptruck_ds
+		{
+				newmis.skin = self.skin_proj;
+			}
+			else
+			{
+				newmis.skin = 0;
+		}
+	// dumptruck_ds - end
 
     setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 };
@@ -596,11 +636,11 @@ void() W_FireMultiGrenade =
 // set missile duration
 	missile.nextthink = time + 1;
 	missile.think = MultiGrenadeExplode;
-
-	// setmodel (missile, "progs/grenade.mdl");
 	setmodel (missile, "progs/mervup.mdl");
+	missile.skin = self.skin_proj; //dumptruck_ds
+
 	setsize (missile, '0 0 0', '0 0 0');
-	setorigin (missile, self.origin);
+	setorigin (missile, self.origin + '0 0 16');
 };
 
 //=============================================================================

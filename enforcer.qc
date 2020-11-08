@@ -129,8 +129,27 @@ void(vector org, vector vec) EnfLaunchSpike =
 	newmis.movetype = MOVETYPE_FLY;
 	newmis.solid = SOLID_BBOX;
 	// newmis.effects = EF_DIMLIGHT;
+	newmis.skin = self.skin_proj; //dumptruck_ds
+	// setmodel (newmis, "progs/s_spike.mdl");
 
-	setmodel (newmis, "progs/s_spike.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (newmis, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (newmis, "progs/s_spike.mdl");
+	}
+
+	if (!newmis.skin_proj) // dumptruck_ds
+	{
+			newmis.skin = self.skin_proj;
+		}
+		else
+		{
+			newmis.skin = 0;
+	}
+// dumptruck_ds - end
 	setsize (newmis, '0 0 0', '0 0 0');
 
 	setorigin (newmis, org);
@@ -221,8 +240,27 @@ void() EnfRocket =
 // set missile duration
 	missile.nextthink = time + 5;
 	missile.think = SUB_Remove;
+	missile.skin = self.skin_proj; //dumptruck_ds
 
-	setmodel (missile, "progs/missile.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/missile.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+// dumptruck_ds - end
+	// setmodel (missile, "progs/missile.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
 	setorigin (missile, self.origin + v_forward * 30 + v_right * 8.5 + '0 0 12'); //last number was 16 - dumptruck_ds
@@ -264,8 +302,28 @@ void() EnfFireGrenade =
 // set missile duration
 	missile.nextthink = time + 2.5;
 	missile.think = OgreGrenadeExplode;
+	missile.skin = self.skin_proj; //dumptruck_ds
 
-	setmodel (missile, "progs/grenade.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/grenade.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+// dumptruck_ds - end
+
+	// setmodel (missile, "progs/grenade.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin + v_forward * 30 + v_right * 8.5 + '0 0 16');
 	// setorigin (missile, self.origin);
@@ -676,6 +734,7 @@ void() monster_enforcer =
 	precache_head_model2 ("progs/h_mega.mdl");
 	precache_proj_model2 ("progs/laser.mdl");
 	precache_proj_model2 ("progs/s_spike.mdl");
+	precache_proj_model2 ("progs/missile.mdl");
  //dumptruck_ds
 	precache_sound2_death ("enforcer/death1.wav");
 	precache_sound2_attack ("enforcer/enfire.wav");
