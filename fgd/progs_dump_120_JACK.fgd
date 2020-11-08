@@ -276,38 +276,26 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	]
 ]
 
-@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
-	Artifact []
+@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) = Artifact []
 
-@PointClass base(Artifact) studio("progs/suit.mdl") =
-	item_artifact_envirosuit : "Environmental protection suit" []
-@PointClass base(Artifact) studio("progs/quaddama.mdl") =
-	item_artifact_super_damage : "Quad damage" []
-@PointClass base(Artifact) studio("progs/invulner.mdl") =
-	item_artifact_invulnerability : "Pentagram of Protection" []
-@PointClass base(Artifact) studio("progs/invisibl.mdl") =
-	item_artifact_invisibility : "Ring of Shadows" []
+@PointClass base(Artifact) studio("progs/suit.mdl") = item_artifact_envirosuit : "Environmental protection suit" []
+@PointClass base(Artifact) studio("progs/quaddama.mdl") = item_artifact_super_damage : "Quad damage" []
+@PointClass base(Artifact) studio("progs/invulner.mdl") = item_artifact_invulnerability : "Pentagram of Protection" []
+@PointClass base(Artifact) studio("progs/invisibl.mdl") = item_artifact_invisibility : "Ring of Shadows" []
 
 @BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) = Armor []
 
-@PointClass base(Armor) studio("progs/armor.mdl") =
-	item_armorInv : "Red armor (200%)" []
-@PointClass base(Armor) studio("progs/armor.mdl") =
-	item_armor2 : "Yellow armor (150%)" []
-@PointClass base(Armor) studio("progs/armor.mdl") =
-	item_armor1 : "Green armor (100%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") = item_armorInv : "Red armor (200%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") = item_armor2 : "Yellow armor (150%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") = item_armor1 : "Green armor (100%)" []
 
 @BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
 	Key []
 
-@PointClass base(Key) studio("progs/w_s_key.mdl") =
-	item_key1 : "Silver key" []
-@PointClass base(Key) studio("progs/w_g_key.mdl") =
-	item_key2 : "Gold key" []
+@PointClass base(Key) studio("progs/w_s_key.mdl") = item_key1 : "Silver key" []
+@PointClass base(Key) studio("progs/w_g_key.mdl") = item_key2 : "Gold key" []
 
-@PointClass base(Key) =
-	item_key_custom :
-"A customizable key item.
+@PointClass base(Key) = item_key_custom : "A customizable key item.
 
 'keyname': name of the key, e.g. 'bronze key' (required)
 
@@ -355,8 +343,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 //axe not used in this version
 //@PointClass base(Weapon) studio("progs/g_axe.mdl") =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =
-	weapon_shotgun : "Shotgun"
+@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =	weapon_shotgun : "Shotgun"
 [
 	spawnflags(flags) =
 	[
@@ -2101,7 +2088,6 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 	]
 
 	@SolidClass base(Appearflags, OneTargetname) = func_fall : "A brush that drops and fades away when touched. Gibs monsters who touch it. Can be targeted by triggers etc.
-
 	noise = sound to play when triggered
 	wait = wait this long before falling"
 	[

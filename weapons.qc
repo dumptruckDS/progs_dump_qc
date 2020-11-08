@@ -1605,6 +1605,7 @@ void() W_WeaponFrame =
 	if (time < self.attack_finished)
 		return;
 
+if (self.impulse)	// 1998-08-14 Constantly checking all impulses fix by Perged
 	ImpulseCommands ();
 
 // check for attack

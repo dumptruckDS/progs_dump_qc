@@ -1058,6 +1058,10 @@ void() monster_ogre =
 	precache_sound_sight ("ogre/ogwake.wav");
 	precache_sound ("fish/bite.wav");
 
+	precache_gib1 ("progs/gib1.mdl");
+	precache_gib2 ("progs/gib2.mdl");
+	precache_gib3 ("progs/gib3.mdl");
+
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
@@ -1131,9 +1135,10 @@ void() monster_ogre_marksman =
 		remove(self);
 		return;
 	}
-	precache_model ("progs/ogre.mdl");
-	precache_model ("progs/h_ogre.mdl");
-	precache_model ("progs/grenade.mdl");
+	// custom_mdls dumptruck_ds
+	precache_body_model ("progs/ogre.mdl");
+	precache_head_model ("progs/h_ogre.mdl");
+	precache_proj_model ("progs/grenade.mdl");
 
 	precache_sound_misc ("ogre/ogdrag.wav");
 	precache_sound_death ("ogre/ogdth.wav");
@@ -1150,7 +1155,9 @@ void() monster_ogre_marksman =
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_STEP;
 
-	setmodel (self, "progs/ogre.mdl");
+	// custom_mdls dumptruck_ds
+	body_model ("progs/ogre.mdl");
+	// setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
 
