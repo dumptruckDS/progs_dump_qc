@@ -89,7 +89,25 @@ void() GruntFireGrenade =
 	missile.nextthink = time + 2.5;
 	missile.think = OgreGrenadeExplode;
 
-	setmodel (missile, "progs/grenade.mdl");
+	// setmodel (missile, "progs/grenade.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/grenade.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin + v_forward * 30 + v_right * 5 + '0 0 16'); //dumptruck_ds
 };
@@ -115,7 +133,25 @@ void() MonFireSpike =
     // launch_spike (self.origin + '0 0 16', dir);
 
     newmis.touch = superspike_touch;
-    setmodel (newmis, "progs/s_spike.mdl");
+    // setmodel (newmis, "progs/s_spike.mdl");
+		if (self.mdl_proj != "") // dumptruck_ds
+		{
+				setmodel (newmis, self.mdl_proj);
+			}
+			else
+			{
+				setmodel (newmis, "progs/s_spike.mdl");
+		}
+
+		if (!newmis.skin_proj) // dumptruck_ds
+		{
+				newmis.skin = self.skin_proj;
+			}
+			else
+			{
+				newmis.skin = 0;
+		}
+	// dumptruck_ds - end
 
     setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 };
@@ -497,6 +533,8 @@ void() monster_army =
 	//dumptruck_ds custom_mdls
 	precache_body_model ("progs/soldier.mdl");
 	precache_head_model ("progs/h_guard.mdl");
+	precache_proj_model ("progs/missile.mdl"); // used if style == 1
+	precache_proj_model ("progs/grenade.mdl"); // used if style == 2
 	precache_model2 ("progs/laser.mdl"); // used if style == 3
 	//dumptruck_ds custom_mdls
 	precache_model ("progs/gib1.mdl");

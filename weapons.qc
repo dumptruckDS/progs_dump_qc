@@ -633,8 +633,26 @@ void() W_GruntRocket =
 // set missile duration
 	missile.nextthink = time + 5;
 	missile.think = SUB_Remove;
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/missile.mdl");
+	}
 
-	setmodel (missile, "progs/missile.mdl");
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+// dumptruck_ds - end
+
+	// setmodel (missile, "progs/missile.mdl");
 	setsize (missile, '0 0 0', '0 0 0');
 	makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
 	setorigin (missile, self.origin + v_forward * 30 + v_right * 5 + '0 0 12');
