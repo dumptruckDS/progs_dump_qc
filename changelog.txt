@@ -10,6 +10,7 @@
   this allows the entity to be a moving spawn point for a
   func_monster_spawner
 * Fixes and additions to FGDs
+* Added "No Sight Sound" spawnflag (stealthy monsters)
 
 1.1.3 September 2020
 

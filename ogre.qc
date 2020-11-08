@@ -318,8 +318,25 @@ void(float elevation) PreachFireGrenade =
 // set missile duration
 	missile.nextthink = time + 2.5;
 	missile.think = OgreGrenadeExplode;
+	// setmodel (missile, "progs/grenade.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/grenade.mdl");
+	}
 
-	setmodel (missile, "progs/grenade.mdl");
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin);
 };
@@ -391,7 +408,7 @@ void() OgreFireGrenade =
 			missile.touch = OgreGrenadeTouch;
 			missile.nextthink = time + 2.5;
 			missile.think = OgreGrenadeExplode;
-			setmodel (missile, "progs/grenade.mdl");
+			// setmodel (missile, "progs/grenade.mdl");
 			setsize (missile, '0 0 0', '0 0 0');
 			setorigin (missile, self.origin);
 		}

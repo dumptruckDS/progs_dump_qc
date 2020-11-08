@@ -4,6 +4,7 @@ void() knight_walk1;
 void() knight_bow6;
 void() knight_bow1;
 void(entity etemp, entity stemp, entity stemp, float dmg) T_Damage;
+float NO_SIGHT_SOUND = 32;
 /*
 
 .enemy
@@ -284,6 +285,8 @@ local float	rsnd;
 
 	if (self.classname == "monster_ogre")
 		sound_sight (self, CHAN_VOICE, "ogre/ogwake.wav", 1, ATTN_NORM);
+	else if (self.classname == "monster_ogre_marksman")
+		sound_sight (self, CHAN_VOICE, "ogre/ogwake.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_knight")
 		sound_sight (self, CHAN_VOICE, "knight/ksight.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_shambler")
@@ -330,7 +333,10 @@ void() FoundTarget =
 
 	self.show_hostile = time + 1;		// wake up other monsters
 
-	SightSound ();
+	if (self.spawnflags != NO_SIGHT_SOUND)
+	{
+		SightSound ();
+	}
 	HuntTarget ();
 
 	if (self.sight_trigger == 1) //thanks RennyC -- dumptruck_ds

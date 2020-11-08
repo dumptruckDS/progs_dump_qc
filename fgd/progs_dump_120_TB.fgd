@@ -486,6 +486,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	[
 		1 : "Ambush" : 0
 		8 : "Trigger Spawn" : 0
+		32 : "No Sight Sound" : 0
 	]
 	delay(choices) : "Trigger spawn delay time" : : "Delay spawn in for this amount of time" =
 	[
