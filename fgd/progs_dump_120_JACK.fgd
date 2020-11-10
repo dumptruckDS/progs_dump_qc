@@ -111,7 +111,7 @@ berserk(choices) : "skip certain pain animations" : : "Skips certain pain animat
 @baseclass = Effects [
 effects(choices) : "Various visual effects" : : "Add a visual effect to an entity" =
 			[
-				0: "None (Default)"
+				0 : "None (Default)"
 				1 : "Brightfield (yellow particles)"
 				4 : "Bright light"
 				8 : "Dim light"
@@ -155,26 +155,14 @@ state(choices) =
 @baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)color(0 255 0) studio("progs/player.mdl") = PlayerClassAlt []
 @baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)color(206 18 18) studio("progs/teleport.mdl") = MonsterClass []
 
-@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
-
-Choose Style via dropdown
-
-Style 2 overrides Style and chooses a random monster (excluding Zombies and Vores)
-
-Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags
-
-Can set Berserk to 1 to skip most pain animations.
-
-Can only use default health, models and sounds.
-"
-[
-style(Choices) =
-[
-	1 : "Dog (Default)"
+//____TW_EDIT____
+@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to a targeted info_monster_spawnpoint. Choose Style via dropdown. Style 2 overrides Style and chooses a random monster (excluding Zombies and Vores). Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags. Setting Berserk to 1 skips most pain animations. Can only use default health, models and sounds." [
+  style(Choices) = [
+    1 : "Dog (Default)"
 	2 : "Grunt"
-	3 : "Enforcer"
-	4 : "Ogre"
-	5 : "Fiend"
+    3 : "Enforcer"
+    4 : "Ogre"
+    5 : "Fiend"
 	6 : "Wizard"
 	7 : "Shambler"
 	8 : "Knight"
@@ -182,31 +170,28 @@ style(Choices) =
 	10 : "Spawn"
 	11 : "Zombie"
 	12 : "Shalrath"
+  ]
+  style2(integer) : "Overrides Style and selects random monster (excluding Zombies and Vores)"
+  wait(integer) : "Wait this long between spawns (Default 5, 12 for Zombies and Vores)"
+  count(integer) : "How many monsters to spawn (default 5)" : 5
 ]
-style2(integer) : "Overrides Style and selects random monster (excluding Zombies and Vores)"
-wait(integer) : "Wait this long between spawns (Default 5, 12 for Zombies and Vores)"
-count(integer) : : 5 : "How many monsters to spawn (default 5)"
-]
+
 @PointClass base(MonsterClass) = info_monster_spawnpoint : "Destination for func_monster_spawner" []
 @PointClass base(PlayerClass) = info_player_start : "Player 1 start" []
 @PointClass base(PlayerClass) = info_player_deathmatch : "Player deathmatch start" []
 @PointClass base(PlayerClass) = info_player_coop : "Player cooperative start" []
 @PointClass base(PlayerClass) = info_player_start2 : "Player episode return point" []
 @PointClass base(PlayerClass, Targetname) = info_teleport_destination : "Teleport destination" []
-@PointClass size(-32 -32 0, 32 32 64) base(PlayerClassAlt, Targetname) = info_teleport_random : "Random Teleporter destination
 
-Only for use with trigger_teleport entities set to RANDOM" []
+//____TW_EDIT____
+@PointClass size(-32 -32 0, 32 32 64) base(PlayerClassAlt, Targetname) = info_teleport_random : "Random Teleporter destination. Only for use with trigger_teleport entities set to RANDOM" []
 @PointClass = info_null : "info_null (spotlight target)"
 [
 	targetname(target_source) : "Name"
 ]
-@PointClass base(Appearflags) color(0 255 0) = info_teleport_changedest : "info_teleport_changedest allows a mapper to change the target of a teleport_trigger.
 
-Useful in maps where the player may fall into a void and the mapper wants to update where they respawn as they progress through the level. Could also be used for teleport puzzles and more.
-
-target = trigger_teleport to change, message = new info_teleport_destination's targetname to switch to, targetname = name of this entity so we can use it.
-
-NOTE when a trigger_teleport has a targetname it must be triggered to operate, so adding an overlapping trigger_multiple targeting the trigger_teleport will be neccessary"
+//____TW_EDIT____
+@PointClass base(Appearflags) color(0 255 0) = info_teleport_changedest : "info_teleport_changedest allows a mapper to change the target of a teleport_trigger .Useful in maps where the player may fall into a void and the mapper wants to update where they respawn as they progress through the level. Could also be used for teleport puzzles and more. target = trigger_teleport to change, message = new info_teleport_destination's targetname to switch to, targetname = name of this entity so we can use it.NOTE - when a trigger_teleport has a targetname it must be triggered to operate, so adding an overlapping trigger_multiple targeting the trigger_teleport will be neccessary."
 [
 	targetname(target_source) : "name of this entity so we can trigger it"
 	target(target_source) : "trigger_teleport to change"
@@ -276,44 +261,41 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	]
 ]
 
-@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) = Artifact []
+@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
+	Artifact []
 
-@PointClass base(Artifact) studio("progs/suit.mdl") = item_artifact_envirosuit : "Environmental protection suit" []
-@PointClass base(Artifact) studio("progs/quaddama.mdl") = item_artifact_super_damage : "Quad damage" []
-@PointClass base(Artifact) studio("progs/invulner.mdl") = item_artifact_invulnerability : "Pentagram of Protection" []
-@PointClass base(Artifact) studio("progs/invisibl.mdl") = item_artifact_invisibility : "Ring of Shadows" []
+@PointClass base(Artifact) studio("progs/suit.mdl") =
+	item_artifact_envirosuit : "Environmental protection suit" []
+@PointClass base(Artifact) studio("progs/quaddama.mdl") =
+	item_artifact_super_damage : "Quad damage" []
+@PointClass base(Artifact) studio("progs/invulner.mdl") =
+	item_artifact_invulnerability : "Pentagram of Protection" []
+@PointClass base(Artifact) studio("progs/invisibl.mdl") =
+	item_artifact_invisibility : "Ring of Shadows" []
 
 @BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) = Armor []
 
-@PointClass base(Armor) studio("progs/armor.mdl") = item_armorInv : "Red armor (200%)" []
-@PointClass base(Armor) studio("progs/armor.mdl") = item_armor2 : "Yellow armor (150%)" []
-@PointClass base(Armor) studio("progs/armor.mdl") = item_armor1 : "Green armor (100%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armorInv : "Red armor (200%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armor2 : "Yellow armor (150%)" []
+@PointClass base(Armor) studio("progs/armor.mdl") =
+	item_armor1 : "Green armor (100%)" []
 
 @BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
 	Key []
 
-@PointClass base(Key) studio("progs/w_s_key.mdl") = item_key1 : "Silver key" []
-@PointClass base(Key) studio("progs/w_g_key.mdl") = item_key2 : "Gold key" []
+@PointClass base(Key) studio("progs/w_s_key.mdl") =
+	item_key1 : "Silver key" []
+@PointClass base(Key) studio("progs/w_g_key.mdl") =
+	item_key2 : "Gold key" []
 
-@PointClass base(Key) = item_key_custom : "A customizable key item.
-
-'keyname': name of the key, e.g. 'bronze key' (required)
-
-'mdl': model file (required)
-
-'noise': sound file for the pickup sound (default is per worldtype)
-
-'skin': skin index (default 0)
-
-The 'keyname' value is used both for the pickup message and to associate the key with the entity that it unlocks.
-
-To make a func_door or trigger_usekey require this key, set the 'keyname' value of that entity so that it matches the 'keyname' value of the key.
-
-If different item_key_custom entities have the same 'keyname' value, they will be treated as different copies of the same key and may be used interchangeably.
-
-A map may have a maximum of 23 unique 'keyname' values across all entities.
-
-The behavior of an item_key_custom should be as the player expects (based on the behavior of the silver and gold keys), except for the fact that it will not appear as an icon in the player's status bar when picked up.  This is a limitation of the engine."
+//____TW_EDIT____
+@PointClass base(Key) = item_key_custom :"A customizable key item. The 'keyname' value is used both for the pickup message and to associate the key with the entity that it unlocks. To make a func_door or trigger_usekey require this key, set the 'keyname' value of that entity so that it matches the 'keyname' value of the key. If different item_key_custom entities have the same 'keyname' value, they will be treated as different copies of the same key and may be used erchangeably. A map may have a maximum of 23 unique 'keyname' values across all entities. The behavior of an item_key_custom should be as the player expects (based on the behavior of the silver and gold keys), except for the fact that it will not appear as an icon in the player's status bar when picked up. This is a limitation of the engine."
+//'keyname': name of the key, e.g. 'bronze key' (required)
+//'mdl': model file (required)
+//'noise': sound file for the pickup sound (default is per worldtype)
+//'skin': skin index (default 0)
 [
 	keyname(string) : "Name of the key, e.g. 'bronze key' (required)"
 	mdl(string) : "Model file (required)"
@@ -343,7 +325,8 @@ The behavior of an item_key_custom should be as the player expects (based on the
 //axe not used in this version
 //@PointClass base(Weapon) studio("progs/g_axe.mdl") =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =	weapon_shotgun : "Shotgun"
+@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =
+	weapon_shotgun : "Shotgun"
 [
 	spawnflags(flags) =
 	[
@@ -407,17 +390,17 @@ skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this wh
 ]
 //dumptruck_ds
 //@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt
 
-Default health = 30"
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt, Default health = 30"
 [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound (GUNSHOT)" : "Path to custom attack sound (GUNSHOT)"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom sound (PAIN 2)" : "Path to custom sound (PAIN 2)"
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (GUNSHOT)" : : "Path to custom attack sound (GUNSHOT)"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (PAIN 2)" : : "Path to custom sound (PAIN 2)"
 style(Choices) : "Attack type" : 0 =
 	[
 		0 : "Default (shotgun)"
@@ -427,42 +410,20 @@ style(Choices) : "Attack type" : 0 =
 		4 : "nails"
 	]
 ]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) studio("progs/dog.mdl") = monster_dog : "Nasty Doggie
 
-Default health = 25"
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) studio("progs/dog.mdl") = monster_dog : "Nasty Doggie, Default health = 25"
 [
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-]
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre : "Ogre
-
-Default health = 200"
-[
-keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound (CHAINSAW)" : "Path to custom attack sound (CHAINSAW)"
-snd_idle(string) : "Path to custom idle sound (IDLE)" : "Path to custom idle sound (IDLE)"
-snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : "Path to custom sound (IDLE CHAINSAW DRAG)"
-snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : "Path to custom sound (ATTACK GRUNT)"
-style(Choices) : "Attack type" =
-	[
-		0 : "Default (grenade)"
-		1	: "Flak Ogre (Marcher, Quoth)"
-		2 : "sniper (shoots single, deadly lava round)"
-		3 : "multi-grenade (Mission Pack 2)"
-	]
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre_marksman : "Ogre marksman
-
-Default health = 200
-
-The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation." [
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre : "Ogre, Default health = 200"
+[
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
@@ -470,65 +431,78 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound (CHAINSAW)" : : "Path to custom attack sound (CHAINSAW)"
 snd_idle(string) : "Path to custom idle sound (IDLE)" : : "Path to custom idle sound (IDLE)"
 snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : : "Path to custom sound (IDLE CHAINSAW DRAG)"
-snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : : "Path to custom sound (ATTACK GRUNT)"
-]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) studio("progs/knight.mdl") = monster_knight : "Knight
-
-Default heath = 75"
-[
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound (SWORD SLASH 1)" : "Path to custom attack sound (SWORD SLASH 1)"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : "Path to custom sound (SWORD SLASH 2)"
-]
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight
-
-Default health = 250"
-[
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound (MAGIC BOING)" : "Path to custom attack sound (MAGIC BOING)"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom SWORD SLASH sound" : "Path to custom SWORD SLASH sound"
-]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) studio("progs/wizard.mdl") = monster_wizard : "Scrag a.k.a Wizard
-
-Default health = 80"
-[
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom sound (IDLE 2)" : "Path to custom sound (IDLE 2)"
-]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) studio("progs/demon.mdl") = monster_demon1 : "Fiend
-Default heath = 300"
-[
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-  snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-  snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-  snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
-  snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound e.g. Enforcer laser hit"
-  snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" :  :"Path to custom sound (ATTACK GRUNT)"
+style(Choices) : "Attack type" =
+	[
+		0 : "Default (grenade)"
+		1 : "Flak Ogre (Marcher, Quoth)"
+		2 : "sniper (shoots single, deadly lava round)"
+		3 : "multi-grenade (Mission Pack 2)"
+	]
 ]
 
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) studio("progs/shambler.mdl") = monster_shambler : "Shambler
-
-Default health = 600"
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre_marksman : "Ogre marksman, Default health = 200. The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation."
 [
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound (GRUNT)" : "Path to custom attack sound (GRUNT)"
-snd_hit(string) : "Path to custom hit sound (FLESH TEARING)" : "Path to custom hit sound (FLESH TEARING)"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom sound (GRUNT 2)" : "Path to custom sound (GRUNT 2)"
-snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : "Path to custom sound (LIGHTNING ZAP)"
-snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : "Path to custom sound (LIGHTNING BOOM)"
+keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
+]
+
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) studio("progs/knight.mdl") = monster_knight : "Knight, Default heath = 75"
+[
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (SWORD SLASH 1)" : : "Path to custom attack sound (SWORD SLASH 1)"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : : "Path to custom sound (SWORD SLASH 2)"
+]
+
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight, Default health = 250"
+[
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (MAGIC BOING)" : : "Path to custom attack sound (MAGIC BOING)"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD SLASH sound"
+]
+
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) studio("progs/wizard.mdl") = monster_wizard : "Scrag a.k.a Wizard, Default health = 80"
+[
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
+]
+
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) studio("progs/demon.mdl") = monster_demon1 : "Fiend, Default heath = 300"
+[
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+  snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+  snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+  snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
+  snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound e.g. Enforcer laser hit"
+  snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+]
+
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) studio("progs/shambler.mdl") = monster_shambler : "Shambler, Default health = 600"
+[
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (GRUNT)" : : "Path to custom attack sound (GRUNT)"
+snd_hit(string) : "Path to custom hit sound (FLESH TEARING)" : : "Path to custom hit sound (FLESH TEARING)"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sound (GRUNT 2)" : : "Path to custom sound (GRUNT 2)"
+snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : : "Path to custom sound (LIGHTNING ZAP)"
+snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : : "Path to custom sound (LIGHTNING BOOM)"
 ]
 @PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) studio("progs/boss.mdl") = monster_boss : "Chthon" []
 @PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) studio("progs/boss.mdl") = monster_boss2 : "Killable Chthon"
@@ -539,9 +513,10 @@ snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
 snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
 snd_move(string) : "Path to custom rising and lowering sound" : "Path to custom rising and lowering sound"
 ]
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_enforcer : "Enforcer
 
-Default health = 80" [
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_enforcer : "Enforcer, Default health = 80"
+ [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 style(Choices) : "Attack type" : 0 =
 	[
@@ -550,39 +525,36 @@ style(Choices) : "Attack type" : 0 =
 		2 : "grenades"
 		3 : "nails"
 	]
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom 1st pain sound" : "Path to 1st custom pain sound"
-snd_sight(string) : "Path to custom sight sound for STOP!" : "Path to custom sight sound for STOP!"
-snd_attack(string) : "Path to custom attack sound e.g Llaser firing" : "Path to custom attack sound e.g laser firing"
-snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound e.g. laser hits wall"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom sight sound for FREEZE!" : "Path to custom sight sound for FREEZE!"
-snd_misc1(string) : "Path to custom sight sound for YOU THERE!" : "Path to custom sight sound for YOU THERE!"
-snd_misc2(string) : "Path to custom sight sound for HALT!" : "Path to custom sight sound for HALT!"
-snd_misc3(string) : "Path to 2nd custom pain sound" : "Path to 2nd custom pain sound"
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom 1st pain sound" : : "Path to 1st custom pain sound"
+snd_sight(string) : "Path to custom sight sound for STOP!" : : "Path to custom sight sound for STOP!"
+snd_attack(string) : "Path to custom attack sound e.g Llaser firing" : : "Path to custom attack sound e.g laser firing"
+snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound e.g. laser hits wall"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom sight sound for FREEZE!" : : "Path to custom sight sound for FREEZE!"
+snd_misc1(string) : "Path to custom sight sound for YOU THERE!" : : "Path to custom sight sound for YOU THERE!"
+snd_misc2(string) : "Path to custom sight sound for HALT!" : : "Path to custom sight sound for HALT!"
+snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain sound"
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath
-
-Default health = 400"
+//____TW_EDIT____
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath, Default health = 400"
 [
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : "Path to custom attack sound (VORE SNARL)"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
-snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : "Path to custom attack2 sound (VOREBALL FIRE)"
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : : "Path to custom attack sound (VORE SNARL)"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
+snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : : "Path to custom attack2 sound (VOREBALL FIRE)"
 ]
-@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_spawn : "Spawn
 
-Default health = 80
-
-Note: this monster is renamed in progs_dump but unchnaged in all other aspects."
+//____TW_EDIT____
+@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_spawn : "Spawn, Default health = 80 Note: this monster is renamed in progs_dump but unchnaged in all other aspects."
 [
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound"
-snd_misc(string) : "Path to custom sound (WET SLAPPING)" : "Path to custom sound (WET SLAPPING)"
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound"
+snd_misc(string) : "Path to custom sound (WET SLAPPING)" : : "Path to custom sound (WET SLAPPING)"
 ]
 // @PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_tarbaby : "Spawn
 //
@@ -593,24 +565,24 @@ snd_misc(string) : "Path to custom sound (WET SLAPPING)" : "Path to custom sound
 // snd_hit(string) : "Path to custom hit sound" : "Path to custom hit sound"
 // snd_misc(string) : "Path to custom sound (WET SLAPPING)" : "Path to custom sound (WET SLAPPING)"
 // ]
-@PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) studio("progs/fish.mdl") = monster_fish : "Rotfish
 
-Default health = 25"
+//____TW_EDIT____
+@PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) studio("progs/fish.mdl") = monster_fish : "Rotfish, Default health = 25"
 [
-snd_death(string) : "Path to custom death sound (BUBBLES)" : "Path to custom death sound (BUBBLES)"
-snd_attack(string) : "Path to custom attack sound (CRUNCHY BITE)" : "Path to custom attack sound (CRUNCHY BITE)"
-snd_idle(string) : "Path to custom idle sound" : "Path to custom idle sound"
+snd_death(string) : "Path to custom death sound (BUBBLES)" : : "Path to custom death sound (BUBBLES)"
+snd_attack(string) : "Path to custom attack sound (CRUNCHY BITE)" : : "Path to custom attack sound (CRUNCHY BITE)"
+snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 mdl_body(string) : "Path to custom body model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
-
 ]
+
 @PointClass base(Monster) size(-160 -128 -24, 160 128 256) studio("progs/oldone.mdl") = monster_oldone : "Shub-Niggurath"
 [
-snd_death(string) : "Path to custom death sound PART 1" : "Path to custom death sound PART 1"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_misc(string) : "Path to custom death sound PART 2" : "Path to custom death sound PART 2"
+snd_death(string) : "Path to custom death sound PART 1" : : "Path to custom death sound PART 1"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_misc(string) : "Path to custom death sound PART 2" : : "Path to custom death sound PART 2"
 mdl_body(string) : "Path to custom body model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
@@ -620,11 +592,11 @@ skin_proj(float) : "Path to custom projectile skin"
 ]
 @PointClass base(Monster) size(-160 -128 -24, 160 128 256) studio("progs/oldone.mdl") = monster_oldone2 : "Killable Shub-Niggurath"
 [
-snd_death(string) : "Path to custom death sound (PART 2 GIBBING)" : "Path to custom death sound (PART 2 GIBBING)"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_misc(string) : "Path to custom death sound (PART 1 DEATH SCREAM)" : "Path to custom death sound (PART 1 DEATH SCREAM)"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_attack(string) : "Path to custom attack sound (FIREBALL WHOOSH)" : "Path to custom attack sound (FIREBALL WHOOSH)"
+snd_death(string) : "Path to custom death sound (PART 2 GIBBING)" : : "Path to custom death sound (PART 2 GIBBING)"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_misc(string) : "Path to custom death sound (PART 1 DEATH SCREAM)" : : "Path to custom death sound (PART 1 DEATH SCREAM)"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_attack(string) : "Path to custom attack sound (FIREBALL WHOOSH)" : : "Path to custom attack sound (FIREBALL WHOOSH)"
 mdl_body(string) : "Path to custom body model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
@@ -632,26 +604,24 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
-@PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie
 
-Default health = 60
-
-If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
+//____TW_EDIT____
+@PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie, Default health = 60. If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
 [
-snd_death(string) : "Path to custom death sound" : "Path to custom death sound"
-snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
-snd_attack(string) : "Path to custom attack sound (WHOOSH)" : "Path to custom attack sound (WHOOSH)"
-snd_idle(string) : "Path to custom idle sound (CRUCIFIED ONLY)" : "Path to custom idle sound (CRUCIFIED ONLY)"
-snd_misc(string) : "Path to custom (IDLE 2) sound" : "Path to custom (IDLE 2) sound"
-snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
-snd_misc2(string) : "Path to custom (PAIN 2) sound" : "Path to custom (PAIN 2) sound"
-snd_misc3(string) : "Path to custom (FALLING) sound" : "Path to custom (FALLING) sound"
+snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
+snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
+snd_attack(string) : "Path to custom attack sound (WHOOSH)" : : "Path to custom attack sound (WHOOSH)"
+snd_idle(string) : "Path to custom idle sound (CRUCIFIED ONLY)" : : "Path to custom idle sound (CRUCIFIED ONLY)"
+snd_misc(string) : "Path to custom (IDLE 2) sound" : : "Path to custom (IDLE 2) sound"
+snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_misc2(string) : "Path to custom (PAIN 2) sound" : : "Path to custom (PAIN 2) sound"
+snd_misc3(string) : "Path to custom (FALLING) sound" : : "Path to custom (FALLING) sound"
 spawnflags(Flags) =
 	[
 		1 : "Crucified" : 0
 		2 : "Ambush" : 0
 		4 : "Crucified motionless" : 0
-		16 : "Spawn Sleeping" : 0
+	  16 : "Spawn Sleeping" : 0
 	]
 ]
 //start deadstuff entries -- dumptruck_ds
@@ -927,7 +897,7 @@ spawnflags(Flags) =
 	[
 		_minlight(integer) : "Min light" :  : "Set the minimum light level for any surface of the brush model. Default 0"
 		_mincolor(color255) : "Min light color R G B" : "255 255 255" : "Specify red(r), green(g) and blue(b) components for the colour of the minlight. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light (255 255 255)"
-		_shadow(integer) : "Shadows" :  : "If n is 1, this model will cast shadows on other models and itself (i.e. '_shadow' implies '_shadowself'). Note that this doesn’t magically give Quake dynamic lighting powers, so the shadows will not move if the model moves. Func_detail ONLY - If set to -1, light will pass through this brush model. Default 0"
+		_shadow(integer) : "Shadows" :  : "If n is 1, this model will cast shadows on other models and itself (i.e. '_shadow' implies '_shadowself'). Note that this doesn�t magically give Quake dynamic lighting powers, so the shadows will not move if the model moves. Func_detail ONLY - If set to -1, light will pass through this brush model. Default 0"
 		_shadowself(integer) : "Self Shadow" :  : "If n is 1, this model will cast shadows on itself if one part of the model blocks the light from another model surface. This can be a better compromise for moving models than full shadowing. Default 0"
 		_dirt(integer) : "Dirt mapping (override)" :  : "For brush models, -1 prevents dirtmapping on the brush model. Useful it the bmodel touches or sticks into the world, and you want to those ares from turning black. Default 0"
 		_phong(choices) : "Enable Phong shading" : 0 =
@@ -1168,25 +1138,21 @@ _color(color255) : "Light color"
 	[ speed(integer) : "Speed" : 40 ]
 @PointClass studio("maps/b_explob.bsp") = misc_explobox : "Large nuclear container" []
 @PointClass studio("maps/b_exbox2.bsp") = misc_explobox2 : "Small nuclear container" []
-@PointClass base(Appearflags, Effects) size(-8 -8 -8, 8 8 8) studio("progs/teleport.mdl") = misc_teleporttrain : "Flying teleporter destination
 
-This was used for the final boss level in the original game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the Don't Rotate spawnflag though or you'll experience a pretty hilarious effect!
-
-You set this up like a func_train using path_corners. By default, it will move automatically between path corners upon map load. However, you can have it wait to move by giving it a targetname. If you need to target it as a spawner and want it to move on map load, use the Start On spawnflag.
-
-You can add effects using the dropdown, use a custom model using the mdl_body keyvalue and even make it invisible with spawnflag 8.
-"
+//____TW_EDIT____
+@PointClass base(Appearflags, Effects) size(-8 -8 -8, 8 8 8) studio("progs/teleport.mdl") = misc_teleporttrain : "Flying teleporter destination, This was used for the final boss level in the original game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the 'Don't Rotate' spawnflag though, or you'll experience a pretty hilarious effect! You set it up like a func_train using path_corners. By default, it will move automatically between path corners upon map load. However, you can have it wait to move by giving it a targetname. If you need to target it as a spawner, and want it to move on map load, use the 'Start On' spawnflag. You can add effects using the dropdown, use a custom model using the mdl_body keyvalue and even make it invisible with spawnflag 8."
 [
 	target(string) : "First path_corner"
 	targetname(target_source) : "Name"
 	mdl_body(string) : "Path to custom body model"
 	spawnflags(Flags) =
 	[
-	2 : "Don't Rotate (use with func_monster_spawner)"
-	4 : "Start On (even with targetname)"
-	8 : "Invisible (mdl_body MUST be empty)"
+      2 : "Don't Rotate (use with func_monster_spawner)"
+      4 : "Start On (even with targetname)"
+      8 : "Invisible (mdl_body MUST be empty)"
 	]
 ]
+
 @PointClass base(Angle, Appearflags, Targetname) color(220 150 150) = trap_spikeshooter : "Triggered shooter - use trigger_multiple to activate" //modified by dumptruck_ds adding Angle and Targetname to baseclass
 [
 	spawnflags(Flags) =
@@ -1236,16 +1202,15 @@ You can add effects using the dropdown, use a custom model using the mdl_body ke
 	]
 ]
 
-@PointClass base(Appearflags, Targetname) size(16 16 24) color(255 128 0) = trigger_shake : "Earthquake
+//____TW_EDIT____
+@PointClass base(Appearflags, Targetname) size(16 16 24) color(255 128 0) = trigger_shake : "Earthquake trigger, shakes players in its radius when active. Strength of tremor is greatest at the centre."
 
-Earthquake trigger - shakes players in its radius when active. Strength of tremor is greatest at the centre.
-
-dmg = Strength at center (default is 120)
-wait = Duration of shake (default is 1)
-count = Effect radius (defalt is 200)
-noise = Sound file to play when starting to shake
-noise1 = Sound file to play when stopping
-targetname = Must be triggered"
+//dmg = Strength at center (default is 120)
+//wait = Duration of shake (default is 1)
+//count = Effect radius (defalt is 200)
+//noise = Sound file to play when starting to shake
+//noise1 = Sound file to play when stopping
+//targetname = Must be triggered"
 [
 	dmg(integer) : "Strength at center (default is 120)"
 	wait(integer) : "Duration of shake (default is 1)"
@@ -1259,14 +1224,12 @@ targetname = Must be triggered"
 	]
 ]
 
-@SolidClass base(Appearflags) = trigger_ladder : "Invisible ladder entity.
-
-When player is touching this entity, she can climb by pushing jump."
+//____TW_EDIT____
+@SolidClass base(Appearflags) = trigger_ladder : "Invisible ladder entity. When player is touching this entity, they can climb by pressing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
 @SolidClass base(Appearflags) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
-
 [
 spawnflags(Flags) =
 [
@@ -1290,11 +1253,9 @@ spawnflags(Flags) =
 // 	fly_sound(integer) : "Play gib sound effects" : 0
 // ]
 
-@PointClass base(Appearflags, Targetname) size(16 16 24) color(206 18 18) = play_gibs : "Triggerable Gib Effect
 
-style = 0 is regular gib effect, 1 is more violent
-fly_sound = 0 is silent, 1 plays randomized gib sounds
-targetname = Must be triggered"
+//____TW_EDIT____
+@PointClass base(Appearflags, Targetname) size(16 16 24) color(206 18 18) = play_gibs : "Triggerable Gib Effect. style = 0 is regular gib effect, 1 is more violent. fly_sound = 0 is silent, 1 plays randomized gib sounds. targetname = Must be triggered"
 [
 	style(Choices) : "Appearance" : 0 =
 		[
@@ -1304,24 +1265,8 @@ targetname = Must be triggered"
 	fly_sound(integer) : "Play gib sound effects" : 0
 ]
 
-@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 200 300) = ltrail_start : "Starting point of a lightning trail. See the manual for set up steps.
-
-Set currentammo key to amount of damage you want the lightning to do.
-Default is 25.
-
-Set frags key to amount of time before next item is triggered.
-Default is 0.3 seconds.
-
-Set weapon key to amount of time to be firing the lightning.
-Default is 0.3 seconds.
-
-Set sounds key to 1 for silence
-Default is 0
-Does not work with ltrail_relay (it will still make noise.)
-
-Set the Toggle spawnflag if you want the lightning shooter to continuously fire until triggered again.
-
-Set the Start On spawnflag to have the lightning shooter start on (DO NOT USE WITH TOGGLE)"
+//____TW_EDIT____
+@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 200 300) = ltrail_start : "Starting point of a lightning trail. See the manual for set up steps. Set 'currentammo' key to amount of damage you want the lightning to do. Default = 25. Set 'frag' key to amount of time before next item is triggered. Default is 0.3 seconds. Set 'weapon' key to amount of time to be firing the lightning. Default is 0.3 seconds. Set 'sounds' key to 1 for silence, Default is 0. Does not work with trail_relay (it will still make noise.) Set the 'Toggle' spawnflag if you want the lightning shooter to continuously fire until triggered again. Set the 'Start On' spawnflag to have the lightning shooter start on (DO NOT USE WITH TOGGLE)"
 [
 spawnflags(Flags) =
 [
@@ -1334,28 +1279,14 @@ spawnflags(Flags) =
 	sounds(integer) : "Set to 1 for silence (?)" : 0
 ]
 
-@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 200) = ltrail_end : "Ending point of a lightning trail.
-
-Does not fire any lightning.
-
-Set frags to amount of time before next item is triggered.
-Default is 0.3 seconds.
-"
+//____TW_EDIT____
+@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 200) = ltrail_end : "Ending point of a lightning trail. Does not fire any lightning. Set 'frags' to amount of time before next item is triggered, Default is 0.3 seconds."
 [
 	frags(float) : "Time before next trigger" : "0.3"
 ]
 
-@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 300) = ltrail_relay : "Relay point of a lightning trail.
-
-Set currentammo to amount of damage you want the lightning to do.
-Default is 25.
-
-Set frags to amount of time before next item is triggered.
-Default is 0.3 seconds.
-
-Set weapon to amount of time to be firing the lightning.
-Default is 0.3 seconds.
-"
+//____TW_EDIT____
+@PointClass base(Appearflags, OneTarget, OneTargetname) size(16 16 16) color(0 150 300) = ltrail_relay : "Relay point of a lightning trail. Set 'currentammo' to amount of damage you want the lightning to do, Default is 25. Set 'frags' to amount of time before next item is triggered, Default is 0.3 seconds. Set 'weapon' to amount of time to be firing the lightning, Default is 0.3 seconds."
 [
 	currentammo(integer) : "Damage" : 0
 	frags(float) : "Time before next trigger" : "0.3"
@@ -1377,9 +1308,9 @@ Default is 0.3 seconds.
 @PointClass = ambient_suck_wind : "Wind sound" []
 @PointClass = ambient_swamp1 : "Frogs croaking" []
 @PointClass = ambient_swamp2 : "Frogs croaking B" []
-@PointClass base(Appearflags) color(255 0 150) = ambient_thunder : "Random Thunder sound
 
-Originally unused in the game. Plays the sound of thunder at a random interval. You only need one of these in your map. It will play everywhere. If you want it to play locally instead, use a play_sound with the appropriate speed setting. The path for the sound is: ambience/thunder1.wav" []
+//____TW_EDIT____
+@PointClass base(Appearflags) color(255 0 150) = ambient_thunder : "Random Thunder sound. Originally unused in the game. Plays the sound of thunder at a random interval. You only need one of these in your map. It will play everywhere. If you want it to play locally instead, use a play_sound with the appropriate speed setting. The path for the sound is: ambience/thunder1.wav" []
 @PointClass = ambient_water1 : "Swirling Water Sound" []
 @PointClass = ambient_wind2 : "Sky Wind Sound" []
 //
@@ -1477,25 +1408,18 @@ Originally unused in the game. Plays the sound of thunder at a random interval. 
 
 @SolidClass base(Appearflags, Targetname) = func_wall : "Wall, starts animation when triggered (if supporting texture)" []
 
-@SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox.
-
-Keys:
-
-health default 20
-
-dmg default 100"
+//____TW_EDIT____
+@SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox."
+//Keys:
+//health default 20
+//dmg default 100"
 [
 health(integer) : "Health" : 20
 dmg(integer) : "Damage" : 100
 ]
 
-@SolidClass base(Appearflags, Targetname) = func_togglewall : "Creates a invisible wall that can be toggled on and off.
-
-START_OFF wall doesn't block until triggered.
-
-noise is the sound to play when wall is turned off.
-noise1 is the sound to play when wall is blocking.
-dmg is the amount of damage to cause when touched."
+//____TW_EDIT____
+@SolidClass base(Appearflags, Targetname) = func_togglewall : "Creates a invisible wall that can be toggled on and off. 'Start Off' wall doesn't block until triggered. 'noise' is the sound to play when wall is turned off. 'noise1' is the sound to play when wall is blocking. 'dmg' is the amount of damage to cause when touched."
 [
 	noise(string) : "Power off sound"
 	noise1(string) : "Sound when touched"
@@ -1505,16 +1429,10 @@ dmg is the amount of damage to cause when touched."
 		1 : "Start Off" : 0
 	]
 ]
-@SolidClass base(Appearflags, Targetname) = func_particlefield : "Creates a brief particle flash roughly the size of the defining
-brush each time it is triggered.
 
-USE_COUNT when the activator is a func_counter, the field will only activate when count is equal to cnt.  Same as using a func_oncount to trigger.
-
-cnt is the count to activate on when USE_COUNT is set.
-color is the color of the particles.  Default is 192 (yellow).
-count is the density of the particles.  Default is 2.
-noise is the sound to play when triggered.  Do not use a looping sound here.
-dmg is the amount of damage to cause when touched."
+//____TW_EDIT____
+@SolidClass base(Appearflags, Targetname) = func_particlefield : "Creates a brief particle flash roughly the size of the defining brush each time it is triggered. Set 'USE_COUNT' when the activator is a func_counter, the field will only activate when 'count' is equal to 'cnt'.  Same as using a 'func_oncount' to trigger. 'cnt' is the count to activate on when 'USE_COUNT' is set. 'color' is the color of the particles, Default is 192 (yellow). 'count' is the density of the particles,  Default is 2. 'noise' is the sound to play when triggered.  Do not use a looping sound here. 'dmg' is the amount of damage to cause when touched."
+//NOTE - noise seems to be missing?
 [
 	cnt(integer) : "Number to activate" : 0
 	color(integer) : "Palette index for color" : 192
@@ -1598,15 +1516,8 @@ dmg is the amount of damage to cause when touched."
 	noise(string) : "is the name of the wav file to play when triggered"
 ]
 
-@PointClass base(Appearflags, Target, Targetname) size(16 16 16) color(0 255 255) = misc_particle_stream : "A particle stream!  It appears when triggered.
-
-This entity is one end of the stream, target another entity as the other end-point. I used the info_notnull, but you should be able to target anything even monsters.
-
-dmg 1st Color  -  Use if you want a single color stream
-cnt 2nd Color  -  Mixes particles of both colors
-noise  Sound to play when triggered
-
-NOTE: To have a continuous stream use a func_counter as the target, then set the misc_particle_stream as the target of the func_counter, finally set the Looping spawnflag on the counter"
+//____TW_EDIT____
+@PointClass base(Appearflags, Target, Targetname) size(16 16 16) color(0 255 255) = misc_particle_stream : "A particle stream! It appears when triggered. This entity is one end of the stream, target another entity as the other end-point. I used the 'info_notnull', but you should be able to target anything, even monsters. 'dmg' 1st Color  -  Use if you want a single color stream. 'cnt' 2nd Color  -  Mixes particles of both colors. 'noise' - Sound to play when triggered. NOTE: To have a continuous stream use a 'func_counter' as the target, then set the 'misc_particle_stream' as the target of the 'func_counter'. Finally, set the Looping spawnflag on the counter."
 [
 	target(target_source) : "End-point of the stream"
 	dmg(integer) : "1st Color" : 0
@@ -1653,11 +1564,7 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 	delay(integer) : "Delay before trigger"
 	message(string) : "Message"
 ]
-@SolidClass base(Appearflags, Targetname) = func_train : "Moving platform
-
-RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
-
-Set Sounds to 3 for custom sounds with noise4 as the movement and noise3 for stop sound"
+@SolidClass base(Appearflags, Targetname) = func_train : "Moving platform. RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time). Set 'Sound' to 3 for custom sounds with 'noise4' as the movement and 'noise3' for stop sound."
 [
 spawnflags(Flags) =
 [
@@ -1777,32 +1684,17 @@ spawnflags(Flags) =
 		1 : "Wait for Trigger"
 	]
 ]
-	@SolidClass base(Trigger) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters
 
-	gravity = what to set the players gravity to
-
-	If using multiple triggers, do not have them touching. Leave a 'buffer' between them.
-
-	 - 0 (default) normal gravity
-	 - 1 no gravity
-	 - 2 almost no gravity
-	 - 15 floaty
-	 - ...
-	 - 101 normal gravity
-	 - 102 slightly higher gravity
-	 - ...
-	 - 1000 very high gravity
-	"
+//____TW_EDIT____
+	@SolidClass base(Trigger) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters gravity = what to set the players gravity to If using multiple triggers, do not have them touching. Leave a 'buffer' between them. - 0 (default) normal gravity | 1 no gravity | 2 almost no gravity | 15 floaty | 101 normal gravity | 102 slightly higher gravity | 1000 very high gravity."
 	[
 		spawnflags(flags) = [ 8: "Start Off (can be toggled)" : 0 ]
-		gravity(integer) : "Gravity : Normal = 0" : 0
+		gravity(integer) : "Gravity (normal = 0)" : 0
 	]
 
 //dumptruck_ds added from Hipnotic Mission Pack
-@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey :
-"Trigger: Requires a Key
-
-NOTE: You must specify either the silver or gold key by setting the relevant spawnflag, or specify an item_key_custom by setting the 'keyname' value so that it matches the 'keyname' value of the item_key_custom."
+//____TW_EDIT____
+@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey : "Trigger: Requires a Key. NOTE: You must specify either the silver or gold key by setting the relevant spawnflag, or specify an item_key_custom by setting the 'keyname' value so that it matches the 'keyname' value of the item_key_custom."
 [
 	cnt(choices) : "Leave key in player's inventory?" : 0 =
 	[
@@ -1841,29 +1733,8 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 	spawnflags(flags) = [ 1: "Entity only" : 0 ]
 	wait(integer) : "Delay before reset" : 10
 ]
-
-@SolidClass base(Appearflags, OneTarget, Targetname) = trigger_teleport : "Trigger: Teleporter
-
-Any object touching this will be transported to the corresponding
-info_teleport_destination entity. Or if RANDOM is chosen, info_teleport_random
-entities will be used. (See below.)
-
-NOTE To have a dormant trigger_teleport (will not teleport until unlocked),
-set is_waiting to 1 and use targetname2 on the trigger_teleport. Target this
-targetname2 with another trigger entity to unlock it.
-
-If the trigger_teleport has a targetname, it will only teleport entities
-when it has been fired. NOTE This is not compatible with is_waiting.
-
-SILENT(2) eliminates the teleporter ambient noise (good for hidden monster teleporters.
-
-RANDOM(4) causes the teleporter to send the traveller to a random destination
-among the info_teleport_random markers in the level.  You MUST place a
-count field that is the number of info_teleport_random entities you placed.
-
-STEALTH(8) eliminates the particle flash and noise when an entity is teleported.
-
-MONSTER_ONLY(16) will only teleport monsters"
+//____TW_EDIT____
+@SolidClass base(Appearflags, OneTarget, Targetname) = trigger_teleport : "Trigger Teleporter - Any object touching this will be transported to the corresponding 'info_teleport_destination' entity. Or if RANDOM is chosen, 'info_teleport_random' entities will be used. NOTE - To have a dormant 'trigger_teleport' (will not teleport until unlocked), set 'is_waiting' to 1 and use 'targetname2' on the 'trigger_teleport'. Target this 'targetname2' with another trigger entity to unlock it. If the 'trigger_teleport' has a 'targetname', it will only teleport entities when it has been fired. NOTE - This is not compatible with 'is_waiting'. SILENT'(2) eliminates the teleporter ambient noise (good for hidden monster teleporters. RANDOM(4) causes the teleporter to send the traveller to a random destination among the 'info_teleport_random' markers in the level.  You MUST place a count field that is the number of 'info_teleport_random' entities you placed. STEALTH(8) eliminates the particle flash and noise when an entity is teleported. MONSTER_ONLY(16) will only teleport monsters."
 [
 	spawnflags(Flags) =
 	[
@@ -1892,9 +1763,9 @@ MONSTER_ONLY(16) will only teleport monsters"
         3 : "Nightmare!"
 	]
 ]
-@SolidClass base(Appearflags) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at info_player_start for an axe only spawn.
 
-Make sure and add a weapon_shotgun to your map!"
+//____TW_EDIT____
+@SolidClass base(Appearflags) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at 'info_player_start' for an axe only spawn. Make sure and add a 'weapon_shotgun' to your map!"
 []
 @PointClass base(Targetname, Trigger) = trigger_relay : "Trigger relay" []
 @SolidClass base(Angle, Appearflags, OneTargetname) = trigger_monsterjump : "Trigger: Monster jump"
@@ -1915,9 +1786,9 @@ Make sure and add a weapon_shotgun to your map!"
 	spawnflags(flags) = [ 1: "Push once" : 0 ]
 	speed(integer) : "Speed" : 1000
 ]
-@SolidClass base(Angle, Appearflags, Targetname) = trigger_push_custom : "Trigger: Push (Custom): Can be toggled on and off, use a custom sound (noise) and be made silent.
 
-NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds should not be looped."
+//____TW_EDIT____
+@SolidClass base(Angle, Appearflags, Targetname) = trigger_push_custom : "Trigger: Push (Custom): Can be toggled on and off, use a custom sound (noise) and be made silent. NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds should not be looped."
 [
 	spawnflags(flags) =
 			[
@@ -1937,24 +1808,25 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
 
 ///////////////////////////////////////////////////////////
-//dumptruck’s additions via Joshua Skelton’s Quake Tools///
+//dumptruck�s additions via Joshua Skelton�s Quake Tools///
 ///////////////////////////////////////////////////////////
 
-@PointClass size(32 32 16) color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
+//____TW_EDIT____
+@PointClass size(32 32 16) color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model. 'frame' can also be used to offset the animation. NOTE: set angle value to 0 if using angles key to rotate mdls"
+//***commented out for now
 
-mdl: The model to display. Can be of type mdl, bsp, or spr.
-frame: Single frame to display. Can also be used to offset the animation.
-first_frame: The starting frame of the animation.
-last_frame: The last frame of the animation.
-speed: The frames per second of animation. Divide 1 by the fps for this value.
-angles: pitch roll yaw (up/down, angle, tilt left/right)
-NOTE: set angle value to 0 if using angles key to rotate mdls"
+//mdl: The model to display. Can be of type mdl, bsp, or spr.
+//frame: Single frame to display. Can also be used to offset the animation.
+//First_frame: The starting frame of the animation.
+//last_frame: The last frame of the animation.
+//speed: The frames per second of animation. Divide 1 by the fps for this value.
+//angles: pitch roll yaw (up/down, angle, tilt left/right)
 [
 	skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
 	mdl(string) : "Model Selection (ex progs/model.mdl)"
-	frame(integer)
-	first_frame(integer)
-	last_frame(integer)
+	frame(integer) : "Single Frame to Display"
+	first_frame(integer) : "Start Animation Frame"
+	last_frame(integer) :  "Last Animation Frame"
 	speed(integer) : "Speed" : 10
 	angles(integer) : "set 'angle' to 0 if this is used"
 ]
@@ -1963,44 +1835,36 @@ NOTE: set angle value to 0 if using angles key to rotate mdls"
 // dumptrucks's additions: Hipnotic Sound Player via TB2 Quoth2.fgd////
 ///////////////////////////////////////////////////////////////////////
 
-@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_lavasplash : "When triggered, play the lavasplash effect and sound from E1M7.
-
-You can set the noise key to a custom sound."
+//____TW_EDIT(s)____
+@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_lavasplash : "When triggered, plays the lavasplash effect and sound from E1M7. You can set the noise key to a custom sound."
 [
-noise(float) : "Path to custom sound"
+noise(string) : "Path to custom sound"
 ]
 
-@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_explosion : "When triggered, plays an explosion.
-
-Causes damage."
+@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_explosion : "When triggered, plays an explosion. Causes damage."
 [
 ]
 
-@PointClass base(Targetname, Appearflags) size(16 16 24) color(150 0 150) = play_tbabyexplode : "When triggered, plays the Spawn death explosion.
-
-Causes damage."
+@PointClass base(Targetname, Appearflags) size(16 16 24) color(150 0 150) = play_tbabyexplode : "When triggered, plays the Spawn death explosion. Causes damage."
 [
 ]
 
-@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_mflash : "When triggered, plays a brief muzzle flash effect.
-"
+@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_mflash : "When triggered, plays a brief muzzle flash effect."
 [
 ]
 
-@PointClass base(Targetname, Appearflags, State) size(16 16 24) color(255 128 0) = play_brlight : "When triggered, toggles a bright lighting effect on. Set state 1 to start on.
-"
+@PointClass base(Targetname, Appearflags, State) size(16 16 24) color(255 128 0) = play_brlight : "When triggered, toggles a bright lighting effect on. Set state 1 to start on."
 [
 ]
 
-@PointClass base(Targetname, Appearflags, State) size(16 16 24) color(255 128 0) = play_dimlight : "When triggered, toggles a lighting effect on. Set state 1 to start on.
-"
+@PointClass base(Targetname, Appearflags, State) size(16 16 24) color(255 128 0) = play_dimlight : "When triggered, toggles a lighting effect on. Set state 1 to start on."
 [
 ]
 
-@PointClass base(Targetname, Appearflags, State) size(16 16 24) color(255 128 0) = play_bfield : "When triggered, toggles a spherical yellow particle effect. Set state 1 to start on.
-"
+@PointClass base(Targetname, Appearflags, State) size(16 16 24) color(255 128 0) = play_bfield : "When triggered, toggles a spherical yellow particle effect. Set state 1 to start on."
 [
 ]
+//____TW_EDIT(s) END____
 
 // tele_fog has been replaced with play_tele for consistency, they work identically in QC
 // @PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = tele_fog : "When triggered, tele_fog shows the teleport particle effects and sound.
@@ -2009,40 +1873,27 @@ Causes damage."
 // [
 //
 // ]
-@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_tele : "When triggered, play_tele shows the teleport particle effects and sound.
-This is the same effect as tele_fog in earlier versions of progs_dump
-Use this when killtargeting an entity if the player can see it happen."
+//____TW_EDIT____
+@PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_tele : "When triggered, 'play_tele' shows the teleport particle effects and sound. This is the same effect as 'tele_fog' in earlier versions of progs_dump. Use this when 'killtarget'ing an entity if the player can see it happen."
 [
-
 ]
+
 // FireAmbient has been replaced with ambient_fire for consistency, they work identically in QC
 // @PointClass base(Appearflags) size(16 16 24) color(206 18 18) = FireAmbient : "This is a simple looping sound from the torches. Use this if you are using custom fire sprites or models."
 // [
 //
 // ]
-@PointClass base(Appearflags) size(16 16 24) color(206 18 18) = ambient_fire : "This is a simple looping sound from the torches. Use this if you are using custom fire sprites or models.
-This is the same effect as FireAmbient in earlier versions of progs_dump"
+//____TW_EDIT____
+@PointClass base(Appearflags) size(16 16 24) color(206 18 18) = ambient_fire : "This is a simple looping sound from the torches. Use this if you are using custom fire sprites or models. This is the same effect as 'FireAmbient' in earlier versions of progs_dump."
 [
-
 ]
-
-@PointClass base(Targetname, Appearflags) size (16 16 24) color(30 150 35) = play_sound : "Hipnotic sound player
-
-Plays a one off sound on a periodic basis.
-Do NOT use looped sounds with this entity. For looped sounds use ambient_general.
-volume: how loud (range is 0.1 to 1 default is 1 = full volume)
-noise: path of sound to play
-wait: random time between sounds (default 20)
-delay: minimum delay between sounds (default 2)
-impulse: sound channel 0-7 (0 automatic is default)
-speed: attenuation factor
-
-NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)"
+//____TW_EDIT____
+@PointClass base(Targetname, Appearflags) size (16 16 24) color(30 150 35) = play_sound : "Hipnotic sound player. Plays a one off sound on a periodic basis. Do NOT use 'looped' sounds with this entity. For looped sounds use 'ambient_general'. 'volume' - how loud (range is 0.1 to 1, default is 1 = full volume). 'noise' - path of sound to play. 'wait' - random time between sounds (default 20). 'delay' - minimum delay between sounds (default 2).  'impulse' - sound channel 0-7 (0 automatic is default). 'speed' - attenuation factor. NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)"
 	[
 
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
-				[
+		[
 			-1 : "No attenuation (heard everywhere)"
 			1  : "Normal"
 			2  : "Idle"
@@ -2053,21 +1904,15 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		wait(integer) : "Random time between sounds" : 20
 		delay(integer) : "Minimum time between sounds" : 2
 	]
-@PointClass base(Targetname, Appearflags) size (16 16 24) color(30 200 35) = play_sound_triggered : "Custom sound trigger
 
-toggle (spawnflags): stopped when triggered again
-volume: how loud (range is 0.1 to 1 default is 1 = full volume)
-noise: path of sound to play
-impulse: sound channel 0-7 (0 automatic is default)
-speed: attenuation factor
-
-NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)"
+//____TW_EDIT____
+@PointClass base(Targetname, Appearflags) size (16 16 24) color(30 200 35) = play_sound_triggered : "Custom sound trigger. 'Toggle' (spawnflag) - stops when triggered again. 'volume' - how loud (range is 0.1 to 1 default is 1 = full volume). 'noise' - path of sound to play. 'impulse' - sound channel 0-7 (0 automatic is default). 'speed' - attenuation factor. NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)"
 	[
 		spawnflags(flags) = [1 : "Toggle" : 0]
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
 		[
-			-1  : "No attenuation (heard everywhere)"
+		   -1  : "No attenuation (heard everywhere)"
 			1  : "Normal"
 			2  : "Idle"
 			3  : "Static"
@@ -2076,18 +1921,13 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		impulse(integer) : "Channel (0 - 7) Automatic" : 0
 		//wait(integer) : "Wait before retrigger" : 0 //Quoth2
 	]
-
-@PointClass base (Appearflags) size (16 14 24) color (30 225 35) = ambient_general : "Custom Ambient Sound
-
-Only use looped sounds with this entity.
-
-NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)"
-
+//____TW_EDIT____
+@PointClass base (Appearflags) size (16 14 24) color (30 225 35) = ambient_general : "Custom Ambient Sound . Only use 'looped' sounds with this entity. NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)."
 	[
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
 				[
-			-1 : "No attenuation (heard everywhere)"
+		    -1 : "No attenuation (heard everywhere)"
 			1  : "Normal"
 			2  : "Idle"
 			3  : "Static"
@@ -2095,9 +1935,8 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 		volume(integer) : "Volume (0 - 1)" : 1
 	]
 
-	@SolidClass base(Appearflags, OneTargetname) = func_fall : "A brush that drops and fades away when touched. Gibs monsters who touch it. Can be targeted by triggers etc.
-	noise = sound to play when triggered
-	wait = wait this long before falling"
+//____TW_EDIT____
+	@SolidClass base(Appearflags, OneTargetname) = func_fall : "A brush that drops and fades away when touched. Gibs monsters who touch it. Can be targeted by triggers etc. 'noise' = sound to play when triggered.	 'wait' = wait this long before falling."
 	[
 	noise(string) : "Sound to play when fall starts"
 	wait(integer) : "Wait this long before falling"
@@ -2106,35 +1945,17 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 				1 : "Don't Fade" : 0
 			]
 	]
-
-	@SolidClass base(Appearflags, OneTargetname, Target) = func_fall2 : "Enhanced version with different behaviors. A brush that drops and fades away when touched. Can be targeted by triggers etc and can target other entities.
-
-	wait = how long until the brush begins falling
-	noise = the sound to make when touched / activated
-	noise2 = the sound to make before it's removed, pain_finished of -1 disables noise2 as the object stays forever
-	cnt = 0 is default behavior, 1 means collisions are disabled while falling, 2 turns the brush into a bouncing entity
-	pain_finished = default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever
-	speed = speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1.
-	Recommended to use lip for max fall speed on cnt 0 and 2 as they follow Quake's default gravity
-	lip = maximum fall speed that can be achieved, caps 'speed' variable. Default is -800
-	avelocity = have it spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity. Use an origin brush for proper spin!
-
-	spawnflags
-		Default behavior allows anyone to activate func_fall2 on touch ONLY
-		1 - Player activated only
-		2 - Monster activated only
-
-	Able to target other entities, including other func_fall2s"
+//____TW_EDIT____
+	@SolidClass base(Appearflags, OneTargetname, Target) = func_fall2 : "Enhanced version of 'func_fall' with different behaviors. A brush that drops and fades away when touched. Can be targeted by triggers etc and can target other entities.	'wait' = how long until the brush begins falling. 'noise' = the sound to make when touched / activated. 'noise2' = the sound to make before it's removed. 'pain_finished' of -1 disables 'noise2' as the object stays forever.	'cnt' = 0 is default behavior, 1 means collisions are disabled while falling, 2 turns the brush into a bouncing entity.	'pain_finished' = default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever. 'speed' = speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1.	Recommended to use lip for max fall speed on cnt 0 and 2 as they follow Quake's default gravity. 'lip' = maximum fall speed that can be achieved, caps 'speed' variable. Default is -800.	'avelocity' = have it spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity. Use an origin brush for proper spin! ***spawnflags Default behavior allows anyone to activate 'func_fall2' on touch ONLY. Able to target other entities, including other 'func_fall2''s."
 	[
 	cnt(integer) : "Collision type, 0 is normal, 1 has no collision and 2 will bounce" : 0
 	speed(integer) : "use with cnt 1 only, speed as to how fast something falls per game frame, default is 10"
 	lip(integer) : "use with cnt 0 and 2, maximum fall speed that can be achieved, caps 'speed' variable." : -800
 	noise(string) : "the sound to make when touched / activated" : : "the sound to make when touched / activated"
-	noise2(string) : "the sound to make before it's removed" :: "the sound to make before it's removed"
+	noise2(string) : "the sound to make before it's removed" : : "the sound to make before it's removed"
 	wait(integer) : "Wait this long before falling"
 	pain_finished(integer) : "fade out speed, default 0.01 higher numbers fade out faster, -1 stays forever"
-	avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : : "spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity Use an origin brush for proper spin!
-	"
+	avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : : "spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity Use an origin brush for proper spin!"
 	spawnflags(flags) =
 			[
 				1 : "Player Activated only" : 0
@@ -2142,19 +1963,11 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 			]
 	]
 
-@SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details
-
-Defaults to built-in .mdl file with 3 styles, cnt is number of pieces of debris to spawn (built-in only)
-
-Or use spawnflag 4 and break_template1-4 to set path of custom .mdl or .bsp models.
-
-brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models.
-
-If noise1 is not set it will default to various sounds in sounds/break folder
-
-Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
+//____TW_EDIT____
+@SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details. Defaults to built-in .mdl file with 3 styles, 'cnt' is number of pieces of debris to spawn (built-in only) Or use spawnflag 4 and break_template1-4)to set path of custom .mdl or .bsp models. brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models. If 'noise1' is not set it will default to various sounds in sounds/break folder. Use spawnflag 2 for an explosion, 'dmg' is amount of damage inflicted."
+[
 	    spawnflags(flags) = [
-					1 :	"No Monster Damage" : 0 : "Only the player can break"
+			1 :	"No Monster Damage" : 0 : "Only the player can break"
 	        2 : "Explosion" : 0 : "Produces explosion effect and sound"
 	        4 : "Use custom mdls or bsp models" : 0 : "Uses models specified in break_template1, 2, etc"
 	    ]
@@ -2195,8 +2008,8 @@ Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 				31 : "Metal Rivets"
 				]
 	    cnt(integer) : "Number of pieces of debris to spawn" : 5
-			health(integer) : "Health of breakable" : 20
-			dmg(integer) : "Amount of Explosive Damage" : 20
+		health(integer) : "Health of breakable" : 20
+		dmg(integer) : "Amount of Explosive Damage" : 20
 	    break_template1(string) : "Template 1 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
 	    break_template2(string) : "Template 2 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
 	    break_template3(string) : "Template 3 model path, e.g. maps/break/brk.bsp or progs/brick.mdl"
@@ -2208,33 +2021,9 @@ Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 	    brk_obj_count4(integer) : "Template 4 spawn count"
 	    brk_obj_count5(integer) : "Template 5 spawn count"
 ]
-@PointClass size(16 14 24) color(255 128 0) base(Targetname, Target, Appearflags) = func_counter : "Activation Counter
 
-TOGGLE causes the counter to switch between an on and off state
-each time the counter is triggered.
-
-LOOP causes the counter to repeat infinitely.  The count resets to zero
-after reaching the value in count.
-
-STEP causes the counter to only increment when triggered.  Effectively,
-this turns the counter into a relay with counting abilities.
-
-RESET causes the counter to reset to 0 when restarted.
-
-RANDOM causes the counter to generate random values in the range 1 to count
-at the specified interval.
-
-FINISHCOUNT causes the counter to continue counting until it reaches count
-before shutting down even after being set to an off state.
-
-START_ON causes the counter to be on when the level starts.
-
-count specifies how many times to repeat the event.  If LOOP is set,
-it specifies how high to count before resetting to zero.  Default is 10.
-
-wait  the length of time between each trigger event. Default is 1 second.
-
-delay how much time to wait before firing after being switched on."
+//____TW_EDIT____
+@PointClass size(16 14 24) color(255 128 0) base(Targetname, Target, Appearflags) = func_counter : "Activation Counter.  TOGGLE causes the counter to switch between an on and off state each time the counter is triggered. LOOP causes the counter to repeat infinitely. The count resets to zero after reaching the value in count. STEP causes the counter to only increment when triggered. Effectively, this turns the counter into a relay with counting abilities. RESET causes the counter to reset to 0 when restarted. RANDOM causes the counter to generate random values in the range 1 to 'count' at the specified interval. FINISHCOUNT causes the counter to continue counting until it reaches 'count' before shutting down, even after being set to an off state. START_ON causes the counter to be on when the level starts. 'count' specifies how many times to repeat the event.  If LOOP is set, it specifies how high to count before resetting to zero. Default is 10. 'wait' = the length of time between each trigger event. Default is 1 second. 'delay' = how much time to wait before firing after being switched on."
 [
 	spawnflags(flags) =
 	[
@@ -2396,38 +2185,23 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 ///////////// CUTSCENE ENTITIES ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-@SolidClass color(27 45 240) base(Appearflags, OneTarget, OneTargetname) = trigger_camera :
-"A player touching this will be transported to the corresponding " +
-"info_movie_camera entity.  You must set the target field, and put an " +
-"info_movie_camera with a targetname field that matches.  At least one script is required, however it can have a blank message. The script " +
-"key gives a starting script number, and the script_delay key is the " +
-"amount of time(seconds) to stay on the first script page.
-
-If the trigger_camera has a targetname, it will only enter camera mode after it has been fired."
+//____TW_EDIT____
+@SolidClass color(27 45 240) base(Appearflags, OneTarget, OneTargetname) = trigger_camera : "A player touching this will be transported to the corresponding 'info_movie_camera' entity.  You must set the 'target' field, and put an 'info_movie_camera' with a 'targetname' field that matches. At least one script is required, however it can have a blank message. The 'script' key gives a starting script number, and the 'script_delay' key is the amount of time(seconds) to stay on the first script page. If the 'trigger_camera' has a 'targetname', it will only enter camera mode after it has been fired."
 [
 focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : : "This is the point that the info_movie_camera will face."
 script(integer) : "Starting script number (REQUIRED)" : 0 : "Should match first script_num key in targeted info_script"
 script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of time(seconds) to stay on the first script page. NOTE: This is overidden by the info_script script_delay but is still required. Set this to 1."
 ]
-
-@PointClass size(-8 -8 -8, 8 8 8) color(27 45 240) base(Appearflags, OneTarget, OneTargetname) = trigger_camera_point :
-"Point entity version of trigger_camera, when targeted will behave the same as the brush-based version. " +
-"info_movie_camera entity.  You must set the target field, and put an " +
-"info_movie_camera with a targetname field that matches.  At least one script is required, however it can have a blank message. The script " +
-"key gives a starting script number, and the script_delay key is the " +
-"amount of time(seconds) to stay on the first script page.
-
-A trigger_camera_point requires a targetname unlike the brush-based version."
+//____TW_EDIT____
+@PointClass size(-8 -8 -8, 8 8 8) color(27 45 240) base(Appearflags, OneTarget, OneTargetname) = trigger_camera_point : "Point entity version of trigger_camera, that when targeted will behave the same as the 'brush-based' version. **info_movie_camera entity,  you must set the target field, and put an 'info_movie_camera' with a 'targetname' field that matches. At least one script is required, however it can have a blank message. The script key gives a starting script number, and the 'script_delay' key is the amount of time(seconds) to stay on the first script page. A 'trigger_camera_point' requires a 'targetname' unlike the brush-based version."
 [
 focal_point(string) : "Name of info_focal_point to face (REQUIRED)" : : "This is the point that the info_movie_camera will face."
 script(integer) : "Starting script number (REQUIRED)" : 0 : "Should match first script_num key in targeted info_script"
 script_delay(integer) : "How long on first page (REQUIRED)" : 0 : "Amount of time(seconds) to stay on the first script page. NOTE: This is overidden by the info_script script_delay but is still required."
 ]
-@PointClass size(-8 -8 -8, 8 8 32) color(21 59 194) base(OneTargetname, Appearflags) = info_movie_camera :
-"This is the destination marker for a camera.  It should have a targetname " +
-"field with the same value as a camera-trigger's target field. The focal_point is the name of info_focal_point to focus on. Set delay to 1 to "+
-"ignore the focal_point when moving the camera. Setting the speed key on an info_movie_camera controls the rate of travel TO THAT CAMERA from another camera position. "+
-"The target key names the next info_movie_camera in a sequence."
+
+//____TW_EDIT____
+@PointClass size(-8 -8 -8, 8 8 32) color(21 59 194) base(OneTargetname, Appearflags) = info_movie_camera : "This is the destination marker for a camera. It should have a targetname field with the same value as a camera-trigger's target field. The focal_point is the name of info_focal_point to focus on. Set delay to 1 to ignore the focal_point when moving the camera. Setting the speed key on an info_movie_camera controls the rate of travel TO THAT CAMERA from another camera position. The target key names the next info_movie_camera in a sequence."
 [
 delay(integer) : "Don't track focal_point when animated" : 0 : "When camera moves, don't track the focal_point, keep existing view angle."
 focal_point(string) : "info_focal_point to face (REQUIRED)" : 0 : "Name of info_focal_point to face"
@@ -2435,16 +2209,13 @@ speed(integer) : "Speed of travel to the info_movie_camera if in a sequence" : 0
 target(string) : "Next info_movie_camera if part of a sequence"
 wait(integer) : "Wait at this point (seconds) if animated" : 0 : "Wait in seconds before moving to next info_movie_camera if part of a sequence"
 ]
-@PointClass size(-8 -8 -8, 8 8 16) color(27 45 247) base(Appearflags, OneTargetname) = info_focal_point :
-"This is the point that the camera will face.  It should have a targetname "+
-"field with the same value as a camera-trigger's focal_point field."
+
+//____TW_EDIT____
+@PointClass size(-8 -8 -8, 8 8 16) color(27 45 247) base(Appearflags, OneTargetname) = info_focal_point : "This is the point that the camera will face.  It should have a targetname field with the same value as a camera-trigger's focal_point field."
 []
-@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags) = info_script :
-"This is the destination marker for a script." +
-"It should have a script_num field that signifies the script number, and "+
-"a next_script to signal the next script (0 if this is the last page of "+
-"the script), a script_delay to signify how many seconds to display this "+
-"page, and of course a message field with the text to display. "
+
+//____TW_EDIT____
+@PointClass size(-8 -8 -8, 8 8 16) color(115 142 240) base(Appearflags) = info_script : "This is the destination marker for a script. It should have a script_num field that signifies the script number, and a next_script to signal the next script (0 if this is the last page of the script), a script_delay to signify how many seconds to display this page, and of course a message field with the text to display. "
 [
 message(string) : "Text of script"
 script_num(integer) : "Number of script (REQUIRED)" : 0 : "Number of script matching the script key in trigger_camera"
@@ -2455,9 +2226,8 @@ target2(target_destination) : "Target2"
 target3(target_destination) : "Target3"
 target4(target_destination) : "Target4"
 ]
-@PointClass size(-8 -8 -8, 8 8 8) color(115 100 240) base(Appearflags, OneTargetname) = info_script_sound :
-"A sound player targeted by info_script. You only need this if you want a sound to play when text is "+
-"printed on the screen. You can use one for multiple info scripts. You can also trigger custom dialogue tracks with this entity. "
+//____TW_EDIT____
+@PointClass size(-8 -8 -8, 8 8 8) color(115 100 240) base(Appearflags, OneTargetname) = info_script_sound : "A sound player targeted by info_script. You only need this if you want a sound to play when text isprinted on the screen. You can use one for multiple info scripts. You can also trigger custom dialogue tracks with this entity. "
 [
 noise1(string) : "Path to custom sound file. Requires sounds key set to 4"
 sounds(choices) : "Sound style" : 0 =
@@ -2470,43 +2240,15 @@ sounds(choices) : "Sound style" : 0 =
 	]
 ]
 //item-backpack
-@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) studio("progs/backpack.mdl") = item_backpack
-:"Placeable backpack
-
-By default, gives roughly half the ammo from the 4 standard pickups:
-
-10 Shells
-12 Nails
-2 Rockets
-3 Cells
-
-Or you can use the spawnflags to mix and match types.
-Override the spawnflags defaults by adding custom amounts to:
-
-ammo_shells
-ammo_nails
-ammo_rockets
-ammo_cells
-
-Can trigger spawn and suspend in air, but not respawn.
-NOTE: If these are set you'll need to set spawnflags for ammo,
-otherwise the backpack will default to empty.
-
-You can set a skin index if you are using a custom model with skins.
-
-The default pickup message is `You got a backpack.` But you can
-set a custom message with the netname key. 'You got' will be the prefix
-and the mapper chooses the rest of the message.
-
-e.g. For 'You got a bunch of rockets!' the netname value would be
-'a bunch of rockets!'"
+//____TW_EDIT____
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) studio("progs/backpack.mdl") = item_backpack :"Placeable backpack - By default, gives roughly half the ammo from the 4 standard pickups: 10 Shells | 12 Nails | 2 Rockets | 3 Cells. Or you can use the spawnflags to mix and match types. Override the spawnflags defaults by adding custom amounts to: 'ammo_shells' | 'ammo_nails' | 'ammo_rockets' | 'ammo_cells'. Can trigger spawn and suspend in air, but not respawn. NOTE - If these are set you'll need to set spawnflags for ammo, otherwise the backpack will default to empty. You can set a skin index if you are using a custom model with skins. The default pickup message is `You got a backpack`. But you can set a custom message with the 'netname' key. 'You got' will prefix the mapper choice for the rest of the message. e.g. For 'You got a bunch of rockets!' the 'netname' value would be 'a bunch of rockets!'"
 [
 skin(integer) : "Skin index" : 0
 ammo_shells(integer) : "Custom amount of shells" : 0
 ammo_nails(integer) : "Custom amount of nails" : 0
 ammo_rockets(integer) : "Custom amount of rockets" : 0
 ammo_cells(integer) : "Custom amount of cells" : 0
-netname(string) ; "Custom text for ammo pickups"
+netname(string) : "Custom text for ammo pickups"
 spawnflags(flags) =
 	[
 		1 : "Shells" : 0
@@ -2518,13 +2260,8 @@ spawnflags(flags) =
 		128 : "Suspended in air" : 0
 	]
 ]
-
-@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal
-Any object touching this will be healed
-heal_amount -- the amount to heal each time (default 5)
-wait -- the time between each healing (default 1)
-health_max -- the upper limit for the healing (default 100, max 250)
-noise -- path to custom sound file"
+//____TW_EDIT____
+@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal - Any object touching this will be healed. 'heal_amount ' - the amount to heal each time (default 5). 'wait ' - the time between each healing (default 1). 'health_max' - the upper limit for the healing (default 100, max 250). 'noise' - path to custom sound file."
 [
 	wait(integer) : "Time between each healing (default 1)" : 1
 	heal_amount(integer) : "Healing per second" : 5
