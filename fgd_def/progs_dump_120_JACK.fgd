@@ -528,7 +528,7 @@ style(Choices) : "Attack type" : 0 =
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom 1st pain sound" : : "Path to 1st custom pain sound"
 snd_sight(string) : "Path to custom sight sound for STOP!" : : "Path to custom sight sound for STOP!"
-snd_attack(string) : "Path to custom attack sound e.g Llaser firing" : : "Path to custom attack sound e.g laser firing"
+snd_attack(string) : "Path to custom attack sound e.g laser firing" : : "Path to custom attack sound e.g laser firing"
 snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound e.g. laser hits wall"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sight sound for FREEZE!" : : "Path to custom sight sound for FREEZE!"
@@ -1145,6 +1145,7 @@ _color(color255) : "Light color"
 	target(string) : "First path_corner"
 	targetname(target_source) : "Name"
 	mdl_body(string) : "Path to custom body model"
+	speed(float) : "Speed between path corners"
 	spawnflags(Flags) =
 	[
       2 : "Don't Rotate (use with func_monster_spawner)"
