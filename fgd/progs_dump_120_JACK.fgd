@@ -549,7 +549,7 @@ snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : : "Path to c
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_spawn : "Spawn, Default health = 80 Note: this monster is renamed in progs_dump but unchanged in all other aspects."
+@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) studio("progs/tarbaby.mdl") = monster_spawn : "Spawn, Default health = 80 Note: this monster is renamed in progs_dump but unchnaged in all other aspects."
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"

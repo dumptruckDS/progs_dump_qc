@@ -517,8 +517,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	damage_mod(float) : "Damage multiplier (e.g. 4 = Quad damage)" : : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 ]
 
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_army : "Grunt
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
 
 Default health = 30"
 [
@@ -538,8 +537,7 @@ style(Choices) : "Attack type" =
 		4 : "nails"
 	]
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({{ mdl_body == "" -> {"path": "progs/dog.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_dog : "Nasty Doggie
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
 
 Default health = 25"
 [
@@ -549,8 +547,7 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
-// @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/ogre.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_ogre : "Ogre
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
 
 Default health = 200"
 [
@@ -571,8 +568,7 @@ style(Choices) : "Attack type" =
 	]
 ]
 
-// @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/ogre.mdl", "frame" : 63}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_ogre_marksman : "Ogre marksman
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
 
 Default health = 200
 
@@ -586,8 +582,7 @@ snd_idle(string) : "Path to custom idle sound (IDLE)" : : "Path to custom idle s
 snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : : "Path to custom sound (IDLE CHAINSAW DRAG)"
 snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : : "Path to custom sound (ATTACK GRUNT)"
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/knight.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_knight : "Knight
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
 
 Default heath = 75"
 [
@@ -598,8 +593,7 @@ snd_attack(string) : "Path to custom attack sound (SWORD SLASH 1)" : :  "Path to
 snd_idle(string) : "Path to custom idle sound" : :  "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : : "Path to custom sound (SWORD SLASH 2)"
 ]
-// @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl" }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/hknight.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl" }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
 
 Default health = 250"
 [
@@ -610,8 +604,7 @@ snd_attack(string) : "Path to custom attack sound (MAGIC BOING)" : : "Path to cu
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD SLASH sound"
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/wizard.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_wizard : "Scrag a.k.a Wizard
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
 
 Default health = 80"
 [
@@ -622,9 +615,7 @@ snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack so
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/demon.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_demon1 : "Fiend
-
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
 Default heath = 300"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -635,8 +626,7 @@ snd_death(string) : "Path to custom death sound" : : "Path to custom death sound
   snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
 
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/shambler.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_shambler : "Shambler
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
 
 Default health = 600"
 [
@@ -650,10 +640,8 @@ snd_misc(string) : "Path to custom sound (GRUNT 2)" : : "Path to custom sound (G
 snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : : "Path to custom sound (LIGHTNING ZAP)"
 snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : : "Path to custom sound (LIGHTNING BOOM)"
 ]
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({{ mdl_body == "" -> {"path": "progs/boss.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_boss : "Chthon" []
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({{ mdl_body == "" -> {"path": "progs/boss.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_boss2 : "Killable Chthon
-
-Default health = 1000 (Skill 0), 3000 (Skill 1-3)"
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
@@ -661,8 +649,7 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_move(string) : "Path to custom rising and lowering sound" : : "Path to custom rising and lowering sound"
 ]
-// @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl" }) = monster_enforcer : "Enforcer
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/enforcer.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_enforcer : "Enforcer
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl" }) = monster_enforcer : "Enforcer
 
 Default health = 80" [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
@@ -685,8 +672,7 @@ snd_misc2(string) : "Path to custom sight sound for HALT!" : : "Path to custom s
 snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain sound"
 ]
 
-// @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/shalrath.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_shalrath : "Vore a.k.a Shalrath
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
 
 Default health = 400"
 [
@@ -697,11 +683,11 @@ snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : : "Path to cus
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : : "Path to custom attack2 sound (VOREBALL FIRE)"
 ]
-@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) model({{ mdl_body == "" -> {"path": "progs/tarbaby.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_spawn : "Spawn
+@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/tarbaby.mdl" }) = monster_spawn : "Spawn
 
 Default health = 80
 
-Note: this monster is renamed in progs_dump but unchanged in all other aspects."
+Note: this monster is renamed in progs_dump but unchnaged in all other aspects."
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -717,18 +703,9 @@ snd_misc(string) : "Path to custom sound (WET SLAPPING)" : : "Path to custom sou
 // snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound"
 // snd_misc(string) : "Path to custom sound (WET SLAPPING)" : : "Path to custom sound (WET SLAPPING)"
 // ]
-// @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
-@PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model(
-    {{
+@PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
 
-      //First placement Fish display
-      mdl_body == "" -> { "path": "progs/fish.mdl" },
-      //Custom model display
-      mdl_body != "" -> { "path": mdl_body }
-
-    }}
-) = monster_fish : "Rotfish, Default health = 25"
-
+Default health = 25"
 [
 snd_death(string) : "Path to custom death sound (BUBBLES)" : : "Path to custom death sound (BUBBLES)"
 snd_attack(string) : "Path to custom attack sound (CRUNCHY BITE)" : : "Path to custom attack sound (CRUNCHY BITE)"
@@ -739,8 +716,7 @@ mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
 ]
-// @PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath"
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({{ mdl_body == "" -> {"path": "progs/oldone.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_oldone : "Shub-Niggurath"
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath"
 [
 snd_death(string) : "Path to custom death sound PART 1" : : "Path to custom death sound PART 1"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -752,10 +728,7 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
-// @PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({{ mdl_body == "" -> {"path": "progs/oldone.mdl", "frame": 46}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_oldone2 : "Killable Shub-Niggurath
-
-Default health = 1000 (Skill 0), 3000 (Skill 1-3)"
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath"
 [
 snd_death(string) : "Path to custom death sound (PART 2 GIBBING)" : : "Path to custom death sound (PART 2 GIBBING)"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -769,8 +742,7 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
-// @PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/zombie.mdl","frame" : frame}) = monster_zombie : "Zombie
-@PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) model({{ mdl_body == "" -> {"path": "progs/zombie.mdl", "frame" : frame}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_zombie : "Zombie
+@PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/zombie.mdl","frame" : frame}) = monster_zombie : "Zombie
 
 Default health = 60
 
