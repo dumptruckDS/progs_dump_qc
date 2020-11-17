@@ -457,7 +457,8 @@ void() OgreFireSpike =
 
 
     sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
-    self.attack_finished = time + 0.2;
+    self.attack_finished = time + .7;
+    // self.attack_finished = time + 0.2;
 		self.effects = self.effects | EF_MUZZLEFLASH; // -- dumptruck_ds
 
     dir = normalize (self.enemy.origin - self.origin);
