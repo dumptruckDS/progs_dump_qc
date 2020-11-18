@@ -2010,7 +2010,9 @@ void() item_backpack =
 
 	self.touch = item_backpack_message;
 
-	setmodel (self, "progs/backpack.mdl");
+	precache_body_model ("progs/pd_bpack.mdl");
+	body_model ("progs/pd_bpack.mdl");
+	// setmodel (self, "progs/backpack.mdl");
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
 };
