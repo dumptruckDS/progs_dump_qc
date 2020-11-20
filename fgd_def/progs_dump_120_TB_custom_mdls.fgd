@@ -389,8 +389,8 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
 	item_key2 : "Gold key" []
 
-@PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
-	item_key_custom :
+// @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
+@PointClass base(Key) model({{ mdl== "" -> {"path": "progs/pd_wiz_key.mdl"}, mdl != "" -> {"path" : mdl} }}) = item_key_custom :
 "A customizable key item.
 
 'keyname': name of the key, e.g. 'bronze key' (required)
@@ -520,7 +520,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_army : "Grunt
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_army : "Grunt
 
 Default health = 30"
 [
@@ -786,6 +786,11 @@ snd_misc(string) : "Path to custom (IDLE 2) sound" : : "Path to custom (IDLE 2) 
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
 snd_misc2(string) : "Path to custom (PAIN 2) sound" : : "Path to custom (PAIN 2) sound"
 snd_misc3(string) : "Path to custom (FALLING) sound" : : "Path to custom (FALLING) sound"
+frame(Choices) : "For In-Editor Model Display Only" : 0 =
+	[
+		194 : "Crucified"
+		173	: "Sleeping"
+	]
 spawnflags(Flags) =
 	[
 		1 : "Crucified" : 0
@@ -1187,7 +1192,7 @@ spawnflags(Flags) =
 	[ speed(integer) : "Speed" : 40 ]
 @PointClass base(Appearflags) size(0 0 0, 32 32 64) model({ "path": ":maps/b_explob.bsp" }) = misc_explobox : "Large exploding container" []
 @PointClass base(Appearflags) size(0 0 0, 32 32 32) model({ "path": ":maps/b_exbox2.bsp" }) = misc_explobox2 : "Small exploding container" []
-@PointClass base(Appearflags, Effects) size(-8 -8 -8, 8 8 8) model({ "path": ":progs/teleport.mdl" }) = misc_teleporttrain : "Flying teleporter destination
+@PointClass base(Appearflags, Effects) size(-8 -8 -8, 8 8 8) model({{ mdl_body == "" -> {"path": "progs/teleport.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = misc_teleporttrain : "Flying teleporter destination
 
 This was used for the final boss level in the original game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the Don't Rotate spawnflag though or you'll experience a pretty hilarious effect!
 
