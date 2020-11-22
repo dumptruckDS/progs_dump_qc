@@ -203,6 +203,8 @@ and the mapper chooses the rest of the message.
 
 e.g. For 'You got a bunch of rockets!' the netname key would be
 'a bunch of rockets!'
+
+See the manual for information on skins and models for this entity.
 */
 /*QUAKED worldspawn (0 0 0) ?
 Only used for the world entity.

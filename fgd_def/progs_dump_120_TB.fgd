@@ -2508,7 +2508,7 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
 //item-backpack
-@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/backpack.mdl" }) = item_backpack
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/pd_bpack.mdl" }) = item_backpack
 :"Placeable backpack
 
 By default, gives roughly half the ammo from the 4 standard pickups:
@@ -2539,12 +2539,29 @@ and the mapper chooses the rest of the message.
 e.g. For 'You got a bunch of rockets!' the netname value would be
 'a bunch of rockets!'"
 [
-skin(integer) : "Skin index" : 0
+// skin(integer) : "Skin index" : 0
+skin(Choices) : "Backpack Skin" : 0 =
+	[
+		0 : "Default"
+		1 : "Shells"
+		2 : "Nails"
+		3 : "Rockets"
+		4 : "Cells"
+		5 : "Red"
+		6 : "Rust"
+		7 : "Blue"
+		8 : "Green"
+		9 : "Purple"
+		10 : "Cream"
+		11 : "Gray"
+		12 : "Orignal Vanilla skin"
+	]
 ammo_shells(integer) : "Custom amount of shells" : 0
 ammo_nails(integer) : "Custom amount of nails" : 0
 ammo_rockets(integer) : "Custom amount of rockets" : 0
 ammo_cells(integer) : "Custom amount of cells" : 0
 netname(string) : "Custom text for ammo pickups"
+mdl_body(string) : "Path to custom body model"
 spawnflags(flags) =
 	[
 		1 : "Shells" : 0
