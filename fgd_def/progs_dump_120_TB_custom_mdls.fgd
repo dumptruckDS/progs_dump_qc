@@ -520,7 +520,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"path" : mdl_body} }}) = monster_army : "Grunt
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_army : "Grunt
 
 Default health = 30"
 [
