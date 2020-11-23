@@ -2592,14 +2592,24 @@ netname(string) : "Custom text for ammo pickups"
 mdl_body(string) : "Path to custom body model"
 spawnflags(flags) =
 	[
-		1 : "Shells" : 0
-		2 : "Nails"	: 0
-		4 : "Rockets"	: 0
-		8 : "Cells" : 0
+		1 : "All Ammo" : 0
+		2 : "Shells"	: 0
+		4: "Nails"	: 0
+		8 : "Rockets"	: 0
+		16 : "Cells" : 0
 		32 : "Spawn silent" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]
+	// [
+	// 	1 : "Shells" : 0
+	// 	2 : "Nails"	: 0
+	// 	4 : "Rockets"	: 0
+	// 	8 : "Cells" : 0
+	// 	32 : "Spawn silent" : 0
+	// 	64 : "Trigger spawned" : 0
+	// 	128 : "Suspended in air" : 0
+	// ]
 ]
 
 @SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal

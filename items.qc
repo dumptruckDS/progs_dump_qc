@@ -1893,10 +1893,11 @@ void() DropBackpack =
 };
 
 // dumptruck_ds
-float SHELLS = 1;
-float NAILS = 2;
-float ROCKETS = 4;
-float CELLS = 8;
+float DEFAULT = 1;
+float SHELLS = 2;
+float NAILS = 4;
+float ROCKETS = 8;
+float CELLS = 16;
 void() item_backpack_message =
 {
 	// from Copper -- dumptruck_ds
@@ -1970,8 +1971,13 @@ void() item_backpack =
 	self.movetype = MOVETYPE_TOSS;
 	self.classname = "item_backpack";
 	// self.netname = self.netname;
+	if !(self.spawnflags)
+		{
+			objerror ("WTF????");
+			return;
+		}
 
-	if (self.spawnflags == 0)
+	if (self.spawnflags & DEFAULT)
 		{
 			self.ammo_shells    = 10;
 			self.ammo_nails    = 12;
