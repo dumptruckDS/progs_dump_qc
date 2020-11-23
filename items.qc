@@ -1973,7 +1973,7 @@ void() item_backpack =
 	// self.netname = self.netname;
 	if !(self.spawnflags)
 		{
-			objerror ("WTF????");
+			objerror ("\bNO SPAWNFLAG SET ON item_backpack");
 			return;
 		}
 

@@ -2,6 +2,8 @@
 
 * Added "frame" key in TrenchBroom flavored FGDs to aid in positioning
   Crucified or Sleeping Zombies
+* Fixed issues with item_backpack spawnflags. This required changes to
+  the existing spawnflags in progs_dump 1.2.0 RC 1.
 
 1.2.0 Release Candidate 1 November 2020
 

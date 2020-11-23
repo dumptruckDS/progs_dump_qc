@@ -2242,7 +2242,7 @@ sounds(choices) : "Sound style" : 0 =
 ]
 //item-backpack
 //____TW_EDIT____
-@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) studio("progs/backpack.mdl") = item_backpack :"Placeable backpack - By default, gives roughly half the ammo from the 4 standard pickups: 10 Shells | 12 Nails | 2 Rockets | 3 Cells. Or you can use the spawnflags to mix and match types. Override the spawnflags defaults by adding custom amounts to: 'ammo_shells' | 'ammo_nails' | 'ammo_rockets' | 'ammo_cells'. Can trigger spawn and suspend in air, but not respawn. NOTE - If these are set you'll need to set spawnflags for ammo, otherwise the backpack will default to empty. You can set a skin index if you are using a custom model with skins. The default pickup message is `You got a backpack`. But you can set a custom message with the 'netname' key. 'You got' will prefix the mapper choice for the rest of the message. e.g. For 'You got a bunch of rockets!' the 'netname' value would be 'a bunch of rockets!'"
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) studio("progs/backpack.mdl") = item_backpack :"Placeable backpack - An ammo type spawnflag must be set for this to appear in a map. ALL AMMO gives roughly half the ammo from the 4 standard pickups: 10 Shells | 12 Nails | 2 Rockets | 3 Cells. Or you can use the spawnflags to mix and match types. Override the spawnflags defaults by adding custom amounts to: 'ammo_shells' | 'ammo_nails' | 'ammo_rockets' | 'ammo_cells'. Make sure and select both the spawnflag and matching ammo_ type. Can trigger spawn and suspend in air, but not respawn. You can set a skin index if you are using a custom model with skins. The default pickup message is `You got a backpack`. But you can set a custom message with the 'netname' key. 'You got' will prefix the mapper choice for the rest of the message. e.g. For 'You got a bunch of rockets!' the 'netname' value would be 'a bunch of rockets!'"
 [
 skin(integer) : "Skin index" : 0
 ammo_shells(integer) : "Custom amount of shells" : 0
@@ -2269,10 +2269,11 @@ skin(Choices) : "Backpack Skin" : 0 =
 	]
 spawnflags(flags) =
 	[
-		1 : "Shells" : 0
-		2 : "Nails"	: 0
-		4 : "Rockets"	: 0
-		8 : "Cells" : 0
+		1 : "All Ammo" : 0
+		2 : "Shells"	: 0
+		4: "Nails"	: 0
+		8 : "Rockets"	: 0
+		16 : "Cells" : 0
 		32 : "Spawn silent" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0

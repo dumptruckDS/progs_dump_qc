@@ -2511,7 +2511,8 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 @PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/pd_bpack.mdl" }) = item_backpack
 :"Placeable backpack
 
-By default, gives roughly half the ammo from the 4 standard pickups:
+An ammo type spawnflag must be set for this to appear in a map.
+The ALL_AMMO spawnflag gives roughly half the ammo from the 4 standard pickups:
 
 10 Shells
 12 Nails
@@ -2526,9 +2527,8 @@ ammo_nails
 ammo_rockets
 ammo_cells
 
+Make sure and select both matching spawnflag and ammo_ type.
 Can trigger spawn and suspend in air, but not respawn.
-NOTE: If these are set, you'll need to set spawnflags for ammo
-otherwise, the backpack will default to empty.
 
 You can set a skin index if you are using a custom model with skins.
 
@@ -2564,10 +2564,11 @@ netname(string) : "Custom text for ammo pickups"
 mdl_body(string) : "Path to custom body model"
 spawnflags(flags) =
 	[
-		1 : "Shells" : 0
-		2 : "Nails"	: 0
-		4 : "Rockets"	: 0
-		8 : "Cells" : 0
+		1 : "All Ammo" : 0
+		2 : "Shells"	: 0
+		4: "Nails"	: 0
+		8 : "Rockets"	: 0
+		16 : "Cells" : 0
 		32 : "Spawn silent" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
