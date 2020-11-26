@@ -3,6 +3,7 @@
 float 	BREAKABLE_NO_MONSTERS = 1;
 float		BREAK_EXPLODE = 2;
 float		BREAK_CUSTOM = 4;
+float		START_OFF_BLUE = 1;
 float		SPARKS_BLUE = 2;
 float		SPARKS_PALE = 4;
 
