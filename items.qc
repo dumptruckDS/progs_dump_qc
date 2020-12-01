@@ -263,37 +263,52 @@ void() item_health =
 
 	if (self.spawnflags & H_ROTTEN)
 	{
-		precache_model("maps/b_bh10.bsp");
+		// precache_model("maps/b_bh10.bsp");
+		precache_body_model("maps/b_bh10.bsp");
 
 		precache_sound("items/r_item1.wav");
-		setmodel(self, "maps/b_bh10.bsp");
+		// setmodel(self, "maps/b_bh10.bsp");
+		body_model("maps/b_bh10.bsp");
 		self.noise = "items/r_item1.wav";
 		self.healamount = 15;
 		self.healtype = 0;
+		if !(self.particles_offset)
 		self.particles_offset = '16 16 8';
 
 	}
 	else
 	if (self.spawnflags & H_MEGA)
 	{
-		precache_model("maps/b_bh100.bsp");
+		// precache_model("maps/b_bh100.bsp");
+		precache_body_model("maps/b_bh100.bsp");
 		precache_sound("items/r_item2.wav");
-		setmodel(self, "maps/b_bh100.bsp");
+		// setmodel(self, "maps/b_bh100.bsp");
+		body_model("maps/b_bh100.bsp");
 		self.noise = "items/r_item2.wav";
 		self.healamount = 100;
 		self.healtype = 2;
+		if !(self.particles_offset)
 		self.particles_offset = '16 16 16';
 
 	}
 	else
 	{
-		precache_model("maps/b_bh25.bsp");
-		precache_sound("items/health1.wav");
-		setmodel(self, "maps/b_bh25.bsp");
-		self.noise = "items/health1.wav";
+		// precache_model("maps/b_bh25.bsp"); // dumptruck_ds custom health models and sounds START
+		precache_body_model("maps/b_bh25.bsp");
+		// setmodel(self, "maps/b_bh25.bsp");
+		// precache_sound("items/health1.wav");
+		precache_sound_misc("items/health1.wav");
+		body_model("maps/b_bh25.bsp");
+		// if !(self.noise)
+		// self.noise = "items/health1.wav";
+		if !(self.snd_misc)
+		self.snd_misc = "items/health1.wav";
+		self.noise = self.snd_misc;
+		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 25;
 		self.healtype = 1;
-		self.particles_offset = '16 16 8';
+		if !(self.particles_offset)
+		self.particles_offset = '16 16 8'; // dumptruck_ds custom health models and sounds END
 
 	}
 	setsize (self, '0 0 0', '32 32 56');
@@ -327,7 +342,8 @@ void() health_touch =
 	sprint(other, " health\n");
 
 // health touch sound
-	sound(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
+	// sound(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
+	sound_misc(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
 
 	stuffcmd (other, "bf\n");
 
