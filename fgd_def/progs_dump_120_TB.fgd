@@ -276,7 +276,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 		128 : "Suspended in air" : 0
 	]
 	message(string) : "Message"
-	delay(integer) : "Delay" 
+	delay(integer) : "Delay"
 ]
 
 @BaseClass base(NonRespawnableItem) =
@@ -376,7 +376,13 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	Armor []
 
 @PointClass base(Armor) model({ "path": ":progs/armor.mdl", "skin": 2 }) =
-	item_armorInv : "Red armor (200%)" []
+	item_armorInv : "Red armor (200%)"
+	[
+	mdl_body(string) : "Path to custom model"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
+	snd_misc(string) : "Path to custom pickup sound"
+	obit_name(string) : "Custom name for this armor." : : "Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'"
+	]
 @PointClass base(Armor) model({ "path": ":progs/armor.mdl", "skin": 1 }) =
 	item_armor2 : "Yellow armor (150%)" []
 @PointClass base(Armor) model({ "path": ":progs/armor.mdl" }) =

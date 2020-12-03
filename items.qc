@@ -435,6 +435,12 @@ void() armor_touch =
 		value = 200;
 		bit = IT_ARMOR3;
 	}
+	else if (self.classname == "item_armor_shard")
+	{
+		type = 0.3;
+		value = 15;
+		bit = IT_ARMOR1;
+	}
 	else
 	{
 		dprint ("WARNING: armor_touch: unknown classname: ");
@@ -468,8 +474,11 @@ void() armor_touch =
 	else
 	sprint(other, "You got armor\n");
 // armor touch sound
-	// sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM);
-	sound_misc(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM);
+	// sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds START
+	if (self.snd_misc != "")
+	sound_misc(other, CHAN_ITEM, self.snd_misc, 1, ATTN_NORM);
+	else
+	sound_misc(other, CHAN_ITEM,"items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
 	stuffcmd (other, "bf\n");
 
 	activator = other;
@@ -483,6 +492,23 @@ model ("progs/armor.mdl");
 }
 */
 
+void() item_armor_shard =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	self.touch = armor_touch;
+	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
+	precache_body_model ("progs/armor.mdl");
+	// setmodel (self, "progs/armor.mdl");
+	body_model ("progs/armor.mdl");
+	precache_sound_misc ("items/armor1.wav");
+	if !(self.skin) // dumptruck_ds custom models and sounds END
+	self.skin = 0;
+	setsize (self, '-16 -16 0', '16 16 56');
+	StartItem ();
+};
+
 void() item_armor1 =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -494,7 +520,7 @@ void() item_armor1 =
 	// setmodel (self, "progs/armor.mdl");
 	body_model ("progs/armor.mdl");
 	precache_sound_misc ("items/armor1.wav");
-	if !(self.skin)
+	if !(self.skin) // dumptruck_ds custom models and sounds END
 	self.skin = 0;
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
