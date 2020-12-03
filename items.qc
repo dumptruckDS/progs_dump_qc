@@ -314,7 +314,7 @@ void() item_health =
 		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
 		self.snd_misc = "items/health1.wav";
 		self.noise = self.snd_misc;
-		
+
 		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 25;
 		self.healtype = 1;
@@ -354,7 +354,7 @@ void() health_touch =
 
 // health touch sound
 	// sound(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
-	sound_misc(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
+	sound_misc(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);  //custom sounds -- dumptruck_ds
 
 	stuffcmd (other, "bf\n");
 
@@ -459,9 +459,17 @@ void() armor_touch =
 		self.nextthink = time + 20;
 	self.think = SUB_regen;
 
+	if (self.obit_name != "")
+	{
+		sprint (other, "You got ");
+		sprint (other, self.obit_name); // custom armor name
+		sprint (other, "\n");
+	}
+	else
 	sprint(other, "You got armor\n");
 // armor touch sound
-	sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM);
+	// sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM);
+	sound_misc(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
 
 	activator = other;
@@ -481,11 +489,14 @@ void() item_armor1 =
 		return;
 
 	self.touch = armor_touch;
-	precache_model ("progs/armor.mdl");
-	setmodel (self, "progs/armor.mdl");
+	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
+	precache_body_model ("progs/armor.mdl");
+	// setmodel (self, "progs/armor.mdl");
+	body_model ("progs/armor.mdl");
+	precache_sound_misc ("items/armor1.wav");
+	if !(self.skin)
 	self.skin = 0;
 	setsize (self, '-16 -16 0', '16 16 56');
-	// self.particles_offset = '21 21 17';
 	StartItem ();
 };
 
@@ -499,11 +510,14 @@ void() item_armor2 =
 		return;
 
 	self.touch = armor_touch;
-	precache_model ("progs/armor.mdl");
-	setmodel (self, "progs/armor.mdl");
+	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
+	precache_body_model ("progs/armor.mdl");
+	// setmodel (self, "progs/armor.mdl");
+	body_model ("progs/armor.mdl");
+	if !(self.skin) // dumptruck_ds custom models and sounds END
 	self.skin = 1;
+	precache_sound_misc ("items/armor1.wav");
 	setsize (self, '-16 -16 0', '16 16 56');
-	// self.particles_offset = '21 21 17';
 	StartItem ();
 };
 
@@ -519,9 +533,13 @@ void() item_armorInv =
 		return;
 
 	self.touch = armor_touch;
-	precache_model ("progs/armor.mdl");
-	setmodel (self, "progs/armor.mdl");
+	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
+	precache_body_model ("progs/armor.mdl");
+	// setmodel (self, "progs/armor.mdl");
+	body_model ("progs/armor.mdl");
+	if !(self.skin) // dumptruck_ds custom models and sounds END
 	self.skin = 2;
+	precache_sound_misc ("items/armor1.wav");
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
 };
