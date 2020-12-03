@@ -276,7 +276,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 		128 : "Suspended in air" : 0
 	]
 	message(string) : "Message"
-	delay(integer) : "Delay"
+	delay(integer) : "Delay" 
 ]
 
 @BaseClass base(NonRespawnableItem) =
@@ -355,6 +355,9 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 		1 : "Rotten" : 0
 		2 : "Megahealth" : 0
 	]
+	mdl_body(string) : "Path to custom model"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
+	snd_misc(string) : "Path to health pickup sound"
 ]
 
 @BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =

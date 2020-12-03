@@ -101,3 +101,45 @@ Sample for color.
 /*QUAKED orange2 (0.960 0.615 0.258) (-8 -8 -8) (8 8 8)
 Sample for color.
 */
+model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_army
+
+
+
+//_____ZOMBIES_____
+@PointClass base(MonShort) model({{
+	spawnflags & 4 ->		{"path": "progs/mon_zombie.mdl", "frame": 173, "skin": exactskin},
+	spawnflags & 1 ->		{"path": "progs/mon_zombie.mdl", "frame": 192, "skin": exactskin},
+	exactskin >= 1 ->		{"path": "progs/mon_zombie.mdl", "skin": exactskin},
+									"progs/mon_zombie.mdl"
+}}) = monster_zombie : "Zombie, 60 health points." [
+    spawnflags(flags) = [
+		1 : "Crucified"  : 0 : "If crucified, stick the bounding box 12 pixels back into a wall to look right."
+		2 : "Ambush"   : 0 : "Only wake upon seeing the player, not by other monsters."
+		4 : "On Floor"  : 0 : "Spawn the zombie on the floor (angles = position)."
+	]
+]
+@PointClass base(MonShort, JumpingMon) model({{
+	//on floor, face down, green
+	((spawnflags & 4) != 0 && (aflag) == 1) && (poisonous) == 1 -> {"path": "progs/mon_zombiek.mdl", "skin": 1, "frame": 109},
+	//on floor, face down
+	((spawnflags & 4) != 0 && (aflag) == 1) -> {"path": "progs/mon_zombiek.mdl", "frame": 109},
+	//on floor, face up, green
+	((spawnflags & 4) != 0 && (aflag) == 2) && (poisonous) == 1 -> {"path": "progs/mon_zombiek.mdl", "skin": 1, "frame": 131},
+	//on floor, face up
+	((spawnflags & 4) != 0 && (aflag) == 2) -> {"path": "progs/mon_zombiek.mdl", "frame": 131},
+	//standing, posionous
+	poisonous == 1 -> {"path": "progs/mon_zombiek.mdl", "skin": 1},
+								 //standing, posionous
+								 "progs/mon_zombiek.mdl"
+}}) = monster_zombiek : "Zombie Knight, 60 health points." [
+    spawnflags(flags) = [ 4 : "On Floor" : 0 : "Spawn the zombie on the floor (angles = position)." ]
+	poisonous(choices) : "Poison attack+skin"  :  : "Change skin + poison dmg" = [
+        0 : "Default"
+        1 : "Poison Zombie"
+    ]
+    aflag(choices) : "Starting position on floor" = [
+		0 : "Random"
+		1 : "Facing down"
+		2 : "Facing up"
+	]
+]

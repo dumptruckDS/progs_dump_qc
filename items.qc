@@ -263,17 +263,22 @@ void() item_health =
 
 	if (self.spawnflags & H_ROTTEN)
 	{
-		// precache_model("maps/b_bh10.bsp");
+		// precache_model("maps/b_bh10.bsp"); // dumptruck_ds custom health models and sounds START
 		precache_body_model("maps/b_bh10.bsp");
-
-		precache_sound("items/r_item1.wav");
+		// precache_sound("items/r_item1.wav");
+		precache_sound_misc("items/r_item1.wav");
 		// setmodel(self, "maps/b_bh10.bsp");
 		body_model("maps/b_bh10.bsp");
-		self.noise = "items/r_item1.wav";
+		// self.noise = "items/r_item1.wav";
+		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+		self.snd_misc = "items/r_item1.wav";
+		self.noise = self.snd_misc;
+
+		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 15;
 		self.healtype = 0;
 		if !(self.particles_offset)
-		self.particles_offset = '16 16 8';
+		self.particles_offset = '16 16 8'; // dumptruck_ds custom health models and sounds END
 
 	}
 	else
@@ -281,10 +286,15 @@ void() item_health =
 	{
 		// precache_model("maps/b_bh100.bsp");
 		precache_body_model("maps/b_bh100.bsp");
-		precache_sound("items/r_item2.wav");
+		precache_sound_misc("items/r_item2.wav");
 		// setmodel(self, "maps/b_bh100.bsp");
 		body_model("maps/b_bh100.bsp");
-		self.noise = "items/r_item2.wav";
+		// self.noise = "items/r_item2.wav";
+		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+		self.snd_misc = "items/r_item2.wav";
+		self.noise = self.snd_misc;
+
+		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 100;
 		self.healtype = 2;
 		if !(self.particles_offset)
@@ -301,9 +311,10 @@ void() item_health =
 		body_model("maps/b_bh25.bsp");
 		// if !(self.noise)
 		// self.noise = "items/health1.wav";
-		if !(self.snd_misc)
+		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
 		self.snd_misc = "items/health1.wav";
 		self.noise = self.snd_misc;
+		
 		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 25;
 		self.healtype = 1;

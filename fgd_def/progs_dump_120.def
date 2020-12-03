@@ -15,11 +15,17 @@ Monsters will continue walking towards the next target corner.
 {
 	model ( {{ spawnflags & 1 -> { "path" : "maps/b_bh10.bsp" }, spawnflags & 2 -> { "path" : "maps/b_bh100.bsp" },
 	 "maps/b_bh25.bsp" }} );
+
 }
 Health box. Normally gives 25 points.
 Rotten box heals 15 points.
 Megahealth will add 100 health, then start to
 rot the player back down to 100 health after 5 seconds.
+mdl_body = Path to custom model
+particles_offset = When trigger spawning or respawning,
+a custom model may not display t_fog correctly. Adjust the origin coordinates here.
+snd_misc = Path to health pickup sound
+
 */
 /*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {

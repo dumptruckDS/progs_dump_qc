@@ -259,6 +259,9 @@ state(choices) =
 		1 : "Rotten" : 0
 		2 : "Megahealth" : 0
 	]
+	mdl_body(string) : "Path to custom model"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body"
+	snd_misc(string) : "Path to health pickup sound"
 ]
 
 @BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
