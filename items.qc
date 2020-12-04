@@ -1003,8 +1003,19 @@ void() item_shells =
 
 	if (self.spawnflags & WEAPON_BIG2)
 	{
-		precache_model ("maps/b_shell1.bsp");
-		setmodel (self, "maps/b_shell1.bsp");
+		if (world.style)
+			{
+				precache_body_model ("progs/a_mdls/m_shell2.mdl");
+				body_model("progs/a_mdls/m_shell2.mdl");
+			}
+		// precache_model ("maps/b_shell1.bsp");
+		// setmodel (self, "maps/b_shell1.bsp");
+		else
+			{
+				precache_body_model ("maps/b_shell1.bsp");
+				body_model ("maps/b_shell1.bsp");
+			}
+		if !(self.particles_offset)
 		self.particles_offset = '16 16 16';
 		self.aflag = 40;
 	}
