@@ -562,7 +562,7 @@ void() item_armor_shard =
 	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
 	precache_body_model ("progs/pd_armor_sh.mdl");
 	// setmodel (self, "progs/armor.mdl");
-	body_model ("progs/armor.mdl");
+	body_model ("progs/pd_armor_sh.mdl");
 	precache_sound_misc ("items/armor1.wav");
 	if !(self.skin) // dumptruck_ds custom models and sounds END
 	self.skin = 0;

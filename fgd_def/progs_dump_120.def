@@ -29,7 +29,7 @@ snd_misc = Path to health pickup sound
 */
 /*QUAKED item_armor_shard (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
-model ("progs/armor.mdl");
+model ("progs/pd_armor_sh.mdl");
 }
 A small piece of armor worth 5 points of Green armor protection. Can only add a max of 25 points to any armor.
 mdl_body = Path to custom model

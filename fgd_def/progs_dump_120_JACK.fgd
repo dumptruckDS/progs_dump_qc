@@ -309,7 +309,7 @@ state(choices) =
 	snd_misc(string) : "Path to custom pickup sound"
 	obit_name(string) : "Custom name for this armor." : : "Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'"
 	]
-@PointClass base(Armor) studio("progs/armor.mdl") =
+@PointClass base(Armor) studio("progs/pd_armor_sh.mdl") =
 	item_armor_shard : "A small piece of armor worth 5 points of Green armor protection. Can only add a max of 25 points to any armor."
 	[
 	mdl_body(string) : "Path to custom model"
