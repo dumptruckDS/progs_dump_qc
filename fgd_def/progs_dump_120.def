@@ -2599,9 +2599,11 @@ Choose Style
 • 11 (Zombie)
 • 12 (Shalrath)
 
-Style 2 set to 1 overrides Style and chooses a random monster (excluding Zombies and Vores)
+Choose Style via dropdown
 
-Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags
+Style 2 overrides Style and chooses a random monster
+
+Default time between spawns is 5 seconds
 
 Can set Berserk to 1 to skip most pain animations.
 

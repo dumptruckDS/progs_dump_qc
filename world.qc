@@ -371,8 +371,17 @@ void() worldspawn =
 	precache_sound ("items/armor1.wav");		// armor up
 	precache_sound ("weapons/lhit.wav");		//lightning
 	precache_sound ("weapons/lstart.wav");		//lightning start
-	precache_sound ("items/damage2.wav");
-	precache_sound ("items/damage3.wav");
+
+	// iw -- fix powerup cheat sounds // noticed this in Copper so why not? --ds
+	// sounds used by cheats
+		precache_sound ("items/suit2.wav");			// suit (finish)
+		precache_sound ("items/protect2.wav");		// pent (finish)
+		precache_sound ("items/protect3.wav");		// pent (protect)
+		precache_sound ("items/inv2.wav");			// ring (finish)
+		precache_sound ("items/inv3.wav");			// ring (idle)
+		precache_sound ("items/damage2.wav");		// quad (finish)
+		precache_sound ("items/damage3.wav");		// quad (attack)
+	// iw -- END
 
 	precache_sound ("misc/power.wav");			//lightning for boss
 
