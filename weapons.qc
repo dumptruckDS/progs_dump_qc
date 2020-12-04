@@ -1604,9 +1604,9 @@ void() ImpulseCommands =
 
 	if (self.impulse == 255)
 		QuadCheat ();
-///dumptruck_ds mobot.qc
-	// if (self.impulse == 100)
-	// 	create_mobot();
+// dumptruck_ds version inspired by Copper
+	if (self.impulse == 100)
+	sprint(self, version);
 
 	self.impulse = 0;
 };
