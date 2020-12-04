@@ -101,3 +101,19 @@ Sample for color.
 /*QUAKED orange2 (0.960 0.615 0.258) (-8 -8 -8) (8 8 8)
 Sample for color.
 */
+
+local entity    nearby;
+
+
+   nearby = findradius(self.origin, 32); // findradius (vector origin, float radius in Quake units)
+
+   while (nearby)
+   {
+       if (nearby.takedamage)
+       {
+           self.nextthink = time + 1; //delay the spawn by some amount;
+           return;
+       }
+
+       nearby = nearby.chain;
+   }

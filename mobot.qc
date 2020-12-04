@@ -3,7 +3,9 @@
 // https://www.quaddicted.com/webarchive/minion.planetquake.gamespy.com/tutorial/tutor9.htm
 // I added the MobotSpawnPoint, retriggering and random gen with help from
 // kreathor, 4LT, Paril, Spoike and others on the Quake Mapping Discord.
-//
+// ===================================================================
+// Big thanks to ryanscissorhands for helping fix telefragging issues!
+// ===================================================================
 /*
 ============
 MobotSpawnPoint
@@ -409,11 +411,26 @@ if (self.style == 12) // spawn a Shalrath
 
 void() think_mobot =
 	{
+
+		local entity  nearby; // telefrag check thanks to ryanscissorhands for this code! -- dumptruck_ds
+
+		nearby = findradius(self.origin, 128); // findradius (vector origin, float radius in Quake units)
+
+		while (nearby)
+		{
+			if (nearby.takedamage)
+			{
+				dprint("monster waiting to spawn\n");
+				self.nextthink = time + 1; //delay the spawn by some amount;
+				return;
+			}
+			nearby = nearby.chain;
+		}
+
 		self.count = self.count - 1;
 
 		if (self.count < 0)
 		return;
-
 		if (self.count!=0)
 		{
 			if !(self.wait)
@@ -421,12 +438,9 @@ void() think_mobot =
 			else
 			self.nextthink = time + self.wait;
 
-			if ((self.style == 11) || (self.style == 12))
-			self.nextthink = time + self.wait + 7; // Shalrath and Zombie respawn times need to be longer to avoid spawnfrags
-
 			if (self.style2 == 1)
 			{
-				self.style = floor(random() * 10) + 1; // no Shalrath or zombies in random due to spawnfrags
+				self.style = floor(random() * 12) + 1; // random monster!! -- dumptruck_ds
 				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
 			}
 			else

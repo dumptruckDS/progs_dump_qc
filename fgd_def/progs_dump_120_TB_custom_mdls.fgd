@@ -198,9 +198,9 @@ color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
 Choose Style via dropdown
 
-Style 2 overrides Style and chooses a random monster (excluding Zombies and Vores)
+Style 2 overrides Style and chooses a random monster
 
-Default time between spawns is 5 seconds; 12 for Zombies and Vores to reduce telefrags
+Default time between spawns is 5 seconds
 
 Can set Berserk to 1 to skip most pain animations.
 
@@ -222,8 +222,8 @@ style(Choices) =
 	11 : "Zombie"
 	12 : "Shalrath"
 ]
-style2(integer) : "Overrides Style and selects random monster (excluding Zombies and Vores)"
-wait(integer) : "Wait this long between spawns (Default 5, 12 for Zombies and Vores)"
+style2(integer) : "Overrides Style and selects random monster"
+wait(integer) : "Wait this long between spawns (default 5)"
 count(integer) : "How many monsters to spawn (default 5)"
 ]
 @PointClass base(MonsterClass, OneTargetname) = info_monster_spawnpoint : "Destination for func_monster_spawner" []
