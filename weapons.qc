@@ -989,7 +989,8 @@ void(float ox) W_FireSpikes =
 	self.attack_finished = time + 0.2;
 	self.currentammo = self.ammo_nails = self.ammo_nails - 1;
 	dir = aim (self, 1000);
-	launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
+	// launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
+	launch_spike (self.origin + self.view_ofs + v_up * -8 + v_right*ox, dir); //seven Nailgun position fix - thanks to Greenwood -- dumptruck_ds
 
 	self.punchangle_x = -2;
 

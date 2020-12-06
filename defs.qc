@@ -902,3 +902,5 @@ float HEAL_MONSTER_ONLY	= 4;
 .string mdl_gib3;
 
 // Custom Model End -- dumptruck_ds
+
+.float shardvalue; // ammo shard value

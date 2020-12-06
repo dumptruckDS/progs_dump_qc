@@ -411,6 +411,77 @@ ARMOR
 void() armor_touch;
 void() shard_touch;
 
+
+void() shard_touch = // this from RMQ shard_touch
+{
+	// from Copper -- dumptruck_ds
+	if (!CheckValidTouch()) return;
+
+	local	float	bit;
+
+	if ((other.items & IT_ARMOR1)	||
+	(other.items & IT_ARMOR2)	||
+	(other.items & IT_ARMOR3)	)	// has armor
+	{
+		// Supa, check bounds, original armourvalue + 25
+		if (other.items & IT_ARMOR1 && other.armorvalue >= 125)	return;
+		if (other.items & IT_ARMOR2 && other.armorvalue >= 175)	return;
+		if (other.items & IT_ARMOR3 && other.armorvalue >= 225)	return;
+
+		if (other.items & IT_ARMOR1 && other.shardvalue >= 125)	return;
+		if (other.items & IT_ARMOR2 && other.shardvalue >= 175)	return;
+		if (other.items & IT_ARMOR3 && other.shardvalue >= 225)	return;
+
+		other.armorvalue = other.armorvalue + 5;	// was 2, RMQ team
+		other.shardvalue = other.shardvalue + 5;
+
+		// Supa, now cap armourvalue to bounds
+		if		(other.items & IT_ARMOR1 && other.armorvalue >= 125)	other.armorvalue = 125;
+		else if (other.items & IT_ARMOR2 && other.armorvalue >= 175)	other.armorvalue = 175;
+		else if (other.items & IT_ARMOR3 && other.armorvalue >= 225)	other.armorvalue = 225;
+
+		if		(other.items & IT_ARMOR1 && other.shardvalue >= 125)	other.shardvalue = 125;
+		else if (other.items & IT_ARMOR2 && other.shardvalue >= 175)	other.shardvalue = 175;
+		else if (other.items & IT_ARMOR3 && other.shardvalue >= 225)	other.shardvalue = 225;
+	}
+	else
+	{
+		other.armortype = 0.3;	// shard = Green armor level
+		other.armorvalue = 5;
+		other.shardvalue = 5; // need this to be seperate from value -- dumptruck_ds
+		bit = IT_ARMOR1;
+		other.items = other.items - (other.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3)) + bit;
+	}
+	self.solid = SOLID_NOT;
+	self.model = string_null;
+
+	// Supa, SP respawning items support
+	if (!deathmatch)
+	CheckItemRespawn(self, 30);
+	else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
+	self.nextthink = time + 20;
+	self.think = SUB_regen;
+
+	if (self.obit_name != "")
+	{
+		sprint (other, "You got ");
+		sprint (other, self.obit_name); // custom armor name
+		sprint (other, "\n");
+	}
+	else
+	sprint(other, "You got armor\n");
+	// armor touch sound
+	// sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds START
+	if (self.snd_misc != "")
+	sound_misc(other, CHAN_ITEM, self.snd_misc, 1, ATTN_NORM);
+	else
+	sound_misc(other, CHAN_ITEM,"items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
+	stuffcmd (other, "bf\n");
+
+	activator = other;
+	SUB_UseTargets();				// fire all targets / killtargets
+};
+
 void() armor_touch =
 {
 	local	float	type, value, bit;
@@ -421,27 +492,31 @@ void() armor_touch =
 	if (self.classname == "item_armor1")
 	{
 		type = 0.3;
-		value = 100;
+		if (other.shardvalue > 25)
+		value = 100 + 25;
+		else
+		value = 100 + (other.shardvalue);
 		bit = IT_ARMOR1;
 	}
 	else if (self.classname == "item_armor2")
 	{
 		type = 0.6;
-		value = 150;
+		if (other.shardvalue > 25)
+		value = 150 + 25;
+		else
+		value = 150 + other.shardvalue;
 		bit = IT_ARMOR2;
 	}
 	else if (self.classname == "item_armorInv")
 	{
 		type = 0.8;
-		value = 200;
+		if (other.shardvalue > 25)
+		value = 200 + 25;
+		else
+		value = 200 + other.shardvalue;
 		bit = IT_ARMOR3;
 	}
-	// else if (self.classname == "item_armor_shard")
-	// {
-	// 	type = 0.3;
-	// 	value = 5;
-	// 	bit = IT_ARMOR1;
-	// }
+
 	else
 	{
 		dprint ("WARNING: armor_touch: unknown classname: ");
@@ -455,6 +530,7 @@ void() armor_touch =
 
 	other.armortype = type;
 	other.armorvalue = value;
+
 	other.items = other.items - (other.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3)) + bit;
 
 	self.solid = SOLID_NOT;
@@ -485,67 +561,6 @@ void() armor_touch =
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
 };
-
-void() shard_touch = // this is all from RMQ shard_touch
-{
-	// from Copper -- dumptruck_ds
-	if (!CheckValidTouch()) return;
-
-	local	float	bit;
-
-	if ((other.items & IT_ARMOR1)	||
-		(other.items & IT_ARMOR2)	||
-		(other.items & IT_ARMOR3)	)	// has armor
-	{
-		// Supa, check bounds, original armourvalue + 25
-		if (other.items & IT_ARMOR1 && other.armorvalue >= 125)	return;
-		if (other.items & IT_ARMOR2 && other.armorvalue >= 175)	return;
-		if (other.items & IT_ARMOR3 && other.armorvalue >= 225)	return;
-
-		other.armorvalue = other.armorvalue + 5;	// was 2, RMQ team
-
-		// Supa, now cap armourvalue to bounds
-		if		(other.items & IT_ARMOR1 && other.armorvalue >= 125)	other.armorvalue = 125;
-		else if (other.items & IT_ARMOR2 && other.armorvalue >= 175)	other.armorvalue = 175;
-		else if (other.items & IT_ARMOR3 && other.armorvalue >= 225)	other.armorvalue = 225;
-	}
-	else
-	{
-		other.armortype = 0.3;	// GA
-		other.armorvalue = 5;	// 2
-		bit = IT_ARMOR1;
-		other.items = other.items - (other.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3)) + bit;
-	}
-	self.solid = SOLID_NOT;
-	self.model = string_null;
-
-	// Supa, SP respawning items support
-	if (!deathmatch)
-		CheckItemRespawn(self, 30);
-	else if (deathmatch == 1)  // doesn't respawn in "deathmatch 2"
-	self.nextthink = time + 20;
-	self.think = SUB_regen;
-
-	if (self.obit_name != "")
-	{
-		sprint (other, "You got ");
-		sprint (other, self.obit_name); // custom armor name
-		sprint (other, "\n");
-	}
-	else
-	sprint(other, "You got armor\n");
-// armor touch sound
-	// sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds START
-	if (self.snd_misc != "")
-	sound_misc(other, CHAN_ITEM, self.snd_misc, 1, ATTN_NORM);
-	else
-	sound_misc(other, CHAN_ITEM,"items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
-	stuffcmd (other, "bf\n");
-
-	activator = other;
-	SUB_UseTargets();				// fire all targets / killtargets
-};
-
 
 /*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
