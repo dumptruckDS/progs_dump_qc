@@ -1,3 +1,11 @@
+
+if !(self.particles_offset)  // t_fog fix for custom models dumptruck_ds
+
+if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+self.snd_misc = "items/r_item1.wav";
+self.noise = self.snd_misc;
+
+
 /*QUAKED entity_name(1 0 0) (-16 -16 -24) (16 16 40) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
     model ("progs/wizard.mdl");

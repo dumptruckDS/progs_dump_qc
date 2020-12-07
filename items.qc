@@ -428,27 +428,17 @@ void() shard_touch = // this from RMQ shard_touch
 		if (other.items & IT_ARMOR2 && other.armorvalue >= 175)	return;
 		if (other.items & IT_ARMOR3 && other.armorvalue >= 225)	return;
 
-		if (other.items & IT_ARMOR1 && other.shardvalue >= 125)	return;
-		if (other.items & IT_ARMOR2 && other.shardvalue >= 175)	return;
-		if (other.items & IT_ARMOR3 && other.shardvalue >= 225)	return;
-
 		other.armorvalue = other.armorvalue + 5;	// was 2, RMQ team
-		other.shardvalue = other.shardvalue + 5;
 
 		// Supa, now cap armourvalue to bounds
 		if		(other.items & IT_ARMOR1 && other.armorvalue >= 125)	other.armorvalue = 125;
 		else if (other.items & IT_ARMOR2 && other.armorvalue >= 175)	other.armorvalue = 175;
 		else if (other.items & IT_ARMOR3 && other.armorvalue >= 225)	other.armorvalue = 225;
-
-		if		(other.items & IT_ARMOR1 && other.shardvalue >= 125)	other.shardvalue = 125;
-		else if (other.items & IT_ARMOR2 && other.shardvalue >= 175)	other.shardvalue = 175;
-		else if (other.items & IT_ARMOR3 && other.shardvalue >= 225)	other.shardvalue = 225;
 	}
 	else
 	{
 		other.armortype = 0.3;	// shard = Green armor level
 		other.armorvalue = 5;
-		other.shardvalue = 5; // need this to be seperate from value -- dumptruck_ds
 		bit = IT_ARMOR1;
 		other.items = other.items - (other.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3)) + bit;
 	}
@@ -475,7 +465,7 @@ void() shard_touch = // this from RMQ shard_touch
 	if (self.snd_misc != "")
 	sound_misc(other, CHAN_ITEM, self.snd_misc, 1, ATTN_NORM);
 	else
-	sound_misc(other, CHAN_ITEM,"items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
+	sound_misc(other, CHAN_ITEM,"dump/pd_armor1_sh.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
 	stuffcmd (other, "bf\n");
 
 	activator = other;
@@ -492,31 +482,21 @@ void() armor_touch =
 	if (self.classname == "item_armor1")
 	{
 		type = 0.3;
-		if (other.shardvalue > 25)
-		value = 100 + 25;
-		else
-		value = 100 + (other.shardvalue);
+		value = 100;
 		bit = IT_ARMOR1;
 	}
 	else if (self.classname == "item_armor2")
 	{
 		type = 0.6;
-		if (other.shardvalue > 25)
-		value = 150 + 25;
-		else
-		value = 150 + other.shardvalue;
+		value = 150;
 		bit = IT_ARMOR2;
 	}
 	else if (self.classname == "item_armorInv")
 	{
 		type = 0.8;
-		if (other.shardvalue > 25)
-		value = 200 + 25;
-		else
-		value = 200 + other.shardvalue;
+		value = 200;
 		bit = IT_ARMOR3;
 	}
-
 	else
 	{
 		dprint ("WARNING: armor_touch: unknown classname: ");
@@ -578,7 +558,7 @@ void() item_armor_shard =
 	precache_body_model ("progs/pd_armor_sh.mdl");
 	// setmodel (self, "progs/armor.mdl");
 	body_model ("progs/pd_armor_sh.mdl");
-	precache_sound_misc ("items/armor1.wav");
+	precache_sound_misc ("dump/pd_armor1_sh.wav");
 	if !(self.skin) // dumptruck_ds custom models and sounds END
 	self.skin = 0;
 	setsize (self, '-16 -16 0', '16 16 56');
@@ -1871,15 +1851,25 @@ void() item_artifact_invulnerability =
 
 	self.touch = powerup_touch;
 
-	precache_model ("progs/invulner.mdl");
-	precache_sound ("items/protect.wav");
-	precache_sound ("items/protect2.wav");
-	precache_sound ("items/protect3.wav");
-	self.noise = "items/protect.wav";
-	setmodel (self, "progs/invulner.mdl");
+	// precache_model ("progs/invulner.mdl");
+	// precache_sound ("items/protect.wav");
+	// precache_sound ("items/protect2.wav");
+	// precache_sound ("items/protect3.wav");
+	precache_body_model ("progs/invulner.mdl");
+	precache_sound_misc ("items/protect.wav");
+	precache_sound_misc1 ("items/protect2.wav");  // called in client.qc -- dumptruck_ds
+	precache_sound_misc2 ("items/protect3.wav"); // called in combat.qc -- dumptruck_ds
+	if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+	self.snd_misc = "items/protect.wav";
+	self.noise = self.snd_misc;
+	// self.noise = "items/protect.wav";
+	// setmodel (self, "progs/invulner.mdl");
+	body_model ("progs/invulner.mdl");
+	if !(self.netname)
 	self.netname = "Pentagram of Protection";
 	self.items = IT_INVULNERABILITY;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	if !(self.particles_offset)  // t_fog fix for custom models dumptruck_ds
 	self.particles_offset = '0 0 16';
 	StartItem ();
 };

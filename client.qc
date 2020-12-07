@@ -1218,7 +1218,8 @@ void() CheckPowerups =
 			{
 				sprint (self, "Protection is almost burned out\n");
 				stuffcmd (self, "bf\n");
-				sound (self, CHAN_AUTO, "items/protect2.wav", 1, ATTN_NORM);
+				// sound (self, CHAN_AUTO, "items/protect2.wav", 1, ATTN_NORM);
+				sound_misc1 (self, CHAN_AUTO, self.snd_misc1, 1, ATTN_NORM); // custom sounds -- dumptruck_ds
 				self.invincible_time = time + 1;
 			}
 
