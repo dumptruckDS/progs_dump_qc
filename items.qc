@@ -2122,6 +2122,7 @@ float SHELLS = 2;
 float NAILS = 4;
 float ROCKETS = 8;
 float CELLS = 16;
+
 void() item_backpack_message =
 {
 	// from Copper -- dumptruck_ds

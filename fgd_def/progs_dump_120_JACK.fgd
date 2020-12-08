@@ -100,6 +100,15 @@
 [
 	mdl_body(string) : "Path to custom body model"
 ]
+@baseclass = CustomMdlsAmmo
+[
+	mdl_body(string) : "Path to custom body model"
+	particles_offset(string) : "Adjust spawning particles XYZ if using custom models"
+]
+@baseclass = CustomMdlsHealth
+[
+healamount(integer) : "Custom health amount (max of 250)"
+]
 @baseclass = Berserk [
 berserk(choices) : "skip certain pain animations" : : "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)" =
 			[
@@ -221,8 +230,8 @@ state(choices) =
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]
-	message(string) : "Message"
-	delay(integer) : "Delay"
+	// message(string) : "Message"
+	// delay(integer) : "Delay"
 ]
 
 @BaseClass base(NonRespawnableItem) =
@@ -232,7 +241,7 @@ state(choices) =
 	[
 		16384 : "Respawn with DM effects" : 0
 	]
-	ritem(integer) : "Respawn item?"
+	ritem(integer) : "Respawn item if set to 1"
 	respawndelay(integer) : "Respawn time"
 	respawncount(integer) : "How many respawns?"
 ]
@@ -251,7 +260,7 @@ state(choices) =
 @PointClass base(Ammo) studio("maps/b_shell0.bsp") = item_shells : "Shells" []
 @PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
-@PointClass size(0 0 0, 32 32 56) base(RespawnableItem) studio("maps/b_bh25.bsp") =
+@PointClass size(0 0 0, 32 32 56) base(RespawnableItem, CustomMdlsHealth) studio("maps/b_bh25.bsp") =
 	item_health : "Health pack"
 [
 	spawnflags(flags) =
@@ -264,7 +273,7 @@ state(choices) =
 	snd_misc(string) : "Path to health pickup sound"
 ]
 
-@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
+@BaseClass base(RespawnableItem, CustomMdlsAmmo) size(-16 -16 -24, 16 16 32) =
 	Artifact []
 
 @PointClass base(Artifact) studio("progs/suit.mdl") =
@@ -328,7 +337,10 @@ state(choices) =
 	item_key2 : "Gold key" []
 
 //____TW_EDIT____
-@PointClass base(Key) = item_key_custom :"A customizable key item. The 'keyname' value is used both for the pickup message and to associate the key with the entity that it unlocks. To make a func_door or trigger_usekey require this key, set the 'keyname' value of that entity so that it matches the 'keyname' value of the key. If different item_key_custom entities have the same 'keyname' value, they will be treated as different copies of the same key and may be used erchangeably. A map may have a maximum of 23 unique 'keyname' values across all entities. The behavior of an item_key_custom should be as the player expects (based on the behavior of the silver and gold keys), except for the fact that it will not appear as an icon in the player's status bar when picked up. This is a limitation of the engine."
+@PointClass base(Key) = item_key_custom :"A customizable key item. This allows mappers to use any Quake compatible model, sprite or BSP as a key. We’ve also included new key models with different variations. You can find these in the progs folder and set their paths in the mdl key.
+keyname: name of the key, e.g. 'bronze key' (required), mdl: model file path (required) noise: sound file for the pickup sound (default is per worldtype), skin: skin index (default 0), frame (default 0): display this single frame of the model, if animated. NOTE: The key will not display any animation.
+Three new models based on id’s original keys are included. One for each worldtype: base, runic and wizard. Each of these has four color variations, also referred to as their skin index: jade (green, skin 0), runic (magenta, skin 1), blood (red, skin 2) and alabaster (gray, skin 3). The development/wads folder has a small wad with textures for use with the different styles seen below.
+The 'keyname' value is used both for the pickup message and to associate the key with the entity that it unlocks. To make a func_door or trigger_usekey require this key, set the 'keyname' value of that entity so that it matches the 'keyname' value of the key. If different item_key_custom entities have the same 'keyname' value, they will be treated as different copies of the same key and may be used erchangeably. A map may have a maximum of 23 unique 'keyname' values across all entities. The behavior of an item_key_custom should be as the player expects (based on the behavior of the silver and gold keys), except for the fact that it will not appear as an icon in the player's status bar when picked up. This is a limitation of the engine."
 //'keyname': name of the key, e.g. 'bronze key' (required)
 //'mdl': model file (required)
 //'noise': sound file for the pickup sound (default is per worldtype)
@@ -1058,7 +1070,7 @@ _color(color255) : "Light color"
 	]
 ]
 
-@PointClass base(ToggleLight) = light : "Invisible lightsource" []
+@PointClass base(ToggleLight) = light : "Invisible lightsource (can fade up / down if not styled)" []
 @PointClass base(ToggleLight) = light_fluoro : "Invisible lightsource, with fluorescent hum" []
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
 @PointClass base(Light, Appearflags) = light_globe : "Globe sprite light" []
@@ -1527,6 +1539,7 @@ dmg(integer) : "Damage" : 100
 	sounds(integer) : "set to 1 for built-in spark sound effect. Default is 0 - silent."
 	spawnflags(flags) =
 	[
+		1 : "START_OFF" : 0
 		2 : "SPARKS_BLUE" : 0
 		4 : "SPARKS_PALE" : 0
 	]

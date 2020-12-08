@@ -45,6 +45,7 @@
 @SolidClass = worldspawn : "World entity"
 [
 	message(string) : "Level name"
+	style(integer) : "Set to 1 to override default BSP ammo with Copper MDLs"
 	worldtype(choices) : "Ambience" : 0 =
 	[
 		0 : "Medieval"
@@ -130,6 +131,15 @@
 @baseclass = CustomMdlsSpawn
 [
 	mdl_body(string) : "Path to custom body model"
+]
+@baseclass = CustomMdlsAmmo
+[
+	mdl_body(string) : "Path to custom body model"
+	particles_offset(string) : "Adjust spawning particles XYZ if using custom models"
+]
+@baseclass = CustomMdlsHealth
+[
+healamount(integer) : "Custom health amount (max of 250)"
 ]
 @baseclass = Berserk [
 berserk(choices) : "skip certain pain animations" : : "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)" =
@@ -276,8 +286,8 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]
-	message(string) : "Message"
-	delay(integer) : "Delay"
+	// message(string) : "Message"
+	// delay(integer) : "Delay"
 ]
 
 @BaseClass base(NonRespawnableItem) =
@@ -287,12 +297,12 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	[
 		16384 : "Respawn with DM effects" : 0
 	]
-	ritem(integer) : "Respawn item?"
+	ritem(integer) : "Respawn item if set to 1"
 	respawndelay(integer) : "Respawn time"
 	respawncount(integer) : "How many respawns?"
 ]
 
-@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem) =
+@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem, CustomMdlsAmmo) =
 	Ammo
 [
 	spawnflags(flags) =
@@ -341,7 +351,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 
 @PointClass
     size(0 0 0, 32 32 56)
-    base(RespawnableItem)
+    base(RespawnableItem, CustomMdlsHealth)
     model(
         {{
             spawnflags & 2 ->   ":maps/b_bh100.bsp",
@@ -361,7 +371,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	snd_misc(string) : "Path to health pickup sound"
 ]
 
-@BaseClass base(RespawnableItem) size(-16 -16 -24, 16 16 32) =
+@BaseClass base(RespawnableItem, CustomMdlsAmmo) size(-16 -16 -24, 16 16 32) =
 	Artifact []
 
 @PointClass base(Artifact) model({ "path": ":progs/suit.mdl" }) =
@@ -420,6 +430,12 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
 	item_key_custom :
 "A customizable key item.
+
+This allows mappers to use any Quake compatible model, sprite or BSP as a key. We’ve also included new key models with different variations. You can find these in the progs folder and set their paths in the mdl key.
+
+keyname: name of the key, e.g. 'bronze key' (required), mdl: model file path (required) noise: sound file for the pickup sound (default is per worldtype), skin: skin index (default 0), frame (default 0): display this single frame of the model, if animated. NOTE: The key will not display any animation.
+
+Three new models based on id’s original keys are included. One for each worldtype: base, runic and wizard. Each of these has four color variations, also referred to as their skin index: jade (green, skin 0), runic (magenta, skin 1), blood (red, skin 2) and alabaster (gray, skin 3). The development/wads folder has a small wad with textures for use with the different styles seen below.
 
 'keyname': name of the key, e.g. 'bronze key' (required)
 
@@ -671,7 +687,9 @@ snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : : "Path to custom s
 snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : : "Path to custom sound (LIGHTNING BOOM)"
 ]
 @PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon"
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon
+
+These are killable variants of the original boss monsters. On Skill 1 (Easy) these both have 1000 HP. On Normal, Hard and Nightmare the HP is set to 3000. You can also set a custom heath value, as with other monsters. Upon death, Shub will always gib but Chthon will only gib if his HP drops below -50 with one hit (Quad Damage, etc.) "
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
@@ -746,7 +764,7 @@ mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
 ]
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath"
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath "
 [
 snd_death(string) : "Path to custom death sound PART 1" : : "Path to custom death sound PART 1"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -758,7 +776,9 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath"
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath
+
+These are killable variants of the original boss monsters. On Skill 1 (Easy) these both have 1000 HP. On Normal, Hard and Nightmare the HP is set to 3000. You can also set a custom heath value, as with other monsters. Upon death, Shub will always gib but Chthon will only gib if his HP drops below -50 with one hit (Quad Damage, etc.)"
 [
 snd_death(string) : "Path to custom death sound (PART 2 GIBBING)" : : "Path to custom death sound (PART 2 GIBBING)"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -1582,6 +1602,7 @@ dmg is the amount of damage to cause when touched."
 	sounds(integer) : "set to 1 for built-in spark sound effect. Default is 0 - silent."
 	spawnflags(flags) =
 	[
+		1 : "START_OFF" : 0
 		2 : "SPARKS_BLUE" : 0
 		4 : "SPARKS_PALE" : 0
 	]
@@ -2481,7 +2502,7 @@ delay how much time to wait before firing after being switched on."
 	]
 ]
 
-@PointClass base(ToggleLight) = light : "Invisible lightsource" []
+@PointClass base(ToggleLight) = light : "Invisible lightsource (can fade up / down if not styled)" []
 @PointClass base(ToggleLight) = light_fluoro : "Invisible lightsource, with fluorescent hum" []
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
 @PointClass base(Light, Appearflags) = light_globe : "Globe sprite light" []

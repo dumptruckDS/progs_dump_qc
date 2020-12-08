@@ -21,10 +21,14 @@ Health box. Normally gives 25 points.
 Rotten box heals 15 points.
 Megahealth will add 100 health, then start to
 rot the player back down to 100 health after 5 seconds.
+healamount = Custom health amount (max of 250)
 mdl_body = Path to custom model
 particles_offset = When trigger spawning or respawning,
 a custom model may not display t_fog correctly. Adjust the origin coordinates here.
 snd_misc = Path to health pickup sound
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 
 */
 /*QUAKED item_armor_shard (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -36,6 +40,9 @@ mdl_body = Path to custom model
 particles_offset = Adjust origin of spawning particles when using mdl_body. When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here.
 snd_misc = Path to custom pickup sound
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -44,6 +51,9 @@ model ("progs/armor.mdl");
 mdl_body = Path to custom model
 particles_offset = Adjust origin of spawning particles when using mdl_body. When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here.
 snd_misc = Path to custom pickup sound
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 */
 /*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -51,6 +61,9 @@ obit_name = Custom name for this armor. Set a custom name for your armor. Just c
 mdl_body = Path to custom model
 particles_offset = Adjust origin of spawning particles when using mdl_body. When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here.
 snd_misc = Path to custom pickup sound
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 */
 /*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -60,6 +73,9 @@ model({ "path": ":progs/armor.mdl", "skin": 2 });
 mdl_body = Path to custom model
 particles_offset = Adjust origin of spawning particles when using mdl_body. When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here.
 snd_misc = Path to custom pickup sound
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 */
 ///*QUAKED weapon_axe (0 .5 .8) (-16 -16 0) (16 16 32)
@@ -70,30 +86,51 @@ obit_name = Custom name for this armor. Set a custom name for your armor. Just c
 This is a pickup model that should be used when you want a player to spawn with only an axe and then later get the shotgun: (trigger_take_weapon or reset_items 2 in worldspawn). There are two models to choose from. Spawnflag 2 (the default) selects an unused “classic look” model from Rubicon 2 by metlslime. Spawnflag 4 is an alternate from Slapmap and has been used in a few mods.
 Single-barrelled Shotgun
 Shotgun
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_shot.mdl");	}
 Double-barrelled Shotgun
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_nail.mdl");	}
 Nailgun
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_nail2.mdl");	}
 Perforator
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_rock.mdl");	}
 Grenade Launcher
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_rock2.mdl");	}
 Rocket Launcher
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_light.mdl");	}
 Thunderbolt
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -101,6 +138,10 @@ Thunderbolt
 }
 Box of 20 shells.
 LARGE_BOX is a box of 40 shells.
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
+mdl_body - Path to custom body model
 */
 /*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -108,11 +149,19 @@ LARGE_BOX is a box of 40 shells.
 }
 Box of 25 nails.
 LARGE_BOX is a box of 50 nails.
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
+mdl_body - Path to custom body model
 */
 /*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
 	model ( {{ spawnflags & 1 -> { "path" : "maps/b_rock1.bsp" }, "maps/b_rock0.bsp" }} );
 }
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
+mdl_body - Path to custom body model
 */
 /*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -120,6 +169,10 @@ LARGE_BOX is a box of 50 nails.
 }
 Box of 6 cells.
 LARGE_BOX is a box of 12 cells.
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
+mdl_body - Path to custom body model
 */
 ///*QUAKED item_weapon (0 .5 .8) (0 0 0) (32 32 32) shotgun rocket spikes big
 //DO NOT USE THIS!!!! IT WILL BE REMOVED!
@@ -147,6 +200,13 @@ In order for keys to work you MUST set your map's worldtype to one of the follow
 	model ({"path" : "progs/pd_wiz_key.mdl", "skin" : 1});
 }
 A customizable key item.
+
+This allows mappers to use any Quake compatible model, sprite or BSP as a key. We’ve also included new key models with different variations. You can find these in the progs folder and set their paths in the mdl key.
+
+keyname: name of the key, e.g. 'bronze key' (required), mdl: model file path (required) noise: sound file for the pickup sound (default is per worldtype), skin: skin index (default 0), frame (default 0): display this single frame of the model, if animated. NOTE: The key will not display any animation.
+
+Three new models based on id’s original keys are included. One for each worldtype: base, runic and wizard. Each of these has four color variations, also referred to as their skin index: jade (green, skin 0), runic (magenta, skin 1), blood (red, skin 2) and alabaster (gray, skin 3). The development/wads folder has a small wad with textures for use with the different styles seen below.
+
 
 "keyname"  name of the key, e.g. "bronze key" (required)
 "mdl"      model file (required)
@@ -189,21 +249,33 @@ Episode 4 - The Elder World - Run of Elder Magic
 {	model("progs/invulner.mdl");	}
 Pentagram of Protection
 Player is invulnerable for 30 seconds
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/suit.mdl");	}
 Biosuit
 Player takes no damage from water or slime for 30 seconds
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/invisibl.mdl");	}
 Ring of Shadows
 Player is invisible for 30 seconds
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/quaddama.mdl");	}
 Quad Damage
 Player does 4x damage for 30 seconds
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 72) ALL_AMMO SHELLS NAILS ROCKETS CELLS SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/backpack.mdl");	}
@@ -235,6 +307,10 @@ e.g. For 'You got a bunch of rockets!' the netname key would be
 'a bunch of rockets!'
 
 See the manual for information on skins and models for this entity.
+
+ritem = set to 1 to respawn
+respawndelay = wait time for next spawns
+respawncount = how many to respawn
 */
 /*QUAKED worldspawn (0 0 0) ?
 Only used for the world entity.
@@ -696,115 +772,9 @@ same as FireAmbient
 // */
 /*QUAKED light_candle (0 1 0) (-10 -10 -40) (10 10 40) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/candle.mdl");	}
-==========
-Spawnflags
-==========
-START_OFF - switchable lights only - light is off by default
-FADE_IN_OUT - switchable lights only - light fades in and out. can't be combined with animated lights.
-
-==========
-Keys
-==========
-"light" "n"
-Set the light intensity. Negative values are also allowed and will cause the entity to subtract light cast by other entities. Default 300.
-
-"wait" "n"
-Scale the fade distance of the light by "n". Values of n > 1 make the light fade more quickly with distance, and values < 1 make the light fade more slowly (and thus reach further). Default 1.
-
-"delay" "n"
-Select an attenuation formaula for the light:
-0 => Linear attenuation (default)
-1 => 1/x attenuation
-2 => 1/(x^2) attenuation
-3 => No attenuation (same brightness at any distance)
-4 => "local minlight" - No attenuation and like minlight,
-it won't raise the lighting above it's light value.
-Unlike minlight, it will only affect surfaces within
-line of sight of the entity.
-5 => 1/(x^2) attenuation, but slightly more attenuated and
-without the extra bright effect that "delay 2" has
-near the source.
-
-"_falloff" "n"
-Sets the distance at which the light drops to 0, in map units.
-In this mode, "wait" is ignored and "light" only controls the brightness at the center of the light, and no longer affects the falloff distance.
-Only supported on linear attenuation (delay 0) lights currently.
-
-"_color" "r g b"
-Specify red(r), green(g) and blue(b) components for the colour of the light. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light ("255 255 255").
-
-"target" "name"
-Turns the light into a spotlight, with the direction of light being towards another entity with it�s "targetname" key set to "name".
-"mangle" "yaw pitch roll"
-Turns the light into a spotlight and specifies the direction of light using yaw, pitch and roll in degrees. Yaw specifies the angle around the Z-axis from 0 to 359 degrees and pitch specifies the angle from 90 (straight up) to -90 (straight down). Roll has no effect, so use any value (e.g. 0). Often easier than the "target" method.
-
-"angle" "n"
-Specifies the angle in degrees for a spotlight cone. Default 40.
-
-"_softangle" "n"
-Specifies the angle in degrees for an inner spotlight cone (must be less than the "angle" cone. Creates a softer transition between the full brightness of the inner cone to the edge of the outer cone. Default 0 (disabled).
-
-"targetname" "name"
-Turns the light into a switchable light, toggled by another entity targeting it�s name.
-
-"speed" "n"
-If the light is switchable and FADE_IN_OUT is set, the speed at which the light transitions. Default 0.1.
-
-"style" "n"
-Set the animated light style. Default 0.
-
-"style2" "n"
-Set the animated light style for a switchable light, because style will be overriden if a targetname is set. Default 0.
-
-"_anglescale" "n" | "_anglesense" "n"
-Sets a scaling factor for how much influence the angle of incidence of light on a surface has on the brightness of the surface. n must be between 0.0 and 1.0. Smaller values mean less attenuation, with zero meaning that angle of incidence has no effect at all on the brightness. Default 0.5.
-
-"_dirtscale" "n" | "_dirtgain" "n"
-Override the global "_dirtscale" or "_dirtgain" settings to change how this light is affected by dirtmapping (ambient occlusion). See descriptions of these keys in the worldspawn section.
-
-"_dirt" "n"
-Overrides the worldspawn setting of "_dirt" for this particular light. -1 to disable dirtmapping (ambient occlusion) for this light, making it illuminate the dirtmapping shadows. 1 to enable ambient occlusion for this light. Default is to defer to the worldspawn setting.
-
-"_deviance" "n"
-Split up the light into a sphere of randomly positioned lights within radius "n" (in world units). Useful to give shadows a wider penumbra. "_samples" specifies the number of lights in the sphere. The "light" value is automatically scaled down for most lighting formulas (except linear and non-additive minlight) to attempt to keep the brightness equal. Default is 0, do not split up lights.
-
-"_samples" "n"
-Number of lights to use for "_deviance". Default 16 (only used if "_deviance" is set).
-
-"_surface" "texturename"
-Makes surfaces with the given texture name emit light, by using this light as a template which is copied across those surfaces. Lights are spaced about 128 units (though possibly closer due to bsp splitting) apart and positioned 2 units above the surfaces.
-
-"_surface_offset" "n"
-Controls the offset lights are placed above surfaces for "_surface". Default 2.
-
-"_surface_spotlight" "n"
-For a surface light template (i.e. a light with "_surface" set), setting this to "1" makes each instance into a spotlight, with the direction of light pointing along the surface normal. In other words, it automatically sets "mangle" on each of the generated lights.
-
-"_project_texture" "texture"
-Specifies that a light should project this texture. The texture must be used in the map somewhere.
-
-"_project_mangle" "yaw pitch roll"
-Specifies the yaw/pitch/roll angles for a texture projection (overriding mangle).
-
-"_project_fov" "n"
-Specifies the fov angle for a texture projection. Default 90.
-
-"_bouncescale" "n"
-Scales the amount of light that is contributed by bounces. Default is 1.0, 0.0 disables bounce lighting for this light.
-
-"_sun" "n"
-Set to 1 to make this entity a sun, as an alternative to using the sunlight worldspawn keys. If the light targets an info_null entity, the direction towards that entity sets sun direction. The light itself is disabled, so it can be placed anywhere in the map.
-
-The following light properties correspond to these sunlight settings:
-light => _sunlight
-mangle => _sunlight_mangle
-deviance => _sunlight_penumbra
-_color => _sunlight_color
-_dirt => _sunlight_dirt
-_anglescale => _anglescale
-
  //dumptruck_ds taken from honey (originally from Rogue)
 White candle
+See the "light" entity for a full description.
 */
 /*QUAKED misc_fireball (0 .5 .8) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model ("progs/lavaball.mdl");	}
@@ -1598,6 +1568,7 @@ Just for boss level.
 {
 	model ("progs/boss.mdl");
 }
+These are killable variants of the original boss monsters. On Skill 1 (Easy) these both have 1000 HP. On Normal, Hard and Nightmare the HP is set to 3000. You can also set a custom heath value, as with other monsters. Upon death, Shub will always gib but Chthon will only gib if his HP drops below -50 with one hit (Quad Damage, etc.)
 */
 /*QUAKED monster_spawn (1 0 0) (-16 -16 -24) (16 16 24) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1886,6 +1857,8 @@ damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by 
 /*QUAKED monster_oldone2 (1 0 0) (-160 -128 -24) (160 128 256) X X X X X NO_SIGHT_SOUND X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model ("progs/oldone.mdl");		}
 Killable Shub
+
+These are killable variants of the original boss monsters. On Skill 1 (Easy) these both have 1000 HP. On Normal, Hard and Nightmare the HP is set to 3000. You can also set a custom heath value, as with other monsters. Upon death, Shub will always gib but Chthon will only gib if his HP drops below -50 with one hit (Quad Damage, etc.)
 */
 /*QUAKED play_sound_triggered (0.933 0.105 0.819) (-8 -8 -8) (8 8 8) toggle
 play a sound when it is used
