@@ -1852,20 +1852,13 @@ void() item_artifact_invulnerability =
 	self.touch = powerup_touch;
 
 	// precache_model ("progs/invulner.mdl");
-	// precache_sound ("items/protect.wav");
-	// precache_sound ("items/protect2.wav");
-	// precache_sound ("items/protect3.wav");
 	precache_body_model ("progs/invulner.mdl");
-	precache_sound_misc ("items/protect.wav");
-	precache_sound_misc1 ("items/protect2.wav");  // called in client.qc -- dumptruck_ds
-	precache_sound_misc2 ("items/protect3.wav"); // called in combat.qc -- dumptruck_ds
-	if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
-	self.snd_misc = "items/protect.wav";
-	self.noise = self.snd_misc;
-	// self.noise = "items/protect.wav";
+	precache_sound ("items/protect.wav");
+	precache_sound ("items/protect2.wav");  // called in client.qc -- dumptruck_ds
+	precache_sound ("items/protect3.wav"); // called in combat.qc -- dumptruck_ds
+	self.noise = "items/protect.wav";
 	// setmodel (self, "progs/invulner.mdl");
 	body_model ("progs/invulner.mdl");
-	if !(self.netname)
 	self.netname = "Pentagram of Protection";
 	self.items = IT_INVULNERABILITY;
 	setsize (self, '-16 -16 -24', '16 16 32');
@@ -1886,14 +1879,16 @@ void() item_artifact_envirosuit =
 
 	self.touch = powerup_touch;
 
-	precache_model ("progs/suit.mdl");
+	precache_body_model ("progs/suit.mdl");
 	precache_sound ("items/suit.wav");
 	precache_sound ("items/suit2.wav");
 	self.noise = "items/suit.wav";
-	setmodel (self, "progs/suit.mdl");
+	// setmodel (self, "progs/suit.mdl");
+	body_model ("progs/suit.mdl");
 	self.netname = "Biosuit";
 	self.items = IT_SUIT;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	if !(self.particles_offset)  // t_fog fix for custom models dumptruck_ds
 	self.particles_offset = '0 0 32';
 	StartItem ();
 };
@@ -1911,15 +1906,17 @@ void() item_artifact_invisibility =
 
 	self.touch = powerup_touch;
 
-	precache_model ("progs/invisibl.mdl");
+	precache_body_model ("progs/invisibl.mdl");
 	precache_sound ("items/inv1.wav");
 	precache_sound ("items/inv2.wav");
 	precache_sound ("items/inv3.wav");
 	self.noise = "items/inv1.wav";
-	setmodel (self, "progs/invisibl.mdl");
+	// setmodel (self, "progs/invisibl.mdl");
+	body_model ("progs/invisibl.mdl");
 	self.netname = "Ring of Shadows";
 	self.items = IT_INVISIBILITY;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	if !(self.particles_offset)  // t_fog fix for custom models dumptruck_ds
 	self.particles_offset = '0 0 0';
 	StartItem ();
 };
@@ -1937,14 +1934,17 @@ void() item_artifact_super_damage =
 
 	self.touch = powerup_touch;
 
-	precache_model ("progs/quaddama.mdl");
+	precache_body_model ("progs/quaddama.mdl");
 	precache_sound ("items/damage.wav");
 	precache_sound ("items/damage3.wav");
 	self.noise = "items/damage.wav";
-	setmodel (self, "progs/quaddama.mdl");
+	// setmodel (self, "progs/quaddama.mdl");
+	body_model ("progs/quaddama.mdl");
+	if !(self.netname) // custom name -- dumptruck_ds
 	self.netname = "Quad Damage";
 	self.items = IT_QUAD;
 	setsize (self, '-16 -16 -24', '16 16 32');
+	if !(self.particles_offset)  // t_fog fix for custom models dumptruck_ds
 	self.particles_offset = '0 0 16';
 	StartItem ();
 };
