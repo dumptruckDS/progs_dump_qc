@@ -100,13 +100,20 @@
 [
 	mdl_body(string) : "Path to custom body model"
 ]
+@baseclass = CustomMdlsSkin
+[
+skin(integer) : "Skin index (default 0)"
+mdl_body(string) : "Path to custom body model"
+]
 @baseclass = CustomMdlsAmmo
 [
 	mdl_body(string) : "Path to custom body model"
-	particles_offset(string) : "Adjust spawning particles XYZ if using custom models"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body"
 ]
 @baseclass = CustomMdlsHealth
 [
+skin(integer) : "Skin index (default 0)"
+mdl_body(string) : "Path to custom body model"
 healamount(integer) : "Custom health amount (max of 250)"
 ]
 @baseclass = Berserk [
@@ -273,7 +280,7 @@ state(choices) =
 	snd_misc(string) : "Path to health pickup sound"
 ]
 
-@BaseClass base(RespawnableItem, CustomMdlsAmmo) size(-16 -16 -24, 16 16 32) =
+@BaseClass base(RespawnableItem, CustomMdlsAmmo, CustomMdlsSkin) size(-16 -16 -24, 16 16 32) =
 	Artifact []
 
 @PointClass base(Artifact) studio("progs/suit.mdl") =
@@ -1096,15 +1103,13 @@ _color(color255) : "Light color"
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
 @PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) studio("progs/flame.mdl") =
-	light_torch_small_walltorch : "Small walltorch" []
-
-
-// @PointClass size(-4 -4 -12, 4 4 16) base(TorchLight) studio("progs/flame2.mdl") = light_flame_small_yellow : "Small yellow flame" []
-// @PointClass size(-10 -10 -12, 12 12 18) base(TorchLight) studio("progs/flame2.mdl") = light_flame_large_yellow : "Large yellow flame" []
-// @PointClass size(-4 -4 -16, 4 4 22) base(TorchLight) studio("progs/flame.mdl") = light_torch_small_walltorch : "Small walltorch" []
-// @PointClass size(-8 -8 -48, 8 8 24) base(TorchLight) studio("progs/flame3.mdl") = light_torch_small_walltorch : "Large walltorch" []
-
-
+	light_torch_small_walltorch : "Small walltorch"
+	[
+		spawnflags(Flags) =
+		[
+			4 : "Silent"
+		]
+	]
 // //
 // // lights
 // //

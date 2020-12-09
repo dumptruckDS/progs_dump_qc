@@ -252,6 +252,9 @@ Player is invulnerable for 30 seconds
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+skin = skin index (default 0)
+mdl_body = Path to custom body model
+particles_offset = Adjust origin of spawning particles when using mdl_body
 */
 /*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/suit.mdl");	}
@@ -259,6 +262,9 @@ Biosuit
 Player takes no damage from water or slime for 30 seconds
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
+skin = skin index (default 0)
+mdl_body = Path to custom body model
+particles_offset = Adjust origin of spawning particles when using mdl_body
 respawncount = how many to respawn
 */
 /*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -267,6 +273,9 @@ Ring of Shadows
 Player is invisible for 30 seconds
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
+skin = skin index (default 0)
+mdl_body = Path to custom body model
+particles_offset = Adjust origin of spawning particles when using mdl_body
 respawncount = how many to respawn
 */
 /*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -275,6 +284,9 @@ Quad Damage
 Player does 4x damage for 30 seconds
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
+skin = skin index (default 0)
+mdl_body = Path to custom body model
+particles_offset = Adjust origin of spawning particles when using mdl_body
 respawncount = how many to respawn
 */
 /*QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 72) ALL_AMMO SHELLS NAILS ROCKETS CELLS SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -311,6 +323,9 @@ See the manual for information on skins and models for this entity.
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+skin = skin index (default 0)
+mdl_body = Path to custom body model
+particles_offset = Adjust origin of spawning particles when using mdl_body
 */
 /*QUAKED worldspawn (0 0 0) ?
 Only used for the world entity.
@@ -1004,6 +1019,10 @@ See the "light" entity for a full description.
 {	model ("progs/flame.mdl");	}
 Short wall torch
 See the "light" entity for a full description.
+skin = Skin index (default 0) Use this when your custom model has more than one skin to select
+mdl_body = Path to custom body model
+
+
 */
 /*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model ( { "path" : "progs/flame2.mdl", "frame" : 1 } );	}
@@ -2056,6 +2075,8 @@ An entity for displaying models. A frame range can be given to animate the
 model.
 
 mdl: The model to display. Can be of type mdl, bsp, or spr.
+
+skin: skin index (defaut is 0)
 
 frame: The frame to display. Can be used to offset the animation.
 

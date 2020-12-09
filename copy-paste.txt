@@ -151,3 +151,65 @@ model({{ mdl_body == "" -> {"path": "progs/soldier.mdl"}, mdl_body != "" -> {"pa
 		2 : "Facing up"
 	]
 ]
+
+========================
+For a model to show up in the entity browser, you need to add a default case, i.e.
+=========================
+
+@PointClass
+    size(0 0 0, 32 32 56)
+    base(RespawnableItem, CustomMdlsHealth)
+    model(
+        {{
+            spawnflags & 2 -> (mdl_body == "" -> {"path": ":maps/b_bh100.bsp"}),
+            spawnflags & 2 -> (mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
+            spawnflags & 1 -> (mdl_body == "" -> {"path": ":maps/b_bh10.bsp"}),
+            spawnflags & 1 -> (mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
+            mdl_body == "" -> {"path": ":maps/b_bh25.bsp"},
+            mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
+                           -> { whatever to display in the browser }
+                }}
+    ) =
+    item_health : "Health pack"
+
+=========================
+@PointClass
+    size(0 0 0, 32 32 56)
+    base(RespawnableItem, CustomMdlsHealth)
+    model(
+        {{
+            spawnflags & 2 && mdl_body == "" -> {"path": ":maps/b_bh100.bsp"},
+            spawnflags & 2 && mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
+            spawnflags & 1 && mdl_body == "" -> {"path": ":maps/b_bh10.bsp"},
+            spawnflags & 1 && mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
+            mdl_body == ""                   -> {"path": ":maps/b_bh25.bsp"},
+            mdl_body != ""                   -> {"path" : mdl_body, "skin" : skin}
+                }}
+    ) =
+    item_health : "Health pack"
+
+=========================
+{{
+    mdl_body == "" -> {{
+      spawnflags & 2 -> {"path": ":maps/b_bh100.bsp"},
+      spawnflags & 1 -> {"path": ":maps/b_bh10.bsp"},
+                     -> {"path": ":maps/b_bh25.bsp"}
+    }},
+    mdl_body != "" -> {{
+      spawnflags & 2 -> {"path" : mdl_body, "skin" : skin},
+      spawnflags & 1 -> {"path" : mdl_body, "skin" : skin},
+                     -> {"path" : mdl_body, "skin" : skin}
+    }},
+    -> { default model }
+=========================
+use this format!
+=========================
+{{
+    mdl_body == "" -> {{
+      spawnflags & 2 -> {"path": ":maps/b_bh100.bsp"},
+      spawnflags & 1 -> {"path": ":maps/b_bh10.bsp"},
+                     -> {"path": ":maps/b_bh25.bsp"}
+    }},
+    mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
+                   -> { default model }
+}}

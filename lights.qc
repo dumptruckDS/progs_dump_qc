@@ -4,6 +4,7 @@ lights.qc taken from c0burn's Slipgate mod -- dumptruck_ds
 
 float START_OFF		= 1;
 float FADE_IN_OUT	= 2;
+float SILENT_TORCH = 4; // for silent torch -- dumptruck_ds
 
 /*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
@@ -425,8 +426,11 @@ void() light_torch_small_walltorch =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	precache_model("progs/flame.mdl");
-	setmodel(self, "progs/flame.mdl");
+	// precache_model("progs/flame.mdl");
+	precache_body_model("progs/flame.mdl");
+	// setmodel(self, "progs/flame.mdl");
+	body_model("progs/flame.mdl");
+	if !(self.spawnflags && SILENT_TORCH) // for silent torch -- dumptruck_ds
 	FireAmbient ();
 	makestatic(self);
 };

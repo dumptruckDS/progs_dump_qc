@@ -132,13 +132,20 @@
 [
 	mdl_body(string) : "Path to custom body model"
 ]
+@baseclass = CustomMdlsSkin
+[
+skin(integer) : "Skin index (default 0)"
+mdl_body(string) : "Path to custom body model"
+]
 @baseclass = CustomMdlsAmmo
 [
 	mdl_body(string) : "Path to custom body model"
-	particles_offset(string) : "Adjust spawning particles XYZ if using custom models"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body"
 ]
 @baseclass = CustomMdlsHealth
 [
+skin(integer) : "Skin index (default 0)"
+mdl_body(string) : "Path to custom body model"
 healamount(integer) : "Custom health amount (max of 250)"
 ]
 @baseclass = Berserk [
@@ -312,7 +319,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 ]
 
 @PointClass
-    base(Ammo)
+		base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
             spawnflags & 1 ->   ":maps/b_batt1.bsp",
@@ -322,7 +329,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
     item_cells : "Thunderbolt ammo" []
 
 @PointClass
-    base(Ammo)
+		base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
             spawnflags & 1 ->   ":maps/b_rock1.bsp",
@@ -332,7 +339,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
     item_rockets : "Rockets" []
 
 @PointClass
-    base(Ammo)
+		base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
             spawnflags & 1 ->   ":maps/b_shell1.bsp",
@@ -341,7 +348,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
     ) = item_shells : "Shells" []
 
 @PointClass
-    base(Ammo)
+		base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
             spawnflags & 1 ->   ":maps/b_nail1.bsp",
@@ -371,7 +378,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	snd_misc(string) : "Path to health pickup sound"
 ]
 
-@BaseClass base(RespawnableItem, CustomMdlsAmmo) size(-16 -16 -24, 16 16 32) =
+@BaseClass base(RespawnableItem, CustomMdlsAmmo, CustomMdlsSkin) size(-16 -16 -24, 16 16 32) =
 	Artifact []
 
 @PointClass base(Artifact) model({ "path": ":progs/suit.mdl" }) =
@@ -583,7 +590,7 @@ style(Choices) : "Attack type" =
 		4 : "nails"
 	]
 ]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl","skin" : skin}) = monster_dog : "Nasty Doggie
 
 Default health = 25"
 [
@@ -593,7 +600,7 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl","skin" : skin}) = monster_ogre : "Ogre
 
 Default health = 200"
 [
@@ -614,7 +621,7 @@ style(Choices) : "Attack type" =
 	]
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63,"skin" : skin}) = monster_ogre_marksman : "Ogre marksman
 
 Default health = 200
 
@@ -628,7 +635,7 @@ snd_idle(string) : "Path to custom idle sound (IDLE)" : : "Path to custom idle s
 snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : : "Path to custom sound (IDLE CHAINSAW DRAG)"
 snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : : "Path to custom sound (ATTACK GRUNT)"
 ]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl","skin" : skin }) = monster_knight : "Knight
 
 Default heath = 75"
 [
@@ -639,7 +646,7 @@ snd_attack(string) : "Path to custom attack sound (SWORD SLASH 1)" : :  "Path to
 snd_idle(string) : "Path to custom idle sound" : :  "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : : "Path to custom sound (SWORD SLASH 2)"
 ]
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl" }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl","skin" : skin }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
 
 Default health = 250"
 [
@@ -650,7 +657,7 @@ snd_attack(string) : "Path to custom attack sound (MAGIC BOING)" : : "Path to cu
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD SLASH sound"
 ]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl","skin" : skin }) = monster_wizard : "Scrag a.k.a Wizard
 
 Default health = 80"
 [
@@ -661,7 +668,7 @@ snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack so
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
 ]
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl","skin" : skin }) = monster_demon1 : "Fiend
 Default heath = 300"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -672,7 +679,7 @@ snd_death(string) : "Path to custom death sound" : : "Path to custom death sound
   snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
 
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl","skin" : skin }) = monster_shambler : "Shambler
 
 Default health = 600"
 [
@@ -686,8 +693,8 @@ snd_misc(string) : "Path to custom sound (GRUNT 2)" : : "Path to custom sound (G
 snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : : "Path to custom sound (LIGHTNING ZAP)"
 snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : : "Path to custom sound (LIGHTNING BOOM)"
 ]
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss : "Chthon" []
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl" }) = monster_boss2 : "Killable Chthon
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl","skin" : skin }) = monster_boss : "Chthon" []
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({ "path": ":progs/boss.mdl","skin" : skin }) = monster_boss2 : "Killable Chthon
 
 These are killable variants of the original boss monsters. On Skill 1 (Easy) these both have 1000 HP. On Normal, Hard and Nightmare the HP is set to 3000. You can also set a custom heath value, as with other monsters. Upon death, Shub will always gib but Chthon will only gib if his HP drops below -50 with one hit (Quad Damage, etc.) "
 [
@@ -720,7 +727,7 @@ snd_misc2(string) : "Path to custom sight sound for HALT!" : : "Path to custom s
 snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain sound"
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = monster_shalrath : "Vore a.k.a Shalrath
+@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl","skin" : skin }) = monster_shalrath : "Vore a.k.a Shalrath
 
 Default health = 400"
 [
@@ -731,7 +738,7 @@ snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : : "Path to cus
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : : "Path to custom attack2 sound (VOREBALL FIRE)"
 ]
-@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/tarbaby.mdl" }) = monster_spawn : "Spawn
+@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/tarbaby.mdl","skin" : skin }) = monster_spawn : "Spawn
 
 Default health = 80
 
@@ -751,7 +758,7 @@ snd_misc(string) : "Path to custom sound (WET SLAPPING)" : : "Path to custom sou
 // snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound"
 // snd_misc(string) : "Path to custom sound (WET SLAPPING)" : : "Path to custom sound (WET SLAPPING)"
 // ]
-@PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
+@PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl","skin" : skin }) = monster_fish : "Rotfish
 
 Default health = 25"
 [
@@ -764,7 +771,7 @@ mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
 ]
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath "
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl","skin" : skin }) = monster_oldone : "Shub-Niggurath "
 [
 snd_death(string) : "Path to custom death sound PART 1" : : "Path to custom death sound PART 1"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -776,7 +783,7 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46,"skin" : skin}) = monster_oldone2 : "Killable Shub-Niggurath
 
 These are killable variants of the original boss monsters. On Skill 1 (Easy) these both have 1000 HP. On Normal, Hard and Nightmare the HP is set to 3000. You can also set a custom heath value, as with other monsters. Upon death, Shub will always gib but Chthon will only gib if his HP drops below -50 with one hit (Quad Damage, etc.)"
 [
@@ -2494,14 +2501,6 @@ delay how much time to wait before firing after being switched on."
 	]
 ]
 
-@BaseClass base(Light) = TorchLight
-[
-	spawnflags(Flags) =
-	[
-		1 : "No sound"
-	]
-]
-
 @PointClass base(ToggleLight) = light : "Invisible lightsource (can fade up / down if not styled)" []
 @PointClass base(ToggleLight) = light_fluoro : "Invisible lightsource, with fluorescent hum" []
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
@@ -2527,14 +2526,14 @@ delay how much time to wait before firing after being switched on."
 	[
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
-@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame.mdl" }) =
-	light_torch_small_walltorch : "Small walltorch" []
-
-
-// @PointClass size(-4 -4 -12, 4 4 16) base(TorchLight) model("progs/flame2.mdl") = light_flame_small_yellow : "Small yellow flame" []
-// @PointClass size(-10 -10 -12, 12 12 18) base(TorchLight) model({"path":"progs/flame2.mdl","frame":1}) = light_flame_large_yellow : "Large yellow flame" []
-// @PointClass size(-4 -4 -16, 4 4 22) base(TorchLight) model("progs/flame.mdl") = light_torch_small_walltorch : "Small walltorch" []
-// @PointClass size(-8 -8 -48, 8 8 24) base(TorchLight) model("progs/flame3.mdl") = light_torch_small_walltorch : "Large walltorch" []
+@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname, CustomMdlsSkin) model({ "path": ":progs/flame.mdl" }) =
+	light_torch_small_walltorch : "Small walltorch"
+	[
+		spawnflags(Flags) =
+		[
+			4 : "Silent"
+		]
+	]
 
 @SolidClass base(Appearflags) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
 [
@@ -2559,7 +2558,7 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
 //item-backpack
-@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/pd_bpack.mdl" }) = item_backpack
+@PointClass base(Appearflags, OneTargetname, Effects, CustomMdlsSkin) size(-16 -16 0, 16 16 56) color(80 0 200) model({ "path": ":progs/pd_bpack.mdl", "skin" : skin }) = item_backpack
 :"Placeable backpack
 
 An ammo type spawnflag must be set for this to appear in a map.
