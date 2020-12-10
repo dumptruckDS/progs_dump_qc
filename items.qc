@@ -264,11 +264,19 @@ void() item_health =
 	if (self.spawnflags & H_ROTTEN)
 	{
 		// precache_model("maps/b_bh10.bsp"); // dumptruck_ds custom health models and sounds START
-		precache_body_model("maps/b_bh10.bsp");
+		if (world.style)
+			{
+				precache_body_model ("progs/h_mdls/m_h15.mdl"); // models courtesy Lunaran -- dumptruck_ds
+				body_model("progs/h_mdls/m_h15.mdl");
+			}
+		else
+			{
+				// setmodel(self, "maps/b_bh10.bsp");
+				precache_body_model ("maps/b_bh10.bsp");
+				body_model ("maps/b_bh10.bsp");
+			}
 		// precache_sound("items/r_item1.wav");
 		precache_sound_misc("items/r_item1.wav");
-		// setmodel(self, "maps/b_bh10.bsp");
-		body_model("maps/b_bh10.bsp");
 		// self.noise = "items/r_item1.wav";
 		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
 		self.snd_misc = "items/r_item1.wav";
@@ -285,10 +293,18 @@ void() item_health =
 	if (self.spawnflags & H_MEGA)
 	{
 		// precache_model("maps/b_bh100.bsp");
-		precache_body_model("maps/b_bh100.bsp");
+		if (world.style)
+			{
+				precache_body_model ("progs/h_mdls/m_h100.mdl"); // models courtesy Lunaran -- dumptruck_ds
+				body_model("progs/h_mdls/m_h100.mdl");
+			}
+		else
+			{
+				// setmodel(self, "maps/b_bh100.bsp");
+				precache_body_model ("maps/b_bh100.bsp");
+				body_model ("maps/b_bh100.bsp");
+			}
 		precache_sound_misc("items/r_item2.wav");
-		// setmodel(self, "maps/b_bh100.bsp");
-		body_model("maps/b_bh100.bsp");
 		// self.noise = "items/r_item2.wav";
 		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
 		self.snd_misc = "items/r_item2.wav";
@@ -304,11 +320,20 @@ void() item_health =
 	else
 	{
 		// precache_model("maps/b_bh25.bsp"); // dumptruck_ds custom health models and sounds START
-		precache_body_model("maps/b_bh25.bsp");
-		// setmodel(self, "maps/b_bh25.bsp");
+		if (world.style)
+			{
+				precache_body_model ("progs/h_mdls/m_h25.mdl"); // models courtesy Lunaran -- dumptruck_ds
+				body_model("progs/h_mdls/m_h25.mdl");
+			}
+		else
+			{
+				// setmodel(self, "maps/b_bh25.bsp");
+				precache_body_model ("maps/b_bh25.bsp");
+				// setmodel(self, "maps/b_bh25.bsp");
+				body_model ("maps/b_bh25.bsp");
+			}
 		// precache_sound("items/health1.wav");
 		precache_sound_misc("items/health1.wav");
-		body_model("maps/b_bh25.bsp");
 		// if !(self.noise)
 		// self.noise = "items/health1.wav";
 		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
