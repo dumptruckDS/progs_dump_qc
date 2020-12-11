@@ -1513,7 +1513,7 @@ Originally unused in the game. Plays the sound of thunder at a random interval. 
 // 	]
 // ]
 
-@SolidClass base(Appearflags, Targetname, Effects) = func_wall : "Wall, starts animation when triggered (if supporting texture). 
+@SolidClass base(Appearflags, Targetname, Effects) = func_wall : "Wall, starts animation when triggered (if supporting texture).
 Effects will require an origin brush to work properly (see func_fall2 in manual for details)" []
 
 @SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox.

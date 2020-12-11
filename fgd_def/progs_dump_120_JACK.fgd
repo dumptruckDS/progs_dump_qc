@@ -125,6 +125,7 @@ berserk(choices) : "skip certain pain animations" : : "Skips certain pain animat
 ]
 
 @baseclass = Effects [
+alpha(float) : "Transparancy (.1 barely visible - .9 almost opaque)"
 effects(choices) : "Various visual effects" : : "Add a visual effect to an entity" =
 			[
 				0 : "None (Default)"
@@ -1461,7 +1462,8 @@ spawnflags(Flags) =
 //	]
 //]
 
-@SolidClass base(Appearflags, Targetname) = func_wall : "Wall, starts animation when triggered (if supporting texture)" []
+@SolidClass base(Appearflags, Targetname, Effects) = func_wall : "Wall, starts animation when triggered (if supporting texture)
+Effects will require an origin brush to work properly (see func_fall2 in manual for details)" []
 
 //____TW_EDIT____
 @SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox."

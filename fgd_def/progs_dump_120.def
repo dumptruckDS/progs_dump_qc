@@ -29,7 +29,12 @@ snd_misc = Path to health pickup sound
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
-
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_armor_shard (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -42,6 +47,12 @@ snd_misc = Path to custom pickup sound
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 respawncount = how many to respawn
 */
 /*QUAKED item_armor1 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -54,6 +65,12 @@ snd_misc = Path to custom pickup sound
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 */
 /*QUAKED item_armor2 (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -64,6 +81,12 @@ snd_misc = Path to custom pickup sound
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 */
 /*QUAKED item_armorInv (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -76,6 +99,12 @@ snd_misc = Path to custom pickup sound
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 obit_name = Custom name for this armor. Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'
 */
 ///*QUAKED weapon_axe (0 .5 .8) (-16 -16 0) (16 16 32)
@@ -89,6 +118,12 @@ Shotgun
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED weapon_supershotgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_shot.mdl");	}
@@ -96,6 +131,12 @@ Double-barrelled Shotgun
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED weapon_nailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_nail.mdl");	}
@@ -103,6 +144,12 @@ Nailgun
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED weapon_supernailgun (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_nail2.mdl");	}
@@ -110,6 +157,12 @@ Perforator
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED weapon_grenadelauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_rock.mdl");	}
@@ -117,6 +170,12 @@ Grenade Launcher
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED weapon_rocketlauncher (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_rock2.mdl");	}
@@ -124,6 +183,12 @@ Rocket Launcher
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED weapon_lightning (0 .5 .8) (-16 -16 0) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/g_light.mdl");	}
@@ -131,6 +196,12 @@ Thunderbolt
 ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_shells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -142,6 +213,12 @@ ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
 mdl_body - Path to custom body model
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_spikes (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -153,6 +230,12 @@ ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
 mdl_body - Path to custom body model
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_rockets (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -162,6 +245,12 @@ ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
 mdl_body - Path to custom body model
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_cells (0 .5 .8) (0 0 0) (32 32 32) LARGE_BOX X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -173,6 +262,12 @@ ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
 mdl_body - Path to custom body model
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 ///*QUAKED item_weapon (0 .5 .8) (0 0 0) (32 32 32) shotgun rocket spikes big
 //DO NOT USE THIS!!!! IT WILL BE REMOVED!
@@ -184,6 +279,12 @@ In order for keys to work you MUST set your map's worldtype to one of the follow
 0: medieval
 1: metal
 2: base
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_key2 (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -194,6 +295,12 @@ In order for keys to work you MUST set your map's worldtype to one of the follow
 0: medieval
 1: metal
 2: base
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -231,6 +338,13 @@ The behavior of an item_key_custom should be as the player expects
 (based on the behavior of the silver and gold keys), except for the fact
 that it will not appear as an icon in the player's status bar when
 picked up.  This is a limitation of the engine.
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_sigil (0 .5 .8) (-16 -16 -24) (16 16 32) E1 E2 E3 E4 X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -244,6 +358,12 @@ Episode 1 - Dimension of the Doomed - Rune of Earth Magic
 Episode 2 - The Realm of Black Magic - Rune of Black Magic
 Episode 3 - The Netherworld - Rune of Hell Magic
 Episode 4 - The Elder World - Run of Elder Magic
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_artifact_invulnerability (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/invulner.mdl");	}
@@ -255,6 +375,12 @@ respawncount = how many to respawn
 skin = skin index (default 0)
 mdl_body = Path to custom body model
 particles_offset = Adjust origin of spawning particles when using mdl_body
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_artifact_envirosuit (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/suit.mdl");	}
@@ -266,6 +392,12 @@ skin = skin index (default 0)
 mdl_body = Path to custom body model
 particles_offset = Adjust origin of spawning particles when using mdl_body
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_artifact_invisibility (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/invisibl.mdl");	}
@@ -277,6 +409,12 @@ skin = skin index (default 0)
 mdl_body = Path to custom body model
 particles_offset = Adjust origin of spawning particles when using mdl_body
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_artifact_super_damage (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER RESPAWN_WITH_DM_EFFECTS NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/quaddama.mdl");	}
@@ -288,6 +426,12 @@ skin = skin index (default 0)
 mdl_body = Path to custom body model
 particles_offset = Adjust origin of spawning particles when using mdl_body
 respawncount = how many to respawn
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED item_backpack (0 .5 .8) (-16 -16 0) (16 16 72) ALL_AMMO SHELLS NAILS ROCKETS CELLS SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/backpack.mdl");	}
@@ -326,6 +470,12 @@ respawncount = how many to respawn
 skin = skin index (default 0)
 mdl_body = Path to custom body model
 particles_offset = Adjust origin of spawning particles when using mdl_body
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED worldspawn (0 0 0) ?
 Only used for the world entity.
@@ -336,6 +486,8 @@ Optionally set reset_items to one of the following values:
 2: reset to axe only
 
 message(string) : "Level name"
+
+style(integer) : "Set to 1 to override default BSP ammo with Copper MDLs"
 
 worldtype(choices) : "Ambience" : 0 =
 0 : "Medieval"
@@ -734,6 +886,8 @@ Effects
 Teleporter target for final boss level. Must target a series of 'path_corner' entities.
 It will position itself on its first target at map load.
 If a targetname is set, it must be triggered to start moving, otherwise it will start automatically.
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 */
 // /*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
 // Used as a positional target for spotlights, etc.
@@ -834,7 +988,14 @@ air bubbles entity
 //Just for the debugging level.  Don't use
 //*/
 /*QUAKED func_wall (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-This is just a solid wall if not inhibitted
+This is just a solid wall if not inhibited
+You can add the following effects by adding an origin brush to this entity. See func_fall2 in the manual for how to do this.
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+effects = Add a visual effect to an entity
+0 = "None (Default)"
+1 = "Brightfield (yellow particles)"
+4 = "Bright light"
+8 = "Dim light"
 */
 /*QUAKED func_illusionary (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A simple entity that looks solid but lets you walk through it.
@@ -1071,6 +1232,8 @@ mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1126,6 +1289,8 @@ mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1180,6 +1345,8 @@ mdl_head(string) : "Path to custom head model"
 mdl_body(string) : "Path to custom body model"
 skin_head(float) : "Skin index of custom head model"
 mdl_gib1(string) : "Path to custom 1st gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
@@ -1241,6 +1408,8 @@ mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1297,6 +1466,8 @@ skin_head(float) : "Skin index of custom head model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
@@ -1364,6 +1535,8 @@ style "Attack type"
 3 "lasers"
 4 "Nails"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1421,6 +1594,8 @@ mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1476,6 +1651,8 @@ skin_head(float) : "Skin index of custom head model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
@@ -1539,6 +1716,8 @@ skin_proj(float) : "Skin index of custom projectile model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
@@ -1604,6 +1783,8 @@ snd_misc(string) : "Path to custom sound (WET SLAPPING)"
 
 mdl_body(string) : "Path to custom body model"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1658,6 +1839,8 @@ mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
 
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
+
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
 1 : "Brightfield (yellow particles)"
@@ -1709,6 +1892,8 @@ mdl_body(string) : "Path to custom body model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
@@ -1763,6 +1948,8 @@ skin_proj(float) : "Skin index of custom projectile model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
@@ -1834,6 +2021,8 @@ skin_proj(float) : "Skin index of custom projectile model"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
+
+alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
 effects(choices) : "Add a visual effect to an entity"
 0 : "None (Default)"
