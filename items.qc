@@ -250,6 +250,7 @@ rot the player back down to 100 health after 5 seconds.
 
 float	H_ROTTEN = 1;
 float	H_MEGA = 2;
+float H_VIAL = 4;
 .float	healamount, healtype;
 void() health_touch;
 // void() item_megahealth_rot;
@@ -313,6 +314,24 @@ void() item_health =
 		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 100;
 		self.healtype = 2;
+		if !(self.particles_offset)
+		self.particles_offset = '16 16 16';
+
+	}
+	else
+	if (self.spawnflags & H_VIAL)
+	{
+		precache_body_model ("progs/h_mdls/pd_vial.mdl"); // models courtesy Lunaran -- dumptruck_ds
+		body_model("progs/h_mdls/pd_vial.mdl");
+		precache_sound_misc("items/r_item1.wav");
+		// self.noise = "items/r_item2.wav";
+		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+		self.snd_misc = "items/r_item1.wav";
+		self.noise = self.snd_misc;
+
+		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
+		self.healamount = 5;
+		self.healtype = 0;
 		if !(self.particles_offset)
 		self.particles_offset = '16 16 16';
 
