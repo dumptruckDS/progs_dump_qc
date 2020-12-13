@@ -1475,7 +1475,7 @@ Originally unused in the game. Plays the sound of thunder at a random interval. 
 		8 : "Gold Key required" : 0
 		16: "Silver Key required" : 0
 		32: "Toggle" : 0
-		// 64: "Doom-style Unlock" : 0
+		64: "Doom-style Unlock" : 0
 	]
 ]
 
