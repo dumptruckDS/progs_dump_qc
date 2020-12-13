@@ -200,7 +200,7 @@ door_touch function.  -- iw
 */
 void() door_unlock =
 {
-	if (self.spawnflags & DOOR_DOOM_STYLE_UNLOCK)
+	if (!(self.spawnflags & DOOR_DOOM_STYLE_UNLOCK))
 	{
 		self.touch = SUB_Null;
 		if (self.enemy)
