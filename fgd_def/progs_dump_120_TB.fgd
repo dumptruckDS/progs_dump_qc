@@ -378,6 +378,15 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
 	snd_misc(string) : "Path to health pickup sound"
 ]
+@PointClass
+    size(-16 -16 0, 16 16 56)
+    base(RespawnableItem, CustomMdlsHealth)
+		model({ "path": "progs/h_mdls/pd_vial.mdl" }) = item_health_vial : "Small Health vial"
+[
+	mdl_body(string) : "Path to custom model"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
+	snd_misc(string) : "Path to health pickup sound"
+]
 
 @BaseClass base(RespawnableItem, CustomMdlsAmmo, CustomMdlsSkin) size(-16 -16 -24, 16 16 32) =
 	Artifact []

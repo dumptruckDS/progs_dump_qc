@@ -369,20 +369,9 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass
     size(0 0 0, 32 32 56)
     base(RespawnableItem, CustomMdlsHealth)
-    // model(
-    //     {{
-    //         spawnflags & 2 -> (mdl_body == "" -> {"path": ":maps/b_bh100.bsp"}),
-    //         spawnflags & 2 -> (mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
-    //         spawnflags & 1 -> (mdl_body == "" -> {"path": ":maps/b_bh10.bsp"}),
-    //         spawnflags & 1 -> (mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
-    //         mdl_body == "" -> {"path": ":maps/b_bh25.bsp"},
-    //         mdl_body != "" -> {"path" : mdl_body, "skin" : skin}
-		// 		}}
-    // ) =
 		model(
 				{{
 						mdl_body == "" -> {{
-							spawnflags & 4 -> {"path": "progs/h_mdls/pd_vial.mdl"},
 							spawnflags & 2 -> {"path": ":maps/b_bh100.bsp"},
 							spawnflags & 1 -> {"path": ":maps/b_bh10.bsp"},
 														{"path": ":maps/b_bh25.bsp"}
@@ -398,6 +387,22 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 		1 : "Rotten" : 0
 		2 : "Megahealth" : 0
 	]
+	mdl_body(string) : "Path to custom model"
+	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
+	snd_misc(string) : "Path to health pickup sound"
+]
+
+@PointClass
+    size(-16 -16 0, 16 16 56)
+    base(RespawnableItem, CustomMdlsHealth)
+		model(
+				{{
+						mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
+													{"path": "progs/h_mdls/pd_vial.mdl"}
+				}}
+		) =
+    item_health_vial : "Small Health vial"
+[
 	mdl_body(string) : "Path to custom model"
 	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
 	snd_misc(string) : "Path to health pickup sound"

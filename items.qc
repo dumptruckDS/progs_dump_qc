@@ -316,25 +316,6 @@ void() item_health =
 		self.healtype = 2;
 		if !(self.particles_offset)
 		self.particles_offset = '16 16 16';
-
-	}
-	else
-	if (self.spawnflags & H_VIAL)
-	{
-		precache_body_model ("progs/h_mdls/pd_vial.mdl"); // models courtesy Lunaran -- dumptruck_ds
-		body_model("progs/h_mdls/pd_vial.mdl");
-		precache_sound_misc("items/r_item1.wav");
-		// self.noise = "items/r_item2.wav";
-		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
-		self.snd_misc = "items/r_item1.wav";
-		self.noise = self.snd_misc;
-
-		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
-		self.healamount = 5;
-		self.healtype = 0;
-		if !(self.particles_offset)
-		self.particles_offset = '16 16 16';
-
 	}
 	else
 	{
@@ -364,9 +345,32 @@ void() item_health =
 		self.healtype = 1;
 		if !(self.particles_offset)
 		self.particles_offset = '16 16 8'; // dumptruck_ds custom health models and sounds END
-
 	}
 	setsize (self, '0 0 0', '32 32 56');
+	StartItem ();
+};
+
+void() item_health_vial =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	self.touch = health_touch;
+
+	precache_body_model ("progs/h_mdls/pd_vial.mdl"); // model from Hexen 2 -- dumptruck_ds
+	body_model("progs/h_mdls/pd_vial.mdl");
+	precache_sound_misc("items/r_item1.wav");
+	// self.noise = "items/r_item2.wav";
+	if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+	self.snd_misc = "items/r_item1.wav";
+	self.noise = self.snd_misc;
+
+	if !(self.healamount) //set your custom health amount here -- dumptruck_ds
+	self.healamount = 5;
+	self.healtype = 0;
+	setsize (self, '-16 -16 0', '16 16 56');
+	if !(self.particles_offset)
+	self.particles_offset = '0 0 0';
 	StartItem ();
 };
 
