@@ -268,7 +268,7 @@ state(choices) =
 @PointClass base(Ammo) studio("maps/b_shell0.bsp") = item_shells : "Shells" []
 @PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
-@PointClass size(-16 -16 0, 16 16 56) base(RespawnableItem, CustomMdlsHealth) studio("progs/h_mdls/pd_vial.mdl") =
+@PointClass size(-16 -16 0, 16 16 56) base(RespawnableItem, CustomMdlsHealth, CustomMdlsSkin) studio("progs/h_mdls/pd_vial.mdl") =
 item_health_vial : "Small Health vial"
 [
 	mdl_body(string) : "Path to custom model"

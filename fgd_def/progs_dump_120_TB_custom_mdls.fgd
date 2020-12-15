@@ -394,11 +394,11 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 
 @PointClass
     size(-16 -16 0, 16 16 56)
-    base(RespawnableItem, CustomMdlsHealth)
+    base(RespawnableItem, CustomMdlsHealth, CustomMdlsSkin)
 		model(
 				{{
 						mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
-													{"path": "progs/h_mdls/pd_vial.mdl"}
+													{"path": "progs/h_mdls/pd_vial.mdl","skin" : skin }
 				}}
 		) =
     item_health_vial : "Small Health vial"
