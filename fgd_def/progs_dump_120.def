@@ -41,7 +41,7 @@ effects = Add a visual effect to an entity
 {
 model ("progs/h_mdls//pd_vial.mdl");
 }
-Small vial of health
+Small vial of health (default 5)
 healamount = Custom health amount (default 5)
 mdl_body = Path to custom model
 particles_offset = When trigger spawning or respawning,

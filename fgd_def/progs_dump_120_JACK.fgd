@@ -269,7 +269,7 @@ state(choices) =
 @PointClass base(Ammo) studio("maps/b_nail0.bsp") = item_spikes : "Perforator/Nailgun ammo" []
 
 @PointClass size(-16 -16 0, 16 16 56) base(RespawnableItem, CustomMdlsHealth, CustomMdlsSkin) studio("progs/h_mdls/pd_vial.mdl") =
-item_health_vial : "Small Health vial"
+item_health_vial : "Small vial of health (default 5)"
 [
 	mdl_body(string) : "Path to custom model"
 	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."

@@ -381,7 +381,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass
     size(-16 -16 0, 16 16 56)
     base(RespawnableItem, CustomMdlsHealth, CustomMdlsSkin)
-		model({"path": "progs/h_mdls/pd_vial.mdl","skin" : skin }) = item_health_vial : "Small Health vial"
+		model({"path": "progs/h_mdls/pd_vial.mdl","skin" : skin }) = item_health_vial : "Small vial of health (default 5)"
 [
 	mdl_body(string) : "Path to custom model"
 	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
