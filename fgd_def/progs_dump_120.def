@@ -21,7 +21,6 @@ Health box. Normally gives 25 points.
 Rotten box heals 15 points.
 Megahealth will add 100 health, then start to
 rot the player back down to 100 health after 5 seconds.
-healamount = Custom health amount (max of 250)
 mdl_body = Path to custom model
 particles_offset = When trigger spawning or respawning,
 a custom model may not display t_fog correctly. Adjust the origin coordinates here.
@@ -42,7 +41,6 @@ effects = Add a visual effect to an entity
 model ("progs/h_mdls//pd_vial.mdl");
 }
 Small vial of health (default 5)
-healamount = Custom health amount (default 5)
 mdl_body = Path to custom model
 particles_offset = When trigger spawning or respawning,
 a custom model may not display t_fog correctly. Adjust the origin coordinates here.
@@ -498,6 +496,7 @@ ritem = set to 1 to respawn
 respawndelay = wait time for next spawns
 respawncount = how many to respawn
 skin = skin index (default 0)
+snd_misc = Path to custom pickup sound
 mdl_body = Path to custom body model
 particles_offset = Adjust origin of spawning particles when using mdl_body
 alpha = Transparancy (.1 barely visible - .9 almost opaque)

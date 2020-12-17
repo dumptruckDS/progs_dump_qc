@@ -283,7 +283,7 @@ void() item_health =
 		self.snd_misc = "items/r_item1.wav";
 		self.noise = self.snd_misc;
 
-		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
+		// if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 15;
 		self.healtype = 0;
 		if !(self.particles_offset)
@@ -311,7 +311,7 @@ void() item_health =
 		self.snd_misc = "items/r_item2.wav";
 		self.noise = self.snd_misc;
 
-		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
+		// if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 100;
 		self.healtype = 2;
 		if !(self.particles_offset)
@@ -340,7 +340,7 @@ void() item_health =
 		self.snd_misc = "items/health1.wav";
 		self.noise = self.snd_misc;
 
-		if !(self.healamount) //set your custom health amount here -- dumptruck_ds
+		// if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 25;
 		self.healtype = 1;
 		if !(self.particles_offset)
@@ -365,7 +365,7 @@ void() item_health_vial =
 	self.snd_misc = "items/r_item1.wav";
 	self.noise = self.snd_misc;
 
-	if !(self.healamount) //set your custom health amount here -- dumptruck_ds
+	// if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 	self.healamount = 5;
 	self.healtype = 0;
 	setsize (self, '-16 -16 0', '16 16 56');
@@ -2173,9 +2173,8 @@ float CELLS = 16;
 
 void() item_backpack_message =
 {
-	// from Copper -- dumptruck_ds
 
-	if (!CheckValidTouch()) return;
+	if (!CheckValidTouch()) return; // from Copper -- dumptruck_ds
 
 	other.ammo_shells = other.ammo_shells + self.ammo_shells;
 	other.ammo_nails = other.ammo_nails + self.ammo_nails;
@@ -2192,7 +2191,8 @@ void() item_backpack_message =
 		sprint (other, "You got a backpack!\n");
 
 	// backpack touch sound
-	sound (other, CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
+	// sound (other, CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
+	sound_misc (other, CHAN_ITEM, self.snd_misc, 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
 	remove(self);
 	self = other;
@@ -2289,6 +2289,9 @@ void() item_backpack =
 
 	self.touch = item_backpack_message;
 
+	if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
+	self.snd_misc = "weapons/lock4.wav";
+	precache_sound_misc(self.snd_misc);
 	precache_body_model ("progs/pd_bpack.mdl");
 	body_model ("progs/pd_bpack.mdl");
 	// setmodel (self, "progs/backpack.mdl");

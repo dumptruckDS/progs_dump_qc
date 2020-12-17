@@ -146,7 +146,7 @@ mdl_body(string) : "Path to custom body model"
 [
 skin(integer) : "Skin index (default 0)"
 mdl_body(string) : "Path to custom body model"
-healamount(integer) : "Custom health amount (max of 250)"
+// healamount(integer) : "Custom health amount (max of 250)"
 ]
 @baseclass = Berserk [
 berserk(choices) : "skip certain pain animations" : : "Skips certain pain animations similar to skill 3 (Makes a semi-nightmare monster!)" =
@@ -2622,6 +2622,7 @@ ammo_nails(integer) : "Custom amount of nails" : 0
 ammo_rockets(integer) : "Custom amount of rockets" : 0
 ammo_cells(integer) : "Custom amount of cells" : 0
 netname(string) : "Custom text for ammo pickups"
+snd_misc(string) : "Path to custom pickup sound"
 mdl_body(string) : "Path to custom body model"
 spawnflags(flags) =
 	[
