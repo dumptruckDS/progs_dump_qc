@@ -1609,10 +1609,10 @@ void() ImpulseCommands =
 	if (self.impulse == 100)
 	sprint(self, version);
 
-	if (self.impulse == 101) // debugging armor shards -- dumptruck_ds
-	dprint ("Armortype is");
-	dprint (ftos(self.armortype));
-	dprint ("\n");
+	// if (self.impulse == 101) // debugging armor shards -- dumptruck_ds
+	// dprint ("Armortype is");
+	// dprint (ftos(self.armortype));
+	// dprint ("\n");
 
 	self.impulse = 0;
 };

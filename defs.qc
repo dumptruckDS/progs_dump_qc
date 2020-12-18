@@ -218,7 +218,7 @@ void		end_sys_fields;			// flag for structure dumping
 ==============================================================================
 */
 
-string version = "\nprogs_dump devkit\nversion 1.2.0"; // inspired by Copper
+string version = "\nprogs_dump devkit\nversion 2.0.0"; // inspired by Copper
 
 //
 // constants

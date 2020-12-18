@@ -1,9 +1,20 @@
-1.2.0 December 2020
+2.0.0 December 2020
 
+* Changed version to 2.0.0
+* Added impulse 100 to print version number
+* Added custom sound support to item_backpack
+* Added item_health_vial
+* Added item_armor_shard from RMQ
+* Added custom model support to artifacts
+* Added custom model/sound/name support to armor
+* Added "opt-in" Copper health/ammo MDLs instead of stock BSPs
+* Added custom model support to ammo
+* Added custom model/sound support to health
 * Added "frame" key in TrenchBroom flavored FGDs to aid in positioning
   Crucified or Sleeping Zombies
 * Fixed issues with item_backpack spawnflags. This required changes to
   the existing spawnflags in progs_dump 1.2.0 RC 1.
+
 
 1.2.0 Release Candidate 1 November 2020
 
@@ -21,7 +32,7 @@
 * Added custom model support to monster_ogre_marksman
 * Added custom projectile model for "Styled" monsters (excluding Ogre Style 3)
 
-1.1.3 September 2020
+1.1.3 September 2020 (unreleased)
 
 * Added trigger_changemusic and trigger_cdtrack
 * Added trigger_look from NullPointPaladin
