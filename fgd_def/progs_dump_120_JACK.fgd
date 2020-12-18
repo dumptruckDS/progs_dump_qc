@@ -1434,7 +1434,7 @@ spawnflags(Flags) =
 		8 : "Gold Key required" : 0
 		16: "Silver Key required" : 0
 		32: "Toggle" : 0
-		// 64: "Doom-style Unlock" : 0
+		64: "Doom-style Unlock" : 0
 	]
 ]
 

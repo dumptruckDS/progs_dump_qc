@@ -4,7 +4,7 @@ float DOOR_DONT_LINK = 4;
 float DOOR_GOLD_KEY = 8;
 float DOOR_SILVER_KEY = 16;
 float DOOR_TOGGLE = 32;
-// float DOOR_DOOM_STYLE_UNLOCK = 64;
+float DOOR_DOOM_STYLE_UNLOCK = 64;
 /*
 
 Doors are similar to buttons, but can spawn a fat trigger field around them
@@ -200,12 +200,12 @@ door_touch function.  -- iw
 */
 void() door_unlock =
 {
-	// if (self.spawnflags & DOOR_DOOM_STYLE_UNLOCK)
-	// {
+	if (!(self.spawnflags & DOOR_DOOM_STYLE_UNLOCK))
+	{
 		self.touch = SUB_Null;
 		if (self.enemy)
 			self.enemy.touch = SUB_Null;	// get paired door
-	// }
+	}
 	door_use ();
 };
 
@@ -501,16 +501,16 @@ void() func_door =
 		self.th_die = door_killed;
 	}
 
-	// if (self.spawnflags & DOOR_DOOM_STYLE_UNLOCK)
-	// 	self.cnt = 1;
+	if (self.spawnflags & DOOR_DOOM_STYLE_UNLOCK)
+		self.cnt = 1;
 
 	if (keylock_has_key_set ())
-	// {
-	// 	if (!(self.spawnflags & DOOR_DOOM_STYLE_UNLOCK))
-	// 	{
+	{
+		if (!(self.spawnflags & DOOR_DOOM_STYLE_UNLOCK))
+		{
 			self.wait = -1;
-	// 	}
-	// }
+		}
+	}
 	self.touch = door_touch;
 
 // LinkDoors can't be done until all of the doors have been spawned, so
