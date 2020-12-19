@@ -449,9 +449,15 @@ pain_target(string) : "Fire this target when pain_threshold is reached" : : "Fir
 pain_threshold(integer) : "Fire pain_target when health drops below this amount" : : "Fire pain_target when health drops below this amount"
 sight_trigger(integer) : "Fire this target upon seeing the player" : : "Fire this target upon seeing the player"
 skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
-	obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
-	obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
-	damage_mod(float) : "Damage multiplier (e.g. 4 = Quad damage)" : : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+obit_name(string) : "Custom description of WHO killed the player." : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
+obit_method(string) : "Custom description of HOW this monster killed the player." : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+damage_mod(float) : "Damage multiplier (e.g. 4 = Quad damage)" : : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	[
+		0 : "(Default) Disabled"
+		1 : "Drop a Silver Key upon death"
+		2 : "Drop a Gold Key upon death"
+	]
 ]
 //dumptruck_ds
 //@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []

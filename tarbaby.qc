@@ -180,6 +180,15 @@ void()	tbaby_die2	=[	$exp,		tbaby_run1	]
 	WriteCoord (MSG_BROADCAST, self.origin_z);
 
 	BecomeExplosion ();
+
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
 };
 
 //=============================================================================

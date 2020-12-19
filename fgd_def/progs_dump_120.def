@@ -1290,7 +1290,15 @@ sight_trigger(integer) : "1 = Fire target upon seeing the player instead of deat
 skin(integer) : "Skin index (default 0) Use this when your custom model has more than one skin to select"
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1348,7 +1356,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
-
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 */
 /*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID ON_SIDE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1405,6 +1416,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1467,6 +1482,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1526,6 +1545,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID ON_SIDE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1594,6 +1617,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID FACE_UP X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1653,6 +1680,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1711,6 +1742,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1776,6 +1811,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 spawnflags(Flags) =
 1 : "Crucified"
@@ -1842,6 +1881,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_hell_knight (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1898,6 +1941,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_hell_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1952,6 +1999,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -2008,6 +2059,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -2081,6 +2136,10 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+drop_item(Choices) =
+	0 = (Default) Disabled
+	1 = Drop a Silver Key upon death
+	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID FACE_UP X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
