@@ -2,6 +2,7 @@
 
 * Changed version to 2.0.0
 * Added drop_item to monsters (drop Silver or Gold key on death)
+* Added drop_item to func_breakable (drop Silver or Gold key)
 * Added impulse 100 to print version number
 * Added custom sound support to item_backpack
 * Added item_health_vial

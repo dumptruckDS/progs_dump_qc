@@ -2622,6 +2622,10 @@ brk_obj_count2(integer) : "Template 2 spawn count"
 brk_obj_count3(integer) : "Template 3 spawn count"
 brk_obj_count4(integer) : "Template 4 spawn count"
 brk_obj_count5(integer) : "Template 5 spawn count"
+drop_item(Choices) =
+	0 : "(Default) Disabled"
+	1 : "Drop a Silver Key upon death"
+	2 : "Drop a Gold Key upon death"
 */
 /*QUAKED trigger_ladder (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'

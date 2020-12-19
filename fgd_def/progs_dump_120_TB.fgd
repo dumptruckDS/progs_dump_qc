@@ -2269,6 +2269,12 @@ Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 	    brk_obj_count3(integer) : "Template 3 spawn count"
 	    brk_obj_count4(integer) : "Template 4 spawn count"
 	    brk_obj_count5(integer) : "Template 5 spawn count"
+			drop_item(Choices) =
+			[
+				0 : "(Default) Disabled"
+				1 : "Drop a Silver Key upon death"
+				2 : "Drop a Gold Key upon death"
+			]
 ]
 @PointClass size(16 14 24) color(255 128 0) base(Targetname, Target, Appearflags) = func_counter : "Activation Counter
 
