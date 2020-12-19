@@ -904,3 +904,5 @@ float HEAL_MONSTER_ONLY	= 4;
 // Custom Model End -- dumptruck_ds
 
 .float shardvalue; // ammo shard value
+
+.float drop_item; // key DropStuff

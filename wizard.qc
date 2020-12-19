@@ -333,7 +333,16 @@ self.flags = self.flags - (self.flags & FL_ONGROUND);
 sound_death (self, CHAN_VOICE, "wizard/wdeath.wav", 1, ATTN_NORM);
 };
 void()	wiz_death2	=[	$death2,		wiz_death3	] {};
-void()	wiz_death3	=[	$death3,		wiz_death4	]{self.solid = SOLID_NOT;};
+void()	wiz_death3	=[	$death3,		wiz_death4	]{self.solid = SOLID_NOT;
+	if (self.drop_item == 1)
+	{
+		DropKey1();
+	}
+	if (self.drop_item == 2)
+	{
+		DropKey2();
+	}
+};
 void()	wiz_death4	=[	$death4,		wiz_death5	] {};
 void()	wiz_death5	=[	$death5,		wiz_death6	] {};
 void()	wiz_death6	=[	$death6,		wiz_death7	] {};
@@ -381,9 +390,16 @@ void() wiz_die =
 		{
 			ThrowGib ("progs/gib2.mdl", self.health);
 		}
+		if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+		if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
 		return;
 	}
-
 	wiz_death1 ();
 };
 

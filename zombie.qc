@@ -489,6 +489,14 @@ void() zombie_die =
 	{
 		ThrowGib ("progs/gib3.mdl", self.health);
 	}
+	if (self.drop_item == 1)
+	{
+		DropKey1();
+	}
+	if (self.drop_item == 2)
+	{
+		DropKey2();
+	}
 };
 
 /*

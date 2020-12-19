@@ -148,11 +148,27 @@ void() f_death1 =[      $death1,        f_death2        ]
 		{
 			ThrowHead ("progs/h_dog.mdl", self.health);
 		}
+		if (self.drop_item == 1)
+			{
+				DropKey1();
+			}
+		if (self.drop_item == 2)
+			{
+				DropKey2();
+			}
 		SUB_Remove();
 	}
 	else
 	self.solid = SOLID_NOT;
 	sound_death (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
 };
 void() f_death2 =[      $death2,        f_death3        ] {};
 void() f_death3 =[      $death3,        f_death4        ] {};

@@ -463,6 +463,15 @@ void() worldspawn =
 
 	precache_model ("progs/v_light.mdl");
 
+	precache_model ("progs/w_s_key.mdl"); // dumptruck_ds needed for DropStuff
+	precache_model ("progs/w_g_key.mdl"); //
+	precache_sound ("misc/medkey.wav");
+	precache_sound ("misc/runekey.wav");
+	precache_model ("progs/m_s_key.mdl");
+	precache_model ("progs/m_g_key.mdl");
+	precache_sound2 ("misc/basekey.wav");
+	precache_model2 ("progs/b_s_key.mdl");
+	precache_model2 ("progs/b_g_key.mdl");
 
 //
 // Setup light animation tables. 'a' is total darkness, 'z' is maxbright.

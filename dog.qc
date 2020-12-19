@@ -265,12 +265,30 @@ void() dog_die =
 		{
 			ThrowHead ("progs/h_dog.mdl", self.health);
 		}
-		return;
+		if (self.drop_item == 1)
+			{
+				DropKey1();
+			}
+		if (self.drop_item == 2)
+			{
+				DropKey2();
+			}
+ 		return;
 	}
 
 // regular death
 	sound_death (self, CHAN_VOICE, "dog/ddeath.wav", 1, ATTN_NORM); //dumptruck_ds
 	self.solid = SOLID_NOT;
+
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
+
 
 	if (random() > 0.5)
 		dog_die1 ();

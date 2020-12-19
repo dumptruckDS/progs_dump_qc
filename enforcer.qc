@@ -536,6 +536,14 @@ void()	enf_die2	=[	$death2,	enf_die3	] {};
 void()	enf_die3	=[	$death3,	enf_die4	]
 {
 	self.solid = SOLID_NOT;
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
 	if (self.style == 1) // style ammotype check -- dumptruck_ds
 		{
 			self.ammo_rockets = 2;
@@ -573,6 +581,14 @@ void()	enf_fdie2	=[	$fdeath2,	enf_fdie3	] {};
 void()	enf_fdie3	=[	$fdeath3,	enf_fdie4	]
 {
 	self.solid = SOLID_NOT;
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
 	if (self.style == 1) // style ammotype check -- dumptruck_ds
 		{
 			self.ammo_rockets = 2;
@@ -642,6 +658,14 @@ void() enf_die =
 		{
 			ThrowGib ("progs/gib3.mdl", self.health);
 		}
+		if (self.drop_item == 1)
+			{
+				DropKey1();
+			}
+		if (self.drop_item == 2)
+			{
+				DropKey2();
+			}
 		return;
 	}
 

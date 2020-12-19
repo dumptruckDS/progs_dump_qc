@@ -138,12 +138,27 @@ void() shalrath_die =
 		{
 			ThrowGib ("progs/gib3.mdl", self.health);
 		}
+		if (self.drop_item == 1)
+			{
+				DropKey1();
+			}
+		if (self.drop_item == 2)
+			{
+				DropKey2();
+			}
 		return;
 	}
-
 	sound_death (self, CHAN_VOICE, "shalrath/death.wav", 1, ATTN_NORM);
 	shal_death1();
 	self.solid = SOLID_NOT;
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
 	// insert death sounds here
 };
 

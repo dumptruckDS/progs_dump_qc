@@ -145,7 +145,16 @@ void()	demon1_die3		=[	$death3,		demon1_die4	] {};
 void()	demon1_die4		=[	$death4,		demon1_die5	] {};
 void()	demon1_die5		=[	$death5,		demon1_die6	] {};
 void()	demon1_die6		=[	$death6,		demon1_die7	]
-{self.solid = SOLID_NOT;};
+{self.solid = SOLID_NOT;
+  if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
+};
 void()	demon1_die7		=[	$death7,		demon1_die8	] {};
 void()	demon1_die8		=[	$death8,		demon1_die9	] {};
 void()	demon1_die9		=[	$death9,		demon1_die9 ] {};
@@ -192,7 +201,14 @@ void() demon_die =
     {
       ThrowGib ("progs/gib1.mdl", self.health);
     }
-
+    if (self.drop_item == 1)
+      {
+        DropKey1();
+      }
+    if (self.drop_item == 2)
+      {
+        DropKey2();
+      }
 		return;
 	}
 

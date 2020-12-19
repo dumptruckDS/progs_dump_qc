@@ -2111,6 +2111,89 @@ void() BackpackTouch =
 
 /*
 ===============
+DropStuff -- dumptruck_ds testing
+===============
+*/
+void() DropKey1 =
+{
+	local entity	item;
+
+	item = spawn();
+	item.origin = self.origin - '0 0 24';
+
+	item.velocity_z = 300;
+	item.velocity_x = -100 + (random() * 200);
+	item.velocity_y = -100 + (random() * 200);
+
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
+	{
+		// precache_model ("progs/w_s_key.mdl");
+		setmodel (item, "progs/w_s_key.mdl");
+		item.noise = "misc/medkey.wav";
+	}
+	else if (world.worldtype == WORLDTYPE_METAL)
+	{
+		// precache_model ("progs/m_s_key.mdl");
+		setmodel (item, "progs/m_s_key.mdl");
+		item.noise = "misc/runekey.wav";
+	}
+	else if (world.worldtype == WORLDTYPE_BASE)
+	{
+		// precache_model2 ("progs/b_s_key.mdl");
+		setmodel (item, "progs/b_s_key.mdl");
+		item.noise = "misc/basekey.wav";
+	}
+	item.netname = SilverKeyName ();
+	item.effects = 8;
+	item.flags = FL_ITEM;
+	item.items = IT_KEY1;
+	item.solid = SOLID_TRIGGER;
+	item.movetype = MOVETYPE_TOSS;
+	setsize (item, '-16 -16 0', '16 16 56');
+	item.touch = key_touch;
+};
+
+void() DropKey2 =
+{
+	local entity	item;
+
+	item = spawn();
+	item.origin = self.origin - '0 0 24';
+
+	item.velocity_z = 300;
+	item.velocity_x = -100 + (random() * 200);
+	item.velocity_y = -100 + (random() * 200);
+
+	if (world.worldtype == WORLDTYPE_MEDIEVAL)
+	{
+		// precache_model ("progs/w_s_key.mdl");
+		setmodel (item, "progs/w_g_key.mdl");
+		item.noise = "misc/medkey.wav";
+	}
+	else if (world.worldtype == WORLDTYPE_METAL)
+	{
+		// precache_model ("progs/m_s_key.mdl");
+		setmodel (item, "progs/m_g_key.mdl");
+		item.noise = "misc/runekey.wav";
+	}
+	else if (world.worldtype == WORLDTYPE_BASE)
+	{
+		// precache_model2 ("progs/b_s_key.mdl");
+		setmodel (item, "progs/b_g_key.mdl");
+		item.noise = "misc/basekey.wav";
+	}
+	item.netname = GoldKeyName ();
+	item.effects = 8;
+	item.flags = FL_ITEM;
+	item.items = IT_KEY2;
+	item.solid = SOLID_TRIGGER;
+	item.movetype = MOVETYPE_TOSS;
+	setsize (item, '-16 -16 0', '16 16 56');
+	item.touch = key_touch;
+};
+
+/*
+===============
 DropBackpack
 ===============
 */
