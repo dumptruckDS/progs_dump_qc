@@ -354,15 +354,7 @@ void () func_breakable_die = {
 	} else {
 		self.origin = ((self.absmin + self.absmax) * 0.5);
 		setorigin (self, self.origin);
-		if (self.drop_item == 1)
-			{
-				DropKey1();
-			}
-		if (self.drop_item == 2)
-			{
-				DropKey2();
-			}
-
+		DropStuff();
 		if (self.spawnflags & BREAK_CUSTOM) {
 			make_breakable_templates_debris ();
 			remove (self);

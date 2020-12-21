@@ -109,6 +109,32 @@ void() f_attack17       =[      $attack17,      f_attack18] {ai_charge(10);};
 void() f_attack18       =[      $attack18,      f_run1    ] {ai_charge(10);};
 
 void() f_death1 =[      $death1,        f_death2        ]
+	{
+		self.solid = SOLID_NOT;
+		sound_death (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
+	};
+void() f_death2 =[      $death2,        f_death3        ] {};
+void() f_death3 =[      $death3,        f_death4        ] {};
+void() f_death4 =[      $death4,        f_death5        ] {};
+void() f_death5 =[      $death5,        f_death6        ] {};
+void() f_death6 =[      $death6,        f_death7        ] {};
+void() f_death7 =[      $death7,        f_death8        ] {};
+void() f_death8 =[      $death8,        f_death9        ] {};
+void() f_death9 =[      $death9,        f_death10       ] {};
+void() f_death10 =[      $death10,       f_death11       ] {};
+void() f_death11 =[      $death11,       f_death12       ] {};
+void() f_death12 =[      $death12,       f_death13       ] {};
+void() f_death13 =[      $death13,       f_death14       ] {};
+void() f_death14 =[      $death14,       f_death15       ] {};
+void() f_death15 =[      $death15,       f_death16       ] {};
+void() f_death16 =[      $death16,       f_death17       ] {};
+void() f_death17 =[      $death17,       f_death18       ] {};
+void() f_death18 =[      $death18,       f_death19       ] {};
+void() f_death19 =[      $death19,       f_death20       ] {};
+void() f_death20 =[      $death20,       f_death21       ] {};
+void() f_death21 =[      $death21,       f_death21       ] {};
+
+void() fish_die =
 {
 	if (self.health < -35) //fish gibs -- dumptruck_ds
 	{
@@ -148,48 +174,16 @@ void() f_death1 =[      $death1,        f_death2        ]
 		{
 			ThrowHead ("progs/h_dog.mdl", self.health);
 		}
-		if (self.drop_item == 1)
-			{
-				DropKey1();
-			}
-		if (self.drop_item == 2)
-			{
-				DropKey2();
-			}
+		DropStuff();
 		SUB_Remove();
 	}
+	// regular death
 	else
-	self.solid = SOLID_NOT;
-	sound_death (self, CHAN_VOICE, "fish/death.wav", 1, ATTN_NORM);
-	if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-	if (self.drop_item == 2)
-		{
-			DropKey2();
+	  {
+			DropStuff();
+			f_death1();
 		}
 };
-void() f_death2 =[      $death2,        f_death3        ] {};
-void() f_death3 =[      $death3,        f_death4        ] {};
-void() f_death4 =[      $death4,        f_death5        ] {};
-void() f_death5 =[      $death5,        f_death6        ] {};
-void() f_death6 =[      $death6,        f_death7        ] {};
-void() f_death7 =[      $death7,        f_death8        ] {};
-void() f_death8 =[      $death8,        f_death9        ] {};
-void() f_death9 =[      $death9,        f_death10       ] {};
-void() f_death10 =[      $death10,       f_death11       ] {};
-void() f_death11 =[      $death11,       f_death12       ] {};
-void() f_death12 =[      $death12,       f_death13       ] {};
-void() f_death13 =[      $death13,       f_death14       ] {};
-void() f_death14 =[      $death14,       f_death15       ] {};
-void() f_death15 =[      $death15,       f_death16       ] {};
-void() f_death16 =[      $death16,       f_death17       ] {};
-void() f_death17 =[      $death17,       f_death18       ] {};
-void() f_death18 =[      $death18,       f_death19       ] {};
-void() f_death19 =[      $death19,       f_death20       ] {};
-void() f_death20 =[      $death20,       f_death21       ] {};
-void() f_death21 =[      $death21,       f_death21       ] {};
 
 void() f_pain1  =[      $pain1, f_pain2 ] {};
 void() f_pain2  =[      $pain2, f_pain3 ] {ai_pain(6);};
@@ -291,7 +285,8 @@ void() monster_fish =
 	self.th_stand = f_stand1;
 	self.th_walk = f_walk1;
 	self.th_run = f_run1;
-	self.th_die = f_death1;
+	// self.th_die = f_death1;
+	self.th_die = fish_die;
 	if !(self.berserk) //Berserk from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = fish_pain;
 	else

@@ -342,14 +342,6 @@ void()	army_die2	=[	$death2,	army_die3	] {};
 void()	army_die3	=[	$death3,	army_die4	]
 {self.solid = SOLID_NOT;
 // style ammotype check -- dumptruck_ds
-	if (self.drop_item == 1)
-	{
-		DropKey1();
-	}
-	if (self.drop_item == 2)
-	{
-		DropKey2();
-	}
 	if (self.style == 1)
 	{
 		self.ammo_rockets = 2;
@@ -384,14 +376,6 @@ void()	army_cdie2	=[	$deathc2,	army_cdie3	] {ai_back(5);};
 void()	army_cdie3	=[	$deathc3,	army_cdie4	]
 {self.solid = SOLID_NOT;
 // style ammotype check -- dumptruck_ds
-	if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-	if (self.drop_item == 2)
-		{
-			DropKey2();
-		}
 	if (self.style == 1)
 	{
 		self.ammo_rockets = 2;
@@ -464,19 +448,13 @@ void() army_die =
 		{
 			ThrowGib ("progs/gib3.mdl", self.health);
 		}
-		if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-		if (self.drop_item == 2)
-		{
-			DropKey2();
-		}
+		DropStuff();
 		return;
 	}
 
 // regular death
 	sound_death (self, CHAN_VOICE, "soldier/death1.wav", 1, ATTN_NORM);
+	DropStuff();
 	if (random() < 0.5)
 		army_die1 ();
 	else

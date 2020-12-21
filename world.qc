@@ -472,6 +472,10 @@ void() worldspawn =
 	precache_sound2 ("misc/basekey.wav");
 	precache_model2 ("progs/b_s_key.mdl");
 	precache_model2 ("progs/b_g_key.mdl");
+	precache_model ("progs/h_mdls/pd_vial.mdl"); // DropVial -- dumptruck_ds
+	precache_sound ("items/r_item1.wav");
+	precache_sound ("dump/pd_armor1_sh.wav"); // DropShard -- dumptruck_ds
+	precache_model ("progs/pd_armor_sh.mdl");
 
 //
 // Setup light animation tables. 'a' is total darkness, 'z' is maxbright.

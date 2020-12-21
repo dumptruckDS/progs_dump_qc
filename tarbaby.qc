@@ -181,14 +181,7 @@ void()	tbaby_die2	=[	$exp,		tbaby_run1	]
 
 	BecomeExplosion ();
 
-	if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-	if (self.drop_item == 2)
-		{
-			DropKey2();
-		}
+	DropStuff();
 };
 
 //=============================================================================

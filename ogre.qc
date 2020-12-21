@@ -906,14 +906,6 @@ void()	ogre_die1	=[	$death1,	ogre_die2	] {};
 void()	ogre_die2	=[	$death2,	ogre_die3	] {};
 void()	ogre_die3	=[	$death3,	ogre_die4	]
 {self.solid = SOLID_NOT;
-	if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-	if (self.drop_item == 2)
-		{
-			DropKey2();
-		}
 	// style ammotype check -- dumptruck_ds
 		if (self.style == 1) // flak style
 		{
@@ -949,14 +941,6 @@ void()	ogre_bdie2	=[	$bdeath2,	ogre_bdie3	] {ai_forward(5);};
 void()	ogre_bdie3	=[	$bdeath3,	ogre_bdie4	]
 {self.solid = SOLID_NOT;
 	// style ammotype check -- dumptruck_ds
-		if (self.drop_item == 1)
-			{
-				DropKey1();
-			}
-		if (self.drop_item == 2)
-			{
-				DropKey2();
-			}
 		if (self.style == 1)
 		{
 			self.ammo_nails = 5;
@@ -1023,19 +1007,13 @@ void() ogre_die =
 		{
 			ThrowGib ("progs/gib3.mdl", self.health);
 		}
-		if (self.drop_item == 1)
-			{
-				DropKey1();
-			}
-		if (self.drop_item == 2)
-			{
-				DropKey2();
-			}
+		DropStuff();
 		return;
 	}
 
 	sound_death (self, CHAN_VOICE, "ogre/ogdth.wav", 1, ATTN_NORM);
 
+	DropStuff();
 	if (random() < 0.5)
 		ogre_die1 ();
 	else

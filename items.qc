@@ -2111,9 +2111,19 @@ void() BackpackTouch =
 
 /*
 ===============
-DropStuff -- dumptruck_ds testing
+DropStuff -- dumptruck_ds
+
+set drops_item on a monster to a number:
+
+1 = Silver Key
+2 = Gold Key
+3 = Health Vial
+4 = Armor Shard
+5 = Health Vial & Armor Shard
+6 = random combination of 3 Vials and/or Shards
 ===============
 */
+
 void() DropKey1 =
 {
 	local entity	item;
@@ -2190,6 +2200,106 @@ void() DropKey2 =
 	item.movetype = MOVETYPE_TOSS;
 	setsize (item, '-16 -16 0', '16 16 56');
 	item.touch = key_touch;
+};
+
+void() DropVial = //
+{
+	local entity	item;
+
+	item = spawn();
+	item.origin = self.origin - '0 0 24';
+
+	item.velocity_z = 300;
+	item.velocity_x = -100 + (random() * 200);
+	item.velocity_y = -100 + (random() * 200);
+
+	setmodel(item, "progs/h_mdls/pd_vial.mdl");
+	item.solid = SOLID_TRIGGER;
+	item.movetype = MOVETYPE_TOSS;
+	setsize (item, '-16 -16 0', '16 16 56');
+	item.touch = health_touch;
+	item.healamount = 5;
+	item.healtype = 0;
+	item.noise = "items/r_item1.wav";
+
+	StartItem ();
+};
+
+void() DropShard = //
+{
+	local entity	item;
+
+	item = spawn();
+	item.origin = self.origin - '0 0 24';
+
+	item.velocity_z = 300;
+	item.velocity_x = -100 + (random() * 200);
+	item.velocity_y = -100 + (random() * 200);
+
+	setmodel(item, "progs/pd_armor_sh.mdl");
+	item.solid = SOLID_TRIGGER;
+	item.movetype = MOVETYPE_TOSS;
+	setsize (item, '-16 -16 0', '16 16 56');
+	item.touch = shard_touch;
+	item.snd_misc = "dump/pd_armor1_sh.wav";
+
+	StartItem ();
+};
+
+void() DropStuff =
+{
+	local float	rand_drop;
+
+	if (self.drop_item == 1)
+		{
+			DropKey1();
+		}
+	if (self.drop_item == 2)
+		{
+			DropKey2();
+		}
+	if (self.drop_item == 3)
+		{
+			DropVial();
+		}
+	if (self.drop_item == 4)
+		{
+			DropShard();
+		}
+	if (self.drop_item == 5)
+		{
+			DropVial();
+			DropShard();
+		}
+	else if (self.drop_item == 6)
+	{
+		rand_drop = rint(random() * 3);
+		if (rand_drop == 1)
+			{
+				DropShard();
+				DropVial();
+				DropVial();
+			}
+		else if (rand_drop == 2)
+			{
+				DropShard();
+				DropShard();
+				DropVial();
+			}
+		else if (rand_drop == 0)
+			{
+				DropShard();
+				DropShard();
+				DropShard();
+			}
+		else
+			{
+				DropVial();
+				DropVial();
+				DropVial();
+			}
+	}
+	return;
 };
 
 /*

@@ -265,14 +265,7 @@ void() dog_die =
 		{
 			ThrowHead ("progs/h_dog.mdl", self.health);
 		}
-		if (self.drop_item == 1)
-			{
-				DropKey1();
-			}
-		if (self.drop_item == 2)
-			{
-				DropKey2();
-			}
+		DropStuff();
  		return;
 	}
 
@@ -280,15 +273,7 @@ void() dog_die =
 	sound_death (self, CHAN_VOICE, "dog/ddeath.wav", 1, ATTN_NORM); //dumptruck_ds
 	self.solid = SOLID_NOT;
 
-	if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-	if (self.drop_item == 2)
-		{
-			DropKey2();
-		}
-
+	DropStuff();
 
 	if (random() > 0.5)
 		dog_die1 ();

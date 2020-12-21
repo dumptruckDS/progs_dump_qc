@@ -1,6 +1,7 @@
 2.0.0 December 2020
 
 * Changed version to 2.0.0
+* Added Armor Shard and Health Vial options to drop_item
 * Added drop_item to monsters (drop Silver or Gold key on death)
 * Added drop_item to func_breakable (drop Silver or Gold key)
 * Added impulse 100 to print version number

@@ -1291,9 +1291,13 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+	0 : "(Default) Disabled"
+	1 : "Drop a Silver Key upon death"
+	2 : "Drop a Gold Key upon death"
+	3 : "Drop a Health Vial upon death"
+	4 : "Drop an Armor Shard upon death"
+	5 : "Drop a Health Vial & Armor Shard"
+	6 : "Random combination of 3 Vials and/or Shards"
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
 	0 = (Default) Disabled
@@ -2626,6 +2630,10 @@ drop_item(Choices) =
 	0 : "(Default) Disabled"
 	1 : "Drop a Silver Key upon death"
 	2 : "Drop a Gold Key upon death"
+	3 : "Drop a Health Vial upon death"
+	4 : "Drop an Armor Shard upon death"
+	5 : "Drop a Health Vial & Armor Shard"
+	6 : "random combination of 3 Vials and/or Shards"
 */
 /*QUAKED trigger_ladder (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'

@@ -308,16 +308,7 @@ void(entity attacker, float damage)	sham_pain =
 
 void() sham_death1      =[      $death1,       sham_death2     ] {};
 void() sham_death2      =[      $death2,       sham_death3     ] {};
-void() sham_death3      =[      $death3,       sham_death4     ] {self.solid = SOLID_NOT;
-	if (self.drop_item == 1)
-	{
-		DropKey1();
-	}
-	if (self.drop_item == 2)
-	{
-		DropKey2();
-	}
-};
+void() sham_death3      =[      $death3,       sham_death4     ] {self.solid = SOLID_NOT;};
 void() sham_death4      =[      $death4,       sham_death5     ] {};
 void() sham_death5      =[      $death5,       sham_death6     ] {};
 void() sham_death6      =[      $death6,       sham_death7     ] {};
@@ -368,19 +359,13 @@ void() sham_die =
 		{
 			ThrowGib ("progs/gib3.mdl", self.health);
 		}
-		if (self.drop_item == 1)
-		{
-			DropKey1();
-		}
-		if (self.drop_item == 2)
-		{
-			DropKey2();
-		}
+		DropStuff();
 		return;
 	}
 
 // regular death
 	sound_death (self, CHAN_VOICE, "shambler/sdeath.wav", 1, ATTN_NORM);
+	DropStuff();
 	sham_death1 ();
 };
 

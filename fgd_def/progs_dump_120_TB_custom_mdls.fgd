@@ -602,6 +602,10 @@ The behavior of an item_key_custom should be as the player expects (based on the
 		0 : "(Default) Disabled"
 		1 : "Drop a Silver Key upon death"
 		2 : "Drop a Gold Key upon death"
+		3 : "Drop a Health Vial upon death"
+		4 : "Drop an Armor Shard upon death"
+		5 : "Drop a Health Vial & Armor Shard"
+		6 : "Random combination of 3 Vials and/or Shards"
 	]
 ]
 
@@ -2317,6 +2321,10 @@ Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 				0 : "(Default) Disabled"
 				1 : "Drop a Silver Key upon death"
 				2 : "Drop a Gold Key upon death"
+				3 : "Drop a Health Vial upon death"
+				4 : "Drop an Armor Shard upon death"
+				5 : "Drop a Health Vial & Armor Shard"
+				6 : "Random combination of 3 Vials and/or Shards"
 			]
 ]
 @PointClass size(16 14 24) color(255 128 0) base(Targetname, Target, Appearflags) = func_counter : "Activation Counter
