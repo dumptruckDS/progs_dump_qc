@@ -593,7 +593,11 @@ When the player touches this, he gets sent to the map listed in the "map" variab
 {
 model ("progs/player.mdl");
 }
-The normal starting point for a level.
+/*QUAKED testplayerstart (1 0 0) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{
+model ("progs/player.mdl");
+}
+Testing player start.
 */
 /*QUAKED info_player_start2 (1 0 0) (-16 -16 -24) (16 16 24) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {

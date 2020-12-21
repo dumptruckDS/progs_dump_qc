@@ -245,6 +245,7 @@ count(integer) : "How many monsters to spawn (default 5)"
 ]
 @PointClass base(MonsterClass, OneTargetname) = info_monster_spawnpoint : "Destination for func_monster_spawner" []
 @PointClass base(PlayerClass) = info_player_start : "Player 1 start" []
+@PointClass base(PlayerClass) = testplayerstart : "Testing player start" []
 @PointClass base(PlayerClass) = info_player_coop : "Player cooperative start" []
 @PointClass base(PlayerClass) = info_player_start2 : "Player episode return point" []
 @PointClass base(PlayerClass) = info_player_deathmatch : "Deathmatch start" []
