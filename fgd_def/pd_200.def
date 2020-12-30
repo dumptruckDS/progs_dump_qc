@@ -2220,7 +2220,7 @@ Use this when killtageting an entity if the player can see.
 When triggered, creates a explosion at it's origin. Causes damage.
 
 */
-/*QUAKED play_tbabyexplode (0.933 0.105 0.819) (-10 -10 -8) (10 10 8)
+/*QUAKED play_spawnexpl (0.933 0.105 0.819) (-10 -10 -8) (10 10 8)
 
 When triggered, creates a Spawn death explosion at it's origin. Causes damage.
 

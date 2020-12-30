@@ -2042,9 +2042,11 @@ Causes damage."
 [
 ]
 
-@PointClass base(Targetname, Appearflags) size(16 16 24) color(150 0 150) = play_tbabyexplode : "When triggered, plays the Spawn death explosion.
+// @PointClass base(Targetname, Appearflags) size(16 16 24) color(150 0 150) = play_tbabyexplode : "When triggered, plays the Spawn death explosion. Causes damage."
+// [
+// ]
 
-Causes damage."
+@PointClass base(Targetname, Appearflags) size(16 16 24) color(150 0 150) = play_spawnexpl : "When triggered, plays the Spawn death explosion. Causes damage."
 [
 ]
 

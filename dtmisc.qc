@@ -231,8 +231,22 @@ void () play_tbaby_fx = //thanks Khreathor -- dumptruck_ds
 {
   tbaby_die2();
 }
-
 void() play_tbabyexplode =
+{
+  if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+    return;
+  precache_sound2 ("blob/death1.wav");
+  self.use = play_tbaby_fx;
+};
+
+
+/*QUAKED play_spawnexpl (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+
+When triggered, creates a Spawn death explosion at it's origin. Causes damage.
+
+*/
+
+void() play_spawnexpl =
 {
   if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
     return;
