@@ -212,7 +212,7 @@ state(choices) =
 @baseclass base(Appearflags) size(-64 -64 -24, 64 64 32)
 color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
-@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
+@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint (make sure both entities are close together or overlapping)
 
 Choose Style via dropdown
 

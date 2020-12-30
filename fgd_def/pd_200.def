@@ -621,7 +621,7 @@ potential spawning position for coop games
 {
 model ("progs/teleport.mdl");
 }
- spawning position for func_monster_spawner
+ spawning position for func_monster_spawner (make sure both entities are close together or overlapping)
 */
 /*QUAKED info_focal_point (.5 .5 .5) (-8 -8 -8) (8 8 32) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This is the point that the camera will face.  It should have a "targetname"
@@ -2870,7 +2870,7 @@ Default behavior allows anyone to activate func_fall2 on touch ONLY
 Able to .target other entities, including other func_fall2s
 */
 /*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Spawns monsters to targeted info_monster_spawnpoint
+Spawns monsters to targeted info_monster_spawnpoint (make sure both entities are close together or overlapping)
 
 Choose Style
 • 1 (Dog (Default)

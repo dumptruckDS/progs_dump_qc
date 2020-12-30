@@ -173,7 +173,7 @@ state(choices) =
 @baseclass base(Appearflags) size(-64 -64 -24, 64 64 32)color(206 18 18) studio("progs/teleport.mdl") = MonsterClass []
 
 //____TW_EDIT____
-@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to a targeted info_monster_spawnpoint. Choose Style via dropdown. Style 2 overrides Style and chooses a random monster. Default time between spawns is 5 seconds. Setting Berserk to 1 skips most pain animations. Can only use default health, models and sounds." [
+@PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to a targeted info_monster_spawnpoint (make sure both entities are close together or overlapping). Choose Style via dropdown. Style 2 overrides Style and chooses a random monster. Default time between spawns is 5 seconds. Setting Berserk to 1 skips most pain animations. Can only use default health, models and sounds." [
   style(Choices) = [
     1 : "Dog (Default)"
 	2 : "Grunt"
