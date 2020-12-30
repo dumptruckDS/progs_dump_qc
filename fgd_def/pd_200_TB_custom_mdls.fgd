@@ -209,7 +209,7 @@ state(choices) =
 	color(0 255 0) model({ "path": ":progs/player.mdl" }) = PlayerClass []
 @baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)
 	color(0 255 0) model({ "path": ":progs/player.mdl" , "frame": 120}) = PlayerClassAlt []
-@baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)
+@baseclass base(Appearflags) size(-64 -64 -24, 64 64 32)
 color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
 @PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint
