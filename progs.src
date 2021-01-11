@@ -1,60 +1,60 @@
 ../progs.dat
 
-defs.qc //added fields, see comments for details
-newflags.qc //new spawnflags for all entities
-subs.qc //modified targets, triggers and killtargets
-fight.qc
-customsounds.qc //mapper-settable custom sound effects for monsters - iw
-custom_mdls.qc //mapper-settable custom models for monsters - iw
-ai.qc
-combat.qc
-keydata.qc //functions which deal with key item bitflags and names
-items.qc
-weapons.qc
-world.qc
-client.qc
-cutscene.qc //  Drake version -- dumptruck_ds
-player.qc
-monsters.qc //modified by dumptruck_ds from Preach's spawning tutorial | fish count fixed
-keylock.qc //common code for entities which can be unlocked with keys
-doors.qc
-buttons.qc
-triggers.qc //added trigger_push_custom based on Hipnotic
-plats.qc
-misc.qc
-lights.qc //c0burn's excellent switchable lights
+core/defs.qc //added fields, see comments for details
+core/newflags.qc //new spawnflags for all entities
+core/subs.qc //modified targets, triggers and killtargets
+monster/fight.qc
+monster/customsounds.qc //mapper-settable custom sound effects for monsters - iw
+monster/custom_mdls.qc //mapper-settable custom models for monsters - iw
+monster/ai.qc
+misc/combat.qc
+item/keydata.qc //functions which deal with key item bitflags and names
+item/items.qc
+misc/weapons.qc
+core/world.qc
+player/client.qc
+decorative/cutscene.qc //  Drake version -- dumptruck_ds
+player/player.qc
+monster/monsters.qc //modified by dumptruck_ds from Preach's spawning tutorial | fish count fixed
+misc/keylock.qc //common code for entities which can be unlocked with keys
+func/doors.qc
+func/buttons.qc
+trigger/triggers.qc //added trigger_push_custom based on Hipnotic
+func/plats.qc
+misc/misc.qc
+decorative/lights.qc //c0burn's excellent switchable lights
 
-ogre.qc
-demon.qc
-shambler.qc
-knight.qc
-soldier.qc
-wizard.qc
-dog.qc
-zombie.qc //modified version of Ace_Dave's zombies from Rubicon2 source
-boss.qc
-boss2.qc // killable Chthon
+monster/ogre.qc
+monster/demon.qc
+monster/shambler.qc
+monster/knight.qc
+monster/soldier.qc
+monster/wizard.qc
+monster/dog.qc
+monster/zombie.qc //modified version of Ace_Dave's zombies from Rubicon2 source
+monster/boss.qc
+monster/boss2.qc // killable Chthon
 
-tarbaby.qc		// registered
-hknight.qc		// registered
-fish.qc			// registered
-shalrath.qc		// registered
-enforcer.qc		// registered
-oldone.qc		// registered
-oldone2.qc		// killable Shub
+monster/tarbaby.qc		// registered
+monster/hknight.qc		// registered
+monster/fish.qc			// registered
+monster/shalrath.qc		// registered
+monster/enforcer.qc		// registered
+monster/oldone.qc		// registered
+monster/oldone2.qc		// killable Shub
 
-dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
-math.qc // Code by Joshua Skelton
-misc_model.qc // Code by Joshua Skelton
-hipcount.qc //Hipnotic counter
-hippart.qc //Hipnotic particlefield and func_togglewall
-hiptrig.qc //Hipnotic triggers qc
-doelightning.qc //from DOE lightnin.qc
-doeplats.qc //Rogue MP newplats.qc
-elevatr.qc //Rogue elevator code
-rubicon2.qc //selections from Rubicon2 QC
-dtquake.qc //triggerable earthquake from Zer cutscenes
-rotate.qc //from Hipnotic thanks RennyC
-func_bob.qc //RennyC's stand alone version based on Acrcane Dimensions
-func_fall2.qc //Renny's improved version.
-mobot.qc // Using "bot" creation code for func_monster_spawner
+decorative/dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
+core/math.qc // Code by Joshua Skelton
+decorative/misc_model.qc // Code by Joshua Skelton
+trigger/hipcount.qc //Hipnotic counter
+func/hippart.qc //Hipnotic particlefield and func_togglewall
+trigger/hiptrig.qc //Hipnotic triggers qc
+hazard/doelightning.qc //from DOE lightnin.qc
+func/doeplats.qc //Rogue MP newplats.qc
+func/elevatr.qc //Rogue elevator code
+misc/rubicon2.qc //selections from Rubicon2 QC
+decorative/dtquake.qc //triggerable earthquake from Zer cutscenes
+func/rotate.qc //from Hipnotic thanks RennyC
+func/func_bob.qc //RennyC's stand alone version based on Acrcane Dimensions
+func/func_fall2.qc //Renny's improved version.
+monster/mobot.qc // Using "bot" creation code for func_monster_spawner
