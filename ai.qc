@@ -777,23 +777,23 @@ void() enemy_change =
 {
 		if (!CheckValidTouch()) return; // from Copper, checks if player, noclip etc.
 
-    local entity trig;
+    local entity monster;
 
-    trig = find(world,targetname,self.target);
-    if !(trig)
+    monster = find(world,targetname,self.target);
+    if !(monster)
 		{
         dprint("\b[enemy_change]\b Cannot find target\n");
         return;
     }
 
-    trig.goalentity = find (world, targetname, self.message);
-    if (!trig.goalentity) {
+    monster.goalentity = find (world, targetname, self.message);
+    if (!monster.goalentity) {
         dprint("\b[enemy_change]\b Cannot find new enemy\n");
         return;
     }
-		trig.enemy = trig.goalentity; //change enemy
-		trig.nextthink = time + 0.1;
-		trig.think = FoundTarget;
+		monster.enemy = monster.goalentity; //change enemy
+		monster.nextthink = time + 0.1;
+		monster.think = FoundTarget;
 		dprint("\bEnemy\b has changed!");
 		dprint ("\n");
 
