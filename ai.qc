@@ -768,3 +768,45 @@ void(float dist) ai_run =
 // head straight in
 	movetogoal (dist);		// done in C code...
 };
+/*
+new infighting TESTS
+base on Qmaster's teleport_destchange
+*/
+
+void() enemy_change =
+{
+		if (!CheckValidTouch()) return; // from Copper, checks if player, noclip etc.
+
+    local entity trig;
+
+    trig = find(world,targetname,self.target);
+    if !(trig)
+		{
+        dprint("\b[enemy_change]\b Cannot find target\n");
+        return;
+    }
+
+    trig.goalentity = find (world, targetname, self.message);
+    if (!trig.goalentity) {
+        dprint("\b[enemy_change]\b Cannot find new enemy\n");
+        return;
+    }
+		trig.enemy = trig.goalentity; //change enemy
+		trig.nextthink = time + 0.1;
+		trig.think = FoundTarget;
+		dprint("\bEnemy\b has changed!");
+		dprint ("\n");
+
+		self.nextthink = (time + 0.1);
+		self.think = SUB_Remove;
+
+};
+
+void() trigger_change_enemy =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+	InitTrigger ();
+	self.touch = enemy_change;
+};
