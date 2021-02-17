@@ -1,3 +1,8 @@
+2.0.1 February 2021
+
+* small fix to health and shard pickup sounds
+
+
 2.0.0 December 2020
 
 * Changed version to 2.0.0

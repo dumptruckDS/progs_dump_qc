@@ -402,7 +402,7 @@ void() health_touch =
 
 // health touch sound
 	// sound(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);
-	sound_misc(other, CHAN_ITEM, self.noise, 1, ATTN_NORM);  //custom sounds -- dumptruck_ds
+	sound_misc(other, CHAN_AUTO, self.noise, 1, ATTN_NORM);  //custom sounds -- dumptruck_ds
 
 	stuffcmd (other, "bf\n");
 
@@ -511,9 +511,9 @@ void() shard_touch = // this from RMQ shard_touch
 	// armor touch sound
 	// sound(other, CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds START
 	if (self.snd_misc != "")
-	sound_misc(other, CHAN_ITEM, self.snd_misc, 1, ATTN_NORM);
+	sound_misc(other, CHAN_AUTO, self.snd_misc, 1, ATTN_NORM);
 	else
-	sound_misc(other, CHAN_ITEM,"dump/pd_armor1_sh.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
+	sound_misc(other, CHAN_AUTO,"dump/pd_armor1_sh.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
 	stuffcmd (other, "bf\n");
 
 	activator = other;
