@@ -986,23 +986,8 @@ void() func_illusionary =
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
-
-	if(!(self.spawnflags & 2)) setmodel (self, self.model);
-
-	// switchable shadow code for backwards compatibility with bmfbrsp2
-	// deprecated, use func_shadow instead
-	if(self.switchshadstyle) {
-		if(self.spawnflags & 4) {
-			lightstyle(self.switchshadstyle, "a");
-			self.shadowoff = 0;
-		} else {
-			lightstyle(self.switchshadstyle, "m");
-			self.shadowoff = 1;
-		}
-	}
-	else if(!(self.spawnflags & 1)){
-		makestatic (self);
-	}
+	setmodel (self, self.model);
+	makestatic (self);
 };
 
 /*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4
