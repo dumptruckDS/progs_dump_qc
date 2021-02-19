@@ -971,7 +971,6 @@ void() func_wall =
 	self.solid = SOLID_BSP;
 	self.use = func_wall_use;
 	setmodel (self, self.model);
-
 };
 
 
@@ -1087,7 +1086,7 @@ void() func_togglevisiblewall =
 /*****************
 func_shadow
 
-An invisible bmodel that only casts a shadow.
+An invisible bmodel that can be used to only cast shadows.
 
 ******************/
 
@@ -1112,7 +1111,8 @@ misc_shadowcontroller
 Controls switchable shadows on any bmodel entity (except doors).
 Target entity must have set _switchableshadow set to 1.
 
-speed: Controls the time in seconds it takes to fade in/out. Default is 0.5, and setting it to -1 disables fading.
+speed: Controls the time in seconds it takes to fade the shadow in. Default is 0.5, and setting it to -1 disables fading.
+speed2: Same as 'speed' but for the fade out animation. If unset it's the same value as 'speed'.
 spawnflag 1: target shadow starts as disabled
 
 *********************/
