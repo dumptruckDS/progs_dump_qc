@@ -971,7 +971,7 @@ void() func_wall =
 	self.solid = SOLID_BSP;
 	self.use = func_wall_use;
 	setmodel (self, self.model);
-	
+
 };
 
 
@@ -986,12 +986,12 @@ void() func_illusionary =
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
-	
+
 	if(!(self.spawnflags & 2)) setmodel (self, self.model);
-	
+
 	// switchable shadow code for backwards compatibility with bmfbrsp2
 	// deprecated, use func_shadow instead
-	if(self.switchshadstyle) { 
+	if(self.switchshadstyle) {
 		if(self.spawnflags & 4) {
 			lightstyle(self.switchshadstyle, "a");
 			self.shadowoff = 0;
@@ -1042,9 +1042,14 @@ void() func_bossgate =
 
 /*****************
 func_togglevisiblewall
+
 A bmodel which you can toggle its visibility. Behaves much like a traditional func_wall in any other way,
 but you can target it to toggle visible/invisible.
 If the entity has a switchable shadow it also toggles.
+
+spawnflag 1: starts invisible
+spawnflag 2: set brush as non-solid
+
 ******************/
 
 float TOGGLEVISWALL_STARTOFF = 1;
@@ -1061,7 +1066,7 @@ void() func_togglevisiblewall_use =
 		if(self.switchshadstyle) lightstyle(self.switchshadstyle, "a");
 		self.state = 1;
 	} else {
-		
+
 		self.solid = SOLID_NOT;
 		self.movetype = MOVETYPE_NONE;
 		setmodel (self, "");
@@ -1078,30 +1083,28 @@ void() func_togglevisiblewall =
 
 	self.angles = '0 0 0';
 	self.use = func_togglevisiblewall_use;
-	
+
 	self.origmodel = self.model;
-	
+
 	if(self.spawnflags & TOGGLEVISWALL_STARTOFF) self.state = 1;
 	else self.state = 0;
-	
+
 	if(self.spawnflags & TOGGLEVISWALL_NOTSOLID) {
 		self.solid = SOLID_NOT;
 		self.movetype = MOVETYPE_NONE;
 	}
-	
+
 	func_togglevisiblewall_use();
 
 };
 
+
 /*****************
 func_shadow
+
 An invisible bmodel that only casts a shadow.
 
 ******************/
-
-float FUNCSHADOW_STARTOFF = 1;
-
-
 
 void() func_shadow = {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
@@ -1110,12 +1113,11 @@ void() func_shadow = {
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_NONE;
 	self.solid = SOLID_NOT;
-	
+
 	self.modelindex = 0;
 	self.model = "";
-	
-}
 
+}
 
 
 
@@ -1123,8 +1125,10 @@ void() func_shadow = {
 misc_shadowcontroller
 
 Controls switchable shadows on any bmodel entity (except doors).
-Target entity must have set _switchableshadow set to 1, and either _shadow, _shadowself/_selfshadow, or _shadowworldonly also set to 1.
-"speed" controls the time in seconds it takes to fade in/out. Default is 0.5, and setting it to -1 disables fading. 
+Target entity must have set _switchableshadow set to 1.
+
+speed: Controls the time in seconds it takes to fade in/out. Default is 0.5, and setting it to -1 disables fading.
+spawnflag 1: target shadow starts as disabled
 
 *********************/
 
@@ -1132,15 +1136,13 @@ float SHADOWCONTROLLER_STARTOFF = 1;
 
 void() shadow_fade_out =
 {
-	
-	
 	if (self.count < 0)
 		self.count = 0;
 	if (self.count > 12)
 		self.count = 12;
-	
+
 	dprint(ftos(self.count));dprint("\n");
-	
+
 	lightstyle(self.switchshadstyle, lightstyle_fade_lookup(self.count));
 	self.count = self.count + self.dmg;
 	if (self.count > 12)
@@ -1152,23 +1154,21 @@ void() shadow_fade_out =
 
 void() shadow_fade_in =
 {
-	
 	if (self.count < 0)
 		self.count = 0;
 	if (self.count > 12)
 		self.count = 12;
-	
+
 	dprint(ftos(self.count));dprint("\n");
-	
+
 	lightstyle(self.switchshadstyle, lightstyle_fade_lookup(self.count));
 	self.count = self.count - self.dmg;
 	if (self.count < 0)
 		return;
-	
-	
+
 	self.think = shadow_fade_in;
 	self.nextthink = time + self.delay;
-	
+
 };
 
 void(float speed) misc_shadowcontroller_setsteps = {
@@ -1194,64 +1194,64 @@ void(float speed) misc_shadowcontroller_setsteps = {
 		self.delay = 0;
 		self.dmg = 12;
 	}
-	
+
 }
 
 void() misc_shadowcontroller_use = {
 
 	if(self.shadowoff) {
 		dprint("Fade in:\n");
-		
+
 		misc_shadowcontroller_setsteps(self.speed);
-		
+
 		shadow_fade_in();
-		
+
 		self.shadowoff = 0;
 	} else {
 		dprint("Fade out:\n");
-		
+
 		misc_shadowcontroller_setsteps(self.speed2);
-		
+
 		shadow_fade_out();
-		
+
 		self.shadowoff = 1;
 	}
 }
 
 void() misc_shadowcontroller = {
 	entity t1;
-	
+
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
-	
-	
+
+
 	// doesn't search for a target if switchshadstyle is already set
 	// used for built-in shadow controllers
 	if(!self.switchshadstyle) {
 		t1 = find(world, targetname, self.target);
-		
+
 		// we need to find only the first target entity with switchable shadows set, since shadow lightstyles are bound by targetname
 		while(t1 != world && !t1.switchshadstyle) {
 			t1 = find(t1, targetname, self.target);
 		}
-		
+
 		if(t1 == world) {
 			dprint("\b[misc_shadowcontroller]\b _switchableshadow not set in target ");dprint(self.target);dprint("\n");
 			return;
 		}
-		
+
 		self.switchshadstyle = t1.switchshadstyle;
 	}
-	
+
 	if(!self.speed) self.speed = 0.5;
 	if(!self.speed2) self.speed2 = self.speed;
-	
+
 	if(self.spawnflags & SHADOWCONTROLLER_STARTOFF) {
 		lightstyle(self.switchshadstyle, "m");
-		
+
 		self.shadowoff = 1;
 		self.count = 12;
-		
+
 		misc_shadowcontroller_setsteps(self.speed2);
 	}
 	else {
@@ -1260,8 +1260,6 @@ void() misc_shadowcontroller = {
 		self.count = 0;
 		misc_shadowcontroller_setsteps(self.speed);
 	}
-	
-	
 
 	self.use = misc_shadowcontroller_use;
 }
