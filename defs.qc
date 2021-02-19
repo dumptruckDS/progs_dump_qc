@@ -515,6 +515,8 @@ float	AS_MISSILE		= 4;
 
 .vector		oldorigin;		// only used by secret door
 
+.string		origmodel; // addition by bmFbr for switchable brushes
+
 .float		t_length, t_width;
 
 
@@ -590,6 +592,14 @@ float	AS_MISSILE		= 4;
 .string killtarget2;	// second target to kill
 string lastnameused;	// the targetname that was last used to trigger somthing
 
+
+//
+// switchable shadow
+// 
+.float		switchshadstyle;
+.float		shadowoff;
+.entity shadowcontroller;
+.float speed2;
 
 //===========================================================================
 
@@ -845,6 +855,11 @@ nosave float *world_sounds;  //via Spike fun times! nosave=noclobber
 void() trigger_changemusic; // dumptruck_ds
 void() onlookat_touch; // dumptruck_ds
 
+string(float num) lightstyle_fade_lookup; //addition by bmFbr for switchable shadows
+void() misc_shadowcontroller;
+void() misc_shadowcontroller_use;
+void() shadow_fade_in;
+void() shadow_fade_out;
 
 // Drake Cutscenes -- Borrowed from Zerstorer.
 .string     script;         //dhm - denotes which script to read.
@@ -900,6 +915,8 @@ float HEAL_MONSTER_ONLY	= 4;
 .string mdl_gib1;
 .string mdl_gib2;
 .string mdl_gib3;
+
+.vector mdlsz, centeroffset; // addition by bmFbr for custom model bounding box definition
 
 // Custom Model End -- dumptruck_ds
 
