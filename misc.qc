@@ -1213,12 +1213,24 @@ void() misc_shadowcontroller = {
 	// doesn't search for a target if switchshadstyle is already set
 	// used for built-in shadow controllers
 	if(!self.switchshadstyle) {
-		t1 = find(world, targetname, self.target);
 
 		// we need to find only the first target entity with switchable shadows set, since shadow lightstyles are bound by targetname
+		
+		
+		t1 = find(world, targetname2, self.target);
+		
 		while(t1 != world && !t1.switchshadstyle) {
-			t1 = find(t1, targetname, self.target);
+			t1 = find(t1, targetname2, self.target);
 		}
+		
+		if(t1 == world) {
+			t1 = find(world, targetname, self.target);
+			
+			while(t1 != world && !t1.switchshadstyle) {
+				t1 = find(t1, targetname, self.target);
+			}
+		}
+
 
 		if(t1 == world) {
 			dprint("\b[misc_shadowcontroller]\b _switchableshadow not set in target ");dprint(self.target);dprint("\n");

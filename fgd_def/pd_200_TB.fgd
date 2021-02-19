@@ -1660,11 +1660,13 @@ dmg is the amount of damage to cause when touched."
 
 
 @PointClass base(Appearflags, Targetname) size(16 16 16) color(64 64 64) = misc_shadowcontroller : "Controls switchable shadows on any bmodel entity (except doors). 
-Target this entity to toggle the shadows on/off with a fading animation.
+Target this entity to toggle the shadows on/off with an optional fading animation.
 
-Targeted bmodel must have _switchableshadow set to 1."
+Targeted bmodel must have _switchableshadow set to 1.
+
+If the target entity changes its default behavior when 'targetname' is set (such as breakables), you can target the entity's 'targetname2' key."
 [
-	target(target_destination) : "Target"
+	target(target_destination) : "Target" : : "Target with _switchableshadow enabled."
 	speed(integer) : "Fade-in speed" : 0.5 : "Controls the time in seconds it takes to fade the shadow in. Setting it to -1 disables fading."
 	speed2(integer) : "Fade-out speed" :  : "Same as 'speed' but for the fade out animation. If unset it uses the same value as 'speed'."
 	spawnflags(flags) =
