@@ -996,7 +996,10 @@ void() func_illusionary =
 	makestatic (self);
 };
 
-/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4
+
+float GATE_REVERSE = 16; // For func_episodegate and func_bossgate appear when player has all runes
+
+/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4 REVERSE_FUNCTIONALITY
 This bmodel will appear if the episode has allready been completed, so players can't reenter it.
 */
 void() func_episodegate =
@@ -1004,17 +1007,25 @@ void() func_episodegate =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (!(serverflags & self.spawnflags))
-		return;			// can still enter episode
-
+	if (self.spawnflags & GATE_REVERSE)
+	{
+		if (serverflags & self.spawnflags)
+			return;			// Haven't gotten rune yet
+	}
+	else
+	{
+		if (!(serverflags & self.spawnflags))
+			return;			// can still enter episode
+	}
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
-	self.solid = SOLID_BSP;
+	self.solid = SOLID_BSP;if (!(serverflags & self.spawnflags))
+			return;			// can still enter episode
 	self.use = func_wall_use;
 	setmodel (self, self.model);
 };
 
-/*QUAKED func_bossgate (0 .5 .8) ?
+/*QUAKED func_bossgate (0 .5 .8) ? X X X X REVERSE_FUNCTIONALITY
 This bmodel appears unless players have all of the episode sigils.
 */
 void() func_bossgate =
@@ -1022,8 +1033,18 @@ void() func_bossgate =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if ( (serverflags & 15) == 15)
-		return;		// all episodes completed
+	if (self.spawnflags & GATE_REVERSE)
+	{
+		if (!((serverflags & 15) == 15))
+		{
+			return;  // not all complete
+		}
+	}
+	else
+	{
+		if ( (serverflags & 15) == 15 )
+			return;		// all episodes completed
+	}
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
 	self.solid = SOLID_BSP;
