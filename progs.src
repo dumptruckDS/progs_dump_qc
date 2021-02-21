@@ -58,4 +58,3 @@ rotate.qc //from Hipnotic thanks RennyC
 func_bob.qc //RennyC's stand alone version based on Acrcane Dimensions
 func_fall2.qc //Renny's improved version.
 mobot.qc // Using "bot" creation code for func_monster_spawner
-targetchange.qc
