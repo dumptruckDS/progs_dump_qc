@@ -2074,7 +2074,6 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 @PointClass size(16 16 16) = misc_noisemaker : "Debug entity: continuously plays enforcer sounds" []
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
 
-
 @PointClass base(Appearflags, Targetname) = misc_infight : "Makes 'target' monster angry at 'target2'.
 
 By default, the infighting doesn't start mutually, that is, 'target2' monster will only get mad back at 'target' after it's been attacked.
@@ -2084,6 +2083,21 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 	target(target_destination) : "The monster who will get angry."
 	target2(target_destination) : "Who target will get angry at."
 	spawnflags(flags) = [ 1: "Mutual hate" : 0 ]
+
+@PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.
+
+'message' is the value of the new target.
+
+'cnt' picks which 'target' field to modify. (target, target2, etc.)"
+[
+    target(target_destination) : "The entity to change"
+    message(target_destination) : "The new target value"
+		cnt(choices) : "Target field to modify. No value defaults to 'target'" : 0 = [
+			1 : "target"
+			2 : "target2"
+			3 : "target3"
+			4 : "target4"
+		]
 ]
 
 ///////////////////////////////////////////////////////////
