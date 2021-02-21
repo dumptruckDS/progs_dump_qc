@@ -11,6 +11,7 @@ void() trigger_reactivate =
 
 float	SPAWNFLAG_NOMESSAGE = 1;
 float	SPAWNFLAG_NOTOUCH = 1;
+float SPAWNFLAG_TURNS_OFF = 2;
 
 // the wait time has passed, so set back up for another activation
 void() multi_wait =
@@ -58,6 +59,10 @@ void() multi_trigger =
 	{
 		self.think = multi_wait;
 		self.nextthink = time + self.wait;
+		if (self.spawnflags & SPAWNFLAG_TURNS_OFF)
+		{
+			self.is_waiting = TRUE;
+		}
 	}
 	else
 	{	// we can't just remove (self) here, because this is a touch function
@@ -168,7 +173,13 @@ void() trigger_multiple =
 	}
 
 	if (!self.wait)
+	{
 		self.wait = 0.2;
+	}
+	else if (self.wait < 0 && (self.spawnflags & SPAWNFLAG_TURNS_OFF))
+	{
+		objerror("turns off and negative wait don't make sense");
+	}
 	self.use = multi_use;
 
 	InitTrigger ();
