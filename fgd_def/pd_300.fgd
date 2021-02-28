@@ -265,6 +265,13 @@ Can set Berserk to 1 to skip most pain animations.
 Can only use default health, models and sounds.
 "
 [
+	spawnflags(flags) =
+		[
+		1: "Reset after completion" : 0
+		2: "Don't spawn angry" : 0
+		4: "Don't add to count" : 0
+		32: "Silent spawn" : 0
+		]
 style(Choices) =
 [
 	1 : "Dog (Default)"
