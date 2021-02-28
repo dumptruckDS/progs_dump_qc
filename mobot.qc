@@ -10,6 +10,8 @@
 float MOBOT_SPAWNER_RESET = 1;
 float MOBOT_DONT_SPAWN_ANGRY = 2;
 float MOBOT_DONT_ADD_KILL_COUNT = 4;
+float MOBOT_SILENT_SPAWN = 32;
+
 /*
 ============
 MobotSpawnPoint
@@ -45,7 +47,7 @@ local entity bot, spawn_spot, oself;
 	bot.angles = spawn_spot.angles;
 	bot.fixangle = TRUE;
 	bot.proj_speed_mod = 1;
-	if (!(self.spawnflags & 32)) 			// SILENT
+	if (!(self.spawnflags & MOBOT_SILENT_SPAWN)) 			// SILENT
 	spawn_tfog (bot.origin);
 	spawn_tdeath (bot.origin, bot);
 
@@ -421,7 +423,6 @@ if (self.style == 12) // spawn a Shalrath
 		self = bot;
 		walkmonster_start();
 		self = oself;
-		/* bot.think = bot.th_stand; */
 	}
 	if (!(self.spawnflags & MOBOT_DONT_ADD_KILL_COUNT))
 	{
@@ -471,7 +472,8 @@ void() think_mobot =
 				create_mobot();
 		}
 		else {
-			if (self.spawnflags & MOBOT_SPAWNER_RESET){
+			if (self.spawnflags & MOBOT_SPAWNER_RESET)
+			{
 			  self.count = self.cnt;
 				self.think = SUB_Null;
 			}
