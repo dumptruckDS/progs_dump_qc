@@ -37,7 +37,7 @@ void() create_mobot =
 // ------------------------------------------------
 {
 
-local entity bot, spawn_spot, oself;
+local entity bot, spawn_spot;
 
 // start entity and place it in world
 	bot = spawn();
@@ -419,10 +419,7 @@ if (self.style == 12) // spawn a Shalrath
 	}
 	else
 	{
-		oself = self;
-		self = bot;
-		walkmonster_start();
-		self = oself;
+		bot.think = walkmonster_start_go;
 	}
 	if (!(self.spawnflags & MOBOT_DONT_ADD_KILL_COUNT))
 	{
@@ -453,7 +450,6 @@ void() think_mobot =
 
 		if (self.count < 0)
 		{
-
 			return;
 		}
 		if (self.count!=0)
