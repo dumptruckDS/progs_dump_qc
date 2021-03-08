@@ -225,8 +225,11 @@ void() ShalHome =
 		self.velocity = dir * 350;
 	else
 		self.velocity = dir * 250;
-	self.nextthink = time + 0.2;
-	self.think = ShalHome;
+	if (self.homing > 0)
+	{
+		self.nextthink = time + 0.2;
+		self.think = ShalHome;
+	}
 };
 
 // void() ShalMissileTouch = --moved to misc.qc for voreball shooter --dumptruck_ds
