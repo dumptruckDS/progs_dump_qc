@@ -221,6 +221,10 @@ void() ShalHome =
 		return;
 	}
 	dir = normalize(vtemp - self.origin);
+	if (self.homing < 1 && self.homing > 0)
+	{
+		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
+	}
 	if (skill == 3)
 		self.velocity = dir * 350;
 	else
