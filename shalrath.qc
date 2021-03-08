@@ -348,6 +348,11 @@ void() monster_shalrath =
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 400;
 
+	if ((!self.homing && self.homing != 0) || self.homing < 0)
+	{
+		self.homing = 1;
+	}
+
 	self.th_stand = shal_stand;
 	self.th_walk = shal_walk1;
 	self.th_run = shal_run1;
