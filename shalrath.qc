@@ -309,6 +309,7 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+homing(float) : "Amount that the projectile should home in target. 1 is default, 0 is none."
 
 */
 void() monster_shalrath =
