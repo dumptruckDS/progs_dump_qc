@@ -201,8 +201,12 @@ void() ShalMissile =
 	missile.origin = self.origin + '0 0 10';
 	missile.velocity = dir * 400;
 	missile.avelocity = '300 300 300';
-	missile.nextthink = flytime + time;
-	missile.think = ShalHome;
+	if (self.homing > 0)
+	{
+		missile.homing = self.homing;
+		missile.nextthink = flytime + time;
+		missile.think = ShalHome;
+	}
 	missile.enemy = self.enemy;
 	missile.touch = ShalMissileTouch;
 };
