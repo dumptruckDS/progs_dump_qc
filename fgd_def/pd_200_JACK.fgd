@@ -616,6 +616,7 @@ snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain
 //____TW_EDIT____
 @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath, Default health = 400"
 [
+homing(float) : "Multiplier for projectile homing (0 is none, 1 is normal)" : 1
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"

@@ -201,8 +201,12 @@ void() ShalMissile =
 	missile.origin = self.origin + '0 0 10';
 	missile.velocity = dir * 400;
 	missile.avelocity = '300 300 300';
-	missile.nextthink = flytime + time;
-	missile.think = ShalHome;
+	if (self.homing > 0) // If homing is off, don't bother doing any thinking
+	{
+		missile.homing = self.homing;
+		missile.nextthink = flytime + time;
+		missile.think = ShalHome;
+	}
 	missile.enemy = self.enemy;
 	missile.touch = ShalMissileTouch;
 };
@@ -217,12 +221,26 @@ void() ShalHome =
 		return;
 	}
 	dir = normalize(vtemp - self.origin);
+	if (self.homing < 1 && self.homing > 0) // can't do better than 100% homing
+	{
+		/*
+		This finds a vector somewhere between the vector the projectile is currently
+		travelling on and the vector that it would normally snap to for homing
+
+		homing = .25 means it will go 25% to the new direction, but keep 75% of the
+		original vector, resulting in a wider turning range.
+		*/
+		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
+	}
 	if (skill == 3)
 		self.velocity = dir * 350;
 	else
 		self.velocity = dir * 250;
-	self.nextthink = time + 0.2;
-	self.think = ShalHome;
+	if (self.homing > 0)
+	{
+		self.nextthink = time + 0.2;
+		self.think = ShalHome;
+	}
 };
 
 // void() ShalMissileTouch = --moved to misc.qc for voreball shooter --dumptruck_ds
@@ -302,6 +320,7 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
+homing(float) : "Amount that the projectile should home in target. 1 is default, 0 is none."
 
 */
 void() monster_shalrath =
@@ -339,6 +358,11 @@ void() monster_shalrath =
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 400;
+
+	if ((!self.homing && self.homing != 0) || self.homing < 0) // default to normal
+	{
+		self.homing = 1;
+	}
 
 	self.th_stand = shal_stand;
 	self.th_walk = shal_walk1;
