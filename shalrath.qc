@@ -201,7 +201,7 @@ void() ShalMissile =
 	missile.origin = self.origin + '0 0 10';
 	missile.velocity = dir * 400;
 	missile.avelocity = '300 300 300';
-	if (self.homing > 0)
+	if (self.homing > 0) // If homing is off, don't bother doing any thinking
 	{
 		missile.homing = self.homing;
 		missile.nextthink = flytime + time;
@@ -221,8 +221,15 @@ void() ShalHome =
 		return;
 	}
 	dir = normalize(vtemp - self.origin);
-	if (self.homing < 1 && self.homing > 0)
+	if (self.homing < 1 && self.homing > 0) // can't do better than 100% homing
 	{
+		/*
+		This finds a vector somewhere between the vector the projectile is currently
+		travelling on and the vector that it would normally snap to for homing
+
+		homing = .25 means it will go 25% to the new direction, but keep 75% of the
+		original vector, resulting in a wider turning range.
+		*/
 		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
 	}
 	if (skill == 3)
@@ -352,7 +359,7 @@ void() monster_shalrath =
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 400;
 
-	if ((!self.homing && self.homing != 0) || self.homing < 0)
+	if ((!self.homing && self.homing != 0) || self.homing < 0) // default to normal
 	{
 		self.homing = 1;
 	}
