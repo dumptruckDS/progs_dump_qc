@@ -1,6 +1,7 @@
-2.0.1 February 2021
+2.0.1 March 2021
 
 * small fix to health and shard pickup sounds
+* Added homing key to Shalrath custom turning range for Voreballs (ILike80sRock)
 
 
 2.0.0 December 2020
