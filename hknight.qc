@@ -94,6 +94,9 @@ void(float offset) hknight_shot =
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
+	if (self.projexpl == 1){
+		newmis.touch = T_GruntMisTouch;
+	}
 	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
 };
 
