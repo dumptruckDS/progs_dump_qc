@@ -60,7 +60,7 @@ void(float offset) hknight_shot =
 {
 	local	vector	offang;
 	local	vector	org, vec;
-
+	local float exploding = self.projexpl == 1 || (self.projexpl == 2 && offset % 2 == 0) || (self.projexpl == 3 && random()*2 < 1);
 	offang = vectoangles (self.enemy.origin - self.origin);
 	offang_y = offang_y + offset * 6;
 
@@ -75,35 +75,58 @@ void(float offset) hknight_shot =
 	launch_spike (org, vec);
 	newmis.classname = "knightspike";
 	// setmodel (newmis, "progs/k_spike.mdl");
-	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	if (exploding)
 	{
+		dprint("in exploding\n");
+		newmis.touch = T_GruntMisTouch;
+		if (self.mdl_exproj != "") // dumptruck_ds custom_mdls
+		{
+			setmodel (newmis, self.mdl_exproj);
+		}
+		else
+		{
+			setmodel (newmis, "progs/k_spike2.mdl");
+		}
+
+		if (self.skin_exproj) // dumptruck_ds
+		{
+			dprint("setting newmis skin to skin_exproj\n");
+			newmis.skin = self.skin_exproj;
+		}
+		else
+		{
+			dprint("setting newmis skin to 1\n");
+			newmis.skin = 0;
+		}
+	}
+	else
+	{
+		if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+		{
 			setmodel (newmis, self.mdl_proj);
 		}
 		else
 		{
 			setmodel (newmis, "progs/k_spike.mdl");
-	}
+		}
 
-	if (!newmis.skin_proj) // dumptruck_ds
-	{
+		if (self.skin_proj) // dumptruck_ds
+		{
 			newmis.skin = self.skin_proj;
 		}
 		else
 		{
+			dprint("setting newmis skin to 0\n");
 			newmis.skin = 0;
+		}
 	}
+	dprint("newmis skin:");
+	dprint(ftos(newmis.skin));
+	dprint("\n");
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
 
 	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
-	if (self.projexpl > 0)
-	{
-		if ((self.projexpl == 2 && offset % 2 == 0) || (self.projexpl == 3 && random()*2 < 1))
-		{
-			newmis.touch = T_GruntMisTouch;
-			newmis.skin = 1;
-		}
-	}
 };
 
 void() CheckForCharge =
@@ -515,13 +538,16 @@ void() monster_hell_knight =
 		remove(self);
 		return;
 	}
+
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/k_spike.mdl");
+	precache_model2 ("progs/k_spike2.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
 	//dumptruck_ds custom_mdls
 	precache_body_model2 ("progs/hknight.mdl");
 	precache_head_model2 ("progs/h_hellkn.mdl");
 	precache_proj_model2 ("progs/k_spike.mdl");
+	precache_proj_model2 ("progs/k_spike2.mdl");
 // dumptruck_ds
 
 	precache_sound2_attack ("hknight/attack1.wav");
