@@ -121,6 +121,7 @@ void() W_Precache =
 
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/k_spike.mdl");
+	precache_model2 ("progs/k_spike2.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
