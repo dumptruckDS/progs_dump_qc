@@ -677,6 +677,8 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound (MAGIC BOING)" : : "Path to custom attack sound (MAGIC BOING)"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD SLASH sound"
+
+mdl_exproj(string) : "Path to "
 ]
 @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl"}) = monster_wizard : "Scrag a.k.a Wizard
 
