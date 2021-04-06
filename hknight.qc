@@ -77,7 +77,6 @@ void(float offset) hknight_shot =
 	// setmodel (newmis, "progs/k_spike.mdl");
 	if (exploding)
 	{
-		dprint("in exploding\n");
 		newmis.touch = T_GruntMisTouch;
 		if (self.mdl_exproj != "") // dumptruck_ds custom_mdls
 		{
@@ -90,12 +89,10 @@ void(float offset) hknight_shot =
 
 		if (self.skin_exproj) // dumptruck_ds
 		{
-			dprint("setting newmis skin to skin_exproj\n");
 			newmis.skin = self.skin_exproj;
 		}
 		else
 		{
-			dprint("setting newmis skin to 1\n");
 			newmis.skin = 0;
 		}
 	}
@@ -116,13 +113,9 @@ void(float offset) hknight_shot =
 		}
 		else
 		{
-			dprint("setting newmis skin to 0\n");
 			newmis.skin = 0;
 		}
 	}
-	dprint("newmis skin:");
-	dprint(ftos(newmis.skin));
-	dprint("\n");
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
 
