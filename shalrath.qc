@@ -359,9 +359,13 @@ void() monster_shalrath =
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 400;
 
-	if ((!self.homing && self.homing != 0) || self.homing < 0) // default to normal
+	if (!self.homing) // default to normal
 	{
 		self.homing = 1;
+	}
+	else if (self.homing < 0) // disable with negative
+	{
+		self.homing = 0;
 	}
 
 	self.th_stand = shal_stand;
