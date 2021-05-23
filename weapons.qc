@@ -556,6 +556,46 @@ void() T_GruntMisTouch =
 	BecomeExplosion ();
 };
 
+ // added HK specific function
+ // a volley of 6 at 30/40 dmg was way too much.
+ // TODO: add damage modifier
+void() T_HellKnightMisTouch =
+{
+	local float	damg;
+
+	if (other == self.owner)
+		return;		// don't explode on owner
+
+	if (pointcontents(self.origin) == CONTENT_SKY)
+	{
+		remove(self);
+		return;
+	}
+
+	damg = 20 + random()*2; //dumptruck_ds
+
+	if (other.health)
+	{
+		if (other.classname == "monster_shambler")
+			damg = damg * 0.5;	// mostly immune
+		T_Damage (other, self, self.owner, damg );
+	}
+
+	// don't do radius damage to the other, because all the damage
+	// was done in the impact
+	T_RadiusDamage (self, self.owner, 30, other); //dumptruck_ds
+
+//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
+	self.origin = self.origin - 8*normalize(self.velocity);
+
+	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
+	WriteCoord (MSG_BROADCAST, self.origin_x);
+	WriteCoord (MSG_BROADCAST, self.origin_y);
+	WriteCoord (MSG_BROADCAST, self.origin_z);
+
+	BecomeExplosion ();
+};
 //dumptruck_ds end
 
 /*

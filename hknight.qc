@@ -77,7 +77,7 @@ void(float offset) hknight_shot =
 	// setmodel (newmis, "progs/k_spike.mdl");
 	if (exploding)
 	{
-		newmis.touch = T_GruntMisTouch;
+		newmis.touch = T_HellKnightMisTouch;
 		if (self.mdl_exproj != "") // dumptruck_ds custom_mdls
 		{
 			setmodel (newmis, self.mdl_exproj);
