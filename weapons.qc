@@ -518,7 +518,7 @@ void() T_MissileTouch =
 };
 //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
 
-void() T_GruntMisTouch =
+void(float direct, float splash) T_MonsterMisTouch =
 {
 	local float	damg;
 
@@ -531,7 +531,7 @@ void() T_GruntMisTouch =
 		return;
 	}
 
-	damg = 30 + random()*2; //dumptruck_ds
+	damg = direct + random()*2; //dumptruck_ds
 
 	if (other.health)
 	{
@@ -542,7 +542,7 @@ void() T_GruntMisTouch =
 
 	// don't do radius damage to the other, because all the damage
 	// was done in the impact
-	T_RadiusDamage (self, self.owner, 40, other); //dumptruck_ds
+	T_RadiusDamage (self, self.owner, splash, other); //dumptruck_ds
 
 //	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
 	self.origin = self.origin - 8*normalize(self.velocity);
@@ -556,45 +556,17 @@ void() T_GruntMisTouch =
 	BecomeExplosion ();
 };
 
- // added HK specific function
- // a volley of 6 at 30/40 dmg was way too much.
+void() T_GruntMisTouch =
+{
+	T_MonsterMisTouch(30, 40);
+};
+
+ // HK specific function
+ // less direct damage, more splash than grunt
  // TODO: add damage modifier
 void() T_HellKnightMisTouch =
 {
-	local float	damg;
-
-	if (other == self.owner)
-		return;		// don't explode on owner
-
-	if (pointcontents(self.origin) == CONTENT_SKY)
-	{
-		remove(self);
-		return;
-	}
-
-	damg = 20 + random()*2; //dumptruck_ds
-
-	if (other.health)
-	{
-		if (other.classname == "monster_shambler")
-			damg = damg * 0.5;	// mostly immune
-		T_Damage (other, self, self.owner, damg );
-	}
-
-	// don't do radius damage to the other, because all the damage
-	// was done in the impact
-	T_RadiusDamage (self, self.owner, 30, other); //dumptruck_ds
-
-//	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
-	self.origin = self.origin - 8*normalize(self.velocity);
-
-	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
-	WriteCoord (MSG_BROADCAST, self.origin_x);
-	WriteCoord (MSG_BROADCAST, self.origin_y);
-	WriteCoord (MSG_BROADCAST, self.origin_z);
-
-	BecomeExplosion ();
+	T_MonsterMisTouch(20, 50);
 };
 //dumptruck_ds end
 
