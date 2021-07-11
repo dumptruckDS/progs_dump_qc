@@ -534,6 +534,8 @@ float	AS_MISSILE		= 4;
 .entity 	movetarget;
 .float		homing;
 .float		projexpl;
+.float		infight_mode;
+
 //
 // doors
 //

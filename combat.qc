@@ -205,8 +205,22 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	// get mad unless of the same class (except for soldiers)
 		if (self != attacker && attacker != self.enemy)
 		{
+			local float mode;
+			mode = 0;
+			if (self.infight_mode > mode){
+				mode = self.infight_mode;
+			}
+			if (attacker.infight_mode > mode){
+				mode = attacker.infight_mode;
+			}
 			//soldiers of the same style will infight -- dumptruck_ds - thanks for c0burn and Shamblernaut for your help!
-			if ( (self.classname != attacker.classname) || ((self.classname == "monster_army") && (self.style == attacker.style)))
+			if (
+				(self.classname != attacker.classname) ||
+			  ((self.classname == "monster_army") && (self.style == attacker.style)) ||
+				(mode == 1 && self.mdl_body != attacker.mdl_body) ||
+				(mode == 2 && self.skin != attacker.skin) ||
+				(mode == 3)
+			)
 			{
 				if (self.enemy.classname == "player")
 					self.oldenemy = self.enemy;
