@@ -220,9 +220,9 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 			if (
 				(self.classname != attacker.classname) ||
 			  ((self.classname == "monster_army") && (self.style == attacker.style)) ||
-				(mode == 1 && self.mdl_body != attacker.mdl_body) || // infight if different models
-				(mode == 2 && self.skin != attacker.skin) || // infight if different skin
-				(mode == 3) // always infight
+				(mode > 0 && self.mdl_body != attacker.mdl_body) || // infight if different models
+				(mode > 1 && self.skin != attacker.skin) || // infight if different skin
+				(mode > 2) // always infight
 			)
 			{
 				if (self.enemy.classname == "player")
