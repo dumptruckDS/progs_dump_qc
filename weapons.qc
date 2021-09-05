@@ -121,6 +121,7 @@ void() W_Precache =
 
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/k_spike.mdl");
+	precache_model2 ("progs/k_spike2.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
@@ -517,7 +518,7 @@ void() T_MissileTouch =
 };
 //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qctut/lesson-32.shtml
 
-void() T_GruntMisTouch =
+void(float direct, float splash) T_MonsterMisTouch =
 {
 	local float	damg;
 
@@ -530,7 +531,7 @@ void() T_GruntMisTouch =
 		return;
 	}
 
-	damg = 30 + random()*2; //dumptruck_ds
+	damg = direct + random()*2; //dumptruck_ds
 
 	if (other.health)
 	{
@@ -541,7 +542,7 @@ void() T_GruntMisTouch =
 
 	// don't do radius damage to the other, because all the damage
 	// was done in the impact
-	T_RadiusDamage (self, self.owner, 40, other); //dumptruck_ds
+	T_RadiusDamage (self, self.owner, splash, other); //dumptruck_ds
 
 //	sound (self, CHAN_WEAPON, "weapons/r_exp3.wav", 1, ATTN_NORM);
 	self.origin = self.origin - 8*normalize(self.velocity);
@@ -555,6 +556,18 @@ void() T_GruntMisTouch =
 	BecomeExplosion ();
 };
 
+void() T_GruntMisTouch =
+{
+	T_MonsterMisTouch(30, 40);
+};
+
+ // HK specific function
+ // less direct damage, more splash than grunt
+ // TODO: add damage modifier
+void() T_HellKnightMisTouch =
+{
+	T_MonsterMisTouch(20, 50);
+};
 //dumptruck_ds end
 
 /*

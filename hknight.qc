@@ -60,7 +60,7 @@ void(float offset) hknight_shot =
 {
 	local	vector	offang;
 	local	vector	org, vec;
-
+	local float exploding = self.projexpl == 1 || (self.projexpl == 2 && offset % 2 == 0) || (self.projexpl == 3 && random()*2 < 1);
 	offang = vectoangles (self.enemy.origin - self.origin);
 	offang_y = offang_y + offset * 6;
 
@@ -75,25 +75,50 @@ void(float offset) hknight_shot =
 	launch_spike (org, vec);
 	newmis.classname = "knightspike";
 	// setmodel (newmis, "progs/k_spike.mdl");
-	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	if (exploding)
 	{
+		newmis.touch = T_HellKnightMisTouch;
+		if (self.mdl_exproj != "") // dumptruck_ds custom_mdls
+		{
+			setmodel (newmis, self.mdl_exproj);
+		}
+		else
+		{
+			setmodel (newmis, "progs/k_spike2.mdl");
+		}
+
+		if (self.skin_exproj) // dumptruck_ds
+		{
+			newmis.skin = self.skin_exproj;
+		}
+		else
+		{
+			newmis.skin = 0;
+		}
+	}
+	else
+	{
+		if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+		{
 			setmodel (newmis, self.mdl_proj);
 		}
 		else
 		{
 			setmodel (newmis, "progs/k_spike.mdl");
-	}
+		}
 
-	if (!newmis.skin_proj) // dumptruck_ds
-	{
+		if (self.skin_proj) // dumptruck_ds
+		{
 			newmis.skin = self.skin_proj;
 		}
 		else
 		{
 			newmis.skin = 0;
+		}
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
+
 	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
 };
 
@@ -460,8 +485,10 @@ snd_misc(string) : Path to custom SWORD SLASH sound"
 mdl_head(string) : "Path to custom head model"
 mdl_body(string) : "Path to custom body model"
 mdl_proj(string) : "Path to custom projectile model"
+mdl_exproj(string) : "Path to custom projectile model for exploding projectiles"
 skin_head(float) : "Skin index of custom head model"
 skin_proj(float) : "Skin index of custom projectile model"
+skin_exproj(float) : "Skin index of custom projectile model for exploding projectiles"
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
@@ -486,6 +513,12 @@ spawn_angry(Choices)
 0 : "Only when trigger spawned, default behavior - not angry"
 1 : "Only when trigger spawned, set to 1 to spawn angry at player"
 
+projexpl(choices) : "Exploding projectiles"
+0 : "No explosions"
+1 : "All projectiles explode"
+2 : "Every other projectile explodes"
+3 : "Random per projectile"
+
 health(integer) : "Set this to a custom health amount"
 pain_target(string) : "Fire this target when pain_threshold is reached"
 pain_threshold(integer) : "Fire pain_target when health drops below this amount"
@@ -506,13 +539,16 @@ void() monster_hell_knight =
 		remove(self);
 		return;
 	}
+
 	precache_model2 ("progs/hknight.mdl");
 	precache_model2 ("progs/k_spike.mdl");
+	precache_model2 ("progs/k_spike2.mdl");
 	precache_model2 ("progs/h_hellkn.mdl");
 	//dumptruck_ds custom_mdls
 	precache_body_model2 ("progs/hknight.mdl");
 	precache_head_model2 ("progs/h_hellkn.mdl");
 	precache_proj_model2 ("progs/k_spike.mdl");
+	precache_proj_model2 ("progs/k_spike2.mdl");
 // dumptruck_ds
 
 	precache_sound2_attack ("hknight/attack1.wav");
