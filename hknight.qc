@@ -548,7 +548,7 @@ void() monster_hell_knight =
 	precache_body_model2 ("progs/hknight.mdl");
 	precache_head_model2 ("progs/h_hellkn.mdl");
 	precache_proj_model2 ("progs/k_spike.mdl");
-	precache_proj_model2 ("progs/k_spike2.mdl");
+	precache_exproj_model2 ("progs/k_spike2.mdl"); // this needed a unique name defiined in custom_mdls.qc -- dumptruck_ds
 // dumptruck_ds
 
 	precache_sound2_attack ("hknight/attack1.wav");

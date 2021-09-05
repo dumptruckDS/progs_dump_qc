@@ -46,6 +46,7 @@ void(.string mdl_field, string default_file) precache_model2_custom =
 void(string default_file) precache_head_model2 = { precache_model2_custom (mdl_head, default_file); };
 void(string default_file) precache_body_model2 = { precache_model2_custom (mdl_body, default_file); };
 void(string default_file) precache_proj_model2 = { precache_model2_custom (mdl_proj, default_file); };
+void(string default_file) precache_exproj_model2 = { precache_model2_custom (mdl_exproj, default_file); };
 
 
 /*
