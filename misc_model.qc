@@ -28,19 +28,46 @@ first_frame: The starting frame of the animation.
 
 last_frame: The last frame of the animation.
 */
+
+float MISC_MODEL_GRAVITY = 1;
+float MISC_MODEL_SOLID = 2;
+
 void() misc_model = {
     if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
         return;
-
+		
+	if(!self.centeroffset) self.centeroffset = '0 0 0';
+	if(!self.mdlsz) self.mdlsz = '32 32 32';
+	
+	vector vmin, vmax;
+	
+	vmin_x = self.centeroffset_x - (self.mdlsz_x / 2);
+	vmin_y = self.centeroffset_y - (self.mdlsz_y / 2);
+	vmin_z = self.centeroffset_z - (self.mdlsz_z / 2);
+	
+	vmax_x = self.centeroffset_x + (self.mdlsz_x / 2);
+	vmax_y = self.centeroffset_y + (self.mdlsz_y / 2);
+	vmax_z = self.centeroffset_z + (self.mdlsz_z / 2);
+	
+	if(self.spawnflags & MISC_MODEL_SOLID) self.solid = SOLID_BBOX;
+	else self.solid = SOLID_NOT;
+	
+	if(self.spawnflags & MISC_MODEL_GRAVITY) self.movetype = MOVETYPE_TOSS;
+	else self.movetype = MOVETYPE_NONE;
+	
     precache_model(self.mdl);
     setmodel(self, self.mdl);
 
+	setsize(self, vmin, vmax);
+	
+	
     if (!self.frame) {
         self.frame = self.first_frame;
     }
 
-    // Only animate if given a frame range
-    if (!self.last_frame) {
+    // Make static (not animate) if not given a frame range, and not affected by gravity
+	//changed by bmFbr
+    if (!self.last_frame && !(self.spawnflags & MISC_MODEL_GRAVITY)) {
         makestatic(self);
         return;
     }

@@ -295,24 +295,28 @@ void() SUB_UseTargets =
 		t = find(world, targetname, self.killtarget);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname, self.killtarget);
 		}
 		t = find(world, targetname2, self.killtarget);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname2, self.killtarget);
 		}
 		t = find(world, targetname3, self.killtarget);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname3, self.killtarget);
 		}
 		t = find(world, targetname4, self.killtarget);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname4, self.killtarget);
 		}
@@ -326,24 +330,28 @@ void() SUB_UseTargets =
 		t = find(world, targetname, self.killtarget2);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname, self.killtarget2);
 		}
 		t = find(world, targetname2, self.killtarget2);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname2, self.killtarget2);
 		}
 		t = find(world, targetname3, self.killtarget2);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname3, self.killtarget2);
 		}
 		t = find(world, targetname4, self.killtarget2);
 		while(t != world)
 		{
+			if(t.switchshadstyle) lightstyle(t.switchshadstyle, "m");
 			remove(t);
 			t = find(t, targetname4, self.killtarget2);
 		}
