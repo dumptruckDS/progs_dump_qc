@@ -2,10 +2,7 @@
 .entity char; // linker entity
 float	PLAYER_TRIGGERED = 1;
 float	MONSTER_TRIGGERED = 2;
-float	FALL_BREAKABLE = 8;		//VR
-float	FALL_SOLID = 16;		//VR
 
-void() fall_break_fields;
 
 void() func_fall2_think =
 {
@@ -16,7 +13,8 @@ void() func_fall2_think =
 		if (self.target) // fire other targets
 			SUB_UseAndForgetTargets();
 			// SUB_UseTargets();
-		
+
+		self.solid = SOLID_NOT;
 		if (self.pos1 != '0 0 0')
 			self.avelocity = self.pos1; // apply stored avelocity vector values
 
@@ -46,7 +44,7 @@ void() func_fall2_think =
 			if (self.velocity_z < self.lip)
 				self.velocity_z = self.lip;
 		}
-		
+
 		if (self.pain_finished != -1)
 		{
 			if (self.alpha > 0.1)
@@ -59,19 +57,7 @@ void() func_fall2_think =
 				return;
 			}
 		}
-		
-		if (self.flags&FL_ONGROUND && self.spawnflags&FALL_BREAKABLE) {	//VR
-			self.spawnflags(-)1;			//aka BREAKABLE_NO_MONSTERS
-			self.spawnflags(-)2;			//aka BREAK_EXPLODE
-			self.mins = self.absmin;		//because of how debris origin is calculated
-			self.maxs = self.absmax;
-			self.health = self.lip*0.1;		//debris gets velocity from health
-			self.cnt = self.count;			//func_breakable uses cnt for quantity of debris to spawn
-			func_breakable_die();			//removes self
-			return;
-		}
 	}
-	
 	self.nextthink = self.ltime + 0.1;
 };
 
@@ -88,13 +74,6 @@ void() fall2_touch =
 	self.nextthink = self.ltime + 0.1;
 
 	self.attack_finished = time + self.wait;
-	
-	if (self.spawnflags&FALL_SOLID) {	//VR
-		setsize(self, self.mins, self.maxs);
-		self.solid = SOLID_BBOX;
-	}
-	else
-		self.solid = SOLID_NOT;
 
 	if (self.noise)
 		sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
@@ -110,13 +89,6 @@ void() func_fall2_use =
 	self.think = func_fall2_think;
 	self.nextthink = self.ltime + 0.1;
 	self.touch = SUB_Null; // disable touch when used
-	
-	if (self.spawnflags&FALL_SOLID) {	//VR
-		setsize(self, self.mins, self.maxs);
-		self.solid = SOLID_BBOX;
-	}
-	else
-		self.solid = SOLID_NOT;
 
 	self.attack_finished = time + self.wait;
 	if (self.noise)
@@ -208,10 +180,6 @@ void() func_fall2 =
 		self.pos1 = self.avelocity; // store it
 		self.avelocity = '0 0 0';
 	}
-	if (self.spawnflags&FALL_BREAKABLE) {	//VR
-		self.pain_finished = -1;	//dont fade if set to break
-		fall_break_fields();
-	}
 	self.use = func_fall2_use;
 
 	setmodel (self, self.model);
@@ -220,58 +188,3 @@ void() func_fall2 =
 //	* You may have to modify your multi_touch(); command in triggers.qc to allow
 //	* both monsters & players to activate trigger_once/multiple. I recommend allowing
 //	* the mapper themselves to select how that occurs. Default behavior is player only.
-
-void fall_break_fields ()
-{
-	break_template_setup();
-	
-	self.mdl_debris = "progs/debris.mdl";
-	precache_model (self.mdl_debris);
-	
-	if (self.noise1 != "") precache_sound(self.noise1);
-// adding new default sounds for "simple" breakables in 1.2.0 -- dumptruck_ds
-// here's genreic metal breaking
-	if (self.style == 0 || self.style == 11 || self.style == 12 || self.style == 17 || self.style == 18 || self.style == 19
-		|| self.style == 24 || self.style == 31)
-		if !(self.noise1)
-	{
-		precache_sound("break/pd_metal2.wav");
-		self.noise1 = "break/pd_metal2.wav";
-	}
-	if (self.style == 3 || self.style == 4 || self.style == 5)
-		if !(self.noise1)
-	{
-		precache_sound("break/pd_wood1.wav");
-		precache_sound("break/pd_wood2.wav");
-		if (random() > 0.6) // wood only randomized
-		self.noise1 = "break/pd_wood1.wav";
-		else
-		self.noise1 = "break/pd_wood2.wav";
-	}
-	// glass sounds -- this is more of a shattering sound anyway
-	if (self.style == 6 || self.style == 7 || self.style == 8 || self.style == 9 || self.style == 10)
-		if !(self.noise1)
-	{
-		precache_sound("break/pd_metal1.wav");
-		self.noise1 = "break/pd_metal1.wav";
-	}
-	if (self.style == 1 || self.style == 2 || self.style == 13 || self.style == 14
-		|| self.style == 15 || self.style == 16 || self.style == 20 || self.style == 21
-		|| self.style == 22 || self.style == 23)
-		if !(self.noise1)
-	{
-		precache_sound("break/pd_bricks1.wav");
-		self.noise1 = "break/pd_bricks1.wav";
-	}
-	if (self.style == 25 || self.style == 26 || self.style == 27 || self.style == 28 || self.style == 29 || self.style == 30)
-		if !(self.noise1)
-	{
-		precache_sound("break/pd_stones1.wav");
-		self.noise1 = "break/pd_stones1.wav";
-	}
-
-	if (!self.health)
-		self.health = 20;
-	if (!self.count)
-		self.count = 5; // was 6 dumptruck_ds
-}
