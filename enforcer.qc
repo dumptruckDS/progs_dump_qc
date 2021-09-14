@@ -74,7 +74,7 @@ void() Laser_Touch =
 void(vector org, vector vec) LaunchLaser =
 {
 
-	if (self.classname == "monster_enforcer" || "monster_army")
+	if (self.classname == "monster_enforcer" || self.classname == "monster_army")
 		sound_attack (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
 
 	vec = normalize(vec);
