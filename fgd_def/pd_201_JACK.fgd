@@ -2045,7 +2045,7 @@ noise(string) : "Path to custom sound"
 			]
 	]
 //____TW_EDIT____
-	@SolidClass base(Appearflags, OneTargetname, Target) = func_fall2 : "Enhanced version of 'func_fall' with different behaviors. A brush that drops and fades away when touched. Can be targeted by triggers etc and can target other entities.	'wait' = how long until the brush begins falling. 'noise' = the sound to make when touched / activated. 'noise2' = the sound to make before it's removed. 'pain_finished' of -1 disables 'noise2' as the object stays forever.	'cnt' = 0 is default behavior, 1 means collisions are disabled while falling, 2 turns the brush into a bouncing entity.	'pain_finished' = default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever. 'speed' = speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1.	Recommended to use lip for max fall speed on cnt 0 and 2 as they follow Quake's default gravity. 'lip' = maximum fall speed that can be achieved, caps 'speed' variable. Default is -800.	'avelocity' = have it spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity. Use an origin brush for proper spin! ***spawnflags Default behavior allows anyone to activate 'func_fall2' on touch ONLY. Able to target other entities, including other 'func_fall2''s."
+	@SolidClass base(Appearflags, OneTargetname, Target) = func_fall2 : "Enhanced version of 'func_fall' with different behaviors. A brush that drops and fades away when touched. Can be targeted by triggers etc and can target other entities.	'wait' = how long until the brush begins falling. 'noise' = the sound to make when touched / activated. 'noise2' = the sound to make before it's removed. 'pain_finished' of -1 disables 'noise2' as the object stays forever.	'cnt' = 0 is default behavior, 1 means collisions are disabled while falling, 2 turns the brush into a bouncing entity.	'pain_finished' = default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever. 'speed' = speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1.	Recommended to use lip for max fall speed on cnt 0 and 2 as they follow Quake's default gravity. 'lip' = maximum fall speed that can be achieved, caps 'speed' variable. Default is -800.	'avelocity' = have it spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity. Use an origin brush for proper spin! ***spawnflags Default behavior allows anyone to activate 'func_fall2' on touch ONLY. Able to target other entities, including other 'func_fall2''s. "
 	[
 	cnt(integer) : "Collision type, 0 is normal, 1 has no collision and 2 will bounce" : 0
 	speed(integer) : "use with cnt 1 only, speed as to how fast something falls per game frame, default is 10"
@@ -2057,8 +2057,10 @@ noise(string) : "Path to custom sound"
 	avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : : "spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity Use an origin brush for proper spin!"
 	spawnflags(flags) =
 			[
-				1 : "Player Activated only" : 0
-				2 : "Monster Activated only" : 0
+			1 : "Player Activated only" : 0
+			2 : "Monster Activated only" : 0
+			8 : "Breakable" : 0
+			16 : "Remain solid" : 0
 			]
 	]
 

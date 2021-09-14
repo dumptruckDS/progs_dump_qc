@@ -2253,6 +2253,8 @@ spawnflags
 	Default behavior allows anyone to activate func_fall2 on touch ONLY
 	1 - Player activated only
 	2 - Monster activated only
+	8 - break on impact (use style key for textures, see manual for more)
+	16 - fall solid; remains solid on ground
 
 Able to target other entities, including other func_fall2s"
 [
@@ -2267,8 +2269,10 @@ avelocity(string) : "spin when activated using X, Y, Z vector coordinates" : : "
 "
 spawnflags(flags) =
 		[
-			1 : "Player Activated only" : 0
-			2 : "Monster Activated only" : 0
+		1 : "Player Activated only" : 0
+		2 : "Monster Activated only" : 0
+		8 : "Breakable" : 0
+		16 : "Remain solid" : 0
 		]
 ]
 

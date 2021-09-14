@@ -1678,7 +1678,7 @@ dmg is the amount of damage to cause when touched."
 ]
 
 
-@PointClass base(Appearflags, Targetname) size(16 16 16) color(64 64 64) = misc_shadowcontroller : "Controls switchable shadows on any bmodel entity (except doors). 
+@PointClass base(Appearflags, Targetname) size(16 16 16) color(64 64 64) = misc_shadowcontroller : "Controls switchable shadows on any bmodel entity (except doors).
 Target this entity to toggle the shadows on/off with an optional fading animation.
 
 Targeted bmodel must have _switchableshadow set to 1.
@@ -2283,6 +2283,8 @@ spawnflags
 	Default behavior allows anyone to activate func_fall2 on touch ONLY
 	1 - Player activated only
 	2 - Monster activated only
+	8 - break on impact (use style key for textures, see manual for more)
+	16 - fall solid; remains solid on ground
 
 Able to target other entities, including other func_fall2s"
 [
@@ -2299,6 +2301,8 @@ spawnflags(flags) =
 		[
 			1 : "Player Activated only" : 0
 			2 : "Monster Activated only" : 0
+			8 : "Breakable" : 0
+			16 : "Remain solid" : 0
 		]
 ]
 

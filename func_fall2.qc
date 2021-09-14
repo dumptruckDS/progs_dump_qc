@@ -16,7 +16,7 @@ void() func_fall2_think =
 		if (self.target) // fire other targets
 			SUB_UseAndForgetTargets();
 			// SUB_UseTargets();
-		
+
 		if (self.pos1 != '0 0 0')
 			self.avelocity = self.pos1; // apply stored avelocity vector values
 
@@ -46,7 +46,7 @@ void() func_fall2_think =
 			if (self.velocity_z < self.lip)
 				self.velocity_z = self.lip;
 		}
-		
+
 		if (self.pain_finished != -1)
 		{
 			if (self.alpha > 0.1)
@@ -59,7 +59,7 @@ void() func_fall2_think =
 				return;
 			}
 		}
-		
+
 		if (self.flags&FL_ONGROUND && self.spawnflags&FALL_BREAKABLE) {	//VR
 			self.spawnflags(-)1;			//aka BREAKABLE_NO_MONSTERS
 			self.spawnflags(-)2;			//aka BREAK_EXPLODE
@@ -71,7 +71,7 @@ void() func_fall2_think =
 			return;
 		}
 	}
-	
+
 	self.nextthink = self.ltime + 0.1;
 };
 
@@ -88,7 +88,7 @@ void() fall2_touch =
 	self.nextthink = self.ltime + 0.1;
 
 	self.attack_finished = time + self.wait;
-	
+
 	if (self.spawnflags&FALL_SOLID) {	//VR
 		setsize(self, self.mins, self.maxs);
 		self.solid = SOLID_BBOX;
@@ -110,7 +110,7 @@ void() func_fall2_use =
 	self.think = func_fall2_think;
 	self.nextthink = self.ltime + 0.1;
 	self.touch = SUB_Null; // disable touch when used
-	
+
 	if (self.spawnflags&FALL_SOLID) {	//VR
 		setsize(self, self.mins, self.maxs);
 		self.solid = SOLID_BBOX;
@@ -145,7 +145,7 @@ void() func_fall2_field_touch =
 };
 
 /*QUAKED func_fall2 (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Falling brush by RennyC
+Falling brush by RennyC with additions from Whirledstar
 
 wait - how long until the brush begins falling
 noise - the sound to make when touched / activated
@@ -161,6 +161,8 @@ spawnflags:
 Default behavior allows anyone to activate func_fall2 on touch ONLY
 1 - Player activated only
 2 - Monster activated only
+8 - break on impact (use style key for textures, see manual for more)
+16 - fall solid; remains solid on ground
 
 Able to .target other entities, including other func_fall2s
 */
@@ -224,10 +226,10 @@ void() func_fall2 =
 void fall_break_fields ()
 {
 	break_template_setup();
-	
+
 	self.mdl_debris = "progs/debris.mdl";
 	precache_model (self.mdl_debris);
-	
+
 	if (self.noise1 != "") precache_sound(self.noise1);
 // adding new default sounds for "simple" breakables in 1.2.0 -- dumptruck_ds
 // here's genreic metal breaking
