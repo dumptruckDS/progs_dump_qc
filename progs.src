@@ -35,7 +35,7 @@ zombie.qc //modified version of Ace_Dave's zombies from Rubicon2 source
 boss.qc
 boss2.qc // killable Chthon
 
-tarbaby.qc		// registered
+spawn.qc		// registered
 hknight.qc		// registered
 fish.qc			// registered
 shalrath.qc		// registered

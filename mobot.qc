@@ -385,6 +385,7 @@ if (self.style == 12) // spawn a Shalrath
 		bot.th_run = shal_run1;
 		bot.th_die = shalrath_die;
 		bot.th_missile = shal_attack1;
+		bot.homing = 1; //fix for func_monster_spawner setting Voreballs to
 		if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 		bot.th_pain = shalrath_pain;
 		else
@@ -442,7 +443,7 @@ void() think_mobot =
 			if (self.style2 == 1)
 			{
 				self.style = floor(random() * 12) + 1; // random monster!! -- dumptruck_ds
-				create_mobot(); //thanks whirledstar for your help on this -- dumptruck_ds
+				create_mobot(); //thanks whirledtsar for your help on this -- dumptruck_ds
 			}
 			else
 				create_mobot();

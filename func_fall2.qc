@@ -145,7 +145,7 @@ void() func_fall2_field_touch =
 };
 
 /*QUAKED func_fall2 (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-Falling brush by RennyC with additions from Whirledstar
+Falling brush by RennyC with additions from whirledtsar
 
 wait - how long until the brush begins falling
 noise - the sound to make when touched / activated

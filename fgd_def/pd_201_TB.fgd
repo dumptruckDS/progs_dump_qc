@@ -217,7 +217,7 @@ color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
 
 Choose Style via dropdown
 
-Style 2 overrides Style and chooses a random monster
+Style 2 set to 1 overrides Style and chooses a random monster
 
 Default time between spawns is 5 seconds
 

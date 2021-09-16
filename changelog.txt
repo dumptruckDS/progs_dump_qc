@@ -1,3 +1,13 @@
+2.0.2 September 2021
+
+* fixed QSS crash in mobot.qc (paavohuhtala)
+* fixed small error in Enforcer.qc (paavohuhtala)
+* Added in-fighting modes to monsters (ILike80sRock)
+* Added breakable & solidity spawnflags to func_fall2 (whirledtsar)
+* Added explosive projectiles to HellKnight (ILike80sRock)
+* Renamed potentially offensive file name (progs.src, spawn.qc)
+* Fixed Voreballs not homing in func_monster_spawner
+
 2.0.1 March 2021
 
 * small fix to health and shard pickup sounds
