@@ -1947,7 +1947,10 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 [
 	wait(string) : "Wait before reset" : "0.2"
 	health(integer) : "Health (shootable)"
-	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
+	spawnflags(flags) = [
+		1: "Not touchable" : 0
+		2: "Turns off" : 0
+	]
 	is_waiting(choices) : "Trigger" : 0 =
 	[
 		0 : "Default"
