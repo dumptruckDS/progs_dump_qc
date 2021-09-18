@@ -1905,6 +1905,22 @@ spawnflags(Flags) =
 @PointClass size(16 16 16) = misc_noisemaker : "Debug entity: continuously plays enforcer sounds" []
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
 
+@PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.
+
+'message' is the value of the new target.
+
+'cnt' picks which 'target' field to modify. (target, target2, etc.)"
+[
+    target(target_destination) : "The entity to change"
+    message(target_destination) : "The new target value"
+		cnt(choices) : "Target field to modify. No value defaults to 'target'" : 0 = [
+			1 : "target"
+			2 : "target2"
+			3 : "target3"
+			4 : "target4"
+		]
+]
+
 ///////////////////////////////////////////////////////////
 //dumptruck�s additions via Joshua Skelton�s Quake Tools///
 ///////////////////////////////////////////////////////////
