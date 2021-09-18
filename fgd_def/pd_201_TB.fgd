@@ -1960,7 +1960,7 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 	health(integer) : "Health (shootable)"
 	spawnflags(flags) = [
 		1: "Not touchable" : 0
-		2: "Turns off" : 0
+		2: "Wait for retrigger" : 0
 	]
 	is_waiting(choices) : "Trigger" : 0 =
 	[

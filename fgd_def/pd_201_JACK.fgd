@@ -1814,7 +1814,7 @@ spawnflags(Flags) =
 		health(integer) : "Health (shootable)"
 		spawnflags(flags) = [
 			1: "Not touchable" : 0
-			2: "Turns off" : 0
+			2: "Wait for retrigger" : 0
 		]
 		is_waiting(choices) : "Trigger" : 0 =
 		[

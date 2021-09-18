@@ -385,7 +385,7 @@ if (self.style == 12) // spawn a Shalrath
 		bot.th_run = shal_run1;
 		bot.th_die = shalrath_die;
 		bot.th_missile = shal_attack1;
-		bot.homing = 1; //fix for func_monster_spawner setting Voreballs to
+		bot.homing = 1; //fix for func_monster_spawner setting Voreballs to non-homing
 		if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 		bot.th_pain = shalrath_pain;
 		else
