@@ -299,11 +299,22 @@ void() SUB_UseTargets =
 //
 // print the message
 //
-	if (activator.classname == "player" && self.message != "")
-	{
-		centerprint (activator, self.message);
-		if (!self.noise)
-			sound (activator, CHAN_VOICE, "misc/talk.wav", 1, ATTN_NORM);
+	if (self.message != "") {
+		if (self.spawnflags & TRIGGER_CENTERPRINTALL) {
+			t = find(world, classname, "player");
+			while (t) {
+				centerprint (t, self.message);
+				if (!self.noise)
+					sound (t, CHAN_VOICE, "misc/talk.wav", 1, ATTN_NORM);
+				t = find(t, classname, "player");
+			}
+		}
+		
+		else if (activator.classname == "player") {
+			centerprint (activator, self.message);
+			if (!self.noise)
+				sound (activator, CHAN_VOICE, "misc/talk.wav", 1, ATTN_NORM);
+		}	
 	}
 
 //

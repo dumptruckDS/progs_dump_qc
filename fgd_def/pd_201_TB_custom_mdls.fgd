@@ -207,6 +207,11 @@ state(choices) =
 	]
 ]
 
+@baseclass = Message [
+	spawnflags(flags) = [
+		1048576 : "Message all players" : 0
+	]
+]
 //////////////////////
 // end dumptruck_ds //
 //////////////////////
@@ -1761,7 +1766,7 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 	noise(string) : "Path of sound when triggered"
 ]
 
-@SolidClass base(Angle, Appearflags, Targetname, Target) = func_button : "Button" //modified by dumptruck_ds to add Target
+@SolidClass base(Angle, Appearflags, Targetname, Target, Message) = func_button : "Button" //modified by dumptruck_ds to add Target
 [
 	speed(integer) : "Speed" : 40
 	lip(integer) : "Lip" : 4
@@ -1888,7 +1893,7 @@ spawnflags(Flags) =
 // triggers
 //
 
-@baseclass base(Appearflags, Target, Targetname) = Trigger
+@baseclass base(Appearflags, Target, Targetname, Message) = Trigger
 [
 	sounds(choices) : "Sound style" : 0 =
 	[
