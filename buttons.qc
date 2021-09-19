@@ -68,6 +68,58 @@ void() button_killed =
 };
 
 
+
+// adapted from Copper, thanks Lunaran
+void(entity b) button_lock =
+{
+	entity oself;
+
+	if (b.estate == STATE_INACTIVE)
+		return;
+
+	oself = self;
+	self = b;
+
+	if (self.state == STATE_UP || self.state == STATE_TOP)
+		self.prevstate = STATE_TOP;
+	else 
+		self.prevstate = STATE_BOTTOM;
+
+	if (self.max_health)
+		self.takedamage = DAMAGE_NO;
+	self.state = STATE_UP;
+	SUB_CalcMove (self.pos2, self.speed, button_wait);
+	self.estate = STATE_INACTIVE;
+
+	self = oself;
+}
+void(entity b, float dontresetstate) button_unlock =
+{
+	entity oself;
+
+	if (b.estate == STATE_ACTIVE)
+		return;
+
+	oself = self;
+	self = b;
+
+	if (!dontresetstate || self.wait != -1 || self.prevstate == STATE_BOTTOM) {
+		if (self.max_health)
+		{
+			self.takedamage = DAMAGE_YES;
+			self.health = self.max_health;
+		}
+		self.frame = 0;			// use normal textures
+		self.state = STATE_DOWN;
+		SUB_CalcMove (self.pos1, self.speed, button_done);
+	}
+
+	self.estate = STATE_ACTIVE;
+
+	self = oself;
+}
+
+
 /*QUAKED func_button (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again.
 

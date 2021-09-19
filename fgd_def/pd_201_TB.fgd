@@ -198,6 +198,15 @@ state(choices) =
 
 @baseclass = OneTarget[target(target_destination) : "Target"]
 
+@baseclass = TriggerWait [
+	is_waiting(choices) : "Dormant Trigger" : 0 :
+	"If set to 1, the trigger starts dormant and waits for activation. Subsequent activations trigger its target as usual." =
+	[
+		0 : "Default"
+		1 : "Wait for Trigger"
+	]
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////
@@ -296,7 +305,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	noise(string) : "noise"
 	touch(string) : "self.touch"
 ]
-@PointClass base(Appearflags) = info_intermission : "Intermission camera"
+@PointClass base(Appearflags, Fog) = info_intermission : "Intermission camera"
 [
 	mangle(string) : "Camera angle (Pitch Yaw Roll)"
 ]
@@ -1467,14 +1476,14 @@ Default is 0.3 seconds.
 	weapon(float) : "Duration of each strike" : "0.3"
 ]
 
-@SolidClass base(Appearflags) = trigger_ladder : "Invisible ladder entity.
+@SolidClass base(Appearflags, TriggerWait) = trigger_ladder : "Invisible ladder entity.
 
 When player is touching this entity, she can climb by pushing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
 
-@SolidClass base(Appearflags) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
 
 [
 spawnflags(Flags) =
@@ -1891,7 +1900,7 @@ spawnflags(Flags) =
 // triggers
 //
 
-@baseclass base(Appearflags, Target, Targetname) = Trigger
+@baseclass base(Appearflags, Target, Targetname, TriggerWait) = Trigger
 [
 	sounds(choices) : "Sound style" : 0 =
 	[
@@ -1904,7 +1913,7 @@ spawnflags(Flags) =
 	message(string) : "Message"
 ]
 
-@SolidClass base(OneTarget, OneTargetname, Appearflags) = trigger_changelevel : "Trigger: Change level"
+@SolidClass base(OneTarget, OneTargetname, Appearflags, TriggerWait) = trigger_changelevel : "Trigger: Change level"
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
@@ -1927,7 +1936,7 @@ spawnflags(Flags) =
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
 
-@SolidClass base(Appearflags) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters
+@SolidClass base(Appearflags, TriggerWait) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters
 
 gravity = what to set the players gravity to
 
@@ -1949,7 +1958,7 @@ If using multiple triggers, do not have them touching. Leave a 'buffer' between 
 ]
 
 //dumptruck_ds added from Hipnotic Mission Pack
-@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey :
+@SolidClass base(Appearflags, Target, Targetname, TriggerWait) = trigger_usekey :
 "Trigger: Requires a Key
 
 NOTE: You must specify either the silver or gold key by setting the relevant spawnflag, or specify an item_key_custom by setting the 'keyname' value so that it matches the 'keyname' value of the item_key_custom."
@@ -1985,11 +1994,11 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 		1 : "Wait for Trigger"
 	]
 ]
-@SolidClass base(OneTarget, OneTargetname) = trigger_onlyregistered : "only Triggers only if game is registered (registered == 1)"
+@SolidClass base(OneTarget, OneTargetname, TriggerWait) = trigger_onlyregistered : "only Triggers only if game is registered (registered == 1)"
 [
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
-@SolidClass base(Trigger, OneTargetname) = trigger_secret : "Trigger: Secret"
+@SolidClass base(Trigger, OneTargetname, TriggerWait) = trigger_secret : "Trigger: Secret"
 [
 	sounds(choices) : "Sound" : 1 =
 	[
@@ -1999,7 +2008,7 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
 
-@SolidClass base(Appearflags, OneTarget, Targetname) = trigger_teleport : "Trigger: Teleporter
+@SolidClass base(Appearflags, OneTarget, Targetname, TriggerWait) = trigger_teleport : "Trigger: Teleporter
 
 Any object touching this will be transported to the corresponding
 info_teleport_destination entity. Or if RANDOM is chosen, info_teleport_random
@@ -2038,7 +2047,7 @@ MONSTER_ONLY(16) will only teleport monsters"
 	]
 ]
 
-@SolidClass base(Appearflags) = trigger_setskill : "Trigger: Set skill"
+@SolidClass base(Appearflags, TriggerWait) = trigger_setskill : "Trigger: Set skill"
 [
 	message(choices) : "Skill to change to" : 1 =
 	[
@@ -2051,11 +2060,11 @@ MONSTER_ONLY(16) will only teleport monsters"
 @PointClass base(Trigger) = trigger_relay : "Trigger: Relay"
 [
 ]
-@SolidClass base(Appearflags) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at info_player_start for an axe only spawn.
+@SolidClass base(Appearflags, TriggerWait) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at info_player_start for an axe only spawn.
 
 Make sure and add a weapon_shotgun to your map!"
 []
-@SolidClass base(Angle, Appearflags, OneTargetname) = trigger_monsterjump : "Trigger: Monster jump"
+@SolidClass base(Angle, Appearflags, OneTargetname, TriggerWait) = trigger_monsterjump : "Trigger: Monster jump"
 [
 	speed(integer) : "Jump Speed" : 200
 	height(integer) : "Jump Height" : 200
@@ -2068,12 +2077,12 @@ Make sure and add a weapon_shotgun to your map!"
 	delay (integer) : "Delay"
 	message(string) : "Message"
 ]
-@SolidClass base(Angle, Appearflags, Targetname) = trigger_push : "Trigger: Push"
+@SolidClass base(Angle, Appearflags, Targetname, TriggerWait) = trigger_push : "Trigger: Push"
 [
 	spawnflags(flags) = [ 1: "Push once" : 0 ]
 	speed(integer) : "Speed" : 1000
 ]
-@SolidClass base(Angle, Appearflags, Targetname) = trigger_push_custom : "Trigger: Push (Custom): Can be toggled on and off, use a custom sound (noise) and be made silent.
+@SolidClass base(Angle, Appearflags, Targetname, TriggerWait) = trigger_push_custom : "Trigger: Push (Custom): Can be toggled on and off, use a custom sound (noise) and be made silent.
 
 NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds should not be looped."
 [
@@ -2087,7 +2096,7 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 	speed(integer) : "Speed" : 1000
 	noise(string) : "Custom Sound"
 ]
-@SolidClass  base(Appearflags, OneTargetname) = trigger_hurt : "Trigger: Hurt"
+@SolidClass  base(Appearflags, OneTargetname, TriggerWait) = trigger_hurt : "Trigger: Hurt"
 [
 	dmg(integer) : "Damage per second" : 5
 ]
@@ -2750,7 +2759,7 @@ delay how much time to wait before firing after being switched on."
 		]
 	]
 
-@SolidClass base(Appearflags) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
+@SolidClass base(Appearflags, TriggerWait) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
 [
 sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to play from within music folder"
 ]
@@ -2841,7 +2850,7 @@ spawnflags(flags) =
 	]
 ]
 
-@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal
+@SolidClass  base(Appearflags, OneTargetname, TriggerWait) = trigger_heal : "Trigger: Heal
 Any object touching this will be healed
 heal_amount -- the amount to heal each time (default 5)
 wait -- the time between each healing (default 1)

@@ -26,6 +26,24 @@ void() SetMovedir =
 	self.angles = '0 0 0';
 };
 
+
+/*
+=============
+SUB_CallAsSelf
+
+wrap the self/oself shuffle for code cleanliness elsewhere
+===============
+*/
+void(void() fun, entity newself) SUB_CallAsSelf =
+{
+	local entity oself;
+	
+	oself = self;
+	self = newself;
+	fun();
+	self = oself;	
+}
+
 /*
 ================
 InitTrigger
@@ -255,6 +273,7 @@ void() SUB_UseTargets =
 //	local entity t, stemp, otemp, act;
 	local entity t;
 
+	if (self.estate != STATE_ACTIVE) return;
 //
 // check for a delay
 //
@@ -599,6 +618,8 @@ float() CheckValidTouch =
 	if (other.health <= 0)
 		return FALSE;
 	if (other.movetype == MOVETYPE_NOCLIP)
+		return FALSE;
+	if (self.estate != STATE_ACTIVE)
 		return FALSE;
 	return TRUE;
 }

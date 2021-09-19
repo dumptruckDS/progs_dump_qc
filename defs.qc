@@ -929,6 +929,17 @@ float HEAL_MONSTER_ONLY	= 4;
 .float drop_item; // key DropStuff
 
 
+
+float TRIGGER_CENTERPRINTALL = 1048576;
+
+// entity state
+.float estate;
+.void() dormant_use;
+float STATE_ACTIVE      = 0;
+float STATE_INACTIVE    = 1;
+
+.float prevstate;
+
 //
 // fog
 //

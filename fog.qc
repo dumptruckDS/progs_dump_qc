@@ -140,8 +140,8 @@ void() fog_blendTouch =
 	if (other.health <= 0)
 		return;
 	
-	//if (self.estate != STATE_ACTIVE)
-	//	return;
+	if (self.estate != STATE_ACTIVE)
+		return;
 
 	// fix for only first client getting a fog change when multiple coop clients are touching this at once
 	if (time != self.rad_time)	// because fog is rad
@@ -245,7 +245,7 @@ void() trigger_fogblend =
 	self.touch = fog_blendTouch;
 	self.distance = zeroconvertdefault(self.distance, BoundsAngleSize(self.movedir, self.size));
 
-	//SUB_CheckWaiting();
+	SUB_CheckWaiting();
 }
 
 
@@ -474,8 +474,8 @@ trigger_fog
 **************************************/
 
 void() trigger_fog_touch = {
-	//if(self.estate != STATE_ACTIVE)
-	//	return;
+	if (self.estate != STATE_ACTIVE)
+		return;
 
 	if (!(other.flags & FL_CLIENT))
 		return;
@@ -530,5 +530,6 @@ void() trigger_fog = {
 	InitTrigger ();
 	self.touch = trigger_fog_touch;
 	if (!self.speed) self.speed = 1;
-	//SUB_CheckWaiting();
+
+	SUB_CheckWaiting();
 };

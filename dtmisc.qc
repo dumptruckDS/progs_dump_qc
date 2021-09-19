@@ -1045,6 +1045,8 @@ void() misc_particle_stream =
 
 void() heal_touch =
 {
+  if (self.estate != STATE_ACTIVE)
+    return;
   if (other.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
     return FALSE;
 	if(self.spawnflags & HEAL_PLAYER_ONLY && other.classname != "player")
@@ -1130,4 +1132,6 @@ void() trigger_heal =
 	}
 	else
 		self.touch = heal_touch;
+
+  SUB_CheckWaiting();
 };

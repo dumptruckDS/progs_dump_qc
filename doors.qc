@@ -281,6 +281,76 @@ void() door_touch =
 	keylock_try_to_unlock (other, "", door_unlock);
 };
 
+
+
+/*
+=============================================================================
+ENTITY STATE FUNCTIONS
+=============================================================================
+*/
+
+void(entity e, float closealldoors) door_estate_lock = {
+	local entity oself, next;
+
+	if (e.owner.estate == STATE_INACTIVE) return;
+
+	oself = self;
+	self = e.owner;
+
+	self.estate = STATE_INACTIVE;
+
+	self.prevstate = self.state;
+
+	if (self.state == STATE_UP || self.state == STATE_TOP) {
+		if (
+			!(self.wait == -1 || (self.spawnflags & DOOR_TOGGLE))
+			|| closealldoors
+		) door_go_down();
+	}
+
+	if (self.max_health) {
+		next = self;
+		do {
+			//e.health = 0;
+			next.takedamage = DAMAGE_NO;
+			next = next.enemy;
+		} while ( (next != self) && (next != world) );
+	}
+
+	self = oself;
+
+}
+
+void(entity e, float openalldoors) door_estate_unlock = {
+	local entity oself, next;
+	
+	if (e.owner.estate == STATE_ACTIVE) return;
+
+	oself = self;
+	self = e.owner;
+
+	if (self.prevstate == STATE_UP || self.prevstate == STATE_TOP) {
+		if (
+			(self.wait == -1 || (self.spawnflags & DOOR_TOGGLE))
+			&& openalldoors
+		) door_go_up();
+	}
+
+	if (self.max_health) {
+		next = self;
+		do {
+			next.health = next.max_health;
+			next.takedamage = DAMAGE_YES;
+			next = next.enemy;
+		} while ( (next != self) && (next != world) );
+	}
+
+	self.estate = STATE_ACTIVE;
+
+	self = oself;
+}
+
+
 /*
 =============================================================================
 
