@@ -301,7 +301,10 @@ void() execute_changelevel =
 		other.movetype = MOVETYPE_NONE;
 		other.modelindex = 0;
 		setorigin (other, pos.origin);
+		fog_setFromEnt(other, pos);
+		
 		other = find (other, classname, "player");
+
 	}
 	// Drake -- dumptruck_ds
 	if (cutscene)
@@ -604,6 +607,20 @@ void() PutClientInServer =
 	self.origin = spot.origin + '0 0 1';
 	self.angles = spot.angles;
 	self.fixangle = TRUE;		// turn this way immediately
+
+	// fog control.
+	// Looks if there's any fog values set at the current spawn point. If not, looks for those in worldspawn instead
+	if (spot.fog_density)
+		fog_save(self, spot.fog_density, spot.fog_color);
+	else if (world.fog_density)
+		fog_save(self, world.fog_density, world.fog_color);
+
+	if (spot.skyfog_density)
+		skyfog_save(self, spot.skyfog_density);
+	else if (world.skyfog_density)
+		skyfog_save(self, world.skyfog_density);
+
+	cleanUpClientStuff = 2; // decreased on subsequent frames, used to startup some fog-related stuff
 
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
@@ -1085,6 +1102,10 @@ void() PlayerPreThink =
 		do_ladder_physics = FALSE;
 		self.gravity = self.wantedgravity;
 	}
+
+	// If just spawned in, try to recover previous fog values from own client entity, if any
+	if (cleanUpClientStuff)
+		fog_setFromEnt(self, self); 
 
 	makevectors (self.v_angle);		// is this still used
 

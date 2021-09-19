@@ -90,3 +90,46 @@ float(float value, float minValue, float maxValue) wrap = {
 
     return mod(value - minValue, range + 1) + minValue;
 };
+
+
+
+float(float a, float b, float mix) lerp =
+{
+    if (mix <= 0) return a;
+    if (mix >= 1) return b;
+    return (b * mix + a * ( 1 - mix ) );
+}
+
+vector(vector a, vector b, float mix) lerpVector =
+{
+    if (mix <= 0) return a;
+    if (mix >= 1) return b;
+    return (b * mix + a * ( 1 - mix ) );
+}
+
+// for a relaxing lerp: hermite lerp.
+float(float a, float b, float mix) lerpHermite =
+{
+    if (mix <= 0) return a;
+    if (mix >= 1) return b;
+    
+    local float h01;
+    
+    h01 = mix * mix;
+    h01 *= 3 - 2 * mix;
+    
+    return (b * h01 + a * ( 1 - h01 ) );
+}
+
+vector(vector a, vector b, float mix) lerpVectorHermite =
+{
+    if (mix <= 0) return a;
+    if (mix >= 1) return b;
+
+    local float h01;
+    
+    h01 = mix * mix;
+    h01 *= 3 - 2 * mix;
+    
+    return (b * h01 + a * ( 1 - h01 ) );
+}

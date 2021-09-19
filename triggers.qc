@@ -551,6 +551,8 @@ if (!(self.spawnflags & TELE_STEALTH))
 	other.angles = t.mangle;
 	if (other.classname == "player")
 	{
+		fog_setFromEnt(other, t); // retrieves fog values from teleport destination, if any
+
 		other.fixangle = 1;		// turn this way immediately
 		other.teleport_time = time + 0.7;
 		if (other.flags & FL_ONGROUND)

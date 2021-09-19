@@ -3,6 +3,10 @@
 defs.qc //added fields, see comments for details
 newflags.qc //new spawnflags for all entities
 subs.qc //modified targets, triggers and killtargets
+
+math.qc // Code by Joshua Skelton
+utility.qc
+
 fight.qc
 customsounds.qc //mapper-settable custom sound effects for monsters - iw
 custom_mdls.qc //mapper-settable custom models for monsters - iw
@@ -23,6 +27,7 @@ triggers.qc //added trigger_push_custom based on Hipnotic
 plats.qc
 misc.qc
 lights.qc //c0burn's excellent switchable lights
+fog.qc // fog triggers
 
 ogre.qc
 demon.qc
@@ -42,9 +47,8 @@ shalrath.qc		// registered
 enforcer.qc		// registered
 oldone.qc		// registered
 oldone2.qc		// killable Shub
-
 dtmisc.qc // sound code from Hipnotic & Rubicon Rumble and misc visual effects
-math.qc // Code by Joshua Skelton
+
 misc_model.qc // Code by Joshua Skelton
 hipcount.qc //Hipnotic counter
 hippart.qc //Hipnotic particlefield and func_togglewall

@@ -52,6 +52,7 @@
 	fog_density(string) : "Fog Density example = (0.05)"
 	fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
+	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
 ]
 
 //
@@ -164,12 +165,27 @@ state(choices) =
 @baseclass = OneTarget[target(target_destination) : "Target"]
 
 
+@baseclass = Fog [ 
+	fog_density(string) : "Fog Density" : : "Set to -1 to disable fog."
+	fog_color(color1) : "Fog Color"
+	skyfog_density(string) : "Skyfog Density": : "Set to -1 to disable skyfog."
+]
+@baseclass = FogShift [ 
+	fog_density(string) : "Start Fog Density"  : : "Set to -1 to disable fog."
+	fog_color(color1) : "Start Fog Color" 
+	skyfog_density(string) : "Start Skyfog Density" : : "Set to -1 to disable skyfog."
+	fog_density2(string) : "End Fog Density" : : "Set to -1 to disable fog."
+	fog_color2(color1) : "End Fog Color" 
+	skyfog_density2(string) : "End Skyfog Density" : : "Set to -1 to disable skyfog."
+]
+    
+
 //
 // player starts, deathmatch, coop, teleport
 //
 
-@baseclass base(Appearflags) flags(Angle) size(-16 -16 -24, 16 16 32) offset(0 0 24) color(0 255 0) = PlayerClass []
-@baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)color(0 255 0) studio("progs/player.mdl") = PlayerClassAlt []
+@baseclass base(Appearflags, Fog) flags(Angle) size(-16 -16 -24, 16 16 32) offset(0 0 24) color(0 255 0) = PlayerClass []
+@baseclass base(Appearflags, Fog) size(-16 -16 -24, 16 16 32)color(0 255 0) studio("progs/player.mdl") = PlayerClassAlt []
 @baseclass base(Appearflags) size(-64 -64 -24, 64 64 32)color(206 18 18) studio("progs/teleport.mdl") = MonsterClass []
 
 //____TW_EDIT____
@@ -1920,6 +1936,58 @@ spawnflags(Flags) =
 			4 : "target4"
 		]
 ]
+
+
+///////////////////////////////////////////////////////////
+//                     Fog triggers                      //
+///////////////////////////////////////////////////////////
+
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fogblend : 
+"Trigger: Fog Blend
+Acts as a smoothly blending portal between two zones of different fog. Sets the fog for any client passing through it, blending their global fog settings between start and end values proportional to their position within the trigger.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make these huge
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+[
+	distance(integer) : "Length of blend distance (defaults to size of trigger)"
+	angle(integer) : "Axis of motion of blend (points toward end values)"
+]
+
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog : 
+"Trigger: Sets a fog.
+Smoothly blends client's currently applied fog to this value over time.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make these huge
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+[
+	fog_density(string) : "Fog Density" 
+	fog_color(color1) : "Fog Color"
+	speed(string) : "Time to blend (-1 for instant)"
+	delay(string) : "Pause before starting blend"
+]
+
+@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend : 
+"Target: Fog Blend
+Activator's fog will toggle between fog_color/fog_density and fog_color2/fog_density2 values, smoothly blending it over time.
+If you check the 'one-way' spawnflag, it'll only blend over to fog_color2/fog_density2 - unless you check the 'reverse' flag as well, which will make it blend only to fog_color/fog_density.
+Checking 'All clients' will affect all connected players.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make this take too long
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+[
+	spawnflags(flags) = [
+		1 : "One-Way Only" : 0
+		2 : "Reverse Start/End" : 0
+		4 : "All clients" : 0
+	]
+	delay(string) : "Pause before starting blend"
+	speed(string) : "Time to blend (-1 for instant)"
+	speed2(string) : "Time to blend back, if different (-1 for instant)"
+]
+
 
 ///////////////////////////////////////////////////////////
 //dumptruck�s additions via Joshua Skelton�s Quake Tools///
