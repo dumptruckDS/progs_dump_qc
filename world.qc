@@ -531,6 +531,16 @@ void() StartFrame =
 	teamplay = cvar("teamplay");
 	skill = cvar("skill");
 	framecount = framecount + 1;
+
+	if (cleanUpClientStuff)
+		cleanUpClientStuff -= 1;
+	else if (!gamestarted && framecount > 2)
+	{
+		if (framecount != 3)
+			cleanUpClientStuff += 2;
+		
+		gamestarted = TRUE;
+	}
 };
 
 /*

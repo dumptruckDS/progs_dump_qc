@@ -927,3 +927,33 @@ float HEAL_MONSTER_ONLY	= 4;
 .float shardvalue; // ammo shard value
 
 .float drop_item; // key DropStuff
+
+
+
+float TRIGGER_CENTERPRINTALL = 1048576;
+
+// entity state
+.float estate;
+.void() dormant_use;
+float STATE_ACTIVE      = 0;
+float STATE_INACTIVE    = 1;
+
+.float prevstate;
+
+//
+// fog
+//
+.vector		fog_color, fog_color2;
+.float		fog_density, fog_density2;
+.float 		skyfog_density, skyfog_density2;
+.entity 	fogblend_entity;
+.float 		distance;
+
+void( entity client, float density, vector color ) fog_save;
+void( entity client, float density) skyfog_save;
+void( entity client, entity fogger ) fog_setFromEnt;
+void( entity client, float density, vector color ) fog_set;
+void( entity client, float density) skyfog_set;
+
+nosave float cleanUpClientStuff;
+nosave float gamestarted;

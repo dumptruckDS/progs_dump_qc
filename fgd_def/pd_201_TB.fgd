@@ -84,7 +84,8 @@
 	_gamma(integer) : "Lightmap gamma" : 1 : "Adjust brightness of final lightmap. Default 1, >1 is brighter, <1 is darker"
 	fog(string) : "Fog Command" :  : "ENGINE only 'console command' for setting fog parameters, Density/R/G/B example = (0.05 0.3 0.3 0.3)."
 	fog_density(string) : "Fog Density example = (0.05)"
-	fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
+	fog_color(color1) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
+	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 ]
 
@@ -197,17 +198,48 @@ state(choices) =
 
 @baseclass = OneTarget[target(target_destination) : "Target"]
 
+@baseclass = TriggerWait [
+	is_waiting(choices) : "Dormant Trigger" : 0 :
+	"If set to 1, the trigger starts dormant and waits for activation. Subsequent activations trigger its target as usual." =
+	[
+		0 : "Default"
+		1 : "Wait for Trigger"
+	]
+]
+
+@baseclass = Message [
+	spawnflags(flags) = [
+		1048576 : "Message all players" : 0
+	]
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////
+
+
+@baseclass = Fog [ 
+	fog_density(string) : "Fog Density" : : "Set to -1 to disable fog."
+	fog_color(color1) : "Fog Color"
+	skyfog_density(string) : "Skyfog Density": : "Set to -1 to disable skyfog."
+]
+@baseclass = FogShift [ 
+	fog_density(string) : "Start Fog Density"  : : "Set to -1 to disable fog."
+	fog_color(color1) : "Start Fog Color" 
+	skyfog_density(string) : "Start Skyfog Density" : : "Set to -1 to disable skyfog."
+	fog_density2(string) : "End Fog Density" : : "Set to -1 to disable fog."
+	fog_color2(color1) : "End Fog Color" 
+	skyfog_density2(string) : "End Skyfog Density" : : "Set to -1 to disable skyfog."
+]
+
 
 //
 // player starts, deathmatch, coop, teleport
 //
 
-@baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)
+@baseclass base(Appearflags, Fog) size(-16 -16 -24, 16 16 32)
 	color(0 255 0) model({ "path": ":progs/player.mdl" }) = PlayerClass []
-@baseclass base(Appearflags) size(-16 -16 -24, 16 16 32)
+@baseclass base(Appearflags, Fog) size(-16 -16 -24, 16 16 32)
 	color(0 255 0) model({ "path": ":progs/player.mdl" , "frame": 120}) = PlayerClassAlt []
 @baseclass base(Appearflags) size(-64 -64 -24, 64 64 32)
 // @baseclass base(Appearflags) size(-32 -32 -24, 32 32 64)
@@ -279,7 +311,7 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	noise(string) : "noise"
 	touch(string) : "self.touch"
 ]
-@PointClass base(Appearflags) = info_intermission : "Intermission camera"
+@PointClass base(Appearflags, Fog) = info_intermission : "Intermission camera"
 [
 	mangle(string) : "Camera angle (Pitch Yaw Roll)"
 ]
@@ -1450,14 +1482,14 @@ Default is 0.3 seconds.
 	weapon(float) : "Duration of each strike" : "0.3"
 ]
 
-@SolidClass base(Appearflags) = trigger_ladder : "Invisible ladder entity.
+@SolidClass base(Appearflags, TriggerWait) = trigger_ladder : "Invisible ladder entity.
 
 When player is touching this entity, she can climb by pushing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
 
-@SolidClass base(Appearflags) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
 
 [
 spawnflags(Flags) =
@@ -1746,7 +1778,7 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 	noise(string) : "Path of sound when triggered"
 ]
 
-@SolidClass base(Angle, Appearflags, Targetname, Target) = func_button : "Button" //modified by dumptruck_ds to add Target
+@SolidClass base(Angle, Appearflags, Targetname, Target, Message) = func_button : "Button" //modified by dumptruck_ds to add Target
 [
 	speed(integer) : "Speed" : 40
 	lip(integer) : "Lip" : 4
@@ -1874,7 +1906,7 @@ spawnflags(Flags) =
 // triggers
 //
 
-@baseclass base(Appearflags, Target, Targetname) = Trigger
+@baseclass base(Appearflags, Target, Targetname, TriggerWait, Message) = Trigger
 [
 	sounds(choices) : "Sound style" : 0 =
 	[
@@ -1887,7 +1919,7 @@ spawnflags(Flags) =
 	message(string) : "Message"
 ]
 
-@SolidClass base(OneTarget, OneTargetname, Appearflags) = trigger_changelevel : "Trigger: Change level"
+@SolidClass base(OneTarget, OneTargetname, Appearflags, TriggerWait) = trigger_changelevel : "Trigger: Change level"
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
@@ -1910,7 +1942,7 @@ spawnflags(Flags) =
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
 
-@SolidClass base(Appearflags) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters
+@SolidClass base(Appearflags, TriggerWait) = trigger_setgravity : "Trigger: sets the gravity of a player or monsters
 
 gravity = what to set the players gravity to
 
@@ -1932,7 +1964,7 @@ If using multiple triggers, do not have them touching. Leave a 'buffer' between 
 ]
 
 //dumptruck_ds added from Hipnotic Mission Pack
-@SolidClass base(Appearflags, Target, Targetname) = trigger_usekey :
+@SolidClass base(Appearflags, Target, Targetname, TriggerWait) = trigger_usekey :
 "Trigger: Requires a Key
 
 NOTE: You must specify either the silver or gold key by setting the relevant spawnflag, or specify an item_key_custom by setting the 'keyname' value so that it matches the 'keyname' value of the item_key_custom."
@@ -1968,11 +2000,11 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 		1 : "Wait for Trigger"
 	]
 ]
-@SolidClass base(OneTarget, OneTargetname) = trigger_onlyregistered : "only Triggers only if game is registered (registered == 1)"
+@SolidClass base(OneTarget, OneTargetname, TriggerWait) = trigger_onlyregistered : "only Triggers only if game is registered (registered == 1)"
 [
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
-@SolidClass base(Trigger, OneTargetname) = trigger_secret : "Trigger: Secret"
+@SolidClass base(Trigger, OneTargetname, TriggerWait) = trigger_secret : "Trigger: Secret"
 [
 	sounds(choices) : "Sound" : 1 =
 	[
@@ -1982,7 +2014,7 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
 
-@SolidClass base(Appearflags, OneTarget, Targetname) = trigger_teleport : "Trigger: Teleporter
+@SolidClass base(Appearflags, OneTarget, Targetname, TriggerWait) = trigger_teleport : "Trigger: Teleporter
 
 Any object touching this will be transported to the corresponding
 info_teleport_destination entity. Or if RANDOM is chosen, info_teleport_random
@@ -2021,7 +2053,7 @@ MONSTER_ONLY(16) will only teleport monsters"
 	]
 ]
 
-@SolidClass base(Appearflags) = trigger_setskill : "Trigger: Set skill"
+@SolidClass base(Appearflags, TriggerWait) = trigger_setskill : "Trigger: Set skill"
 [
 	message(choices) : "Skill to change to" : 1 =
 	[
@@ -2034,11 +2066,11 @@ MONSTER_ONLY(16) will only teleport monsters"
 @PointClass base(Trigger) = trigger_relay : "Trigger: Relay"
 [
 ]
-@SolidClass base(Appearflags) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at info_player_start for an axe only spawn.
+@SolidClass base(Appearflags, TriggerWait) = trigger_take_weapon : "Trigger: Remove shotgun on touch. Place at info_player_start for an axe only spawn.
 
 Make sure and add a weapon_shotgun to your map!"
 []
-@SolidClass base(Angle, Appearflags, OneTargetname) = trigger_monsterjump : "Trigger: Monster jump"
+@SolidClass base(Angle, Appearflags, OneTargetname, TriggerWait) = trigger_monsterjump : "Trigger: Monster jump"
 [
 	speed(integer) : "Jump Speed" : 200
 	height(integer) : "Jump Height" : 200
@@ -2051,12 +2083,12 @@ Make sure and add a weapon_shotgun to your map!"
 	delay (integer) : "Delay"
 	message(string) : "Message"
 ]
-@SolidClass base(Angle, Appearflags, Targetname) = trigger_push : "Trigger: Push"
+@SolidClass base(Angle, Appearflags, Targetname, TriggerWait) = trigger_push : "Trigger: Push"
 [
 	spawnflags(flags) = [ 1: "Push once" : 0 ]
 	speed(integer) : "Speed" : 1000
 ]
-@SolidClass base(Angle, Appearflags, Targetname) = trigger_push_custom : "Trigger: Push (Custom): Can be toggled on and off, use a custom sound (noise) and be made silent.
+@SolidClass base(Angle, Appearflags, Targetname, TriggerWait) = trigger_push_custom : "Trigger: Push (Custom): Can be toggled on and off, use a custom sound (noise) and be made silent.
 
 NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds should not be looped."
 [
@@ -2070,7 +2102,7 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 	speed(integer) : "Speed" : 1000
 	noise(string) : "Custom Sound"
 ]
-@SolidClass  base(Appearflags, OneTargetname) = trigger_hurt : "Trigger: Hurt"
+@SolidClass  base(Appearflags, OneTargetname, TriggerWait) = trigger_hurt : "Trigger: Hurt"
 [
 	dmg(integer) : "Damage per second" : 5
 ]
@@ -2086,6 +2118,7 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 	target(target_destination) : "The monster who will get angry."
 	target2(target_destination) : "Who target will get angry at."
 	spawnflags(flags) = [ 1: "Mutual hate" : 0 ]
+]
 
 @PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.
 
@@ -2102,6 +2135,57 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 			4 : "target4"
 		]
 ]
+
+///////////////////////////////////////////////////////////
+//                     Fog triggers                      //
+///////////////////////////////////////////////////////////
+
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fogblend : 
+"Trigger: Fog Blend
+Acts as a smoothly blending portal between two zones of different fog. Sets the fog for any client passing through it, blending their global fog settings between start and end values proportional to their position within the trigger.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make these huge
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+[
+	distance(integer) : "Length of blend distance (defaults to size of trigger)"
+	angle(integer) : "Axis of motion of blend (points toward end values)"
+]
+
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog : 
+"Trigger: Sets a fog.
+Smoothly blends client's currently applied fog to this value over time.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make these huge
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+[
+	fog_density(string) : "Fog Density" 
+	fog_color(color1) : "Fog Color"
+	speed(string) : "Time to blend (-1 for instant)"
+	delay(string) : "Pause before starting blend"
+]
+
+@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend : 
+"Target: Fog Blend
+Activator's fog will toggle between fog_color/fog_density and fog_color2/fog_density2 values, smoothly blending it over time.
+If you check the 'one-way' spawnflag, it'll only blend over to fog_color2/fog_density2 - unless you check the 'reverse' flag as well, which will make it blend only to fog_color/fog_density.
+Checking 'All clients' will affect all connected players.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make this take too long
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+[
+	spawnflags(flags) = [
+		1 : "One-Way Only" : 0
+		2 : "Reverse Start/End" : 0
+		4 : "All clients" : 0
+	]
+	delay(string) : "Pause before starting blend"
+	speed(string) : "Time to blend (-1 for instant)"
+	speed2(string) : "Time to blend back, if different (-1 for instant)"
+]
+
 
 ///////////////////////////////////////////////////////////
 //dumptruck’s additions via Joshua Skelton’s Quake Tools///
@@ -2681,7 +2765,7 @@ delay how much time to wait before firing after being switched on."
 		]
 	]
 
-@SolidClass base(Appearflags) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
+@SolidClass base(Appearflags, TriggerWait) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
 [
 sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to play from within music folder"
 ]
@@ -2772,7 +2856,7 @@ spawnflags(flags) =
 	]
 ]
 
-@SolidClass  base(Appearflags, OneTargetname) = trigger_heal : "Trigger: Heal
+@SolidClass  base(Appearflags, OneTargetname, TriggerWait) = trigger_heal : "Trigger: Heal
 Any object touching this will be healed
 heal_amount -- the amount to heal each time (default 5)
 wait -- the time between each healing (default 1)
