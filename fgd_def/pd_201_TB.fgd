@@ -218,17 +218,17 @@ state(choices) =
 //////////////////////
 
 
-@baseclass = Fog [ 
+@baseclass = Fog [
 	fog_density(string) : "Fog Density" : : "Set to -1 to disable fog."
 	fog_color(color1) : "Fog Color"
 	skyfog_density(string) : "Skyfog Density": : "Set to -1 to disable skyfog."
 ]
-@baseclass = FogShift [ 
+@baseclass = FogShift [
 	fog_density(string) : "Start Fog Density"  : : "Set to -1 to disable fog."
-	fog_color(color1) : "Start Fog Color" 
+	fog_color(color1) : "Start Fog Color"
 	skyfog_density(string) : "Start Skyfog Density" : : "Set to -1 to disable skyfog."
 	fog_density2(string) : "End Fog Density" : : "Set to -1 to disable fog."
-	fog_color2(color1) : "End Fog Color" 
+	fog_color2(color1) : "End Fog Color"
 	skyfog_density2(string) : "End Skyfog Density" : : "Set to -1 to disable skyfog."
 ]
 
@@ -804,7 +804,7 @@ snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain
 
 Default health = 400"
 [
-homing(float) : "Multiplier for projectile homing, maximum 1, -1 to disable completely" : 1
+homing(float) : "Multiplier for projectile homing, maximum 1, -1 to disable completely"
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -1718,7 +1718,7 @@ Targeted bmodel must have _switchableshadow set to 1.
 If the target entity changes its default behavior when 'targetname' is set (such as breakables), you can target the entity's 'targetname2' key."
 [
 	target(target_destination) : "Target" : : "Target with _switchableshadow enabled."
-	speed(integer) : "Fade-in speed" : 0.5 : "Controls the time in seconds it takes to fade the shadow in. Setting it to -1 disables fading."
+	speed(float) : "Fade-in speed" : "0.5" : "Controls the time in seconds it takes to fade the shadow in. Setting it to -1 disables fading."
 	speed2(integer) : "Fade-out speed" :  : "Same as 'speed' but for the fade out animation. If unset it uses the same value as 'speed'."
 	spawnflags(flags) =
 	[
@@ -2135,38 +2135,59 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 			4 : "target4"
 		]
 ]
-
+@PointClass base(Appearflags, Targetname) = target_setstate : "Changes an entity's state.
+Entities in a disabled state won't execute its main function, depending on context.
+Triggers won't fire its targets. Doors won't respond to triggering and touching. Buttons will remain in a pressed position and can't be fired.
+The 'style' key defines if target_setstate will toggle entities' current state, force them to active, or to inactive.
+You can force the target entities to spawn disabled/locked with spawnflag 1.
+"
+[
+	target(target_destination) : "Target"
+	target2(target_destination) : "Target"
+	target3(target_destination) : "Target"
+	target4(target_destination) : "Target"
+	spawnflags(flags) = [
+		1: "Targets start disabled" : 0
+		2: "Force all doors to close" : 0
+		4: "Don't reset button state" : 0
+	]
+	style(choices) : "Setstate style" = [
+		0 : "Toggle current state"
+		1 : "Force active"
+		2 : "Force inactive"
+	]
+]
 ///////////////////////////////////////////////////////////
 //                     Fog triggers                      //
 ///////////////////////////////////////////////////////////
 
-@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fogblend : 
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fogblend :
 "Trigger: Fog Blend
 Acts as a smoothly blending portal between two zones of different fog. Sets the fog for any client passing through it, blending their global fog settings between start and end values proportional to their position within the trigger.
 
 - both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
 - will 'stuffcmd' 2 dozen times per frame so try not to make these huge
-- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering."
 [
 	distance(integer) : "Length of blend distance (defaults to size of trigger)"
 	angle(integer) : "Axis of motion of blend (points toward end values)"
 ]
 
-@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog : 
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog :
 "Trigger: Sets a fog.
 Smoothly blends client's currently applied fog to this value over time.
 
 - both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
 - will 'stuffcmd' 2 dozen times per frame so try not to make these huge
-- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering."
 [
-	fog_density(string) : "Fog Density" 
+	fog_density(string) : "Fog Density"
 	fog_color(color1) : "Fog Color"
 	speed(string) : "Time to blend (-1 for instant)"
 	delay(string) : "Pause before starting blend"
 ]
 
-@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend : 
+@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend :
 "Target: Fog Blend
 Activator's fog will toggle between fog_color/fog_density and fog_color2/fog_density2 values, smoothly blending it over time.
 If you check the 'one-way' spawnflag, it'll only blend over to fog_color2/fog_density2 - unless you check the 'reverse' flag as well, which will make it blend only to fog_color/fog_density.
@@ -2174,7 +2195,7 @@ Checking 'All clients' will affect all connected players.
 
 - both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
 - will 'stuffcmd' 2 dozen times per frame so try not to make this take too long
-- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering." 
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering."
 [
 	spawnflags(flags) = [
 		1 : "One-Way Only" : 0
