@@ -16,6 +16,7 @@ keydata.qc //functions which deal with key item bitflags and names
 items.qc
 weapons.qc
 world.qc
+intermission.qc
 client.qc
 cutscene.qc //  Drake version -- dumptruck_ds
 player.qc
