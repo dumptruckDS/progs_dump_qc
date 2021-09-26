@@ -317,7 +317,7 @@ void() execute_changelevel =
 
 void() changelevel_touch =
 {
-
+	if (self.estate != STATE_ACTIVE) return;
 	// from Copper -- dumptruck_ds
 	if (!CheckValidTouch()) return;
 
@@ -360,37 +360,11 @@ void() changelevel_touch =
 
 When the player touches this, he gets sent to the map listed in the "map" variable.  Unless the NO_INTERMISSION flag is set, the view will go to the info_intermission spot and display stats.
 */
-
-void() dt_exit_toggle = //dumptruck_ds based on hipnotic blocker_use
-
-{
-if ( !self.state )
-	{
-		self.state = 1;
-	setorigin( self, self.origin - '8000 8000 8000');
-	}
-else
-	{
-		self.state = 0;
-	setorigin( self, self.origin + '8000 8000 8000');
-	}
-};
-/*
-dumptruck_ds
-
-If DT_EXITOFF flag is set, this moves the trigger
-brush out of the playable area. This can be targeted
-and toggled off and on.
- */
-
-float DT_EXITOFF = 8;
-
 void() trigger_changelevel =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	self.use = dt_exit_toggle; //dumptruck_ds
 	if (!self.map)
 		objerror ("changelevel trigger doesn't have map");
 
@@ -408,4 +382,5 @@ void() trigger_changelevel =
 	self.flags = self.flags | FL_NOCENTERPRINT;
 	self.touch = changelevel_touch;
 
+	SUB_CheckWaiting();
 };
