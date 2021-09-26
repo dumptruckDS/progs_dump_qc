@@ -296,6 +296,7 @@ void() execute_changelevel =
 		other.modelindex = 0;
 		setorigin (other, pos.origin);
 		other = find (other, classname, "player");
+		fog_setFromEnt(other, pos);
 	}
 	// Drake -- dumptruck_ds
 	if (cutscene)
