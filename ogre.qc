@@ -647,6 +647,71 @@ void() W_FireMultiGrenade =
 //=============================================================================
 //end doe qc -- dumptruck_ds
 //=============================================================================
+/*
+================
+OgreFireLavaBall by jaycie erysdren 2021-09-14
+================
+*/
+
+void() OgreFireLavaBall =
+{
+	local	vector	offang;
+	local	vector	org, vec, d;
+	local	float	t;
+
+	offang = vectoangles (self.enemy.origin - self.origin);
+	makevectors (offang);
+
+	org = self.origin; // + p_x*v_forward + p_y*v_right + p_z*'0 0 1';
+
+// lead the player on hard mode
+	if (skill > 1)
+	{
+		t = vlen(self.enemy.origin - org) / 300;
+		vec = self.enemy.velocity;
+		vec_z = 0;
+		d = self.enemy.origin + t * vec;
+	}
+	else
+	{
+		d = self.enemy.origin;
+	}
+
+	vec = normalize (d - org);
+
+	// launch_spike (org, vec);
+	launch_spike (self.origin + v_right * 4 + '0 0 16', vec);
+	self.effects = self.effects | EF_MUZZLEFLASH;
+	// setmodel (newmis, "progs/lavaball.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
+	{
+			setmodel (newmis, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (newmis, "progs/lavaball.mdl");
+	}
+
+	if (!newmis.skin_proj) // dumptruck_ds
+	{
+			newmis.skin = self.skin_proj;
+		}
+		else
+		{
+			newmis.skin = 0;
+	}
+	newmis.avelocity = self.avelocity;
+	if !(newmis.avelocity)
+	newmis.avelocity = '200 100 300';
+	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
+	newmis.velocity = vec*300;
+	newmis.touch = T_MissileTouch; // rocket explosion
+	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
+
+// check for dead enemy
+//	if (self.enemy.health <= 0)
+//		boss2_idle1 ();
+};
 
 /*
 ================
@@ -804,6 +869,11 @@ void() ogre_nail4	=[	$shoot3,		ogre_nail5	] {ai_face();
 		{
 			W_FireMultiGrenade();
 		}
+		if (self.style == 4) // jaycie erysdren 2021-09-14
+		{
+			OgreFireLavaBall();
+			sound_misc2 (self, CHAN_WEAPON, "shalrath/attack2.wav", 1, ATTN_NORM); // used for initial attack sound dumptruck_ds
+		}
 };
 void() ogre_nail5	=[	$shoot4,		ogre_nail6	] {ai_face();};
 void() ogre_nail6	=[	$shoot5,		ogre_nail7	] {ai_face();};
@@ -950,6 +1020,10 @@ void()	ogre_bdie3	=[	$bdeath3,	ogre_bdie4	]
 			self.ammo_nails = 5;
 		}
 		if (self.style == 3) //DOE multi-grenade
+		{
+			self.ammo_rockets = 2;
+		}
+		if (self.style == 4) // lavaball ogre jaycie erysdren 2021-09-14
 		{
 			self.ammo_rockets = 2;
 		}
@@ -1122,7 +1196,9 @@ void() monster_ogre =
 	precache_sound_pain ("ogre/ogpain1.wav");
 	precache_sound_attack ("ogre/ogsawatk.wav");
 	precache_sound_sight ("ogre/ogwake.wav");
+	precache_sound_misc2 ("shalrath/attack2.wav");
 	precache_sound ("fish/bite.wav");
+	precache_sound ("boss1/throw.wav"); // jaycie erysdren 2021-09-14
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");
