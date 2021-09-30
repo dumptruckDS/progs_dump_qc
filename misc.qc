@@ -1516,3 +1516,93 @@ void() misc_noisemaker =
 	self.nextthink = time + 0.1 + random();
 	self.think = noise_think;
 };
+
+
+/***********************************************
+
+target_autosave
+from Copper
+
+***********************************************/
+
+void() target_autosave_use =
+{
+	if (self.enemy)
+	{
+		activator = self.enemy;
+		self.enemy = world;
+	}
+	if (activator.classname != "player") return;
+	if (time < 2)	// make sure an autosave fired from a player start doesn't happen too early
+	{
+		//if (serverflags & SVFL_RESPAWNING)
+		//{
+		//	dprint("RESPAWNING flag set, skipping autosave\n");
+		//	return;
+		//}
+		self.enemy = activator;
+		self.think = target_autosave_use;
+		self.nextthink = 2;
+		return;
+	}
+	sound(activator, CHAN_VOICE, "misc/sav.wav", 0.3, ATTN_NORM);
+	autosave(activator, self.message);
+}
+
+void() toggle_autosave =
+{
+	entity e = world;
+	float printed = FALSE;
+	do {
+		e = find(e, classname, "target_autosave");
+		if (!e) break;
+
+		if (e.use == target_autosave_use)
+		{
+			e.use = SUB_Null;
+			if (!printed)
+			{
+				bprint("Autosaves disabled\n");
+				printed = TRUE;
+			}
+		} else {
+			e.use = target_autosave_use;
+			if (!printed)
+			{
+				bprint("Autosaves reenabled\n");
+				printed = TRUE;
+			}
+		}
+
+	} while (e != world);
+}
+
+/*QUAKED target_autosave (1 .0 .5) (-8 -8 -8) (8 8 8)
+Saves the game when triggered by a player. Never appears in multiplayer. the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb.
+
+Keys:
+"message" change save file name, defaults to 'auto'
+*/
+/*FGD
+@Pointclass base(Target, Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : 
+"Saves the game when triggered by a player. Never appears in multiplayer. 
+the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb." 
+[
+	message(string) : "Change save filename" : "auto"
+]
+*/
+void() target_autosave =
+{
+	if (deathmatch || coop)
+	{
+		remove(self);
+		return;
+	}
+	
+
+	if (self.message == string_null)
+		self.message = "auto";
+	precache_sound2("misc/sav.wav");
+	self.use = target_autosave_use;
+}
+
