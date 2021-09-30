@@ -1513,18 +1513,26 @@ void(float state) target_setstate_set_alltargets = {
 	if (self.target && self.target != "") {
 		target_setstate_set_target(self.target, targetname, state, self.spawnflags);
 		target_setstate_set_target(self.target, targetname2, state, self.spawnflags);
+		target_setstate_set_target(self.target, targetname3, state, self.spawnflags);
+		target_setstate_set_target(self.target, targetname4, state, self.spawnflags);
 	}
 	if (self.target2 && self.target2 != "") {
 		target_setstate_set_target(self.target2, targetname, state, self.spawnflags);
 		target_setstate_set_target(self.target2, targetname2, state, self.spawnflags);
+		target_setstate_set_target(self.target2, targetname3, state, self.spawnflags);
+		target_setstate_set_target(self.target2, targetname4, state, self.spawnflags);
 	}
 	if (self.target3 && self.target3 != "") {
 		target_setstate_set_target(self.target3, targetname, state, self.spawnflags);
 		target_setstate_set_target(self.target3, targetname2, state, self.spawnflags);
+		target_setstate_set_target(self.target3, targetname3, state, self.spawnflags);
+		target_setstate_set_target(self.target3, targetname4, state, self.spawnflags);
 	}
 	if (self.target4 && self.target4 != "") {
 		target_setstate_set_target(self.target4, targetname, state, self.spawnflags);
 		target_setstate_set_target(self.target4, targetname2, state, self.spawnflags);
+		target_setstate_set_target(self.target4, targetname3, state, self.spawnflags);
+		target_setstate_set_target(self.target4, targetname4, state, self.spawnflags);
 	}
 };
 
