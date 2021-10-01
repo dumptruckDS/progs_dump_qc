@@ -2216,6 +2216,39 @@ Checking 'All clients' will affect all connected players.
 ]
 
 
+@SolidClass base(Appearflags, Targetname) = trigger_textstory :
+"Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
+
+Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+
+You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch way 0' format)."
+
+[
+	mangle(string) : "Central view angle" : : "Central point of the viewcone, in 'pitch yaw 0' format"
+	view_ofs(string) : "Maximum angle offset" : : "Angle offsets from the central viewcone point in each direction, in 'pitch yaw 0' format"
+	message(string) : "Message" : : "Message to show on-screen."
+	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
+	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+	spawnflags(flags) = [
+		1: "Silent"
+	]
+]
+
+@PointClass base(Appearflags, Targetname, Message) = target_textstory :
+"Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
+
+Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+"
+[
+	wait(integer) : "Message duration" : 5
+	message(string) : "Message" : : "Message to show on-screen."
+	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
+	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+	spawnflags(flags) = [
+		1: "Silent"
+	]
+]
+
 ///////////////////////////////////////////////////////////
 //dumptruck’s additions via Joshua Skelton’s Quake Tools///
 ///////////////////////////////////////////////////////////
