@@ -680,6 +680,7 @@ style(Choices) : "Attack type" =
 		1	: "Flak Ogre (Marcher, Quoth)"
 		2 : "sniper (shoots single, deadly lava round)"
 		3 : "multi-grenade (Mission Pack 2)"
+		4 : "Lava Ogre (shoots lavaballs that explode)"
 	]
 ]
 
