@@ -984,3 +984,7 @@ void( entity client, float density) skyfog_set;
 
 nosave float cleanUpClientStuff;
 nosave float gamestarted;
+
+
+.string	include;
+.string type;
