@@ -133,3 +133,19 @@ vector(vector a, vector b, float mix) lerpVectorHermite =
     
     return (b * h01 + a * ( 1 - h01 ) );
 }
+
+float(float anga, float angb) angledif =
+{
+    float dif;
+    dif = fabs(anga - angb);
+    if (dif > 180)
+        dif = 360 - dif;
+    return dif;
+}
+
+float(vector ang, vector base_ang, vector offset) isInAngle = {
+    if (angledif(ang_x, base_ang_x) > offset_x || angledif(ang_y, base_ang_y) > offset_y)
+        return FALSE;
+    else
+        return TRUE;
+};

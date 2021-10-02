@@ -1516,3 +1516,267 @@ void() misc_noisemaker =
 	self.nextthink = time + 0.1 + random();
 	self.think = noise_think;
 };
+
+
+/***********************************************
+
+target_autosave
+from Copper
+
+***********************************************/
+
+void() target_autosave_use =
+{
+	if (self.enemy)
+	{
+		activator = self.enemy;
+		self.enemy = world;
+	}
+	if (activator.classname != "player") return;
+	if (time < 2)	// make sure an autosave fired from a player start doesn't happen too early
+	{
+		//if (serverflags & SVFL_RESPAWNING)
+		//{
+		//	dprint("RESPAWNING flag set, skipping autosave\n");
+		//	return;
+		//}
+		self.enemy = activator;
+		self.think = target_autosave_use;
+		self.nextthink = 2;
+		return;
+	}
+	sound(activator, CHAN_VOICE, "misc/sav.wav", 0.3, ATTN_NORM);
+	autosave(activator, self.message);
+}
+
+void() toggle_autosave =
+{
+	entity e = world;
+	float printed = FALSE;
+	do {
+		e = find(e, classname, "target_autosave");
+		if (!e) break;
+
+		if (e.use == target_autosave_use)
+		{
+			e.use = SUB_Null;
+			if (!printed)
+			{
+				bprint("Autosaves disabled\n");
+				printed = TRUE;
+			}
+		} else {
+			e.use = target_autosave_use;
+			if (!printed)
+			{
+				bprint("Autosaves reenabled\n");
+				printed = TRUE;
+			}
+		}
+
+	} while (e != world);
+}
+
+/*QUAKED target_autosave (1 .0 .5) (-8 -8 -8) (8 8 8)
+Saves the game when triggered by a player. Never appears in multiplayer. the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb.
+
+Keys:
+"message" change save file name, defaults to 'auto'
+*/
+/*FGD
+@Pointclass base(Target, Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : 
+"Saves the game when triggered by a player. Never appears in multiplayer. 
+the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb." 
+[
+	message(string) : "Change save filename" : "auto"
+]
+*/
+void() target_autosave =
+{
+	if (deathmatch || coop)
+	{
+		remove(self);
+		return;
+	}
+	
+
+	if (self.message == string_null)
+		self.message = "auto";
+	precache_sound2("misc/sav.wav");
+	self.use = target_autosave_use;
+}
+
+
+/*
+=============================================================
+
+trigger_textstory
+
+=============================================================
+*/
+
+float TEXTSTORY_SILENT = 1;
+
+void(entity controller) textstory_hide = {
+	if (!self.enemy || !(self.enemy.flags & FL_CLIENT)) return;
+
+	self.enemy.suppressCenterPrint = FALSE;
+	centerprint(self.enemy, "");
+
+	if (controller.noise2) 
+		sound(self.enemy, CHAN_BODY, controller.noise2, 1, ATTN_NORM);
+	
+};
+
+void(entity controller) textstory_show = {
+	if (!self.enemy || !(self.enemy.flags & FL_CLIENT)) return;
+
+	self.enemy.suppressCenterPrint = TRUE;
+	
+	centerprint_builtin(self.enemy, controller.message);
+
+	if (!self.state && controller.noise1) 
+		sound(self.enemy, CHAN_BODY, controller.noise1, 1, ATTN_NORM);
+
+	self.state = 1;
+};
+
+//----------------------------------------
+
+void() trigger_textstory_hide = {
+	textstory_hide(self);
+
+	self.enemy = world;
+	self.state = 0;
+};
+
+void() trigger_textstory_show = {
+	textstory_show(self);	
+
+	self.think = trigger_textstory_hide;
+	self.nextthink = time + 0.2;
+
+};
+
+void() trigger_textstory_touch = {
+	
+	if (!(other.flags & FL_CLIENT)) return;
+	if (self.estate != STATE_ACTIVE) return;
+
+	// don't show message if another player is already triggering it
+	if (other != self.enemy && self.state == 1) return;
+
+	if (self.mangle && !isInAngle(other.v_angle, self.mangle, self.view_ofs))
+		return;
+
+	if (self.attack_finished < time) {
+
+		self.attack_finished = time + 0.1;
+		self.enemy = other;
+
+		trigger_textstory_show();
+	}
+};
+
+void() trigger_textstory = {
+	InitTrigger();
+	self.touch = trigger_textstory_touch;
+
+	if (self.view_ofs == '0 0 0')
+		self.view_ofs = '90 90 0';
+
+	if (self.noise1 == "")
+		self.noise1 = "misc/talk.wav";
+
+	if (self.noise2 == "")
+		self.noise2 = "misc/null.wav";
+
+	if (self.spawnflags & TEXTSTORY_SILENT) {
+		self.noise1 = "";
+		self.noise2 = "";
+	}
+
+
+	if (self.noise1 != "")
+		precache_sound (self.noise1);
+	if (self.noise2 != "")
+		precache_sound (self.noise2);
+
+	SUB_CheckWaiting();
+};
+
+
+//-----------------------------
+
+
+void() target_textstory_helper_hide = {
+
+	textstory_hide(self.owner);
+	remove(self);
+};
+
+void() target_textstory_helper_show = {
+	if (!self.enemy || !(self.enemy.flags & FL_CLIENT)) {
+		remove(self);
+		return;
+	}
+
+	textstory_show(self.owner);
+
+	if (self.attack_finished < time) self.think = target_textstory_helper_hide;
+	
+	self.nextthink = time + 0.1;
+};
+
+void(entity tgt) target_textstory_spawn_helper = {
+	entity e;
+
+	e = spawn();
+	e.classname = "target_textstory_helper";
+	e.owner = self;
+	e.think = target_textstory_helper_show;
+	e.nextthink = time + 0.1;
+	e.attack_finished = time + self.wait;
+	e.enemy = tgt;
+};
+
+void() target_textstory_use = {
+
+	if (!(activator.flags & FL_CLIENT)) return;
+	if (self.estate != STATE_ACTIVE) return;
+	
+	entity t;
+
+	if (self.spawnflags & TRIGGER_CENTERPRINTALL) {
+		t = find(world, classname, "player");
+		while (t) {
+			target_textstory_spawn_helper(t);
+			t = find(t, classname, "player");
+		}
+	}
+	else
+		target_textstory_spawn_helper(activator);
+};
+
+void() target_textstory = {
+	if (self.noise1 == "")
+		self.noise1 = "misc/talk.wav";
+	
+	if (self.noise2 == "")
+		self.noise2 = "misc/null.wav";
+
+	if (self.spawnflags & TEXTSTORY_SILENT) {
+		self.noise1 = "";
+		self.noise2 = "";
+	}
+
+	if (self.noise1 != "")
+		precache_sound (self.noise1);
+	if (self.noise2 != "")
+		precache_sound (self.noise2);
+
+	if (!self.wait)
+		self.wait = 5;
+
+	self.use = target_textstory_use;
+};

@@ -316,6 +316,14 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	mangle(string) : "Camera angle (Pitch Yaw Roll)"
 ]
 
+
+@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : 
+"Saves the game when triggered by a player. Never appears in multiplayer. 
+the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb." 
+[
+	message(string) : "Change save filename" : "auto"
+]
+
 //
 // items
 //
@@ -1501,6 +1509,96 @@ spawnflags(Flags) =
 ]
 ]
 
+
+
+@PointClass base(Appearflags, Trigger) = trigger_filter : "Relays only if a given condition evaluates to true.
+
+Ultimate scripting ability. You can test various fields on the entity targeted by the 'include' field (you can target another entity's 'targetname2' as well). If you let the 'include' field empty, it'll test against the activating entity, be it the player, a monster or anything else - see trigger_everything for more details.
+
+You can, for example, relay a trigger only if a door or plat is in a certain position, or if a targeted enemy is alive/dead, or below a certain health amount, or if the player is carrying some specific weapon or item - the possibilites are almost endless.
+
+In case you're filtering to activate only in case if it's a specific weapon projectile (like a grenade), you can make the targets fire with the activating entity's owner as the activator - say, if the trigger is activated by a player's grenade, it'll fire with the player as activator.
+
+There are various fields available to test, selectable through the 'style' key. They all fall into three field types (float, flag and string), and for each there's a set of operations available to evaluate, selectable through the 'weapon' key.
+- Float types can do all operations, and are compared to this entity's 'count' field.
+- Flag types support Equal and bitwise AND, and are compared to the 'aflag' field.
+- String types have only Equal evaluation, and are compared to this entity's 'type' field.
+
+You can set the trigger to fire if the condition evaluates to false by activating the spawnflag 'Trigger if false'. It'll never fire if the entity targeted by 'include' isn't found, regardless of this spawnflag.
+
+If you need to evaluate more than one condition, you can chain multiple filters in a row.
+Also, the state of the last evaluation is stored in this entity's 'state' field (1 for fired, 0 for not fired).
+"
+[
+	include(target_destination) : "Entity's targetname to evaluate (leave empty to evaluate the activator)"
+	style(choices) : "Field to evaluate" : 0 =[
+		0 : "state (float, use 'count' field)"
+		1 : "health (float, use 'count' field)"
+		2 : "weapon (float, use 'count' field)"
+		3 : "flags (flag, use 'aflag' field)"
+		4 : "spawnflags (flag, use 'aflag' field)"
+		5 : "classname (string, use 'type' field)"
+		6 : "estate (float, use 'count' field)"
+		8 : "targetname (string, use 'type' field)"
+		10 : "items (flag, use 'aflags' field)"
+		11 : "count (float, use 'count' field)"
+		12 : "cnt (float, use 'count' field)"
+	]
+	weapon(choices) : "Operation" : 0 = [
+		0 : "== (equal, valid for all fields)"
+		1 : "< (less than, valid for floats only)"
+		2 : "<= (less than or equal, valid for floats only)"
+		3 : "> (more than, valid for floats only)"
+		4 : ">= (more than or equal, valid for floats only)"
+		5 : "& (bitwise AND, valid for floats and flags)"
+		//6 : "| (bitwise OR, valid for floats and flags)"
+	]
+	count(integer) : "Float value to test"
+	aflag(flags) = []
+	type(string) : "String value to test"
+	spawnflags(flags) = [
+		1: "Trigger if false"
+		2: "Relay owner as activator"
+	]
+]
+
+
+@SolidClass base(Appearflags, Targetname, OneTarget, TriggerWait) = trigger_everything : "
+A no-holds-barred touchable trigger. Everything triggers it. Players, monsters, projectiles, gibs, even solid entities like doors and plats.
+
+It can only fire targets matching its 'target' field. Doesn't have support for the 'target2-4' fields, neither 'message' nor 'killtarget'. Useful when used in conjunction with the trigger_filter point entity to filter out its firing.
+
+By default it'll fire for each and every registered touch, even if simultaneous. If given a 'wait' value, it'll act like a trigger_multiple, where a single activation puts it on hold for 'wait' seconds. If the target is a trigger_filter, you can set it to wait only if the filter evaluates to true.
+"
+[
+	wait(integer) : "Wait before reset" : 0
+	spawnflags(flags) = [
+		1: "Wait only if trigger_filter evaluates to true"
+	]
+]
+
+
+@PointClass base(Appearflags, Targetname) = target_setcount : "Changes the targeted entity's 'count' field. Targets both targetname and targetname2 fields.
+Can be used with a trigger_filter to dinamically change its comparing value, or to reset/change a trigger_counter's current use count.
+
+You can either replace the current value with a new one, or add/subtract to it (by using a positive or negative 'count'), by selecting into the 'style' field.
+" 
+[
+	target(target_destination) : "Target" 
+	target2(target_destination) : "Target" 
+	target3(target_destination) : "Target" 
+	target4(target_destination) : "Target"
+	style(choices) : "Set style" : 0 = [
+		0 : "Replace"
+		1 : "Add"
+	]
+	count(integer) : "Value to set"
+	spawnflags(flags) = [
+		1 : "Change activator's field"
+	]
+]
+
+
 //@SolidClass = func_group : "Group of brushes for in-editor use" []
 // @SolidClass = func_detail : "Group of brushes for certain compilers " []
 
@@ -2209,6 +2307,39 @@ Checking 'All clients' will affect all connected players.
 	speed2(string) : "Time to blend back, if different (-1 for instant)"
 ]
 
+
+@SolidClass base(Appearflags, Targetname) = trigger_textstory :
+"Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
+
+Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+
+You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch way 0' format)."
+
+[
+	mangle(string) : "Central view angle" : : "Central point of the viewcone, in 'pitch yaw 0' format"
+	view_ofs(string) : "Maximum angle offset" : : "Angle offsets from the central viewcone point in each direction, in 'pitch yaw 0' format"
+	message(string) : "Message" : : "Message to show on-screen."
+	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
+	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+	spawnflags(flags) = [
+		1: "Silent"
+	]
+]
+
+@PointClass base(Appearflags, Targetname, Message) = target_textstory :
+"Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
+
+Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+"
+[
+	wait(integer) : "Message duration" : 5
+	message(string) : "Message" : : "Message to show on-screen."
+	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
+	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+	spawnflags(flags) = [
+		1: "Silent"
+	]
+]
 
 ///////////////////////////////////////////////////////////
 //dumptruck’s additions via Joshua Skelton’s Quake Tools///

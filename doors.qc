@@ -132,6 +132,36 @@ void() door_go_up =
 };
 
 
+void() door_group_go_down = {
+	local entity oself, starte;
+	
+	oself = self;
+	starte = self;
+
+	do
+	{
+		door_go_down ();
+		self = self.enemy;
+	} while ( (self != starte) && (self != world) );
+	self = oself;
+
+};
+
+void() door_group_go_up = {
+	local entity oself, starte;
+	
+	oself = self;
+	starte = self;
+
+	do
+	{
+		door_go_up ();
+		self = self.enemy;
+	} while ( (self != starte) && (self != world) );
+
+	self = oself;
+};
+
 /*
 =============================================================================
 
@@ -142,40 +172,28 @@ ACTIVATION FUNCTIONS
 
 void() door_fire =
 {
-	local entity 	oself;
-	local entity	starte;
 
 	if (self.owner != self)
 		objerror ("door_fire: self.owner != self");
 
+	if (self.estate != STATE_ACTIVE) 
+		return;
 // self.noise4 is now played in keylock_try_to_unlock -- iw
 
 	self.message = string_null;		// no more message
-	oself = self;
+	
 
 	if (self.spawnflags & DOOR_TOGGLE)
 	{
 		if (self.state == STATE_UP || self.state == STATE_TOP)
 		{
-			starte = self;
-			do
-			{
-				door_go_down ();
-				self = self.enemy;
-			} while ( (self != starte) && (self != world) );
-			self = oself;
+			door_group_go_down();
 			return;
 		}
 	}
 
-// trigger all paired doors
-	starte = self;
-	do
-	{
-		door_go_up ();
-		self = self.enemy;
-	} while ( (self != starte) && (self != world) );
-	self = oself;
+	// trigger all paired doors
+	door_group_go_up();
 };
 
 
@@ -296,16 +314,20 @@ void(entity e, float closealldoors) door_estate_lock = {
 
 	oself = self;
 	self = e.owner;
-
+	
 	self.estate = STATE_INACTIVE;
 
 	self.prevstate = self.state;
-
+	
 	if (self.state == STATE_UP || self.state == STATE_TOP) {
 		if (
-			!(self.wait == -1 || (self.spawnflags & DOOR_TOGGLE))
+			// don't close wait -1 nor togglable doors...
+			!(self.wait == -1 || (self.spawnflags & DOOR_TOGGLE)) 
+			// ...unless the trigger_setstate has a "Close all doors" spawnflag on
 			|| closealldoors
-		) door_go_down();
+		) 
+			door_group_go_down();
+		
 	}
 
 	if (self.max_health) {
@@ -333,7 +355,7 @@ void(entity e, float openalldoors) door_estate_unlock = {
 		if (
 			(self.wait == -1 || (self.spawnflags & DOOR_TOGGLE))
 			&& openalldoors
-		) door_go_up();
+		) door_group_go_up();
 	}
 
 	if (self.max_health) {
@@ -566,7 +588,7 @@ void() func_door =
 	self.movetype = MOVETYPE_PUSH;
 	setorigin (self, self.origin);
 	setmodel (self, self.model);
-	self.classname = "door";
+	//self.classname = "door";
 
 	self.blocked = door_blocked;
 	self.use = door_use;
@@ -879,7 +901,7 @@ void () func_door_secret =
 	self.angles = '0 0 0';
 	self.solid = SOLID_BSP;
 	self.movetype = MOVETYPE_PUSH;
-	self.classname = "door";
+	//self.classname = "door";
 	setmodel (self, self.model);
 	setorigin (self, self.origin);
 

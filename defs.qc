@@ -705,8 +705,6 @@ void(string s) changelevel = #70;
 
 void(string var, string val) cvar_set = #72;	// sets cvar.value
 
-void(entity client, string s) centerprint = #73;	// sprint, but in middle
-
 // The following function definitions allow the engine's builtin
 // centerprint function (builtin #73) to be called with different
 // numbers of string arguments.  The string that will be printed is the
@@ -722,12 +720,41 @@ void(entity client, string s) centerprint = #73;	// sprint, but in middle
 // 256-char buffer, therefore excessively long messages should be
 // avoided.  -- iw
 //
-void(entity client, string s1, string s2) centerprint2 = #73;
-void(entity client, string s1, string s2, string s3) centerprint3 = #73;
-void(entity client, string s1, string s2, string s3, string s4) centerprint4 = #73;
-void(entity client, string s1, string s2, string s3, string s4, string s5) centerprint5 = #73;
-void(entity client, string s1, string s2, string s3, string s4, string s5, string s6) centerprint6 = #73;
-void(entity client, string s1, string s2, string s3, string s4, string s5, string s6, string s7) centerprint7 = #73;
+
+.float suppressCenterPrint;
+
+void(entity client, string s1) centerprint_builtin = #73;
+void(entity client, string s1, string s2) centerprint_builtin2 = #73;
+void(entity client, string s1, string s2, string s3) centerprint_builtin3 = #73;
+void(entity client, string s1, string s2, string s3, string s4) centerprint_builtin4 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5) centerprint_builtin5 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5, string s6) centerprint_builtin6 = #73;
+void(entity client, string s1, string s2, string s3, string s4, string s5, string s6, string s7) centerprint_builtin7 = #73;
+
+void(entity client, string s1) centerprint = {
+	// Is the centerprint message being used by something else?
+	if (!client.suppressCenterPrint)
+		centerprint_builtin(client, s1);
+	else {
+		// Send message to client console instead
+		sprint(client, "(centerprint) ");
+		sprint(client, s1);
+		sprint(client, "\n");
+	}
+}
+
+void(entity client, string s1, string s2) centerprint2 = {
+	// Is the centerprint message being used by something else?
+	if (!client.suppressCenterPrint)
+		centerprint_builtin2(client, s1, s2);
+	else {
+		// Send message to client console instead
+		sprint(client, "(centerprint) ");
+		sprint(client, s1);
+		sprint(client, s2);
+		sprint(client, "\n");
+	}
+}
 
 void(vector pos, string samp, float vol, float atten) ambientsound = #74;
 
@@ -957,3 +984,7 @@ void( entity client, float density) skyfog_set;
 
 nosave float cleanUpClientStuff;
 nosave float gamestarted;
+
+
+.string	include;
+.string type;
