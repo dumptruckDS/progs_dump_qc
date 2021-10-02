@@ -277,6 +277,12 @@ void() walkmonster_start =
 
 	//Preach's tutorial
 {
+
+	if (cvar("nomonsters")) {
+		remove(self);
+		return;
+	}
+
 	if(monster_teleport(walkmonster_start_go))
     	return;
 
@@ -358,6 +364,10 @@ void() flymonster_start_go =
 
 void() flymonster_start =
 {
+	if (cvar("nomonsters")) {
+		remove(self);
+		return;
+	}
 
 	//Preach's tutorial
 
@@ -429,7 +439,10 @@ void() swimmonster_start_go =
 
 void() swimmonster_start =
 {
-
+	if (cvar("nomonsters")) {
+		remove(self);
+		return;
+	}
 	//Preach's tutorial
 
 	if(monster_teleport(swimmonster_start_go))
