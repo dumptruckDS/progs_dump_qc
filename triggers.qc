@@ -1785,18 +1785,26 @@ void() target_setcount_use = {
 	if (self.target && self.target != "") {
 		target_setcount_set(self.target, targetname);
 		target_setcount_set(self.target, targetname2);
+		target_setcount_set(self.target, targetname3);
+		target_setcount_set(self.target, targetname4);
 	}
 	if (self.target2 && self.target2 != "") {
 		target_setcount_set(self.target2, targetname);
 		target_setcount_set(self.target2, targetname2);
+		target_setcount_set(self.target2, targetname3);
+		target_setcount_set(self.target2, targetname4);
 	}
 	if (self.target3 && self.target3 != "") {
 		target_setcount_set(self.target3, targetname);
 		target_setcount_set(self.target3, targetname2);
+		target_setcount_set(self.target3, targetname3);
+		target_setcount_set(self.target3, targetname4);
 	}
 	if (self.target4 && self.target4 != "") {
 		target_setcount_set(self.target4, targetname);
 		target_setcount_set(self.target4, targetname2);
+		target_setcount_set(self.target4, targetname3);
+		target_setcount_set(self.target4, targetname4);
 	}
 
 	if (self.spawnflags & 1) {
