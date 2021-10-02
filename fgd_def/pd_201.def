@@ -1247,6 +1247,7 @@ style(Choices) : "Attack type" =
 1 : "Flak Ogre (Marcher, Quoth)"
 2 : "sniper (shoots single, deadly lava round)"
 3 : "multi-grenade (Mission Pack 2)"
+4 : "Lava Ogre (shoots lavaballs that explode)"
 
 keep_ammo(integer) : "1 = Don't drop backpack upon death"
 snd_death(string) : "Path to custom death sound"
@@ -1256,6 +1257,7 @@ snd_attack(string) : "Path to custom attack sound (CHAINSAW)"
 snd_idle(string) : "Path to custom idle sound (IDLE)"
 snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)"
 snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)"
+snd_misc2(string) : "Path to custom sound (MAGIC SOUND) Used in Style 4 only"
 
 mdl_head(string) : "Path to custom head model"
 mdl_body(string) : "Path to custom body model"

@@ -9,6 +9,7 @@
 * Fixed Voreballs not homing in func_monster_spawner Shalraths
 * Added trigger_changetarget (ILike80sRock)
 * Added Wait for retrigger spawnflag to trigger_multiple (ILike80sRock)
+* Added style 4 to Ogre (Shoots lavaballs)
 
 2.0.1 March 2021
 
