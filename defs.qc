@@ -988,3 +988,6 @@ nosave float gamestarted;
 
 .string	include;
 .string type;
+
+.float last_setstate_frame = light_lev;
+.entity last_setstate = aiment;
