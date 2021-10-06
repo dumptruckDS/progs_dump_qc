@@ -312,10 +312,16 @@ void(entity e, float closealldoors) door_estate_lock = {
 
 	if (e.owner.estate == STATE_INACTIVE) return;
 
+	// blocks linked doors from updating the same owner repeatedly
+	if (e.owner.last_setstate == self && e.owner.last_setstate_frame == framecount) return;
+
 	oself = self;
 	self = e.owner;
 	
 	self.estate = STATE_INACTIVE;
+
+	self.last_setstate = oself;
+	self.last_setstate_frame = framecount;
 
 	self.prevstate = self.state;
 	
@@ -348,8 +354,14 @@ void(entity e, float openalldoors) door_estate_unlock = {
 	
 	if (e.owner.estate == STATE_ACTIVE) return;
 
+	// blocks linked doors from updating the same owner repeatedly
+	if (e.owner.last_setstate == self && e.owner.last_setstate_frame == framecount) return;
+
 	oself = self;
 	self = e.owner;
+
+	self.last_setstate = oself;
+	self.last_setstate_frame = framecount;
 
 	if (self.prevstate == STATE_UP || self.prevstate == STATE_TOP) {
 		if (
@@ -368,7 +380,6 @@ void(entity e, float openalldoors) door_estate_unlock = {
 	}
 
 	self.estate = STATE_ACTIVE;
-
 	self = oself;
 }
 
