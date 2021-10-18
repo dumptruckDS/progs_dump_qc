@@ -145,11 +145,11 @@ float DT_GRAVTOFF = 8;  // trigger will start off
 
 void() grav_toggle = //dumptruck_ds based on hipnotic blocker_use
 {
-	if (self.estate != STATE_ACTIVE) 
-		self.state = STATE_ACTIVE;
-	else 
+	if (self.estate != STATE_ACTIVE)
+		self.estate = STATE_ACTIVE;
+	else
 		self.estate = STATE_INACTIVE;
-	
+
 };
 
 void() trigger_gravity_touch =

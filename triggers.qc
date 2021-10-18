@@ -923,34 +923,21 @@ void() trigger_push = //dumptruck_ds
 
 	InitTrigger ();
 	precache_sound ("ambience/windfly.wav");
-	// if (self.targetname)
-	// {               // digs 31.03.2012
-	// 	self.is_waiting = TRUE;
-	// 	self.use = trigger_push_use;
-	// }
-	// else self.is_waiting = FALSE;
 	self.touch = trigger_push_touch;
 
 	if (!self.speed)
 		self.speed = 1000;
 
-
 	SUB_CheckWaiting();
 };
 
-void() push_toggle = //dumptruck_ds based on hipnotic blocker_use
+void() push_toggle = //dumptruck_ds was based on hipnotic blocker_use now Alklaine estate
 
 {
-if ( !self.state )
-	{
-		self.state = 1;
-	setorigin( self, self.origin - '8000 8000 8000');
-	}
-else
-	{
-		self.state = 0;
-	setorigin( self, self.origin + '8000 8000 8000');
-	}
+	if (self.estate != STATE_ACTIVE)
+		self.estate = STATE_ACTIVE;
+	else
+		self.estate = STATE_INACTIVE;
 };
 
 /*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -961,12 +948,10 @@ dumptruck_ds
 trigger_push_custom is a new entity. This can be used to create traps,
 jumppads, currents in water and more.
 
-If DT_STARTOFF flag is set, this moves the trigger
-brush out of the playable area. This can be targeted
-and toggled off and on. If the DT_SILENT flag is set it
-won't make the windfly sound. Use DT_CUSTOM spawnflag
-and the noise key/value to use a custom push sound. Custom
-sounds should be "one off" sounds NOT be looping.
+If DT_STARTOFF flag is set, this disables the trigger.  This can be targeted and
+toggled off and on. If the DT_SILENT flag is set it won't make the windfly
+sound. Use DT_CUSTOM spawnflag and the noise key/value to use a custom push
+sound. Custom sounds should be "one off" sounds NOT be looping.
 
 Adapted from Hipnotic's func_togglewall */
 
@@ -979,22 +964,21 @@ void() trigger_push_custom =
 	precache_sound ("ambience/windfly.wav");
 	self.use = push_toggle;
 	self.touch = trigger_push_touch;
+
 	if ( self.spawnflags & DT_STARTOFF )
 		 {
-		 self.state = 0;
-		 setorigin( self, self.origin + '8000 8000 8000' );
+			 self.estate = STATE_INACTIVE;
 		 }
-	else
-		{
-		 self.state = 1;
-	 	}
+
 	if ( self.noise != "" )
     {
     precache_sound(self.noise);
 	  }
+
 		if (!self.speed)
 			self.speed = 1000;
 
+		SUB_CheckWaiting();
 };
 
 
@@ -1025,9 +1009,8 @@ Walking monsters that touch this will jump in the direction of the trigger's ang
 "speed" default to 200, the speed thrown forward
 "height" default to 200, the speed thrown upwards
 
-If DT_STARTOFF flag is set, this moves the trigger
-brush out of the playable area. This can be targeted
-and toggled off and on.
+If DT_STARTOFF flag is set, this makes the trigger
+inactive. This can be targeted and toggled off and on.
 */
 void() trigger_monsterjump =
 {
@@ -1037,13 +1020,8 @@ void() trigger_monsterjump =
 	self.use = push_toggle;
 	if ( self.spawnflags & DT_STARTOFF ) // dumptruck_ds
 		 {
-		 self.state = 0;
-		 setorigin( self, self.origin + '8000 8000 8000' );
+			 self.estate = STATE_INACTIVE;
 		 }
-	else
-		{
-		 self.state = 1;
-	 	}
 	if (!self.speed)
 		self.speed = 200;
 	if (!self.height)
@@ -1656,7 +1634,7 @@ void() trigger_filter_use = {
 			targfloat = targ.flags;
 			break;
 
-		case FILTER_FIELD_SPAWNFLAGS: 
+		case FILTER_FIELD_SPAWNFLAGS:
 			fieldtype = FILTER_FIELDTYPE_FLAG;
 			targfloat = targ.spawnflags;
 			break;
@@ -1742,7 +1720,7 @@ void() trigger_everything_touch = {
 	if (time < self.attack_finished) return;
 
 	activator = other;
-	
+
 	SUB_UseSpecificTarget(self.target, targetname);
 
 	if (self.wait)

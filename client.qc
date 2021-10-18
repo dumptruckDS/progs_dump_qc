@@ -9,6 +9,7 @@ void (vector org, entity death_owner) spawn_tdeath;
 
 
 float	modelindex_eyes, modelindex_player;
+void() SUB_CheckWaiting; // in triggers.qc
 
 /*
 =============================================================================
@@ -312,7 +313,7 @@ void() execute_changelevel =
 		other.modelindex = 0;
 		setorigin (other, pos.origin);
 		fog_setFromEnt(other, pos);
-		
+
 		other = find (other, classname, "player");
 
 	}
@@ -382,23 +383,17 @@ When the player touches this, he gets sent to the map listed in the "map" variab
 void() dt_exit_toggle = //dumptruck_ds based on hipnotic blocker_use
 
 {
-if ( !self.state )
-	{
-		self.state = 1;
-	setorigin( self, self.origin - '8000 8000 8000');
-	}
+if (self.estate != STATE_ACTIVE)
+	self.estate = STATE_ACTIVE;
 else
-	{
-		self.state = 0;
-	setorigin( self, self.origin + '8000 8000 8000');
-	}
+	self.estate = STATE_INACTIVE;
+
 };
 /*
 dumptruck_ds
 
-If DT_EXITOFF flag is set, this moves the trigger
-brush out of the playable area. This can be targeted
-and toggled off and on.
+If DT_EXITOFF flag is set, this makes the trigger non-touchable.
+This can be targeted and toggled off and on.
  */
 
 float DT_EXITOFF = 8;
@@ -408,19 +403,16 @@ void() trigger_changelevel =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	SUB_CheckWaiting();
+
 	self.use = dt_exit_toggle; //dumptruck_ds
 	if (!self.map)
 		objerror ("changelevel trigger doesn't have map");
 
-	if ( self.spawnflags & DT_EXITOFF ) //dumptruck_ds
+	if (self.spawnflags & DT_EXITOFF) //dumptruck_ds
 		 {
-		 self.state = 0;
-		 setorigin( self, self.origin + '8000 8000 8000' );
+			 self.estate = STATE_INACTIVE;
 		 }
-	else
-		{
-		 self.state = 1;
-		}
 
 	InitTrigger ();
 	self.touch = changelevel_touch;
@@ -1115,7 +1107,7 @@ void() PlayerPreThink =
 
 	// If just spawned in, try to recover previous fog values from own client entity, if any
 	if (cleanUpClientStuff)
-		fog_setFromEnt(self, self); 
+		fog_setFromEnt(self, self);
 
 	makevectors (self.v_angle);		// is this still used
 
