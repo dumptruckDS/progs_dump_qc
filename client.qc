@@ -339,13 +339,16 @@ void() changelevel_touch =
 
 	// from Copper -- dumptruck_ds
 	if (!CheckValidTouch()) return;
-
-	if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
+// 1998-07-08 Noexit singleplayer/coop fix by Maddes  start
+	if (deathmatch)
 	{
-		T_Damage (other, self, self, 50000);
-		return;
+// 1998-07-08 Noexit singleplayer/coop fix by Maddes  end
+		if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
+		{
+			T_Damage (other, self, self, 50000);
+			return;
+		}
 	}
-
 	if (coop || deathmatch)
 	{
 		bprint (other.netname);
@@ -465,7 +468,12 @@ Player entered the suicide command
 ============
 */
 void() ClientKill =
+
 {
+	// 1998-07-27 Suicide during intermission fix by Zhenga  start
+	if ((intermission_running)&&((coop)||(deathmatch)))  // not allowed during intermission
+		return;
+// 1998-07-27 Suicide during intermission fix by Zhenga  end
 	bprint (self.netname);
 	bprint (" suicides\n");
 	set_suicide_frame ();
@@ -638,6 +646,9 @@ void() PutClientInServer =
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 
 	self.view_ofs = '0 0 22';
+// Mod - Xian (May.20.97)
+// Bug where player would have velocity from their last kill
+	self.velocity = '0 0 0';	// 1998-07-21 Player moves after respawn fix by Xian
 
 	player_stand1 ();
 
@@ -817,13 +828,13 @@ void() CheckRules =
 	timelimit = cvar("timelimit") * 60;
 	fraglimit = cvar("fraglimit");
 
-	if (timelimit && time >= timelimit)
+if (deathmatch && timelimit && time >= timelimit)	// 1998-07-27 Timelimit/Fraglimit fix by Maddes
 	{
 		NextLevel ();
 		return;
 	}
 
-	if (fraglimit && self.frags >= fraglimit)
+if (deathmatch && fraglimit && self.frags >= fraglimit)	// 1998-07-27 Timelimit/Fraglimit fix by Maddes
 	{
 		NextLevel ();
 		return;

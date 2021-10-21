@@ -1402,7 +1402,10 @@ CheatCommand
 */
 void() CheatCommand =
 {
-	if (deathmatch || coop)
+// 1998-07-29 Cheats coop fix by Maddes  start
+//	if (deathmatch || coop)
+	if (deathmatch)
+// 1998-07-29 Cheats coop fix by Maddes  end
 		return;
 
 	self.ammo_rockets = 100;
@@ -1583,12 +1586,19 @@ Just for development
 */
 void() ServerflagsCommand =
 {
+// 1998-07-29 Cheats coop fix by Maddes  start
+	if (deathmatch)
+		return;
+// 1998-07-29 Cheats coop fix by Maddes  end
 	serverflags = serverflags * 2 + 1;
 };
 
 void() QuadCheat =
 {
-	if (deathmatch || coop)
+// 1998-07-29 Cheats coop fix by Maddes  start
+//	if (deathmatch || coop)
+	if (deathmatch)
+// 1998-07-29 Cheats coop fix by Maddes  end
 		return;
 	self.super_time = 1;
 	self.super_damage_finished = time + 30;

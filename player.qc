@@ -266,6 +266,10 @@ local float		rs;
 	if (self.watertype == CONTENT_SLIME)
 	{
 // FIX ME	put in some steam here
+// 1998-08-10 Player gulps bubbles when hurt in slime by Maddes  start
+		if (self.waterlevel == 3)
+			DeathBubbles(1);
+// 1998-08-10 Player gulps bubbles when hurt in slime by Maddes  end
 		if (random() > 0.5)
 			sound (self, CHAN_VOICE, "player/lburn1.wav", 1, ATTN_NORM);
 		else
@@ -529,11 +533,14 @@ void() PlayerDie =
 {
 	local	float	i;
 
-	self.items = self.items - (self.items & IT_INVISIBILITY);
-	self.invisible_finished = 0;	// don't die as eyes
+// 1998-07-23 Palette shift when player dies with quad/pentagram fix by Maddes  start
+//	self.items = self.items - (self.items & IT_INVISIBILITY);
+	self.items = self.items - (self.items & (IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD) );
+// 1998-07-23 Palette shift when player dies with quad/pentagram fix by Maddes  end	self.invisible_finished = 0;	// don't die as eyes
 	self.invincible_finished = 0;
 	self.super_damage_finished = 0;
 	self.radsuit_finished = 0;
+	self.effects = 0;	// 1998-07-23 Glowing corpse of players which had quad/pentagram until respawn fix by Maddes
 	self.modelindex = modelindex_player;	// don't use eyes
 
 	if (deathmatch || coop)

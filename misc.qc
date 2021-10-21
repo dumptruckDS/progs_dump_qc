@@ -369,7 +369,7 @@ void() misc_fireball =
 	self.nextthink = time + (random() * 5);
 	self.think = fire_fly;
 	if (!self.speed)
-		self.speed = 1000;
+		self.speed = 1000; // fixed typo QIP - dumptruck_ds
 };
 
 void() fire_fly =
@@ -1215,17 +1215,17 @@ void() misc_shadowcontroller = {
 	if(!self.switchshadstyle) {
 
 		// we need to find only the first target entity with switchable shadows set, since shadow lightstyles are bound by targetname
-		
-		
+
+
 		t1 = find(world, targetname2, self.target);
-		
+
 		while(t1 != world && !t1.switchshadstyle) {
 			t1 = find(t1, targetname2, self.target);
 		}
-		
+
 		if(t1 == world) {
 			t1 = find(world, targetname, self.target);
-			
+
 			while(t1 != world && !t1.switchshadstyle) {
 				t1 = find(t1, targetname, self.target);
 			}
@@ -1261,7 +1261,7 @@ void() misc_shadowcontroller = {
 	self.use = misc_shadowcontroller_use;
 }
 
- 
+
 /*
 misc_infight
 
@@ -1287,13 +1287,13 @@ void(entity t1, entity t2) make_angry_at =
 	}
 };
 
-void() misc_infight_use = 
+void() misc_infight_use =
 {
 	local entity	t1, t2;
 
 	t1 = find(world, targetname, self.target);
 	t2 = find(world, targetname, self.target2);
-	
+
 	if (!t1)
 	{
 		dprint("[misc_infight] Cannot find target\n");
@@ -1304,18 +1304,18 @@ void() misc_infight_use =
 		dprint("[misc_infight] Cannot find target2\n");
 		return;
 	}
-	
+
 	make_angry_at(t1, t2);
-	
+
 	if (self.spawnflags & INFIGHT_MUTUAL)
 		make_angry_at(t2, t1);
 };
 
-void() misc_infight = 
+void() misc_infight =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
-	
+
 	self.use = misc_infight_use;
 };
 
@@ -1584,9 +1584,9 @@ Keys:
 "message" change save file name, defaults to 'auto'
 */
 /*FGD
-@Pointclass base(Target, Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : 
-"Saves the game when triggered by a player. Never appears in multiplayer. 
-the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb." 
+@Pointclass base(Target, Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
+"Saves the game when triggered by a player. Never appears in multiplayer.
+the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
 [
 	message(string) : "Change save filename" : "auto"
 ]
@@ -1598,7 +1598,7 @@ void() target_autosave =
 		remove(self);
 		return;
 	}
-	
+
 
 	if (self.message == string_null)
 		self.message = "auto";
@@ -1623,19 +1623,19 @@ void(entity controller) textstory_hide = {
 	self.enemy.suppressCenterPrint = FALSE;
 	centerprint(self.enemy, "");
 
-	if (controller.noise2) 
+	if (controller.noise2)
 		sound(self.enemy, CHAN_BODY, controller.noise2, 1, ATTN_NORM);
-	
+
 };
 
 void(entity controller) textstory_show = {
 	if (!self.enemy || !(self.enemy.flags & FL_CLIENT)) return;
 
 	self.enemy.suppressCenterPrint = TRUE;
-	
+
 	centerprint_builtin(self.enemy, controller.message);
 
-	if (!self.state && controller.noise1) 
+	if (!self.state && controller.noise1)
 		sound(self.enemy, CHAN_BODY, controller.noise1, 1, ATTN_NORM);
 
 	self.state = 1;
@@ -1651,7 +1651,7 @@ void() trigger_textstory_hide = {
 };
 
 void() trigger_textstory_show = {
-	textstory_show(self);	
+	textstory_show(self);
 
 	self.think = trigger_textstory_hide;
 	self.nextthink = time + 0.2;
@@ -1659,7 +1659,7 @@ void() trigger_textstory_show = {
 };
 
 void() trigger_textstory_touch = {
-	
+
 	if (!(other.flags & FL_CLIENT)) return;
 	if (self.estate != STATE_ACTIVE) return;
 
@@ -1724,7 +1724,7 @@ void() target_textstory_helper_show = {
 	textstory_show(self.owner);
 
 	if (self.attack_finished < time) self.think = target_textstory_helper_hide;
-	
+
 	self.nextthink = time + 0.1;
 };
 
@@ -1744,7 +1744,7 @@ void() target_textstory_use = {
 
 	if (!(activator.flags & FL_CLIENT)) return;
 	if (self.estate != STATE_ACTIVE) return;
-	
+
 	entity t;
 
 	if (self.spawnflags & TRIGGER_CENTERPRINTALL) {
@@ -1761,7 +1761,7 @@ void() target_textstory_use = {
 void() target_textstory = {
 	if (self.noise1 == "")
 		self.noise1 = "misc/talk.wav";
-	
+
 	if (self.noise2 == "")
 		self.noise2 = "misc/null.wav";
 
