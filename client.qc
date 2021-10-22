@@ -1481,7 +1481,22 @@ void(entity targ, entity inflictor, entity attacker) ClientObituary =
 			targ.frags = targ.frags - 1;
 			return;
 		}
-
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  start
+		// double 666 telefrag
+		// (can happen often in deathmatch 4 and levels with more than one pentagram)
+		if (attacker.classname == "teledeath3")
+		{
+			bprint (targ.netname);
+			bprint (" was telefragged by ");
+			bprint (attacker.owner.netname);
+			bprint ("'s Satan's power\n");
+// 1998-07-26 only telefrag player on spot by Maddes  start
+//			targ.frags = targ.frags - 1;
+			attacker.owner.frags = attacker.owner.frags + 1;
+// 1998-07-26 only telefrag player on spot by Maddes  end
+			return;
+		}
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  end
 		if (attacker.classname == "player")
 		{
 			if (targ == attacker)

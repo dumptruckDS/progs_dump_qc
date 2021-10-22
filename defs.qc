@@ -597,7 +597,7 @@ string lastnameused;	// the targetname that was last used to trigger somthing
 
 //
 // switchable shadow
-// 
+//
 .float		switchshadstyle;
 .float		shadowoff;
 .entity shadowcontroller;
@@ -991,3 +991,10 @@ nosave float gamestarted;
 
 .float last_setstate_frame = light_lev;
 .entity last_setstate = aiment;
+// 1998-07-03 hurt_touch fix by Robert Field  start
+//
+// triggers.qc
+//
+.float hurt_together_time;
+.float hurt_nextthink;
+// 1998-07-03 hurt_touch fix by Robert Field  end

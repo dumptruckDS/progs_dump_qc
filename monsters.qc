@@ -255,21 +255,23 @@ if(!(self.spawnflags & 8))
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
-
-	if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
-	{
-		monster_use();
-	}
-	// local entity pl; //dumptruck_ds -- this is Shamblernaut's method
-	//
-	// pl = find (world, classname, "player");
-	//
-	// if (self.spawn_angry == 1)
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
+	// if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
 	// {
-	// activator = pl;
-	// monster_use();
+	// 	monster_use();
 	// }
+	local entity pl; //dumptruck_ds -- this is Shamblernaut's method
+
+	pl = find (world, classname, "player");
+
+	if (self.spawn_angry == 1)
+	{
+	activator = pl;
+	monster_use();
+	}
 };
 
 
@@ -288,7 +290,10 @@ void() walkmonster_start =
 
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + .1 + (random()*0.4);
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
 	self.think = walkmonster_start_go;
 	total_monsters = total_monsters + 1;
 	///	Trigger enemy after spawn (khreathor)
@@ -343,22 +348,22 @@ void() flymonster_start_go =
 		self.th_stand ();
 	}
 
-	if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+	self.nextthink = time + 0.1 + random()*0.5;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
+
+// if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+// {
+// monster_use();
+// }
+//dumptruck_ds -- this is Shamblernaut's method
+	local entity pl;
+
+	pl = find (world, classname, "player");
+
+	if (self.spawn_angry == 1)
 	{
+	activator = pl;
 	monster_use();
 	}
-	// local entity pl; //dumptruck_ds -- this is Shamblernaut's method
-	//
-	// local entity pl;
-	//
-	// pl = find (world, classname, "player");
-	//
-	// if (self.spawn_angry == 1)
-	// {
-	// activator = pl;
-	// monster_use();
-	// }
-
 
 };
 
@@ -374,8 +379,13 @@ void() flymonster_start =
 	if(monster_teleport(flymonster_start_go))
     	return;
 
+	self.flags = self.flags | FL_FLY;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
+
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + .1 + (random()*0.4);
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
 	self.think = flymonster_start_go;
 	total_monsters = total_monsters + 1;
 };
@@ -420,21 +430,24 @@ void() swimmonster_start_go =
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
+// if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+// {
+// monster_use();
+// }
+//dumptruck_ds -- this is Shamblernaut's method
+	local entity pl;
 
-	if ((self.spawnflags & 8) && self.spawn_angry == 1) //dumptruck_ds -- using spawn_angry set to 1 in order to spawn in "angry" monsters
+	pl = find (world, classname, "player");
+
+	if (self.spawn_angry == 1)
 	{
+	activator = pl;
 	monster_use();
-  }
-	// local entity pl; //dumptruck_ds -- this is Shamblernaut's method
-	//
-	// pl = find (world, classname, "player");
-	//
-	// if (self.spawn_angry == 1)
-	// {
-	// activator = pl;
-	// monster_use();
-	// }
+	}
 };
 
 void() swimmonster_start =
@@ -443,13 +456,19 @@ void() swimmonster_start =
 		remove(self);
 		return;
 	}
+
+	self.flags = self.flags | FL_SWIM;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
+
 	//Preach's tutorial
 
 	if(monster_teleport(swimmonster_start_go))
     	return;
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + .1 + (random()*0.4);
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
 	self.think = swimmonster_start_go;
 	total_monsters = total_monsters + 1;
 };

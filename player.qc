@@ -362,8 +362,13 @@ void() player_die_ax1;
 void() DeathBubblesSpawn =
 {
 local entity	bubble;
-	if (self.owner.waterlevel != 3)
-		return;
+	if ((self.owner.waterlevel != 3) && (self.owner.health > 0))	// 1998-08-14 Improved bubble spawn by Maddes
+// 1998-08-14 Bubblespawner remove fix by Perged  start
+{
+	remove(self);	// remove bubble spawner
+// 1998-08-14 Bubblespawner remove fix by Perged  end
+	return;
+}	// 1998-08-14 Bubblespawner remove fix by Perged		return;
 	bubble = spawn();
 	setmodel (bubble, "progs/s_bubble.spr");
 	setorigin (bubble, self.owner.origin + '0 0 24');
@@ -376,7 +381,10 @@ local entity	bubble;
 	bubble.frame = 0;
 	bubble.cnt = 0;
 	setsize (bubble, '-8 -8 -8', '8 8 8');
-	self.nextthink = time + 0.1;
+// 1998-08-14 Improved bubble spawn by Maddes  start
+//	self.nextthink = time + 0.1;
+	self.nextthink = time + 0.01;
+// 1998-08-14 Improved bubble spawn by Maddes  end
 	self.think = DeathBubblesSpawn;
 	self.air_finished = self.air_finished + 1;
 	if (self.air_finished >= self.bubble_count)
@@ -391,12 +399,15 @@ local entity	bubble_spawner;
 	setorigin (bubble_spawner, self.origin);
 	bubble_spawner.movetype = MOVETYPE_NONE;
 	bubble_spawner.solid = SOLID_NOT;
-	bubble_spawner.nextthink = time + 0.1;
+// 1998-08-14 Improved bubble spawn by Maddes  start
+//	bubble_spawner.nextthink = time + 0.1;
+	bubble_spawner.nextthink = time + 0.01;
+// 1998-08-14 Improved bubble spawn by Maddes  end
 	bubble_spawner.think = DeathBubblesSpawn;
 	bubble_spawner.air_finished = 0;
 	bubble_spawner.owner = self;
 	bubble_spawner.bubble_count = num_bubbles;
-	return;
+//	return;	// 1998-08-14 unnecessary by Maddes
 };
 
 

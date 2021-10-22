@@ -697,7 +697,7 @@ void() bound_other_ammo =
 
 float(float w) RankForWeapon =
 {
-	if (w == IT_LIGHTNING)
+	if (self.waterlevel <= 1 && w == IT_LIGHTNING) // 1997-12-23 Thunderbolt fix by Maddes  recognize waterlevel
 		return 1;
 	if (w == IT_ROCKET_LAUNCHER)
 		return 2;
@@ -858,10 +858,14 @@ void() weapon_touch =
 	stemp = self;
 	self = other;
 
+// 1997-12-23 Thunderbolt fix by Maddes  start
+/* don't separate between SinglePlayer/Coop and Deathmatch
 	if (!deathmatch)
 		self.weapon = new;
 	else
-		Deathmatch_Weapon (old, new);
+*/
+// 1997-12-23 Thunderbolt fix by Maddes  end
+	Deathmatch_Weapon (old, new);
 
 	W_SetCurrentAmmo();
 
@@ -1386,82 +1390,6 @@ void() item_cells =
 	setsize (self, '0 0 0', '32 32 56');
 	StartItem ();
 };
-
-
-/*QUAKED item_weapon (0 .5 .8) (0 0 0) (32 32 32) shotgun rocket spikes big
-DO NOT USE THIS!!!! IT WILL BE REMOVED!
-*/
-
-// float WEAPON_SHOTGUN = 1;
-// float WEAPON_ROCKET = 2;
-// float WEAPON_SPIKES = 4;
-// float WEAPON_BIG = 8;
-// void() item_weapon =
-// {
-// 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
-// 		return;
-//
-// 	self.touch = ammo_touch;
-//
-// 	self.particles_offset = '0 0 0';
-//
-// 	if (self.spawnflags & WEAPON_SHOTGUN)
-// 	{
-// 		if (self.spawnflags & WEAPON_BIG)
-// 		{
-// 			precache_model ("maps/b_shell1.bsp");
-// 			setmodel (self, "maps/b_shell1.bsp");
-// 			self.aflag = 40;
-// 		}
-// 		else
-// 		{
-// 			precache_model ("maps/b_shell0.bsp");
-// 			setmodel (self, "maps/b_shell0.bsp");
-// 			self.aflag = 20;
-// 		}
-// 		self.weapon = 1;
-// 		self.netname = "shells";
-// 	}
-//
-// 	if (self.spawnflags & WEAPON_SPIKES)
-// 	{
-// 		if (self.spawnflags & WEAPON_BIG)
-// 		{
-// 			precache_model ("maps/b_nail1.bsp");
-// 			setmodel (self, "maps/b_nail1.bsp");
-// 			self.aflag = 40;
-// 		}
-// 		else
-// 		{
-// 			precache_model ("maps/b_nail0.bsp");
-// 			setmodel (self, "maps/b_nail0.bsp");
-// 			self.aflag = 20;
-// 		}
-// 		self.weapon = 2;
-// 		self.netname = "spikes";
-// 	}
-//
-// 	if (self.spawnflags & WEAPON_ROCKET)
-// 	{
-// 		if (self.spawnflags & WEAPON_BIG)
-// 		{
-// 			precache_model ("maps/b_rock1.bsp");
-// 			setmodel (self, "maps/b_rock1.bsp");
-// 			self.aflag = 10;
-// 		}
-// 		else
-// 		{
-// 			precache_model ("maps/b_rock0.bsp");
-// 			setmodel (self, "maps/b_rock0.bsp");
-// 			self.aflag = 5;
-// 		}
-// 		self.weapon = 3;
-// 		self.netname = "rockets";
-// 	}
-//
-// 	setsize (self, '0 0 0', '32 32 56');
-// 	StartItem ();
-// };
 
 
 /*
@@ -2052,7 +1980,7 @@ void() BackpackTouch =
 
 	bound_other_ammo ();
 
-	if (self.ammo_shells) // hack to fix an issue with custom Grunt, Ogre and Enf amo types. - dumptruck_ds
+	if (self.ammo_shells) // hack to fix an issue with custom Grunt, Ogre and Enf ammo types. - dumptruck_ds
 	// if (self.ammo_shells < 100)
 	{
 		if (acount)
@@ -2100,10 +2028,14 @@ void() BackpackTouch =
 	self = other;
 
 // change to the weapon
+// 1997-12-23 Thunderbolt fix by Maddes  start
+/* don't separate between SinglePlayer/Coop and Deathmatch
 	if (!deathmatch)
 		self.weapon = new;
 	else
-		Deathmatch_Weapon (old, new);
+*/
+// 1997-12-23 Thunderbolt fix by Maddes  end
+	Deathmatch_Weapon (old, new);
 
 	W_SetCurrentAmmo ();
 

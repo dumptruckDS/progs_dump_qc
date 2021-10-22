@@ -231,7 +231,7 @@ void() sham_magic1     =[      $magic1,       sham_magic2    ] {ai_face();
 	sound_misc1 (self, CHAN_WEAPON, "shambler/sattck1.wav", 1, ATTN_NORM);
 };
 void() sham_magic2     =[      $magic2,       sham_magic3    ] {ai_face();};
-void() sham_magic3     =[      $magic3,       sham_magic4    ] {ai_face();self.nextthink = self.nextthink + 0.2;
+void() sham_magic3     =[      $magic3,       sham_magic4    ] {ai_face();self.nextthink = time + 0.2;
 local entity o;
 
 self.effects = self.effects | EF_MUZZLEFLASH;
