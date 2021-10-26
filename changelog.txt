@@ -1,7 +1,7 @@
-2.0.2 September 2021
+2.0.2 October 2021
 
-* fixed QSS crash in mobot.qc (paavohuhtala)
-* fixed syntax error in Enforcer.qc (paavohuhtala)
+* Fixed QSS crash in mobot.qc (paavohuhtala)
+* Fixed syntax error in Enforcer.qc (paavohuhtala)
 * Added in-fighting modes to monsters (ILike80sRock)
 * Added breakable & solidity spawnflags to func_fall2 (whirledtsar)
 * Added explosive projectiles to HellKnight (ILike80sRock)
@@ -10,10 +10,12 @@
 * Added trigger_changetarget (ILike80sRock)
 * Added Wait for retrigger spawnflag to trigger_multiple (ILike80sRock)
 * Added style 4 to Ogre (Shoots lavaballs)
+* Quake Info Pool fixes: https://www.quake-info-pool.net/q1/qcfix.htm
+* Fixed armor affected by drowning damage
 
 2.0.1 March 2021
 
-* small fix to health and shard pickup sounds
+* Small fix to health and shard pickup sounds
 * Added homing key to Shalrath custom turning range for Voreballs (ILike80sRock)
 
 
