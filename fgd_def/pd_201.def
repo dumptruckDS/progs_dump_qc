@@ -2871,7 +2871,6 @@ Default behavior allows anyone to activate func_fall2 on touch ONLY
 1 - Player activated only
 2 - Monster activated only
 8 - break on impact (use style key for textures, see manual for more)
-16 - fall solid; remains solid on ground
 
 Able to .target other entities, including other func_fall2s
 */

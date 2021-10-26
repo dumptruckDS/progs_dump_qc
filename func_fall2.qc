@@ -3,7 +3,7 @@
 float	PLAYER_TRIGGERED = 1;
 float	MONSTER_TRIGGERED = 2;
 float	FALL_BREAKABLE = 8;		//VR
-float	FALL_SOLID = 16;		//VR
+// float	FALL_SOLID = 16;		//VR
 
 void() fall_break_fields;
 
@@ -17,7 +17,8 @@ void() func_fall2_think =
 			SUB_UseAndForgetTargets();
 			// SUB_UseTargets();
 
-		if (self.pos1 != '0 0 0')
+			self.solid = SOLID_NOT; // removed FALL_SOLID behavior -- dumptruck_ds
+			if (self.pos1 != '0 0 0')
 			self.avelocity = self.pos1; // apply stored avelocity vector values
 
 		if (self.pos2 && !self.velocity) // Add velocity movement
@@ -89,12 +90,12 @@ void() fall2_touch =
 
 	self.attack_finished = time + self.wait;
 
-	if (self.spawnflags&FALL_SOLID) {	//VR
-		setsize(self, self.mins, self.maxs);
-		self.solid = SOLID_BBOX;
-	}
-	else
-		self.solid = SOLID_NOT;
+	// if (self.spawnflags&FALL_SOLID) {	//VR
+	// 	setsize(self, self.mins, self.maxs);
+	// 	self.solid = SOLID_BBOX;
+	// }
+	// else
+	// 	self.solid = SOLID_NOT;
 
 	if (self.noise)
 		sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
@@ -111,12 +112,12 @@ void() func_fall2_use =
 	self.nextthink = self.ltime + 0.1;
 	self.touch = SUB_Null; // disable touch when used
 
-	if (self.spawnflags&FALL_SOLID) {	//VR
-		setsize(self, self.mins, self.maxs);
-		self.solid = SOLID_BBOX;
-	}
-	else
-		self.solid = SOLID_NOT;
+	// if (self.spawnflags&FALL_SOLID) {	//VR
+	// 	setsize(self, self.mins, self.maxs);
+	// 	self.solid = SOLID_BBOX;
+	// }
+	// else
+	// 	self.solid = SOLID_NOT;
 
 	self.attack_finished = time + self.wait;
 	if (self.noise)

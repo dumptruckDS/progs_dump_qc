@@ -3,7 +3,7 @@
 * Fixed QSS crash in mobot.qc (paavohuhtala)
 * Fixed syntax error in Enforcer.qc (paavohuhtala)
 * Added in-fighting modes to monsters (ILike80sRock)
-* Added breakable & solidity spawnflags to func_fall2 (whirledtsar)
+* Added breakable spawnflags to func_fall2 (whirledtsar)
 * Added explosive projectiles to HellKnight (ILike80sRock)
 * Renamed potentially offensive file name (progs.src, spawn.qc)
 * Fixed Voreballs not homing in func_monster_spawner Shalraths

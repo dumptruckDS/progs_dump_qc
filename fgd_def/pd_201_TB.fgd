@@ -317,9 +317,9 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 ]
 
 
-@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : 
-"Saves the game when triggered by a player. Never appears in multiplayer. 
-the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb." 
+@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
+"Saves the game when triggered by a player. Never appears in multiplayer.
+the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
 [
 	message(string) : "Change save filename" : "auto"
 ]
@@ -1582,11 +1582,11 @@ By default it'll fire for each and every registered touch, even if simultaneous.
 Can be used with a trigger_filter to dinamically change its comparing value, or to reset/change a trigger_counter's current use count.
 
 You can either replace the current value with a new one, or add/subtract to it (by using a positive or negative 'count'), by selecting into the 'style' field.
-" 
+"
 [
-	target(target_destination) : "Target" 
-	target2(target_destination) : "Target" 
-	target3(target_destination) : "Target" 
+	target(target_destination) : "Target"
+	target2(target_destination) : "Target"
+	target3(target_destination) : "Target"
 	target4(target_destination) : "Target"
 	style(choices) : "Set style" : 0 = [
 		0 : "Replace"
@@ -2539,7 +2539,6 @@ spawnflags
 	1 - Player activated only
 	2 - Monster activated only
 	8 - break on impact (use style key for textures, see manual for more)
-	16 - fall solid; remains solid on ground
 
 Able to target other entities, including other func_fall2s"
 [
@@ -2557,7 +2556,6 @@ spawnflags(flags) =
 			1 : "Player Activated only" : 0
 			2 : "Monster Activated only" : 0
 			8 : "Breakable" : 0
-			16 : "Remain solid" : 0
 		]
 ]
 
