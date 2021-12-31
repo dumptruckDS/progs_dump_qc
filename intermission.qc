@@ -356,6 +356,22 @@ void() changelevel_touch =
 	self.nextthink = time + 0.1;
 };
 
+void() dt_exit_toggle = //dumptruck_ds based on hipnotic blocker_use
+{
+	if (self.estate != STATE_ACTIVE)
+	{
+		self.is_waiting = 0;
+		self.estate = STATE_ACTIVE;
+	}
+	else
+	{
+		self.is_waiting = 1;
+		self.estate = STATE_INACTIVE;
+	}
+};
+
+
+float DT_EXITOFF = 8;
 /*QUAKED trigger_changelevel (0.5 0.5 0.5) ? NO_INTERMISSION X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 When the player touches this, he gets sent to the map listed in the "map" variable.  Unless the NO_INTERMISSION flag is set, the view will go to the info_intermission spot and display stats.
@@ -365,22 +381,18 @@ void() trigger_changelevel =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	if (self.spawnflags & DT_EXITOFF) //dumptruck_ds
+	{
+		self.is_waiting = 1;
+	}
+	SUB_CheckWaiting();
+
+	self.use = dt_exit_toggle;
 	if (!self.map)
 		objerror ("changelevel trigger doesn't have map");
 
-	if ( self.spawnflags & DT_EXITOFF ) //dumptruck_ds
-		 {
-		 self.state = 0;
-		 setorigin( self, self.origin + '8000 8000 8000' );
-		 }
-	else
-		{
-		 self.state = 1;
-		}
 
 	InitTrigger ();
 	self.flags = self.flags | FL_NOCENTERPRINT;
 	self.touch = changelevel_touch;
-
-	SUB_CheckWaiting();
 };
