@@ -13,34 +13,6 @@ float	SPAWNFLAG_NOMESSAGE = 1;
 float	SPAWNFLAG_NOTOUCH = 1;
 float SPAWNFLAG_TURNS_OFF = 2; //used for Wait for retrigger spawnflag
 
-
-void() SUB_EndWaiting = {
-	self.is_waiting = 0;
-	self.estate = STATE_ACTIVE;
-	if (self.use == SUB_EndWaiting) self.use = self.dormant_use;
-
-	// special case for teleports, makes it ignore the fact that it has a targetname when touched
-	if (self.classname == "trigger_teleport") {
-		self.is_waiting = -1;
-	}
-};
-
-void() SUB_CheckWaiting = {
-	if (self.is_waiting > 0) {
-		self.dormant_use = self.use;
-		self.use = SUB_EndWaiting;
-		self.estate = STATE_INACTIVE;
-
-		dprint("Spawned a waiting ");
-		dprint(self.classname);
-		dprint(" with targetname ");
-		dprint(self.targetname);
-		dprint(" and target ");
-		dprint(self.target);
-		dprint("\n");
-	}
-};
-
 // the wait time has passed, so set back up for another activation
 void() multi_wait =
 {
