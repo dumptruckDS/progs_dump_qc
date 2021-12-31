@@ -87,6 +87,7 @@
 	fog_color(color1) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
+	skip_id1_overrides(integer) : "Skip ID1 Overrides" : 0 : "Disable hardcoded map features like intermissions and E1M8 gravity. 0 will keep the ID1 checks, anything else will disable them."
 ]
 
 //
