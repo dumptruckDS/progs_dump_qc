@@ -53,6 +53,7 @@
 	fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
+
 	skip_id1_overrides(integer) : "Skip ID1 Overrides" : 0 : "Disable hardcoded map features like intermissions and E1M8 gravity. 0 will keep the ID1 checks, anything else will disable them."
 ]
 
@@ -259,14 +260,18 @@ state(choices) =
 
 @PointClass base(Appearflags) = info_intermission : "Intermission camera" []
 
+@PointClass = info_intermissiontext : "Intermission Text"
+[
+	message(string): "Text to show on intermission screen"
+	cnt(integer): "Page number"
+]
+
 @PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
 "Saves the game when triggered by a player. Never appears in multiplayer.
 the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
 [
 	message(string) : "Change save filename" : "auto"
 ]
-
-
 //
 // items
 //
@@ -1895,6 +1900,7 @@ spawnflags(Flags) =
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
+  message(string) : "Message to show on intermission screen."
 	spawnflags(flags) =
 	[
 		1: "No intermission" : 0

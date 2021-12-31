@@ -314,6 +314,12 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	mangle(string) : "Camera angle (Pitch Yaw Roll)"
 ]
 
+@PointClass = info_intermissiontext : "Intermission Text"
+[
+	message(string): "Text to show on intermission screen"
+	cnt(integer): "Page number"
+]
+
 @PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
 "Saves the game when triggered by a player. Never appears in multiplayer.
 the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
@@ -2009,6 +2015,7 @@ spawnflags(Flags) =
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
+	message(string) : "Message to show on intermission screen."
 	spawnflags(flags) =
 	[
 		1: "No intermission" : 0
