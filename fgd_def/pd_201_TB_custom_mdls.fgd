@@ -87,6 +87,7 @@
 	fog_color(color1) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
+	skip_id1_overrides(integer) : "Skip ID1 Overrides" : 0 : "Disable hardcoded map features like intermissions and E1M8 gravity. 0 will keep the ID1 checks, anything else will disable them."
 ]
 
 //
@@ -311,6 +312,12 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 @PointClass base(Appearflags, Fog) = info_intermission : "Intermission camera"
 [
 	mangle(string) : "Camera angle (Pitch Yaw Roll)"
+]
+
+@PointClass = info_intermissiontext : "Intermission Text"
+[
+	message(string): "Text to show on intermission screen"
+	cnt(integer): "Page number"
 ]
 
 @PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
@@ -2008,6 +2015,7 @@ spawnflags(Flags) =
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
+	message(string) : "Message to show on intermission screen."
 	spawnflags(flags) =
 	[
 		1: "No intermission" : 0

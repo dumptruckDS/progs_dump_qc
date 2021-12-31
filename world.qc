@@ -330,7 +330,7 @@ void() worldspawn =
 	InitBodyQue ();
 
 // custom map attributes
-	if (self.model == "maps/e1m8.bsp")
+	if (self.model == "maps/e1m8.bsp" && self.skip_id1_overrides == 0)
 		cvar_set ("sv_gravity", "100");
 	else
 		cvar_set ("sv_gravity", "800");
@@ -538,7 +538,7 @@ void() StartFrame =
 	{
 		if (framecount != 3)
 			cleanUpClientStuff += 2;
-		
+
 		gamestarted = TRUE;
 	}
 };
