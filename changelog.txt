@@ -1,4 +1,4 @@
-2.0.2 October 2021
+2.0.2 January 2022
 
 * Fixed QSS crash in mobot.qc (paavohuhtala)
 * Fixed syntax error in Enforcer.qc (paavohuhtala)
@@ -12,6 +12,11 @@
 * Added style 4 to Ogre (Shoots lavaballs)
 * Quake Info Pool fixes: https://www.quake-info-pool.net/q1/qcfix.htm
 * Fixed armor affected by drowning damage
+* Added gravity, solidity, back-and-forth, only once and play count
+  spawnflags to misc_model (Inky, bmFbr)
+* Added info_intermissiontext for custom intermission messages (ILike80sRock)
+* Added skip_id1_overrides worldspawn key to disable hardcoded map features
+  like intermissions and E1M8 gravity (ILike80sRock)
 
 2.0.1 March 2021
 
