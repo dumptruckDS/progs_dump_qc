@@ -246,6 +246,8 @@ float	FL_PARTIALGROUND		= 1024;	// not all corners are valid
 float	FL_WATERJUMP			= 2048;	// player jumping out of water
 float	FL_JUMPRELEASED			= 4096;	// for jump debouncing
 
+float 	FL_NOCENTERPRINT		= 65536;// don't centerprint entity's message field when its targets are used
+
 // edict.movetype values
 float	MOVETYPE_NONE			= 0;	// never moves
 //float	MOVETYPE_ANGLENOCLIP	= 1;
@@ -440,6 +442,7 @@ float	known_release;	// unique id for a release; see values above -- iw
 .string		wad;
 .string 	map;
 .float		worldtype;	// 0=medieval 1=metal 2=base
+.float		skip_id1_overrides;
 
 //================================================
 

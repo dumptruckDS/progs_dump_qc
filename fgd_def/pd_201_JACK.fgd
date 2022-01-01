@@ -53,6 +53,8 @@
 	fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
+
+	skip_id1_overrides(integer) : "Skip ID1 Overrides" : 0 : "Disable hardcoded map features like intermissions and E1M8 gravity. 0 will keep the ID1 checks, anything else will disable them."
 ]
 
 //
@@ -182,8 +184,7 @@ state(choices) =
 
 
 @baseclass = TriggerWait [
-	is_waiting(choices) : "Dormant Trigger" : 0 :
-	"If set to 1, the trigger starts dormant and waits for activation. Subsequent activations trigger its target as usual." =
+	is_waiting(choices) : "Dormant Trigger" : 0 :	"If set to 1, the trigger starts dormant and waits for activation. Subsequent activations trigger its target as usual." =
 	[
 		0 : "Default"
 		1 : "Wait for Trigger"
@@ -259,14 +260,18 @@ state(choices) =
 
 @PointClass base(Appearflags) = info_intermission : "Intermission camera" []
 
+@PointClass = info_intermissiontext : "Intermission Text"
+[
+	message(string): "Text to show on intermission screen"
+	cnt(integer): "Page number"
+]
+
 @PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
 "Saves the game when triggered by a player. Never appears in multiplayer.
 the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
 [
 	message(string) : "Change save filename" : "auto"
 ]
-
-
 //
 // items
 //
@@ -1895,6 +1900,7 @@ spawnflags(Flags) =
 [
 	map(string) : "Next map"
 	//target(target_destination) : "Target"
+  message(string) : "Message to show on intermission screen."
 	spawnflags(flags) =
 	[
 		1: "No intermission" : 0
@@ -2079,8 +2085,7 @@ You can force the target entities to spawn disabled/locked with spawnflag 1.
 //                     Fog triggers                      //
 ///////////////////////////////////////////////////////////
 
-@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fogblend :
-"Trigger: Fog Blend
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fogblend : "Trigger: Fog Blend
 Acts as a smoothly blending portal between two zones of different fog. Sets the fog for any client passing through it, blending their global fog settings between start and end values proportional to their position within the trigger.
 
 - both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
