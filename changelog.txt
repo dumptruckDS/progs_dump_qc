@@ -14,6 +14,7 @@
 * Fixed armor affected by drowning damage
 * Added gravity, solidity, back-and-forth, only once and play count
   spawnflags to misc_model (Inky, bmFbr)
+* Added trigger/toggle animations to misc_model using target_setstate (bmFbr)
 * Added info_intermissiontext for custom intermission messages (ILike80sRock)
 * Added skip_id1_overrides worldspawn key to disable hardcoded map features
   like intermissions and E1M8 gravity (ILike80sRock)
