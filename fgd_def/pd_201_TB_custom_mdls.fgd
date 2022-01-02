@@ -2345,6 +2345,16 @@ NOTE: set angle value to 0 if using angles key to rotate mdls"
 	last_frame(integer)
 	speed(integer) : "Speed" : 10
 	angles(integer) : "set 'angle' to 0 if this is used"
+	mdlsz(integer) : "Entity size (x y z)"
+	centeroffset(integer) : "Model center offset"
+	spawnflags(flags) =
+		[
+			1: "Gravity" : 0
+			2: "Solid" : 0
+			4: "Back and forth" : 0
+			8: "Only once" : 0
+			16: "Play count times" : 0
+		]
 ]
 
 ///////////////////////////////////////////////////////////////////////

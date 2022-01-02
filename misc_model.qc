@@ -2,6 +2,9 @@
  * misc_model.qc requires math.qc
  *
  * Author: Joshua Skelton joshua.skelton@gmail.com
+ * Edited by: Inky 20201219 Minor changes for a better integration with my own code
+ * Edited by: bmFbr for solid and gravity spawnflags and custom bbox sizes
+ * Edited by: dumptruck_ds to add start and stop animations
  */
 
 // The starting frame of the animation
@@ -31,36 +34,39 @@ last_frame: The last frame of the animation.
 
 float MISC_MODEL_GRAVITY = 1;
 float MISC_MODEL_SOLID = 2;
+float MISC_MODEL_BACK_AND_FORTH = 4;
+float MISC_MODEL_ONLY_ONCE = 8;
+float MISC_MODEL_PLAY_COUNT = 16;
 
 void() misc_model = {
     if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
         return;
-		
+
 	if(!self.centeroffset) self.centeroffset = '0 0 0';
 	if(!self.mdlsz) self.mdlsz = '32 32 32';
-	
+
 	vector vmin, vmax;
-	
+
 	vmin_x = self.centeroffset_x - (self.mdlsz_x / 2);
 	vmin_y = self.centeroffset_y - (self.mdlsz_y / 2);
 	vmin_z = self.centeroffset_z - (self.mdlsz_z / 2);
-	
+
 	vmax_x = self.centeroffset_x + (self.mdlsz_x / 2);
 	vmax_y = self.centeroffset_y + (self.mdlsz_y / 2);
 	vmax_z = self.centeroffset_z + (self.mdlsz_z / 2);
-	
+
 	if(self.spawnflags & MISC_MODEL_SOLID) self.solid = SOLID_BBOX;
 	else self.solid = SOLID_NOT;
-	
+
 	if(self.spawnflags & MISC_MODEL_GRAVITY) self.movetype = MOVETYPE_TOSS;
 	else self.movetype = MOVETYPE_NONE;
-	
+
     precache_model(self.mdl);
     setmodel(self, self.mdl);
 
 	setsize(self, vmin, vmax);
-	
-	
+
+
     if (!self.frame) {
         self.frame = self.first_frame;
     }
@@ -79,6 +85,7 @@ void() misc_model = {
 
     self.nextthink = time + self.speed;
     self.think = misc_model_think;
+
 };
 
 /*
@@ -88,6 +95,35 @@ void() misc_model = {
  */
 void() misc_model_think = {
     self.nextthink = time + fabs(self.speed);
+    if (self.estate != STATE_ACTIVE) return;
     self.frame = self.frame + sign(self.speed);
-    self.frame = wrap(self.frame, self.first_frame, self.last_frame);
+
+    if (self.spawnflags & MISC_MODEL_BACK_AND_FORTH && self.frame < self.first_frame)
+  	{
+  		self.speed = -1 * self.speed;
+  		self.frame+=2;
+  	}
+  	else if (self.spawnflags & MISC_MODEL_BACK_AND_FORTH && self.frame > self.last_frame)
+  	{
+  		self.speed = -1 * self.speed;
+  		self.frame-=2;
+  	}
+  	else
+  		self.frame = wrap(self.frame, self.first_frame, self.last_frame);
+
+  	if(self.spawnflags & MISC_MODEL_ONLY_ONCE && self.frame==self.last_frame && self.last_frame!=self.first_frame)
+      self.nextthink = -1;
+
+    if(self.spawnflags & MISC_MODEL_PLAY_COUNT && self.frame==self.last_frame && self.last_frame!=self.first_frame)
+    {
+      if !(self.count)
+         objerror ("Error: set count to the number of animation cycles!");
+      self.cnt = self.cnt +1;
+      dprint (ftos(self.cnt));
+      dprint ("\n");
+      if (self.cnt != self.count)
+        return FALSE;
+      else
+    		self.nextthink = -1;
+    }
 };
