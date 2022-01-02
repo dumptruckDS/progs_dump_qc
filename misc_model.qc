@@ -85,6 +85,7 @@ void() misc_model = {
 
     self.nextthink = time + self.speed;
     self.think = misc_model_think;
+
 };
 
 /*
@@ -94,6 +95,7 @@ void() misc_model = {
  */
 void() misc_model_think = {
     self.nextthink = time + fabs(self.speed);
+    if (self.estate != STATE_ACTIVE) return;
     self.frame = self.frame + sign(self.speed);
 
     if (self.spawnflags & MISC_MODEL_BACK_AND_FORTH && self.frame < self.first_frame)

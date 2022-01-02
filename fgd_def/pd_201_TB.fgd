@@ -2376,6 +2376,9 @@ NOTE: set angle value to 0 if using angles key to rotate mdls"
 		[
 			1: "Gravity" : 0
 			2: "Solid" : 0
+			4: "Back and forth" : 0
+			8: "Only once" : 0
+			16: "Play count times" : 0
 		]
 ]
 
