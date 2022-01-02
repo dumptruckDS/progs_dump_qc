@@ -2019,7 +2019,7 @@ spawnflags(Flags) =
 	spawnflags(flags) =
 	[
 		1: "No intermission" : 0
-		2: "No common intermission text" : 0
+		2: "Ignore intermissiontext" : 0
 		8: "Start Off" : 0
 		16: "Use info_player_start2" : 0
 	]
