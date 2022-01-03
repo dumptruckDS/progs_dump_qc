@@ -5,6 +5,8 @@ void() knight_bow6;
 void() knight_bow1;
 void(entity etemp, entity stemp, entity stemp, float dmg) T_Damage;
 float NO_SIGHT_SOUND = 32;
+float PASSIVE_UNTIL_ATTACKED = 64;
+float PASSIVE_ALWAYS = 128;
 /*
 
 .enemy
@@ -281,7 +283,9 @@ void() HuntTarget =
 
 void() SightSound =
 {
-local float	rsnd;
+	if !(self.spawnflags & PASSIVE_ALWAYS)
+
+	local float	rsnd;
 
 	if (self.classname == "monster_ogre")
 		sound_sight (self, CHAN_VOICE, "ogre/ogwake.wav", 1, ATTN_NORM);
@@ -333,7 +337,7 @@ void() FoundTarget =
 
 	self.show_hostile = time + 1;		// wake up other monsters
 
-	if (self.spawnflags != NO_SIGHT_SOUND)
+	if !(self.spawnflags & NO_SIGHT_SOUND)
 	{
 		SightSound ();
 	}
@@ -386,6 +390,9 @@ float() FindTarget =
 		if (!client)
 			return FALSE;	// current check entity isn't in PVS
 	}
+
+	if ((self.spawnflags & PASSIVE_UNTIL_ATTACKED) || (self.spawnflags & PASSIVE_ALWAYS))
+		return FALSE;
 
 	if (client.flags & FL_NOTARGET || client.movetype == MOVETYPE_NOCLIP) // from Copper -- dumptruck_ds
 		return FALSE;
@@ -706,7 +713,7 @@ void(float dist) ai_run =
 
 	movedist = dist;
 // see if the enemy is dead
-	if (self.enemy.health <= 0)
+	if ((self.enemy.health <= 0) || (self.spawnflags & PASSIVE_ALWAYS))
 	{
 		self.enemy = world;
 	// FIXME: look all around for other targets

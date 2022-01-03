@@ -18,6 +18,7 @@
 * Added info_intermissiontext for custom intermission messages (ILike80sRock)
 * Added skip_id1_overrides worldspawn key to disable hardcoded map features
   like intermissions and E1M8 gravity (ILike80sRock)
+* Added PASSIVE_ALWAYS and PASSIVE_UNTIL_ATTACKED spawnflags to monsters
 
 2.0.1 March 2021
 
