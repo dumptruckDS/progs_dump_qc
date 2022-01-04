@@ -1001,3 +1001,4 @@ nosave float gamestarted;
 .float hurt_together_time;
 .float hurt_nextthink;
 // 1998-07-03 hurt_touch fix by Robert Field  end
+float I_AM_TURRET = 262144; //dumptruck_ds

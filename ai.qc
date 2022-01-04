@@ -772,6 +772,7 @@ void(float dist) ai_run =
 		return;
 	}
 
+if !(self.spawnflags & I_AM_TURRET)
 // head straight in
 	movetogoal (dist);		// done in C code...
 };
