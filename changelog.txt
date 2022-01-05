@@ -9,7 +9,7 @@
 * Fixed Voreballs not homing in func_monster_spawner Shalraths
 * Added trigger_changetarget (ILike80sRock)
 * Added Wait for retrigger spawnflag to trigger_multiple (ILike80sRock)
-* Added style 4 to Ogre (Shoots lavaballs)
+* Added style 4 to Ogre - shoots lavaballs (JaycieErysdren)
 * Quake Info Pool fixes: https://www.quake-info-pool.net/q1/qcfix.htm
 * Fixed armor affected by drowning damage
 * Added gravity, solidity, back-and-forth, only once and play count
@@ -19,6 +19,8 @@
 * Added skip_id1_overrides worldspawn key to disable hardcoded map features
   like intermissions and E1M8 gravity (ILike80sRock)
 * Added PASSIVE_ALWAYS and PASSIVE_UNTIL_ATTACKED spawnflags to monsters
+* Added Looping spawnflag to play_sound_triggered which causes triggered,
+  looping sounds to restart after a save (bmFbr)
 
 2.0.1 March 2021
 

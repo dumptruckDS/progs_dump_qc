@@ -2459,6 +2459,7 @@ NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND 
 @PointClass base(Targetname, Appearflags) size (16 16 24) color(30 200 35) = play_sound_triggered : "Custom sound trigger
 
 toggle (spawnflags): stopped when triggered again
+looped: check this and the toggle spawnflag to allow triggered, looping sounds to automatically restart after a save / load
 volume: how loud (range is 0.1 to 1 default is 1 = full volume)
 noise: path of sound to play
 impulse: sound channel 0-7 (0 automatic is default)

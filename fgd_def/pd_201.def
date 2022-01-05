@@ -2171,6 +2171,7 @@ These are killable variants of the original boss monsters. On Skill 1 (Easy) the
 /*QUAKED play_sound_triggered (0.933 0.105 0.819) (-8 -8 -8) (8 8 8) toggle
 play a sound when it is used
 "toggle" determines whether sound should be stopped when triggered again
+"looping" check this and the toggle spawnflag to allow triggered, looping sounds to automatically restart after a save / load
 "volume" how loud (1 default full volume)
 "noise" sound to play
 "impulse" channel on which to play sound (0-7) (0 automatic is default)
