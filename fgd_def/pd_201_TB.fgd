@@ -2491,7 +2491,10 @@ speed: attenuation factor
 
 NOTE - Sound files must be in the SOUND folder (or a sub folder under the SOUND folder.)"
 	[
-		spawnflags(flags) = [1 : "Toggle" : 0]
+		spawnflags(flags) = [
+			1 : "Toggle" : 0
+			2 : "Looped" : 0
+		]
 		noise(string) : "Sound file to play"
 		speed(choices) : "Attenuation of sound" : 1 =
 		[
