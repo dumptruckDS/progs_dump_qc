@@ -750,18 +750,13 @@ void(float dist) ai_run =
 	enemy_range = range(self.enemy);
 	enemy_yaw = vectoyaw(self.enemy.origin - self.origin);
 
-	if (self.spawnflags & I_AM_TURRET)
-	{
-		ai_face ();
-	}
-
-	if ((self.attack_state == AS_MISSILE) || !(self.spawnflags & I_AM_TURRET))
+	if (self.attack_state == AS_MISSILE)
 	{
 //dprint ("ai_run_missile\n");
 		ai_run_missile ();
 		return;
 	}
-	if ((self.attack_state == AS_MELEE) || !(self.spawnflags & I_AM_TURRET))
+	if (self.attack_state == AS_MELEE)
 	{
 //dprint ("ai_run_melee\n");
 		ai_run_melee ();
@@ -771,7 +766,7 @@ void(float dist) ai_run =
 	if (CheckAnyAttack ())
 		return;					// beginning an attack
 
-	if ((self.attack_state == AS_SLIDING) || !(self.spawnflags & I_AM_TURRET))
+	if (self.attack_state == AS_SLIDING)
 	{
 		ai_run_slide ();
 		return;
