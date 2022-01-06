@@ -252,13 +252,6 @@ float() SoldierCheckAttack =
 
 	traceline (spot1, spot2, FALSE, self);
 
-	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
-		{
-			self.th_missile ();
-			SUB_AttackFinished (1 + random());
-			return TRUE;
-		}
-
 	if (trace_inopen && trace_inwater)
 		return FALSE;			// sight line crossed contents
 
@@ -368,12 +361,7 @@ float() OgreCheckAttack =
 	local entity	targ;
 	local float		chance;
 
-	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
-		{
-			self.attack_state = AS_MISSILE;
-			SUB_AttackFinished (2 + 2*random());
-			return TRUE;
-		}
+	dprint("OgreCheckAttack\n");
 
 	if (enemy_range == RANGE_MELEE)
 	{

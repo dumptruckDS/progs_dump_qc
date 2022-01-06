@@ -664,11 +664,11 @@ Turn in place until within an angle to launch a missile attack
 */
 void() ai_run_missile =
 {
-	self.ideal_yaw = enemy_yaw;
+	self.ideal_yaw = enemy_yaw; dprint("ai_run_missile GO\n");
 	ChangeYaw ();
 	if (FacingIdeal())
 	{
-		self.th_missile ();
+		self.th_missile ();dprint("th_missile\n");
 		self.attack_state = AS_STRAIGHT;
 	}
 };
@@ -710,7 +710,7 @@ The monster has an enemy it is trying to kill
 */
 void(float dist) ai_run =
 {
-
+	dprint("ai_run\n");
 	movedist = dist;
 // see if the enemy is dead
 	if ((self.enemy.health <= 0) || (self.spawnflags & PASSIVE_ALWAYS))
@@ -752,7 +752,7 @@ void(float dist) ai_run =
 
 	if (self.attack_state == AS_MISSILE)
 	{
-//dprint ("ai_run_missile\n");
+		dprint ("ai_run_missile... from ai_run\n");
 		ai_run_missile ();
 		return;
 	}
@@ -772,7 +772,7 @@ void(float dist) ai_run =
 		return;
 	}
 
-if !(self.spawnflags & I_AM_TURRET)
+if !(self.spawnflags & I_AM_TURRET) // keeps monster from moving to player - dumptruck_ds
 // head straight in
 	movetogoal (dist);		// done in C code...
 };
