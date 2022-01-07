@@ -879,7 +879,26 @@ void() ogre_nail4	=[	$shoot3,		ogre_nail5	] {ai_face();
 void() ogre_nail5	=[	$shoot4,		ogre_nail6	] {ai_face();};
 void() ogre_nail6	=[	$shoot5,		ogre_nail7	] {ai_face();};
 void() ogre_nail7	=[	$shoot6,		ogre_run1	] {ai_face();};
-
+//
+////////////////////////
+// ogre_t_nail
+//FIXME :name is confusin
+////////////////////////
+//
+void() ogre_t_nail1	=[	$stand1,		ogre_t_nail2	] {ai_face();};
+void() ogre_t_nail2	=[	$stand2,		ogre_t_nail3	] {ai_face();};
+void() ogre_t_nail3	=[	$stand2,		ogre_t_nail4	] {ai_face();};
+void() ogre_t_nail4	=[	$stand3,		ogre_t_nail5	] {ai_face();};
+void() ogre_t_nail5=[	$stand4,		ogre_t_nail6	] {ai_face();};
+void() ogre_t_nail6=[	$stand5,		ogre_t_nail7	] {ai_face();};
+void() ogre_t_nail7=[	$stand6,		ogre_t_nail8 ] {ai_face();};
+void() ogre_t_nail8=[	$stand7,		ogre_t_nail9	] {ai_face();};
+void() ogre_t_nail9=[	$stand8,		ogre_t_nail10	] {ai_face();};
+void() ogre_t_nail10=[$stand9,		ogre_t_nail1	] {ai_run(0);};
+// void() ogre_t_nail10=[$stand9,		ogre_t_nail1	] {ai_face();};
+////////////////////////
+//end ogre_t_nail
+///////////////////////
 void()	ogre_pain1	=[	$pain1,		ogre_pain2	] {};
 void()	ogre_pain2	=[	$pain2,		ogre_pain3	] {};
 void()	ogre_pain3	=[	$pain3,		ogre_pain4	] {};
@@ -1223,6 +1242,7 @@ void() monster_ogre =
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre_nail1;
+	self.th_turret = ogre_t_nail1; //dumptruck_ds
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = ogre_pain;
 	else

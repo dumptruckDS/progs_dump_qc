@@ -479,6 +479,7 @@ float	AS_STRAIGHT		= 1;
 float	AS_SLIDING		= 2;
 float	AS_MELEE		= 3;
 float	AS_MISSILE		= 4;
+float	AS_TURRET		= 5;
 
 //
 // player only fields
@@ -1002,3 +1003,4 @@ nosave float gamestarted;
 .float hurt_nextthink;
 // 1998-07-03 hurt_touch fix by Robert Field  end
 float I_AM_TURRET = 262144; //dumptruck_ds
+.void() th_turret;

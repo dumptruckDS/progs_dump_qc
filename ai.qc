@@ -275,7 +275,10 @@ void() ChangeYaw =
 void() HuntTarget =
 {
 	self.goalentity = self.enemy;
+	// if !(self.spawnflags & I_AM_TURRET)
 	self.think = self.th_run;
+	// else
+	// self.think = self.th_turret;
 	self.ideal_yaw = vectoyaw(self.enemy.origin - self.origin);
 	self.nextthink = time + 0.1;
 	SUB_AttackFinished (1);	// wait a while before first attack
@@ -668,8 +671,15 @@ void() ai_run_missile =
 	ChangeYaw ();
 	if (FacingIdeal())
 	{
-		self.th_missile ();dprint("th_missile\n");
-		self.attack_state = AS_STRAIGHT;
+		if (self.spawnflags & I_AM_TURRET)
+			{
+				self.th_turret();dprint("th_turret...\n");
+			}
+		else
+			{
+				self.th_missile ();dprint("th_missile\n");
+				self.attack_state = AS_STRAIGHT;
+			}
 	}
 };
 
@@ -750,12 +760,19 @@ void(float dist) ai_run =
 	enemy_range = range(self.enemy);
 	enemy_yaw = vectoyaw(self.enemy.origin - self.origin);
 
+	if (self.spawnflags & I_AM_TURRET)
+		{
+			ai_face ();
+		}
+
+	// if ((self.attack_state == AS_MISSILE) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_MISSILE)
 	{
 		dprint ("ai_run_missile... from ai_run\n");
 		ai_run_missile ();
 		return;
 	}
+	// if ((self.attack_state == AS_MELEE) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_MELEE)
 	{
 //dprint ("ai_run_melee\n");
@@ -766,6 +783,7 @@ void(float dist) ai_run =
 	if (CheckAnyAttack ())
 		return;					// beginning an attack
 
+	// if ((self.attack_state == AS_SLIDING) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_SLIDING)
 	{
 		ai_run_slide ();

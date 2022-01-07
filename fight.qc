@@ -70,7 +70,7 @@ float() CheckAttack =
 
 	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
 		{
-			self.th_missile ();
+			self.th_missile ();dprint("CheckAttack...");
 			SUB_AttackFinished (2*random());
 			return TRUE;
 		}
@@ -393,6 +393,15 @@ float() OgreCheckAttack =
 	{
 		return FALSE;	// don't have a clear shot
 	}
+
+	if ((self.spawnflags & I_AM_TURRET) && (trace_ent != targ))
+	{
+		dprint("trace_ent...\n");
+		self.attack_state = AS_MISSILE;
+		// self.attack_state = AS_TURRET;
+		return FALSE;
+	}
+
 
 // missile attack
 	if (time < self.attack_finished)
