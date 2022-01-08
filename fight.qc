@@ -389,17 +389,17 @@ float() OgreCheckAttack =
 	if (trace_inopen && trace_inwater)
 		return FALSE;			// sight line crossed contents
 
-	if (trace_ent != targ)
-	{
-		return FALSE;	// don't have a clear shot
-	}
-
 	if ((self.spawnflags & I_AM_TURRET) && (trace_ent != targ))
 	{
 		dprint("trace_ent...\n");
 		self.attack_state = AS_MISSILE;
 		// self.attack_state = AS_TURRET;
 		return FALSE;
+	}
+
+	if (trace_ent != targ)
+	{
+		return FALSE;	// don't have a clear shot
 	}
 
 
