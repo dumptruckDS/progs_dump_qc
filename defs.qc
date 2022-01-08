@@ -1001,3 +1001,22 @@ nosave float gamestarted;
 .float hurt_together_time;
 .float hurt_nextthink;
 // 1998-07-03 hurt_touch fix by Robert Field  end
+//================= Inky added properties =================
+.float decap;			//Used by func_train_nk & func_puppet
+/*
+.float level;			//Used by func_train_nk
+.entity movechain;		//Used by func_train_nk
+.string mtargetname;	//Used by func_train_nk
+.vector offset;			//Used by func_train_nk
+.float thingtype;		//Used by func_train_nk
+*/
+.float anglespeed;		//Used by func_newplat
+.float angletime;		//Used by func_newplat
+// .float lifetime;		//Used by func_newplat
+// .float movetime;		//Used by func_newplat
+// .float soundtype;		//Used by func_newplat
+// .float inactive;		//Used by triggers
+// .void() action1;		//Used by trigger_action
+// .void() action2;		//Used by trigger_action
+// .entity cameramode;		//Used by camera_remote
+// .float camera_time;		//Used by camera_remote
