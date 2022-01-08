@@ -70,7 +70,8 @@ float() CheckAttack =
 
 	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
 		{
-			self.th_missile ();dprint("CheckAttack...");
+			self.th_missile ();
+			// dprint("CheckAttack...");
 			SUB_AttackFinished (2*random());
 			return TRUE;
 		}
@@ -361,7 +362,13 @@ float() OgreCheckAttack =
 	local entity	targ;
 	local float		chance;
 
-	dprint("OgreCheckAttack\n");
+	// dprint("OgreCheckAttack\n");
+	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
+		{
+			self.attack_state = AS_MISSILE;
+			SUB_AttackFinished (2 + 2*random());
+			return TRUE;
+		}
 
 	if (enemy_range == RANGE_MELEE)
 	{
@@ -391,9 +398,8 @@ float() OgreCheckAttack =
 
 	if ((self.spawnflags & I_AM_TURRET) && (trace_ent != targ))
 	{
-		dprint("trace_ent...\n");
-		self.attack_state = AS_MISSILE;
-		// self.attack_state = AS_TURRET;
+		// dprint("trace_ent...\n");
+		self.attack_state = AS_TURRET;
 		return FALSE;
 	}
 

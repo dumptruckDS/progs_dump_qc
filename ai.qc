@@ -275,10 +275,7 @@ void() ChangeYaw =
 void() HuntTarget =
 {
 	self.goalentity = self.enemy;
-	// if !(self.spawnflags & I_AM_TURRET)
 	self.think = self.th_run;
-	// else
-	// self.think = self.th_turret;
 	self.ideal_yaw = vectoyaw(self.enemy.origin - self.origin);
 	self.nextthink = time + 0.1;
 	SUB_AttackFinished (1);	// wait a while before first attack
@@ -667,19 +664,22 @@ Turn in place until within an angle to launch a missile attack
 */
 void() ai_run_missile =
 {
-	self.ideal_yaw = enemy_yaw; dprint("ai_run_missile GO\n");
+	self.ideal_yaw = enemy_yaw;
+	// dprint("ai_run_missile GO\n");
 	ChangeYaw ();
 	if (FacingIdeal())
 	{
 		if (self.spawnflags & I_AM_TURRET)
 			{
-				self.th_turret();dprint("th_turret...\n");
+				self.th_turret();
+				// dprint("th_turret...\n");
 			}
 		else
 			{
-				self.th_missile ();dprint("th_missile\n");
-				self.attack_state = AS_STRAIGHT;
+				self.th_missile ();
+				// dprint("th_missile\n");
 			}
+			self.attack_state = AS_STRAIGHT;
 	}
 };
 
@@ -720,7 +720,7 @@ The monster has an enemy it is trying to kill
 */
 void(float dist) ai_run =
 {
-	dprint("ai_run\n");
+	// dprint("ai_run\n");
 	movedist = dist;
 // see if the enemy is dead
 	if ((self.enemy.health <= 0) || (self.spawnflags & PASSIVE_ALWAYS))
@@ -768,7 +768,7 @@ void(float dist) ai_run =
 	// if ((self.attack_state == AS_MISSILE) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_MISSILE)
 	{
-		dprint ("ai_run_missile... from ai_run\n");
+		// dprint ("ai_run_missile... from ai_run\n");
 		ai_run_missile ();
 		return;
 	}
