@@ -621,7 +621,7 @@ float() CheckAnyAttack =
 		return FALSE;
 	if (self.classname == "monster_army")
 		return SoldierCheckAttack ();
-	if (self.classname == "monster_ogre")
+	if ((self.classname == "monster_ogre") || (self.classname == "monster_ogre_marksman"))
 		return OgreCheckAttack ();
 	if (self.classname == "monster_shambler")
 		return ShamCheckAttack ();

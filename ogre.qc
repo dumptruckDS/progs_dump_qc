@@ -848,6 +848,30 @@ self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origi
 void() ogre2_nail4   =[  $shoot3,        ogre_nail5  ] {ai_face();
 	PreachFireGrenade(self.attack_elevation);
 };
+// Preach tutorial alternate animation frames for monster_ogre_marksman -- dumptruck_ds
+// these are for the turret version of monster_ogre_marksman
+.float attack_elevation;
+void() ogre2_turret_attack1 =[  $shoot1,        ogre2_turret_attack2  ] {ai_face();
+self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void() ogre2_turret_attack2   =[  $shoot2,        ogre2_turret_attack3  ] {ai_face();
+self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() ogre2_turret_attack3   =[  $shoot2,        ogre2_turret_attack4  ] {ai_face();
+self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() ogre2_turret_attack4   =[  $shoot3,        ogre2_turret_attack5  ] {ai_face();
+	PreachFireGrenade(self.attack_elevation);};
+void() ogre2_turret_attack5   =[  $shoot4,        ogre2_turret_attack6  ] {ai_face();};
+void() ogre2_turret_attack6   =[  $shoot5,        ogre2_turret_attack7  ] {ai_face();};
+void() ogre2_turret_attack7   =[  $shoot6,        ogre2__turret_seek1  ] {ai_face();};
+void() ogre2__turret_seek1	=[	$stand1,	ogre2__turret_seek2	] {ai_run(0);};
+void() ogre2__turret_seek2	=[	$stand2,	ogre2__turret_seek3	] {ai_run(0);};
+void() ogre2__turret_seek3	=[	$stand3,	ogre2__turret_seek4	] {ai_run(0);};
+void() ogre2__turret_seek4	=[	$stand4,	ogre2__turret_seek5	] {ai_run(0);};
+void() ogre2__turret_seek5	=[	$stand5,	ogre2__turret_seek1	] {
+if (random() < 0.2)
+	sound_idle (self, CHAN_VOICE, "ogre/ogidle.wav", 1, ATTN_IDLE);
+	ai_run(0);
+};
+
 //end Preach -- dumptruck_ds
 void() ogre_nail1	=[	$shoot1,		ogre_nail2	] {ai_face();};
 void() ogre_nail2	=[	$shoot2,		ogre_nail3	] {ai_face();};
@@ -1389,6 +1413,7 @@ void() monster_ogre_marksman =
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre2_nail1;
+	self.th_turret = ogre2_turret_attack1; //dumptruck_ds
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = ogre_pain;
 	else
