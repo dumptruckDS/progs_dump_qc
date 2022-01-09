@@ -292,7 +292,6 @@ float() SoldierCheckAttack =
 	if (trace_ent != targ)
 		return FALSE;	// don't have a clear shot
 
-
 // missile attack
 	if (time < self.attack_finished)
 		return FALSE;
@@ -345,6 +344,13 @@ float() ShamCheckAttack =
 		}
 	}
 
+	if (self.spawnflags & I_AM_TURRET)
+		{
+			self.attack_state = AS_MISSILE;
+			SUB_AttackFinished (2 + 2*random());
+			return TRUE;
+		}
+
 	if (time < self.attack_finished)
 		return FALSE;
 
@@ -365,6 +371,12 @@ float() ShamCheckAttack =
 	if (trace_inopen && trace_inwater)
 		return FALSE;			// sight line crossed contents
 
+	if ((self.spawnflags & I_AM_TURRET) && (trace_ent != targ))
+	{
+		// dprint("trace_ent...\n");
+		self.attack_state = AS_TURRET;
+		return FALSE;
+	}
 	if (trace_ent != targ)
 	{
 		return FALSE;	// don't have a clear shot

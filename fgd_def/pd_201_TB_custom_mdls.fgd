@@ -801,7 +801,7 @@ snd_death(string) : "Path to custom death sound" : : "Path to custom death sound
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/shambler.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_shambler : "Shambler
+@PointClass base(Monster, Berserk, CustomMdlsWizSham, Turret) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/shambler.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_shambler : "Shambler
 
 Default health = 600"
 [

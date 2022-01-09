@@ -114,12 +114,12 @@ void(entity attacker, float damage) shalrath_pain =
 	if (self.pain_finished > time)
 		return;
 
-	if (self.spawnflags & I_AM_TURRET)
-		return;
-
-	sound_pain (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
-	shal_pain1();
+	sound_pain (self, CHAN_AUTO, "shalrath/pain.wav", 1, ATTN_NORM); //CHAN_AUTO was voice - dumptruck_ds
 	self.pain_finished = time + 3;
+	if (self.spawnflags & I_AM_TURRET)
+	return;
+	else
+	shal_pain1();
 };
 
 void() shalrath_die =

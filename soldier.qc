@@ -279,31 +279,37 @@ void(entity attacker, float damage)	army_pain =
 {
 	local float r;
 
-	if (self.spawnflags & I_AM_TURRET)
-		return;
-
 	if (self.pain_finished > time)
 		return;
 
 	r = random();
 
 	if (r < 0.2)
-	{
+	{  // turret checks moved here to play pain sounds correctly - dumptruck_ds
 		self.pain_finished = time + 0.6;
-		army_pain1 ();
 		sound_pain (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
+		if (self.spawnflags & I_AM_TURRET)
+			return;
+		else
+		army_pain1 ();
 	}
 	else if (r < 0.6)
 	{
 		self.pain_finished = time + 1.1;
-		army_painb1 ();
 		sound_misc (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+		if (self.spawnflags & I_AM_TURRET)
+			return;
+		else
+		army_painb1 ();
 	}
 	else
 	{
 		self.pain_finished = time + 1.1;
-		army_painc1 ();
 		sound_misc (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+		if (self.spawnflags & I_AM_TURRET)
+			return;
+		else
+		army_painc1 ();
 	}
 };
 

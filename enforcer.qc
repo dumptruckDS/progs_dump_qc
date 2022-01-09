@@ -545,9 +545,6 @@ void(entity attacker, float damage)	enf_pain =
 	if (self.pain_finished > time)
 		return;
 
-	if (self.spawnflags & I_AM_TURRET)
-		return;
-
 	if (r < 0.5)
 		sound_pain (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM); //dumptruck_ds
 	else
@@ -556,21 +553,34 @@ void(entity attacker, float damage)	enf_pain =
 	if (r < 0.2)
 	{
 		self.pain_finished = time + 1;
+		// moved these here to avoid spamming pain sounds - dumptruck_ds
+		if (self.spawnflags & I_AM_TURRET)
+		return;
+		else
 		enf_paina1 ();
 	}
 	else if (r < 0.4)
 	{
 		self.pain_finished = time + 1;
+		if (self.spawnflags & I_AM_TURRET)
+		return;
+		else
 		enf_painb1 ();
 	}
 	else if (r < 0.7)
 	{
 		self.pain_finished = time + 1;
+		if (self.spawnflags & I_AM_TURRET)
+		return;
+		else
 		enf_painc1 ();
 	}
 	else
 	{
 		self.pain_finished = time + 2;
+		if (self.spawnflags & I_AM_TURRET)
+		return;
+		else
 		enf_paind1 ();
 	}
 };
