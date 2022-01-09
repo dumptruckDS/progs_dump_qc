@@ -454,11 +454,13 @@ float() FindTarget =
 
 void(float dist) ai_forward =
 {
+	// dprint("ai_forward\n");
 	walkmove (self.angles_y, dist);
 };
 
 void(float dist) ai_back =
 {
+	// dprint("ai_back\n");
 	walkmove ( (self.angles_y+180), dist);
 };
 
@@ -472,6 +474,7 @@ stagger back a bit
 */
 void(float dist) ai_pain =
 {
+
 	ai_back (dist);
 /*
 	local float	away;
@@ -492,6 +495,7 @@ stagger back a bit
 */
 void(float dist) ai_painforward =
 {
+	// dprint("ai_painforward\n");
 	walkmove (self.ideal_yaw, dist);
 };
 

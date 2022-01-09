@@ -60,6 +60,21 @@ float() CheckAttack =
 	local entity	targ;
 	local float		chance;
 
+	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
+		{
+			// dprint("CheckAttack...\n");
+			if ((self.classname) == ("monster_enforcer"))
+				{
+					self.attack_state = AS_MISSILE;
+				}
+			else if ((self.classname) == ("monster_shalrath"))
+				{
+					self.th_turret ();
+				}
+			SUB_AttackFinished (2*random());
+			return TRUE;
+		}
+
 	targ = self.enemy;
 
 // see if any entities are in the way of the shot
@@ -68,18 +83,18 @@ float() CheckAttack =
 
 	traceline (spot1, spot2, FALSE, self);
 
-	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
-		{
-			self.th_missile ();
-			// dprint("CheckAttack...");
-			SUB_AttackFinished (2*random());
-			return TRUE;
-		}
-	if (trace_ent != targ)
-		return FALSE;		// don't have a clear shot
+	if ((self.spawnflags & I_AM_TURRET) && (trace_ent != targ))
+	{
+		// dprint("trace_ent...\n");
+		self.attack_state = AS_TURRET;
+		return FALSE;
+	}
 
 	if (trace_inopen && trace_inwater)
-		return FALSE;			// sight line crossed contents
+	return FALSE;			// sight line crossed contents
+
+	if (trace_ent != targ)
+		return FALSE;		// don't have a clear shot
 
 	if (enemy_range == RANGE_MELEE)
 	{	// melee attack
@@ -245,6 +260,17 @@ float() SoldierCheckAttack =
 	local entity	targ;
 	local float		chance;
 
+	// dprint("SoldierAttack\n");
+	if (self.spawnflags & I_AM_TURRET) //dumptruck_ds
+		{
+			// self.th_turret ();
+			self.attack_state = AS_MISSILE;
+			SUB_AttackFinished (1 + random());
+			if (random() < 0.3)
+				self.lefty = !self.lefty;
+			return TRUE;
+		}
+
 	targ = self.enemy;
 
 // see if any entities are in the way of the shot
@@ -255,6 +281,13 @@ float() SoldierCheckAttack =
 
 	if (trace_inopen && trace_inwater)
 		return FALSE;			// sight line crossed contents
+
+	if ((self.spawnflags & I_AM_TURRET) && (trace_ent != targ))
+	{
+		// dprint("trace_ent...\n");
+		self.attack_state = AS_TURRET;
+		return FALSE;
+	}
 
 	if (trace_ent != targ)
 		return FALSE;	// don't have a clear shot

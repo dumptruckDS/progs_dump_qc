@@ -861,16 +861,20 @@ void() ogre2_turret_attack4   =[  $shoot3,        ogre2_turret_attack5  ] {ai_fa
 	PreachFireGrenade(self.attack_elevation);};
 void() ogre2_turret_attack5   =[  $shoot4,        ogre2_turret_attack6  ] {ai_face();};
 void() ogre2_turret_attack6   =[  $shoot5,        ogre2_turret_attack7  ] {ai_face();};
-void() ogre2_turret_attack7   =[  $shoot6,        ogre2__turret_seek1  ] {ai_face();};
-void() ogre2__turret_seek1	=[	$stand1,	ogre2__turret_seek2	] {ai_run(0);};
-void() ogre2__turret_seek2	=[	$stand2,	ogre2__turret_seek3	] {ai_run(0);};
-void() ogre2__turret_seek3	=[	$stand3,	ogre2__turret_seek4	] {ai_run(0);};
-void() ogre2__turret_seek4	=[	$stand4,	ogre2__turret_seek5	] {ai_run(0);};
-void() ogre2__turret_seek5	=[	$stand5,	ogre2__turret_seek1	] {
+void() ogre2_turret_attack7   =[  $shoot6,        ogre2_turret_seek1  ] {ai_face();};
+void() ogre2_turret_seek1	=[	$stand1,	ogre2_turret_seek2	] {ai_run(0);};
+void() ogre2_turret_seek2	=[	$stand2,	ogre2_turret_seek3	] {ai_run(0);};
+void() ogre2_turret_seek3	=[	$stand3,	ogre2_turret_seek4	] {ai_run(0);};
+void() ogre2_turret_seek4	=[	$stand4,	ogre2_turret_seek5	] {ai_run(0);};
+void() ogre2_turret_seek5	=[	$stand5,	ogre2_turret_seek6	] {
 if (random() < 0.2)
 	sound_idle (self, CHAN_VOICE, "ogre/ogidle.wav", 1, ATTN_IDLE);
 	ai_run(0);
 };
+void() ogre2_turret_seek6	=[	$stand6,	ogre2_turret_seek7	] {ai_run(0);};
+void() ogre2_turret_seek7	=[	$stand7,	ogre2_turret_seek8	] {ai_run(0);};
+void() ogre2_turret_seek8	=[	$stand8,	ogre2_turret_seek9	] {ai_run(0);};
+void() ogre2_turret_seek9	=[	$stand9,	ogre2_turret_seek1	] {ai_run(0);};
 
 //end Preach -- dumptruck_ds
 void() ogre_nail1	=[	$shoot1,		ogre_nail2	] {ai_face();};
@@ -938,20 +942,20 @@ void() ogre_turret_attack4	=[	$shoot3,		ogre_turret_attack5	] {ai_face();
 void() ogre_turret_attack5	=[	$shoot4,		ogre_turret_attack6	] {ai_face();};
 
 void() ogre_turret_attack6=[	$shoot5,	ogre_turret_attack7	] {ai_face();};
-void() ogre_turret_attack7=[	$shoot6,	ogre__turret_seek1	] {ai_face();};
-void() ogre__turret_seek1	=[	$stand1,	ogre__turret_seek2	] {ai_run(0);};
-void() ogre__turret_seek2	=[	$stand2,	ogre__turret_seek3	] {ai_run(0);};
-void() ogre__turret_seek3	=[	$stand3,	ogre__turret_seek4	] {ai_run(0);};
-void() ogre__turret_seek4	=[	$stand4,	ogre__turret_seek5	] {ai_run(0);};
-void() ogre__turret_seek5	=[	$stand5,	ogre__turret_seek1	] {
+void() ogre_turret_attack7=[	$shoot6,	ogre_turret_seek1	] {ai_face();};
+void() ogre_turret_seek1	=[	$stand1,	ogre_turret_seek2	] {ai_run(0);};
+void() ogre_turret_seek2	=[	$stand2,	ogre_turret_seek3	] {ai_run(0);};
+void() ogre_turret_seek3	=[	$stand3,	ogre_turret_seek4	] {ai_run(0);};
+void() ogre_turret_seek4	=[	$stand4,	ogre_turret_seek5	] {ai_run(0);};
+void() ogre_turret_seek5	=[	$stand5,	ogre_turret_seek6	] {
 if (random() < 0.2)
 	sound_idle (self, CHAN_VOICE, "ogre/ogidle.wav", 1, ATTN_IDLE);
 	ai_run(0);
 };
-// void() ogre__turret_seek6	=[	$stand6,	ogre__turret_seek7	] {ai_run(0);};
-// void() ogre__turret_seek7	=[	$stand7,	ogre__turret_seek8	] {ai_run(0);};
-// void() ogre__turret_seek8	=[	$stand8,	ogre__turret_seek9	] {ai_run(0);};
-// void() ogre__turret_seek9	=[	$stand9,	ogre__turret_seek1	] {ai_run(0);};
+void() ogre_turret_seek6	=[	$stand6,	ogre_turret_seek7	] {ai_run(0);};
+void() ogre_turret_seek7	=[	$stand7,	ogre_turret_seek8	] {ai_run(0);};
+void() ogre_turret_seek8	=[	$stand8,	ogre_turret_seek9	] {ai_run(0);};
+void() ogre_turret_seek9	=[	$stand9,	ogre_turret_seek1	] {ai_run(0);};
 ////////////////////////
 //turret frames END
 ///////////////////////
@@ -1015,6 +1019,9 @@ void(entity attacker, float damage)	ogre_pain =
 
 // don't make multiple pain sounds right after each other
 	if (self.pain_finished > time)
+		return;
+
+	if (self.spawnflags & I_AM_TURRET)
 		return;
 
 	sound_pain (self, CHAN_VOICE, "ogre/ogpain1.wav", 1, ATTN_NORM);

@@ -214,6 +214,12 @@ state(choices) =
 	]
 ]
 
+@baseclass = Turret [
+	spawnflags(flags) = [
+		262144 : "Turret Mode" : 0
+	]
+]
+
 //////////////////////
 // end dumptruck_ds //
 //////////////////////
@@ -649,7 +655,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	]
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl"}) = monster_army : "Grunt
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl"}) = monster_army : "Grunt
 
 Default health = 30"
 [
@@ -679,7 +685,7 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl"}) = monster_ogre : "Ogre
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl"}) = monster_ogre : "Ogre
 
 Default health = 200"
 [
@@ -702,7 +708,7 @@ style(Choices) : "Attack type" =
 	]
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
 
 Default health = 200
 
@@ -796,7 +802,7 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_move(string) : "Path to custom rising and lowering sound" : : "Path to custom rising and lowering sound"
 ]
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl"}) = monster_enforcer : "Enforcer
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl"}) = monster_enforcer : "Enforcer
 
 Default health = 80" [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
@@ -819,7 +825,7 @@ snd_misc2(string) : "Path to custom sight sound for HALT!" : : "Path to custom s
 snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain sound"
 ]
 
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl"}) = monster_shalrath : "Vore a.k.a Shalrath
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl"}) = monster_shalrath : "Vore a.k.a Shalrath
 
 Default health = 400"
 [

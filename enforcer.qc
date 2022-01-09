@@ -449,7 +449,53 @@ void()	enf_2atk8	=[	$attack8,	enf_2atk9	] {ai_face();};
 void()	enf_2atk9	=[	$attack9,	enf_2atk10	] {ai_face();};
 void()	enf_2atk10	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_2atk1);
 };
+////////////////////////////
+// new frames for turret mode START
+////////////////////////////
+void()	enf_turret_atk1	=[	$attack1,	enf_turret_atk2	] {ai_face();};
+void()	enf_turret_atk2	=[	$attack2,	enf_turret_atk3	] {ai_face();};
+void()	enf_turret_atk3	=[	$attack3,	enf_turret_atk4	] {ai_face();};
+void()	enf_turret_atk4	=[	$attack4,	enf_turret_atk5	] {ai_face();};
+void()	enf_turret_atk5	=[	$attack5,	enf_turret_atk6	] {ai_face();};
+void()	enf_turret_atk6	=[	$attack6,	enf_turret_atk7	] {enforcer_fire();};
+void()	enf_turret_atk7	=[	$attack7,	enf_turret_atk8	] {ai_face();};
+void()	enf_turret_atk8	=[	$attack8,	enf_turret_atk9	] {ai_face();};
+void()	enf_turret_atk9	=[	$attack5,	enf_turret_atk10	] {ai_face();};
+void()	enf_turret_atk10	=[	$attack6,	enf_turret_atk11	] {enforcer_fire();};
+void()	enf_turret_atk11	=[	$attack7,	enf_turret_atk12	] {ai_face();};
+void()	enf_turret_atk12	=[	$attack8,	enf_turret_atk13	] {ai_face();};
+void()	enf_turret_atk13	=[	$attack9,	enf_turret_atk14	] {ai_face();};
+void()	enf_turret_atk14	=[	$attack10,	enf_seek_stand1	] {ai_face();SUB_CheckRefire (enf_turret_atk1);
+};
+void()	enf_seek_stand1	=[	$stand1,	enf_seek_stand2	] {ai_run(0);};
+void()	enf_seek_stand2	=[	$stand2,	enf_seek_stand3	] {ai_run(0);};
+void()	enf_seek_stand3	=[	$stand3,	enf_seek_stand4	] {ai_run(0);};
+void()	enf_seek_stand4	=[	$stand4,	enf_seek_stand5	] {ai_run(0);};
+void()	enf_seek_stand5	=[	$stand5,	enf_seek_stand6	] {ai_run(0);};
+void()	enf_seek_stand6	=[	$stand6,	enf_seek_stand7	] {ai_run(0);};
+void()	enf_seek_stand7	=[	$stand7,	enf_seek_stand1	] {ai_run(0);};
 
+void()	enf_2turret_atk1	=[	$attack1,	enf_2turret_atk2	] {ai_face();};
+void()	enf_2turret_atk2	=[	$attack2,	enf_2turret_atk3	] {ai_face();};
+void()	enf_2turret_atk3	=[	$attack3,	enf_2turret_atk4	] {ai_face();};
+void()	enf_2turret_atk4	=[	$attack4,	enf_2turret_atk5	] {ai_face();};
+void()	enf_2turret_atk5	=[	$attack5,	enf_2turret_atk6	] {ai_face();};
+void()	enf_2turret_atk6	=[	$attack6,	enf_2turret_atk7	] {enforcer_fire();};
+void()	enf_2turret_atk7	=[	$attack7,	enf_2turret_atk8	] {ai_face();};
+void()	enf_2turret_atk8	=[	$attack8,	enf_2turret_atk9	] {ai_face();};
+void()	enf_2turret_atk9	=[	$attack9,	enf_2turret_atk10	] {ai_face();};
+void()	enf_2turret_atk10	=[	$attack10,	enf_2stand1	] {ai_face();SUB_CheckRefire (enf_2turret_atk1);
+};
+void()	enf_2stand1	=[	$stand1,	enf_2stand2	] {ai_run(0);};
+void()	enf_2stand2	=[	$stand2,	enf_2stand3	] {ai_run(0);};
+void()	enf_2stand3	=[	$stand3,	enf_2stand4	] {ai_run(0);};
+void()	enf_2stand4	=[	$stand4,	enf_2stand5	] {ai_run(0);};
+void()	enf_2stand5	=[	$stand5,	enf_2stand6	] {ai_run(0);};
+void()	enf_2stand6	=[	$stand6,	enf_2stand7	] {ai_run(0);};
+void()	enf_2stand7	=[	$stand7,	enf_2stand1	] {ai_run(0);};
+////////////////////////////
+// new frames for turret mode END
+////////////////////////////
 void()	enf_paina1	=[	$paina1,	enf_paina2	] {};
 void()	enf_paina2	=[	$paina2,	enf_paina3	] {};
 void()	enf_paina3	=[	$paina3,	enf_paina4	] {};
@@ -495,9 +541,12 @@ void(entity attacker, float damage)	enf_pain =
 	local float r;
 
 	r = random ();
+
 	if (self.pain_finished > time)
 		return;
 
+	if (self.spawnflags & I_AM_TURRET)
+		return;
 
 	if (r < 0.5)
 		sound_pain (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM); //dumptruck_ds
@@ -740,6 +789,9 @@ void() monster_enforcer =
 		remove(self);
 		return;
 	}
+	if (self.style >= 4)
+		objerror("style key set too high\n");
+
 	precache_body_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
 	precache_head_model2 ("progs/h_mega.mdl");
 	precache_proj_model2 ("progs/laser.mdl");
@@ -782,18 +834,34 @@ void() monster_enforcer =
 	self.th_die = enf_die;
 	if (self.style == 1) // new animation frame check -- dumptruck_ds
 		{
+			if (self.spawnflags & I_AM_TURRET)
+				{
+					self.th_turret = enf_2turret_atk1;
+				}
 			self.th_missile = enf_2atk1;
 		}
 	if (self.style == 2) // new animation frame check -- dumptruck_ds
 		{
+			if (self.spawnflags & I_AM_TURRET)
+			{
+				self.th_turret = enf_2turret_atk1;
+			}
 			self.th_missile = enf_2atk1;
 		}
 	if (self.style == 3) // new animation frame check -- dumptruck_ds
 		{
+			if (self.spawnflags & I_AM_TURRET)
+			{
+				self.th_turret = enf_turret_atk1;
+			}
 			self.th_missile = enf_atk1;
 		}
 	if (self.style == 0) // new animation frame check -- dumptruck_ds
 		{
+			if (self.spawnflags & I_AM_TURRET)
+			{
+				self.th_turret = enf_turret_atk1;
+			}
 			self.th_missile = enf_atk1;
 		}
 	walkmonster_start();

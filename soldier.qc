@@ -217,6 +217,26 @@ void()	army_atk6	=[	$shoot6,	army_atk7	] {ai_face();};
 void()	army_atk7	=[	$shoot7,	army_atk8	] {ai_face();SUB_CheckRefire (army_atk1);};
 void()	army_atk8	=[	$shoot8,	army_atk9	] {ai_face();};
 void()	army_atk9	=[	$shoot9,	army_run1	] {ai_face();};
+// new frames for turrets
+void()	army_turret_atk1	=[	$shoot1,	army_turret_atk2	] {ai_face();};
+void()	army_turret_atk2	=[	$shoot2,	army_turret_atk3	] {ai_face();};
+void()	army_turret_atk3	=[	$shoot3,	army_turret_atk4	] {ai_face();};
+void()	army_turret_atk4	=[	$shoot4,	army_turret_atk5	] {ai_face();};
+void()	army_turret_atk5	=[	$shoot5,	army_turret_atk6	] {ai_face();army_fire();
+self.effects = self.effects | EF_MUZZLEFLASH;};
+void()	army_turret_atk6	=[	$shoot6,	army_turret_atk7	] {ai_face();};
+void()	army_turret_atk7	=[	$shoot7,	army_turret_atk8	] {ai_face();SUB_CheckRefire (army_atk1);};
+void()	army_turret_atk8	=[	$shoot8,	army_turret_atk9	] {ai_face();};
+void()	army_turret_atk9	=[	$shoot9,	army_seeking_stand1	] {ai_face();};
+void()	army_seeking_stand1	=[	$stand1,	army_seeking_stand2	] {ai_run(0);};
+void()	army_seeking_stand2	=[	$stand2,	army_seeking_stand3	] {ai_run(0);};
+void()	army_seeking_stand3	=[	$stand3,	army_seeking_stand4	] {ai_run(0);};
+void()	army_seeking_stand4	=[	$stand4,	army_seeking_stand5	] {ai_run(0);};
+void()	army_seeking_stand5	=[	$stand5,	army_seeking_stand6	] {ai_run(0);};
+void()	army_seeking_stand6	=[	$stand6,	army_seeking_stand7	] {ai_run(0);};
+void()	army_seeking_stand7	=[	$stand7,	army_seeking_stand8	] {ai_run(0);};
+void()	army_seeking_stand8	=[	$stand8,	army_seeking_stand1	] {ai_run(0);};
+
 
 
 void()	army_pain1	=[	$pain1,		army_pain2	] {};
@@ -258,6 +278,9 @@ void()	army_painc13=[	$painc13,	army_run1] {};
 void(entity attacker, float damage)	army_pain =
 {
 	local float r;
+
+	if (self.spawnflags & I_AM_TURRET)
+		return;
 
 	if (self.pain_finished > time)
 		return;
@@ -579,6 +602,7 @@ void() monster_army =
 	self.th_walk = army_walk1;
 	self.th_run = army_run1;
 	self.th_missile = army_atk1;
+	self.th_turret = army_turret_atk1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = army_pain;
 	else
