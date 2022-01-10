@@ -339,6 +339,34 @@ void()	hknight_magicc9 =[	$magicc9,	hknight_magicc10] {hknight_shot(1);};
 void()	hknight_magicc10 =[	$magicc10,	hknight_magicc11] {hknight_shot(2);};
 void()	hknight_magicc11 =[	$magicc11,	hknight_run1] {hknight_shot(3);};
 
+//============================================================================
+/////////////////////////
+////// turret frames START
+/////////////////////////
+void()	hknight_turret_magicc1 =[	$magicc1,	hknight_turret_magicc2	] {ai_face();};
+void()	hknight_turret_magicc2 =[	$magicc2,	hknight_turret_magicc3	] {ai_face();};
+void()	hknight_turret_magicc3 =[	$magicc3,	hknight_turret_magicc4	] {ai_face();};
+void()	hknight_turret_magicc4 =[	$magicc4,	hknight_turret_magicc5	] {ai_face();};
+void()	hknight_turret_magicc5 =[	$magicc5,	hknight_turret_magicc6	] {ai_face();};
+void()	hknight_turret_magicc6 =[	$magicc6,	hknight_turret_magicc7	] {hknight_shot(-2);};
+void()	hknight_turret_magicc7 =[	$magicc7,	hknight_turret_magicc8	] {hknight_shot(-1);};
+void()	hknight_turret_magicc8 =[	$magicc8,	hknight_turret_magicc9	] {hknight_shot(0);};
+void()	hknight_turret_magicc9 =[	$magicc9,	hknight_turret_magicc10] {hknight_shot(1);};
+void()	hknight_turret_magicc10 =[ $magicc10,	hknight_turret_magicc11] {hknight_shot(2);};
+void()	hknight_turret_magicc11 =[ $magicc11,	hknight_seek_stand1] {hknight_shot(3);};
+void()	hknight_seek_stand1	=[	$stand1,	hknight_seek_stand2	] {ai_run(0);};
+void()	hknight_seek_stand2	=[	$stand2,	hknight_seek_stand3	] {ai_run(0);};
+void()	hknight_seek_stand3	=[	$stand3,	hknight_seek_stand4	] {ai_run(0);};
+void()	hknight_seek_stand4	=[	$stand4,	hknight_seek_stand5	] {ai_run(0);};
+void()	hknight_seek_stand5	=[	$stand5,	hknight_seek_stand6	] {ai_run(0);};
+void()	hknight_seek_stand6	=[	$stand6,	hknight_seek_stand7	] {ai_run(0);};
+void()	hknight_seek_stand7	=[	$stand7,	hknight_seek_stand8	] {ai_run(0);};
+void()	hknight_seek_stand8	=[	$stand8,	hknight_seek_stand9	] {ai_run(0);};
+void()	hknight_seek_stand9	=[	$stand9,	hknight_seek_stand1	] {ai_run(0);};
+/////////////////////////
+////// turret frames END
+/////////////////////////
+
 //===========================================================================
 
 void()	hknight_char_a1	=[	$char_a1,	hknight_char_a2	] {ai_charge(20);};
@@ -430,8 +458,22 @@ void() hk_idle_sound =
 
 void(entity attacker, float damage)	hknight_pain =
 {
+	local float r;
+
+	r = random();
+
 	if (self.pain_finished > time)
 		return;
+
+	if (self.spawnflags & I_AM_TURRET)
+	{
+		if (r < 0.5)
+		{
+			self.pain_finished = time + 1.5;
+			sound_pain (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);
+		}
+		return;
+	}
 
 	sound_pain (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM);
 
@@ -589,6 +631,7 @@ void() monster_hell_knight =
 	self.th_run = hknight_run1;
 	self.th_melee = hknight_melee;
 	self.th_missile = hknight_magicc1;
+	self.th_turret = hknight_turret_magicc1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = hknight_pain;
 	else

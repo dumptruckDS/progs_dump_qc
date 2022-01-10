@@ -598,7 +598,7 @@ snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : : "Path to custom so
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight, Default health = 250"
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight, Default health = 250"
 [
 projexpl(Choices) : "Exploding projectiles" =
   [
@@ -756,7 +756,7 @@ skin_proj(float) : "Path to custom projectile skin"
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie, Default health = 60. If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
+@PointClass base(Monster, CustomMdls, Turret) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie, Default health = 60. If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"

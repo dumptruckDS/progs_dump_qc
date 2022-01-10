@@ -29,7 +29,7 @@ void() ai_face;
 
 float	enemy_vis, enemy_infront, enemy_range;
 float	enemy_yaw;
-
+void() zombie_turret_missile;
 
 void() knight_attack =
 {
@@ -67,9 +67,19 @@ float() CheckAttack =
 				{
 					self.attack_state = AS_MISSILE;
 				}
+			else if ((self.classname) == ("monster_hell_knight"))
+				{
+					// self.attack_state = AS_MISSILE;
+					self.th_turret ();
+				}
 			else if ((self.classname) == ("monster_shalrath"))
 				{
 					self.th_turret ();
+				}
+			else if ((self.classname) == ("monster_zombie"))
+				{
+					// dprint("CheckAttack...\n");
+					zombie_turret_missile();
 				}
 			SUB_AttackFinished (2*random());
 			return TRUE;
