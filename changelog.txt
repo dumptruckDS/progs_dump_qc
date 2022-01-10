@@ -21,6 +21,8 @@
 * Added PASSIVE_ALWAYS and PASSIVE_UNTIL_ATTACKED spawnflags to monsters
 * Added Looping spawnflag to play_sound_triggered which causes triggered,
   looping sounds to restart after a save (bmFbr)
+* Added Turret Mode spawnflag for Grunts, Enforcers, Ogres, Ogre Marksmen,
+  Hellknight, Shalrath, Shamblers and Zombies. (dumptruck_ds, ILike80sRock)
 
 2.0.1 March 2021
 
