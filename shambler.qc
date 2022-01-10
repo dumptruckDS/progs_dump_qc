@@ -272,8 +272,74 @@ if (skill == 3)
 	CastLightning();
 };
 void() sham_magic12    =[      $magic12,      sham_run1	   ] {};
+/////////////////////////
+//// turret  start
+////////////////////////
+void() sham_turret_magic1     =[      $magic1,       sham_turret_magic2    ] {ai_face();
+	sound_misc1 (self, CHAN_WEAPON, "shambler/sattck1.wav", 1, ATTN_NORM);
+};
+void() sham_turret_magic2     =[      $magic2,       sham_turret_magic3    ] {ai_face();};
+void() sham_turret_magic3     =[      $magic3,       sham_turret_magic4    ] {ai_face();self.nextthink = time + 0.2;
+local entity o;
 
-
+self.effects = self.effects | EF_MUZZLEFLASH;
+ai_face();
+self.trigger_field = spawn();
+o = self.trigger_field;
+setmodel (o, "progs/s_light.mdl");
+setorigin (o, self.origin);
+o.owner = self;
+o.angles = self.angles;
+o.nextthink = time + 0.7;
+o.think = sham_arc_think;
+};
+void() sham_turret_magic4     =[      $magic4,       sham_turret_magic5    ]
+{
+self.effects = self.effects | EF_MUZZLEFLASH;
+self.trigger_field.frame = 1;
+};
+void() sham_turret_magic5     =[      $magic5,       sham_turret_magic6    ]
+{
+self.effects = self.effects | EF_MUZZLEFLASH;
+self.trigger_field.frame = 2;
+};
+void() sham_turret_magic6     =[      $magic6,       sham_turret_magic9    ]
+{
+remove (self.trigger_field);
+self.trigger_field = world;
+CastLightning();
+sound_misc2 (self, CHAN_WEAPON, "shambler/sboom.wav", 1, ATTN_NORM);
+};
+void() sham_turret_magic9     =[      $magic9,       sham_turret_magic10   ]
+{CastLightning();};
+void() sham_turret_magic10    =[      $magic10,      sham_turret_magic11   ]
+{CastLightning();};
+void() sham_turret_magic11    =[      $magic11,      sham_turret_magic12   ]
+{
+if (skill == 3)
+	CastLightning();
+};
+void() sham_turret_magic12    =[      $magic12,      sham_seek_1	   ] {};
+void() sham_seek_1	=[	$stand1,	sham_seek_2	] {ai_run(0);};
+void() sham_seek_2	=[	$stand2,	sham_seek_3	] {ai_run(0);};
+void() sham_seek_3	=[	$stand3,	sham_seek_4	] {ai_run(0);};
+void() sham_seek_4	=[	$stand4,	sham_seek_5	] {ai_run(0);};
+void() sham_seek_5	=[	$stand5,	sham_seek_6	] {ai_run(0);};
+void() sham_seek_6	=[	$stand6,	sham_seek_7	] {ai_run(0);};
+void() sham_seek_7	=[	$stand7,	sham_seek_8	] {ai_run(0);};
+void() sham_seek_8	=[	$stand8,	sham_seek_9	] {ai_run(0);};
+void() sham_seek_9	=[	$stand9,	sham_seek_10] {ai_run(0);};
+void() sham_seek_10	=[	$stand10,	sham_seek_11] {ai_run(0);};
+void() sham_seek_11	=[	$stand11,	sham_seek_12] {ai_run(0);};
+void() sham_seek_12	=[	$stand12,	sham_seek_13] {ai_run(0);};
+void() sham_seek_13	=[	$stand13,	sham_seek_14] {ai_run(0);};
+void() sham_seek_14	=[	$stand14,	sham_seek_15] {ai_run(0);};
+void() sham_seek_15	=[	$stand15,	sham_seek_16] {ai_run(0);};
+void() sham_seek_16	=[	$stand16,	sham_seek_17] {ai_run(0);};
+void() sham_seek_17	=[	$stand17,	sham_seek_1	] {ai_run(0);};
+/////////////////////////
+//// turret  end
+////////////////////////
 
 void() sham_pain1       =[      $pain1, sham_pain2      ] {};
 void() sham_pain2       =[      $pain2, sham_pain3      ] {};
@@ -285,6 +351,9 @@ void() sham_pain6       =[      $pain6, sham_run1      ] {};
 void(entity attacker, float damage)	sham_pain =
 {
 	sound_pain (self, CHAN_VOICE, "shambler/shurt2.wav", 1, ATTN_NORM);
+
+	if (self.spawnflags & I_AM_TURRET)
+		return;
 
 	if (self.health <= 0)
 		return;		// allready dying, don't go into pain frame
@@ -480,6 +549,7 @@ void() monster_shambler =
 	self.th_die = sham_die;
 	self.th_melee = sham_melee;
 	self.th_missile = sham_magic1;
+	self.th_turret = sham_turret_magic1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = sham_pain;
 	else

@@ -848,6 +848,34 @@ self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origi
 void() ogre2_nail4   =[  $shoot3,        ogre_nail5  ] {ai_face();
 	PreachFireGrenade(self.attack_elevation);
 };
+// Preach tutorial alternate animation frames for monster_ogre_marksman -- dumptruck_ds
+// these are for the turret version of monster_ogre_marksman
+.float attack_elevation;
+void() ogre2_turret_attack1 =[  $shoot1,        ogre2_turret_attack2  ] {ai_face();
+self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void() ogre2_turret_attack2   =[  $shoot2,        ogre2_turret_attack3  ] {ai_face();
+self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() ogre2_turret_attack3   =[  $shoot2,        ogre2_turret_attack4  ] {ai_face();
+self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() ogre2_turret_attack4   =[  $shoot3,        ogre2_turret_attack5  ] {ai_face();
+	PreachFireGrenade(self.attack_elevation);};
+void() ogre2_turret_attack5   =[  $shoot4,        ogre2_turret_attack6  ] {ai_face();};
+void() ogre2_turret_attack6   =[  $shoot5,        ogre2_turret_attack7  ] {ai_face();};
+void() ogre2_turret_attack7   =[  $shoot6,        ogre2_turret_seek1  ] {ai_face();};
+void() ogre2_turret_seek1	=[	$stand1,	ogre2_turret_seek2	] {ai_run(0);};
+void() ogre2_turret_seek2	=[	$stand2,	ogre2_turret_seek3	] {ai_run(0);};
+void() ogre2_turret_seek3	=[	$stand3,	ogre2_turret_seek4	] {ai_run(0);};
+void() ogre2_turret_seek4	=[	$stand4,	ogre2_turret_seek5	] {ai_run(0);};
+void() ogre2_turret_seek5	=[	$stand5,	ogre2_turret_seek6	] {
+if (random() < 0.2)
+	sound_idle (self, CHAN_VOICE, "ogre/ogidle.wav", 1, ATTN_IDLE);
+	ai_run(0);
+};
+void() ogre2_turret_seek6	=[	$stand6,	ogre2_turret_seek7	] {ai_run(0);};
+void() ogre2_turret_seek7	=[	$stand7,	ogre2_turret_seek8	] {ai_run(0);};
+void() ogre2_turret_seek8	=[	$stand8,	ogre2_turret_seek9	] {ai_run(0);};
+void() ogre2_turret_seek9	=[	$stand9,	ogre2_turret_seek1	] {ai_run(0);};
+
 //end Preach -- dumptruck_ds
 void() ogre_nail1	=[	$shoot1,		ogre_nail2	] {ai_face();};
 void() ogre_nail2	=[	$shoot2,		ogre_nail3	] {ai_face();};
@@ -879,7 +907,58 @@ void() ogre_nail4	=[	$shoot3,		ogre_nail5	] {ai_face();
 void() ogre_nail5	=[	$shoot4,		ogre_nail6	] {ai_face();};
 void() ogre_nail6	=[	$shoot5,		ogre_nail7	] {ai_face();};
 void() ogre_nail7	=[	$shoot6,		ogre_run1	] {ai_face();};
+//
+////////////////////////
+// turret frames START
+////////////////////////
+//
+void() ogre_turret_attack1	=[	$shoot1,		ogre_turret_attack2	] {ai_face();};
+void() ogre_turret_attack2	=[	$shoot2,		ogre_turret_attack3	] {ai_face();};
+void() ogre_turret_attack3	=[	$shoot2,		ogre_turret_attack4	] {ai_face();};
+void() ogre_turret_attack4	=[	$shoot3,		ogre_turret_attack5	] {ai_face();
+	if (self.style == 0)
+		{
+			OgreFireGrenade();
+		}
+	if (self.style == 1)
+		{
+			BDW_OgreFireFlak();
+			// OgreFireSpike();
+		}
+	else if (self.style == 2)
+		{
+			OgreFireSpike();
+		}
+		if (self.style == 3)
+		{
+			W_FireMultiGrenade();
+		}
+		if (self.style == 4) // jaycie erysdren 2021-09-14
+		{
+			OgreFireLavaBall();
+			sound_misc2 (self, CHAN_WEAPON, "shalrath/attack2.wav", 1, ATTN_NORM); // used for initial attack sound dumptruck_ds
+		}
+};
+void() ogre_turret_attack5	=[	$shoot4,		ogre_turret_attack6	] {ai_face();};
 
+void() ogre_turret_attack6=[	$shoot5,	ogre_turret_attack7	] {ai_face();};
+void() ogre_turret_attack7=[	$shoot6,	ogre_turret_seek1	] {ai_face();};
+void() ogre_turret_seek1	=[	$stand1,	ogre_turret_seek2	] {ai_run(0);};
+void() ogre_turret_seek2	=[	$stand2,	ogre_turret_seek3	] {ai_run(0);};
+void() ogre_turret_seek3	=[	$stand3,	ogre_turret_seek4	] {ai_run(0);};
+void() ogre_turret_seek4	=[	$stand4,	ogre_turret_seek5	] {ai_run(0);};
+void() ogre_turret_seek5	=[	$stand5,	ogre_turret_seek6	] {
+if (random() < 0.2)
+	sound_idle (self, CHAN_VOICE, "ogre/ogidle.wav", 1, ATTN_IDLE);
+	ai_run(0);
+};
+void() ogre_turret_seek6	=[	$stand6,	ogre_turret_seek7	] {ai_run(0);};
+void() ogre_turret_seek7	=[	$stand7,	ogre_turret_seek8	] {ai_run(0);};
+void() ogre_turret_seek8	=[	$stand8,	ogre_turret_seek9	] {ai_run(0);};
+void() ogre_turret_seek9	=[	$stand9,	ogre_turret_seek1	] {ai_run(0);};
+////////////////////////
+//turret frames END
+///////////////////////
 void()	ogre_pain1	=[	$pain1,		ogre_pain2	] {};
 void()	ogre_pain2	=[	$pain2,		ogre_pain3	] {};
 void()	ogre_pain3	=[	$pain3,		ogre_pain4	] {};
@@ -940,6 +1019,9 @@ void(entity attacker, float damage)	ogre_pain =
 
 // don't make multiple pain sounds right after each other
 	if (self.pain_finished > time)
+		return;
+
+	if (self.spawnflags & I_AM_TURRET)
 		return;
 
 	sound_pain (self, CHAN_VOICE, "ogre/ogpain1.wav", 1, ATTN_NORM);
@@ -1223,6 +1305,7 @@ void() monster_ogre =
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre_nail1;
+	self.th_turret = ogre_turret_attack1; //dumptruck_ds
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = ogre_pain;
 	else
@@ -1337,6 +1420,7 @@ void() monster_ogre_marksman =
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre2_nail1;
+	self.th_turret = ogre2_turret_attack1; //dumptruck_ds
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = ogre_pain;
 	else

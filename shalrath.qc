@@ -71,7 +71,29 @@ void() shal_attack8     =[      $attack8,       shal_attack9    ] {ai_face();};
 void() shal_attack9     =[      $attack9,       shal_attack10   ] {ShalMissile();};
 void() shal_attack10    =[      $attack10,      shal_attack11   ] {ai_face();};
 void() shal_attack11    =[      $attack11,      shal_run1   ] {};
-
+//////////////////////////
+/// new frames for turret mode START
+//////////////////////////
+void() shal_turret_attack1     =[      $attack1,       shal_turret_attack2    ] {
+sound_attack (self, CHAN_VOICE, "shalrath/attack.wav", 1, ATTN_NORM);
+ai_face();
+};
+void() shal_turret_attack2     =[      $attack2,       shal_turret_attack3    ] {ai_face();};
+void() shal_turret_attack3     =[      $attack3,       shal_turret_attack4    ] {ai_face();};
+void() shal_turret_attack4     =[      $attack4,       shal_turret_attack5    ] {ai_face();};
+void() shal_turret_attack5     =[      $attack5,       shal_turret_attack6    ] {ai_face();};
+void() shal_turret_attack6     =[      $attack6,       shal_turret_attack7    ] {ai_face();};
+void() shal_turret_attack7     =[      $attack7,       shal_turret_attack8    ] {ai_face();};
+void() shal_turret_attack8     =[      $attack8,       shal_turret_attack9    ] {ai_face();};
+void() shal_turret_attack9     =[      $attack9,       shal_turret_attack10   ] {ShalMissile();};
+void() shal_turret_attack10    =[      $attack10,      shal_turret_attack11   ] {ai_face();};
+void() shal_turret_attack11    =[      $attack11,      shal_turret_attack12   ] {ai_face();};
+void() shal_turret_attack12    =[      $walk1,      	 shal_seek_stand1		    ] {ai_run(0);};
+void() shal_seek_stand1   		 =[      $walk1,      	 shal_seek_stand2		    ] {ai_run(0);};
+void() shal_seek_stand2    		 =[      $walk1,      	 shal_seek_stand1    		] {ai_run(0);};
+//////////////////////////
+/// new frames for turret mode END
+//////////////////////////
 void() shal_pain1       =[      $pain1, shal_pain2      ] {};
 void() shal_pain2       =[      $pain2, shal_pain3      ] {};
 void() shal_pain3       =[      $pain3, shal_pain4      ] {};
@@ -92,9 +114,12 @@ void(entity attacker, float damage) shalrath_pain =
 	if (self.pain_finished > time)
 		return;
 
-	sound_pain (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
-	shal_pain1();
+	sound_pain (self, CHAN_AUTO, "shalrath/pain.wav", 1, ATTN_NORM); //CHAN_AUTO was voice - dumptruck_ds
 	self.pain_finished = time + 3;
+	if (self.spawnflags & I_AM_TURRET)
+	return;
+	else
+	shal_pain1();
 };
 
 void() shalrath_die =
@@ -383,7 +408,7 @@ void() monster_shalrath =
 	else
 	self.th_pain = SUB_NullPain;
 	self.th_missile = shal_attack1;
-
+	self.th_turret = shal_turret_attack1;
 	self.think = walkmonster_start;
 	self.nextthink = time + 0.1 + random ()*0.1;
 

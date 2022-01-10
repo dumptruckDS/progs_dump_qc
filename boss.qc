@@ -285,6 +285,9 @@ void() monster_boss =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	if (self.spawnflags & I_AM_TURRET)
+		objerror("Incompatible spawnflag: TURRET_MODE\n");
+		
 	if (deathmatch)
 	{
 		remove(self);

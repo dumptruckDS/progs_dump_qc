@@ -454,11 +454,13 @@ float() FindTarget =
 
 void(float dist) ai_forward =
 {
+	// dprint("ai_forward\n");
 	walkmove (self.angles_y, dist);
 };
 
 void(float dist) ai_back =
 {
+	// dprint("ai_back\n");
 	walkmove ( (self.angles_y+180), dist);
 };
 
@@ -472,6 +474,7 @@ stagger back a bit
 */
 void(float dist) ai_pain =
 {
+
 	ai_back (dist);
 /*
 	local float	away;
@@ -492,6 +495,7 @@ stagger back a bit
 */
 void(float dist) ai_painforward =
 {
+	// dprint("ai_painforward\n");
 	walkmove (self.ideal_yaw, dist);
 };
 
@@ -621,7 +625,7 @@ float() CheckAnyAttack =
 		return FALSE;
 	if (self.classname == "monster_army")
 		return SoldierCheckAttack ();
-	if (self.classname == "monster_ogre")
+	if ((self.classname == "monster_ogre") || (self.classname == "monster_ogre_marksman"))
 		return OgreCheckAttack ();
 	if (self.classname == "monster_shambler")
 		return ShamCheckAttack ();
@@ -665,11 +669,21 @@ Turn in place until within an angle to launch a missile attack
 void() ai_run_missile =
 {
 	self.ideal_yaw = enemy_yaw;
+	// dprint("ai_run_missile GO\n");
 	ChangeYaw ();
 	if (FacingIdeal())
 	{
-		self.th_missile ();
-		self.attack_state = AS_STRAIGHT;
+		if (self.spawnflags & I_AM_TURRET)
+			{
+				self.th_turret();
+				// dprint("th_turret...\n");
+			}
+		else
+			{
+				self.th_missile ();
+				// dprint("th_missile\n");
+			}
+			self.attack_state = AS_STRAIGHT;
 	}
 };
 
@@ -710,7 +724,7 @@ The monster has an enemy it is trying to kill
 */
 void(float dist) ai_run =
 {
-
+	// dprint("ai_run\n");
 	movedist = dist;
 // see if the enemy is dead
 	if ((self.enemy.health <= 0) || (self.spawnflags & PASSIVE_ALWAYS))
@@ -750,12 +764,19 @@ void(float dist) ai_run =
 	enemy_range = range(self.enemy);
 	enemy_yaw = vectoyaw(self.enemy.origin - self.origin);
 
+	if (self.spawnflags & I_AM_TURRET)
+		{
+			ai_face ();
+		}
+
+	// if ((self.attack_state == AS_MISSILE) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_MISSILE)
 	{
-//dprint ("ai_run_missile\n");
+		// dprint ("ai_run_missile... from ai_run\n");
 		ai_run_missile ();
 		return;
 	}
+	// if ((self.attack_state == AS_MELEE) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_MELEE)
 	{
 //dprint ("ai_run_melee\n");
@@ -766,12 +787,14 @@ void(float dist) ai_run =
 	if (CheckAnyAttack ())
 		return;					// beginning an attack
 
+	// if ((self.attack_state == AS_SLIDING) || !(self.spawnflags & I_AM_TURRET))
 	if (self.attack_state == AS_SLIDING)
 	{
 		ai_run_slide ();
 		return;
 	}
 
+if !(self.spawnflags & I_AM_TURRET) // keeps monster from moving to player - dumptruck_ds
 // head straight in
 	movetogoal (dist);		// done in C code...
 };

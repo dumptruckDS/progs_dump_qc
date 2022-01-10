@@ -198,6 +198,12 @@ state(choices) =
 	]
 ]
 
+@baseclass = Turret [
+	spawnflags(flags) = [
+		262144 : "Turret Mode" : 0
+	]
+]
+
 //
 // player starts, deathmatch, coop, teleport
 //
@@ -523,7 +529,7 @@ drop_item(Choices) =
 //@PointClass base(Monster) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt Default health 30" []
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt, Default health = 30"
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) studio("progs/soldier.mdl") = monster_army : "Grunt, Default health = 30"
 [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -553,7 +559,7 @@ snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre : "Ogre, Default health = 200"
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre : "Ogre, Default health = 200"
 [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -575,7 +581,7 @@ style(Choices) : "Attack type" =
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre_marksman : "Ogre marksman, Default health = 200. The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation."
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) studio("progs/ogre.mdl") = monster_ogre_marksman : "Ogre marksman, Default health = 200. The more accurate monster_ogre_marksman entity produces a slightly different ogre (won't make a sound when the player is sighted, won't make chainsaw dragging sounds, won't make a proper obituary message, has a different decision-making process when choosing whether to attack, and will in-fight with regular ogres). In progs_dump this Ogre will also have better aiming at stationary players no matter what the elevation."
 [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 ]
@@ -592,7 +598,7 @@ snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : : "Path to custom so
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight, Default health = 250"
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) studio("progs/hknight.mdl") = monster_hell_knight : "Hell Knight a.k.a. Death Knight, Default health = 250"
 [
 projexpl(Choices) : "Exploding projectiles" =
   [
@@ -635,7 +641,7 @@ snd_death(string) : "Path to custom death sound" : : "Path to custom death sound
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) studio("progs/shambler.mdl") = monster_shambler : "Shambler, Default health = 600"
+@PointClass base(Monster, Berserk, CustomMdlsWizSham, Turret) size(-32 -32 -24, 32 32 64) studio("progs/shambler.mdl") = monster_shambler : "Shambler, Default health = 600"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
@@ -658,7 +664,7 @@ snd_move(string) : "Path to custom rising and lowering sound" : "Path to custom 
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_enforcer : "Enforcer, Default health = 80"
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) studio("progs/enforcer.mdl") = monster_enforcer : "Enforcer, Default health = 80"
  [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 style(Choices) : "Attack type" : 0 =
@@ -681,7 +687,7 @@ snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath, Default health = 400"
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) studio("progs/shalrath.mdl") = monster_shalrath : "Vore a.k.a Shalrath, Default health = 400"
 [
 homing(float) : "Multiplier for projectile homing, maximum 1, -1 to disable completely" : 1
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -750,7 +756,7 @@ skin_proj(float) : "Path to custom projectile skin"
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie, Default health = 60. If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
+@PointClass base(Monster, CustomMdls, Turret) size(-16 -16 -24, 16 16 32) studio("progs/zombie.mdl") = monster_zombie : "Zombie, Default health = 60. If SPAWN_SLEEPING is used there must be a targetname set. The zombie will stand up when targeted. Crucified motionless zombies are silent and do not animate." //dumptruck_ds
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
