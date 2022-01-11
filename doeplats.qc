@@ -478,21 +478,29 @@ local float negativeHeight;
 		self.sounds = 2;
 // FIX THIS TO LOAD A GENERIC PLAT SOUND
 
-	if (self.sounds == 1)
-	{
-		precache_sound ("plats/plat1.wav");
-		precache_sound ("plats/plat2.wav");
-		self.noise = "plats/plat1.wav";
-		self.noise1 = "plats/plat2.wav";
+	if (self.sounds == 1) {
+		if (!self.noise || self.noise == "") self.noise = "plats/plat1.wav";
+		if (!self.noise1 || self.noise1 == "") self.noise1 = "plats/plat2.wav";
+	}
+	else if (self.sounds == 2) {
+		if (!self.noise || self.noise == "") self.noise = "plats/medplat1.wav";
+		if (!self.noise1 || self.noise1 == "") self.noise1 = "plats/medplat2.wav";
+	}
+	else if (self.sounds == 3) { // base door sound
+		if (!self.noise || self.noise == "") self.noise = "doors/hydro1.wav";
+		if (!self.noise1 || self.noise1 == "") self.noise1 = "doors/hydro2.wav";
+	}
+	else if (self.sounds == 4) { // func_train sounds
+		if (!self.noise || self.noise == "") self.noise = "plats/train1.wav";
+		if (!self.noise1 || self.noise1 == "") self.noise1 = "plats/train2.wav";
+	}
+	else {
+		if (!self.noise || self.noise == "") self.noise = "misc/null.wav";
+		if (!self.noise1 || self.noise1 == "") self.noise1 = "misc/null.wav";
 	}
 
-	if (self.sounds == 2)
-	{
-		precache_sound ("plats/medplat1.wav");
-		precache_sound ("plats/medplat2.wav");
-		self.noise = "plats/medplat1.wav";
-		self.noise1 = "plats/medplat2.wav";
-	}
+	precache_sound(self.noise);
+	precache_sound(self.noise1);
 
 
 	self.mangle = self.angles;

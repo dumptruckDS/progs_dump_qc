@@ -1997,10 +1997,14 @@ spawnflags(Flags) =
 	health(integer) : "Seconds to wait at bottom if using Start at Top": 5
 	delay(integer) : "Seconds to wait if using Plat2" : 3
 	wait(integer) : "Seconds to retrigger Elevator" : 0
+	noise(string) : "Path to custom sound for plat movement"
+	noise1(string) : "Path to custom sound for plat stopping"
 	sounds(choices) : "Sound" : 1 =
 	[
 		1: "Base fast"
 		2: "Chain Slow"
+		3: "Base Door sound"
+		4: "func_train ratchet"
 	]
 ]
 
