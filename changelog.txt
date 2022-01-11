@@ -23,6 +23,7 @@
   looping sounds to restart after a save (bmFbr)
 * Added Turret Mode spawnflag for Grunts, Enforcers, Ogres, Ogre Marksmen,
   Hellknight, Shalrath, Shamblers and Zombies. (dumptruck_ds, ILike80sRock)
+* Fixed armor taking damage with Pentagram of Protection (johnfitz)
 
 2.0.1 March 2021
 
