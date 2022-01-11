@@ -3121,6 +3121,28 @@ sounds(choices) : "Sound style" : 0 =
 		4 : "Custom sound set in noise1 key"
 	]
 ]
+@PointClass base(Appearflags, Target, Targetname) size(-8 -8 -8, 8 8 8) model ({"path": model, "scale": scale, "skin": skin, "frame": frame })= func_puppet : "Animated model"
+[
+	model(string):   "External model path"
+	scale(integer):   "Scale"
+	skin(integer):   "Skin"
+	frame(integer):   "Frame"
+	button0(integer) : "Starting animation frame # within the [button1-button2] range (button1 by default)"
+	button1(integer) : "First animation frame"
+	button2(integer) : "Last animation frame"
+	frags(integer) : "Animation frames duration; default 0.05" : 0.05
+	speed(integer) : "Speed" : 100
+	angles(string) : "Angles (x y z)"
+	anglespeed(integer) : "Speed of rotation" : 100
+        wait(choices) : "Wait between moves" : 0 =
+	[
+		0 : "No wait"
+		-1 : "Stop"
+		-2 : "Explode"
+		-3 : "Wait at next corner"
+	]
+	pausetime(integer) : "Pause before explode"
+]
 //////////////////////
 // end dumptruck_ds //
 //////////////////////

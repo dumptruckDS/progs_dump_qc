@@ -59,7 +59,8 @@ void(entity puppet, entity targ) func_puppet_setup_animation = {
 		if (targ.frags)
 			animator.frags = targ.frags;
 		else
-			animator.frags = 0.05; // Default animation speed
+			animator.frags = 0.1; // Default animation speed
+			// animator.frags = 0.05; // Default animation speed
 
 		//Initiate the animation
 		animator.nextthink = time + animator.frags;
@@ -168,17 +169,22 @@ The puppet must be the target of a button or trigger. It will not begin moving u
 
 "model" - A model file to use (use "directory/model.mdl" format)
 
-The train will modify it's angles by whatever angles it's next path point has, so if it heads towards a path corner with an angle of '0 90 0', the train will rotate '0 90 0' on it's way to the pathpoint.
-If you make the anglespeed the same as the angle, the turn should finish right as the train gets to the new spot.
-NOTE: A path_corner using spawnflag "SYNCH" will make the train automatically calculate a new anglespeed based on the distance it's going and will finish the turn at the same time the move is done.
+The train will modify it's angles by whatever angles it's next path point has,
+so if it heads towards a path corner with an angle of '0 90 0', the train will
+rotate '0 90 0' on it's way to the pathpoint. If you make the anglespeed the
+same as the angle, the turn should finish right as the train gets to the new
+spot. NOTE: A path_corner using spawnflag "SYNCH" will make the train
+automatically calculate a new anglespeed based on the distance it's going and
+will finish the turn at the same time the move is done.
 
 Animation
 ---------
-Puppets must have a model + the following special settings at each path_corner meant to be reached with an animation:
+Puppets must have a model + the following special settings at each path_corner
+meant to be reached with an animation:
 "button0" - starting frame # within the range, if different from the first animation frame (optional)
 "button1" - first animation frame (mandatory)
 "button2" - last animation frame (mandatory)
-"frags" - frame duration, if different from the default 0.05 (optional)
+"frags" - frame duration, if different from the default 0.1 (optional) was 0.05 -- dumptruck_ds
 "wait" - -1 will make it stop forever, -3 will make the train stop and wait for the next trigger event
 */
 void() func_puppet =
