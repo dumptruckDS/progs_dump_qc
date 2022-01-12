@@ -561,7 +561,6 @@ void() T_GruntMisTouch =
 	T_MonsterMisTouch(30, 40);
 };
 
- // HK specific function
  // less direct damage, more splash than grunt
  // TODO: add damage modifier
 void() T_HellKnightMisTouch =
@@ -1033,10 +1032,21 @@ void() spike_touch =
 	}
 	else
 	{
+		if (self.owner.snd_hit){
+				sound_hit (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
+		}
 		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 
 		if (self.classname == "wizspike")
-			WriteByte (MSG_BROADCAST, TE_WIZSPIKE);
+			if (self.owner.snd_hit)
+			{
+					sound_hit (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
+					WriteByte(MSG_BROADCAST, TE_GUNSHOT);
+			}
+			else
+			{
+				WriteByte (MSG_BROADCAST, TE_WIZSPIKE);
+			}
 		else if (self.classname == "knightspike")
 			WriteByte (MSG_BROADCAST, TE_KNIGHTSPIKE);
 		else
