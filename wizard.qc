@@ -209,7 +209,7 @@ void() Wiz_FastFire =
 		newmis.velocity = vec*600;
 		newmis.owner = self.owner;
 		newmis.classname = "wizspike";
-		setmodel (newmis, "progs/w_spike.mdl");
+		setmodel(newmis, self.owner.mdl_proj);
 		setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	}
 
@@ -475,12 +475,17 @@ void() monster_wizard =
 		return;
 	}
 
+	if (!self.mdl_proj)
+	{
+		self.mdl_proj = "progs/w_spike.mdl";
+	}
+
 	// dumptruck_ds custom_mdls
 	precache_body_model ("progs/wizard.mdl");
 	precache_head_model ("progs/h_wizard.mdl");
-	precache_model ("progs/w_spike.mdl");
+	precache_proj_model ("progs/w_spike.mdl");
 	////dumptruck_ds
-	precache_sound ("wizard/hit.wav");		// used by c code
+	precache_sound_hit ("wizard/hit.wav");		// used by c code
 	precache_sound_attack ("wizard/wattack.wav");
 	precache_sound_death ("wizard/wdeath.wav");
 	precache_sound_idle ("wizard/widle1.wav");
