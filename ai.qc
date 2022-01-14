@@ -738,7 +738,11 @@ void(float dist) ai_run =
 		}
 		else
 		{
-			if (self.movetarget)
+			if (self.spawnflags & I_AM_TURRET)
+				{
+					self.th_stand ();
+				}
+			else if (self.movetarget)
 				self.th_walk ();
 			else
 				self.th_stand ();

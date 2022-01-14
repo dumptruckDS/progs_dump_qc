@@ -26,6 +26,7 @@
 * Fixed armor taking damage with Pentagram of Protection (johnfitz)
 * Added custom sound keys and new options for func_new_plat (Alkaline)
 * Made Zombies partially z-aware in Turret Mode
+* Removed "in wall" dprint on monster wtih I_AM_TURRET spawnflag
 
 2.0.1 March 2021
 
@@ -208,9 +209,12 @@
 
 1.1.0 Release Candidate 1 & 2
 
-* Added reset_items key to worldspawn entity; resets players items on map load (no need for Rune hacks for custom start maps!)
-* Added classnames to "bonus item fell out of level" and "monster stuck in wall" errors when developer is set to 1.
-* Add entities for Thunder, Water and Sky sounds. Use these when you want to hand place these instead of having VIS.exe add them automatically.
+* Added reset_items key to worldspawn entity; resets players items on map load
+  (no need for Rune hacks for custom start maps!)
+* Added classnames to "bonus item fell out of level" and "monster stuck in wall"
+  errors when developer is set to 1.
+* Add entities for Thunder, Water and Sky sounds. Use these when you want to
+* hand place these instead of having VIS.exe add them automatically.
 * Fixed door unlock sound not playing (id software bug)
 * Added ladders
 * Added breakables
@@ -225,7 +229,8 @@
 * Added items suspended flag
 * Fixed trigger_ladder conflict with trigger_setgravity
 * Added pain_target and pain_threshold
-* Added func_togglewall, func_counter, func_oncount and func_particlefield from Hipnotic
+* Added func_togglewall, func_counter, func_oncount and func_particlefield from
+  Hipnotic
 * Added pd_ladders test level
 * Added pd_zombies and pd_meat maps
 * Added Persistent Key behavior (cnt = 1) to func_door and trigger_usekey

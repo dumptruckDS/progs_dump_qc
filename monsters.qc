@@ -207,14 +207,17 @@ if(!(self.spawnflags & 8))
 {
 	droptofloor();
 
-	if (!walkmove(0,0))
-	{
-		dprint ("\n\n");
-		dprint (self.classname);
-		dprint (" in wall at: ");
-		dprint (vtos(self.origin));
-		dprint ("\n\n");
-	}
+	if !(self.spawnflags & I_AM_TURRET) // fixes an incorrect dprint -- dumptruck_ds
+		{
+		if (!walkmove(0,0))
+			{
+				dprint ("\n\n");
+				dprint (self.classname);
+				dprint (" in wall at: ");
+				dprint (vtos(self.origin));
+				dprint ("\n\n");
+			}
+		}
 }
 
 	self.takedamage = DAMAGE_AIM;

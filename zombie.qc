@@ -852,22 +852,6 @@ void() monster_zombie =
 		self.movetype = MOVETYPE_NONE;
 		zombie_dead_cruc1 ();
 	}
-	// else if (self.spawnflags & SPAWN_DEAD)  //-- not used in progs_dump -- dumptruck_ds
-	// {
-	// 	self.origin_z = self.origin_z + 1;      // raise off floor a bit
-	// 	droptofloor();
-	//
-	// 	if (!walkmove(0,0))
-	// 	{
-	// 		dprint ("walkmonster in wall at: ");
-	// 		dprint (vtos(self.origin));
-	// 		dprint ("\n");
-	// 	}
-	// 	self.takedamage = DAMAGE_NO;
-	// 	self.solid = SOLID_NOT;
-	// 	self.use = zombie_use;
-	// 	self.frame = $paine11;
-	// }
 	else
 		walkmonster_start();
 };
