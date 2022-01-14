@@ -365,6 +365,67 @@ void(float elevation) PreachFireGrenade =
 
 /*
 ================
+PreachFireZombie
+for Z-Aware Zombies in Turret Mode only
+================
+*/
+void(float elevation) PreachFireZombie =
+{
+	local	entity missile;
+	local vector ang;
+
+	// self.effects = self.effects | EF_MUZZLEFLASH;
+
+	sound_attack (self, CHAN_WEAPON, "zombie/z_shot1.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_BOUNCE;
+	missile.solid = SOLID_BBOX;
+
+// set missile speed
+	ang = self.angles;
+  ang_x = -elevation;
+  makevectors (ang);
+
+  missile.velocity = v_forward * OGRE_G_VEL;
+
+	missile.avelocity = '3000 1000 2000';
+
+	missile.angles = vectoangles(missile.velocity);
+
+	missile.touch = ZombieGrenadeTouch;
+
+// set missile duration
+	missile.nextthink = time + 2.5;
+	missile.think = SUB_Remove;
+	// setmodel (missile, "progs/grenade.mdl");
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/zom_gib.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+
+	setsize (missile, '0 0 0', '0 0 0');
+	setorigin (missile, self.origin);
+};
+
+// end Preach tutorial
+
+/*
+================
 OgreFireGrenade
 ================
 */

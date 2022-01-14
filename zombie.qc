@@ -325,10 +325,10 @@ void() zombie_turret_atta6 =[      $atta6,         zombie_turret_atta7    ] {ai_
 void() zombie_turret_atta7 =[      $atta7,         zombie_turret_atta8    ] {ai_face();};
 void() zombie_turret_atta8 =[      $atta8,         zombie_turret_atta9    ] {ai_face();};
 void() zombie_turret_atta9 =[      $atta9,         zombie_turret_atta10   ] {ai_face();};
-void() zombie_turret_atta10 =[      $atta10,        zombie_turret_atta11   ] {ai_face();};
-void() zombie_turret_atta11 =[      $atta11,        zombie_turret_atta12   ] {ai_face();};
-void() zombie_turret_atta12 =[      $atta12,        zombie_turret_atta13   ] {ai_face();};
-void() zombie_turret_atta13 =[      $atta13,        alt_zombie_seek_stand1    ] {ai_run(0);ZombieFireGrenade('-10 -22 30');};
+void() zombie_turret_atta10 =[      $atta10,        zombie_turret_atta11   ] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void() zombie_turret_atta11 =[      $atta11,        zombie_turret_atta12   ] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() zombie_turret_atta12 =[      $atta12,        zombie_turret_atta13   ] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() zombie_turret_atta13 =[      $atta13,        alt_zombie_seek_stand1    ] {ai_run(0);PreachFireZombie(self.attack_elevation);};
 
 void() zombie_turret_attb1 =[      $attb1,         zombie_turret_attb2    ] {self.health = 60;ai_face();};
 void() zombie_turret_attb2 =[      $attb2,         zombie_turret_attb3    ] {ai_face();};
@@ -340,10 +340,10 @@ void() zombie_turret_attb7 =[      $attb7,         zombie_turret_attb8    ] {ai_
 void() zombie_turret_attb8 =[      $attb8,         zombie_turret_attb9    ] {ai_face();};
 void() zombie_turret_attb9 =[      $attb9,         zombie_turret_attb10   ] {ai_face();};
 void() zombie_turret_attb10 =[      $attb10,        zombie_turret_attb11   ] {ai_face();};
-void() zombie_turret_attb11 =[      $attb11,        zombie_turret_attb12   ] {ai_face();};
-void() zombie_turret_attb12 =[      $attb12,        zombie_turret_attb13   ] {ai_face();};
-void() zombie_turret_attb13 =[      $attb13,        zombie_turret_attb14   ] {ai_face();};
-void() zombie_turret_attb14 =[      $attb13,        alt_zombie_seek_stand1      ] {ai_run(0);ZombieFireGrenade('-10 -24 29');};
+void() zombie_turret_attb11 =[      $attb11,        zombie_turret_attb12   ] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void() zombie_turret_attb12 =[      $attb12,        zombie_turret_attb13   ] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() zombie_turret_attb13 =[      $attb13,        zombie_turret_attb14   ] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() zombie_turret_attb14 =[      $attb13,        alt_zombie_seek_stand1      ] {ai_run(0);PreachFireZombie(self.attack_elevation);};
 
 void() zombie_turret_attc1 =[      $attc1,         zombie_turret_attc2    ] {self.health = 60;ai_face();};
 void() zombie_turret_attc2 =[      $attc2,         zombie_turret_attc3    ] {ai_face();};
@@ -353,10 +353,10 @@ void() zombie_turret_attc5 =[      $attc5,         zombie_turret_attc6    ] {ai_
 void() zombie_turret_attc6 =[      $attc6,         zombie_turret_attc7    ] {ai_face();};
 void() zombie_turret_attc7 =[      $attc7,         zombie_turret_attc8    ] {ai_face();};
 void() zombie_turret_attc8 =[      $attc8,         zombie_turret_attc9    ] {ai_face();};
-void() zombie_turret_attc9 =[      $attc9,         zombie_turret_attc10   ] {ai_face();};
-void() zombie_turret_attc10 =[      $attc10,        zombie_turret_attc11   ] {ai_face();};
-void() zombie_turret_attc11 =[      $attc11,        zombie_turret_attc12   ] {ai_face();};
-void() zombie_turret_attc12 =[      $attc12,        alt_zombie_seek_stand1 ] {ai_run(0);ZombieFireGrenade('-12 -19 29');};
+void() zombie_turret_attc9 =[      $attc9,         zombie_turret_attc10   ] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void() zombie_turret_attc10 =[      $attc10,        zombie_turret_attc11   ] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() zombie_turret_attc11 =[      $attc11,        zombie_turret_attc12   ] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void() zombie_turret_attc12 =[      $attc12,        alt_zombie_seek_stand1 ] {ai_run(0);PreachFireZombie(self.attack_elevation);};
 void() alt_zombie_seek_stand1 =[      $stand1, alt_zombie_seek_stand2   ] {self.health = 60; ai_run(0);};
 void() alt_zombie_seek_stand2 =[      $stand2, zombie_seek_stand3   ] {ai_run(0);};
 void() zombie_seek_stand3    =[      $stand3,                zombie_seek_stand4   ] {ai_run(0);};
