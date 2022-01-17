@@ -2269,7 +2269,7 @@ Acts as a smoothly blending portal between two zones of different fog. Sets the 
 	angle(integer) : "Axis of motion of blend (points toward end values)"
 ]
 
-@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog :
+@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_fog :
 "Trigger: Sets a fog.
 Smoothly blends client's currently applied fog to this value over time.
 
