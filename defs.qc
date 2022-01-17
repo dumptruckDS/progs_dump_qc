@@ -1004,3 +1004,13 @@ nosave float gamestarted;
 // 1998-07-03 hurt_touch fix by Robert Field  end
 float I_AM_TURRET = 262144; //dumptruck_ds
 .void() th_turret;
+
+
+.entity animcontroller;
+.entity rotatecontroller;
+.float multiplier;
+
+.float 		first_frame, last_frame;
+.float 		first_frame2, last_frame2;
+.float 		frtime, frtime2;
+.vector		cmins, cmaxs;

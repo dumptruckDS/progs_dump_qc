@@ -1919,36 +1919,113 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 	message(string) : "Message"
 ]
 
-@SolidClass base(Appearflags, Targetname) = func_train : "Moving platform
+@SolidClass base(Appearflags, Targetname) = func_train :
+"Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+Use path_corner as targets.
+If given a targetname, it'll only start moving after triggered.
+path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
 
-RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
+'pausetime' sets a default waiting time when a value is not defined in path_corners.
+'speed' sets the initial moving speed. If the train encounters a path_corner with its 'speed' field set it will move at that speed afterwards.
 
-Set Sounds to 3 for custom sounds with noise4 as the movement and noise3 for stop sound"
+Spawnflags:
+- 'Move on trigger' will force the train to resume its path when triggered, even when temporarily waiting at a path_corner.
+- 'Stop on trigger' will stop the train at the next path_corner when triggered. Trigger it again to resume.
+The flags above are mutually exclusive and will cause an objerror when selected simultaneously.
+" 
 [
-spawnflags(Flags) =
-[
-	1 : "RETRIGGER (wait at path_corners)" : 0
-]
-
 	sounds(choices) : "Sound" : 1 =
 	[
 		0: "Silent"
 		1: "Ratchet Metal"
-		2: "Base"
-		3: "Custom (set path in noise3, noise4)"
+		2: "Base door"
 	]
-	speed(integer) : "Speed (units per second)" : 64
-	target(target_source) : "Target to start at"
-	dmg(integer) : "Damage on block" : 2
-	noise3(string) : "Custom start noise"
-	noise4(string) : "Custom movement noise"
+	speed(integer) : "Speed (units per second)" : 100
+	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
+	target(target_source) : "Train starting point"
+	dmg(integer) : "Damage on crush" : 2
+	noise1(string) : "Custom moving loop sound (if set, overrides 'sounds')"
+	noise(string) : "Custom stopping sound (if set, overrides 'sounds')"
+	noise2(string) : "Custom corner sound, for when the train crosses a path_corner without stopping"
+	spawnflags(flags) =
+	[
+		2: "Move on trigger" : 0
+		4: "Stop on trigger" : 0
+		8: "Non-solid" : 0
+	]
 ]
 
-@PointClass base(Appearflags, Targetname) size(16 16 16) color(0 255 255) =
-	path_corner : "Waypoint for platforms and monsters"
+
+@PointClass base(Targetname) studio({ "path" : mdl, "skin" : skin, "frame" : first_frame}) = misc_modeltrain :
+"Trains are moving platforms that players can ride. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+Use path_corner as targets.
+If given a targetname, it'll only start moving after triggered.
+path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
+
+'pausetime' sets a default waiting time when a value is not defined in path_corners.
+'speed' sets the initial moving speed. If the train encounters a path_corner with its 'speed' field set it will move at that speed afterwards.
+
+misc_modeltrain smoothly orients itself towards the next path_corner when moving. The turning speed is automatic and based on the movement speed, but you can set a multiplier for the turning speed with the 'multiplier' key. Set it to -1 to turn instantly.
+
+You can define two different frame ranges and animation speeds, for when the model is stopped and moving. If you don't need different stopped/moving animations, only setting 'first_frame'/'last_frame'/'frtime' is enough. If you don't need any animation at all, just set 'first_frame' to the desired frame and all other fields can go blank.
+
+If you want to explicitly set frame 0 in any '*_frame' fields, you must use -1 instead, or else the code understands 0 as a blank field.
+
+
+Spawnflags:
+- No rotation: model doesn't rotate when moving towards path_corners.
+- Rotate Y only: model only rotates around the Y axis, so pitch/roll angles are kept as initially set (useful to fake walking NPCs).
+" 
 [
-	target(target_source) : "Next target"
-	wait(integer) : "Wait" : 0
+	sounds(choices) : "Sound" : 1 =
+	[
+		0: "None"
+		1: "Ratchet Metal"
+		2: "Base door"
+	]
+	speed(integer) : "Speed (units per second)" : 100
+	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
+	target(target_source) : "First stop target"
+	dmg(integer) : "Damage on crush" : 2
+	mdl(string) : "Model file path (such as 'progs/model_name.mdl')"
+	cmins(string) : "Lower bounding box point"
+	cmaxs(string) : "Upper bounding box point"
+	first_frame(integer) : "First frame sequence (stopped). Use -1 for frame 0"
+	last_frame(integer) : "Last frame sequence (stopped). Use -1 for frame 0"
+	first_frame2(integer) : "First frame sequence (moving). Use -1 for frame 0"
+	last_frame2(integer) : "Last frame sequence (moving). Use -1 for frame 0"
+	frtime(float) : "Frame time (stopped)" : "0.1"
+	frtime2(float) : "Frame time (moving)" : "0.1"
+	multiplier(integer) : "Turning speed" : 1 : "Turning speed multiplier. Set to -1 to turn instantly"
+	noise1(string) : "Custom moving loop sound (if set, overrides 'sounds')"
+	noise(string) : "Custom stopping sound (if set, overrides 'sounds')"
+	noise2(string) : "Custom corner sound, for when the train crosses a path_corner without stopping"
+	spawnflags(flags) =
+	[
+		2: "Move on trigger" : 0
+		4: "Stop on trigger" : 0
+		8: "Non-solid" : 0
+		16: "No rotation" : 0
+		32: "Rotate Y only" : 0
+	]
+]
+
+@PointClass base(Appearflags, Targetname) color(0 255 255) size(16 16 16) = path_corner :
+"Waypoint for trains and walking monsters.
+Check each field's description for more details.
+"
+[
+	target(target_source) : "Next waypoint target"
+	target2(target_destination) : "Target2"
+	target3(target_destination) : "Target3"
+	target4(target_destination) : "Target4"
+	wait(integer) : "Wait" : : "Waiting time at this point.
+- A positive value directly sets a waiting time in seconds.
+- A 0 value (or not defined) uses the 'pausetime' field value in the func_train (which defaults to 0s).
+- A -1 value makes the train to stop at this point.
+- A -2 value forces the train to not wait here even when 'pausetime' is set on the func_train.
+"
+	speed(integer) : "Speed" : : "Sets a new speed for the train to move from this point onwards."
 ]
 
 @SolidClass base(Appearflags, Targetname) = func_plat : "Elevator"
