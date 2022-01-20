@@ -319,7 +319,11 @@ void() sham_turret_magic11    =[      $magic11,      sham_turret_magic12   ]
 if (skill == 3)
 	CastLightning();
 };
-void() sham_turret_magic12    =[      $magic12,      sham_seek_1	   ] {};
+void() sham_turret_magic12  =[  $magic12, sham_turret_magic13	] {};
+void() sham_turret_magic13	=[	$stand14,	sham_turret_magic14	] {ai_face();};
+void() sham_turret_magic14	=[	$stand15,	sham_turret_magic15	] {ai_face();};
+void() sham_turret_magic15	=[	$stand16,	sham_turret_magic16	] {ai_face();};
+void() sham_turret_magic16	=[	$stand17,	sham_seek_1	] {};
 void() sham_seek_1	=[	$stand1,	sham_seek_2	] {ai_run(0);};
 void() sham_seek_2	=[	$stand2,	sham_seek_3	] {ai_run(0);};
 void() sham_seek_3	=[	$stand3,	sham_seek_4	] {ai_run(0);};

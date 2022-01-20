@@ -88,7 +88,10 @@ void() shal_turret_attack8     =[      $attack8,       shal_turret_attack9    ] 
 void() shal_turret_attack9     =[      $attack9,       shal_turret_attack10   ] {ShalMissile();};
 void() shal_turret_attack10    =[      $attack10,      shal_turret_attack11   ] {ai_face();};
 void() shal_turret_attack11    =[      $attack11,      shal_turret_attack12   ] {ai_face();};
-void() shal_turret_attack12    =[      $walk1,      	 shal_seek_stand1		    ] {ai_run(0);};
+void() shal_turret_attack12    =[      $walk1,      	 shal_turret_attack13		] {ai_face();};
+void() shal_turret_attack13  	 =[      $walk1,      	 shal_turret_attack14		] {ai_face();};
+void() shal_turret_attack14    =[      $walk1,      	 shal_turret_attack15 	] {ai_face();};
+void() shal_turret_attack15    =[      $walk1,      	 shal_seek_stand1		    ] {ai_run(0);};
 void() shal_seek_stand1   		 =[      $walk1,      	 shal_seek_stand2		    ] {ai_run(0);};
 void() shal_seek_stand2    		 =[      $walk1,      	 shal_seek_stand1    		] {ai_run(0);};
 //////////////////////////

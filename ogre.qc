@@ -922,7 +922,9 @@ void() ogre2_turret_attack4   =[  $shoot3,        ogre2_turret_attack5  ] {ai_fa
 	PreachFireGrenade(self.attack_elevation);};
 void() ogre2_turret_attack5   =[  $shoot4,        ogre2_turret_attack6  ] {ai_face();};
 void() ogre2_turret_attack6   =[  $shoot5,        ogre2_turret_attack7  ] {ai_face();};
-void() ogre2_turret_attack7   =[  $shoot6,        ogre2_turret_seek1  ] {ai_face();};
+void() ogre2_turret_attack7   =[  $shoot5,        ogre2_turret_attack8  ] {ai_face();};
+void() ogre2_turret_attack8   =[  $shoot6,        ogre2_turret_attack9  ] {ai_face();};
+void() ogre2_turret_attack9   =[  $shoot6,        ogre2_turret_seek1  ] {ai_face();};
 void() ogre2_turret_seek1	=[	$stand1,	ogre2_turret_seek2	] {ai_run(0);};
 void() ogre2_turret_seek2	=[	$stand2,	ogre2_turret_seek3	] {ai_run(0);};
 void() ogre2_turret_seek3	=[	$stand3,	ogre2_turret_seek4	] {ai_run(0);};
@@ -1003,7 +1005,9 @@ void() ogre_turret_attack4	=[	$shoot3,		ogre_turret_attack5	] {ai_face();
 void() ogre_turret_attack5	=[	$shoot4,		ogre_turret_attack6	] {ai_face();};
 
 void() ogre_turret_attack6=[	$shoot5,	ogre_turret_attack7	] {ai_face();};
-void() ogre_turret_attack7=[	$shoot6,	ogre_turret_seek1	] {ai_face();};
+void() ogre_turret_attack7=[  $shoot5,  ogre_turret_attack8 ] {ai_face();};
+void() ogre_turret_attack8=[  $shoot6,  ogre_turret_attack9 ] {ai_face();};
+void() ogre_turret_attack9=[  $shoot6,  ogre_turret_seek1 ] {ai_face();};
 void() ogre_turret_seek1	=[	$stand1,	ogre_turret_seek2	] {ai_run(0);};
 void() ogre_turret_seek2	=[	$stand2,	ogre_turret_seek3	] {ai_run(0);};
 void() ogre_turret_seek3	=[	$stand3,	ogre_turret_seek4	] {ai_run(0);};

@@ -340,9 +340,9 @@ void()	hknight_magicc10 =[	$magicc10,	hknight_magicc11] {hknight_shot(2);};
 void()	hknight_magicc11 =[	$magicc11,	hknight_run1] {hknight_shot(3);};
 
 //============================================================================
-/////////////////////////
-////// turret frames START
-/////////////////////////
+///////////////////////////////////////
+////// turret frames START - revisions
+//////////////////////////////////////
 void()	hknight_turret_magicc1 =[	$magicc1,	hknight_turret_magicc2	] {ai_face();};
 void()	hknight_turret_magicc2 =[	$magicc2,	hknight_turret_magicc3	] {ai_face();};
 void()	hknight_turret_magicc3 =[	$magicc3,	hknight_turret_magicc4	] {ai_face();};
@@ -353,7 +353,11 @@ void()	hknight_turret_magicc7 =[	$magicc7,	hknight_turret_magicc8	] {hknight_sho
 void()	hknight_turret_magicc8 =[	$magicc8,	hknight_turret_magicc9	] {hknight_shot(0);};
 void()	hknight_turret_magicc9 =[	$magicc9,	hknight_turret_magicc10] {hknight_shot(1);};
 void()	hknight_turret_magicc10 =[ $magicc10,	hknight_turret_magicc11] {hknight_shot(2);};
-void()	hknight_turret_magicc11 =[ $magicc11,	hknight_seek_stand1] {hknight_shot(3);};
+void()	hknight_turret_magicc11 =[ $magicc11,	hknight_turret_magicc12] {ai_face();};
+void()	hknight_turret_magicc12	=[	$stand1,	hknight_turret_magicc13	] {ai_face();};
+void()	hknight_turret_magicc13	=[	$stand2,	hknight_turret_magicc14	] {ai_face();};
+void()	hknight_turret_magicc14	=[	$stand3,	hknight_turret_magicc15	] {ai_face();};
+void()	hknight_turret_magicc15	=[	$stand4,	hknight_seek_stand1	] {ai_run(0);};
 void()	hknight_seek_stand1	=[	$stand1,	hknight_seek_stand2	] {ai_run(0);};
 void()	hknight_seek_stand2	=[	$stand2,	hknight_seek_stand3	] {ai_run(0);};
 void()	hknight_seek_stand3	=[	$stand3,	hknight_seek_stand4	] {ai_run(0);};

@@ -219,15 +219,16 @@ void()	army_atk8	=[	$shoot8,	army_atk9	] {ai_face();};
 void()	army_atk9	=[	$shoot9,	army_run1	] {ai_face();};
 // new frames for turrets
 void()	army_turret_atk1	=[	$shoot1,	army_turret_atk2	] {ai_face();};
-void()	army_turret_atk2	=[	$shoot2,	army_turret_atk3	] {ai_face();};
-void()	army_turret_atk3	=[	$shoot3,	army_turret_atk4	] {ai_face();};
-void()	army_turret_atk4	=[	$shoot4,	army_turret_atk5	] {ai_face();};
+void()	army_turret_atk2	=[	$shoot2,	army_turret_atk3	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void()	army_turret_atk3	=[	$shoot3,	army_turret_atk4	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void()	army_turret_atk4	=[	$shoot4,	army_turret_atk5	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
 void()	army_turret_atk5	=[	$shoot5,	army_turret_atk6	] {ai_face();army_fire();
 self.effects = self.effects | EF_MUZZLEFLASH;};
 void()	army_turret_atk6	=[	$shoot6,	army_turret_atk7	] {ai_face();};
-void()	army_turret_atk7	=[	$shoot7,	army_turret_atk8	] {ai_face();SUB_CheckRefire (army_atk1);};
+void()	army_turret_atk7	=[	$shoot7,	army_turret_atk8	] {ai_face();SUB_CheckRefire (army_turret_atk1);};
 void()	army_turret_atk8	=[	$shoot8,	army_turret_atk9	] {ai_face();};
-void()	army_turret_atk9	=[	$shoot9,	army_seeking_stand1	] {ai_face();};
+void()	army_turret_atk9	=[	$stand4,	army_turret_atk10	] {ai_face();};
+void()	army_turret_atk10	=[	$stand5,	army_seeking_stand1	] {ai_face();};
 void()	army_seeking_stand1	=[	$stand1,	army_seeking_stand2	] {ai_run(0);};
 void()	army_seeking_stand2	=[	$stand2,	army_seeking_stand3	] {ai_run(0);};
 void()	army_seeking_stand3	=[	$stand3,	army_seeking_stand4	] {ai_run(0);};
@@ -236,8 +237,7 @@ void()	army_seeking_stand5	=[	$stand5,	army_seeking_stand6	] {ai_run(0);};
 void()	army_seeking_stand6	=[	$stand6,	army_seeking_stand7	] {ai_run(0);};
 void()	army_seeking_stand7	=[	$stand7,	army_seeking_stand8	] {ai_run(0);};
 void()	army_seeking_stand8	=[	$stand8,	army_seeking_stand1	] {ai_run(0);};
-
-
+// new frames for turrets end
 
 void()	army_pain1	=[	$pain1,		army_pain2	] {};
 void()	army_pain2	=[	$pain2,		army_pain3	] {};
@@ -328,6 +328,11 @@ else if (self.style == 2)
 
 	{
 		ai_face();
+		if (self.spawnflags & I_AM_TURRET)
+			{
+				PreachFireGrenade(self.attack_elevation);
+			}
+		else
 		GruntFireGrenade();
 	}
 
