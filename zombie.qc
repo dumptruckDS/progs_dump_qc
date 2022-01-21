@@ -380,9 +380,9 @@ void() zombie_turret_missile =
 	r = random();
 
 	if (r < 0.3)
-		zombie_turret_atta1 ();
-	else if (r < 0.6)
 		zombie_turret_attb1 ();
+	else if (r < 0.6)
+		zombie_turret_atta1 ();
 	else
 		zombie_turret_attc1 ();
 };

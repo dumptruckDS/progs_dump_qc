@@ -350,6 +350,11 @@ else if (self.style == 2)
 	{
 		self.effects = self.effects | EF_MUZZLEFLASH;
 		ai_face();
+		if (self.spawnflags & I_AM_TURRET)
+			{
+				PreachFireGrenade(self.attack_elevation);
+			}
+		else
 		EnfFireGrenade();
 		return;
 	}
@@ -454,13 +459,13 @@ void()	enf_2atk10	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_2atk1
 ////////////////////////////
 void()	enf_turret_atk1	=[	$attack1,	enf_turret_atk2	] {ai_face();};
 void()	enf_turret_atk2	=[	$attack2,	enf_turret_atk3	] {ai_face();};
-void()	enf_turret_atk3	=[	$attack3,	enf_turret_atk4	] {ai_face();};
-void()	enf_turret_atk4	=[	$attack4,	enf_turret_atk5	] {ai_face();};
-void()	enf_turret_atk5	=[	$attack5,	enf_turret_atk6	] {ai_face();};
+void()	enf_turret_atk3	=[	$attack3,	enf_turret_atk4	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void()	enf_turret_atk4	=[	$attack4,	enf_turret_atk5	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void()	enf_turret_atk5	=[	$attack5,	enf_turret_atk6	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
 void()	enf_turret_atk6	=[	$attack6,	enf_turret_atk7	] {enforcer_fire();};
-void()	enf_turret_atk7	=[	$attack7,	enf_turret_atk8	] {ai_face();};
-void()	enf_turret_atk8	=[	$attack8,	enf_turret_atk9	] {ai_face();};
-void()	enf_turret_atk9	=[	$attack5,	enf_turret_atk10	] {ai_face();};
+void()	enf_turret_atk7	=[	$attack7,	enf_turret_atk8	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
+void()	enf_turret_atk8	=[	$attack8,	enf_turret_atk9	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
+void()	enf_turret_atk9	=[	$attack5,	enf_turret_atk10	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
 void()	enf_turret_atk10	=[	$attack6,	enf_turret_atk11	] {enforcer_fire();};
 void()	enf_turret_atk11	=[	$attack7,	enf_turret_atk12	] {ai_face();};
 void()	enf_turret_atk12	=[	$attack8,	enf_turret_atk13	] {ai_face();};
