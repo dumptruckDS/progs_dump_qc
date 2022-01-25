@@ -447,7 +447,10 @@ void()	Demon_JumpTouch =
 		if (self.flags & FL_ONGROUND)
 		{	// jump randomly to not get hung up
 //dprint ("popjump\n");
-	self.touch = SUB_Null;
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+//			self.touch = SUB_Null;
+	self.touch = monster_touch;
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
 	self.think = demon1_jump1;
 	self.nextthink = time + 0.1;
 
@@ -459,7 +462,10 @@ void()	Demon_JumpTouch =
 		return;	// not on ground yet
 	}
 
-	self.touch = SUB_Null;
+  // 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+  //	self.touch = SUB_Null;
+	self.touch = monster_touch;
+  // 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
 	self.think = demon1_jump11;
 	self.nextthink = time + 0.1;
 };

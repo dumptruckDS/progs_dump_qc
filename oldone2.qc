@@ -362,6 +362,7 @@ void() monster_oldone2 =
 	self.th_run = old2_attk1;
 	self.th_pain = oldone2_pain;
 	self.th_die = old2_twitch1;
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
 	total_monsters = total_monsters + 1;
 };
