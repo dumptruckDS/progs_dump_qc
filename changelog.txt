@@ -26,7 +26,8 @@
 * Fixed armor taking damage with Pentagram of Protection (johnfitz)
 * Added custom sound keys and new options for func_new_plat (Alkaline)
 * Made Zombies partially z-aware in Turret Mode
-* Removed "in wall" dprint on monster wtih I_AM_TURRET spawnflag
+* Removed "in wall" dprint on monster with I_AM_TURRET spawnflag
+* Fixed Fiend and Dog instakill bug (dumptruck_ds, Preach)
 
 2.0.1 March 2021
 
