@@ -73,8 +73,13 @@ void()	Dog_JumpTouch =
 	{
 		if ( vlen(self.velocity) > 300 )
 		{
-			ldmg = 10 + 10*random();
-			T_Damage (other, self, self, ldmg);
+			if !(self.worldtype)
+	      {
+					ldmg = 10 + 10*random();
+					T_Damage (other, self, self, ldmg);
+					if (other.health > 0) // is the player still alive? Preach's instakill bug check - dumptruck_ds
+					self.worldtype = 1;
+				}
 		}
 	}
 
@@ -160,7 +165,7 @@ void() dog_leap1	=[	$leap1,		dog_leap2	] {ai_face();};
 void() dog_leap2	=[	$leap2,		dog_leap3	]
 {
 	ai_face();
-
+	self.worldtype = 0; //fix for instakill bug -- dumptruck_ds
 	self.touch = Dog_JumpTouch;
 	makevectors (self.angles);
 	self.origin_z = self.origin_z + 1;

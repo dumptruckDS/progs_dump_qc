@@ -76,7 +76,7 @@ void()	demon1_jump3	=[	$leap3,		demon1_jump4	] {ai_face();};
 void()	demon1_jump4	=[	$leap4,		demon1_jump5	]
 {
 	ai_face();
-
+  self.worldtype = 0; //fix for instakill bug -- dumptruck_ds
 	self.touch = Demon_JumpTouch;
 	makevectors (self.angles);
 	self.origin_z = self.origin_z + 1;
@@ -437,8 +437,13 @@ void()	Demon_JumpTouch =
 	{
 		if ( vlen(self.velocity) > 400 )
 		{
-			ldmg = 40 + 10*random();
-			T_Damage (other, self, self, ldmg);
+      if !(self.worldtype)
+        {
+          ldmg = 40 + 10*random();
+          T_Damage (other, self, self, ldmg);
+          if (other.health > 0) // is the player still alive? Preach's instakill bug check - dumptruck_ds
+          self.worldtype = 1;
+        }
 		}
 	}
 
