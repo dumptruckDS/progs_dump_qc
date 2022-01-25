@@ -2182,7 +2182,7 @@ Horizontal space is limited to 40 characters, so you must place linefeeds (\n) i
 ///////////////////////////////////////////////////////////
 
 //____TW_EDIT____
-@PointClass size(32 32 16) color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model. 'frame' can also be used to offset the animation. NOTE: set angle value to 0 if using angles key to rotate mdls"
+@PointClass size(32 32 16) studio() color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model. 'frame' can also be used to offset the animation. NOTE: set angle value to 0 if using angles key to rotate mdls"
 //***commented out for now
 
 //mdl: The model to display. Can be of type mdl, bsp, or spr.
@@ -2193,7 +2193,7 @@ Horizontal space is limited to 40 characters, so you must place linefeeds (\n) i
 //angles: pitch roll yaw (up/down, angle, tilt left/right)
 [
 	skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
-	mdl(string) : "Model Selection (ex progs/model.mdl)"
+	mdl(studio) : "Model Selection (ex progs/model.mdl)"
 	frame(integer) : "Single Frame to Display"
 	first_frame(integer) : "Start Animation Frame"
 	last_frame(integer) :  "Last Animation Frame"
