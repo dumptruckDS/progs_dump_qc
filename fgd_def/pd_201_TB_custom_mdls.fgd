@@ -62,6 +62,8 @@
 		1 : "Reset to shotgun, axe, and 25 shells"
 		2 : "Reset to axe only"
 	]
+	_bounce(integer) : "Bounce lights" : 0 : "1 enables bounce lighting, disabled by default."
+	_bouncestyled(integer) : "Bounce styled lights" : 0 : "1 makes styled lights bounce (e.g. flickering or switchable lights), default is 0, they do not bounce."
 	_sunlight(integer) : "Sunlight" : 0 : "Set the brightness of the sunlight coming from an unseen sun in the sky. Sky brushes (or more accurately bsp leafs with sky contents) will emit sunlight at an angle specified by the _sun_mangle key. Default 0"
 	_sun_mangle(string) : "Sun mangle (Yaw pitch roll)" : "0 -90 0" : "Specifies the direction of sunlight using yaw(x), pitch(y) and roll(z) in degrees. Yaw specifies the angle around the Z-axis from 0 to 359 degrees and pitch specifies the angle from 90 (straight up) to -90 (straight down). Roll has no effect, so use any value (e.g. 0). Default is straight down (0 -90 0)"
 	_sunlight_penumbra(integer) : "Sunlight penumbra in degrees" : 0 : "Specifies the penumbra width, in degrees, of sunlight. Useful values are 3-4 for a gentle soft edge, or 10-20+ for more diffuse sunlight. Default is 0"
@@ -363,7 +365,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	respawncount(integer) : "How many respawns?"
 ]
 
-@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem) =
+@BaseClass size(0 0 0, 32 32 56) color(80 0 200) base(RespawnableItem, CustomMdlsAmmo) =
 	Ammo
 [
 	spawnflags(flags) =
@@ -1248,6 +1250,17 @@ spawnflags(Flags) =
 		_phong_angle(integer) : "Phong shading angle" :  : "Enables phong shading on faces of this model with a custom angle. Adjacent faces with normals this many degrees apart (or less) will be smoothed. Consider setting '_anglescale' to '1' on lights or worldspawn to make the effect of phong shading more visible. Use the '-phongdebug' command-line flag to save the interpolated normals to the lightmap for previewing (use 'r_lightmap 1' or 'gl_lightmaps 1' in your engine to preview.)"
 	]
 
+@baseclass = SwitchShadow [
+	_switchableshadow(choices) : "Switchable shadow" : 0 : "Enables a switchable shadow that can be controlled with a targeting misc_shadowcontroller." = [
+		0: "No"
+		1: "Yes"
+	]
+]
+
+@baseclass = Shadow [
+	_shadow(integer) : "Shadows" :  : "If n is 1, this model will cast shadows on other models and itself (i.e. '_shadow' implies '_shadowself'). Note that this doesn’t magically give Quake dynamic lighting powers, so the shadows will not move if the model moves. Func_detail ONLY - If set to -1, light will pass through this brush model. Default 0"
+	_shadowself(integer) : "Self Shadow" :  : "If n is 1, this model will cast shadows on itself if one part of the model blocks the light from another model surface. This can be a better compromise for moving models than full shadowing. Default 0"
+]
 
 @SolidClass color(128 128 230)base(ModelLight) = func_detail : "Detail brush. Ignored by vis so can speed up compile times consideratbly. Also allows you to set new compiler lighting options on brushes. DOES NOT SEAL MAPS FROM VOID" []
 
@@ -1347,7 +1360,7 @@ spawnflags(Flags) =
 // misc
 //
 
-@SolidClass base(Appearflags) = func_illusionary : "Static nonsolid model"  []
+@SolidClass base(Appearflags, ModelLight) = func_illusionary : "Static nonsolid model"  []
 
 @PointClass base(Appearflags) color(0 150 220) = air_bubbles : "Air bubbles" []
 @PointClass base(Appearflags, Targetname) =
@@ -1368,6 +1381,7 @@ You can add effects using the dropdown, use a custom model using the mdl_body ke
 	target(string) : "First path_corner"
 	targetname(target_source) : "Name"
 	mdl_body(string) : "Path to custom body model"
+	speed(float) : "Speed between path corners"
 	spawnflags(Flags) =
 	[
 	2 : "Don't Rotate (use with func_monster_spawner)"
@@ -1533,14 +1547,14 @@ Default is 0.3 seconds.
 	weapon(float) : "Duration of each strike" : "0.3"
 ]
 
-@SolidClass base(Appearflags) = trigger_ladder : "Invisible ladder entity.
+@SolidClass base(Appearflags, TriggerWait) = trigger_ladder : "Invisible ladder entity.
 
 When player is touching this entity, she can climb by pushing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
 
-@SolidClass base(Appearflags) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
 
 [
 spawnflags(Flags) =
@@ -1701,6 +1715,10 @@ Originally unused in the game. Plays the sound of thunder at a random interval. 
 		32: "Toggle" : 0
 		64: "Doom-style Unlock" : 0
 	]
+	_switchableshadow(choices) : "Switchable shadow" : 0 : "Enables dynamic shadows that fade on/off when the door moves." = [
+		0: "No"
+		1: "Yes"
+	]
 ]
 
 @SolidClass base(Appearflags, Targetname, Target) = func_door_secret : "Secret door"
@@ -1737,9 +1755,25 @@ Originally unused in the game. Plays the sound of thunder at a random interval. 
 // 	]
 // ]
 
-@SolidClass base(Appearflags, Targetname, Effects) = func_wall : "Wall, starts animation when triggered (if supporting texture)
+@SolidClass base(Appearflags, Targetname, Effects, ModelLight, SwitchShadow) = func_wall : "Wall, starts animation when triggered (if supporting texture).
 Effects will require an origin brush to work properly (see func_fall2 in manual for details)" []
 
+@SolidClass base(Appearflags, Targetname, Effects, ModelLight) = func_togglevisiblewall : "A bmodel which you can toggle its visibility. Behaves much like a traditional func_wall in any other way, but you can target it to toggle visible/invisible.
+If the entity has a switchable shadow it also toggles automatically (no need for a shadow controller)."
+[
+	spawnflags(flags) =
+	[
+		1 : "Start Off" : 0
+		2 : "Non-solid" : 0
+	]
+	_switchableshadow(choices) : "Switchable shadow" : 0 : "Enables dynamic shadows that toggle on/off with the entity" = [
+		0: "No"
+		1: "Yes"
+	]
+
+]
+
+@SolidClass base(Targetname, Shadow, SwitchShadow) = func_shadow : "An invisible, non-solid brush entity that can be used to cast shadows. " []
 
 @SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox.
 
@@ -1830,6 +1864,24 @@ dmg is the amount of damage to cause when touched."
 	]
 ]
 
+
+@PointClass base(Appearflags, Targetname) size(16 16 16) color(64 64 64) = misc_shadowcontroller : "Controls switchable shadows on any bmodel entity (except doors).
+Target this entity to toggle the shadows on/off with an optional fading animation.
+
+Targeted bmodel must have _switchableshadow set to 1.
+
+If the target entity changes its default behavior when 'targetname' is set (such as breakables), you can target the entity's 'targetname2' key."
+[
+	target(target_destination) : "Target" : : "Target with _switchableshadow enabled."
+	speed(float) : "Fade-in speed" : "0.5" : "Controls the time in seconds it takes to fade the shadow in. Setting it to -1 disables fading."
+	speed2(integer) : "Fade-out speed" :  : "Same as 'speed' but for the fade out animation. If unset it uses the same value as 'speed'."
+	spawnflags(flags) =
+	[
+		1 : "Shadow start off" : 0
+
+	]
+]
+
 @PointClass base(Appearflags, Targetname, Target) size(16 16 16) color(255 200 0) = misc_sparks : "Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash along with each burst of sparks. Note: targeted lights should be set to START_OFF. Set sounds key to 1 for built-in spark sound effect or target a play_sound_triggered for a custom sound."
 [
 	wait(integer) : "is the average delay between bursts (variance is 1/2 wait). Default is 2."
@@ -1837,6 +1889,7 @@ dmg is the amount of damage to cause when touched."
 	sounds(integer) : "set to 1 for built-in spark sound effect. Default is 0 - silent."
 	spawnflags(flags) =
 	[
+		1 : "START_OFF" : 0
 		2 : "SPARKS_BLUE" : 0
 		4 : "SPARKS_PALE" : 0
 	]
@@ -1896,6 +1949,7 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 	wait(string) : "Wait before reset" : "1"
 	delay(string) : "Delay before trigger"
 	message(string) : "Message"
+	_shadow(integer) : "Shadows"
 ]
 @SolidClass base(Angle, Appearflags, Targetname, Target) = func_elvtr_button : "Button for use with func_new_plat" //modified by dumptruck_ds to add Target
 [
@@ -2088,7 +2142,7 @@ Check each field's description for more details.
 // triggers
 //
 
-@baseclass base(Appearflags, Target, Targetname, Message) = Trigger
+@baseclass base(Appearflags, Target, Targetname, TriggerWait, Message) = Trigger
 [
 	sounds(choices) : "Sound style" : 0 =
 	[
@@ -2188,7 +2242,7 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 [
 	spawnflags(flags) = [ 1: "Not touchable" : 0 ]
 ]
-@SolidClass base(Trigger, OneTargetname) = trigger_secret : "Trigger: Secret"
+@SolidClass base(Trigger, OneTargetname, TriggerWait) = trigger_secret : "Trigger: Secret"
 [
 	sounds(choices) : "Sound" : 1 =
 	[
@@ -2293,7 +2347,18 @@ NOTE: Set BOTH Custom Noise spawnflag and the Noise key/value. Custom sounds sho
 @PointClass size(16 16 16) = misc_noisemaker : "Debug entity: continuously plays enforcer sounds" []
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
 
-@PointClass base(Appearflags, Targetname, TriggerWait) = trigger_changetarget : "Changes the target field on an entity.
+@PointClass base(Appearflags, Targetname, TriggerWait) = misc_infight : "Makes 'target' monster angry at 'target2'.
+
+By default, the infighting doesn't start mutually, that is, 'target2' monster will only get mad back at 'target' after it's been attacked.
+
+If you want to make them angry at each other instantly, you can set the spawnflag 'Mutual hate'."
+[
+	target(target_destination) : "The monster who will get angry."
+	target2(target_destination) : "Who target will get angry at."
+	spawnflags(flags) = [ 1: "Mutual hate" : 0 ]
+]
+
+@PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.
 
 'message' is the value of the new target.
 
@@ -2346,7 +2411,7 @@ Acts as a smoothly blending portal between two zones of different fog. Sets the 
 	angle(integer) : "Axis of motion of blend (points toward end values)"
 ]
 
-@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_fog :
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog :
 "Trigger: Sets a fog.
 Smoothly blends client's currently applied fog to this value over time.
 

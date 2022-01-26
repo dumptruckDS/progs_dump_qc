@@ -76,7 +76,7 @@ void()	demon1_jump3	=[	$leap3,		demon1_jump4	] {ai_face();};
 void()	demon1_jump4	=[	$leap4,		demon1_jump5	]
 {
 	ai_face();
-
+  self.worldtype = 0; //fix for instakill bug -- dumptruck_ds
 	self.touch = Demon_JumpTouch;
 	makevectors (self.angles);
 	self.origin_z = self.origin_z + 1;
@@ -437,8 +437,13 @@ void()	Demon_JumpTouch =
 	{
 		if ( vlen(self.velocity) > 400 )
 		{
-			ldmg = 40 + 10*random();
-			T_Damage (other, self, self, ldmg);
+      if !(self.worldtype)
+        {
+          ldmg = 40 + 10*random();
+          T_Damage (other, self, self, ldmg);
+          if (other.health > 0) // is the player still alive? Preach's instakill bug check - dumptruck_ds
+          self.worldtype = 1;
+        }
 		}
 	}
 
@@ -447,7 +452,10 @@ void()	Demon_JumpTouch =
 		if (self.flags & FL_ONGROUND)
 		{	// jump randomly to not get hung up
 //dprint ("popjump\n");
-	self.touch = SUB_Null;
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+//			self.touch = SUB_Null;
+	self.touch = monster_touch;
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
 	self.think = demon1_jump1;
 	self.nextthink = time + 0.1;
 
@@ -459,7 +467,10 @@ void()	Demon_JumpTouch =
 		return;	// not on ground yet
 	}
 
-	self.touch = SUB_Null;
+  // 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+  //	self.touch = SUB_Null;
+	self.touch = monster_touch;
+  // 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
 	self.think = demon1_jump11;
 	self.nextthink = time + 0.1;
 };

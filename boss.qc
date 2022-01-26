@@ -287,7 +287,7 @@ void() monster_boss =
 
 	if (self.spawnflags & I_AM_TURRET)
 		objerror("Incompatible spawnflag: TURRET_MODE\n");
-		
+
 	if (deathmatch)
 	{
 		remove(self);
@@ -310,6 +310,7 @@ void() monster_boss =
 	total_monsters = total_monsters + 1;
 
 	self.flags = FL_MONSTER;
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 	self.use = boss_awake;
 };
 

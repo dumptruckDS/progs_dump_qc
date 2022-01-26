@@ -125,6 +125,30 @@ return TRUE;
 
 //end of Preach's new fields here
 
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+/*
+================
+by: Philip Martin aka: Kryten
+When on top of monsters or players you slide. This is a QuakeC problem.
+The function below fixes that problem.
+based on code given to Kryten by: Michael Turitzin (MaNiAc)
+================
+*/
+void() monster_touch =
+{
+	//can cause problems for monsters on top of a player,  so only players
+	if (other.classname != "player")
+		return;
+	if (other.health <= 0)
+		return;
+
+	if ((!(other.flags & FL_ONGROUND)) && ((other.absmin_z >= self.absmax_z - 2)))
+		other.flags = other.flags + FL_ONGROUND;
+
+	//you can add other stuff like pushable players/monsters here
+};
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
+
 /*
 ================
 monster_use
@@ -293,6 +317,7 @@ void() walkmonster_start =
 
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 // 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
 //	self.nextthink = self.nextthink + random()*0.5;
 	self.nextthink = time + 0.1 + random()*0.5;
@@ -382,6 +407,7 @@ void() flymonster_start =
 	if(monster_teleport(flymonster_start_go))
     	return;
 
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 	self.flags = self.flags | FL_FLY;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 
 // spread think times so they don't all happen at same time
@@ -459,7 +485,7 @@ void() swimmonster_start =
 		remove(self);
 		return;
 	}
-
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 	self.flags = self.flags | FL_SWIM;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 
 	//Preach's tutorial
