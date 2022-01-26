@@ -766,7 +766,8 @@ void() OgreFireLavaBall =
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
-	newmis.touch = T_MissileTouch; // rocket explosion
+	// newmis.touch = T_MissileTouch; // rocket explosion
+	newmis.touch = OgreGrenadeExplode;
 	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
 
 // check for dead enemy

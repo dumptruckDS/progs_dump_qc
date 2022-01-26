@@ -114,6 +114,25 @@ local float 	ldmg;
 };
 void() sham_smash11    =[      $smash11,      sham_smash12   ] {ai_charge(5);};
 void() sham_smash12    =[      $smash12,      sham_run1	   ] {ai_charge(4);};
+/////////////////////////////////////
+// new frames for projectile style
+////////////////////////////////////
+void() sham_proj1     =[      $smash1,       sham_proj2    ] {ai_face();};
+void() sham_proj2     =[      $smash2,       sham_proj3    ] {ai_face();};
+void() sham_proj3     =[      $smash3,       sham_proj4    ] {ai_face();};
+void() sham_proj4     =[      $smash4,       sham_proj5    ] {ai_face();};
+void() sham_proj5     =[      $smash5,       sham_proj6    ] {ai_face();};
+void() sham_proj6     =[      $smash6,       sham_proj7    ] {ai_face();};
+void() sham_proj7     =[      $smash7,       sham_proj8    ] {ai_face();};
+void() sham_proj8     =[      $smash8,       sham_proj9    ] {ai_face();};
+void() sham_proj9     =[      $smash9,       sham_proj10   ]
+{
+	OgreFireLavaBall();
+	sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
+};
+void() sham_proj10    =[      $smash10,      sham_proj11   ] {ai_face();};
+void() sham_proj11    =[      $smash11,      sham_proj12   ] {ai_face();};
+void() sham_proj12    =[      $smash12,      sham_run1	   ] {ai_face();};
 
 void() sham_swingr1;
 
@@ -174,12 +193,25 @@ if (random()<0.5)
 	self.think = sham_swingl1;
 };
 
+void() sham_melee2 =
+{
+	local float chance;
+
+	chance = random();
+
+	if (chance > 0.6)
+		sham_swingr1 ();
+	else
+		sham_swingl1 ();
+};
+
 void() sham_melee =
 {
 	local float chance;
 
 	chance = random();
-	if (chance > 0.6 || self.health == 600)
+
+	if (chance > 0.6 || self.health == 600) // changed to >= as you can set custom health
 		sham_smash1 ();
 	else if (chance > 0.3)
 		sham_swingr1 ();
@@ -532,6 +564,7 @@ void() monster_shambler =
 	precache_sound_attack ("shambler/melee1.wav");
 	precache_sound_misc ("shambler/melee2.wav");
 	precache_sound_hit ("shambler/smack.wav");
+	precache_sound ("boss1/throw.wav"); // jaycie erysdren 2021-09-14
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");
@@ -551,7 +584,13 @@ void() monster_shambler =
 	self.th_walk = sham_walk1;
 	self.th_run = sham_run1;
 	self.th_die = sham_die;
+	if (self.style == 1)
+	self.th_melee = sham_melee2;
+	else
 	self.th_melee = sham_melee;
+	if (self.style == 1)
+	self.th_missile = sham_proj1;
+	else
 	self.th_missile = sham_magic1;
 	self.th_turret = sham_turret_magic1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
