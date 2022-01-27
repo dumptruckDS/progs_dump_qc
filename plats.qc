@@ -227,6 +227,9 @@ float TRAIN_NEXT_CONTINUE = 2; // force continue on the next path_corner (ignore
 
 float TRAIN_STYLE_SINGLEANIM = 1;
 
+float TRAIN_ANIMTYPE_FORWARD = 1;
+float TRAIN_ANIMTYPE_BACKFORTH = 2;
+
 void() train_blocked = {
 	if (time < self.attack_finished) return;
 
@@ -282,27 +285,53 @@ void() train_wait = {
 
 	if (self.enemy.speed) self.speed2 = self.enemy.speed; // sets the speed from the current path_corner
 
+	// copies the modeltrain animation parameters set in the path_corner, if any
+	if (self.classname == "misc_modeltrain") {
+		if (self.enemy.first_frame) self.first_frame = self.enemy.first_frame;
+		if (self.enemy.last_frame) self.last_frame = self.enemy.last_frame;
+		if (self.enemy.first_frame2) self.first_frame2 = self.enemy.first_frame2;
+		if (self.enemy.last_frame2) self.last_frame2 = self.enemy.last_frame2;
+		if (self.enemy.frtime) self.frtime = self.enemy.frtime;
+		if (self.enemy.frtime2) self.frtime2 = self.enemy.frtime2;
+		if (self.enemy.animtype) self.animtype = self.enemy.animtype;
+		if (self.enemy.animtype2) self.animtype2 = self.enemy.animtype2;
+		if (self.enemy.multiplier) self.multiplier = self.enemy.multiplier;
+	}
+
 	self.think = train_next;
 
 	// train is moving normally and path_corner has a wait set, so pause for that time.
 	if (self.wait > 0 && self.cnt == TRAIN_NEXT_WAIT && !(self.spawnflags & TRAIN_RETRIGGER)) {
+		// state: stopped
 		self.state = 0;
 		if (self.classname == "misc_modeltrain") SUB_CallAsSelf(self.animcontroller.think, self.animcontroller);
 		self.nextthink = localtime + self.wait;
-		sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM); //play stopping sound
+
+		//play stopping sound. If path_corner has a custom sound, play that instead
+		if (self.enemy.noise != "") sound(self, CHAN_WEAPON, self.enemy.noise, 1, ATTN_NORM);
+		else sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM); 
 	}
 	// train is moving normally and path_corner has no wait time,
 	// or has been forced to move instantly through a triggering.
 	else if (self.cnt != TRAIN_NEXT_STOP && !self.wait && !(self.spawnflags & TRAIN_RETRIGGER)) {
-		if (self.noise2 != "") sound(self, CHAN_WEAPON, self.noise2, 1, ATTN_NORM);
+
+		//play "passing by" sound, if any. If path_corner has a custom one, play that instead
+		if (self.enemy.noise2 != "") sound(self, CHAN_WEAPON, self.enemy.noise2, 1, ATTN_NORM);
+		else if (self.noise2 != "") sound(self, CHAN_WEAPON, self.noise2, 1, ATTN_NORM);
+		
 		self.nextthink = -1; // move instantly
 		train_next();
 	}
 	// path_corner has wait -1, or train has been forced to stop through a triggering.
 	// Also catches the backwards compatible case for the original rubicon2 "retrigger" flag.
 	else {
-		sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM); //play stopping sound
+		//play stopping sound. If path_corner has a custom sound, play that instead
+		if (self.enemy.noise != "") sound(self, CHAN_WEAPON, self.enemy.noise, 1, ATTN_NORM);
+		else sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM); 
+
+		// state: stopped
 		self.state = 0;
+
 		if (self.classname == "misc_modeltrain") SUB_CallAsSelf(self.animcontroller.think, self.animcontroller);
 		self.nextthink = -1;
 	}
@@ -342,15 +371,18 @@ void() train_next = {
 	//store up any premature triggerings until current movement is finished
 	self.use = train_moving_use; 
 
-	if (self.classname == "misc_modeltrain" && !(self.spawnflags & TRAIN_NOROTATE)) {
-		destang = vectoangles(targ.origin - self.origin);
-		if (self.spawnflags & TRAIN_ROTATEY) {
-			destang_x = self.angles_x;
-			destang_z = self.angles_z;
+	if (self.classname == "misc_modeltrain") {
+		if (!(self.spawnflags & TRAIN_NOROTATE)) {
+			destang = vectoangles(targ.origin - self.origin);
+			if (self.spawnflags & TRAIN_ROTATEY) {
+				destang_x = self.angles_x;
+				destang_z = self.angles_z;
+			}
+			if (self.multiplier > 0) SUB_CalcAngleMoveController(destang, self.speed2*self.multiplier, SUB_Null, self.rotatecontroller);
+			else self.angles = destang;
 		}
-		if (self.multiplier > 0) SUB_CalcAngleMoveController(destang, self.speed2*self.multiplier, SUB_Null, self.rotatecontroller);
-		else self.angles = destang;
 	}
+
 	if (!self.state) {
 		self.state = 1;
 		if (self.classname == "misc_modeltrain" && self.style != TRAIN_STYLE_SINGLEANIM)
@@ -478,45 +510,54 @@ void() animcontroller_think = {
 	entity tr;
 	tr = self.owner;
 	
-	float first, last;
+	float first, last, step, atype, dir, nextframe;
 
-	if (self.state != tr.state && tr.style != TRAIN_STYLE_SINGLEANIM) { // changed animation
-		if (tr.state) { // started moving
+	// train just went from stopped to moving or vice-versa,
+	// and have both animations set
+	if (self.state != tr.state && tr.style != TRAIN_STYLE_SINGLEANIM) {
+		if (tr.state) { // just started moving
 			tr.frame = zeroconvert(tr.first_frame2);
 		}
 		else { // just stopped
 			tr.frame = zeroconvert(tr.first_frame);
 		}
-
+		tr.distance = 1; // reset back/forth status
 		self.state = tr.state;
 	}
 	
 	else {
-		if (self.state && tr.style != TRAIN_STYLE_SINGLEANIM) { // moving animation
+		if (self.state && tr.style != TRAIN_STYLE_SINGLEANIM) { // moving train animation, if set
 			first = zeroconvert(tr.first_frame2);
 			last = zeroconvert(tr.last_frame2);
+			atype = tr.animtype2;
 		}
-		else { // stopped animation
+		else { // stopped/default train animation
 			first = zeroconvert(tr.first_frame);
 			last = zeroconvert(tr.last_frame);
+			atype = tr.animtype;
 		}
 
-		if (first > last) { // reverse direction
-			if (tr.frame <= last) {
-				tr.frame = first; // range ended, return to first
-			}
-			else {
-				tr.frame--;
+		if (first > last) step = dir = -1; // reverse direction
+		else step = dir = 1;
+
+		// back-and-forth is going the other way, so invert the step's signal
+		if (tr.distance < 0) step = step * (-1);
+		
+		nextframe = tr.frame + step;
+
+		if (atype == TRAIN_ANIMTYPE_BACKFORTH){
+			if (dir > 0 && (nextframe > last || nextframe < first) ||
+				dir < 0 && (nextframe > first || nextframe < last)
+			) {
+				nextframe = tr.frame - step;
+				tr.distance = tr.distance * (-1);
 			}
 		}
-		else {
-			if (tr.frame >= last) {
-				tr.frame = first; // range ended, return to first
-			}
-			else {
-				tr.frame++;
-			}
-		}
+
+		if (dir > 0) nextframe = wrap(nextframe, first, last);
+		else nextframe = wrap(nextframe, last, first);
+		
+		tr.frame = nextframe;
 
 	}
 
@@ -561,6 +602,8 @@ void() misc_modeltrain = {
 	anim.think = animcontroller_think;
 	anim.nextthink = time + 0.2;
 
+	self.distance = 1;
+
 	if (!self.frtime) self.frtime = 0.1;
 	if (!self.frtime2) self.frtime2 = self.frtime;
 	if (!self.multiplier) self.multiplier = 1;
@@ -569,11 +612,14 @@ void() misc_modeltrain = {
 	// make sure all first and last frame fields are filled
 	if (self.first_frame && !self.last_frame) self.last_frame = self.first_frame;
 	else if (!self.first_frame && self.last_frame) self.first_frame = self.last_frame;
-
+	
 	if (self.first_frame2 && !self.last_frame2) self.last_frame2 = self.first_frame2;
 	else if (!self.first_frame2 && self.last_frame2) self.first_frame2 = self.last_frame2;
 
 	if (!self.first_frame2) self.style = TRAIN_STYLE_SINGLEANIM;
+
+	if (!self.animtype) self.animtype = TRAIN_ANIMTYPE_FORWARD;
+	if (!self.animtype2) self.animtype2 = self.animtype;
 
 	self.frame = self.first_frame;
 

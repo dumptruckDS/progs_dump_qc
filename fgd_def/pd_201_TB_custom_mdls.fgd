@@ -2050,6 +2050,16 @@ Spawnflags:
 	last_frame2(integer) : "Last frame sequence (moving). Use -1 for frame 0"
 	frtime(float) : "Frame time (stopped)" : "0.1"
 	frtime2(float) : "Frame time (moving)" : "0.1"
+	animtype(choices) : "Animation type (stopped)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	animtype2(choices) : "Animation type (moving)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
 	multiplier(integer) : "Turning speed" : 1 : "Turning speed multiplier. Set to -1 to turn instantly"
 	noise1(string) : "Custom moving loop sound (if set, overrides 'sounds')"
 	noise(string) : "Custom stopping sound (if set, overrides 'sounds')"
@@ -2069,6 +2079,27 @@ Spawnflags:
 Check each field's description for more details.
 "
 [
+	first_frame(integer) : "First frame sequence (stopped). Use -1 for frame 0"
+	last_frame(integer) : "Last frame sequence (stopped). Use -1 for frame 0"
+	first_frame2(integer) : "First frame sequence (moving). Use -1 for frame 0"
+	last_frame2(integer) : "Last frame sequence (moving). Use -1 for frame 0"
+	frtime(float) : "Frame time (stopped)" : "0.1"
+	frtime2(float) : "Frame time (moving)" : "0.1"
+	animtype(choices) : "Animation type (stopped)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	animtype2(choices) : "Animation type (moving)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	multiplier(integer) : "Turning speed" : 1 : "Turning speed multiplier. Set to -1 to turn instantly"
+	noise(string) : "Custom stopping sound for this point"
+	noise2(string) : "Custom corner sound for this point, for when the train crosses a path_corner without stopping"
+
+
 	target(target_source) : "Next waypoint target"
 	target2(target_destination) : "Target2"
 	target3(target_destination) : "Target3"

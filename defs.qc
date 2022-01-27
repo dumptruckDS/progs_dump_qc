@@ -1013,4 +1013,5 @@ float I_AM_TURRET = 262144; //dumptruck_ds
 .float 		first_frame, last_frame;
 .float 		first_frame2, last_frame2;
 .float 		frtime, frtime2;
+.float 		animtype, animtype2;
 .vector		cmins, cmaxs;
