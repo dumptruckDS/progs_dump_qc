@@ -2,10 +2,12 @@
 
 defs.qc //added fields, see comments for details
 newflags.qc //new spawnflags for all entities
-subs.qc //modified targets, triggers and killtargets
-
 math.qc // Code by Joshua Skelton
 utility.qc
+
+subs.qc //modified targets, triggers and killtargets
+
+
 
 fight.qc
 customsounds.qc //mapper-settable custom sound effects for monsters - iw
