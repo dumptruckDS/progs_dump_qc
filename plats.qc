@@ -583,6 +583,7 @@ void() misc_modeltrain = {
 		if (self.cmaxs == VEC_ORIGIN) self.cmaxs = '8 8 8';
 	}
 
+	self.movetype = MOVETYPE_NOCLIP;
 	setmodel (self, self.mdl);
 	setsize (self, self.cmins , self.cmaxs);
 	setorigin (self, self.origin);
