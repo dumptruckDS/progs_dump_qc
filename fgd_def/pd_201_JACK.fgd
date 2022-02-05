@@ -619,7 +619,7 @@ skin_exproj(float) : "Skin index for custom exploding projectile model"
 ]
 
 //____TW_EDIT____
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) studio("progs/wizard.mdl") = monster_wizard : "Scrag a.k.a Wizard, Default health = 80"
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) studio("progs/wizard.mdl") = monster_wizard : "Scrag a.k.a Wizard, Default health = 80"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
@@ -627,6 +627,11 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
+projexpl(Choices) : "Exploding projectiles" =
+  [
+	  0 : "Normal (no explosions)"
+		1 : "Projectiles explode"
+	]
 ]
 
 //____TW_EDIT____

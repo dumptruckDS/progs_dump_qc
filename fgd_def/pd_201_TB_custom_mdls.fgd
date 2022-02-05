@@ -777,8 +777,8 @@ snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD 
 mdl_exproj(string) : "Path to custom exploding projectile model"
 skin_exproj(float) : "Skin index for custom exploding projectile model"
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/wizard.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_wizard : "Scrag a.k.a Wizard
+// @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/wizard.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_wizard : "Scrag a.k.a Wizard
 
 Default health = 80"
 [
@@ -788,6 +788,11 @@ snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
+projexpl(Choices) : "Exploding projectiles" =
+  [
+	  0 : "Normal (no explosions)"
+		1 : "Projectiles explode"
+	]
 ]
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
 @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/demon.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_demon1 : "Fiend
