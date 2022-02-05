@@ -567,6 +567,13 @@ void() T_HellKnightMisTouch =
 {
 	T_MonsterMisTouch(20, 50);
 };
+
+// big damage. explody scrag should be beefy.
+// TODO: add damage modifier
+void() T_WizardMisTouch =
+{
+ T_MonsterMisTouch(50, 50);
+};
 //dumptruck_ds end
 
 /*
