@@ -19,7 +19,7 @@
 * Added skip_id1_overrides worldspawn key to disable hardcoded map features
   like intermissions and E1M8 gravity (ILike80sRock)
 * Added PASSIVE_ALWAYS and PASSIVE_UNTIL_ATTACKED spawnflags to monsters
-* Added Looping spawnflag to play_sound_triggered which causes triggered,
+* Added Looping spawnflag to play_sound_triggered which allows triggered,
   looping sounds to restart after a save (bmFbr)
 * Added Turret Mode spawnflag for Grunts, Enforcers, Ogres, Ogre Marksmen,
   Hellknight, Shalrath, Shamblers and Zombies. (dumptruck_ds, ILike80sRock)
@@ -28,6 +28,7 @@
 * Made Zombies partially z-aware in Turret Mode
 * Removed "in wall" dprint on monster with I_AM_TURRET spawnflag
 * Fixed Fiend and Dog instakill bug (dumptruck_ds, Preach)
+* Added custom projectiles with exploding options to Wizard (ILike80sRock)
 
 2.0.1 March 2021
 

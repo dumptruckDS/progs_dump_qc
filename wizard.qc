@@ -216,7 +216,7 @@ void() Wiz_FastFire =
 		newmis.classname = "wizspike";
 		if (self.owner.projexpl)
 		{
-			dprint("spawning exploding wizard proj from fastfire\n");
+			// dprint("spawning exploding wizard proj from fastfire\n");
 			newmis.touch = T_WizardMisTouch;
 		}
 		setmodel(newmis, self.owner.mdl_proj);
@@ -245,7 +245,7 @@ void() Wiz_StartFast =
 	missile.nextthink = time + 0.8;
 	if (self.projexpl)
 	{
-		dprint("spawning exploding wizard proj from startfast 1\n");
+		// dprint("spawning exploding wizard proj from startfast 1\n");
 		missile.touch = T_WizardMisTouch;
 	}
 	missile.think = Wiz_FastFire;
@@ -256,7 +256,7 @@ void() Wiz_StartFast =
 	missile.nextthink = time + 1;
 	if (self.projexpl)
 	{
-		dprint("spawning exploding wizard proj from startfast 2\n");
+		// dprint("spawning exploding wizard proj from startfast 2\n");
 		missile.touch = T_WizardMisTouch;
 	}
 	setsize (missile, '0 0 0', '0 0 0');
