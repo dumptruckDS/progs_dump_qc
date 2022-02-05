@@ -777,17 +777,23 @@ snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD 
 mdl_exproj(string) : "Path to custom exploding projectile model"
 skin_exproj(float) : "Skin index for custom exploding projectile model"
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/wizard.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_wizard : "Scrag a.k.a Wizard
+// @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/wizard.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_wizard : "Scrag a.k.a Wizard
 
 Default health = 80"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound e.g. slimeball hits wall"
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
+projexpl(Choices) : "Exploding projectiles" =
+  [
+	  0 : "Normal (no explosions)"
+		1 : "Projectiles explode"
+	]
 ]
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
 @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/demon.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_demon1 : "Fiend
@@ -1986,7 +1992,7 @@ Spawnflags:
 - 'Move on trigger' will force the train to resume its path when triggered, even when temporarily waiting at a path_corner.
 - 'Stop on trigger' will stop the train at the next path_corner when triggered. Trigger it again to resume.
 The flags above are mutually exclusive and will cause an objerror when selected simultaneously.
-" 
+"
 [
 	sounds(choices) : "Sound" : 1 =
 	[
@@ -2029,7 +2035,7 @@ If you want to explicitly set frame 0 in any '*_frame' fields, you must use -1 i
 Spawnflags:
 - No rotation: model doesn't rotate when moving towards path_corners.
 - Rotate Y only: model only rotates around the Y axis, so pitch/roll angles are kept as initially set (useful to fake walking NPCs).
-" 
+"
 [
 	sounds(choices) : "Sound" : 1 =
 	[
