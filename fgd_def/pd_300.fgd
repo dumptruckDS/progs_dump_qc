@@ -2570,6 +2570,7 @@ You can set it to be show the message only when the player is facing a certain a
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
 	spawnflags(flags) = [
 		1: "Silent"
+		2: "No background fade"
 	]
 ]
 
@@ -2585,6 +2586,7 @@ Horizontal space is limited to 40 characters, so you must place linefeeds (\n) i
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
 	spawnflags(flags) = [
 		1: "Silent"
+		2: "No background fade"
 	]
 ]
 

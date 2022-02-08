@@ -31,6 +31,7 @@ plats.qc
 misc.qc
 lights.qc //c0burn's excellent switchable lights
 fog.qc // fog triggers
+cshift.qc // background color shift controller
 
 ogre.qc
 demon.qc

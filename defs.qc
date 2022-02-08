@@ -1015,3 +1015,16 @@ float I_AM_TURRET = 262144; //dumptruck_ds
 .float 		frtime, frtime2;
 .float 		animtype, animtype2;
 .vector		cmins, cmaxs;
+
+
+
+// cshift controller
+
+.entity csfcontroller;
+
+.vector csf_color;
+.float csf_density;
+
+void(entity client) csf_apply;
+void(entity client, float density, vector color, float spd) csf_fade;
+void(entity client, float density, vector color) csf_set;
