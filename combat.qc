@@ -108,6 +108,10 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	local 	float	ignore_armor; //johnfitz
 	local 	string	death_type; //johnfitz
 
+	// don't try to damage the world. Not healthy - bmFbr
+	if (!targ)
+		return;
+
 	//johnfitz -- make sure targ.deathtype doesn't keep stale info after this function is done
 	death_type = targ.deathtype;
 	targ.deathtype = "";
