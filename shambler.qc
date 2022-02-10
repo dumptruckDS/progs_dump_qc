@@ -179,13 +179,7 @@ void() sham_proj5     =[      $smash5,       sham_proj6    ] {ai_face();};
 void() sham_proj6     =[      $smash6,       sham_proj7    ] {ai_face();};
 void() sham_proj7     =[      $smash7,       sham_proj8    ] {ai_face();};
 void() sham_proj8     =[      $smash8,       sham_proj9    ] {ai_face();};
-void() sham_proj9     =[      $smash9,       sham_proj10   ]
-{
-	// ShamFireLavaBall();
-	// ShamRocket();
-	// sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
-};
-// void() sham_proj10    =[      $smash10,      sham_proj11   ] {ai_face();};
+void() sham_proj9     =[      $smash9,       sham_proj10   ] {ai_face();};
 void() sham_proj10    =[      $smash10,      sham_proj11   ]
 {
 ShamRocket();
@@ -193,6 +187,23 @@ sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
 };
 void() sham_proj11    =[      $smash11,      sham_proj12   ] {ai_face();};
 void() sham_proj12    =[      $smash12,      sham_run1	   ] {ai_face();};
+/// projectile frames for turret mode
+void() sham_turret_proj1     =[      $smash1,       sham_turret_proj2    ] {ai_face();};
+void() sham_turret_proj2     =[      $smash2,       sham_turret_proj3    ] {ai_face();};
+void() sham_turret_proj3     =[      $smash3,       sham_turret_proj4    ] {ai_face();};
+void() sham_turret_proj4     =[      $smash4,       sham_turret_proj5    ] {ai_face();};
+void() sham_turret_proj5     =[      $smash5,       sham_turret_proj6    ] {ai_face();};
+void() sham_turret_proj6     =[      $smash6,       sham_turret_proj7    ] {ai_face();};
+void() sham_turret_proj7     =[      $smash7,       sham_turret_proj8    ] {ai_face();};
+void() sham_turret_proj8     =[      $smash8,       sham_turret_proj9    ] {ai_face();};
+void() sham_turret_proj9     =[      $smash9,       sham_turret_proj10   ] {ai_face();};
+void() sham_turret_proj10    =[      $smash10,      sham_turret_proj11   ]
+{
+ShamRocket();
+sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
+};
+void() sham_turret_proj11    =[      $smash11,      sham_turret_proj12   ] {ai_face();};
+void() sham_turret_proj12    =[      $smash12,      sham_seek_1	   			 ] {ai_face();};
 
 void() sham_swingr1;
 
@@ -653,6 +664,9 @@ void() monster_shambler =
 	self.th_missile = sham_proj1;
 	else
 	self.th_missile = sham_magic1;
+	if (self.style == 1)
+	self.th_turret = sham_turret_proj1;
+	else
 	self.th_turret = sham_turret_magic1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = sham_pain;
