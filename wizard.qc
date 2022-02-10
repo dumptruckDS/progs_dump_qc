@@ -72,6 +72,11 @@ void(entity missile, float mspeed, float accuracy) LaunchMissile =
 	missile.angles = '0 0 0';
 	missile.angles_y = vectoyaw(missile.velocity);
 
+	if (self.projexpl)
+	{
+		missile.touch = T_WizardMisTouch;
+	}
+
 // set missile duration
 	missile.nextthink = time + 5;
 	missile.think = SUB_Remove;
@@ -209,7 +214,13 @@ void() Wiz_FastFire =
 		newmis.velocity = vec*600;
 		newmis.owner = self.owner;
 		newmis.classname = "wizspike";
-		setmodel (newmis, "progs/w_spike.mdl");
+		if (self.owner.projexpl)
+		{
+			// dprint("spawning exploding wizard proj from fastfire\n");
+			newmis.touch = T_WizardMisTouch;
+		}
+		setmodel(newmis, self.owner.mdl_proj);
+		newmis.skin = self.owner.skin_proj;
 		setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	}
 
@@ -232,12 +243,22 @@ void() Wiz_StartFast =
 	setorigin (missile, self.origin + '0 0 30' + v_forward*14 + v_right*14);
 	missile.enemy = self.enemy;
 	missile.nextthink = time + 0.8;
+	if (self.projexpl)
+	{
+		// dprint("spawning exploding wizard proj from startfast 1\n");
+		missile.touch = T_WizardMisTouch;
+	}
 	missile.think = Wiz_FastFire;
 	missile.movedir = v_right;
 
 	missile = spawn ();
 	missile.owner = self;
 	missile.nextthink = time + 1;
+	if (self.projexpl)
+	{
+		// dprint("spawning exploding wizard proj from startfast 2\n");
+		missile.touch = T_WizardMisTouch;
+	}
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin + '0 0 30' + v_forward*14 + v_right* -14);
 	missile.enemy = self.enemy;
@@ -451,6 +472,10 @@ infight_mode(Choices)
 2 : "Infight with monsters with the same classname and model but a different skin"
 3 : "Infight no matter what"
 
+projexpl(choices) : "Exploding projectiles"
+0 : "No explosions"
+1 : "All projectiles explode"
+
 health(integer) : "Set this to a custom health amount"
 pain_target(string) : "Fire this target when pain_threshold is reached"
 pain_threshold(integer) : "Fire pain_target when health drops below this amount"
@@ -475,12 +500,17 @@ void() monster_wizard =
 		return;
 	}
 
+	if (!self.mdl_proj)
+	{
+		self.mdl_proj = "progs/w_spike.mdl";
+	}
+
 	// dumptruck_ds custom_mdls
 	precache_body_model ("progs/wizard.mdl");
 	precache_head_model ("progs/h_wizard.mdl");
-	precache_model ("progs/w_spike.mdl");
+	precache_proj_model ("progs/w_spike.mdl");
 	////dumptruck_ds
-	precache_sound ("wizard/hit.wav");		// used by c code
+	precache_sound_hit ("wizard/hit.wav");		// used by c code
 	precache_sound_attack ("wizard/wattack.wav");
 	precache_sound_death ("wizard/wdeath.wav");
 	precache_sound_idle ("wizard/widle1.wav");

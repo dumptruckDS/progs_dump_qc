@@ -378,10 +378,9 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
     base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
-            spawnflags & 1 ->   (mdl_body == "" -> {"path": ":maps/b_batt1.bsp"}),
-						spawnflags & 1 -> 	(mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
-						mdl_body == "" -> {"path": ":maps/b_batt0.bsp"},
-						mdl_body != "" -> {"path" : mdl_body, "skin" : skin}
+					mdl_body -> {"path" : mdl_body, "skin" : skin},
+          spawnflags & 1 -> ":maps/b_batt1.bsp",
+          ":maps/b_batt0.bsp"
         }}
     ) =
     item_cells : "Thunderbolt ammo" []
@@ -390,11 +389,10 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
     base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
-					spawnflags & 1 ->   (mdl_body == "" -> {"path": ":maps/b_rock1.bsp"}),
-					spawnflags & 1 -> 	(mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
-					mdl_body == "" -> {"path": ":maps/b_rock0.bsp"},
-					mdl_body != "" -> {"path" : mdl_body, "skin" : skin}
-        }}
+					mdl_body -> {"path" : mdl_body, "skin" : skin},
+          spawnflags & 1 -> ":maps/b_rock1.bsp",
+          ":maps/b_rock0.bsp"
+				}}
     ) =
     item_rockets : "Rockets" []
 
@@ -402,10 +400,9 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
     base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
-					spawnflags & 1 ->   (mdl_body == "" -> {"path": ":maps/b_shell1.bsp"}),
-					spawnflags & 1 -> 	(mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
-					mdl_body == "" -> {"path": ":maps/b_shell0.bsp"},
-					mdl_body != "" -> {"path" : mdl_body, "skin" : skin}
+					mdl_body -> {"path" : mdl_body, "skin" : skin},
+          spawnflags & 1 -> ":maps/b_shell1.bsp",
+          ":maps/b_shell0.bsp"
         }}
     ) = item_shells : "Shells" []
 
@@ -413,10 +410,9 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
     base(Ammo, CustomMdlsAmmo, CustomMdlsSkin)
     model(
         {{
-					spawnflags & 1 ->   (mdl_body == "" -> {"path": ":maps/b_nail1.bsp"}),
-					spawnflags & 1 -> 	(mdl_body != "" -> {"path" : mdl_body, "skin" : skin}),
-					mdl_body == "" -> {"path": ":maps/b_nail0.bsp"},
-					mdl_body != "" -> {"path" : mdl_body, "skin" : skin}
+					mdl_body -> {"path" : mdl_body, "skin" : skin},
+          spawnflags & 1 -> ":maps/b_nail1.bsp",
+          ":maps/b_nail0.bsp"
         }}
     ) = item_spikes : "Nailgun/Perforator ammo" []
 
@@ -425,13 +421,11 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
     base(RespawnableItem, CustomMdlsHealth)
 		model(
 				{{
-						mdl_body == "" -> {{
-							spawnflags & 2 -> {"path": ":maps/b_bh100.bsp"},
-							spawnflags & 1 -> {"path": ":maps/b_bh10.bsp"},
-														{"path": ":maps/b_bh25.bsp"}
-						}},
-						mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
-													{"path": ":maps/b_bh25.bsp"}
+					mdl_body -> {"path" : mdl_body, "skin" : skin},
+					spawnflags & 1 -> ":maps/b_bh10.bsp",
+					// ":maps/b_batt0.bsp"
+					spawnflags & 2 -> ":maps/b_bh100.bsp",
+					":maps/b_bh25.bsp"
 				}}
 		) =
     item_health : "Health pack"
@@ -451,8 +445,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
     base(RespawnableItem, CustomMdlsHealth, CustomMdlsSkin)
 		model(
 				{{
-						mdl_body != "" -> {"path" : mdl_body, "skin" : skin},
-													{"path": "progs/h_mdls/pd_vial.mdl","skin" : skin }
+						mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/h_mdls/pd_vial.mdl" , "skin" : skin}
 				}}
 		) =
     item_health_vial : "Small vial of health (default 5)"
@@ -477,7 +470,11 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 @BaseClass base(RespawnableItem) size(-16 -16 0, 16 16 56) =
 	Armor []
 
-@PointClass base(Armor) model({{ mdl_body == "" -> {"path": ":progs/armor.mdl", "skin": 2 }, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) =
+@PointClass base(Armor) model(
+    {{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/armor.mdl" , "skin" : 2}
+    }}
+) =
 	item_armorInv : "Red armor (200%)"
 	[
 	mdl_body(string) : "Path to custom model"
@@ -485,7 +482,11 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	snd_misc(string) : "Path to custom pickup sound"
 	obit_name(string) : "Custom name for this armor." : : "Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'"
 	]
-@PointClass base(Armor) model({{ mdl_body == "" -> {"path": ":progs/armor.mdl", "skin": 1 }, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) =
+@PointClass base(Armor) model(
+    {{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/armor.mdl" , "skin" : 1}
+    }}
+) =
 	item_armor2 : "Yellow armor (150%)"
 	[
 	mdl_body(string) : "Path to custom model"
@@ -493,7 +494,11 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	snd_misc(string) : "Path to custom pickup sound"
 	obit_name(string) : "Custom name for this armor." : : "Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'"
 	]
-@PointClass base(Armor) model({{ mdl_body == "" -> {"path": ":progs/armor.mdl"}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) =
+@PointClass base(Armor) model(
+    {{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/armor.mdl" , "skin" : skin}
+    }}
+) =
 	item_armor1 : "Green armor (100%)"
 	[
 	mdl_body(string) : "Path to custom model"
@@ -501,7 +506,11 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	snd_misc(string) : "Path to custom pickup sound"
 	obit_name(string) : "Custom name for this armor." : : "Set a custom name for your armor. Just complete the sentence `You got` e.g. the Mega Armor! for `You got the Mega Armor!'"
 	]
-@PointClass base(Armor) model({{ mdl_body == "" -> {"path": "progs/pd_armor_sh.mdl"}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = item_armor_shard : "A small piece of armor worth 5 points of Green armor protection. Can only add a max of 25 points to any armor."
+@PointClass base(Armor) model(
+    {{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/pd_armor_sh.mdl" , "skin" : skin}
+    }}
+) = item_armor_shard : "A small piece of armor worth 5 points of Green armor protection. Can only add a max of 25 points to any armor."
 	[
 	mdl_body(string) : "Path to custom model"
 	particles_offset(string) : "Adjust origin of spawning particles when using mdl_body" : : "When trigger spawning or respawning, a custom model may not display t-fog correctly. Adjust the origin here."
@@ -518,7 +527,11 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	item_key2 : "Gold key" []
 
 // @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
-@PointClass base(Key) model({{ mdl== "" -> {"path": "progs/pd_wiz_key.mdl", "skin" : skin}, mdl != "" -> {"path" : mdl, "skin" : skin} }}) = item_key_custom :
+@PointClass base(Key) model(
+		{{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/pd_wiz_key.mdl" , "skin" : 1}
+    }}
+) = item_key_custom :
 "A customizable key item.
 
 This allows mappers to use any Quake compatible model, sprite or BSP as a key. We’ve also included new key models with different variations. You can find these in the progs folder and set their paths in the mdl key.
@@ -673,7 +686,11 @@ The behavior of an item_key_custom should be as the player expects (based on the
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_army : "Grunt
-@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/soldier.mdl" , "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_army : "Grunt
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model(
+		{{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/soldier.mdl" , "skin" : skin}
+    }}
+	) = monster_army : "Grunt
 
 Default health = 30"
 [
@@ -694,8 +711,11 @@ style(Choices) : "Attack type" =
 	]
 ]
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({ "path": ":progs/dog.mdl" }) = monster_dog : "Nasty Doggie
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model({{ mdl_body == "" -> {"path": "progs/dog.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_dog : "Nasty Doggie
-
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 40) model(
+	{{
+	  mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/dog.mdl" , "skin" : skin}
+	}}
+) = monster_dog : "Nasty Doggie
 Default health = 25"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -705,7 +725,11 @@ snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack so
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 ]
 // @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl" }) = monster_ogre : "Ogre
-@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/ogre.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_ogre : "Ogre
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model(
+			{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/ogre.mdl" , "skin" : skin}
+	    }}
+) = monster_ogre : "Ogre
 
 Default health = 200"
 [
@@ -729,7 +753,11 @@ style(Choices) : "Attack type" =
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/ogre.mdl", "frame": 63}) = monster_ogre_marksman : "Ogre marksman
-@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/ogre.mdl", "frame" : 63, "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_ogre_marksman : "Ogre marksman
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model(
+	{{
+			mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/ogre.mdl" , "skin" : skin, frame : 63}
+	}}
+) = monster_ogre_marksman : "Ogre marksman
 
 Default health = 200
 
@@ -744,8 +772,11 @@ snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : : "Path to cust
 snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : : "Path to custom sound (ATTACK GRUNT)"
 ]
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/knight.mdl" }) = monster_knight : "Knight
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/knight.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_knight : "Knight
-
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model(
+			{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/knight.mdl" , "skin" : skin}
+	    }}
+) = monster_knight : "Knight
 Default heath = 75"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
@@ -756,8 +787,11 @@ snd_idle(string) : "Path to custom idle sound" : :  "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (SWORD SLASH 2)" : : "Path to custom sound (SWORD SLASH 2)"
 ]
 // @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/hknight.mdl" }) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
-@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/hknight.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
-
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model(
+	{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/hknight.mdl" , "skin" : skin}
+	    }}
+) = monster_hell_knight : "Hell Knight a.k.a. Death Knight
 Default health = 250"
 [
 projexpl(Choices) : "Exploding projectiles" =
@@ -777,20 +811,34 @@ snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD 
 mdl_exproj(string) : "Path to custom exploding projectile model"
 skin_exproj(float) : "Skin index for custom exploding projectile model"
 ]
-// @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/wizard.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_wizard : "Scrag a.k.a Wizard
+// @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
+@PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model(
+	{{
+			mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/wizard.mdl" , "skin" : skin}
+	}}
+) = monster_wizard : "Scrag a.k.a Wizard
 
 Default health = 80"
 [
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom pain sound" : : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
+snd_hit(string) : "Path to custom hit sound" : : "Path to custom hit sound e.g. slimeball hits wall"
 snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack sound"
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (IDLE 2)" : : "Path to custom sound (IDLE 2)"
+projexpl(Choices) : "Exploding projectiles" =
+  [
+	  0 : "Normal (no explosions)"
+		1 : "Projectiles explode"
+	]
 ]
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/demon.mdl" }) = monster_demon1 : "Fiend
-@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/demon.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_demon1 : "Fiend
+@PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model(
+		{{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/demon.mdl" , "skin" : skin}
+    }}
+) = monster_demon1 : "Fiend
 
 Default heath = 300"
 [
@@ -803,7 +851,11 @@ snd_death(string) : "Path to custom death sound" : : "Path to custom death sound
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdlsWizSham) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shambler.mdl" }) = monster_shambler : "Shambler
-@PointClass base(Monster, Berserk, CustomMdlsWizSham, Turret) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/shambler.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_shambler : "Shambler
+@PointClass base(Monster, Berserk, CustomMdlsWizSham, Turret) size(-32 -32 -24, 32 32 64) model(
+    {{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/shambler.mdl" , "skin" : skin}
+    }}
+) = monster_shambler : "Shambler
 
 Default health = 600"
 [
@@ -817,8 +869,16 @@ snd_misc(string) : "Path to custom sound (GRUNT 2)" : : "Path to custom sound (G
 snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : : "Path to custom sound (LIGHTNING ZAP)"
 snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : : "Path to custom sound (LIGHTNING BOOM)"
 ]
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({{ mdl_body == "" -> {"path": "progs/boss.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_boss : "Chthon" []
-@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model({{ mdl_body == "" -> {"path": "progs/boss.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_boss2 : "Killable Chthon
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model(
+	{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/boss.mdl" , "skin" : skin}
+	}}
+) = monster_boss : "Chthon" []
+@PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model(
+	{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/boss.mdl" , "skin" : skin, "frame" : 80}
+	}}
+) = monster_boss2 : "Killable Chthon
 
 Default health = 1000 (Skill 0), 3000 (Skill 1-3)"
 [
@@ -829,8 +889,11 @@ snd_attack(string) : "Path to custom attack sound" : : "Path to custom attack so
 snd_move(string) : "Path to custom rising and lowering sound" : : "Path to custom rising and lowering sound"
 ]
 // @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/enforcer.mdl" }) = monster_enforcer : "Enforcer
-@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model({{ mdl_body == "" -> {"path": "progs/enforcer.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_enforcer : "Enforcer
-
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-16 -16 -24, 16 16 40) model(
+		{{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/enforcer.mdl" , "skin" : skin}
+    }}
+) = monster_enforcer : "Enforcer
 Default health = 80" [
 keep_ammo(integer) : "Don't drop backpack" : : "Don't drop backpack upon death"
 style(Choices) : "Attack type" =
@@ -853,7 +916,11 @@ snd_misc3(string) : "Path to 2nd custom pain sound" : : "Path to 2nd custom pain
 ]
 
 // @PointClass base(Monster, Berserk, CustomMdls) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/shalrath.mdl" }) = ath : "Vore a.k.a Shalrath
-@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model({{ mdl_body == "" -> {"path": "progs/shalrath.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_shalrath : "Vore a.k.a Shalrath
+@PointClass base(Monster, Berserk, CustomMdls, Turret) size(-32 -32 -24, 32 32 64) model(
+	{{
+			mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/shalrath.mdl" , "skin" : skin}
+	}}
+) = monster_shalrath : "Vore a.k.a Shalrath
 
 Default health = 400"
 [
@@ -865,7 +932,11 @@ snd_attack(string) : "Path to custom attack sound (VORE SNARL)" : : "Path to cus
 snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom attack2 sound (VOREBALL FIRE)" : : "Path to custom attack2 sound (VOREBALL FIRE)"
 ]
-@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) model({{ mdl_body == "" -> {"path": "progs/tarbaby.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_spawn : "Spawn
+@PointClass base(Monster, CustomMdlsSpawn) size(-16 -16 -24, 16 16 24) model(
+	{{
+			mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/tarbaby.mdl" , "skin" : skin}
+	}}
+) = monster_spawn : "Spawn
 
 Default health = 80
 
@@ -887,14 +958,9 @@ snd_misc(string) : "Path to custom sound (WET SLAPPING)" : : "Path to custom sou
 // ]
 // @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model({ "path": ":progs/fish.mdl" }) = monster_fish : "Rotfish
 @PointClass base(Monster, Berserk) size(-16 -16 -24, 16 16 24) model(
-    {{
-
-      //First placement Fish display
-      mdl_body == "" -> { "path": "progs/fish.mdl", "skin" : skin },
-      //Custom model display
-      mdl_body != "" -> { "path": mdl_body, "skin" : skin }
-
-    }}
+			{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/fish.mdl" , "skin" : skin}
+	    }}
 ) = monster_fish : "Rotfish, Default health = 25"
 
 [
@@ -908,7 +974,11 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 
 ]
 // @PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl" }) = monster_oldone : "Shub-Niggurath"
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({{ mdl_body == "" -> {"path": "progs/oldone.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_oldone : "Shub-Niggurath"
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model(
+	{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/oldone.mdl" , "skin" : skin, frame : 46}
+	}}
+) = monster_oldone : "Shub-Niggurath"
 [
 snd_death(string) : "Path to custom death sound PART 1" : : "Path to custom death sound PART 1"
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
@@ -921,7 +991,11 @@ mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
 // @PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({ "path": ":progs/oldone.mdl", "frame": 46}) = monster_oldone2 : "Killable Shub-Niggurath
-@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model({{ mdl_body == "" -> {"path": "progs/oldone.mdl", "frame": 46, "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_oldone2 : "Killable Shub-Niggurath
+@PointClass base(Monster) size(-160 -128 -24, 160 128 256) model(
+	{{
+	        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/oldone.mdl" , "skin" : skin, frame : 66}
+	}}
+) = monster_oldone2 : "Killable Shub-Niggurath
 
 Default health = 1000 (Skill 0), 3000 (Skill 1-3)"
 [
@@ -938,7 +1012,15 @@ mdl_proj(string) : "Path to custom projectile model"
 skin_proj(float) : "Path to custom projectile skin"
 ]
 // @PointClass base(Monster, CustomMdls) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/zombie.mdl","frame" : frame}) = monster_zombie : "Zombie
-@PointClass base(Monster, CustomMdls, Turret) size(-16 -16 -24, 16 16 32) model({{ mdl_body == "" -> {"path": "progs/zombie.mdl", "frame" : frame, "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = monster_zombie : "Zombie
+@PointClass base(Monster, CustomMdls, Turret) size(-16 -16 -24, 16 16 32) model(
+	{{
+		mdl_body -> {"path" : mdl_body, "skin" : skin},
+		spawnflags & 1 -> {"path" : ":progs/zombie.mdl", "frame" : 194, "skin ": skin},
+		spawnflags & 4 -> {"path" : ":progs/zombie.mdl", "frame" : 194, "skin ": skin},
+		spawnflags & 16 -> {"path" : ":progs/zombie.mdl", "frame" : 173, "skin ": skin},
+		":progs/zombie.mdl"
+	}}
+) = monster_zombie : "Zombie
 
 Default health = 60
 
@@ -952,11 +1034,6 @@ snd_misc(string) : "Path to custom (IDLE 2) sound" : : "Path to custom (IDLE 2) 
 snd_sight(string) : "Path to custom sight sound" : : "Path to custom sight sound"
 snd_misc2(string) : "Path to custom (PAIN 2) sound" : : "Path to custom (PAIN 2) sound"
 snd_misc3(string) : "Path to custom (FALLING) sound" : : "Path to custom (FALLING) sound"
-frame(Choices) : "For In-Editor Model Display Only" : 0 =
-	[
-		194 : "Crucified"
-		173	: "Sleeping"
-	]
 spawnflags(Flags) =
 	[
 		1 : "Crucified" : 0
@@ -1973,36 +2050,144 @@ NOTE: To have a continuous stream use a func_counter as the target, then set the
 	message(string) : "Message"
 ]
 
-@SolidClass base(Appearflags, Targetname) = func_train : "Moving platform
+@SolidClass base(Appearflags, Targetname) = func_train :
+"Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+Use path_corner as targets.
+If given a targetname, it'll only start moving after triggered.
+path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
 
-RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
+'pausetime' sets a default waiting time when a value is not defined in path_corners.
+'speed' sets the initial moving speed. If the train encounters a path_corner with its 'speed' field set it will move at that speed afterwards.
 
-Set Sounds to 3 for custom sounds with noise4 as the movement and noise3 for stop sound"
+Spawnflags:
+- 'Move on trigger' will force the train to resume its path when triggered, even when temporarily waiting at a path_corner.
+- 'Stop on trigger' will stop the train at the next path_corner when triggered. Trigger it again to resume.
+The flags above are mutually exclusive and will cause an objerror when selected simultaneously.
+"
 [
-spawnflags(Flags) =
-[
-	1 : "RETRIGGER (wait at path_corners)" : 0
-]
-
 	sounds(choices) : "Sound" : 1 =
 	[
 		0: "Silent"
 		1: "Ratchet Metal"
-		2: "Base"
-		3: "Custom (set path in noise3, noise4)"
+		2: "Base door"
 	]
-	speed(integer) : "Speed (units per second)" : 64
-	target(target_source) : "Target to start at"
-	dmg(integer) : "Damage on block" : 2
-	noise3(string) : "Custom start noise"
-	noise4(string) : "Custom movement noise"
+	speed(integer) : "Speed (units per second)" : 100
+	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
+	target(target_source) : "Train starting point"
+	dmg(integer) : "Damage on crush" : 2
+	noise1(string) : "Custom moving loop sound (if set, overrides 'sounds')"
+	noise(string) : "Custom stopping sound (if set, overrides 'sounds')"
+	noise2(string) : "Custom corner sound, for when the train crosses a path_corner without stopping"
+	spawnflags(flags) =
+	[
+		2: "Move on trigger" : 0
+		4: "Stop on trigger" : 0
+		8: "Non-solid" : 0
+	]
 ]
 
-@PointClass base(Appearflags, Targetname) size(16 16 16) color(0 255 255) =
-	path_corner : "Waypoint for platforms and monsters"
+
+@PointClass base(Targetname) studio({ "path" : mdl, "skin" : skin, "frame" : first_frame}) = misc_modeltrain :
+"Trains are moving platforms that players can ride. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+Use path_corner as targets.
+If given a targetname, it'll only start moving after triggered.
+path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
+
+'pausetime' sets a default waiting time when a value is not defined in path_corners.
+'speed' sets the initial moving speed. If the train encounters a path_corner with its 'speed' field set it will move at that speed afterwards.
+
+misc_modeltrain smoothly orients itself towards the next path_corner when moving. The turning speed is automatic and based on the movement speed, but you can set a multiplier for the turning speed with the 'multiplier' key. Set it to -1 to turn instantly.
+
+You can define two different frame ranges and animation speeds, for when the model is stopped and moving. If you don't need different stopped/moving animations, only setting 'first_frame'/'last_frame'/'frtime' is enough. If you don't need any animation at all, just set 'first_frame' to the desired frame and all other fields can go blank.
+
+If you want to explicitly set frame 0 in any '*_frame' fields, you must use -1 instead, or else the code understands 0 as a blank field.
+
+
+Spawnflags:
+- No rotation: model doesn't rotate when moving towards path_corners.
+- Rotate Y only: model only rotates around the Y axis, so pitch/roll angles are kept as initially set (useful to fake walking NPCs).
+"
 [
-	target(target_source) : "Next target"
-	wait(integer) : "Wait" : 0
+	sounds(choices) : "Sound" : 1 =
+	[
+		0: "None"
+		1: "Ratchet Metal"
+		2: "Base door"
+	]
+	speed(integer) : "Speed (units per second)" : 100
+	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
+	target(target_source) : "First stop target"
+	dmg(integer) : "Damage on crush" : 2
+	mdl(string) : "Model file path (such as 'progs/model_name.mdl')"
+	cmins(string) : "Lower bounding box point"
+	cmaxs(string) : "Upper bounding box point"
+	first_frame(integer) : "First frame sequence (stopped). Use -1 for frame 0"
+	last_frame(integer) : "Last frame sequence (stopped). Use -1 for frame 0"
+	first_frame2(integer) : "First frame sequence (moving). Use -1 for frame 0"
+	last_frame2(integer) : "Last frame sequence (moving). Use -1 for frame 0"
+	frtime(float) : "Frame time (stopped)" : "0.1"
+	frtime2(float) : "Frame time (moving)" : "0.1"
+	animtype(choices) : "Animation type (stopped)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	animtype2(choices) : "Animation type (moving)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	multiplier(integer) : "Turning speed" : 1 : "Turning speed multiplier. Set to -1 to turn instantly"
+	noise1(string) : "Custom moving loop sound (if set, overrides 'sounds')"
+	noise(string) : "Custom stopping sound (if set, overrides 'sounds')"
+	noise2(string) : "Custom corner sound, for when the train crosses a path_corner without stopping"
+	spawnflags(flags) =
+	[
+		2: "Move on trigger" : 0
+		4: "Stop on trigger" : 0
+		8: "Non-solid" : 0
+		16: "No rotation" : 0
+		32: "Rotate Y only" : 0
+	]
+]
+
+@PointClass base(Appearflags, Targetname) color(0 255 255) size(16 16 16) = path_corner :
+"Waypoint for trains and walking monsters.
+Check each field's description for more details.
+"
+[
+	first_frame(integer) : "First frame sequence (stopped). Use -1 for frame 0"
+	last_frame(integer) : "Last frame sequence (stopped). Use -1 for frame 0"
+	first_frame2(integer) : "First frame sequence (moving). Use -1 for frame 0"
+	last_frame2(integer) : "Last frame sequence (moving). Use -1 for frame 0"
+	frtime(float) : "Frame time (stopped)" : "0.1"
+	frtime2(float) : "Frame time (moving)" : "0.1"
+	animtype(choices) : "Animation type (stopped)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	animtype2(choices) : "Animation type (moving)" : 1 =
+	[
+		1 : "One way"
+		2 : "Back and forth"
+	]
+	multiplier(integer) : "Turning speed" : 1 : "Turning speed multiplier. Set to -1 to turn instantly"
+	noise(string) : "Custom stopping sound for this point"
+	noise2(string) : "Custom corner sound for this point, for when the train crosses a path_corner without stopping"
+
+
+	target(target_source) : "Next waypoint target"
+	target2(target_destination) : "Target2"
+	target3(target_destination) : "Target3"
+	target4(target_destination) : "Target4"
+	wait(integer) : "Wait" : : "Waiting time at this point.
+- A positive value directly sets a waiting time in seconds.
+- A 0 value (or not defined) uses the 'pausetime' field value in the func_train (which defaults to 0s).
+- A -1 value makes the train to stop at this point.
+- A -2 value forces the train to not wait here even when 'pausetime' is set on the func_train.
+"
+	speed(integer) : "Speed" : : "Sets a new speed for the train to move from this point onwards."
 ]
 
 @SolidClass base(Appearflags, Targetname) = func_plat : "Elevator"
@@ -3010,7 +3195,11 @@ sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to pla
 	noise1(string) : "Path to custom sound. Use with sounds key set to 4"
 ]
 //item-backpack
-@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200)  model({{ (mdl_body == "" -> {"path": "progs/pd_bpack.mdl", "skin" : skin}), mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) = item_backpack
+@PointClass base(Appearflags, OneTargetname, Effects) size(-16 -16 0, 16 16 56) color(80 0 200)  model(
+    {{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/pd_bpack.mdl" , "skin" : skin}
+    }}
+) = item_backpack
 :"Placeable backpack
 
 An ammo type spawnflag must be set for this to appear in a map.

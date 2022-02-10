@@ -93,6 +93,9 @@ void() path_corner =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
+	
+	if (self.noise) precache_sound(self.noise);
+	if (self.noise2) precache_sound(self.noise2);
 
 	movetarget_f ();
 };
