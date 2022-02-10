@@ -718,7 +718,7 @@ void() OgreFireLavaBall =
 {
 	local	vector	offang;
 	local	vector	org, vec, d;
-	local	float	t;
+	// local	float	t;
 
 	offang = vectoangles (self.enemy.origin - self.origin);
 	makevectors (offang);
@@ -726,24 +726,23 @@ void() OgreFireLavaBall =
 	org = self.origin; // + p_x*v_forward + p_y*v_right + p_z*'0 0 1';
 
 // lead the player on hard mode
-	if (skill > 1)
-	{
-		t = vlen(self.enemy.origin - org) / 300;
-		vec = self.enemy.velocity;
-		vec_z = 0;
-		d = self.enemy.origin + t * vec;
-	}
-	else
-	{
+	// if (skill > 1)
+	// {
+	// 	t = vlen(self.enemy.origin - org) / 300;
+	// 	vec = self.enemy.velocity;
+	// 	vec_z = 0;
+	// 	d = self.enemy.origin + t * vec;
+	// }
+	// else
+	// {
 		d = self.enemy.origin;
-	}
+	// }
 
 	vec = normalize (d - org);
 
 	// launch_spike (org, vec);
 	launch_spike (self.origin + v_right * 4 + '0 0 16', vec);
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	// setmodel (newmis, "progs/lavaball.mdl");
 	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
 	{
 			setmodel (newmis, self.mdl_proj);
@@ -765,14 +764,11 @@ void() OgreFireLavaBall =
 	if !(newmis.avelocity)
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	newmis.velocity = vec*300;
+	newmis.velocity = vec*600; // changed from 300 since this is more like a 'nade -  dumptruck_ds
 	// newmis.touch = T_MissileTouch; // rocket explosion
 	newmis.touch = OgreGrenadeExplode;
 	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
 
-// check for dead enemy
-//	if (self.enemy.health <= 0)
-//		boss2_idle1 ();
 };
 
 /*

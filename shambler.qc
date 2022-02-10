@@ -4,7 +4,61 @@
 SHAMBLER
 
 ==============================================================================
+
+================
+ShamRocket
+================
 */
+void() ShamRocket =
+{
+	local	entity missile;
+
+	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_FLYMISSILE;
+	missile.solid = SOLID_BBOX;
+	missile.classname = "missile";
+
+// set missile speed  -- dumptruck_ds below
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+  missile.velocity = missile.velocity * 900;
+  missile.angles = vectoangles(missile.velocity);
+	missile.avelocity = self.avelocity; //custom spin of projectile
+	if !(missile.avelocity)
+	missile.avelocity = '200 100 300';
+
+	missile.touch = T_MissileTouch;
+
+// set missile duration
+	missile.nextthink = time + 5;
+	missile.think = SUB_Remove;
+	missile.skin = self.skin_proj; //dumptruck_ds
+
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/lavaball.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+	setsize (missile, '0 0 0', '0 0 0');
+	makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
+	setorigin (missile, self.origin + v_forward*8 + '0 0 24');
+};
+
 
 $cd id1/models/shams
 $origin 0 0 24
@@ -127,10 +181,16 @@ void() sham_proj7     =[      $smash7,       sham_proj8    ] {ai_face();};
 void() sham_proj8     =[      $smash8,       sham_proj9    ] {ai_face();};
 void() sham_proj9     =[      $smash9,       sham_proj10   ]
 {
-	OgreFireLavaBall();
-	sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
+	// ShamFireLavaBall();
+	// ShamRocket();
+	// sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
 };
-void() sham_proj10    =[      $smash10,      sham_proj11   ] {ai_face();};
+// void() sham_proj10    =[      $smash10,      sham_proj11   ] {ai_face();};
+void() sham_proj10    =[      $smash10,      sham_proj11   ]
+{
+ShamRocket();
+sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
+};
 void() sham_proj11    =[      $smash11,      sham_proj12   ] {ai_face();};
 void() sham_proj12    =[      $smash12,      sham_run1	   ] {ai_face();};
 
@@ -554,6 +614,7 @@ void() monster_shambler =
 	precache_model ("progs/s_light.mdl");
 	// precache_model ("progs/h_shams.mdl");
 	precache_model ("progs/bolt.mdl");
+	precache_proj_model ("progs/lavaball.mdl");
 
 	precache_sound_misc1 ("shambler/sattck1.wav");
 	precache_sound_misc2 ("shambler/sboom.wav");
