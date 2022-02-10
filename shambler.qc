@@ -4,7 +4,61 @@
 SHAMBLER
 
 ==============================================================================
+
+================
+ShamRocket
+================
 */
+void() ShamRocket =
+{
+	local	entity missile;
+
+	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
+
+	missile = spawn ();
+	missile.owner = self;
+	missile.movetype = MOVETYPE_FLYMISSILE;
+	missile.solid = SOLID_BBOX;
+	missile.classname = "missile";
+
+// set missile speed  -- dumptruck_ds below
+
+	missile.velocity = normalize(self.enemy.origin - self.origin);
+  missile.velocity = missile.velocity * 900;
+  missile.angles = vectoangles(missile.velocity);
+	missile.avelocity = self.avelocity; //custom spin of projectile
+	if !(missile.avelocity)
+	missile.avelocity = '200 100 300';
+
+	missile.touch = T_MissileTouch;
+
+// set missile duration
+	missile.nextthink = time + 5;
+	missile.think = SUB_Remove;
+	missile.skin = self.skin_proj; //dumptruck_ds
+
+	if (self.mdl_proj != "") // dumptruck_ds
+	{
+			setmodel (missile, self.mdl_proj);
+		}
+		else
+		{
+			setmodel (missile, "progs/lavaball.mdl");
+	}
+
+	if (!missile.skin_proj) // dumptruck_ds
+	{
+			missile.skin = self.skin_proj;
+		}
+		else
+		{
+			missile.skin = 0;
+	}
+	setsize (missile, '0 0 0', '0 0 0');
+	makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
+	setorigin (missile, self.origin + v_forward*8 + '0 0 24');
+};
+
 
 $cd id1/models/shams
 $origin 0 0 24
@@ -114,6 +168,42 @@ local float 	ldmg;
 };
 void() sham_smash11    =[      $smash11,      sham_smash12   ] {ai_charge(5);};
 void() sham_smash12    =[      $smash12,      sham_run1	   ] {ai_charge(4);};
+/////////////////////////////////////
+// new frames for projectile style
+////////////////////////////////////
+void() sham_proj1     =[      $smash1,       sham_proj2    ] {ai_face();};
+void() sham_proj2     =[      $smash2,       sham_proj3    ] {ai_face();};
+void() sham_proj3     =[      $smash3,       sham_proj4    ] {ai_face();};
+void() sham_proj4     =[      $smash4,       sham_proj5    ] {ai_face();};
+void() sham_proj5     =[      $smash5,       sham_proj6    ] {ai_face();};
+void() sham_proj6     =[      $smash6,       sham_proj7    ] {ai_face();};
+void() sham_proj7     =[      $smash7,       sham_proj8    ] {ai_face();};
+void() sham_proj8     =[      $smash8,       sham_proj9    ] {ai_face();};
+void() sham_proj9     =[      $smash9,       sham_proj10   ] {ai_face();};
+void() sham_proj10    =[      $smash10,      sham_proj11   ]
+{
+ShamRocket();
+sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
+};
+void() sham_proj11    =[      $smash11,      sham_proj12   ] {ai_face();};
+void() sham_proj12    =[      $smash12,      sham_run1	   ] {ai_face();};
+/// projectile frames for turret mode
+void() sham_turret_proj1     =[      $smash1,       sham_turret_proj2    ] {ai_face();};
+void() sham_turret_proj2     =[      $smash2,       sham_turret_proj3    ] {ai_face();};
+void() sham_turret_proj3     =[      $smash3,       sham_turret_proj4    ] {ai_face();};
+void() sham_turret_proj4     =[      $smash4,       sham_turret_proj5    ] {ai_face();};
+void() sham_turret_proj5     =[      $smash5,       sham_turret_proj6    ] {ai_face();};
+void() sham_turret_proj6     =[      $smash6,       sham_turret_proj7    ] {ai_face();};
+void() sham_turret_proj7     =[      $smash7,       sham_turret_proj8    ] {ai_face();};
+void() sham_turret_proj8     =[      $smash8,       sham_turret_proj9    ] {ai_face();};
+void() sham_turret_proj9     =[      $smash9,       sham_turret_proj10   ] {ai_face();};
+void() sham_turret_proj10    =[      $smash10,      sham_turret_proj11   ]
+{
+ShamRocket();
+sound_attack (self, CHAN_VOICE, "shambler/melee1.wav", 1, ATTN_NORM); ai_face();
+};
+void() sham_turret_proj11    =[      $smash11,      sham_turret_proj12   ] {ai_face();};
+void() sham_turret_proj12    =[      $smash12,      sham_seek_1	   			 ] {ai_face();};
 
 void() sham_swingr1;
 
@@ -174,12 +264,25 @@ if (random()<0.5)
 	self.think = sham_swingl1;
 };
 
+void() sham_melee2 =
+{
+	local float chance;
+
+	chance = random();
+
+	if (chance > 0.6)
+		sham_swingr1 ();
+	else
+		sham_swingl1 ();
+};
+
 void() sham_melee =
 {
 	local float chance;
 
 	chance = random();
-	if (chance > 0.6 || self.health == 600)
+
+	if (chance > 0.6 || self.health == 600) // changed to >= as you can set custom health
 		sham_smash1 ();
 	else if (chance > 0.3)
 		sham_swingr1 ();
@@ -522,6 +625,7 @@ void() monster_shambler =
 	precache_model ("progs/s_light.mdl");
 	// precache_model ("progs/h_shams.mdl");
 	precache_model ("progs/bolt.mdl");
+	precache_proj_model ("progs/lavaball.mdl");
 
 	precache_sound_misc1 ("shambler/sattck1.wav");
 	precache_sound_misc2 ("shambler/sboom.wav");
@@ -532,6 +636,7 @@ void() monster_shambler =
 	precache_sound_attack ("shambler/melee1.wav");
 	precache_sound_misc ("shambler/melee2.wav");
 	precache_sound_hit ("shambler/smack.wav");
+	precache_sound ("boss1/throw.wav"); // jaycie erysdren 2021-09-14
 
 	precache_gib1 ("progs/gib1.mdl");
 	precache_gib2 ("progs/gib2.mdl");
@@ -551,8 +656,17 @@ void() monster_shambler =
 	self.th_walk = sham_walk1;
 	self.th_run = sham_run1;
 	self.th_die = sham_die;
+	if (self.style == 1)
+	self.th_melee = sham_melee2;
+	else
 	self.th_melee = sham_melee;
+	if (self.style == 1)
+	self.th_missile = sham_proj1;
+	else
 	self.th_missile = sham_magic1;
+	if (self.style == 1)
+	self.th_turret = sham_turret_proj1;
+	else
 	self.th_turret = sham_turret_magic1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = sham_pain;

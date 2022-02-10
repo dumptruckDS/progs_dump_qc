@@ -868,6 +868,14 @@ snd_idle(string) : "Path to custom idle sound" : : "Path to custom idle sound"
 snd_misc(string) : "Path to custom sound (GRUNT 2)" : : "Path to custom sound (GRUNT 2)"
 snd_misc1(string) : "Path to custom sound (LIGHTNING ZAP)" : : "Path to custom sound (LIGHTNING ZAP)"
 snd_misc2(string) : "Path to custom sound (LIGHTNING BOOM)" : : "Path to custom sound (LIGHTNING BOOM)"
+mdl_proj(string) : "Path to custom projectile model" : : "Path to custom projectile model"
+skin_proj(float) : "Path to custom projectile skin" : : "Path to custom projectile skin"
+avelocity(string) : "custom spin of projectile in x, y, z" : : "custom spin of projectile in (x, y, z) DEFAULT is 200 100 300, DISABLE with 0 0 1"
+style(Choices) : "Attack type" =
+	[
+		0 : "Default"
+		1	: "Lavaballs"
+	]
 ]
 @PointClass base(Monster, CustomMdls) size(-128 -128 -24, 128 128 256) model(
 	{{
