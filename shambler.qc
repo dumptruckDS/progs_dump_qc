@@ -26,7 +26,7 @@ void() ShamRocket =
 	missile.velocity = normalize(self.enemy.origin - self.origin);
   missile.velocity = missile.velocity * 900;
   missile.angles = vectoangles(missile.velocity);
-	missile.avelocity = self.avelocity; //custom spin of projectile
+	missile.avelocity = self.cust_avelocity; //custom spin of projectile
 	if !(missile.avelocity)
 	missile.avelocity = '200 100 300';
 

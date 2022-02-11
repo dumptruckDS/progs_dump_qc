@@ -1465,7 +1465,8 @@ mdl_gib3(string) : "Path to custom 3rd gib model"
 
 mdl_proj(string) : Path to custom projectile model
 skin_proj(float) : Path to custom projectile skin
-avelocity(string) : custom spin of projectile in (x, y, z) DEFAULT is 200 100 300, DISABLE with 0 0 1
+cust_avelocity(string) : custom spin of projectile in (x, y, z) DEFAULT is 200 100 300, DISABLE with 0 0 1
+shambler-styles
 style(Choices) : "Attack type"
 0: "Default"
 1: "Lavaballs"
