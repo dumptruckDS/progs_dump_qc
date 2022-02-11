@@ -760,7 +760,7 @@ void() OgreFireLavaBall =
 		{
 			newmis.skin = 0;
 	}
-	newmis.avelocity = self.avelocity;
+	newmis.avelocity = self.cust_avelocity;
 	if !(newmis.avelocity)
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
