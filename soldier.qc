@@ -64,7 +64,7 @@ void() GruntFireGrenade =
 
 	// self.effects = self.effects | EF_MUZZLEFLASH; //redundant -- dumptruck_ds
 
-	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
 
 	missile = spawn ();
 	missile.owner = self;
@@ -123,7 +123,7 @@ void() MonFireSpike =
     local vector dir;
     // local entity old;
 
-    sound (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+    sound_attack (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
     self.attack_finished = time + 0.2;
 
     dir = normalize (self.enemy.origin - self.origin);
