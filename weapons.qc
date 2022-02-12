@@ -625,7 +625,7 @@ void() W_GruntRocket =
 
 	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
 
-	sound (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
+	sound_attack (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
 
 	self.punchangle_x = -2;
 
