@@ -1699,3 +1699,53 @@ void() SuperDamageSound =
 	}
 	return;
 };
+
+void() MissileHome =
+{
+	local vector	dir, vtemp;
+	vtemp = self.enemy.origin + '0 0 10';
+
+	if (self.enemy.health < 1)
+	{
+		remove(self);
+		return;
+	}
+	dir = normalize(vtemp - self.origin);
+	if (self.homing < 1 && self.homing > 0) // can't do better than 100% homing
+	{
+		/*
+		This finds a vector somewhere between the vector the projectile is currently
+		travelling on and the vector that it would normally snap to for homing
+
+		homing = .25 means it will go 25% to the new direction, but keep 75% of the
+		original vector, resulting in a wider turning range.
+		*/
+		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
+	}
+	if (!self.avelocity)
+		self.angles = vectoangles(dir);
+	self.velocity = dir * self.proj_basespeed;
+
+	if (self.homing > 0)
+	{
+		self.nextthink = time + 0.2;
+		self.think = MissileHome;
+	}
+};
+
+void(float speed) SetupHoming =
+{
+	local	vector	dir;
+	local	float	dist, flytime;
+	dir = normalize((self.enemy.origin + '0 0 10') - self.origin);
+	dist = vlen (self.enemy.origin - self.origin);
+	flytime = dist * 0.002 * (1/self.proj_speed_mod);
+	if (flytime < 0.1)
+		flytime = 0.1;
+
+	newmis.enemy = self.enemy;
+	newmis.proj_basespeed = speed;
+	newmis.homing = self.homing;
+	newmis.nextthink = flytime + time;
+	newmis.think = MissileHome;
+};

@@ -191,7 +191,7 @@ void() ShalMissile =
 
 	dir = normalize((self.enemy.origin + '0 0 10') - self.origin);
 	dist = vlen (self.enemy.origin - self.origin);
-	flytime = dist * 0.002;
+	flytime = dist * 0.002 * (1/self.proj_speed_mod);
 	if (flytime < 0.1)
 		flytime = 0.1;
 
@@ -227,51 +227,75 @@ void() ShalMissile =
 	setsize (missile, '0 0 0', '0 0 0');
 
 	missile.origin = self.origin + '0 0 10';
+<<<<<<< HEAD
 	missile.velocity = dir * 400;
 	missile.avelocity = self.avelocity; // custom spin on projectile --dumptruck_ds
 	if !(missile.avelocity)
 	missile.avelocity = '300 300 300';
+=======
+	missile.velocity = dir * 400 * self.proj_speed_mod;
+	missile.avelocity = self.avelocity; // custom spin on projectile --dumptruck_ds
+	if !(missile.avelocity)
+		missile.avelocity = '300 300 300';
+>>>>>>> daf06e1... Add speed mod to shalrath, abstract homing logic
 	if (self.homing > 0) // If homing is off, don't bother doing any thinking
 	{
 		missile.homing = self.homing;
 		missile.nextthink = flytime + time;
-		missile.think = ShalHome;
+		missile.think = MissileHome;
 	}
+	if (skill == 3)
+		missile.proj_basespeed = 350 * self.proj_speed_mod;
+	else
+		missile.proj_basespeed = 250 * self.proj_speed_mod;
 	missile.enemy = self.enemy;
 	missile.touch = ShalMissileTouch;
 };
 
-void() ShalHome =
-{
-	local vector	dir, vtemp;
-	vtemp = self.enemy.origin + '0 0 10';
-	if (self.enemy.health < 1)
-	{
-		remove(self);
-		return;
-	}
-	dir = normalize(vtemp - self.origin);
-	if (self.homing < 1 && self.homing > 0) // can't do better than 100% homing
-	{
-		/*
-		This finds a vector somewhere between the vector the projectile is currently
-		travelling on and the vector that it would normally snap to for homing
+//void() ShalHome = -- moved to weapons.qc as MissileHome for general use - iLike80sRock
+//{
+//	local vector	dir, vtemp;
+//	local float speedmod;
+//	vtemp = self.enemy.origin + '0 0 10';
+//	if (self.enemy.health < 1)
+//	{
+//		remove(self);
+//		return;
+//	}
+//	dir = normalize(vtemp - self.origin);
+//	if (self.homing < 1 && self.homing > 0) // can't do better than 100% homing
+//	{
+//		/*
+//		This finds a vector somewhere between the vector the projectile is currently
+//		travelling on and the vector that it would normally snap to for homing
+//
+//		homing = .25 means it will go 25% to the new direction, but keep 75% of the
+//		original vector, resulting in a wider turning range.
+//		*/
+//		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
+//	}
+//	dprint("self.proj_speed_mod: ");
+//	dprint(ftos(self.proj_speed_mod));
+//	dprint("\n");
+//
+//	if (skill == 3)
+//		speedmod = 350 * self.proj_speed_mod;
+//	else
+//		speedmod = 250 * self.proj_speed_mod;
 
-		homing = .25 means it will go 25% to the new direction, but keep 75% of the
-		original vector, resulting in a wider turning range.
-		*/
-		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
-	}
-	if (skill == 3)
-		self.velocity = dir * 350;
-	else
-		self.velocity = dir * 250;
-	if (self.homing > 0)
-	{
-		self.nextthink = time + 0.2;
-		self.think = ShalHome;
-	}
-};
+//	dprint("speedmod: ");
+//	dprint(ftos(speedmod));
+//	dprint("\n");
+
+//	self.velocity = dir * speedmod;
+
+//	if (self.homing > 0)
+//	{
+//		self.nextthink = time + 0.2;
+//		self.think = ShalHome;
+//	}
+//};
+
 
 // void() ShalMissileTouch = --moved to misc.qc for voreball shooter --dumptruck_ds
 // {
@@ -394,6 +418,11 @@ void() monster_shalrath =
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 400;
+
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 
 	if (!self.homing) // default to normal
 	{

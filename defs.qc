@@ -540,6 +540,8 @@ float	AS_TURRET		= 5;
 .entity 	movetarget;
 .float		homing;
 .float		projexpl;
+.float		proj_speed_mod;
+.float		proj_basespeed;
 .float		infight_mode;
 
 //
