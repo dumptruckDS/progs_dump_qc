@@ -118,7 +118,10 @@ void(float offset) hknight_shot =
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	newmis.velocity = vec*300;
-
+	if (self.homing > 0) // If homing is off, don't bother doing any thinking
+	{
+		SetupHoming(300);
+	}
 	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
 };
 
@@ -629,6 +632,11 @@ void() monster_hell_knight =
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 250;
+
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 
 	self.th_stand = hknight_stand1;
 	self.th_walk = hknight_walk1;
