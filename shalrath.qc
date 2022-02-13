@@ -182,7 +182,7 @@ ShalMissile
 ================
 */
 void() ShalMissileTouch;
-void() ShalHome;
+//void() ShalHome;
 void() ShalMissile =
 {
 	local	entity 	missile;
@@ -227,17 +227,10 @@ void() ShalMissile =
 	setsize (missile, '0 0 0', '0 0 0');
 
 	missile.origin = self.origin + '0 0 10';
-<<<<<<< HEAD
-	missile.velocity = dir * 400;
-	missile.avelocity = self.avelocity; // custom spin on projectile --dumptruck_ds
-	if !(missile.avelocity)
-	missile.avelocity = '300 300 300';
-=======
 	missile.velocity = dir * 400 * self.proj_speed_mod;
 	missile.avelocity = self.avelocity; // custom spin on projectile --dumptruck_ds
 	if !(missile.avelocity)
 		missile.avelocity = '300 300 300';
->>>>>>> daf06e1... Add speed mod to shalrath, abstract homing logic
 	if (self.homing > 0) // If homing is off, don't bother doing any thinking
 	{
 		missile.homing = self.homing;
