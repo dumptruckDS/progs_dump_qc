@@ -1733,7 +1733,7 @@ void() MissileHome =
 	}
 };
 
-void(float speed) SetupHoming =
+void(entity mis, float speed) SetupHoming =
 {
 	local	vector	dir;
 	local	float	dist, flytime;
@@ -1743,9 +1743,9 @@ void(float speed) SetupHoming =
 	if (flytime < 0.1)
 		flytime = 0.1;
 
-	newmis.enemy = self.enemy;
-	newmis.proj_basespeed = speed;
-	newmis.homing = self.homing;
-	newmis.nextthink = flytime + time;
-	newmis.think = MissileHome;
+	mis.enemy = self.enemy;
+	mis.proj_basespeed = speed;
+	mis.homing = self.homing;
+	mis.nextthink = flytime + time;
+	mis.think = MissileHome;
 };
