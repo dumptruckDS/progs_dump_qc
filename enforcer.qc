@@ -74,6 +74,8 @@ void() Laser_Touch =
 void(vector org, vector vec) LaunchLaser =
 {
 
+	local float projspeed = self.proj_speed_mod * 600;
+
 	if (self.classname == "monster_enforcer" || self.classname == "monster_army")
 		sound_attack (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
 
@@ -109,11 +111,17 @@ void(vector org, vector vec) LaunchLaser =
 
 	setorigin (newmis, org);
 
-	newmis.velocity = vec * 600;
+	newmis.velocity = vec * projspeed;
 	newmis.angles = vectoangles(newmis.velocity);
-
-	newmis.nextthink = time + 5;
-	newmis.think = SUB_Remove;
+	if (self.homing > 0)
+	{
+		SetupHoming(newmis, projspeed);
+	}
+	else
+	{
+		newmis.nextthink = time + 5;
+		newmis.think = SUB_Remove;
+	}
 	newmis.touch = Laser_Touch;
 };
 
