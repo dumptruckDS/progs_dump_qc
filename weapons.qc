@@ -1039,21 +1039,16 @@ void() spike_touch =
 	}
 	else
 	{
-		if (self.owner.snd_hit){
-				sound_hit (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
-		}
-		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 
-		if (self.classname == "wizspike")
-			if (self.owner.snd_hit)
-			{
-					sound_hit (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
-					WriteByte(MSG_BROADCAST, TE_GUNSHOT);
-			}
-			else
-			{
-				WriteByte (MSG_BROADCAST, TE_WIZSPIKE);
-			}
+		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+		if (self.snd_hit)
+		{
+				sound (self, CHAN_WEAPON, self.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
+				WriteByte(MSG_BROADCAST, TE_GUNSHOT);
+		}
+
+		else if (self.classname == "wizspike")
+			WriteByte (MSG_BROADCAST, TE_WIZSPIKE);
 		else if (self.classname == "knightspike")
 			WriteByte (MSG_BROADCAST, TE_KNIGHTSPIKE);
 		else
@@ -1736,10 +1731,22 @@ void() MissileHome =
 void(entity mis, float speed) SetupHoming =
 {
 	local	vector	dir;
-	local	float	dist, flytime;
+	local	float	dist, flytime, speedmod;
+	if (self.proj_speed_mod > 1)
+	{
+		speedmod = 1/self.proj_speed_mod;
+	}
+	else if (speed > 250)
+	{
+		speedmod = 1 / (speed / 250);
+	}
+	else
+	{
+		speedmod = 1;
+	}
 	dir = normalize((self.enemy.origin + '0 0 10') - self.origin);
 	dist = vlen (self.enemy.origin - self.origin);
-	flytime = dist * 0.002 * (1/self.proj_speed_mod);
+	flytime = dist * 0.002 * speedmod;
 	if (flytime < 0.1)
 		flytime = 0.1;
 
