@@ -530,6 +530,11 @@ void() monster_wizard =
 
 	setsize (self, '-16 -16 -24', '16 16 40');
 
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
+
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 80;
 
