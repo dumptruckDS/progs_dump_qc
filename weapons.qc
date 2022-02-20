@@ -6,7 +6,7 @@ void(entity bomb, entity attacker, float rad, entity ignore) T_RadiusDamage;
 void(vector org, vector vel, float damage) SpawnBlood;
 void() SuperDamageSound;
 void() create_mobot; //dumptruck_ds mobot.qc
-
+void(entity mis, float speed) SetupHoming;
 
 // called by worldspawn
 void() W_Precache =
