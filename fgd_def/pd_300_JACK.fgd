@@ -2164,7 +2164,7 @@ Checking 'All clients' will affect all connected players.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
-You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch way 0' format)."
+You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch yaw 0' format)."
 
 [
 	mangle(string) : "Central view angle" : : "Central point of the viewcone, in 'pitch yaw 0' format"

@@ -1,4 +1,4 @@
-2.0.2 January 2022
+3.0.0 March 2022
 
 * Fixed QSS crash in mobot.qc (paavohuhtala)
 * Fixed syntax error in Enforcer.qc (paavohuhtala)
@@ -24,11 +24,20 @@
 * Added Turret Mode spawnflag for Grunts, Enforcers, Ogres, Ogre Marksmen,
   Hellknight, Shalrath, Shamblers and Zombies. (dumptruck_ds, ILike80sRock)
 * Fixed armor taking damage with Pentagram of Protection (johnfitz)
-* Added custom sound keys and new options for func_new_plat (Alkaline)
+* Added custom sound keys and new options for func_new_plat (Alkaline, bmFbr)
 * Made Zombies partially z-aware in Turret Mode
 * Removed "in wall" dprint on monster with I_AM_TURRET spawnflag
 * Fixed Fiend and Dog instakill bug (dumptruck_ds, Preach)
 * Added custom projectiles with exploding options to Wizard (ILike80sRock)
+* Added trigger_textstory and target_textstory show long centerprint texts
+  can fade background and trigger sounds (bmFbr)
+* Fixed missing sound_attack keys on Grunts (ILike80sRock)
+* Added Style 1 to Shambler (throws lavaballs, works in turret mode)
+* Added misc_modeltrain allowing custom triggered animations for monster models
+  and other trains (Alkaline, bmFbr)
+* Consolidated TrenchBroom FGDs into one file that now displays custom models
+  and skins (dumptruck_ds, bmFbr)
+
 
 2.0.1 March 2021
 
