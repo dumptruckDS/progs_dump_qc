@@ -649,7 +649,7 @@ void() W_GruntRocket =
 // set missile speed  -- dumptruck_ds below
 
 	missile.velocity = normalize(self.enemy.origin - self.origin);
-  missile.velocity = missile.velocity * 900;
+  SetSpeed(missile, missile.velocity, 900*self.proj_speed_mod);
   missile.angles = vectoangles(missile.velocity);
   missile.touch = T_GruntMisTouch;
 
@@ -661,8 +661,14 @@ void() W_GruntRocket =
 	// missile.touch = T_MissileTouch;
 
 // set missile duration
-	missile.nextthink = time + 5;
-	missile.think = SUB_Remove;
+	if (self.homing)
+	{
+		SetupHoming(missile, 900 * self.proj_speed_mod);
+	}
+	else {
+		missile.nextthink = time + 5;
+		missile.think = SUB_Remove;
+	}
 	if (self.mdl_proj != "") // dumptruck_ds
 	{
 			setmodel (missile, self.mdl_proj);
