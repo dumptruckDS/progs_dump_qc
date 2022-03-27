@@ -129,7 +129,7 @@ void() MonFireSpike =
     dir = normalize (self.enemy.origin - self.origin);
 		makevectors (self.angles); //thanks Voidforce -- dumptruck_ds
 
-    launch_spike (self.origin + v_forward * 30 + v_right * 5 + '0 0 12', dir);  //dumptruck_ds
+    launch_spike2 (self.origin + v_forward * 30 + v_right * 5 + '0 0 12', dir, (1000 * self.proj_speed_mod));  //dumptruck_ds
     // launch_spike (self.origin + '0 0 16', dir);
 
     newmis.touch = superspike_touch;

@@ -226,7 +226,7 @@ void() ShalMissile =
 	setsize (missile, '0 0 0', '0 0 0');
 
 	missile.origin = self.origin + '0 0 10';
-	missile.velocity = dir * 400 * self.proj_speed_mod;
+	SetSpeed(missile, dir, 400 * self.proj_speed_mod);
 	missile.avelocity = self.avelocity; // custom spin on projectile --dumptruck_ds
 	if !(missile.avelocity)
 		missile.avelocity = '300 300 300';

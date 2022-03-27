@@ -961,8 +961,8 @@ launch_spike
 Used for both the player and the ogre
 ===============
 */
-void(vector org, vector dir) launch_spike =
-{
+
+void(vector org, vector dir, float speed) launch_spike2 = {
 	newmis = spawn ();
 	newmis.owner = self;
 	newmis.movetype = MOVETYPE_FLYMISSILE;
@@ -972,13 +972,23 @@ void(vector org, vector dir) launch_spike =
 
 	newmis.touch = spike_touch;
 	newmis.classname = "spike";
-	newmis.think = SUB_Remove;
-	newmis.nextthink = time + 6;
+	if (self.homing > 0)
+	{
+		SetupHoming(newmis, speed);
+	}
+	else
+	{
+		newmis.think = SUB_Remove;
+		newmis.nextthink = time + 6;
+	}
 	setmodel (newmis, "progs/spike.mdl");
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	setorigin (newmis, org);
 
-	newmis.velocity = dir * 1000;
+	newmis.velocity = dir * speed;
+};
+void(vector org, vector dir) launch_spike = {
+	launch_spike2(org,dir,1000);
 };
 
 void() W_FireSuperSpikes =
@@ -1730,7 +1740,7 @@ void() MissileHome =
 	}
 	if (!self.avelocity)
 		self.angles = vectoangles(dir);
-	self.velocity = dir * self.proj_basespeed;
+	SetSpeed(self, dir, self.proj_basespeed);
 
 	if (self.homing > 0)
 	{

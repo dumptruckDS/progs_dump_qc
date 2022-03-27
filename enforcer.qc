@@ -111,7 +111,7 @@ void(vector org, vector vec) LaunchLaser =
 
 	setorigin (newmis, org);
 
-	newmis.velocity = vec * projspeed;
+	SetSpeed(newmis, vec, projspeed);
 	newmis.angles = vectoangles(newmis.velocity);
 	if (self.homing > 0)
 	{

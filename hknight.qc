@@ -117,7 +117,7 @@ void(float offset) hknight_shot =
 		}
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	newmis.velocity = vec*300*self.proj_speed_mod;
+	SetSpeed(newmis, vec, 300*self.proj_speed_mod);
 	if (self.homing > 0) // If homing is off, don't bother doing any thinking
 	{
 		SetupHoming(newmis, 300*self.proj_speed_mod);
