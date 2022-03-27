@@ -8,6 +8,17 @@ void() SuperDamageSound;
 void() create_mobot; //dumptruck_ds mobot.qc
 void(entity mis, float speed) SetupHoming;
 
+void(entity mis, vector dir, float speed) SetSpeed =
+{
+	if (cvar("sv_maxvelocity") > speed)
+	{
+		mis.velocity = dir * speed;
+	}
+	else {
+		mis.velocity = dir * cvar("sv_maxvelocity");
+	}
+};
+
 // called by worldspawn
 void() W_Precache =
 {
