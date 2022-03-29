@@ -2568,6 +2568,8 @@ Checking 'All clients' will affect all connected players.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
+Use 'fade_amt` to set the background fade to a custom value (default is 500).
+
 You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch yaw 0' format)."
 
 [
@@ -2576,6 +2578,7 @@ You can set it to be show the message only when the player is facing a certain a
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+	fade_amt(float) : "Set a custom black level for background fade" : 500
 	spawnflags(flags) = [
 		1: "Silent"
 		2: "No background fade"
@@ -2586,12 +2589,16 @@ You can set it to be show the message only when the player is facing a certain a
 "Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+
+Use 'fade_amt` to set the background fade to a custom value (default is 500).
+
 "
 [
 	wait(integer) : "Message duration" : 5
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+	fade_amt(float) : "Set a custom black level for background fade" : 500
 	spawnflags(flags) = [
 		1: "Silent"
 		2: "No background fade"

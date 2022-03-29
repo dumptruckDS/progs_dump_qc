@@ -1649,7 +1649,12 @@ void(entity controller) textstory_show = {
 			sound(self.enemy, CHAN_BODY, controller.noise1, 1, ATTN_NORM);
 
 		if (!(controller.spawnflags & TEXTSTORY_NOFADE))
-			csf_fade(self.enemy, 500, '0 0 0', 1); //was 160 --dumptruck_ds
+			if (!self.fade_amt) //custom fade amount --dumptruck_ds
+			{
+				csf_fade(self.enemy, 500, '0 0 0', 1); //was 160 --dumptruck_ds
+			}
+			else
+				csf_fade(self.enemy, self.fade_amt, '0 0 0', 1); 
 	}
 
 

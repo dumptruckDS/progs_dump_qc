@@ -29,7 +29,7 @@
 * Removed "in wall" dprint on monster with I_AM_TURRET spawnflag
 * Fixed Fiend and Dog instakill bug (dumptruck_ds, Preach)
 * Added custom projectiles with exploding options to Wizard (ILike80sRock)
-* Added trigger_textstory and target_textstory show long centerprint texts
+* Added trigger_textstory and target_textstory to show long centerprint texts
   can fade background and trigger sounds (bmFbr)
 * Fixed missing sound_attack keys on Grunts (ILike80sRock)
 * Added Style 1 to Shambler (throws lavaballs, works in turret mode)
