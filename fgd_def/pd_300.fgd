@@ -2071,6 +2071,7 @@ Spawnflags:
 - 'Move on trigger' will force the train to resume its path when triggered, even when temporarily waiting at a path_corner.
 - 'Stop on trigger' will stop the train at the next path_corner when triggered. Trigger it again to resume.
 The flags above are mutually exclusive and will cause an objerror when selected simultaneously.
+- 'Custom alignment' allows you to directly specify how the train is offset relative to its path_corners using an 'origin' brush instead of using the vanilla corner alignment.
 "
 [
 	sounds(choices) : "Sound" : 1 =
@@ -2091,6 +2092,7 @@ The flags above are mutually exclusive and will cause an objerror when selected 
 		2: "Move on trigger" : 0
 		4: "Stop on trigger" : 0
 		8: "Non-solid" : 0
+		64: "Custom alignment" : 0
 	]
 ]
 
