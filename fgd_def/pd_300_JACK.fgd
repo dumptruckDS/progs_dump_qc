@@ -2557,6 +2557,7 @@ noise(string) : "Path to custom sound"
 		4 : "Non-Solid" : 0
 	]
 	dmg(integer) : "Damage"
+	deathtype(string) : "Kill Message"
 ]
 
 @SolidClass base(Targetname) = func_laser: "A togglable laser, hurts to touch, can be used to block players"
