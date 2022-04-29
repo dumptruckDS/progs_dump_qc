@@ -220,6 +220,7 @@ float TRAIN_STOPONTRIGGER = 4;
 float TRAIN_NONSOLID = 8;
 float TRAIN_NOROTATE = 16;
 float TRAIN_ROTATEY = 32;
+float TRAIN_CUSTOMALIGN = 64;
 
 float TRAIN_NEXT_WAIT = 0; //normal movement
 float TRAIN_NEXT_STOP = 1; // force a stop on the next path_corner
@@ -388,10 +389,17 @@ void() train_next = {
 		if (self.classname == "misc_modeltrain" && self.style != TRAIN_STYLE_SINGLEANIM)
 			SUB_CallAsSelf(self.animcontroller.think, self.animcontroller);
 	}
+	// if the TRAIN_CUSTOMALIGN flag is checked then the train should align
+	// with its path_corners based on the location of an "origin" brush added
+	// to the train by the mapper instead of the mins corner
+	// -therektafire
+	float doDisplace;
+	if (self.spawnflags & TRAIN_CUSTOMALIGN) doDisplace = 0.0;
+	else doDisplace = 1.0;
 	
 	if (self.classname != "misc_modeltrain") displ = self.mins;
 	
-	SUB_CalcMove(targ.origin - displ, self.speed2, train_wait);
+	SUB_CalcMove(targ.origin - (displ * doDisplace), self.speed2, train_wait);
 };
 
 // searches for the first path_corner after the train entity is initialized
@@ -406,9 +414,13 @@ void() func_train_find = {
 	targ = find(world, targetname, self.target);
 	self.target = targ.target;
 
+	float doDisplace;
+	if (self.spawnflags & TRAIN_CUSTOMALIGN) doDisplace = 0.0;
+	else doDisplace = 1.0;
+	
 	if (self.classname != "misc_modeltrain") displ = self.mins;
 	self.enemy = targ;
-	setorigin(self, targ.origin - displ);
+	setorigin(self, targ.origin - (displ * doDisplace));
 	if (targ.speed) self.speed2 = targ.speed; // uses speed from the 1st path corner if set
 
 	if (!self.targetname)
