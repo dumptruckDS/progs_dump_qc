@@ -128,6 +128,8 @@ void(vector org, vector vec) LaunchLaser =
 void(vector org, vector vec) EnfLaunchSpike =
 {
 
+	local float projspeed = self.proj_speed_mod * 600;
+
 	sound_attack (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
 
 	vec = normalize(vec);
@@ -162,11 +164,18 @@ void(vector org, vector vec) EnfLaunchSpike =
 
 	setorigin (newmis, org);
 
-	newmis.velocity = vec * 600;
+	SetSpeed(newmis, vec, projspeed);
 	newmis.angles = vectoangles(newmis.velocity);
 
-	newmis.nextthink = time + 5;
-	newmis.think = SUB_Remove;
+	if (self.homing > 0)
+	{
+		SetupHoming(newmis, projspeed);
+	}
+	else
+	{
+		newmis.nextthink = time + 5;
+		newmis.think = SUB_Remove;
+	}
 	newmis.touch = superspike_touch;
 };
 
