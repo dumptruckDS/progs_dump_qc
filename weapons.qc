@@ -1750,6 +1750,16 @@ void() MissileHome =
 
 	if (self.homing > 0)
 	{
+		if (self.homing < 1 && self.attack_finished && self.attack_finished < time )
+		{
+			dprint("incrementing homing | ");
+			dprint("old: ");
+			dprint(ftos(self.homing));
+			dprint(" | new: ");
+			self.homing = self.homing + 0.005;
+			dprint(ftos(self.homing));
+			dprint("\n");
+		}
 		self.nextthink = time + 0.2;
 		self.think = MissileHome;
 	}
@@ -1782,4 +1792,8 @@ void(entity mis, float speed) SetupHoming =
 	mis.homing = self.homing;
 	mis.nextthink = flytime + time;
 	mis.think = MissileHome;
+	if (self.waitmin > 0)
+	{
+		mis.attack_finished = time + self.waitmin; // store start time
+	} 
 };
