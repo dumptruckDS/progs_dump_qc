@@ -661,7 +661,7 @@ void() W_GruntRocket =
 	// missile.touch = T_MissileTouch;
 
 // set missile duration
-	if (self.homing)
+	if (self.homing > 0)
 	{
 		SetupHoming(missile, 900 * self.proj_speed_mod);
 	}
