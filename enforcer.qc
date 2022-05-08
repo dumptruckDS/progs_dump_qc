@@ -227,7 +227,7 @@ EnfRocket //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qct
 void() EnfRocket =
 {
 	local	entity missile;
-	local float projspeed = 900 * (self.proj_speed_mod ? self.proj_speed_mod : 1);
+	local float projspeed = 900 * self.proj_speed_mod;
 	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
 
 	sound_attack (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
