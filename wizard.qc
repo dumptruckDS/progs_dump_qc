@@ -212,21 +212,13 @@ void() Wiz_FastFire =
 
 		vec = normalize(dst - self.origin);
 		// sound_attack (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
-		launch_spike (self.origin, vec);
-		SetSpeed(newmis, vec, projspeed);
+		launch_spike2 (self.origin, vec, projspeed);
 		newmis.owner = self.owner;
 		newmis.classname = "wizspike";
 		if (self.owner.projexpl)
 		{
 			// dprint("spawning exploding wizard proj from fastfire\n");
 			newmis.touch = T_WizardMisTouch;
-		}
-		if (self.owner.homing)
-		{
-			oldself = self;
-			self = self.owner;
-			SetupHoming(newmis, projspeed);
-			self = oldself;
 		}
 		setmodel(newmis, self.owner.mdl_proj);
 		newmis.skin = self.owner.skin_proj;

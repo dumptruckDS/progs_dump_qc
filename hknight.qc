@@ -72,7 +72,7 @@ void(float offset) hknight_shot =
 	vec = normalize (v_forward);
 	vec_z = 0 - vec_z + (random() - 0.5)*0.1;
 
-	launch_spike (org, vec);
+	launch_spike2 (org, vec, 300);
 	newmis.classname = "knightspike";
 	// setmodel (newmis, "progs/k_spike.mdl");
 	if (exploding)
@@ -117,7 +117,6 @@ void(float offset) hknight_shot =
 		}
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	SetSpeed(newmis, vec, 300*self.proj_speed_mod);
 	if (self.homing > 0) // If homing is off, don't bother doing any thinking
 	{
 		SetupHoming(newmis, 300*self.proj_speed_mod);
