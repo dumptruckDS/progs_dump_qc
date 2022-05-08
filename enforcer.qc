@@ -227,7 +227,7 @@ EnfRocket //dumptruck_ds start -- from inside qc tut http://www.insideqc.com/qct
 void() EnfRocket =
 {
 	local	entity missile;
-
+	local float projspeed = 900 * (self.proj_speed_mod ? self.proj_speed_mod : 1);
 	// self.currentammo = self.ammo_rockets = self.ammo_rockets - 1; dumptruck_ds
 
 	sound_attack (self, CHAN_WEAPON, "weapons/sgun1.wav", 1, ATTN_NORM);
@@ -242,8 +242,7 @@ void() EnfRocket =
 
 // set missile speed  -- dumptruck_ds below
 
-	missile.velocity = normalize(self.enemy.origin - self.origin);
-  missile.velocity = missile.velocity * 900;
+	SetSpeed(missile, normalize(self.enemy.origin - self.origin), projspeed);
   missile.angles = vectoangles(missile.velocity);
   missile.touch = EnfMisTouch;
 
@@ -255,8 +254,15 @@ void() EnfRocket =
 	// missile.touch = T_MissileTouch;
 
 // set missile duration
-	missile.nextthink = time + 5;
-	missile.think = SUB_Remove;
+	if (self.homing > 0)
+	{
+		SetupHoming(missile, projspeed);
+	}
+	else
+	{
+		missile.nextthink = time + 5;
+		missile.think = SUB_Remove;
+	}
 	missile.skin = self.skin_proj; //dumptruck_ds
 
 	if (self.mdl_proj != "") // dumptruck_ds
@@ -375,7 +381,7 @@ else if (self.style == 2)
 		EnfFireGrenade();
 		return;
 	}
-
+)
 else if (self.style == 3)
 
 	{
