@@ -200,7 +200,6 @@ void() Wiz_FastFire =
 {
 	local vector		vec;
 	local vector		dst;
-	local entity oldself;
 	local float projspeed = self.owner.proj_speed_mod * 600;
 
 	if (self.owner.health > 0)
