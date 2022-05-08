@@ -991,7 +991,7 @@ void(vector org, vector dir, float speed) launch_spike2 = {
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	setorigin (newmis, org);
 
-	newmis.velocity = dir * speed * self.proj_speed_mod;
+	newmis.velocity = dir * speed * (self.proj_speed_mod ? self.proj_speed_mod : 1);
 };
 void(vector org, vector dir) launch_spike = {
 	launch_spike2(org,dir,1000);
