@@ -89,8 +89,6 @@
 	mdl_gib1(string) : "Path to custom 1st gib model"
 	mdl_gib2(string) : "Path to custom 2nd gib model"
 	mdl_gib3(string) : "Path to custom 3rd gib model"
-	homing(float) : "Multiplier for projectile homing, maximum 1. Only applies to non-grenade projectiles." : "0"
-	proj_speed_mod(float) : "Multiplier for projectile speed. Only applies to non-grenade projectiles." : "1"
 ]
 @baseclass = CustomMdlsWizSham
 [
