@@ -167,6 +167,7 @@ void() BDW_OgreFireFlak =
 	local float flakcount;
 	local vector dir, ang;
 	local entity flak;
+	local float projspeed = 800 * (self.proj_speed_mod ? self.proj_speed_mod : 1);
 
 	flakcount = 8;
 
@@ -186,7 +187,7 @@ void() BDW_OgreFireFlak =
 	// f*cking hack...is this a v_forward problem?
 		dir_z = dir_z * -1;
 		//dir = dir*1000;
-		dir = dir*800;
+		//dir = dir*800;
 
 
 		flak = spawn();
@@ -199,9 +200,16 @@ void() BDW_OgreFireFlak =
 		flak.flags = FL_NOSELECT;
 		flak.touch = FlakTouch;
 		flak.angles = vectoangles(dir);
-		flak.velocity = dir;
-		flak.think = SUB_Remove;
-		flak.nextthink = time + 6;
+		SetSpeed(flak, dir, projspeed);
+		if (self.homing > 0)
+		{
+			SetupHoming(flak, projspeed);
+		}
+		else
+		{
+			flak.nextthink = time + 6;
+			flak.think = SUB_Remove;
+		}
 		flak.dmg = 4;
 
 		flak.spawnflags = MONSTER_FLAK_OGRE;	//this is a hack to tell FlakTouch that it came from an ogre
