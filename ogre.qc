@@ -167,7 +167,7 @@ void() BDW_OgreFireFlak =
 	local float flakcount;
 	local vector dir, ang;
 	local entity flak;
-	local float projspeed = 800 * (self.proj_speed_mod ? self.proj_speed_mod : 1);
+	local float projspeed = 800 * self.proj_speed_mod;
 
 	flakcount = 8;
 
@@ -1364,7 +1364,10 @@ void() monster_ogre =
 	// setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 200;
 
@@ -1479,7 +1482,10 @@ void() monster_ogre_marksman =
 	// setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 200;
 
