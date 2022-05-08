@@ -676,6 +676,7 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	damage_mod(float) : "Damage multiplier (e.g. 4 = Quad damage)" : : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 	homing(float) : "Multiplier for projectile homing, maximum 1. Only applies to non-grenade projectiles." : "0"
 	proj_speed_mod(float) : "Multiplier for projectile speed. Only applies to non-grenade projectiles." : "1"
+	waitmin(float) : "When set, homing factor will begin to increase after (waitmin) seconds." : "0"
 	drop_item(Choices) =
 	[
 		0 : "(Default) Disabled"
