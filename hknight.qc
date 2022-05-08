@@ -117,10 +117,6 @@ void(float offset) hknight_shot =
 		}
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	if (self.homing > 0) // If homing is off, don't bother doing any thinking
-	{
-		SetupHoming(newmis, 300*self.proj_speed_mod);
-	}
 	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
 };
 
