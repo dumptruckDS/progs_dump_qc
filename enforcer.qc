@@ -381,7 +381,7 @@ else if (self.style == 2)
 		EnfFireGrenade();
 		return;
 	}
-)
+
 else if (self.style == 3)
 
 	{
