@@ -6,7 +6,18 @@ void(entity bomb, entity attacker, float rad, entity ignore) T_RadiusDamage;
 void(vector org, vector vel, float damage) SpawnBlood;
 void() SuperDamageSound;
 void() create_mobot; //dumptruck_ds mobot.qc
+void(entity mis, float speed) SetupHoming;
 
+void(entity mis, vector dir, float speed) SetSpeed =
+{
+	if (cvar("sv_maxvelocity") > speed)
+	{
+		mis.velocity = dir * speed;
+	}
+	else {
+		mis.velocity = dir * cvar("sv_maxvelocity");
+	}
+};
 
 // called by worldspawn
 void() W_Precache =
@@ -638,7 +649,7 @@ void() W_GruntRocket =
 // set missile speed  -- dumptruck_ds below
 
 	missile.velocity = normalize(self.enemy.origin - self.origin);
-  missile.velocity = missile.velocity * 900;
+  SetSpeed(missile, missile.velocity, 900*self.proj_speed_mod);
   missile.angles = vectoangles(missile.velocity);
   missile.touch = T_GruntMisTouch;
 
@@ -650,8 +661,14 @@ void() W_GruntRocket =
 	// missile.touch = T_MissileTouch;
 
 // set missile duration
-	missile.nextthink = time + 5;
-	missile.think = SUB_Remove;
+	if (self.homing > 0)
+	{
+		SetupHoming(missile, 900 * self.proj_speed_mod);
+	}
+	else {
+		missile.nextthink = time + 5;
+		missile.think = SUB_Remove;
+	}
 	if (self.mdl_proj != "") // dumptruck_ds
 	{
 			setmodel (missile, self.mdl_proj);
@@ -950,8 +967,8 @@ launch_spike
 Used for both the player and the ogre
 ===============
 */
-void(vector org, vector dir) launch_spike =
-{
+
+void(vector org, vector dir, float speed) launch_spike2 = {
 	newmis = spawn ();
 	newmis.owner = self;
 	newmis.movetype = MOVETYPE_FLYMISSILE;
@@ -961,13 +978,23 @@ void(vector org, vector dir) launch_spike =
 
 	newmis.touch = spike_touch;
 	newmis.classname = "spike";
-	newmis.think = SUB_Remove;
-	newmis.nextthink = time + 6;
+	if (self.homing > 0)
+	{
+		SetupHoming(newmis, speed);
+	}
+	else
+	{
+		newmis.think = SUB_Remove;
+		newmis.nextthink = time + 6;
+	}
 	setmodel (newmis, "progs/spike.mdl");
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
 	setorigin (newmis, org);
 
-	newmis.velocity = dir * 1000;
+	SetSpeed(newmis, dir, speed * (self.proj_speed_mod ? self.proj_speed_mod : 1));
+};
+void(vector org, vector dir) launch_spike = {
+	launch_spike2(org,dir,1000);
 };
 
 void() W_FireSuperSpikes =
@@ -1039,21 +1066,16 @@ void() spike_touch =
 	}
 	else
 	{
-		if (self.owner.snd_hit){
-				sound_hit (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
-		}
-		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 
-		if (self.classname == "wizspike")
-			if (self.owner.snd_hit)
-			{
-					sound_hit (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
-					WriteByte(MSG_BROADCAST, TE_GUNSHOT);
-			}
-			else
-			{
-				WriteByte (MSG_BROADCAST, TE_WIZSPIKE);
-			}
+		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+		if (self.snd_hit)
+		{
+				sound (self, CHAN_WEAPON, self.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
+				WriteByte(MSG_BROADCAST, TE_GUNSHOT);
+		}
+
+		else if (self.classname == "wizspike")
+			WriteByte (MSG_BROADCAST, TE_WIZSPIKE);
 		else if (self.classname == "knightspike")
 			WriteByte (MSG_BROADCAST, TE_KNIGHTSPIKE);
 		else
@@ -1698,4 +1720,80 @@ void() SuperDamageSound =
 		}
 	}
 	return;
+};
+
+void() MissileHome =
+{
+	local vector	dir, vtemp;
+	vtemp = self.enemy.origin + '0 0 10';
+
+	if (self.enemy.health < 1)
+	{
+		remove(self);
+		return;
+	}
+	dir = normalize(vtemp - self.origin);
+	if (self.homing < 1 && self.homing > 0) // can't do better than 100% homing
+	{
+		/*
+		This finds a vector somewhere between the vector the projectile is currently
+		travelling on and the vector that it would normally snap to for homing
+
+		homing = .25 means it will go 25% to the new direction, but keep 75% of the
+		original vector, resulting in a wider turning range.
+		*/
+		dir = normalize((dir * self.homing) + normalize(self.velocity * (1 - self.homing)));
+	}
+	if (!self.avelocity)
+		self.angles = vectoangles(dir);
+	SetSpeed(self, dir, self.proj_basespeed);
+
+	if (self.homing > 0)
+	{
+		if (self.homing < 1 && self.attack_finished && self.attack_finished < time )
+		{
+			//dprint("incrementing homing | ");
+			//dprint("old: ");
+			//dprint(ftos(self.homing));
+			//dprint(" | new: ");
+			self.homing = self.homing + 0.005;
+			//dprint(ftos(self.homing));
+			//dprint("\n");
+		}
+		self.nextthink = time + 0.2;
+		self.think = MissileHome;
+	}
+};
+
+void(entity mis, float speed) SetupHoming =
+{
+	local	vector	dir;
+	local	float	dist, flytime, speedmod;
+	if (self.proj_speed_mod > 1)
+	{
+		speedmod = 1/self.proj_speed_mod;
+	}
+	else if (speed > 250)
+	{
+		speedmod = 1 / (speed / 250);
+	}
+	else
+	{
+		speedmod = 1;
+	}
+	dir = normalize((self.enemy.origin + '0 0 10') - self.origin);
+	dist = vlen (self.enemy.origin - self.origin);
+	flytime = dist * 0.002 * speedmod;
+	if (flytime < 0.1)
+		flytime = 0.1;
+
+	mis.enemy = self.enemy;
+	mis.proj_basespeed = speed;
+	mis.homing = self.homing;
+	mis.nextthink = flytime + time;
+	mis.think = MissileHome;
+	if (self.waitmin > 0)
+	{
+		mis.attack_finished = time + self.waitmin; // store time to start increasing
+	} 
 };

@@ -240,16 +240,26 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 			local float mode;
 			mode = 0;
 			// take highest mode so infighting happens consistently
-			if (self.infight_mode > mode)
+			if (self.infight_mode == -1 || self.infight_mode > mode)
 			{
 				mode = self.infight_mode;
 			}
-			if (attacker.infight_mode > mode)
+			if (mode != -1 && attacker.infight_mode > mode)
 			{
 				mode = attacker.infight_mode;
 			}
 			//soldiers of the same style will infight -- dumptruck_ds - thanks for c0burn and Shamblernaut for your help!
-			if (
+			if (mode == -1)
+			{
+				if (attacker.classname == "player")
+				{
+					if (self.enemy.classname == "player")
+						self.oldenemy = self.enemy;
+					self.enemy = attacker;
+					FoundTarget ();
+				}
+			}
+			else if (
 				(self.classname != attacker.classname) ||
 			  ((self.classname == "monster_army") && (self.style == attacker.style)) ||
 				(mode > 0 && self.mdl_body != attacker.mdl_body) || // infight if different models

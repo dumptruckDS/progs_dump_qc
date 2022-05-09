@@ -121,7 +121,7 @@ void(vector p) shub_missile =
 	puff.think = s_explode1;
 	puff.nextthink = time;
 
-	launch_spike (org, vec); // lavaball in your face!
+	launch_spike2 (org, vec, 300); // lavaball in your face!
 	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
 	{
 			setmodel (newmis, self.mdl_proj);
@@ -143,7 +143,6 @@ void(vector p) shub_missile =
 	// setmodel (newmis, "progs/lavaball.mdl");
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	newmis.velocity = vec*300;
 	newmis.touch = T_MissileTouch; // rocket explosion
 	sound_attack (self, CHAN_WEAPON, "boss1/throw.wav", 1, ATTN_NORM);
 

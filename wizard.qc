@@ -200,6 +200,7 @@ void() Wiz_FastFire =
 {
 	local vector		vec;
 	local vector		dst;
+	local float projspeed = self.owner.proj_speed_mod * 600;
 
 	if (self.owner.health > 0)
 	{
@@ -210,8 +211,7 @@ void() Wiz_FastFire =
 
 		vec = normalize(dst - self.origin);
 		// sound_attack (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
-		launch_spike (self.origin, vec);
-		newmis.velocity = vec*600;
+		launch_spike2 (self.origin, vec, projspeed);
 		newmis.owner = self.owner;
 		newmis.classname = "wizspike";
 		if (self.owner.projexpl)
@@ -222,6 +222,7 @@ void() Wiz_FastFire =
 		setmodel(newmis, self.owner.mdl_proj);
 		newmis.skin = self.owner.skin_proj;
 		setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
+
 	}
 
 	remove (self);
@@ -243,22 +244,12 @@ void() Wiz_StartFast =
 	setorigin (missile, self.origin + '0 0 30' + v_forward*14 + v_right*14);
 	missile.enemy = self.enemy;
 	missile.nextthink = time + 0.8;
-	if (self.projexpl)
-	{
-		// dprint("spawning exploding wizard proj from startfast 1\n");
-		missile.touch = T_WizardMisTouch;
-	}
 	missile.think = Wiz_FastFire;
 	missile.movedir = v_right;
 
 	missile = spawn ();
 	missile.owner = self;
 	missile.nextthink = time + 1;
-	if (self.projexpl)
-	{
-		// dprint("spawning exploding wizard proj from startfast 2\n");
-		missile.touch = T_WizardMisTouch;
-	}
 	setsize (missile, '0 0 0', '0 0 0');
 	setorigin (missile, self.origin + '0 0 30' + v_forward*14 + v_right* -14);
 	missile.enemy = self.enemy;
@@ -529,6 +520,11 @@ void() monster_wizard =
 	// setmodel (self, "progs/wizard.mdl"); //dumptruck_ds
 
 	setsize (self, '-16 -16 -24', '16 16 40');
+
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 80;

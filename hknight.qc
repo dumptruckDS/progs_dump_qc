@@ -72,7 +72,7 @@ void(float offset) hknight_shot =
 	vec = normalize (v_forward);
 	vec_z = 0 - vec_z + (random() - 0.5)*0.1;
 
-	launch_spike (org, vec);
+	launch_spike2 (org, vec, 300);
 	newmis.classname = "knightspike";
 	// setmodel (newmis, "progs/k_spike.mdl");
 	if (exploding)
@@ -117,8 +117,6 @@ void(float offset) hknight_shot =
 		}
 	}
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	newmis.velocity = vec*300;
-
 	sound_attack (self, CHAN_WEAPON, "hknight/attack1.wav", 1, ATTN_NORM);
 };
 
@@ -629,6 +627,11 @@ void() monster_hell_knight =
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 250;
+
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 
 	self.th_stand = hknight_stand1;
 	self.th_walk = hknight_walk1;

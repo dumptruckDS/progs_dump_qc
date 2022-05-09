@@ -167,6 +167,7 @@ void() BDW_OgreFireFlak =
 	local float flakcount;
 	local vector dir, ang;
 	local entity flak;
+	local float projspeed = 800 * self.proj_speed_mod;
 
 	flakcount = 8;
 
@@ -186,7 +187,7 @@ void() BDW_OgreFireFlak =
 	// f*cking hack...is this a v_forward problem?
 		dir_z = dir_z * -1;
 		//dir = dir*1000;
-		dir = dir*800;
+		//dir = dir*800;
 
 
 		flak = spawn();
@@ -199,9 +200,16 @@ void() BDW_OgreFireFlak =
 		flak.flags = FL_NOSELECT;
 		flak.touch = FlakTouch;
 		flak.angles = vectoangles(dir);
-		flak.velocity = dir;
-		flak.think = SUB_Remove;
-		flak.nextthink = time + 6;
+		SetSpeed(flak, dir, projspeed);
+		if (self.homing > 0)
+		{
+			SetupHoming(flak, projspeed);
+		}
+		else
+		{
+			flak.nextthink = time + 6;
+			flak.think = SUB_Remove;
+		}
 		flak.dmg = 4;
 
 		flak.spawnflags = MONSTER_FLAK_OGRE;	//this is a hack to tell FlakTouch that it came from an ogre
@@ -741,7 +749,7 @@ void() OgreFireLavaBall =
 	vec = normalize (d - org);
 
 	// launch_spike (org, vec);
-	launch_spike (self.origin + v_right * 4 + '0 0 16', vec);
+	launch_spike2 (self.origin + v_right * 4 + '0 0 16', vec, 600);
 	self.effects = self.effects | EF_MUZZLEFLASH;
 	if (self.mdl_proj != "") // dumptruck_ds custom_mdls
 	{
@@ -764,7 +772,6 @@ void() OgreFireLavaBall =
 	if !(newmis.avelocity)
 	newmis.avelocity = '200 100 300';
 	setsize (newmis, VEC_ORIGIN, VEC_ORIGIN);
-	newmis.velocity = vec*600; // changed from 300 since this is more like a 'nade -  dumptruck_ds
 	// newmis.touch = T_MissileTouch; // rocket explosion
 	newmis.touch = OgreGrenadeExplode;
 	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
@@ -1357,7 +1364,10 @@ void() monster_ogre =
 	// setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 200;
 
@@ -1472,7 +1482,10 @@ void() monster_ogre_marksman =
 	// setmodel (self, "progs/ogre.mdl");
 
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-
+	if (!self.proj_speed_mod)
+	{
+		self.proj_speed_mod = 1;
+	}
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 200;
 
