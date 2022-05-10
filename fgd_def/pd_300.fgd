@@ -814,6 +814,11 @@ snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD 
 
 mdl_exproj(string) : "Path to custom exploding projectile model"
 skin_exproj(float) : "Skin index for custom exploding projectile model"
+style(Choices) : "Attack type" =
+	[
+		0 : "Default (magic spikes)"
+		1 : "lightning"
+	]
 ]
 // @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/wizard.mdl" }) = monster_wizard : "Scrag a.k.a Wizard
 @PointClass base(Monster, Berserk, CustomMdls) size(-16 -16 -24, 16 16 40) model(
@@ -914,6 +919,7 @@ style(Choices) : "Attack type" =
 		1	: "rockets"
 		2 : "grenades"
 		3 : "nails"
+		4 : "lightning
 	]
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom 1st pain sound" : : "Path to 1st custom pain sound"

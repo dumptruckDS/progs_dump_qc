@@ -12,6 +12,7 @@ ShamRocket
 void() ShamRocket =
 {
 	local	entity missile;
+	local float projspeed = 900 * self.proj_speed_mod;
 
 	sound_attack (self, CHAN_AUTO, "boss1/throw.wav", 1, ATTN_NORM);
 
@@ -23,9 +24,8 @@ void() ShamRocket =
 
 // set missile speed  -- dumptruck_ds below
 
-	missile.velocity = normalize(self.enemy.origin - self.origin);
-  missile.velocity = missile.velocity * 900;
-  missile.angles = vectoangles(missile.velocity);
+	SetSpeed(missile, normalize(self.enemy.origin - self.origin), projspeed);
+    missile.angles = vectoangles(missile.velocity);
 	missile.avelocity = self.cust_avelocity; //custom spin of projectile
 	if !(missile.avelocity)
 	missile.avelocity = '200 100 300';
@@ -33,8 +33,15 @@ void() ShamRocket =
 	missile.touch = T_MissileTouch;
 
 // set missile duration
-	missile.nextthink = time + 5;
-	missile.think = SUB_Remove;
+	if (self.homing > 0)
+	{
+		SetupHoming(missile, projspeed);
+	}
+	else
+	{
+		missile.nextthink = time + 5;
+		missile.think = SUB_Remove;
+	}
 	missile.skin = self.skin_proj; //dumptruck_ds
 
 	if (self.mdl_proj != "") // dumptruck_ds
