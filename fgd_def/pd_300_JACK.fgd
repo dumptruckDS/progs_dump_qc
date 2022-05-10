@@ -620,6 +620,11 @@ snd_misc(string) : "Path to custom SWORD SLASH sound" : : "Path to custom SWORD 
 
 mdl_exproj(string) : "Path to custom exploding projectile model"
 skin_exproj(float) : "Skin index for custom exploding projectile model"
+style(Choices) : "Attack type" =
+	[
+		0 : "Default (magic spikes)"
+		1 : "lightning"
+	]
 ]
 
 //____TW_EDIT____
@@ -692,6 +697,7 @@ style(Choices) : "Attack type" : 0 =
 		1	: "rockets"
 		2 : "grenades"
 		3 : "nails"
+		4 : "lightning"
 	]
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom 1st pain sound" : : "Path to 1st custom pain sound"
