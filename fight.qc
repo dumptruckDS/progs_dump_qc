@@ -65,6 +65,13 @@ float() CheckAttack =
 			// dprint("CheckAttack...\n");
 			if ((self.classname) == ("monster_enforcer"))
 				{
+					if (self.style == 4) 
+					{
+						if (enemy_range >= RANGE_MID)
+						{
+							return FALSE;
+						}
+					}
 					self.attack_state = AS_MISSILE;
 				}
 			else if ((self.classname) == ("monster_hell_knight"))
