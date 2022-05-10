@@ -65,9 +65,9 @@ float() CheckAttack =
 			// dprint("CheckAttack...\n");
 			if ((self.classname) == ("monster_enforcer"))
 				{
-					if (self.style == 4) 
+					if (self.style == 4) // lightning can only go so far
 					{
-						if (enemy_range >= RANGE_MID)
+						if (enemy_range >= RANGE_MID) 
 						{
 							return FALSE;
 						}
@@ -76,6 +76,13 @@ float() CheckAttack =
 				}
 			else if ((self.classname) == ("monster_hell_knight"))
 				{
+				if (self.style == 1) // lightning can only go so far
+					{
+						if (enemy_range >= RANGE_MID)
+						{
+							return FALSE;
+						}
+					}
 					// self.attack_state = AS_MISSILE;
 					self.th_turret ();
 				}
