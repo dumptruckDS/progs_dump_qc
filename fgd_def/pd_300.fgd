@@ -919,7 +919,7 @@ style(Choices) : "Attack type" =
 		1	: "rockets"
 		2 : "grenades"
 		3 : "nails"
-		4 : "lightning
+		4 : "lightning"
 	]
 snd_death(string) : "Path to custom death sound" : : "Path to custom death sound"
 snd_pain(string) : "Path to custom 1st pain sound" : : "Path to 1st custom pain sound"
