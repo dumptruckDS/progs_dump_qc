@@ -200,6 +200,7 @@ void() Wiz_FastFire =
 {
 	local vector		vec;
 	local vector		dst;
+	local entity oldself;
 	local float projspeed = self.owner.proj_speed_mod * 600;
 
 	if (self.owner.health > 0)
@@ -211,13 +212,21 @@ void() Wiz_FastFire =
 
 		vec = normalize(dst - self.origin);
 		// sound_attack (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
-		launch_spike2 (self.origin, vec, projspeed);
+		launch_spike (self.origin, vec);
+		SetSpeed(newmis, vec, projspeed);
 		newmis.owner = self.owner;
 		newmis.classname = "wizspike";
 		if (self.owner.projexpl)
 		{
 			// dprint("spawning exploding wizard proj from fastfire\n");
 			newmis.touch = T_WizardMisTouch;
+		}
+		if (self.owner.homing)
+		{
+			oldself = self;
+			self = self.owner;
+			SetupHoming(newmis, projspeed);
+			self = oldself;
 		}
 		setmodel(newmis, self.owner.mdl_proj);
 		newmis.skin = self.owner.skin_proj;
