@@ -1068,9 +1068,9 @@ void() spike_touch =
 	{
 
 		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-		if (self.snd_hit)
+		if (self.owner.snd_hit)
 		{
-				sound (self, CHAN_WEAPON, self.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
+				sound (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
 				WriteByte(MSG_BROADCAST, TE_GUNSHOT);
 		}
 
