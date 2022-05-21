@@ -716,6 +716,8 @@ void() trap_spikeshooter =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	if (self.proj_speed_mod <= 0)
+		self.proj_speed_mod = 1;
    SetMovedir ();
 	self.use = spikeshooter_use;
 	if (self.spawnflags & SPAWNFLAG_LASER)
