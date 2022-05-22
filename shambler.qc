@@ -658,6 +658,10 @@ void() monster_shambler =
 
 	if (!self.health) //thanks RennyC -- dumptruck_ds
 	self.health = 600;
+	if (self.proj_speed_mod <= 0)
+	{
+		self.proj_speed_mod = 1;
+	}
 
 	self.th_stand = sham_stand1;
 	self.th_walk = sham_walk1;
