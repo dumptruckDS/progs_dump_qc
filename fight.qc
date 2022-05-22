@@ -387,7 +387,7 @@ float() ShamCheckAttack =
 	spot1 = self.origin + self.view_ofs;
 	spot2 = targ.origin + targ.view_ofs;
 
-	if (vlen(spot1 - spot2) > 600)
+	if (self.style == 0 && vlen(spot1 - spot2) > 600)
 		return FALSE;
 
 	traceline (spot1, spot2, FALSE, self);
@@ -407,7 +407,7 @@ float() ShamCheckAttack =
 	}
 
 // missile attack
-	if (enemy_range == RANGE_FAR)
+	if (self.style == 0 && enemy_range == RANGE_FAR)
 		return FALSE;
 
 	self.attack_state = AS_MISSILE;
