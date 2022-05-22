@@ -472,39 +472,39 @@ void () func_breakable = {
 		|| self.style == 24 || self.style == 31)
 		if !(self.noise1)
 	{
-		precache_sound("break/pd_metal2.wav");
-		self.noise1 = "break/pd_metal2.wav";
+		precache_sound("break/metal2.wav");
+		self.noise1 = "break/metal2.wav";
 	}
 	if (self.style == 3 || self.style == 4 || self.style == 5)
 		if !(self.noise1)
 	{
-		precache_sound("break/pd_wood1.wav");
-		precache_sound("break/pd_wood2.wav");
+		precache_sound("break/wood1.wav");
+		precache_sound("break/wood2.wav");
 		if (random() > 0.6) // wood only randomized
-		self.noise1 = "break/pd_wood1.wav";
+		self.noise1 = "break/wood1.wav";
 		else
-		self.noise1 = "break/pd_wood2.wav";
+		self.noise1 = "break/wood2.wav";
 	}
 	// glass sounds -- this is more of a shattering sound anyway
 	if (self.style == 6 || self.style == 7 || self.style == 8 || self.style == 9 || self.style == 10)
 		if !(self.noise1)
 	{
-		precache_sound("break/pd_metal1.wav");
-		self.noise1 = "break/pd_metal1.wav";
+		precache_sound("break/metal1.wav");
+		self.noise1 = "break/metal1.wav";
 	}
 	if (self.style == 1 || self.style == 2 || self.style == 13 || self.style == 14
 		|| self.style == 15 || self.style == 16 || self.style == 20 || self.style == 21
 		|| self.style == 22 || self.style == 23)
 		if !(self.noise1)
 	{
-		precache_sound("break/pd_bricks1.wav");
-		self.noise1 = "break/pd_bricks1.wav";
+		precache_sound("break/bricks1.wav");
+		self.noise1 = "break/bricks1.wav";
 	}
 	if (self.style == 25 || self.style == 26 || self.style == 27 || self.style == 28 || self.style == 29 || self.style == 30)
 		if !(self.noise1)
 	{
-		precache_sound("break/pd_stones1.wav");
-		self.noise1 = "break/pd_stones1.wav";
+		precache_sound("break/stones1.wav");
+		self.noise1 = "break/stones1.wav";
 	}
 	// else
 	// 	(self.noise1 = "blob/hit1.wav");
