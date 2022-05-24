@@ -240,8 +240,8 @@ void(entity attacker, float damage) oldone2_pain =
 void() oldone2_die =
 {
 // 1998-07-30 Shub kill count fix by Maddes  start
-	killed_monsters = killed_monsters + 1;
-	WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// FIXME: reliable broadcast
+	//killed_monsters = killed_monsters + 1;
+	//WriteByte (MSG_ALL, SVC_KILLEDMONSTER);	// Already done by FL_MONSTER
 // 1998-07-30 Shub kill count fix by Maddes  end
 	// throw tons of meat chunks
 	local	vector	oldo;
