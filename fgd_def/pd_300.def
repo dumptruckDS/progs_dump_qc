@@ -2484,8 +2484,21 @@ set the gravity of a player
  harder to jump. If you want multiple trigger setgravity triggers in one room or
  area, make sure the brushes are not touching each other. This can cause the
  triggers not to work properly.
+*/
+
+ /*QUAKED trigger_fogblend (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+"Trigger: Fog Blend
+Acts as a smoothly blending portal between two zones of different fog. Sets the fog for any client passing through it, blending their global fog settings between start and end values proportional to their position within the trigger.
+
+- both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
+- will 'stuffcmd' 2 dozen times per frame so try not to make these huge
+- a bug in most quake engine ports will reset the eye position smoothing that happens when climbing stairs or riding a plat on every frame that a 'stuffcmd' is sent, so fog transitions during upwards motion will cause noticeable stuttering."
+
+distance(integer) : "Length of blend distance (defaults to size of trigger)"
+angle(integer) : "Axis of motion of blend (points toward end values)"
 
 */
+
 /*QUAKED ltrail_start (0 1 0) (-8 -8 -8) (8 8 8) LT_TOGGLE START_ON X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 Starting point of a lightning trail.
