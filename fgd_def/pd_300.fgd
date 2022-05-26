@@ -528,15 +528,15 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 
 // @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
 @PointClass base(Key) model(
-		{{
-        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/pd_wiz_key.mdl" , "skin" : 1}
+	{{
+        mdl -> {"path" : mdl, "skin" : skin}, {"path": "progs/pd_wiz_key.mdl" , "skin" : skin}
     }}
 ) = item_key_custom :
 "A customizable key item.
 
 This allows mappers to use any Quake compatible model, sprite or BSP as a key. We’ve also included new key models with different variations. You can find these in the progs folder and set their paths in the mdl key.
 
-keyname: name of the key, e.g. 'bronze key' (required), mdl: model file path (required) noise: sound file for the pickup sound (default is per worldtype), skin: skin index (default 0), frame (default 0): display this single frame of the model, if animated. NOTE: The key will not display any animation.
+keyname: name of the key, e.g. 'bronze key' (required), mdl: model file path (requiredL) noise: sound file for the pickup sound (default is per worldtype), skin: skin index (default 0), frame (default 0): display this single frame of the model, if animated. NOTE: The key will not display any animation.
 
 Three new models based on id’s original keys are included. One for each worldtype: base, runic and wizard. Each of these has four color variations, also referred to as their skin index: jade (green, skin 0), runic (magenta, skin 1), blood (red, skin 2) and alabaster (gray, skin 3). The development/wads folder has a small wad with textures for use with the different styles seen below.
 
@@ -2089,6 +2089,7 @@ The flags above are mutually exclusive and will cause an objerror when selected 
 		0: "Silent"
 		1: "Ratchet Metal"
 		2: "Base door"
+		
 	]
 	speed(integer) : "Speed (units per second)" : 100
 	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
@@ -3193,7 +3194,11 @@ delay how much time to wait before firing after being switched on."
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
 
-@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname, CustomMdlsSkin) model({{ mdl_body == "" -> {"path": "progs/flame.mdl", "skin" : skin}, mdl_body != "" -> {"path" : mdl_body, "skin" : skin} }}) =
+@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname, CustomMdlsSkin) 
+	model(		
+		{{
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/flame.mdl" , "skin" : skin}
+   		}}) =
 	light_torch_small_walltorch : "Small walltorch"
 	[
 		spawnflags(Flags) =

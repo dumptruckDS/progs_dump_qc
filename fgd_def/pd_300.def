@@ -884,23 +884,40 @@ Set "sounds" to one of the following:
 1) base fast
 2) chain slow
 */
-/*QUAKED func_train (0 .5 .8) ? RETRIGGER X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED func_train (0 .5 .8) ? X MOVE_ON_TRIGGER STOP_ON_TRIGGER NON_SOLID X X CUSTOM_ALIGNMENT X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-Trains are moving platforms that players can ride.
-The targets origin specifies the min point of the train at each corner.
-The train spawns at the first target it is pointing at.
-If the train is the target of a button or trigger, it will not begin moving until activated.
+"Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+Use path_corner as targets.
+If given a targetname, it'll only start moving after triggered.
+path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
 
-RETRIGGER: stop at each path_corner and don't resume until triggered again (ignores wait time)
+'pausetime' sets a default waiting time when a value is not defined in path_corners.
+'speed' sets the initial moving speed. If the train encounters a path_corner with its 'speed' field set it will move at that speed afterwards.
 
-speed default 100
-dmg default 2
-noise path to custom sound
-sounds
-1) ratchet metal
-2) base
-3) custom
+Spawnflags:
+- 'Move on trigger' will force the train to resume its path when triggered, even when temporarily waiting at a path_corner.
+- 'Stop on trigger' will stop the train at the next path_corner when triggered. Trigger it again to resume.
+The flags above are mutually exclusive and will cause an objerror when selected simultaneously.
+- 'Custom alignment' allows you to directly specify how the train is offset relative to its path_corners using an 'origin' brush instead of using the vanilla corner alignment.
 
+sounds(choices) : "Sound" : 1 =
+0: "Silent"
+1: "Ratchet Metal"
+2: "Base door"
+
+speed(integer) : "Speed (units per second)" : 100
+pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
+target(target_source) : "Train starting point"
+dmg(integer) : "Damage on crush" : 2
+noise1(string) : "Custom moving loop sound (if set, overrides 'sounds')"
+noise(string) : "Custom stopping sound (if set, overrides 'sounds')"
+noise2(string) : "Custom corner sound, for when the train crosses a path_corner without stopping"
+
+spawnflags(flags) =
+2: "Move on trigger" : 0
+4: "Stop on trigger" : 0
+8: "Non-solid" : 0
+64: "Custom alignment" : 0
 */
 /*QUAKED misc_teleporttrain (.5 .5 .5) (-16 -16 -16) (16 16 16) X DONT_ROTATE START_ON_WITH_TARGETNAME INVISIBLE X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model("progs/teleport.mdl");	}
@@ -1298,18 +1315,14 @@ skin(integer) : "Skin index (default 0) Use this when your custom model has more
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 drop_item(Choices) =
-	0 : "(Default) Disabled"
-	1 : "Drop a Silver Key upon death"
-	2 : "Drop a Gold Key upon death"
-	3 : "Drop a Health Vial upon death"
-	4 : "Drop an Armor Shard upon death"
-	5 : "Drop a Health Vial & Armor Shard"
-	6 : "Random combination of 3 Vials and/or Shards"
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "Random combination of 3 Vials and/or Shards"
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
-drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
 
 */
 /*QUAKED monster_ogre_marksman (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND PASSIVE_UNTIL_ATTACKED PASSIVE_ALWAYS NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY X TURRET_MODE
@@ -1368,9 +1381,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 */
 /*QUAKED monster_dead_ogre (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID ON_SIDE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
@@ -1428,9 +1445,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_demon (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1502,9 +1523,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_shambler (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1565,9 +1590,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID ON_SIDE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1637,9 +1666,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_army (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID FACE_UP X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1700,9 +1733,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_wizard (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1762,9 +1799,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_dog (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -1831,9 +1872,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 spawnflags(Flags) =
 1 : "Crucified"
@@ -1901,9 +1946,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_hell_knight (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND PASSIVE_UNTIL_ATTACKED PASSIVE_ALWAYS NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY X TURRET_MODE
@@ -1961,9 +2010,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_hell_knight (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -2019,9 +2072,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_shalrath (1 0 0) (-32 -32 -24) (32 32 48) AMBUSH X X TRIGGER_SPAWNED X NO_SIGHT_SOUND PASSIVE_UNTIL_ATTACKED PASSIVE_ALWAYS NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY X TURRET_MODE
@@ -2080,9 +2137,13 @@ obit_name(string) : "When used with obit_method, this will set part of the text 
 obit_method(string) : "When used with obit_name, will set part of the text for a custom obituary. e.g. eviscerated - If empty, defaults to killed."
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_shalrath (0 0.5 0.8) (-32 -32 -24) (32 32 64) SOLID X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -2157,9 +2218,13 @@ obit_method(string) : "When used with obit_name, will set part of the text for a
 obit_name(string) : "When used with obit_method, this will set part of the text for a custom obituary. e.g. a Super Soldier! Using the examples here, the obituary would read: Player was eviscerated by a Super Solider!"
 damage_mod(float) : "USE WITH CAUTION! Multiply all damage from this monster by this number (e.g. 4 = Quad damage)"
 drop_item(Choices) =
-	0 = (Default) Disabled
-	1 = Drop a Silver Key upon death
-	2 = Drop a Gold Key upon death
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 
 */
 /*QUAKED monster_dead_enforcer (0 0.5 0.8) (-16 -16 -24) (16 16 32) SOLID FACE_UP X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -2668,13 +2733,13 @@ brk_obj_count3(integer) : "Template 3 spawn count"
 brk_obj_count4(integer) : "Template 4 spawn count"
 brk_obj_count5(integer) : "Template 5 spawn count"
 drop_item(Choices) =
-	0 : "(Default) Disabled"
-	1 : "Drop a Silver Key upon death"
-	2 : "Drop a Gold Key upon death"
-	3 : "Drop a Health Vial upon death"
-	4 : "Drop an Armor Shard upon death"
-	5 : "Drop a Health Vial & Armor Shard"
-	6 : "random combination of 3 Vials and/or Shards"
+0 : "(Default) Disabled"
+1 : "Drop a Silver Key upon death"
+2 : "Drop a Gold Key upon death"
+3 : "Drop a Health Vial upon death"
+4 : "Drop an Armor Shard upon death"
+5 : "Drop a Health Vial & Armor Shard"
+6 : "random combination of 3 Vials and/or Shards"
 */
 /*QUAKED trigger_ladder (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 invisible ladder entity. when player is touching this entity, he can climb by pushing 'jump'
