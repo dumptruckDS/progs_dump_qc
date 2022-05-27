@@ -287,7 +287,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 [
 	spawnflags(flags) =
 	[
-		32 : "Spawn silent" : 0
+		32 : "Spawn Silently" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]
@@ -479,6 +479,8 @@ The 'keyname' value is used both for the pickup message and to associate the key
 		32 : "No Sight Sound" : 0
 		64 : "Passive until attacked" : 0
 		128 : "Passive always" : 0
+		2097152 : "Spawn Silently" : 0
+
 	]
 	delay(choices) : "Trigger spawn delay time" : : "Delay spawn in for this amount of time" =
 	[
@@ -489,11 +491,11 @@ The 'keyname' value is used both for the pickup message and to associate the key
 		0.5 : "Second delay"
 		1 : "Second delay"
 	]
-	wait(choices) : "Play an effect when trigger spawned?" : : "Play an effect when trigger spawned?" =
-	[
-		0: "Teleport Effects (Default)"
-		1 : "Spawn Silently"
-	]
+	// wait(choices) : "Play an effect when trigger spawned?" : : "Play an effect when trigger spawned?" =
+	// [
+	// 	0: "Teleport Effects (Default)"
+	// 	1 : "Spawn Silently"
+	// ]
 	spawn_angry(Choices) =
 [
 	0 : "Only when trigger spawned, default behavior - not angry"
@@ -2819,7 +2821,7 @@ spawnflags(flags) =
 		4: "Nails"	: 0
 		8 : "Rockets"	: 0
 		16 : "Cells" : 0
-		32 : "Spawn silent" : 0
+		32 : "Spawn Silently" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]

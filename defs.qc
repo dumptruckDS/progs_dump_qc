@@ -962,7 +962,7 @@ float HEAL_MONSTER_ONLY	= 4;
 .float drop_item; // key DropStuff
 
 
-
+float SPAWN_SILENTLY = 2097152;
 float TRIGGER_CENTERPRINTALL = 1048576;
 
 // entity state

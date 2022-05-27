@@ -32,6 +32,13 @@ SPAWNFLAGS
 16384    X
 32768    Not on Hard Only
 65536    Not on Nightmare Only
+131072   X
+262144   X
+524288   X
+1048576  X
+2097152  X
+4194304  X
+8388608  X
 ====================
 */
 dead DeadStuff

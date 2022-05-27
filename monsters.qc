@@ -54,9 +54,12 @@ self.think1();
 //override the random delay some go functions apply
 self.nextthink = time + 0.1;
 	{
-		if (self.wait == 0/* || self.classname == "monster_zombie"*/)  //dumptruck_ds: if wait value is >0 spawn silently, hack for zombies broke this, fixed with pos1!
-		spawn_tfog (self.origin);
-		spawn_tdeath(self.origin, self);
+		if !(self.spawnflags & SPAWN_SILENTLY)
+		{
+			if (self.wait == 0)  //dumptruck_ds: if wait value is > 0 spawn silently or use a spawnflag
+			spawn_tfog (self.origin);
+			spawn_tdeath(self.origin, self);
+		}
 	}
 
 }

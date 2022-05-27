@@ -346,7 +346,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 [
 	spawnflags(flags) =
 	[
-		32 : "Spawn silent" : 0
+		32 : "Spawn Silently" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]
@@ -3030,7 +3030,7 @@ spawnflags(flags) =
 		4: "Nails"	: 0
 		8 : "Rockets"	: 0
 		16 : "Cells" : 0
-		32 : "Spawn silent" : 0
+		32 : "Spawn Silently" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
 	]
