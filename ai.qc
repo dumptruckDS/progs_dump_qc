@@ -800,8 +800,61 @@ void(float dist) ai_run =
 		ai_run_slide ();
 		return;
 	}
+	// part of monster face from TheSolipsist
+	// urged to change positions
+  if (time < self.t_length) // if orientation is forced
+  {
+    ChangeYaw();
+
+    if (walkmove(self.ideal_yaw, dist))
+      return;
+
+    self.ideal_yaw += 30; // dodge left
+    ChangeYaw();
+
+    if (walkmove(self.ideal_yaw, dist))
+      return;
+
+    self.ideal_yaw -= 60; // dodge right
+    ChangeYaw();
+    ChangeYaw();
+
+    if (walkmove(self.ideal_yaw, dist))
+      return;
+
+    self.ideal_yaw += 30; // give up
+    ChangeYaw();
+    self.touch_time = self.touch_time - 0.1; // lose patience
+
+    return;
+  }
 
 if !(self.spawnflags & I_AM_TURRET) // keeps monster from moving to player - dumptruck_ds
 // head straight in
 	movetogoal (dist);		// done in C code...
 };
+/*
+=============
+visibleToOther
+
+returns 1 if the entity is visible to other, even if not infront ()
+=============
+*/
+float (entity targ) visibleToOther =
+{
+  local vector spot1, spot2;
+
+  spot1 = other.origin + other.view_ofs;
+  spot2 = targ.origin + targ.view_ofs;
+  traceline(spot1, spot2, TRUE, other); // see through other monsters
+
+  if (trace_inopen && trace_inwater)
+    return FALSE; // sight line crossed contents
+
+  if (trace_fraction == 1)
+    return TRUE;
+
+  return FALSE;
+};
+
+//----------------------------------------------------------------------------

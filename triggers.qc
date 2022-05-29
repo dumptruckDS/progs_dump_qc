@@ -1817,3 +1817,41 @@ void() target_setcount = {
 	self.use = target_setcount_use;
 
 };
+
+void() trigger_monsterface_touch =
+{
+  // only affect ground monsters
+  if ( other.flags & (FL_MONSTER | FL_FLY | FL_SWIM) != FL_MONSTER )
+    return;
+
+  if (!visibleToOther(other.enemy)) { // enemy is hidden
+    other.t_length = time + self.wait + 0.2; // don't dodge around, just go straight
+    other.ideal_yaw = self.ideal_yaw; // face where I want
+  }
+}
+
+void() trigger_monsterface_init =
+{
+  if (self.angles == '0 0 0')
+    self.angles = '0 360 0';
+
+  self.touch = trigger_monsterface_touch;
+}
+
+/*QUAKED trigger_monsterface (.5 .0 .5)
+Running monsters that do not see their target and touch this will face in the direction of the trigger's angle instead of the unseen target.
+Use this trigger to make monsters leave their sniping spot and execute complex maneuvers.
+
+Keys:
+"angle" absolute angle in which the monster should face
+"targetname" entity name
+"wait" time to wait between retriggers
+*/
+void() trigger_monsterface =
+{
+  if (SUB_Inhibit())
+    return;
+
+  trigger_monsterface_init();
+  InitTrigger();
+}
