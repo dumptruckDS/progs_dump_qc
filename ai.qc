@@ -93,7 +93,7 @@ void() path_corner =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
-	
+
 	if (self.noise) precache_sound(self.noise);
 	if (self.noise2) precache_sound(self.noise2);
 
@@ -340,7 +340,7 @@ void() FoundTarget =
 
 	self.show_hostile = time + 1;		// wake up other monsters
 
-	if !(self.spawnflags & NO_SIGHT_SOUND)
+	if !(self.spawnflags & NO_SIGHT_SOUND || self.spawnflags & PASSIVE_ALWAYS || self.spawnflags & PASSIVE_UNTIL_ATTACKED)
 	{
 		SightSound ();
 	}
