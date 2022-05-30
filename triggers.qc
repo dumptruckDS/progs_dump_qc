@@ -1826,7 +1826,7 @@ void() trigger_monsterface_touch =
 
   if (!visibleToOther(other.enemy)) { // enemy is hidden
     other.t_length = time + self.wait + 0.2; // don't dodge around, just go straight
-    other.ideal_yaw = self.ideal_yaw; // face where I want
+    other.ideal_yaw = self.angles_y; // face where I want
   }
 }
 
