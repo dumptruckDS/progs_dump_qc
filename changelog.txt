@@ -42,6 +42,9 @@
 * Added custom path alignment using origin textures to func_train (TheRektafire)
 * Added in-fighting mode -1 Never in-fight (ILike80sRock)
 * Added Spawn Silently spawnflag to monsters (wait 1 can still be used)
+* Added trigger_monsterface: Running monsters that do not see their target and
+  touch this will face in the direction of the trigger's angle instead of the
+  unseen target. (TheSolipsist)
 
 2.0.1 March 2021
 

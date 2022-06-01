@@ -1832,6 +1832,12 @@ void() trigger_monsterface_touch =
 
 void() trigger_monsterface_init =
 {
+	self.solid = SOLID_TRIGGER;
+  setmodel (self, self.model);    // set size and link into world
+  self.movetype = MOVETYPE_NONE;
+  self.modelindex = 0;
+  self.model = "";
+
   if (self.angles == '0 0 0')
     self.angles = '0 360 0';
 
@@ -1853,5 +1859,5 @@ void() trigger_monsterface =
     return;
 
   trigger_monsterface_init();
-  InitTrigger();
+  // InitTrigger();
 }
