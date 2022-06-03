@@ -356,9 +356,11 @@ void () func_breakable_die = {
 		setorigin (self, self.origin);
 		DropStuff();
 		if (self.spawnflags & BREAK_CUSTOM) {
+			if (self.switchshadstyle) lightstyle(self.switchshadstyle, "m");
 			make_breakable_templates_debris ();
 			remove (self);
 		} else {
+			if (self.switchshadstyle) lightstyle(self.switchshadstyle, "m");
 			make_breakable_debris ();
 			remove (self);
 		}
@@ -523,7 +525,8 @@ void () func_breakable = {
 		self.takedamage = DAMAGE_YES;
 		self.th_die = func_breakable_killed;
 	}
-
+	
+	if (self.switchshadstyle) lightstyle(self.switchshadstyle, "a");
 };
 
 /*
@@ -653,7 +656,7 @@ void () func_laser_use =
 
 /*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-A togglable laser, hurts to touch, can be used to block players
+A toggleable laser, hurts to touch, can be used to block players
 
 START_OFF: Laser starts off.
 

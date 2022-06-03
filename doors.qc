@@ -327,7 +327,7 @@ void(entity e, float closealldoors) door_estate_lock = {
 	
 	if (self.state == STATE_UP || self.state == STATE_TOP) {
 		if (
-			// don't close wait -1 nor togglable doors...
+			// don't close wait -1 nor toggleable doors...
 			!(self.wait == -1 || (self.spawnflags & DOOR_TOGGLE)) 
 			// ...unless the trigger_setstate has a "Close all doors" spawnflag on
 			|| closealldoors

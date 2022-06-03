@@ -1074,7 +1074,7 @@ spawnflags(Flags) =
 	[
 		_minlight(integer) : "Min light" :  : "Set the minimum light level for any surface of the brush model. Default 0"
 		_mincolor(color255) : "Min light color R G B" : "255 255 255" : "Specify red(r), green(g) and blue(b) components for the colour of the minlight. RGB component values are between 0 and 255 (between 0 and 1 is also accepted). Default is white light (255 255 255)"
-		_shadow(integer) : "Shadows" :  : "If n is 1, this model will cast shadows on other models and itself (i.e. '_shadow' implies '_shadowself'). Note that this doesn�t magically give Quake dynamic lighting powers, so the shadows will not move if the model moves. Func_detail ONLY - If set to -1, light will pass through this brush model. Default 0"
+		_shadow(integer) : "Shadows" :  : "If n is 1, this model will cast shadows on other models and itself (i.e. '_shadow' implies '_shadowself'). Note that this doesn’t magically give Quake dynamic lighting powers, so the shadows will not move if the model moves. Func_detail ONLY - If set to -1, light will pass through this brush model. Default 0"
 		_shadowself(integer) : "Self Shadow" :  : "If n is 1, this model will cast shadows on itself if one part of the model blocks the light from another model surface. This can be a better compromise for moving models than full shadowing. Default 0"
 		_dirt(integer) : "Dirt mapping (override)" :  : "For brush models, -1 prevents dirtmapping on the brush model. Useful it the bmodel touches or sticks into the world, and you want to those ares from turning black. Default 0"
 		_phong(choices) : "Enable Phong shading" : 0 =
@@ -1085,6 +1085,17 @@ spawnflags(Flags) =
 		_phong_angle(integer) : "Phong shading angle" :  : "Enables phong shading on faces of this model with a custom angle. Adjacent faces with normals this many degrees apart (or less) will be smoothed. Consider setting '_anglescale' to '1' on lights or worldspawn to make the effect of phong shading more visible. Use the '-phongdebug' command-line flag to save the interpolated normals to the lightmap for previewing (use 'r_lightmap 1' or 'gl_lightmaps 1' in your engine to preview.)"
 	]
 
+@baseclass = SwitchShadow [
+	_switchableshadow(choices) : "Switchable shadow" : 0 : "Enables a switchable shadow that can be controlled with a targeting misc_shadowcontroller." = [
+		0: "No"
+		1: "Yes"
+	]
+]
+
+@baseclass = Shadow [
+	_shadow(integer) : "Shadows" :  : "If n is 1, this model will cast shadows on other models and itself (i.e. '_shadow' implies '_shadowself'). Note that this doesn’t magically give Quake dynamic lighting powers, so the shadows will not move if the model moves. Func_detail ONLY - If set to -1, light will pass through this brush model. Default 0"
+	_shadowself(integer) : "Self Shadow" :  : "If n is 1, this model will cast shadows on itself if one part of the model blocks the light from another model surface. This can be a better compromise for moving models than full shadowing. Default 0"
+]
 
 @SolidClass color(128 128 230)base(ModelLight) = func_detail : "Detail brush. Ignored by vis so can speed up compile times consideratbly. Also allows you to set new compiler lighting options on brushes. DOES NOT SEAL MAPS FROM VOID" []
 
@@ -1414,8 +1425,11 @@ spawnflags(Flags) =
 ]
 ]
 
-
-
+@SolidClass base(Appearflags, OneTargetname) = trigger_monsterface : "Running monsters that do not see their target and touch this will face in the direction of the trigger's angle instead of the unseen target. Use this trigger to make monsters leave their sniping spot and execute complex maneuvers."
+[
+	angle(integer) : "Turn, face and move in this direction"
+	wait(integer) : "time to wait between retriggers"
+]
 
 @PointClass base(Appearflags, Trigger) = trigger_filter : "Relays only if a given condition evaluates to true.
 
@@ -1503,22 +1517,6 @@ You can either replace the current value with a new one, or add/subtract to it (
 		1 : "Change activator's field"
 	]
 ]
-
-// meat_shower has been replaced with play_gibs for consistency, they work identically in QC
-// @PointClass base(Appearflags, Targetname) size(16 16 24) color(206 18 18) = meat_shower : "Triggerable Gib Effect
-//
-// style = 0 is regular gib effect, 1 is more violent
-// fly_sound = 0 is silent, 1 plays randomized gib sounds
-// targetname = Must be triggered"
-// [
-// 	style(Choices) : "Appearance" : 0 =
-// 		[
-// 			0 : "Normal"
-// 			1	: "Large"
-// 		]
-// 	fly_sound(integer) : "Play gib sound effects" : 0
-// ]
-
 
 //____TW_EDIT____
 @PointClass base(Appearflags, Targetname) size(16 16 24) color(206 18 18) = play_gibs : "Triggerable Gib Effect. style = 0 is regular gib effect, 1 is more violent. fly_sound = 0 is silent, 1 plays randomized gib sounds. targetname = Must be triggered"
@@ -1664,16 +1662,24 @@ spawnflags(Flags) =
 	]
 ]
 
-//@SolidClass base(Appearflags, Targetname) = func_breakable : "An object that can be broken apart by shooting or being axed."
-//[	spawnflags(Flags) =
-//	[
-//		1 : "No monster damage" : 0
-//		2 : "Explode" : 0
-//	]
-//]
-
-@SolidClass base(Appearflags, Targetname, Effects) = func_wall : "Wall, starts animation when triggered (if supporting texture)
+@SolidClass base(Appearflags, Targetname, Effects, Shadow, SwitchShadow, ModelLight) = func_wall : "Wall, starts animation when triggered (if supporting texture)
 Effects will require an origin brush to work properly (see func_fall2 in manual for details)" []
+
+@SolidClass base(Appearflags, Targetname, Effects, ModelLight) = func_togglevisiblewall : "A bmodel which you can toggle its visibility. Behaves much like a traditional func_wall in any other way, but you can target it to toggle visible/invisible.
+If the entity has a switchable shadow it also toggles automatically (no need for a shadow controller)."
+[
+	spawnflags(flags) =
+	[
+		1 : "Start Off" : 0
+		2 : "Non-solid" : 0
+	]
+	_switchableshadow(choices) : "Switchable shadow" : 0 : "Enables dynamic shadows that toggle on/off with the entity" = [
+		0: "No"
+		1: "Yes"
+	]
+
+]
+@SolidClass base(Targetname, Shadow, SwitchShadow) = func_shadow : "An invisible, non-solid brush entity that can be used to cast shadows. " []
 
 //____TW_EDIT____
 @SolidClass base(Appearflags, Targetname) = func_explobox : "An exploding brush entity.  Works just like misc_explobox."
@@ -1748,6 +1754,24 @@ dmg(integer) : "Damage" : 100
 		4 : "BOB_NONSOLID" : 0
 	]
 ]
+
+@PointClass base(Appearflags, Targetname) size(16 16 16) color(64 64 64) = misc_shadowcontroller : "Controls switchable shadows on any bmodel entity (except doors).
+Target this entity to toggle the shadows on/off with an optional fading animation.
+
+Targeted bmodel must have _switchableshadow set to 1.
+
+If the target entity changes its default behavior when 'targetname' is set (such as breakables), you can target the entity's 'targetname2' key."
+[
+	target(target_destination) : "Target" : : "Target with _switchableshadow enabled."
+	speed(float) : "Fade-in speed" : "0.5" : "Controls the time in seconds it takes to fade the shadow in. Setting it to -1 disables fading."
+	speed2(integer) : "Fade-out speed" :  : "Same as 'speed' but for the fade out animation. If unset it uses the same value as 'speed'."
+	spawnflags(flags) =
+	[
+		1 : "Shadow start off" : 0
+
+	]
+]
+
 
 @PointClass base(Appearflags, Targetname, Target) size(16 16 16) color(255 200 0) = misc_sparks : "Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash along with each burst of sparks. Note: targeted lights should be set to START_OFF. Set sounds key to 1 for built-in spark sound effect or target a play_sound_triggered for a custom sound."
 [
@@ -1853,7 +1877,7 @@ The flags above are mutually exclusive and will cause an objerror when selected 
 		0: "Silent"
 		1: "Ratchet Metal"
 		2: "Base door"
-		
+
 	]
 	speed(integer) : "Speed (units per second)" : 100
 	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
@@ -2018,7 +2042,7 @@ spawnflags(Flags) =
 	]
 ]
 
-@SolidClass = func_illusionary : "Solids can be walked through" []
+@SolidClass base(Appearflags, ModelLight) = func_illusionary : "Static nonsolid model"  []
 
 @SolidClass base(Appearflags) = func_episodegate : "Episode Gate"
 [
@@ -2500,7 +2524,7 @@ noise(string) : "Path to custom sound"
 	]
 
 //____TW_EDIT____
-@SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details. Defaults to built-in .mdl file with 3 styles, 'cnt' is number of pieces of debris to spawn (built-in only) Or use spawnflag 4 and break_template1-4)to set path of custom .mdl or .bsp models. brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models. If 'noise1' is not set it will default to various sounds in sounds/break folder. Use spawnflag 2 for an explosion, 'dmg' is amount of damage inflicted."
+@SolidClass base(Target, Targetname, Appearflags, Shadow, SwitchShadow, ModelLight) = func_breakable : "Breakable - See manual for full details. Defaults to built-in .mdl file with 3 styles, 'cnt' is number of pieces of debris to spawn (built-in only) Or use spawnflag 4 and break_template1-4)to set path of custom .mdl or .bsp models. brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models. If 'noise1' is not set it will default to various sounds in sounds/break folder. Use spawnflag 2 for an explosion, 'dmg' is amount of damage inflicted."
 [
 	    spawnflags(flags) = [
 			1 :	"No Monster Damage" : 0 : "Only the player can break"
@@ -2573,7 +2597,7 @@ noise(string) : "Path to custom sound"
 [
 	spawnflags(flags) =
 	[
-		1 : "Togglable" : 0
+		1 : "toggleable" : 0
 		2 : "Looping" : 1
 		4 : "Step" : 0
 		8 : "Reset" : 0
@@ -2687,7 +2711,7 @@ noise(string) : "Path to custom sound"
 	deathtype(string) : "Kill Message"
 ]
 
-@SolidClass base(Targetname) = func_laser: "A togglable laser, hurts to touch, can be used to block players"
+@SolidClass base(Targetname) = func_laser: "A toggleable laser, hurts to touch, can be used to block players"
 [
 	spawnflags(flags) =
 	[

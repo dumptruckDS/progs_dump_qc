@@ -1556,20 +1556,6 @@ targetname = Must be triggered"
 		1 : "View Only" : 0
 	]
 ]
-// meat_shower has been replaced with play_gibs for consistency, they work identically in QC
-// @PointClass base(Appearflags, Targetname) size(16 16 24) color(206 18 18) = meat_shower : "Triggerable Gib Effect
-//
-// style = 0 is regular gib effect, 1 is more violent
-// fly_sound = 0 is silent, 1 plays randomized gib sounds
-// targetname = Must be triggered"
-// [
-// 	style(Choices) : "Appearance" : 0 =
-// 		[
-// 			0 : "Normal"
-// 			1	: "Large"
-// 		]
-// 	fly_sound(integer) : "Play gib sound effects" : 0
-// ]
 
 @PointClass base(Appearflags, Targetname) size(16 16 24) color(206 18 18) = play_gibs : "Triggerable Gib Effect
 
@@ -1648,6 +1634,12 @@ Default is 0.3 seconds.
 When player is touching this entity, she can climb by pushing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
+]
+
+@SolidClass base(Appearflags, OneTargetname) = trigger_monsterface : "Running monsters that do not see their target and touch this will face in the direction of the trigger's angle instead of the unseen target. Use this trigger to make monsters leave their sniping spot and execute complex maneuvers."
+[
+	angle(integer) : "Turn, face and move in this direction"
+	wait(integer) : "time to wait between retriggers"
 ]
 
 @SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
@@ -2090,7 +2082,7 @@ The flags above are mutually exclusive and will cause an objerror when selected 
 		0: "Silent"
 		1: "Ratchet Metal"
 		2: "Base door"
-		
+
 	]
 	speed(integer) : "Speed (units per second)" : 100
 	pausetime(integer) : "Default wait time" : : "Wait time used when not defined in path_corner."
@@ -2844,7 +2836,7 @@ spawnflags(flags) =
 		]
 ]
 
-@SolidClass base(Target, Targetname, Appearflags) = func_breakable : "Breakable - See manual for full details
+@SolidClass base(Target, Targetname, Appearflags, ModelLight, Shadow, SwitchShadow) = func_breakable : "Breakable - See manual for full details
 
 Defaults to built-in .mdl file with 32 styles, cnt is number of pieces of debris to spawn (built-in only)
 
@@ -2950,7 +2942,7 @@ delay how much time to wait before firing after being switched on."
 [
 	spawnflags(flags) =
 	[
-		1 : "Togglable" : 0
+		1 : "toggleable" : 0
 		2 : "Looping" : 1
 		4 : "Step" : 0
 		8 : "Reset" : 0
@@ -3064,7 +3056,7 @@ delay how much time to wait before firing after being switched on."
 	deathtype(string) : "Kill Message"
 ]
 
-@SolidClass base(Targetname) = func_laser: "A togglable laser, hurts to touch, can be used to block players"
+@SolidClass base(Targetname) = func_laser: "A toggleable laser, hurts to touch, can be used to block players"
 [
 	spawnflags(flags) =
 	[
@@ -3195,8 +3187,8 @@ delay how much time to wait before firing after being switched on."
 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
 	]
 
-@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname, CustomMdlsSkin) 
-	model(		
+@PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname, CustomMdlsSkin)
+	model(
 		{{
         mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/flame.mdl" , "skin" : skin}
    		}}) =

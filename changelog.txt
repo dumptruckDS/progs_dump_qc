@@ -45,6 +45,9 @@
 * Added trigger_monsterface: Running monsters that do not see their target and
   touch this will face in the direction of the trigger's angle instead of the
   unseen target. (TheSolipsist)
+* Added func_shadow, misc_shadowcontroller and switchable shadow support to
+  doors and brushmodels (bmFbr)
+* Added func_togglevisiblewall, a toggleable version of func_wall (bmFbr)
 
 2.0.1 March 2021
 
