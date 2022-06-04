@@ -2502,11 +2502,47 @@ noise(string) : "Path to custom sound"
 	spawnflags(flags) =
 			[
 				1 : "Don't Fade" : 0
+				2 : "Silent" : 0
 			]
 	]
 //____TW_EDIT____
 	@SolidClass base(Appearflags, OneTargetname, Target) = func_fall2 : "Enhanced version of 'func_fall' with different behaviors. A brush that drops and fades away when touched. Can be targeted by triggers etc and can target other entities.	'wait' = how long until the brush begins falling. 'noise' = the sound to make when touched / activated. 'noise2' = the sound to make before it's removed. 'pain_finished' of -1 disables 'noise2' as the object stays forever.	'cnt' = 0 is default behavior, 1 means collisions are disabled while falling, 2 turns the brush into a bouncing entity.	'pain_finished' = default of 0.01, higher value has the object/brush fade out faster thus in turn affecting how long it stays. -1 stays forever. 'speed' = speed as to how fast something falls per game frame, default is 10, higher values mean faster falling. Only for cnt of 1.	Recommended to use lip for max fall speed on cnt 0 and 2 as they follow Quake's default gravity. 'lip' = maximum fall speed that can be achieved, caps 'speed' variable. Default is -800.	'avelocity' = have it spin when activated using X, Y, Z vector coordinates. cnt 2 ignores avelocity. Use an origin brush for proper spin! ***spawnflags Default behavior allows anyone to activate 'func_fall2' on touch ONLY. Able to target other entities, including other 'func_fall2''s. "
 	[
+	style(choices) : "Built-in debris style" : 0 =
+		[
+		0 : "Green Metal (default)"
+		1 : "Red Metal"
+		2 : "Concrete"
+		3 : "Pine wood"
+		4 : "Brown wood"
+		5 : "Red wood"
+		6 : "Stained Glass Yellow Flames"
+		7 : "Stained Glass Red Rays"
+		8 : "Stained Glass Yellow Dragon"
+		9 : "Stained Glass Blue Dragon"
+		10 : "Stained Glass Red Dragon"
+		11 : "Light Copper"
+		12 : "Dark Copper"
+		13 : "Tan Bricks Large"
+		14 : "Brown Bricks Large"
+		15 : "Green Bricks Large"
+		16 : "Generic Light Brown"
+		17 : "Red Brown Computer"
+		18 : "Grey Black Computer"
+		19 : "Blue Green Metal"
+		20 : "Blue Green Runic Wall"
+		21 : "Brown Metal"
+		22 : "Dark Brown Metal"
+		23 : "Medium Brown Metal"
+		24 : "Blue Metal"
+		25 : "Green Stonework"
+		26 : "Blue Stonework"
+		27 : "Brown Bricks"
+		28 : "Tan Blue Bricks"
+		29 : "Red Bricks"
+		30 : "Blue Bricks"
+		31 : "Metal Rivets"
+		]
 	cnt(integer) : "Collision type, 0 is normal, 1 has no collision and 2 will bounce" : 0
 	speed(integer) : "use with cnt 1 only, speed as to how fast something falls per game frame, default is 10"
 	lip(integer) : "use with cnt 0 and 2, maximum fall speed that can be achieved, caps 'speed' variable." : -800

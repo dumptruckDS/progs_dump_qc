@@ -2399,7 +2399,7 @@ model ("progs/gib2.mdl");
 {
 model ("progs/gib3.mdl");
 }*/
-/*QUAKED func_fall (0 .5 .8) ? DONT_FADE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED func_fall (0 .5 .8) ? DONT_FADE SILENT X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A brush that drops and fades away when touched and/or triggered.
 Add some spice to your jumping puzzles or other scripted sequences!
 Monsters will not trigger func_fall but will be gibbed if one falls on them.
@@ -2966,6 +2966,40 @@ speed - speed as to how fast something falls per game frame, default is 10, high
 Recommended to use lip for max fall speed on MOVETYPE_TOSS/BOUNCE entities (cnt 0 and 2) as they follow Quake's default gravity
 lip - maximum fall speed that can be achieved, caps 'speed' variable. Default is -800
 avelocity - have it spin when activated using X, Y, Z vector coordinates. MOVETYPE_BOUNCE ignores avelocity !Use an origin brush for proper spin!
+
+style - when FALL_BREAKABLE is set use this texture:
+0 : "Green Metal (default)"
+1 : "Red Metal"
+2 : "Concrete"
+3 : "Pine wood"
+4 : "Brown wood"
+5 : "Red wood"
+6 : "Stained Glass Yellow Flames"
+7 : "Stained Glass Red Rays"
+8 : "Stained Glass Yellow Dragon"
+9 : "Stained Glass Blue Dragon"
+10 : "Stained Glass Red Dragon"
+11 : "Light Copper"
+12 : "Dark Copper"
+13 : "Tan Bricks Large"
+14 : "Brown Bricks Large"
+15 : "Green Bricks Large"
+16 : "Generic Light Brown"
+17 : "Red Brown Computer"
+18 : "Grey Black Computer"
+19 : "Blue Green Metal"
+20 : "Blue Green Runic Wall"
+21 : "Brown Metal"
+22 : "Dark Brown Metal"
+23 : "Medium Brown Metal"
+24 : "Blue Metal"
+25 : "Green Stonework"
+26 : "Blue Stonework"
+27 : "Brown Bricks"
+28 : "Tan Blue Bricks"
+29 : "Red Bricks"
+30 : "Blue Bricks"
+31 : "Metal Rivets"
 
 spawnflags:
 Default behavior allows anyone to activate func_fall2 on touch ONLY

@@ -865,6 +865,7 @@ void() gib_misc_3 =
 // wait = wait this long before falling
 // ==============================================================================*/
 float DONT_FADE = 1;
+float SILENT = 2;
 
 void() func_fall_think =
 {
@@ -909,10 +910,13 @@ void() fall_touch =
     self.attack_finished = time + self.wait;
     self.cnt = TRUE;
 
-    if (self.noise != "")
+    if (!(self.spawnflags & SILENT))
+    {
+      if (self.noise != "")
         sound (self, CHAN_AUTO, self.noise, 1, ATTN_NORM);
-    else
+      else
         sound (self, CHAN_AUTO, "buttons/switch21.wav", 1, ATTN_NORM);
+    }
 };
 
 void() fall_use =  // thanks again RennyC for help on revisions --dumptruck_ds

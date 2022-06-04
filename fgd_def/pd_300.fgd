@@ -2795,7 +2795,8 @@ noise(string) : "Sound to play when fall starts"
 wait(integer) : "Wait this long before falling"
 spawnflags(flags) =
 		[
-			1 : "Don't Fade" : 0
+		1 : "Don't Fade" : 0
+		2 : "Silent" : 0
 		]
 ]
 
@@ -2819,6 +2820,41 @@ spawnflags
 
 Able to target other entities, including other func_fall2s"
 [
+style(choices) : "Built-in debris style" : 0 =
+	[
+	0 : "Green Metal (default)"
+	1 : "Red Metal"
+	2 : "Concrete"
+	3 : "Pine wood"
+	4 : "Brown wood"
+	5 : "Red wood"
+	6 : "Stained Glass Yellow Flames"
+	7 : "Stained Glass Red Rays"
+	8 : "Stained Glass Yellow Dragon"
+	9 : "Stained Glass Blue Dragon"
+	10 : "Stained Glass Red Dragon"
+	11 : "Light Copper"
+	12 : "Dark Copper"
+	13 : "Tan Bricks Large"
+	14 : "Brown Bricks Large"
+	15 : "Green Bricks Large"
+	16 : "Generic Light Brown"
+	17 : "Red Brown Computer"
+	18 : "Grey Black Computer"
+	19 : "Blue Green Metal"
+	20 : "Blue Green Runic Wall"
+	21 : "Brown Metal"
+	22 : "Dark Brown Metal"
+	23 : "Medium Brown Metal"
+	24 : "Blue Metal"
+	25 : "Green Stonework"
+	26 : "Blue Stonework"
+	27 : "Brown Bricks"
+	28 : "Tan Blue Bricks"
+	29 : "Red Bricks"
+	30 : "Blue Bricks"
+	31 : "Metal Rivets"
+	]
 cnt(integer) : "Collision type, 0 is normal, 1 has no collision and 2 will bounce" : 0
 speed(integer) : "use with cnt 1 only, speed as to how fast something falls per game frame, default is 10"
 lip(integer) : "use with cnt 0 and 2, maximum fall speed that can be achieved, caps 'speed' variable." : -800
