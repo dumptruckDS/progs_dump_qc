@@ -1642,7 +1642,7 @@ When player is touching this entity, she can climb by pushing jump."
 	wait(integer) : "time to wait between retriggers"
 ]
 
-@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, ammo, etc... also kills player"
 
 [
 spawnflags(Flags) =

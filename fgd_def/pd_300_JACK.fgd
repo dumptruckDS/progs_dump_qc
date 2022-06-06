@@ -1416,7 +1416,7 @@ _color(color255) : "Light color"
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
-@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, gibs, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, ammo, etc... also kills player"
 [
 spawnflags(Flags) =
 [
