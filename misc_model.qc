@@ -37,10 +37,32 @@ float MISC_MODEL_SOLID = 2;
 float MISC_MODEL_BACK_AND_FORTH = 4;
 float MISC_MODEL_ONLY_ONCE = 8;
 float MISC_MODEL_PLAY_COUNT = 16;
+float MISC_MODEL_STARTOFF = 32;
+
+
+void() misc_model_use = {
+	if (self.state == STATE_ACTIVE) {
+		if (self.spawnflags & MISC_MODEL_SOLID) self.solid = SOLID_NOT;
+		self.model = "";
+
+		self.state = STATE_INVISIBLE;
+		setorigin(self, self.origin);
+	}
+	else {
+		if (self.spawnflags & MISC_MODEL_SOLID) self.solid = SOLID_BBOX;
+		self.model = self.mdl;
+
+		self.state = STATE_ACTIVE;
+		setorigin(self, self.origin);
+	}
+};
 
 void() misc_model = {
     if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
         return;
+
+    if (!self.mdl || self.mdl == "")
+        objerror("Model not defined");
 
 	if(!self.centeroffset) self.centeroffset = '0 0 0';
 	if(!self.mdlsz) self.mdlsz = '32 32 32';
@@ -55,37 +77,55 @@ void() misc_model = {
 	vmax_y = self.centeroffset_y + (self.mdlsz_y / 2);
 	vmax_z = self.centeroffset_z + (self.mdlsz_z / 2);
 
+    precache_model(self.mdl);
+    setmodel(self, self.mdl);
+    
+	setsize(self, vmin, vmax);
+	
 	if(self.spawnflags & MISC_MODEL_SOLID) self.solid = SOLID_BBOX;
 	else self.solid = SOLID_NOT;
 
 	if(self.spawnflags & MISC_MODEL_GRAVITY) self.movetype = MOVETYPE_TOSS;
 	else self.movetype = MOVETYPE_NONE;
 
-    precache_model(self.mdl);
-    setmodel(self, self.mdl);
-
-	setsize(self, vmin, vmax);
-
+    self.use = misc_model_use;
 
     if (!self.frame) {
         self.frame = self.first_frame;
     }
 
     // Make static (not animate) if not given a frame range, and not affected by gravity
+    // also remains active if it has a targetname (so it can be killtargeted/toggled)
+    if (!self.last_frame
+    	&& !(self.spawnflags & MISC_MODEL_GRAVITY)
+    	&& !(self.spawnflags & MISC_MODEL_SOLID)
+    	&& !self.targetname
+    	&& !self.targetname2
+    	// && !(self.spawnflags & MISC_MODEL_DONTMAKESTATIC)
+    ) makestatic(self);
+    // Make static (not animate) if not given a frame range, and not affected by gravity
 	//changed by bmFbr
-    if (!self.last_frame && !(self.spawnflags & MISC_MODEL_GRAVITY)) {
-        makestatic(self);
-        return;
+    // if (!self.last_frame && !(self.spawnflags & MISC_MODEL_GRAVITY)) {
+    //     makestatic(self);
+    //     return;
+    // }
+
+    if (self.last_frame) { // if it as a custom animation range
+    	// Default animation speed to 10 fps
+	    if (!self.speed) {
+	        self.speed = 0.1;
+	    }
+        self.nextthink = time + self.speed;
+        self.think = misc_model_think;
     }
+    
+	if (self.spawnflags & MISC_MODEL_STARTOFF)    
+		self.state = STATE_ACTIVE;
+	else    
+		self.state = STATE_INVISIBLE;
 
-    // Default animation speed to 10 fps
-    if (!self.speed) {
-        self.speed = 10 / 60;
-    }
-
-    self.nextthink = time + self.speed;
-    self.think = misc_model_think;
-
+	misc_model_use();    
+        
 };
 
 /*
@@ -96,6 +136,7 @@ void() misc_model = {
 void() misc_model_think = {
     self.nextthink = time + fabs(self.speed);
     if (self.estate != STATE_ACTIVE) return;
+    
     self.frame = self.frame + sign(self.speed);
 
     if (self.spawnflags & MISC_MODEL_BACK_AND_FORTH && self.frame < self.first_frame)

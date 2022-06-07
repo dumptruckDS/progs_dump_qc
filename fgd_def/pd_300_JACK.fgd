@@ -2380,6 +2380,7 @@ Use 'fade_amt` to set the background fade to a custom value (default is 500).
 			4: "Back and forth" : 0
 			8: "Only once" : 0
 			16: "Play count times" : 0
+			32: "Start Hidden" : 0
 		]
 ]
 

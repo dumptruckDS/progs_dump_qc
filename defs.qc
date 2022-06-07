@@ -970,6 +970,7 @@ float TRIGGER_CENTERPRINTALL = 1048576;
 .void() dormant_use;
 float STATE_ACTIVE      = 0;
 float STATE_INACTIVE    = 1;
+float STATE_INVISIBLE = 8;
 
 .float prevstate;
 

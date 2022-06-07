@@ -2442,7 +2442,7 @@ skin: skin index (defaut is 0)
 frame: The frame to display. Can be used to offset the animation.
 first_frame: The starting frame of the animation.
 last_frame: The last frame of the animation.
-speed(integer): Speed : 10
+speed(integer): Speed : 0.1
 angles(integer): set 'angle' to 0 if this is used
 mdlsz(integer): Entity size (x y z)
 centeroffset(integer): Model center offset
@@ -2452,6 +2452,8 @@ spawnflags(flags) =
 4: Back and forth
 8: Only once
 16: Play count times
+32: "Start Hidden"
+
 */
 /*QUAKED func_counter (1 0.772 0.121) (-10 -10 -24) (10 10 24) TOGGLE LOOP STEP RESET RANDOM FINISHCOUNT START_ON X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 TOGGLE causes the counter to switch between an on and off state
