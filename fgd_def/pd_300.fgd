@@ -1629,20 +1629,20 @@ Default is 0.3 seconds.
 	weapon(float) : "Duration of each strike" : "0.3"
 ]
 
-@SolidClass base(Appearflags, TriggerWait) = trigger_ladder : "Invisible ladder entity.
+@SolidClass base(Appearflags, TriggerWait, Targetname) = trigger_ladder : "Invisible ladder entity.
 
 When player is touching this entity, she can climb by pushing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
 
-@SolidClass base(Appearflags, OneTargetname) = trigger_monsterface : "Running monsters that do not see their target and touch this will face in the direction of the trigger's angle instead of the unseen target. Use this trigger to make monsters leave their sniping spot and execute complex maneuvers."
+@SolidClass base(Appearflags, Targetname) = trigger_monsterface : "Running monsters that do not see their target and touch this will face in the direction of the trigger's angle instead of the unseen target. Use this trigger to make monsters leave their sniping spot and execute complex maneuvers."
 [
 	angle(integer) : "Turn, face and move in this direction"
 	wait(integer) : "time to wait between retriggers"
 ]
 
-@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait, OneTargetname) = trigger_void : "Use this for a 'void' area. Removes monsters, ammo, etc... also kills player"
 
 [
 spawnflags(Flags) =
@@ -2574,7 +2574,7 @@ Checking 'All clients' will affect all connected players.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
-Use 'fade_amt` to set the background fade to a custom value (default is 500).
+Use 'fade_amt` to set the background fade to a custom value (default is 160).
 
 You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch yaw 0' format)."
 
@@ -2584,7 +2584,7 @@ You can set it to be show the message only when the player is facing a certain a
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
-	fade_amt(float) : "Set a custom black level for background fade" : 500
+	fade_amt(float) : "Set a custom black level for background fade" : 160
 	spawnflags(flags) = [
 		1: "Silent"
 		2: "No background fade"
@@ -2610,10 +2610,6 @@ Use 'fade_amt` to set the background fade to a custom value (default is 500).
 		2: "No background fade"
 	]
 ]
-
-///////////////////////////////////////////////////////////
-//dumptruck’s additions via Joshua Skelton’s Quake Tools///
-///////////////////////////////////////////////////////////
 
 @PointClass base(Angle, Appearflags, Target, Targetname) size(32 32 16) color(255 128 0) studio({ "path" : mdl, "skin" : skin, "frame" : frame}) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
 
@@ -2644,10 +2640,6 @@ NOTE: set angle value to 0 if using angles key to rotate mdls"
 			32: "Start Hidden" : 0
 		]
 ]
-
-///////////////////////////////////////////////////////////////////////
-// dumptrucks's additions: Hipnotic Sound Player via TB2 Quoth2.fgd////
-///////////////////////////////////////////////////////////////////////
 
 @PointClass base(Targetname, Appearflags) size(16 16 24) color(255 128 0) = play_lavasplash : "When triggered, play the lavasplash effect and sound from E1M7.
 

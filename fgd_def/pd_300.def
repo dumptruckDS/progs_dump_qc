@@ -822,32 +822,44 @@ Pushes the player
 */
 /*QUAKED trigger_push_custom (.5 .5 .5) ? PUSH_ONCE DT_STARTOFF DT_SILENT X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
+trigger_push_custom is a new entity. This can be used to create traps, jumppads,
+currents in water and more.
 
-dumptruck_ds
+If DT_STARTOFF flag is set, this makes the trigger dormant until targeted. This
+can toggled off and on. If the DT_SILENT flag is set it won't make the windfly
+sound. Use DT_CUSTOM spawnflag and the noise key/value to use a custom push
+sound. Custom sounds should be "one off" sounds NOT be looping.
 
-trigger_push_custom is a new entity. This can be used to create traps,
-jumppads, currents in water and more.
-
-If DT_STARTOFF flag is set, this moves the trigger
-brush out of the playable area. This can be targeted
-and toggled off and on. If the DT_SILENT flag is set it
-won't make the windfly sound. Use DT_CUSTOM spawnflag
-and the noise key/value to use a custom push sound. Custom
-sounds should be "one off" sounds NOT be looping.
-
-Adapted from Hipnotic's func_togglewall */
+*/
 /*QUAKED trigger_monsterjump (.5 .5 .5) ? X X X DT_STARTOFF X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
 Walking monsters that touch this will jump in the direction of the trigger's angle
 "speed" default to 200, the speed thrown forward
 "height" default to 200, the speed thrown upwards
 
-If DT_STARTOFF flag is set, this moves the trigger
-brush out of the playable area. This can be targeted
-and toggled off and on.
+If DT_STARTOFF flag is set, this disables the trigger
+brush. This can be targeted and toggled off and on.
 */
 /*QUAKED trigger_void (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Use this for a 'void' area.  removes monsters, ammo, etc...  also kills player.
+KEYS: 
+"is_waiting" dormant until targeted
+"targetname" entity name
+*/
+/*QUAKED trigger_everything(.5 .5 .5) ? WAIT_ONLY_IF_TRIGGER_EVAULATES_TRUE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
+A no-holds-barred touchable trigger. Everything triggers it. Players, monsters, projectiles, gibs, even solid entities like doors and plats.
+
+It can only fire targets matching its 'target' field. Doesn't have support for the 'target2-4' fields, neither 'message' nor 'killtarget'. Useful when used in conjunction with the trigger_filter point entity to filter out its firing.
+
+By default it'll fire for each and every registered touch, even if simultaneous. If given a 'wait' value, it'll act like a trigger_multiple, where a single activation puts it on hold for 'wait' seconds. If the target is a trigger_filter, you can set it to wait only if the filter evaluates to true.
+
+KEYS
+"wait" Wait before reset
+"targetname" entity name
+"target" entity to activate 
+SPAWNFLAGS
+1: Wait only if trigger_filter evaluates to true
 */
 /*QUAKED trigger_take_weapon (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
@@ -2430,7 +2442,7 @@ health_max -- the upper limit for the healing (default 100, max 250)
 sounds -- set to 1 to enable the noise1 field for custom healing sound
 noise -- path to custom sound file
 */
-/*QUAKED misc_model (.5 0.5 0.8) (-12 -12 -12) (12 12 12) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED misc_model (.5 0.5 0.8) (-12 -12 -12) (12 12 12) GRAVITY SOLID BACK_AND_FORTH ONLY_ONCE PLAY_COUNT_TIMES START_HIDDEN X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
 	model ({"path" : mdl, "skin" : skin, "frame": frame});
 }
@@ -2749,6 +2761,8 @@ invisible ladder entity. when player is touching this entity, he can climb by pu
 Keys:
 
 "angle" the direction player must be facing to climb ladder
+"is_waiting" dormant until targeted
+"targetname" entity name
 */
 /*QUAKED func_laser (0 .5 .8) ? START_OFF LASER_SOLID X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 

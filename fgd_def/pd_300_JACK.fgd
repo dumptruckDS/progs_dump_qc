@@ -1412,11 +1412,11 @@ _color(color255) : "Light color"
 ]
 
 //____TW_EDIT____
-@SolidClass base(Appearflags, TriggerWait) = trigger_ladder : "Invisible ladder entity. When player is touching this entity, they can climb by pressing jump."
+@SolidClass base(Appearflags, TriggerWait, Targetname) = trigger_ladder : "Invisible ladder entity. When player is touching this entity, they can climb by pressing jump."
 [
 	angle(integer) : "the direction player must be facing to climb ladder"
 ]
-@SolidClass base(Appearflags, TriggerWait) = trigger_void : "Use this for a 'void' area. Removes monsters, ammo, etc... also kills player"
+@SolidClass base(Appearflags, TriggerWait, Targetname) = trigger_void : "Use this for a 'void' area. Removes monsters, ammo, etc... also kills player"
 [
 spawnflags(Flags) =
 [
@@ -2325,7 +2325,7 @@ You can set it to be show the message only when the player is facing a certain a
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
-	fade_amt(float) : "Set a custom black level for background fade" : 500
+	fade_amt(float) : "Set a custom black level for background fade" : 160
 	spawnflags(flags) = [
 		1: "Silent"
 	]
