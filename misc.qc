@@ -1653,7 +1653,7 @@ void(entity controller) textstory_show = {
 		if (!(controller.spawnflags & TEXTSTORY_NOFADE))
 			if (!self.fade_amt) //custom fade amount --dumptruck_ds
 			{
-				csf_fade(self.enemy, 500, '0 0 0', 1); //was 160 --dumptruck_ds
+				csf_fade(self.enemy, 160, '0 0 0', 1);
 			}
 			else
 				csf_fade(self.enemy, self.fade_amt, '0 0 0', 1); 
