@@ -322,7 +322,14 @@ void() CastLightning =
 	dir = self.enemy.origin + '0 0 16' - org;
 	dir = normalize (dir);
 
-	traceline (org, self.origin + dir*600, TRUE, self);
+	if (self.spawnflags & I_AM_TURRET)
+		{
+			traceline (org, self.origin + dir*900, TRUE, self);
+		}
+	else
+		{
+			traceline (org, self.origin + dir*600, TRUE, self);
+		}
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_LIGHTNING1);
