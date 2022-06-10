@@ -642,7 +642,8 @@ The behavior of an item_key_custom should be as the player expects (based on the
 	]
 	delay(choices) : "Trigger spawn delay time" : : "Delay spawn in for this amount of time" =
 	[
-		0: "No delay (Default)"
+		-1 : "Random Delay"
+		0 : "No delay (Default)"
 		0.2 : "Second delay"
 		0.3 : "Second delay"
 		0.4 : "Second delay"

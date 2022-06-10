@@ -67,6 +67,11 @@ self.nextthink = time + 0.1;
 void() monster_teleport_delay = //new from Qmaster func coding help thread
 {
 self.think = monster_teleport_go;
+	if (self.delay == -1)
+		{
+			self.nextthink = time + 0.1 + random(); //if delay is set to -1 random delay from 0.1 to 1 second - dumptruck_ds
+			return;	
+		}
 self.nextthink = time + 0.1 + self.delay;
 };
 

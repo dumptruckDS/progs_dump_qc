@@ -1310,6 +1310,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1375,6 +1376,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1439,6 +1441,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1517,6 +1520,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1584,6 +1588,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1660,6 +1665,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1727,6 +1733,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1793,6 +1800,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1866,6 +1874,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -1940,6 +1949,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -2004,6 +2014,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -2066,6 +2077,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -2130,6 +2142,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
@@ -2212,6 +2225,7 @@ berserk(choices) "Skips certain pain animations similar to skill 3 (Makes a semi
 1 : "Berserk (skip pain animations)"
 
 delay(float) : "Delay spawn in for this amount of time"
+-1 for random amount from 0.1 to 1 second
 
 wait(choices) : "Play an effect when trigger spawned?"
 0 : "Teleport Effects (Default)"
