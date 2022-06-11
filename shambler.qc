@@ -672,7 +672,14 @@ void() monster_shambler =
 
 	self.th_stand = sham_stand1;
 	self.th_walk = sham_walk1;
-	self.th_run = sham_run1;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+	  self.th_run = sham_seek_1;
+	}
+	else
+	{
+		self.th_run = sham_run1;
+	}
 	self.th_die = sham_die;
 	if (self.style == 1)
 	self.th_melee = sham_melee2;
