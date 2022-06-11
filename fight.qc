@@ -67,7 +67,7 @@ float() CheckAttack =
 				{
 					if (self.style == 4) // lightning can only go so far
 					{
-						if (enemy_range >= RANGE_MID) 
+						if (vlen(spot1 - spot2) > 900)
 						{
 							return FALSE;
 						}
@@ -78,7 +78,7 @@ float() CheckAttack =
 				{
 				if (self.style == 1) // lightning can only go so far
 					{
-						if (enemy_range >= RANGE_MID)
+						if (vlen(spot1 - spot2) > 900)
 						{
 							return FALSE;
 						}
@@ -387,8 +387,19 @@ float() ShamCheckAttack =
 	spot1 = self.origin + self.view_ofs;
 	spot2 = targ.origin + targ.view_ofs;
 
-	if (self.style == 0 && vlen(spot1 - spot2) > 600)
-		return FALSE;
+
+	if (self.style == 0)
+		{
+			if (vlen(spot1 - spot2) > 600)
+			return FALSE;
+		}
+		if (self.spawnflags & I_AM_TURRET)
+		{
+			if (vlen(spot1 - spot2) > 900)
+			return FALSE;
+		}
+
+		// return FALSE;
 
 	traceline (spot1, spot2, FALSE, self);
 

@@ -322,7 +322,14 @@ void() HellKnightLightning =
 	dir = self.enemy.origin - self.enemy.velocity * 0.075;
 	dir = normalize (dir - org + '0 0 16');
 
-	traceline (org, self.origin + dir*600, TRUE, self);
+	if (self.spawnflags & I_AM_TURRET)
+		{
+			traceline (org, self.origin + dir*900, TRUE, self);
+		}
+	else
+		{
+			traceline (org, self.origin + dir*600, TRUE, self);
+		}
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_LIGHTNING1);
@@ -683,7 +690,7 @@ void() monster_hell_knight =
 		self.th_missile = hknight_magicb1;
 		self.th_turret = hknight_turret_magicb1;
 	}
-	else 
+	else
 	{
 		self.th_missile = hknight_magicc1;
 		self.th_turret = hknight_turret_magicc1;

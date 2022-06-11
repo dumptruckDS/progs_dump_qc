@@ -365,7 +365,14 @@ void() EnfLightning =
 	dir = self.enemy.origin - self.enemy.velocity * 0.075;
 	dir = normalize (dir - org + '0 0 16');
 
-	traceline (org, self.origin + dir*600, TRUE, self);
+	if (self.spawnflags & I_AM_TURRET)
+		{
+			traceline (org, self.origin + dir*900, TRUE, self);
+		}
+	else
+		{
+			traceline (org, self.origin + dir*600, TRUE, self);
+		}
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_LIGHTNING2);
@@ -928,7 +935,7 @@ void() monster_enforcer =
 	{
 		self.th_run = enf_2stand1;
 	}
-	else 
+	else
 	{
 		self.th_run = enf_run1;
 	}
