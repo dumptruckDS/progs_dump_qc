@@ -40,6 +40,7 @@ local entity bot, spawn_spot;
 	bot.origin = spawn_spot.origin + '0 0 1';
 	bot.angles = spawn_spot.angles;
 	bot.fixangle = TRUE;
+	bot.proj_speed_mod = 1;
 	if (!(self.spawnflags & 32)) 			// SILENT
 	spawn_tfog (bot.origin);
 	spawn_tdeath (bot.origin, bot);
