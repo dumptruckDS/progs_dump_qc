@@ -828,7 +828,15 @@ void() monster_zombie =
 
 	self.th_stand = zombie_start;
 	self.th_walk = zombie_walk1;
-	self.th_run = zombie_decide;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+		self.th_run = alt_zombie_seek_stand1;
+	}
+	else
+	{
+		self.th_run = zombie_decide;
+	}
+
 	self.th_pain = zombie_pain;
 	self.th_die = zombie_die;
 	self.th_turret = zombie_turret_missile;

@@ -1373,7 +1373,14 @@ void() monster_ogre =
 
 	self.th_stand = ogre_stand1;
 	self.th_walk = ogre_walk1;
-	self.th_run = ogre_run1;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+	  self.th_run = ogre_turret_seek1;
+	}
+	else
+	{
+		self.th_run = ogre_run1;
+	}
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre_nail1;
@@ -1491,7 +1498,14 @@ void() monster_ogre_marksman =
 
 	self.th_stand = ogre_stand1;
 	self.th_walk = ogre_walk1;
-	self.th_run = ogre_run1;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+	  self.th_run = ogre2_turret_seek1;
+	}
+	else
+	{
+		self.th_run = ogre_run1;
+	}
 	self.th_die = ogre_die;
 	self.th_melee = ogre_melee;
 	self.th_missile = ogre2_nail1;

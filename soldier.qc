@@ -616,7 +616,14 @@ void() monster_army =
 
 	self.th_stand = army_stand1;
 	self.th_walk = army_walk1;
-	self.th_run = army_run1;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+	  self.th_run = army_seeking_stand1;
+	}
+	else
+	{
+		self.th_run = army_run1;
+	}
 	self.th_missile = army_atk1;
 	self.th_turret = army_turret_atk1;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds

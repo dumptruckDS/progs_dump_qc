@@ -683,7 +683,14 @@ void() monster_hell_knight =
 
 	self.th_stand = hknight_stand1;
 	self.th_walk = hknight_walk1;
-	self.th_run = hknight_run1;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+	  self.th_run = hknight_seek_stand1;
+	}
+	else
+	{
+		self.th_run = hknight_run1;
+	}
 	self.th_melee = hknight_melee;
 	if (self.style == 1)
 	{

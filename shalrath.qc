@@ -383,7 +383,15 @@ void() monster_shalrath =
 
 	self.th_stand = shal_stand;
 	self.th_walk = shal_walk1;
-	self.th_run = shal_run1;
+	if (self.spawnflags & I_AM_TURRET)
+	{
+		self.th_run = shal_seek_stand1;
+	}
+	else
+	{
+		self.th_run = shal_run1;
+	}
+
 	self.th_die = shalrath_die;
 	if !(self.berserk) //Berserk test from http://celephais.net/board/view_thread.php?id=4&start=3465 -- dumptruck_ds
 	self.th_pain = shalrath_pain;
