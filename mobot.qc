@@ -223,6 +223,8 @@ if (self.style == 6) // spawn a Wizard / Scrag
 	bot.ideal_yaw = bot.angles * '0 1 0';
 	bot.yaw_speed = 120;
 	bot.view_ofs = '0 0 22';
+	bot.mdl_proj = "progs/w_spike.mdl";
+
 	}
 
 	if (self.style == 7) // spawn a Shambler
