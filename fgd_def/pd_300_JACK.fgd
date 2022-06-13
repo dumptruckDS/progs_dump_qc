@@ -2326,7 +2326,7 @@ You can set it to be show the message only when the player is facing a certain a
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
-	fade_amt(float) : "Set a custom black level for background fade" : 160
+	fade_amt(float) : "Set a custom black level for background fade" : "160"
 	spawnflags(flags) = [
 		1: "Silent"
 	]
@@ -2344,7 +2344,7 @@ Use 'fade_amt` to set the background fade to a custom value (default is 500).
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
-	fade_amt(float) : "Set a custom black level for background fade" : 500
+	fade_amt(float) : "Set a custom black level for background fade" : "500"
 	spawnflags(flags) = [
 		1: "Silent"
 	]
@@ -2355,7 +2355,7 @@ Use 'fade_amt` to set the background fade to a custom value (default is 500).
 ///////////////////////////////////////////////////////////
 
 //____TW_EDIT____
-@PointClass size(32 32 16) studio() color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model. 'frame' can also be used to offset the animation. NOTE: set angle value to 0 if using angles key to rotate mdls"
+@PointClass size(32 32 32) studio() color(255 128 0) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model. 'frame' can also be used to offset the animation. NOTE: set angle value to 0 if using angles key to rotate mdls"
 //***commented out for now
 
 //mdl: The model to display. Can be of type mdl, bsp, or spr.

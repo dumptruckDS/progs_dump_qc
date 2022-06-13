@@ -1466,7 +1466,9 @@ spawnflags(Flags) =
 	[ speed(integer) : "Speed" : 40 ]
 @PointClass base(Appearflags) size(0 0 0, 32 32 64) model({ "path": ":maps/b_explob.bsp" }) = misc_explobox : "Large exploding container" []
 @PointClass base(Appearflags) size(0 0 0, 32 32 32) model({ "path": ":maps/b_exbox2.bsp" }) = misc_explobox2 : "Small exploding container" []
-@PointClass base(Appearflags, Effects, CustomMdlsSkin) size(-8 -8 -8, 8 8 8) model({{ mdl_body == "" -> {"path": "progs/teleport.mdl","skin" : skin}, mdl_body != "" -> {"path" : mdl_body,"skin" : skin} }}) = misc_teleporttrain : "Flying teleporter destination
+@PointClass base(Appearflags, Effects, CustomMdlsSkin) size(-8 -8 -8, 8 8 8) model(
+	{{
+		mdl_body -> {"path": mdl_body, "skin" : skin}, {"path": "progs/teleport.mdl","skin" : skin} }}) = misc_teleporttrain : "Flying teleporter destination
 
 This was used for the final boss level in the original game. In progs_dump you can use this as a moving decoration or even target it as a spawn point for a func_monster_spawner. Make sure and select the Don't Rotate spawnflag though or you'll experience a pretty hilarious effect!
 
@@ -2585,7 +2587,7 @@ You can set it to be show the message only when the player is facing a certain a
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
-	fade_amt(float) : "Set a custom black level for background fade" : 160
+	fade_amt(float) : "Set a custom black level for background fade" : "160"
 	spawnflags(flags) = [
 		1: "Silent"
 		2: "No background fade"
@@ -2605,14 +2607,14 @@ Use 'fade_amt` to set the background fade to a custom value (default is 500).
 	message(string) : "Message" : : "Message to show on-screen."
 	noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
 	noise2(string) : "Deactivate sound" : : "Played when the message fades away."
-	fade_amt(float) : "Set a custom black level for background fade" : 500
+	fade_amt(float) : "Set a custom black level for background fade" : "500"
 	spawnflags(flags) = [
 		1: "Silent"
 		2: "No background fade"
 	]
 ]
 
-@PointClass base(Angle, Appearflags, Target, Targetname) size(32 32 16) color(255 128 0) studio({ "path" : mdl, "skin" : skin, "frame" : frame}) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
+@PointClass base(Angle, Appearflags, Target, Targetname) size(32 32 32) color(255 128 0) studio({ "path" : mdl, "skin" : skin, "frame" : frame}) = misc_model : "A point entity for displaying models. A frame range can be given to animate the model.
 
 mdl: The model to display. Can be of type mdl, bsp, or spr.
 frame: Single frame to display. Can also be used to offset the animation.

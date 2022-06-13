@@ -842,7 +842,7 @@ brush. This can be targeted and toggled off and on.
 */
 /*QUAKED trigger_void (.5 .5 .5) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Use this for a 'void' area.  removes monsters, ammo, etc...  also kills player.
-KEYS: 
+KEYS:
 "is_waiting" dormant until targeted
 "targetname" entity name
 */
@@ -857,7 +857,7 @@ By default it'll fire for each and every registered touch, even if simultaneous.
 KEYS
 "wait" Wait before reset
 "targetname" entity name
-"target" entity to activate 
+"target" entity to activate
 SPAWNFLAGS
 1: Wait only if trigger_filter evaluates to true
 */
@@ -2456,7 +2456,7 @@ health_max -- the upper limit for the healing (default 100, max 250)
 sounds -- set to 1 to enable the noise1 field for custom healing sound
 noise -- path to custom sound file
 */
-/*QUAKED misc_model (.5 0.5 0.8) (-12 -12 -12) (12 12 12) GRAVITY SOLID BACK_AND_FORTH ONLY_ONCE PLAY_COUNT_TIMES START_HIDDEN X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED misc_model (.5 0.5 0.8) (-16 -16 -16) (16 16 16) GRAVITY SOLID BACK_AND_FORTH ONLY_ONCE PLAY_COUNT_TIMES START_HIDDEN X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
 	model ({"path" : mdl, "skin" : skin, "frame": frame});
 }
