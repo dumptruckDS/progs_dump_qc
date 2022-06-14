@@ -123,7 +123,10 @@ void() MonFireSpike =
     local vector dir;
     // local entity old;
 
-    sound_attack (self, CHAN_WEAPON, "weapons/spike2.wav", 1, ATTN_NORM);
+    sound_attack (self, CHAN_WEAPON, "weapons/rocket1i.wav", 1, ATTN_NORM);
+	if (self.style == 5)
+	self.attack_finished = time + 1.5;
+	else
     self.attack_finished = time + 0.2;
 
     dir = normalize (self.enemy.origin - self.origin);
@@ -157,6 +160,7 @@ void() MonFireSpike =
 };
 
 void() army_fire;
+void() army_atk6;
 
 void()	army_stand1	=[	$stand1,	army_stand2	] {ai_stand();};
 void()	army_stand2	=[	$stand2,	army_stand3	] {ai_stand();};
@@ -207,22 +211,51 @@ void()	army_run6	=[	$run6,		army_run7	] {ai_run(15);};
 void()	army_run7	=[	$run7,		army_run8	] {ai_run(10);};
 void()	army_run8	=[	$run8,		army_run1	] {ai_run(8);};
 
-void()	army_atk1	=[	$shoot1,	army_atk2	] {ai_face();};
+void()	army_atk1	=[	$shoot1,	army_atk2	] {ai_face();self.count = 0;self.t_length= 4 + floor(random()*4);};
 void()	army_atk2	=[	$shoot2,	army_atk3	] {ai_face();};
 void()	army_atk3	=[	$shoot3,	army_atk4	] {ai_face();};
 void()	army_atk4	=[	$shoot4,	army_atk5	] {ai_face();};
-void()	army_atk5	=[	$shoot5,	army_atk6	] {ai_face();army_fire();
+void()	army_atk5	={
+self.frame = $shoot5;
+self.nextthink = time + .1;
+if (self.style == 5 && self.count < self.t_length) 
+{
+  self.think = army_atk3;
+  self.count +=1;
+}
+else 
+{
+  self.think = army_atk6;
+}
+ai_face();
+army_fire();
 self.effects = self.effects | EF_MUZZLEFLASH;};
 void()	army_atk6	=[	$shoot6,	army_atk7	] {ai_face();};
 void()	army_atk7	=[	$shoot7,	army_atk8	] {ai_face();SUB_CheckRefire (army_atk1);};
 void()	army_atk8	=[	$shoot8,	army_atk9	] {ai_face();};
 void()	army_atk9	=[	$shoot9,	army_run1	] {ai_face();};
 // new frames for turrets
-void()	army_turret_atk1	=[	$shoot1,	army_turret_atk2	] {ai_face();};
+void() army_turret_atk6;
+void()	army_turret_atk1	=[	$shoot1,	army_turret_atk2	] {ai_face();self.count = 0;self.t_length= 4 + floor(random()*4);};
 void()	army_turret_atk2	=[	$shoot2,	army_turret_atk3	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
 void()	army_turret_atk3	=[	$shoot3,	army_turret_atk4	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
 void()	army_turret_atk4	=[	$shoot4,	army_turret_atk5	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
-void()	army_turret_atk5	=[	$shoot5,	army_turret_atk6	] {ai_face();army_fire();
+//void()	army_turret_atk5	=[	$shoot5,	army_turret_atk6	] {ai_face();army_fire();
+//self.effects = self.effects | EF_MUZZLEFLASH;};
+void()	army_turret_atk5	={
+self.frame = $shoot5;
+self.nextthink = time + .1;
+if (self.style == 5 && self.count < self.t_length) 
+{
+  self.think = army_turret_atk3;
+  self.count +=1;
+}
+else 
+{
+  self.think = army_turret_atk6;
+}
+ai_face();
+army_fire();
 self.effects = self.effects | EF_MUZZLEFLASH;};
 void()	army_turret_atk6	=[	$shoot6,	army_turret_atk7	] {ai_face();};
 void()	army_turret_atk7	=[	$shoot7,	army_turret_atk8	] {ai_face();SUB_CheckRefire (army_turret_atk1);};
@@ -343,7 +376,7 @@ else if (self.style == 3)
 		genforcer_fire();
 	}
 
-else if (self.style == 4)
+else if (self.style == 4 || self.style == 5)
 
 	{
 		ai_face();
@@ -388,7 +421,7 @@ void()	army_die3	=[	$death3,	army_die4	]
 	{
 		self.ammo_cells = 5;
 	}
-	if (self.style == 4)
+	if (self.style == 4 || self.style == 5)
 	{
 		self.ammo_nails = 5;
 	}
@@ -422,7 +455,7 @@ void()	army_cdie3	=[	$deathc3,	army_cdie4	]
 	{
 		self.ammo_cells = 5;
 	}
-	if (self.style == 4)
+	if (self.style == 4 || self.style == 5)
 	{
 		self.ammo_nails = 5;
 	}
