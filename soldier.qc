@@ -135,7 +135,7 @@ void() MonFireSpike =
     launch_spike (self.origin + v_forward * 30 + v_right * 5 + '0 0 12', dir);  //dumptruck_ds
     // launch_spike (self.origin + '0 0 16', dir);
 
-    newmis.touch = superspike_touch;
+    //newmis.touch = superspike_touch;
     // setmodel (newmis, "progs/s_spike.mdl");
 		if (self.mdl_proj != "") // dumptruck_ds
 		{
