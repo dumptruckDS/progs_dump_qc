@@ -220,7 +220,7 @@ self.frame = $shoot5;
 self.nextthink = time + .1;
 if (self.style == 5 && self.count < self.t_length) 
 {
-  self.think = army_atk3;
+  self.think = army_atk4;
   self.count +=1;
 }
 else 
@@ -247,7 +247,7 @@ self.frame = $shoot5;
 self.nextthink = time + .1;
 if (self.style == 5 && self.count < self.t_length) 
 {
-  self.think = army_turret_atk3;
+  self.think = army_turret_atk4;
   self.count +=1;
 }
 else 
