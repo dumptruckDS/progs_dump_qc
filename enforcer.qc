@@ -417,7 +417,7 @@ else if (self.style == 2)
 		return;
 	}
 
-else if (self.style == 3)
+else if (self.style == 3 || self.style ==5)
 
 	{
 		local vector foo;
@@ -484,8 +484,8 @@ void()	enf_run5	=[	$run5  ,	enf_run6	] {ai_run(14);};
 void()	enf_run6	=[	$run6  ,	enf_run7	] {ai_run(14);};
 void()	enf_run7	=[	$run7  ,	enf_run8	] {ai_run(7);};
 void()	enf_run8	=[	$run8  ,	enf_run1	] {ai_run(11);};
-
-void()	enf_atk1	=[	$attack1,	enf_atk2	] {ai_face();};
+void() enf_atk11;
+void()	enf_atk1	=[	$attack1,	enf_atk2	] {ai_face();self.count = 0;self.t_length= 4 + floor(random()*4);};
 void()	enf_atk2	=[	$attack2,	enf_atk3	] {ai_face();};
 void()	enf_atk3	=[	$attack3,	enf_atk4	] {ai_face();};
 void()	enf_atk4	=[	$attack4,	enf_atk5	] {ai_face();};
@@ -494,7 +494,20 @@ void()	enf_atk6	=[	$attack6,	enf_atk7	] {enforcer_fire();};
 void()	enf_atk7	=[	$attack7,	enf_atk8	] {ai_face();};
 void()	enf_atk8	=[	$attack8,	enf_atk9	] {ai_face();};
 void()	enf_atk9	=[	$attack5,	enf_atk10	] {ai_face();};
-void()	enf_atk10	=[	$attack6,	enf_atk11	] {enforcer_fire();};
+void()	enf_atk10	={
+self.frame = $attack6;
+self.nextthink = time + .1;
+if (self.style == 5 && self.count < self.t_length) 
+{
+  self.think = enf_atk8;
+  self.count +=1;
+}
+else 
+{
+  self.think = enf_atk11;
+}
+ai_face();
+enforcer_fire();};
 void()	enf_atk11	=[	$attack7,	enf_atk12	] {ai_face();};
 void()	enf_atk12	=[	$attack8,	enf_atk13	] {ai_face();};
 void()	enf_atk13	=[	$attack9,	enf_atk14	] {ai_face();};
@@ -529,7 +542,8 @@ void()	enf_4atk12	=[	$attack10,	enf_run1	] {ai_face();SUB_CheckRefire (enf_2atk1
 ////////////////////////////
 // new frames for turret mode START
 ////////////////////////////
-void()	enf_turret_atk1	=[	$attack1,	enf_turret_atk2	] {ai_face();};
+void() enf_turret_atk11;
+void()	enf_turret_atk1	=[	$attack1,	enf_turret_atk2	] {ai_face();self.count = 0;self.t_length= 4 + floor(random()*4);};
 void()	enf_turret_atk2	=[	$attack2,	enf_turret_atk3	] {ai_face();};
 void()	enf_turret_atk3	=[	$attack3,	enf_turret_atk4	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
 void()	enf_turret_atk4	=[	$attack4,	enf_turret_atk5	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
@@ -538,7 +552,20 @@ void()	enf_turret_atk6	=[	$attack6,	enf_turret_atk7	] {enforcer_fire();};
 void()	enf_turret_atk7	=[	$attack7,	enf_turret_atk8	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
 void()	enf_turret_atk8	=[	$attack8,	enf_turret_atk9	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
 void()	enf_turret_atk9	=[	$attack5,	enf_turret_atk10	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
-void()	enf_turret_atk10	=[	$attack6,	enf_turret_atk11	] {enforcer_fire();};
+void()	enf_turret_atk10	={
+self.frame = $attack6;
+self.nextthink = time + .1;
+if (self.style == 5 && self.count < self.t_length) 
+{
+  self.think = enf_turret_atk8;
+  self.count +=1;
+}
+else 
+{
+  self.think = enf_turret_atk11;
+}
+ai_face();
+enforcer_fire();};
 void()	enf_turret_atk11	=[	$attack7,	enf_turret_atk12	] {ai_face();};
 void()	enf_turret_atk12	=[	$attack8,	enf_turret_atk13	] {ai_face();};
 void()	enf_turret_atk13	=[	$attack9,	enf_turret_atk14	] {ai_face();};
@@ -889,7 +916,7 @@ void() monster_enforcer =
 		remove(self);
 		return;
 	}
-	if (self.style >= 5)
+	if (self.style >= 6)
 		objerror("style key set too high\n");
 
 	precache_body_model2 ("progs/enforcer.mdl");  // custom_mdls function -- dumptruck_ds
@@ -944,7 +971,7 @@ void() monster_enforcer =
 	else
 		self.th_pain = SUB_NullPain;
 	self.th_die = enf_die;
-	if (self.style == 1) // new animation frame check -- dumptruck_ds
+	if (self.style == 1 || self.style == 2) // new animation frame check -- dumptruck_ds
 		{
 			if (self.spawnflags & I_AM_TURRET)
 				{
@@ -952,23 +979,7 @@ void() monster_enforcer =
 				}
 			self.th_missile = enf_2atk1;
 		}
-	else if (self.style == 2) // new animation frame check -- dumptruck_ds
-		{
-			if (self.spawnflags & I_AM_TURRET)
-			{
-				self.th_turret = enf_2turret_atk1;
-			}
-			self.th_missile = enf_2atk1;
-		}
-	else if (self.style == 3) // new animation frame check -- dumptruck_ds
-		{
-			if (self.spawnflags & I_AM_TURRET)
-			{
-				self.th_turret = enf_turret_atk1;
-			}
-			self.th_missile = enf_atk1;
-		}
-	else if (self.style == 0) // new animation frame check -- dumptruck_ds
+	else if (self.style == 0 || self.style == 3 || self.style == 5) // new animation frame check -- dumptruck_ds
 		{
 			if (self.spawnflags & I_AM_TURRET)
 			{

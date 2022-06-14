@@ -272,9 +272,9 @@ void() Wiz_idlesound =
 local float wr;
 	wr = random() * 5;
 
-	if (self.waitmin < time)
+	if (self.fly_sound < time)
 	{
-	 	self.waitmin = time + 2;
+	 	self.fly_sound = time + 2;
 	 	if (wr > 4.5)
 	 		sound_idle (self, CHAN_VOICE, "wizard/widle1.wav", 1,  ATTN_IDLE);
 	 	if (wr < 1.5)
