@@ -944,7 +944,7 @@ void() monster_enforcer =
 	else
 		self.th_pain = SUB_NullPain;
 	self.th_die = enf_die;
-	if (self.style == 1) // new animation frame check -- dumptruck_ds
+	if (self.style == 1 || self.style == 2) // new animation frame check -- dumptruck_ds
 		{
 			if (self.spawnflags & I_AM_TURRET)
 				{
@@ -952,23 +952,7 @@ void() monster_enforcer =
 				}
 			self.th_missile = enf_2atk1;
 		}
-	else if (self.style == 2) // new animation frame check -- dumptruck_ds
-		{
-			if (self.spawnflags & I_AM_TURRET)
-			{
-				self.th_turret = enf_2turret_atk1;
-			}
-			self.th_missile = enf_2atk1;
-		}
-	else if (self.style == 3) // new animation frame check -- dumptruck_ds
-		{
-			if (self.spawnflags & I_AM_TURRET)
-			{
-				self.th_turret = enf_turret_atk1;
-			}
-			self.th_missile = enf_atk1;
-		}
-	else if (self.style == 0) // new animation frame check -- dumptruck_ds
+	else if (self.style == 0 || self.style == 3) // new animation frame check -- dumptruck_ds
 		{
 			if (self.spawnflags & I_AM_TURRET)
 			{
