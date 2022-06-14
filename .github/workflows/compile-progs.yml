@@ -1,0 +1,21 @@
+name: compile-progs
+on: [push]
+jobs:
+  compile-progs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - shell: bash
+        run: |
+          sed -i 's#../progs.dat#progs.dat#g' progs.src
+          wget https://www.fteqcc.org/dl/fteqcc_linux64.zip
+          unzip fteqcc_linux64.zip
+          ./fteqcc64
+      - name: Upload output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: progs-dat
+          path: |
+            progs.dat
+            progs.lno
+            fgd_def/
