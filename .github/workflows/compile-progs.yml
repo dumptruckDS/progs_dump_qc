@@ -1,7 +1,7 @@
 name: compile-progs
 on: [push]
 jobs:
-  compile:
+  Compile Progs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
