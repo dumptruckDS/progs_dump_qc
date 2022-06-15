@@ -511,11 +511,11 @@ void()	enf_2atk5	=[	$attack5,	enf_2atk6	] {ai_face();};
 void()	enf_2atk6	={
 self.frame = $attack6;
 self.nextthink = time + .1;
-if (self.style == 5 && self.count < self.t_length) 
+if (self.style == 5 && self.count < self.t_length)
 {
   self.count +=1;
 }
-else 
+else
 {
   self.think = enf_2atk7;
 }
@@ -577,11 +577,11 @@ void()	enf_2turret_atk5	=[	$attack5,	enf_2turret_atk6	] {ai_face();};
 void()	enf_2turret_atk6	={
 self.frame = $attack6;
 self.nextthink = time + .1;
-if (self.style == 5 && self.count < self.t_length) 
+if (self.style == 5 && self.count < self.t_length)
 {
   self.count +=1;
 }
-else 
+else
 {
   self.think = enf_2turret_atk7;
 }
@@ -723,11 +723,11 @@ void()	enf_die3	=[	$death3,	enf_die4	]
 		{
 			self.ammo_rockets = 2;
 		}
-	if (self.style == 3) // style ammotype check -- dumptruck_ds
+	if (self.style == 3 || self.style == 5) // style ammotype check -- dumptruck_ds
 		{
 			self.ammo_nails = 5;
 		}
-	else if (self.style == 0 || self.style == 4) // style ammotype check -- dumptruck_ds
+	if (self.style == 0 || self.style == 4) // style ammotype check -- dumptruck_ds
 		{
 			self.ammo_cells = 5;
 		}
@@ -761,11 +761,11 @@ void()	enf_fdie3	=[	$fdeath3,	enf_fdie4	]
 		{
 			self.ammo_rockets = 2;
 		}
-	if (self.style == 3) // style ammotype check -- dumptruck_ds
+	if (self.style == 3 || self.style == 5) // style ammotype check -- dumptruck_ds
 		{
 			self.ammo_nails = 5;
 		}
-	else if (self.style == 0 || self.style == 4) // style ammotype check -- dumptruck_ds
+	if (self.style == 0 || self.style == 4) // style ammotype check -- dumptruck_ds
 		{
 			self.ammo_cells = 5;
 		}

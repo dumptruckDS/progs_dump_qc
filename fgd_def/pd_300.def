@@ -1650,7 +1650,8 @@ style "Attack type"
 1 "Rockets"
 2 "Grenades"
 3 "lasers"
-4 "Nails"
+4 "nails (single fire)"
+5 "nails (rapid fire)"
 
 alpha = Transparancy (.1 barely visible - .9 almost opaque)
 
@@ -2190,7 +2191,9 @@ style(Choices) : "Attack type"
 0 : "Default (lasers)"
 1	: "rockets"
 2 : "grenades"
-3 : "nails"
+3 : "nails (single fire)"
+4 : "lightning"
+5 : "nails (rapid fire)"
 
 snd_death(string) : Path to custom death sound"
 snd_pain(string) : "Path to 1st custom pain sound"

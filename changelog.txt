@@ -51,6 +51,7 @@
 * Added SILENT spawnflag to func_fall (dumptruck_ds)
 * Added START_HIDDEN spawnflag to misc_model (Alkaline, dumptruck_ds)
 * Added random delay to triggerspawned monsters [delay -1] (dumptruck_ds)
+* Added rapid fire Nailgun styles to Grunt and Enforcer (ILike80sRock)
 
 2.0.1 March 2021
 
