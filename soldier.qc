@@ -160,7 +160,6 @@ void() MonFireSpike =
 };
 
 void() army_fire;
-void() army_atk6;
 
 void()	army_stand1	=[	$stand1,	army_stand2	] {ai_stand();};
 void()	army_stand2	=[	$stand2,	army_stand3	] {ai_stand();};
@@ -211,6 +210,8 @@ void()	army_run6	=[	$run6,		army_run7	] {ai_run(15);};
 void()	army_run7	=[	$run7,		army_run8	] {ai_run(10);};
 void()	army_run8	=[	$run8,		army_run1	] {ai_run(8);};
 
+
+void() army_atk6;
 void()	army_atk1	=[	$shoot1,	army_atk2	] {ai_face();self.count = 0;self.t_length= 4 + floor(random()*4);};
 void()	army_atk2	=[	$shoot2,	army_atk3	] {ai_face();};
 void()	army_atk3	=[	$shoot3,	army_atk4	] {ai_face();};
@@ -220,7 +221,6 @@ self.frame = $shoot5;
 self.nextthink = time + .1;
 if (self.style == 5 && self.count < self.t_length) 
 {
-  self.think = army_atk4;
   self.count +=1;
 }
 else 
@@ -240,14 +240,11 @@ void()	army_turret_atk1	=[	$shoot1,	army_turret_atk2	] {ai_face();self.count = 0
 void()	army_turret_atk2	=[	$shoot2,	army_turret_atk3	] {ai_face();self.attack_elevation = IterateElevation(OGRE_DEFAULT_ELEVATION, self.enemy.origin);};
 void()	army_turret_atk3	=[	$shoot3,	army_turret_atk4	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
 void()	army_turret_atk4	=[	$shoot4,	army_turret_atk5	] {ai_face();self.attack_elevation = IterateElevation(self.attack_elevation, self.enemy.origin);};
-//void()	army_turret_atk5	=[	$shoot5,	army_turret_atk6	] {ai_face();army_fire();
-//self.effects = self.effects | EF_MUZZLEFLASH;};
 void()	army_turret_atk5	={
 self.frame = $shoot5;
 self.nextthink = time + .1;
 if (self.style == 5 && self.count < self.t_length) 
 {
-  self.think = army_turret_atk4;
   self.count +=1;
 }
 else 
