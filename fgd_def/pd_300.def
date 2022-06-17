@@ -3070,3 +3070,57 @@ Can set Berserk to 1 to skip most pain animations.
 
 Can only use default health, models and sounds.
 */
+/*
+//////////////////////
+// end dumptruck_ds //
+// start Kex lights //
+//////////////////////
+@BaseClass size(-8 -8 -8, 8 8 8) color(255 128 0) base(Target) = KexDynamicLight : "Dynamic KEX light" [
+	_shadowlight(integer) : "If set to 1, the engine will spawn a per-pixel light that cast shadows from the entity's origin when the level is loaded" : 0
+	_shadowlightintensity(float) : "Intensity scalar for the light." : "1.0"
+	_shadowlightcull(choices) : "Enable culling when shadow mapping the affected geometry." : "0" =
+	[
+		0 : "No culling"
+		1 : "Front culling"
+		2 : "Back culling"
+	]
+ 	_shadowlightresolution(choices) : "Override a shadow map resolution. Engine will automatically round the value into powers of 2. If value is 0, then the engine will determine the resolution based on the light's radius. Recommended that you keep the resolution below 2048 in order for other shadow maps to fit on the main shadow texture atlas (which is defined as 8192x8192)" : "0" =
+	[
+		64 : "64"
+		128 : "128"
+		256 : "256"
+		512 : "512"
+		1024 : "1024"
+		2048 : "2048"
+	]
+	_shadowlightradius(float) : "Sets the radius." : "300"
+	_color(color) : "Light color" : "1.0 1.0 1.0"
+	_shadowlightconeangle(float) : "Sets the outer cone angle if this light is a spot light." : "45"
+	_shadowlightstyle(choices) : "Appearance" : "0" = [
+		0 : "Normal"
+		10: "Fluorescent flicker"
+		2 : "Slow, strong pulse"
+		11: "Slow pulse, noblack"
+		5 : "Gentle pulse"
+		1 : "Flicker A"
+		6 : "Flicker B"
+		3 : "Candle A"
+		7 : "Candle B"
+		8 : "Candle C"
+		4 : "Fast strobe"
+		9 : "Slow strobe"
+		// New styles below here
+	]
+	_shadowlightstartfadedistance(float) : "The distance in world units (from player's view position) in which fading begins" : "0"
+	_shadowlightendfadedistance(float) : "The distance in world units (from player's view position) in which the light is fully faded out and not rendered" : "0"
+
+]
+
+@PointClass base(KexDynamicLight) = dynamiclight : "Dynamic KEX light"
+[
+	spawnflags(Flags) =
+	[
+		1 : "Not in coop" : 0
+	]
+]
+*/

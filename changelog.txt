@@ -52,6 +52,7 @@
 * Added START_HIDDEN spawnflag to misc_model (Alkaline, dumptruck_ds)
 * Added random delay to triggerspawned monsters [delay -1] (dumptruck_ds)
 * Added rapid fire Nailgun styles to Grunt and Enforcer (ILike80sRock)
+* Added KexDynamicLight to entity files (dumptruck_ds)
 
 2.0.1 March 2021
 
