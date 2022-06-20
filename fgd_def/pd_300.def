@@ -2955,11 +2955,14 @@ once door from closing again when it's blocked.
 
 "dmg" specifies the damage to cause when blocked.  Defaults to 2.  Negative numbers indicate no damage.
 "speed" specifies how the time it takes to rotate
-
+"noise1" Custom door start noise
+"noise2" Custom door move noise
+"noise3" Custom door stop noise"
 "sounds"
 1) medieval (default)
 2) metal
 3) base
+4) silent
 */
 /*QUAKED func_bob (0 .5 .8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A SOLID bmodel that gently moves back and forth

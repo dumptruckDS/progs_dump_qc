@@ -2719,6 +2719,9 @@ noise(string) : "Path to custom sound"
 	speed(integer) : "Time to rotate" : 10
 	angles(string) : "Angles (x y z)"
 	rotate(string) : "Rotate (x y z)"
+	noise1(string) : "Custom door start noise"
+	noise2(string) : "Custom door move noise"
+	noise3(string) : "Custom door stop noise"
 	sounds(choices) : "Sound" : 1 =
 	[
 		0: "None"
