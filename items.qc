@@ -90,35 +90,6 @@ void() RefreshHull =
 	self.velocity = '0 0 0';
 };
 
-// /*
-// ============
-// PlaceItem  //old func replaced by rmq-items -- dumptruck_ds
-//
-// plants the object on the floor
-// ============
-// */
-// void() PlaceItem =
-// {
-// 	local float	oldz;
-//
-// 	self.mdl = self.model;		// so it can be restored on respawn
-// 	self.flags = FL_ITEM;		// make extra wide
-// 	self.solid = SOLID_TRIGGER;
-// 	self.movetype = MOVETYPE_TOSS;
-// 	self.velocity = '0 0 0';
-// 	self.origin_z = self.origin_z + 6;
-// 	oldz = self.origin_z;
-// 	if (!droptofloor())
-// 	{
-// 		dprint ("\n\n");
-// 		dprint (self.classname); //dumptruck_ds
-// 		dprint (" fell out of level at ");
-// 		dprint (vtos(self.origin));
-// 		dprint ("\n\n");
-// 		remove(self);
-// 		return;
-// 	}
-// };
 
 /*
 ============
@@ -1493,18 +1464,18 @@ void() item_key1 =
 
 	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
-		precache_model ("progs/w_s_key.mdl");
-		setmodel (self, "progs/w_s_key.mdl");
+		precache_body_model ("progs/w_s_key.mdl");
+		body_model ("progs/w_s_key.mdl");
 	}
 	else if (world.worldtype == WORLDTYPE_METAL)
 	{
-		precache_model ("progs/m_s_key.mdl");
-		setmodel (self, "progs/m_s_key.mdl");
+		precache_body_model ("progs/m_s_key.mdl");
+		body_model ("progs/m_s_key.mdl");
 	}
 	else if (world.worldtype == WORLDTYPE_BASE)
 	{
-		precache_model2 ("progs/b_s_key.mdl");
-		setmodel (self, "progs/b_s_key.mdl");
+		precache_body_model2 ("progs/b_s_key.mdl");
+		body_model ("progs/b_s_key.mdl");
 	}
 	self.netname = SilverKeyName ();
 	self.items = IT_KEY1;
@@ -1535,18 +1506,18 @@ void() item_key2 =
 
 	if (world.worldtype == WORLDTYPE_MEDIEVAL)
 	{
-		precache_model ("progs/w_g_key.mdl");
-		setmodel (self, "progs/w_g_key.mdl");
+		precache_body_model ("progs/w_g_key.mdl");
+		body_model ("progs/w_g_key.mdl");
 	}
 	if (world.worldtype == WORLDTYPE_METAL)
 	{
-		precache_model ("progs/m_g_key.mdl");
-		setmodel (self, "progs/m_g_key.mdl");
+		precache_body_model ("progs/m_g_key.mdl");
+		body_model ("progs/m_g_key.mdl");
 	}
 	if (world.worldtype == WORLDTYPE_BASE)
 	{
-		precache_model2 ("progs/b_g_key.mdl");
-		setmodel (self, "progs/b_g_key.mdl");
+		precache_body_model2 ("progs/b_g_key.mdl");
+		body_model ("progs/b_g_key.mdl");
 	}
 	self.netname = GoldKeyName ();
 	self.items = IT_KEY2;

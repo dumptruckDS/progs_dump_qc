@@ -54,6 +54,7 @@
 * Added rapid fire Nailgun styles to Grunt and Enforcer (ILike80sRock)
 * Added KexDynamicLight to entity files (dumptruck_ds)
 * Added custom sound support for func_rotate_door (Inky)
+* Added custom model support to Silver and Gold keys (dumptruck_ds)
 
 2.0.1 March 2021
 

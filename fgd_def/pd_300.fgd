@@ -521,10 +521,19 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 @BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
 	Key []
 
-@PointClass base(Key) model({ "path": ":progs/w_s_key.mdl" }) =
-	item_key1 : "Silver key" []
-@PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
-	item_key2 : "Gold key" []
+// @PointClass base(Key) model({ "path": ":progs/w_s_key.mdl" }) =
+@PointClass base(Key, CustomMdlsSkin) model(
+	{{
+		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_s_key.mdl" , "skin" : skin}
+	}}
+) = item_key1 : "Silver key" []
+
+// @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
+@PointClass base(Key, CustomMdlsSkin) model(	
+	{{
+		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
+	}}
+) = item_key2 : "Gold key" []
 
 // @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
 @PointClass base(Key) model(

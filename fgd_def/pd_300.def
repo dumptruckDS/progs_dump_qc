@@ -323,6 +323,8 @@ In order for keys to work you MUST set your map's worldtype to one of the follow
 0: medieval
 1: metal
 2: base
+mdl_body = path to custom model file
+skin = Skin index (default 0)
 alpha = Transparancy (.1 barely visible - .9 almost opaque)
 effects = Add a visual effect to an entity
 0 = "None (Default)"

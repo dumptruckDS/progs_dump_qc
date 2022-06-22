@@ -399,11 +399,24 @@ item_health_vial : "Small vial of health (default 5)"
 
 @BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
 	Key []
+// @PointClass base(Key) model({ "path": ":progs/w_s_key.mdl" }) =
+@PointClass base(Key, CustomMdlsSkin) model(
+	{{
+		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_s_key.mdl" , "skin" : skin}
+	}}
+) = item_key1 : "Silver key" []
 
-@PointClass base(Key) studio("progs/w_s_key.mdl") =
-	item_key1 : "Silver key" []
-@PointClass base(Key) studio("progs/w_g_key.mdl") =
-	item_key2 : "Gold key" []
+// @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
+@PointClass base(Key, CustomMdlsSkin) model(	
+	{{
+		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
+	}}
+) = item_key2 : "Gold key" []
+
+// @PointClass base(Key) studio("progs/w_s_key.mdl") =
+// 	item_key1 : "Silver key" []
+// @PointClass base(Key) studio("progs/w_g_key.mdl") =
+// 	item_key2 : "Gold key" []
 
 //____TW_EDIT____
 @PointClass base(Key) = item_key_custom :"A customizable key item. This allows mappers to use any Quake compatible model, sprite or BSP as a key. We’ve also included new key models with different variations. You can find these in the progs folder and set their paths in the mdl key.
