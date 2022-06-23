@@ -2631,7 +2631,7 @@ mdl: The model to display. Can be of type mdl, bsp, or spr.
 frame: Single frame to display. Can also be used to offset the animation.
 first_frame: The starting frame of the animation.
 last_frame: The last frame of the animation.
-speed: The frames per second of animation. Divide 1 by the fps for this value.
+speed: The frames per second of animation. Divide 1 by the fps for this value (default 0.1).
 angles: pitch roll yaw (up/down, angle, tilt left/right)
 NOTE: set angle value to 0 if using angles key to rotate mdls"
 [
@@ -2640,7 +2640,7 @@ NOTE: set angle value to 0 if using angles key to rotate mdls"
 	frame(integer)
 	first_frame(integer)
 	last_frame(integer)
-	speed(integer) : "Speed" : 10
+	speed(integer) : "1 divided by frames per second (default 0.1)"
 	angles(integer) : "set 'angle' to 0 if this is used"
 	mdlsz(integer) : "Entity size (x y z)"
 	centeroffset(integer) : "Model center offset"

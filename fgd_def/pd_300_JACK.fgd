@@ -2385,7 +2385,7 @@ Use 'fade_amt` to set the background fade to a custom value (default is 160).
 	frame(integer) : "Single Frame to Display"
 	first_frame(integer) : "Start Animation Frame"
 	last_frame(integer) :  "Last Animation Frame"
-	speed(integer) : "Speed" : 10
+	speed(integer) : "1 divided by frames per second (default 0.1)"
 	angles(integer) : "set 'angle' to 0 if this is used"
 	mdlsz(integer) : "Entity size (x y z)"
 	centeroffset(integer) : "Model center offset"

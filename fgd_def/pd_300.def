@@ -2473,7 +2473,7 @@ skin: skin index (defaut is 0)
 frame: The frame to display. Can be used to offset the animation.
 first_frame: The starting frame of the animation.
 last_frame: The last frame of the animation.
-speed(integer): Speed : 0.1
+speed(integer) : 1 divided by frames per second (default 0.1)
 angles(integer): set 'angle' to 0 if this is used
 mdlsz(integer): Entity size (x y z)
 centeroffset(integer): Model center offset
