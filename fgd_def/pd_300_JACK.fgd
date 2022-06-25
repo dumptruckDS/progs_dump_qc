@@ -407,7 +407,7 @@ item_health_vial : "Small vial of health (default 5)"
 ) = item_key1 : "Silver key" []
 
 // @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
-@PointClass base(Key, CustomMdlsSkin) model(	
+@PointClass base(Key, CustomMdlsSkin) model(
 	{{
 		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
 	}}
@@ -456,15 +456,8 @@ The 'keyname' value is used both for the pickup message and to associate the key
 //axe not used in this version
 //@PointClass base(Weapon) studio("progs/g_axe.mdl") =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) studio("progs/g_shotgn.mdl") =
-	weapon_shotgun : "Shotgun"
-[
-	spawnflags(flags) =
-	[
-		2 : "metlslime mdl (default)"
-		4 : "Slapmap mdl"
-	]
-]
+@PointClass base(Weapon) studio({ "path": ":progs/g_shotgu.mdl" }) =
+	weapon_shotgun : "Shotgun"[]
 @PointClass base(Weapon) studio("progs/g_shot.mdl") =
 	weapon_supershotgun : "Double-barrelled shotgun" []
 @PointClass base(Weapon) studio("progs/g_nail.mdl") =

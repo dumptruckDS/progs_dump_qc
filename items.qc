@@ -889,27 +889,11 @@ void() weapon_shotgun =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	self.touch = weapon_touch;
-	{
-
-		if (!(self.spawnflags & (2 | 4)))
-		{
-			self.spawnflags = self.spawnflags | 2;
-		}
-
-		if (self.spawnflags & 2)
-		{
-			precache_model ("progs/g_shotgn.mdl");
-			setmodel (self, "progs/g_shotgn.mdl");	//rubicon2 mdl by metlsline aka johnfitz
-		}
-		else if (self.spawnflags & 4)
-		{
-			precache_model ("progs/g_shotty.mdl");
-			setmodel (self, "progs/g_shotty.mdl");	//ijed -- Replaced above for SlapMap's model
-		}
-	}
+	precache_model ("progs/g_shotgu.mdl");
+	setmodel (self, "progs/g_shotgu.mdl");	//new shotgun model by Starshipwaters -dumptruck_ds - removed 2 older shotguns that used spawnflags
 	self.weapon = IT_SHOTGUN;
 	self.netname = "Shotgun";
+	self.touch = weapon_touch;
 	setsize (self, '-16 -16 0', '16 16 56');
 	StartItem ();
 };

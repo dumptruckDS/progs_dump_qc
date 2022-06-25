@@ -529,7 +529,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 ) = item_key1 : "Silver key" []
 
 // @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
-@PointClass base(Key, CustomMdlsSkin) model(	
+@PointClass base(Key, CustomMdlsSkin) model(
 	{{
 		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
 	}}
@@ -605,22 +605,8 @@ The behavior of an item_key_custom should be as the player expects (based on the
 //axe not used in this version
 //@PointClass base(Weapon) model({ "path": ":progs/g_axe.mdl" }) =
 //	weapon_axe : "Axe" []
-@PointClass
-	base(Weapon)
-	model(
-		{{
-			spawnflags & 4 -> ":progs/g_shotty.mdl",
-			":progs/g_shotgn.mdl"
-		}}
-	) =
-	weapon_shotgun : "Shotgun"
-[
-	spawnflags(flags) =
-	[
-		2 : "metlslime mdl (default)"
-		4 : "Slapmap mdl"
-	]
-]
+@PointClass base(Weapon) model({ "path": ":progs/g_shotgu.mdl" }) =
+	weapon_shotgun : "Shotgun"[]
 @PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) =
 	weapon_supershotgun : "Double-barrelled shotgun" []
 @PointClass base(Weapon) model({ "path": ":progs/g_nail.mdl" }) =
