@@ -508,7 +508,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	]
 @PointClass base(Armor) model(
     {{
-        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/pd_armor_sh.mdl" , "skin" : skin}
+        mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": "progs/armshr.mdl" , "skin" : skin}
     }}
 ) = item_armor_shard : "A small piece of armor worth 5 points of Green armor protection. Can only add a max of 25 points to any armor."
 	[

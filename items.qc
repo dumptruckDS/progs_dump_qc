@@ -484,7 +484,7 @@ void() shard_touch = // this from RMQ shard_touch
 	if (self.snd_misc != "")
 	sound_misc(other, CHAN_AUTO, self.snd_misc, 1, ATTN_NORM);
 	else
-	sound_misc(other, CHAN_AUTO,"dump/pd_armor1_sh.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
+	sound_misc(other, CHAN_AUTO,"dump/armsh1.wav", 1, ATTN_NORM); // dumptruck_ds custom models and sounds END
 	stuffcmd (other, "bf\n");
 
 	activator = other;
@@ -574,10 +574,10 @@ void() item_armor_shard =
 
 	self.touch = shard_touch;
 	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
-	precache_body_model ("progs/pd_armor_sh.mdl");
+	precache_body_model ("progs/armshr.mdl");
 	// setmodel (self, "progs/armor.mdl");
-	body_model ("progs/pd_armor_sh.mdl");
-	precache_sound_misc ("dump/pd_armor1_sh.wav");
+	body_model ("progs/armshr.mdl");
+	precache_sound_misc ("dump/armsh1.wav");
 	if !(self.skin) // dumptruck_ds custom models and sounds END
 	self.skin = 0;
 	setsize (self, '-16 -16 0', '16 16 56');
@@ -2139,12 +2139,12 @@ void() DropShard = //
 	item.velocity_x = -100 + (random() * 200);
 	item.velocity_y = -100 + (random() * 200);
 
-	setmodel(item, "progs/pd_armor_sh.mdl");
+	setmodel(item, "progs/armshr.mdl");
 	item.solid = SOLID_TRIGGER;
 	item.movetype = MOVETYPE_TOSS;
 	setsize (item, '-16 -16 0', '16 16 56');
 	item.touch = shard_touch;
-	item.snd_misc = "dump/pd_armor1_sh.wav";
+	item.snd_misc = "dump/armsh1.wav";
 
 	StartItem ();
 };
