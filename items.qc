@@ -1461,7 +1461,10 @@ void() item_key1 =
 		precache_body_model2 ("progs/b_s_key.mdl");
 		body_model ("progs/b_s_key.mdl");
 	}
-	self.netname = SilverKeyName ();
+
+	if (self.keyname != "") self.netname = self.keyname;
+	else self.netname = SilverKeyName ();
+
 	self.items = IT_KEY1;
 
 // support for item_key_custom -- iw
@@ -1503,7 +1506,10 @@ void() item_key2 =
 		precache_body_model2 ("progs/b_g_key.mdl");
 		body_model ("progs/b_g_key.mdl");
 	}
-	self.netname = GoldKeyName ();
+
+	if (self.keyname != "") self.keyname = "";
+	else self.netname = GoldKeyName ();
+
 	self.items = IT_KEY2;
 
 // support for item_key_custom -- iw

@@ -81,10 +81,22 @@ void() trigger_usekey =
 
 	keylock_init ();
 
-	if (self.spawnflags & USE_SILV_KEY) //dumptruck_ds
+	if (self.spawnflags & USE_SILV_KEY) {//dumptruck_ds
 		keylock_set_silver_key ();
-	if (self.spawnflags & USE_GOLD_KEY) //dumptruck_ds
+
+		if (self.keyname != "") {
+			self.netname = self.keyname;
+			self.keyname = "";
+		}
+	}
+	if (self.spawnflags & USE_GOLD_KEY) {//dumptruck_ds
 		keylock_set_gold_key ();
+		
+		if (self.keyname != "") {
+			self.netname = self.keyname;
+			self.keyname = "";
+		}
+	}
 
 // support for item_key_custom -- iw
 	if (self.keyname != "")
