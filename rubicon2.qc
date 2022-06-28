@@ -525,7 +525,7 @@ void () func_breakable = {
 		self.takedamage = DAMAGE_YES;
 		self.th_die = func_breakable_killed;
 	}
-	
+
 	if (self.switchshadstyle) lightstyle(self.switchshadstyle, "a");
 };
 
@@ -806,7 +806,14 @@ void() make_sparks =
 			i = i + 1;
 		}
 		if (self.sounds == 1)
-			sound (self, CHAN_AUTO, "dump/spark.wav", 1, ATTN_STATIC);
+			{
+				if (self.noise != "")
+					{
+					sound (self, CHAN_AUTO, self.noise, 1, ATTN_STATIC);
+					}
+				else
+					sound (self, CHAN_AUTO, "enforcer/enfstop.wav", 1, ATTN_STATIC);
+			}
 		SUB_UseTargets();
 		self.nextthink = time + 0.1 + random() * 0.1;
 		self.think = spark_turnofflight;
@@ -839,7 +846,10 @@ void() misc_sparks =
 		return;
 
 	precache_model ("progs/spark.mdl");
+	if (!self.noise)
 	precache_sound ("dump/spark.wav");
+	else
+	precache_sound (self.noise);
 
 	if (!self.movedir)
 		self.movedir = '0 0 -30';

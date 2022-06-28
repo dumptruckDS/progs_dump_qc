@@ -2805,7 +2805,7 @@ Keys:
 */
 /*QUAKED misc_sparks (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF SPARKS_BLUE SPARKS_PALE X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
-Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash allong with each burst of sparks. Note: targeted lights should be set to START_OFF.
+Produces a burst of yellow sparks at random intervals. If targeted, it will toggle between on or off.  If it targets a light, that light will flash along with each burst of sparks. Note: targeted lights should be set to START_OFF.
 
 SPARKS_BLUE: sparks are blue in color
 
@@ -2820,6 +2820,10 @@ Keys:
 "sounds"
 0)	no sound
 1)	sparks
+
+"noise"
+Path to custom spark sound, requires 'sounds' be set to 1
+
 */
 /*QUAKED misc_particles (0 .5 .8) (-8 -8 -8) (8 8 8) START_OFF X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 

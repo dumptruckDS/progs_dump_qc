@@ -1787,6 +1787,7 @@ If the target entity changes its default behavior when 'targetname' is set (such
 	wait(integer) : "is the average delay between bursts (variance is 1/2 wait). Default is 2."
 	cnt(integer) : "is the average number of sparks in a burst (variance is 1/4 cnt). Default is 15."
 	sounds(integer) : "set to 1 for built-in spark sound effect. Default is 0 - silent."
+	noise(string) : "Path to custom spark sound, requires 'sounds' be set to 1"
 	spawnflags(flags) =
 	[
 		1 : "START_OFF" : 0
