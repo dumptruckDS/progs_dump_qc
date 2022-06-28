@@ -55,6 +55,7 @@
 * Added KexDynamicLight to entity files (dumptruck_ds)
 * Added custom sound support for func_rotate_door (Inky)
 * Added custom model support to Silver and Gold keys (dumptruck_ds)
+* Replaced sound effects with public domain alternatives (dumptruck_ds)
 
 2.0.1 March 2021
 
