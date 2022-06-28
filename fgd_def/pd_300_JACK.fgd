@@ -214,6 +214,13 @@ state(choices) =
 
 //____TW_EDIT____
 @PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to a targeted info_monster_spawnpoint (make sure both entities are close together or overlapping). Choose Style via dropdown. Style 2 set to 1 overrides Style and chooses a random monster. Default time between spawns is 5 seconds. Setting Berserk to 1 skips most pain animations. Can only use default health, models and sounds." [
+  spawnflags(flags) =
+		[
+		1: "Reset after completion" : 0
+		2: "Don't spawn angry" : 0
+		4: "Don't add to count" : 0
+		32: "Silent spawn" : 0
+		]
   style(Choices) = [
     1 : "Dog (Default)"
 	2 : "Grunt"
