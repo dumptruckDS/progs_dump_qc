@@ -1707,6 +1707,8 @@ void() trigger_textstory = {
 	if (self.view_ofs == '0 0 0')
 		self.view_ofs = '90 90 0';
 
+	if (self.mangle) self.mangle = normalizeAngles180(self.mangle);
+
 	if (self.noise1 == "")
 		self.noise1 = "misc/talk.wav";
 

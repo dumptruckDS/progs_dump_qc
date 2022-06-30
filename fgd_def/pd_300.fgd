@@ -348,6 +348,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 		32 : "Spawn Silently" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
+		8388608 : "Don't drop to floor" : 0
 	]
 	// message(string) : "Message"
 	// delay(integer) : "Delay"
@@ -526,14 +527,18 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	{{
 		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_s_key.mdl" , "skin" : skin}
 	}}
-) = item_key1 : "Silver key" []
+) = item_key1 : "Silver key" [
+	keyname(string) : "Custom name for the key when picked up, e.g. 'silver eyekey'"
+]
 
 // @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
 @PointClass base(Key, CustomMdlsSkin) model(
 	{{
 		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
 	}}
-) = item_key2 : "Gold key" []
+) = item_key2 : "Gold key" [
+	keyname(string) : "Custom name for the key when picked up, e.g. 'gold eyekey'"
+]
 
 // @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
 @PointClass base(Key) model(
@@ -1789,7 +1794,7 @@ Originally unused in the game. Plays the sound of thunder at a random interval. 
 		0 : "Don't leave key in player's inventory"
 		1 : "Leave key in player's inventory"
 	]
-	keyname(string) : "If set, this is the keyname of the item_key_custom which unlocks this entity"
+	keyname(string) : "Sets the keyname of the item_key_custom which unlocks this entity. If any key spawnflag is selected (either silver or gold), this only changes the display name of the required key."
 	noise1(string) : "Sound file for the 'stop moving' sound (if set, overrides 'sounds')"
 	noise2(string) : "Sound file for the 'move' sound (if set, overrides 'sounds')"
 	noise3(string) : "Sound file for the 'key required' sound (default is per worldtype)"
@@ -2336,7 +2341,7 @@ NOTE: You must specify either the silver or gold key by setting the relevant spa
 		1 : "Leave key in player's inventory"
 	]
 	delay(float) : "Delay before trigger" : "0" : "Delay before trigger"
-	keyname(string) : "If set, this is the keyname of the item_key_custom which unlocks this entity"
+	keyname(string) : "Sets the keyname of the item_key_custom which unlocks this entity. If any key spawnflag is selected (either silver or gold), this only changes the display name of the required key."
 	message(string) : "Custom message"
 	noise1(string) : "Sound file for the 'key required' sound (default is per worldtype)"
 	noise2(string) : "Sound file for the 'key used' sound (default is per worldtype)"

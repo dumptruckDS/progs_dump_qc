@@ -604,10 +604,22 @@ void() func_door =
 	self.blocked = door_blocked;
 	self.use = door_use;
 
-	if (self.spawnflags & DOOR_SILVER_KEY)
+	if (self.spawnflags & DOOR_SILVER_KEY){
 		keylock_set_silver_key ();
-	if (self.spawnflags & DOOR_GOLD_KEY)
+		
+		if (self.keyname != "") {
+			self.netname = self.keyname;
+			self.keyname = "";
+		}
+	}
+	if (self.spawnflags & DOOR_GOLD_KEY){
 		keylock_set_gold_key ();
+
+		if (self.keyname != "") {
+			self.netname = self.keyname;
+			self.keyname = "";
+		}
+	}
 
 // support for item_key_custom -- iw
 	if (self.keyname != "")
