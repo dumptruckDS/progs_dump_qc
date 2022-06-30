@@ -3,13 +3,19 @@ void() W_SetCurrentAmmo;
 /* ALL LIGHTS SHOULD BE 0 1 0 IN COLOR ALL OTHER ITEMS SHOULD
 BE .8 .3 .4 IN COLOR */
 
+float ITEM_SPAWNSILENT = 32;
+float ITEM_SPAWNED = 64;
+float ITEM_SUSPENDED = 128;
+float ITEM_RESPAWNDM = 16384;
+float ITEM_DONTDROP = 8388608;
+
 .vector particles_offset;
 
 void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
-	if (deathmatch || (self.spawnflags & 16384))	// Respawn with DM effects
+	if (deathmatch || (self.spawnflags & ITEM_RESPAWNDM))	// Respawn with DM effects
 		sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
 	else
 		spawn_tfog (self.origin + self.particles_offset);	// play teleport sound and display particles
@@ -72,9 +78,14 @@ void() DelaySpawnItem =
 	setmodel (self, self.mdl);
 	setsize (self, self.pos1, self.pos2);
 
-	if (!(self.spawnflags & 32)) 			// SILENT, gb
+	if (!(self.spawnflags & ITEM_SPAWNSILENT)) 			// SILENT, gb
 		// sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);
 		spawn_tfog (self.origin + self.particles_offset);
+
+	if (self.spawnflags & ITEM_SUSPENDED)
+		self.movetype = MOVETYPE_FLY;
+	else
+		self.movetype = MOVETYPE_TOSS;
 
 	self.use = SUB_Null;
 };
@@ -101,14 +112,14 @@ plants the object on the floor
 void() PlaceItem =
 {
 	// local float	oldz;
+	self.mdl = self.model;		// so it can be restored on respawn
+	self.flags = FL_ITEM;		// make extra wide
+	self.solid = SOLID_TRIGGER;
+	self.velocity = '0 0 0';
 
-	if ((self.spawnflags & 128))  //ijed Don't drop spawnflag
+	if (self.spawnflags & ITEM_SUSPENDED)  //ijed Don't drop spawnflag
 	{
-		self.mdl = self.model;		// so it can be restored on respawn
-		self.flags = FL_ITEM;		// make extra wide
-		self.solid = SOLID_TRIGGER;
 		self.movetype = MOVETYPE_FLY;
-		self.velocity = '0 0 0';
 	}
 	else
 	{
@@ -137,30 +148,30 @@ void() PlaceItem =
 			}
 		}
 
-		self.mdl = self.model;		// so it can be restored on respawn
-		self.flags = FL_ITEM;		// make extra wide
-		self.solid = SOLID_TRIGGER;
 		self.movetype = MOVETYPE_TOSS;
-		self.velocity = '0 0 0';
-
-		setorigin (self, self.origin + '0 0 6');
-
-//		oldz = self.origin_z;
-		if (!droptofloor())
+		
+		if (!(self.spawnflags & ITEM_DONTDROP))
 		{
-			print_self ("bonus item", "fell out of level");
-			remove(self);
-			return;
+			setorigin (self, self.origin + '0 0 6');
+
+			if (!droptofloor())
+			{
+				print_self ("bonus item", "fell out of level");
+				remove(self);
+				return;
+			}
 		}
 	}
 
-	if ((self.spawnflags & 64))		// SPAWNED, gb
+	if ((self.spawnflags & ITEM_SPAWNED))		// SPAWNED, gb
 	{
 		self.pos1 = self.mins;
 		self.pos2 = self.maxs;
 
 		self.model = "";
 		self.solid = SOLID_NOT;
+
+		if (self.spawnflags & ITEM_DONTDROP) self.movetype = MOVETYPE_NONE;
 
 		self.use = DelaySpawnItem;
 	}

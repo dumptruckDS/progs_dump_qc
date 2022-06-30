@@ -290,6 +290,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 		32 : "Spawn Silently" : 0
 		64 : "Trigger spawned" : 0
 		128 : "Suspended in air" : 0
+		8388608 : "Don't drop to floor" : 0
 	]
 	// message(string) : "Message"
 	// delay(integer) : "Delay"
