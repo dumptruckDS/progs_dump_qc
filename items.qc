@@ -1536,7 +1536,7 @@ void() item_key2 =
 
 /*QUAKED item_key_custom (0 .5 .8) (-16 -16 -24) (16 16 32) X X X X X SPAWN_SILENT TRIGGER_SPAWNED SUSPENDED_IN_AIR NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {
-	model ({"path" : "progs/pd_wiz_key.mdl", "skin" : 1});
+	model ({"path" : "progs/pd_w_key.mdl", "skin" : 1});
 }
 A customizable key item.
 

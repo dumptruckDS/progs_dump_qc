@@ -540,10 +540,10 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 	keyname(string) : "Custom name for the key when picked up, e.g. 'gold eyekey'"
 ]
 
-// @PointClass base(Key) model({ "path": ":progs/pd_wiz_key.mdl", "skin": 1 }) =
+// @PointClass base(Key) model({ "path": ":progs/pd_w_key.mdl", "skin": 1 }) =
 @PointClass base(Key) model(
 	{{
-        mdl -> {"path" : mdl, "skin" : skin}, {"path": "progs/pd_wiz_key.mdl" , "skin" : skin}
+        mdl -> {"path" : mdl, "skin" : skin}, {"path": "progs/pd_w_key.mdl" , "skin" : skin}
     }}
 ) = item_key_custom :
 "A customizable key item.
