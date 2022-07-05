@@ -1461,7 +1461,7 @@ spawnflags(Flags) =
 
 @SolidClass base(Appearflags, ModelLight) = func_illusionary : "Static nonsolid model"  []
 
-@PointClass base(Appearflags) color(0 150 220) = air_bubbles : "Air bubbles" []
+@PointClass base(Appearflags) color(0 150 220) model({ "path": ":progs/s_bubble.spr" }) = air_bubbles : "Air bubbles" []
 @PointClass base(Appearflags, Targetname) =
 	event_lightning : "Chthon's lightning" []
 @PointClass base(Appearflags) model({ "path": ":progs/lavaball.mdl" }) = misc_fireball : "Small fireball"
@@ -3202,7 +3202,7 @@ delay how much time to wait before firing after being switched on."
 @PointClass base(ToggleLight) = light : "Invisible lightsource (can fade up / down if not styled)" []
 @PointClass base(ToggleLight) = light_fluoro : "Invisible lightsource, with fluorescent hum" []
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
-@PointClass base(Light, Appearflags) = light_globe : "Globe sprite light" []
+@PointClass base(Light, Appearflags) model({ "path": "progs/s_light.spr" }) = light_globe : "Globe sprite light" []
 
 @PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame2.mdl" }) =
 	light_flame_large_yellow : "Large yellow flame"
