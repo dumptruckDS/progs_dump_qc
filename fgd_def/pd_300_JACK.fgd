@@ -103,10 +103,10 @@
 [
 	mdl_body(string) : "Path to custom body model"
 ]
-@baseclass = CustomMdlsSkin
+@baseclass studio() = CustomMdlsSkin
 [
 skin(integer) : "Skin index (default 0)"
-mdl_body(string) : "Path to custom body model"
+mdl_body(studio) : "Path to custom body model"
 ]
 @baseclass = CustomMdlsAmmo
 [
@@ -279,8 +279,7 @@ state(choices) =
 	cnt(integer): "Page number"
 ]
 
-@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
-"Saves the game when triggered by a player. Never appears in multiplayer.
+@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : "Saves the game when triggered by a player. Never appears in multiplayer.
 the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
 [
 	message(string) : "Change save filename" : "auto"
@@ -408,20 +407,12 @@ item_health_vial : "Small vial of health (default 5)"
 @BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
 	Key []
 // @PointClass base(Key) model({ "path": ":progs/w_s_key.mdl" }) =
-@PointClass base(Key, CustomMdlsSkin) model(
-	{{
-		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_s_key.mdl" , "skin" : skin}
-	}}
-) = item_key1 : "Silver key" [
+@PointClass base(Key, CustomMdlsSkin) studio("progs/w_s_key.mdl") = item_key1 : "Silver key" [
 	keyname(string) : "Custom name for the key when picked up, e.g. 'silver eyekey'"
 ]
 
 // @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
-@PointClass base(Key, CustomMdlsSkin) model(
-	{{
-		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
-	}}
-) = item_key2 : "Gold key" [
+@PointClass base(Key, CustomMdlsSkin) studio("progs/w_s_key.mdl") = item_key2 : "Gold key" [
 	keyname(string) : "Custom name for the key when picked up, e.g. 'gold eyekey'"
 ]
 
@@ -468,7 +459,7 @@ The 'keyname' value is used both for the pickup message and to associate the key
 //axe not used in this version
 //@PointClass base(Weapon) studio("progs/g_axe.mdl") =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) studio({ "path": ":progs/g_shotgu.mdl" }) =
+@PointClass base(Weapon) studio("progs/g_shotgu.mdl") =
 	weapon_shotgun : "Shotgun"[]
 @PointClass base(Weapon) studio("progs/g_shot.mdl") =
 	weapon_supershotgun : "Double-barrelled shotgun" []
@@ -1880,8 +1871,7 @@ If the target entity changes its default behavior when 'targetname' is set (such
 	delay(integer) : "Delay before trigger"
 	message(string) : "Message"
 ]
-@SolidClass base(Appearflags, Targetname) = func_train :
-"Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+@SolidClass base(Appearflags, Targetname) = func_train : "Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
 Use path_corner as targets.
 If given a targetname, it'll only start moving after triggered.
 path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
@@ -1920,8 +1910,7 @@ The flags above are mutually exclusive and will cause an objerror when selected 
 ]
 
 
-@PointClass base(Targetname) studio({ "path" : mdl, "skin" : skin, "frame" : first_frame}) = misc_modeltrain :
-"Trains are moving platforms that players can ride. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+@PointClass base(Targetname) studio(mdl) = misc_modeltrain :"Trains are moving platforms that players can ride. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
 Use path_corner as targets.
 If given a targetname, it'll only start moving after triggered.
 path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
@@ -1984,8 +1973,7 @@ Spawnflags:
 	]
 ]
 
-@PointClass base(Appearflags, Targetname) color(0 255 255) size(16 16 16) = path_corner :
-"Waypoint for trains and walking monsters.
+@PointClass base(Appearflags, Targetname) color(0 255 255) size(16 16 16) = path_corner : "Waypoint for trains and walking monsters.
 Check each field's description for more details.
 "
 [
@@ -2299,8 +2287,7 @@ Acts as a smoothly blending portal between two zones of different fog. Sets the 
 	angle(integer) : "Axis of motion of blend (points toward end values)"
 ]
 
-@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog :
-"Trigger: Sets a fog.
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog : "Trigger: Sets a fog.
 Smoothly blends client's currently applied fog to this value over time.
 
 - both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
@@ -2313,8 +2300,7 @@ Smoothly blends client's currently applied fog to this value over time.
 	delay(string) : "Pause before starting blend"
 ]
 
-@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend :
-"Target: Fog Blend
+@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend : "Target: Fog Blend
 Activator's fog will toggle between fog_color/fog_density and fog_color2/fog_density2 values, smoothly blending it over time.
 If you check the 'one-way' spawnflag, it'll only blend over to fog_color2/fog_density2 - unless you check the 'reverse' flag as well, which will make it blend only to fog_color/fog_density.
 Checking 'All clients' will affect all connected players.
@@ -2334,8 +2320,7 @@ Checking 'All clients' will affect all connected players.
 ]
 
 
-@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_textstory :
-"Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
+@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_textstory : "Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
@@ -2355,8 +2340,7 @@ You can set it to be show the message only when the player is facing a certain a
 	]
 ]
 
-@PointClass base(Appearflags, Targetname, Message) = target_textstory :
-"Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
+@PointClass base(Appearflags, Targetname, Message) = target_textstory : "Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
@@ -2952,7 +2936,7 @@ spawnflags(flags) =
 		2048 : "2048"
 	]
 	_shadowlightradius(float) : "Sets the radius." : "300"
-	_color(color) : "Light color" : "1.0 1.0 1.0"
+	_color(color255) : "Light color" : "1.0 1.0 1.0"
 	_shadowlightconeangle(float) : "Sets the outer cone angle if this light is a spot light." : "45"
 	_shadowlightstyle(choices) : "Appearance" : "0" = [
 		0 : "Normal"
