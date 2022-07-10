@@ -1490,10 +1490,17 @@ You can add effects using the dropdown, use a custom model using the mdl_body ke
 	8 : "Invisible (mdl_body MUST be empty)"
 	]
 ]
-@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) = trap_spikeshooter : "Triggered shooter - use trigger_multiple to activate" //modified by dumptruck_ds adding Angle and Targetname to baseclass
-[
-	spawnflags(Flags) =
-	[
+@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) model({{
+//modified by dumptruck_ds adding Angle and Targetname to baseclass
+spawnflags & 64 ->	{"path":"progs/gib1.mdl"},
+spawnflags & 32 ->	{"path":"progs/grenade.mdl"},
+spawnflags & 16 ->	{"path":"progs/v_spike.mdl"},
+spawnflags & 8 ->	{"path":"progs/missile.mdl"},
+spawnflags & 4 ->	{"path":"progs/lavaball.mdl", "scale":0.6},
+spawnflags & 2 ->	{"path":"progs/laser.mdl"},
+spawnflags & 1 ->	{"path":"progs/s_spike.mdl"},
+                                 "progs/spike.mdl"}}) = trap_spikeshooter : "Triggered shooter - use trigger_multiple to activate" [
+	spawnflags(Flags) = [
 		1 : "Spike" : 0
 		2 : "Laser" : 0
 		4 : "Lavaball" : 0
@@ -1502,14 +1509,21 @@ You can add effects using the dropdown, use a custom model using the mdl_body ke
 		32 : "Grenade" : 0
 		64 : "Gibs" : 0
 		128 : "Silent" : 0
-	]
+		]
 ]
-@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) = trap_shooter : "Continuous shooter" //modified by dumptruck_ds adding Angle & Targetname to baseclass
-[
+@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) model({{
+//modified by dumptruck_ds adding Angle and Targetname to baseclass
+spawnflags & 64 ->	{"path":"progs/gib1.mdl"},
+spawnflags & 32 ->	{"path":"progs/grenade.mdl"},
+spawnflags & 16 ->	{"path":"progs/v_spike.mdl"},
+spawnflags & 8 ->	{"path":"progs/missile.mdl"},
+spawnflags & 4 ->	{"path":"progs/lavaball.mdl", "scale":0.6},
+spawnflags & 2 ->	{"path":"progs/laser.mdl"},
+spawnflags & 1 ->	{"path":"progs/s_spike.mdl"},
+                                 "progs/spike.mdl"}}) = trap_shooter : "Continuous shooter" [
 	nextthink(integer) : "Delay before first spike"
 	wait(integer) : "Delay between firing" : 1
-	spawnflags(Flags) =
-	[
+	spawnflags(Flags) = [
 		1 : "Spike" : 0
 		2 : "Laser" : 0
 		4 : "Lavaball" : 0
@@ -1517,27 +1531,32 @@ You can add effects using the dropdown, use a custom model using the mdl_body ke
 		16 : "Voreball" : 0
 		32 : "Grenade" : 0
 		64 : "Gibs" : 0
-		128 : "Silent" : 0
-	]
-]
+		128 : "Silent" : 0]]
 
-@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) = trap_switched_shooter : "Continuous shooter can be toggled when targeted, start on or off" //modified by dumptruck_ds adding Angle & Targetname to baseclass
-[
-	nextthink(integer) : "Delay before first spike"
-	wait(integer) : "Delay between firing" : 1
-	state(integer) : "0 initially off, 1 initially on" : 0
-	spawnflags(Flags) =
-	[
-		1 : "Spike" : 0
-		2 : "Laser" : 0
-		4 : "Lavaball" : 0
-		8 : "Rocket" : 0
-		16 : "Voreball" : 0
-		32 : "Grenade" : 0
-		64 : "Gibs" : 0
-		128 : "Silent" : 0
-	]
-]
+	@PointClass base(Angle, Appearflags, Targetname) color(220 150 150) model({{
+		//modified by dumptruck_ds adding Angle and Targetname to baseclass
+		spawnflags & 64 ->	{"path":"progs/gib1.mdl"},
+		spawnflags & 32 ->	{"path":"progs/grenade.mdl"},
+		spawnflags & 16 ->	{"path":"progs/v_spike.mdl"},
+		spawnflags & 8 ->	{"path":"progs/missile.mdl"},
+		spawnflags & 4 ->	{"path":"progs/lavaball.mdl", "scale":0.6},
+		spawnflags & 2 ->	{"path":"progs/laser.mdl"},
+		spawnflags & 1 ->	{"path":"progs/s_spike.mdl"},
+		                                 "progs/spike.mdl"}}) = trap_switched_shooter : "Continuous shooter can be toggled when targeted, start on or off" [
+			nextthink(integer) : "Delay before first spike"
+			wait(integer) : "Delay between firing" : 1
+			state(integer) : "0 initially off, 1 initially on" : 0
+			spawnflags(Flags) =	[
+				1 : "Spike" : 0
+				2 : "Laser" : 0
+				4 : "Lavaball" : 0
+				8 : "Rocket" : 0
+				16 : "Voreball" : 0
+				32 : "Grenade" : 0
+				64 : "Gibs" : 0
+				128 : "Silent" : 0
+				]
+		]
 
 @PointClass base(Appearflags, Targetname) size(16 16 24) color(255 128 0) = trigger_shake : "Earthquake
 
