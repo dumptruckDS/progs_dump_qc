@@ -340,7 +340,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 // items
 //
 
-@BaseClass base(Appearflags, Target, Targetname, Effects) =
+@BaseClass base(Appearflags, Target, Targetname, Effects, Angle) =
 	NonRespawnableItem
 [
 	spawnflags(flags) =
@@ -2879,7 +2879,7 @@ Or use spawnflag 4 and break_template1-4 to set path of custom .mdl or .bsp mode
 
 brk_object_count1-4 sets the number of pieces of each break_template when using custom .mdl or bsp models.
 
-If noise1 is not set it will default to various sounds in sounds/break folder
+If noise1 is not set it will default to various sounds in sound/break folder
 
 Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 	    spawnflags(flags) = [
@@ -2887,7 +2887,7 @@ Use spawnflag 2 for an explosion, dmg is amount of damage inflicted" [
 	        2 : "Explosion" : 0 : "Produces explosion effect and sound"
 	        4 : "Use custom mdls or bsp models" : 0 : "Uses models specified in break_template1, 2, etc"
 	    ]
-	    noise1(string) : "Break noise (default blob/hit1.wav)"
+	    noise1(string) : "Path to custom break sound"
 			style(choices) : "Built-in debris style" : 0 =
 				[
 				0 : "Green Metal (default)"
