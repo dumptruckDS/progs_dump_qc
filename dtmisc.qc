@@ -1126,15 +1126,15 @@ void() trigger_heal =
 	else if (self.health_max > 250)
 		self.health_max = 250;
 
-	if(self.targetname)
-	{
-		self.use = heal_toggle;
-		if(self.spawnflags & HEAL_START_ON)
-			self.touch = heal_touch;
-		else
-			self.touch = SUB_Null;
-	}
-	else
+	// if(self.targetname)
+	// {
+	// 	self.use = heal_toggle;
+	// 	if(self.spawnflags & HEAL_START_ON)
+	// 		self.touch = heal_touch;
+	// 	else
+	// 		self.touch = SUB_Null;
+	// }
+	// else
 		self.touch = heal_touch;
 
   SUB_CheckWaiting();

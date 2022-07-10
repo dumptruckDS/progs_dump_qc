@@ -2325,7 +2325,7 @@ Checking 'All clients' will affect all connected players.
 ]
 
 
-@SolidClass base(Appearflags, Targetname) = trigger_textstory :
+@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_textstory :
 "Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
@@ -2781,7 +2781,7 @@ noise(string) : "Path to custom sound"
 	noise1(string) : "Sound Upon Deactivation"
 ]
 
-@SolidClass base(Appearflags, TriggerWait) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
+@SolidClass base(Appearflags, TriggerWait, OneTargetname) = trigger_changemusic : "Trigger that changes the currently playing music track. The number of the track to play goes in sounds just like worldspawn."
 [
 sounds(integer) : "Track Number (ex 02->xx)" :  : "CD track or audio file to play from within music folder"
 ]
@@ -2914,7 +2914,7 @@ spawnflags(flags) =
 	noise(string) : "Path to custom healing sound."
 	spawnflags(Flags) =
 	[
-		1 : "Start on (if targeted)" : 0 : "Start on if using targetname. Only needed if triggered by something other than touching."
+		// 1 : "Start on (if targeted)" : 0 : "Start on if using targetname. Only needed if triggered by something other than touching."
 		2 : "Players only" : 0 : "Will not heal monsters."
 		4 : "Monsters only" : 0 : "Will not heal players."
 	]
