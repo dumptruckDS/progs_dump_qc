@@ -2,6 +2,7 @@
 */
 void (entity targ, entity inflictor, entity attacker, float damage) T_Damage;
 void () player_run;
+void(entity bomb, entity attacker, float rad, entity ignore) T_RadiusDamage;
 void(vector org, vector vel, float damage) SpawnBlood;
 void() SuperDamageSound;
 void() create_mobot; //dumptruck_ds mobot.qc
@@ -1111,13 +1112,7 @@ void() superspike_touch =
 	else
 	{
 		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-		if (self.owner.snd_hit)
-		{
-				sound (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
-				WriteByte(MSG_BROADCAST, TE_GUNSHOT);
-		}
-		else
-			WriteByte (MSG_BROADCAST, TE_SUPERSPIKE);
+		WriteByte (MSG_BROADCAST, TE_SUPERSPIKE);
 		WriteCoord (MSG_BROADCAST, self.origin_x);
 		WriteCoord (MSG_BROADCAST, self.origin_y);
 		WriteCoord (MSG_BROADCAST, self.origin_z);
