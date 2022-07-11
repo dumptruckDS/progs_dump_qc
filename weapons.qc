@@ -1111,8 +1111,17 @@ void() superspike_touch =
 	}
 	else
 	{
-		WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
-		WriteByte (MSG_BROADCAST, TE_SUPERSPIKE);
+		if (self.owner.snd_hit)
+		{
+			sound (self, CHAN_WEAPON, self.owner.snd_hit, 1, ATTN_STATIC); //dumptruck_ds
+			WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+			WriteByte(MSG_BROADCAST, TE_GUNSHOT);
+		}
+		else
+		{
+			WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
+			WriteByte (MSG_BROADCAST, TE_SUPERSPIKE);
+		}
 		WriteCoord (MSG_BROADCAST, self.origin_x);
 		WriteCoord (MSG_BROADCAST, self.origin_y);
 		WriteCoord (MSG_BROADCAST, self.origin_z);
@@ -1795,5 +1804,5 @@ void(entity mis, float speed) SetupHoming =
 	if (self.waitmin > 0)
 	{
 		mis.attack_finished = time + self.waitmin; // store time to start increasing
-	} 
+	}
 };
