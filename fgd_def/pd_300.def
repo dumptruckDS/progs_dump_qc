@@ -1252,6 +1252,9 @@ See the "light" entity for a full description.
 skin = Skin index (default 0) Use this when your custom model has more than one skin to select
 mdl_body = Path to custom body model
 
+/*QUAKED light_sprite_flame (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model ("progs/s_flame.spr");	}
+Large flame spite*/
 
 */
 /*QUAKED light_flame_large_yellow (0 1 0) (-10 -10 -12) (12 12 18) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY

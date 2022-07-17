@@ -1227,6 +1227,7 @@ _color(color255) : "Light color"
 @PointClass base(ToggleLight) = light_fluoro : "Invisible lightsource, with fluorescent hum" []
 @PointClass base(ToggleLight) = light_fluorospark : "Invisible lightsource, with broken sparking fluorescent sound" []
 @PointClass base(Light, Appearflags) = light_globe : "Globe sprite light" []
+@PointClass base(Light, Appearflags) size(-8 -8 0, 8 8 76) = light_sprite_flame : "Large animated flame" []
 
 @PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio("progs/flame2.mdl") =
 	light_flame_large_yellow : "Large yellow flame"

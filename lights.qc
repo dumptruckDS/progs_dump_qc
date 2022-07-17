@@ -480,3 +480,24 @@ void() light_flame_small_white =
 
 	light_flame_small_yellow();
 };
+
+/*QUAKED light_sprite_flame (0 1 0) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+{	model ("progs/s_flame.spr");	}
+Large flame spite*/
+void() light_sprite_flame =
+{
+	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
+		return;
+
+		precache_model("progs/s_flame.spr");
+		setmodel(self, "progs/s_flame.spr");
+		FireAmbient ();
+
+		self.frame = rint(random() * 13);
+		self.first_frame = 0;
+		self.last_frame = 13;
+		self.speed = 0.05;
+		self.think = misc_model_think;
+		self.nextthink = time + 0.1;
+
+};
