@@ -1,5 +1,5 @@
 
-entity	s;
+// entity	s;
 
 
 void() trigger_reactivate =
@@ -355,6 +355,8 @@ void() play_teleport =
 
 void(vector org) spawn_tfog =
 {
+	local entity s;
+	
 	s = spawn ();
 	s.origin = org;
 	s.spawnflags = self.spawnflags; //dumptruck_ds
