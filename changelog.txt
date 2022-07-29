@@ -59,6 +59,7 @@
 * Added custom noise key to misc_sparks (dumptruck_ds)
 * Added light_sprite_flame (dumptruck_ds)
 * Added missing spawnflags to fog entities (dumptruck_ds)
+* item_health_vial will over heal player and rot like Megahealth (dumptruck_ds)
 
 2.0.1 March 2021
 

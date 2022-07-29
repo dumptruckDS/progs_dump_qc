@@ -149,7 +149,7 @@ void() PlaceItem =
 		}
 
 		self.movetype = MOVETYPE_TOSS;
-		
+
 		if (!(self.spawnflags & ITEM_DONTDROP))
 		{
 			setorigin (self, self.origin + '0 0 6');
@@ -301,7 +301,6 @@ void() item_health =
 	}
 	else
 	{
-		// precache_model("maps/b_bh25.bsp"); // dumptruck_ds custom health models and sounds START
 		if (world.style)
 			{
 				precache_body_model ("progs/h_mdls/m_h25.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -309,20 +308,14 @@ void() item_health =
 			}
 		else
 			{
-				// setmodel(self, "maps/b_bh25.bsp");
 				precache_body_model ("maps/b_bh25.bsp");
-				// setmodel(self, "maps/b_bh25.bsp");
 				body_model ("maps/b_bh25.bsp");
 			}
-		// precache_sound("items/health1.wav");
 		precache_sound_misc("items/health1.wav");
-		// if !(self.noise)
-		// self.noise = "items/health1.wav";
 		if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
 		self.snd_misc = "items/health1.wav";
 		self.noise = self.snd_misc;
 
-		// if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 		self.healamount = 25;
 		self.healtype = 1;
 		if !(self.particles_offset)
@@ -342,14 +335,12 @@ void() item_health_vial =
 	precache_body_model ("progs/h_mdls/pd_vial.mdl"); // model from Hexen 2 -- dumptruck_ds
 	body_model("progs/h_mdls/pd_vial.mdl");
 	precache_sound_misc("items/r_item1.wav");
-	// self.noise = "items/r_item2.wav";
 	if !(self.snd_misc) //set the custom noise in editor -- dumptruck_ds
 	self.snd_misc = "items/r_item1.wav";
 	self.noise = self.snd_misc;
 
-	// if !(self.healamount) //set your custom health amount here -- dumptruck_ds
 	self.healamount = 5;
-	self.healtype = 0;
+	self.healtype = 2; // over heal and count down like mega health -- dumptruck_ds
 	setsize (self, '-16 -16 0', '16 16 56');
 	if !(self.particles_offset)
 	self.particles_offset = '0 0 0';
