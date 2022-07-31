@@ -682,7 +682,9 @@ float(float w) RankForWeapon =
 		return 5;
 	if (w == IT_NAILGUN)
 		return 6;
-	return 7;
+	if (w == IT_SHOTGUN)
+		return 7;
+	return 8;
 };
 
 /*
