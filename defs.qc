@@ -1033,3 +1033,26 @@ void(entity client, float density, vector color, float spd) csf_fade;
 void(entity client, float density, vector color) csf_set;
 
 .float fade_amt;
+
+// worldspawn default mdls
+.string h_vial_mdl;
+.string h_25_mdl;
+.string h_15_mdl;
+.string h_mega_mdl;
+
+.string s_sm_mdl;
+.string s_lg_mdl;
+
+.string n_sm_mdl;
+.string n_lg_mdl;
+
+.string r_sm_mdl;
+.string r_lg_mdl;
+
+.string c_sm_mdl;
+.string c_lg_mdl;
+
+.string a_shr_mdl;
+.string a_grn_mdl;
+.string a_ylw_mdl;
+.string a_red_mdl;
