@@ -589,6 +589,7 @@ snd_idle(string) : "Path to custom idle sound (IDLE)" : : "Path to custom idle s
 snd_misc(string) : "Path to custom sound (IDLE CHAINSAW DRAG)" : : "Path to custom sound (IDLE CHAINSAW DRAG)"
 snd_misc1(string) : "Path to custom sound (ATTACK GRUNT)" : : "Path to custom sound (ATTACK GRUNT)"
 snd_misc2(string) : "Path to custom sound (MAGIC SOUND) Used in Style 4 only" : : "Path to custom sound (MAGIC SOUND) Used in Style 4 only"
+cust_avelocity(string) : "custom spin of projectile in x, y, z" : : "custom spin of projectile in (x, y, z) DEFAULT is 200 100 300, DISABLE with 0 0 1"
 style(Choices) : "Attack type" =
 	[
 		0 : "Default (grenade)"

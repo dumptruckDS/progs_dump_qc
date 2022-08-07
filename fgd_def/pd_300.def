@@ -1302,6 +1302,7 @@ mdl_body(string) : "Path to custom body model"
 mdl_proj(string) : "Path to custom projectile model"
 skin_head(float) : "Skin index of custom head model"
 skin_proj(float) : "Skin index of custom projectile model"
+cust_avelocity(string) : custom spin of projectile in (x, y, z) DEFAULT is 200 100 300, DISABLE with 0 0 1
 mdl_gib1(string) : "Path to custom 1st gib model"
 mdl_gib2(string) : "Path to custom 2nd gib model"
 mdl_gib3(string) : "Path to custom 3rd gib model"
