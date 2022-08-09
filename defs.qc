@@ -1056,3 +1056,5 @@ void(entity client, float density, vector color) csf_set;
 .string a_grn_mdl;
 .string a_ylw_mdl;
 .string a_red_mdl;
+
+.entity infight_activator;

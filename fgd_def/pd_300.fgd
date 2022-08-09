@@ -2510,7 +2510,10 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 [
 	target(target_destination) : "The monster who will get angry."
 	target2(target_destination) : "Who target will get angry at."
-	spawnflags(flags) = [ 1: "Mutual hate" : 0 ]
+	spawnflags(flags) = [ 
+		1: "Mutual hate" : 0
+		2: "Keep player as activator" : 0
+		 ]
 ]
 
 @PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.
