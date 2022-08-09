@@ -1009,6 +1009,7 @@ void() func_episodegate =
 
 	if (self.spawnflags & GATE_REVERSE)
 	{
+		self.spawnflags = self.spawnflags - GATE_REVERSE; // this is to avoid a possible issue with sigil_touch2
 		if (serverflags & self.spawnflags)
 			return;			// Haven't gotten rune yet
 	}
@@ -1019,8 +1020,7 @@ void() func_episodegate =
 	}
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
-	self.solid = SOLID_BSP;if (!(serverflags & self.spawnflags))
-			return;			// can still enter episode
+	self.solid = SOLID_BSP;
 	self.use = func_wall_use;
 	setmodel (self, self.model);
 };
