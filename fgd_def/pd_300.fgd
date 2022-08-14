@@ -265,6 +265,13 @@ Can set Berserk to 1 to skip most pain animations.
 Can only use default health, models and sounds.
 "
 [
+	spawnflags(flags) =
+		[
+		1: "Reset after completion" : 0
+		2: "Don't spawn angry" : 0
+		4: "Don't add to count" : 0
+		32: "Silent spawn" : 0
+		]
 style(Choices) =
 [
 	1 : "Dog (Default)"
@@ -2281,10 +2288,17 @@ Check each field's description for more details.
 		2 : "Episode 2" : 0
 		4 : "Episode 3" : 0
 		8 : "Episode 4" : 0
+		16 : "Reverse functionality" : 0
 	]
 ]
 
-@SolidClass base(Appearflags) = func_bossgate : "Boss gate" []
+@SolidClass base(Appearflags) = func_bossgate : "Boss gate"
+[
+	spawnflags(Flags) =
+	[
+		16 : "Reverse functionality" : 0
+	]
+]
 
 //
 // triggers
@@ -2503,7 +2517,10 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 [
 	target(target_destination) : "The monster who will get angry."
 	target2(target_destination) : "Who target will get angry at."
-	spawnflags(flags) = [ 1: "Mutual hate" : 0 ]
+	spawnflags(flags) = [ 
+		1: "Mutual hate" : 0
+		2: "Keep player as activator" : 0
+		 ]
 ]
 
 @PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.

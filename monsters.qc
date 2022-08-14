@@ -206,7 +206,14 @@ void() monster_death_use =
 	if (!self.target)
 		return;
 
-	activator = self.enemy;
+	if(self.infight_activator)
+	{
+		activator = self.infight_activator;
+	} 
+	else
+	{
+		activator = self.enemy;
+	}
 	SUB_UseTargets ();
 };
 

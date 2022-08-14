@@ -6,6 +6,12 @@
 // ===================================================================
 // Big thanks to ryanscissorhands for helping fix telefragging issues!
 // ===================================================================
+
+float MOBOT_SPAWNER_RESET = 1;
+float MOBOT_DONT_SPAWN_ANGRY = 2;
+float MOBOT_DONT_ADD_KILL_COUNT = 4;
+float MOBOT_SILENT_SPAWN = 32;
+
 /*
 ============
 MobotSpawnPoint
@@ -41,7 +47,7 @@ local entity bot, spawn_spot;
 	bot.angles = spawn_spot.angles;
 	bot.fixangle = TRUE;
 	bot.proj_speed_mod = 1;
-	if (!(self.spawnflags & 32)) 			// SILENT
+	if (!(self.spawnflags & MOBOT_SILENT_SPAWN)) 			// SILENT
 	spawn_tfog (bot.origin);
 	spawn_tdeath (bot.origin, bot);
 
@@ -371,7 +377,6 @@ if (self.style == 11) // spawn a Zombie
 	bot.view_ofs = '0 0 2';
 	// bot.view_ofs = '0 0 22';
 	}
-
 if (self.style == 12) // spawn a Shalrath
 	{
 		// set size and shape
@@ -405,17 +410,26 @@ if (self.style == 12) // spawn a Shalrath
 // begin his thinking
 	bot.nextthink = time + 0.2; // this seems better with monster_use -- dumptruck_ds
 	// bot.nextthink = time + 0.1 + random();
-	if (bot.classname != "monster_zombie") // required to avoid animation issues -- dumptruck_ds
-	bot.think = monster_use;
+	if (!(self.spawnflags & MOBOT_DONT_SPAWN_ANGRY))
+	{
+		if (bot.classname != "monster_zombie") // required to avoid animation issues -- dumptruck_ds
+			bot.think = monster_use;
+		else
+			bot.think = bot.th_walk;
+	}
 	else
-	bot.think = bot.th_walk;
-	monster_update_total (1); // repacement function from iw -- dumptruck_ds
-
+	{
+		bot.think = walkmonster_start_go;
+	}
+	if (!(self.spawnflags & MOBOT_DONT_ADD_KILL_COUNT))
+	{
+		monster_update_total (1); // repacement function from iw -- dumptruck_ds
+	}
 };
 
 void() think_mobot =
 	{
-
+		dprint("mobot thinking\n");
 		local entity  nearby; // telefrag check thanks to ryanscissorhands for this code! -- dumptruck_ds
 
 		nearby = findradius(self.origin, 128); // findradius (vector origin, float radius in Quake units)
@@ -435,7 +449,9 @@ void() think_mobot =
 		self.count = self.count - 1;
 
 		if (self.count < 0)
-		return;
+		{
+			return;
+		}
 		if (self.count!=0)
 		{
 			if !(self.wait)
@@ -451,13 +467,20 @@ void() think_mobot =
 			else
 				create_mobot();
 		}
+		else {
+			if (self.spawnflags & MOBOT_SPAWNER_RESET)
+			{
+			  self.count = self.cnt;
+				self.think = SUB_Null;
+			}
+		}
 
 		self.think = think_mobot; // qthink I didn't realize I could do this! -- dumptruck_ds
 	};
 
-/*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) REUSABLE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Spawns monsters to targeted info_monster_spawnpoint
-
+bot
 Choose Style
 • 1 (Dog (Default)
 • 2 (Grunt)
@@ -498,6 +521,7 @@ void() func_monster_spawner =
 	if (!self.count)
 		self.count = 5;
 	self.count = self.count + 1; // fixes count display
+	self.cnt = self.count; // hold original count
 
 	self.use = think_mobot;
 };

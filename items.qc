@@ -244,8 +244,14 @@ void() item_health =
 
 	self.touch = health_touch;
 
+	
+
 	if (self.spawnflags & H_ROTTEN)
 	{
+		if (!self.mdl_body && world.h_15_mdl)
+		{
+			self.mdl_body = world.h_15_mdl;
+		}
 		// precache_model("maps/b_bh10.bsp"); // dumptruck_ds custom health models and sounds START
 		if (world.style)
 			{
@@ -275,6 +281,10 @@ void() item_health =
 	else
 	if (self.spawnflags & H_MEGA)
 	{
+		if (!self.mdl_body && world.h_mega_mdl)
+		{
+			self.mdl_body = world.h_mega_mdl;
+		}
 		// precache_model("maps/b_bh100.bsp");
 		if (world.style)
 			{
@@ -301,6 +311,10 @@ void() item_health =
 	}
 	else
 	{
+		if (!self.mdl_body && world.h_25_mdl)
+		{
+			self.mdl_body = world.h_25_mdl;
+		}
 		if (world.style)
 			{
 				precache_body_model ("progs/h_mdls/m_h25.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -331,6 +345,11 @@ void() item_health_vial =
 		return;
 
 	self.touch = health_touch;
+
+	if (!self.mdl_body && world.h_vial_mdl)
+	{
+	  self.mdl_body = world.h_vial_mdl;
+	}
 
 	precache_body_model ("progs/h_mdls/pd_vial.mdl"); // model from Hexen 2 -- dumptruck_ds
 	body_model("progs/h_mdls/pd_vial.mdl");
@@ -574,6 +593,11 @@ void() item_armor_shard =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
+	if (!self.mdl_body && world.a_shr_mdl)
+	{
+	  self.mdl_body = world.a_shr_mdl;
+	}
+
 	self.touch = shard_touch;
 	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
 	precache_body_model ("progs/armshr.mdl");
@@ -590,6 +614,11 @@ void() item_armor1 =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
+
+	if (!self.mdl_body && world.a_grn_mdl)
+	{
+	  self.mdl_body = world.a_grn_mdl;
+	}
 
 	self.touch = armor_touch;
 	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
@@ -611,6 +640,11 @@ void() item_armor2 =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
+
+	if (!self.mdl_body && world.a_ylw_mdl)
+	{
+	  self.mdl_body = world.a_ylw_mdl;
+	}
 
 	self.touch = armor_touch;
 	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
@@ -634,6 +668,11 @@ void() item_armorInv =
 {
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
+
+	if (!self.mdl_body && world.a_red_mdl)
+	{
+	  self.mdl_body = world.a_red_mdl;
+	}
 
 	self.touch = armor_touch;
 	// precache_model ("progs/armor.mdl"); // dumptruck_ds custom models and sounds START
@@ -1139,8 +1178,11 @@ void() item_shells =
 
 	self.touch = ammo_touch;
 
+	
+
 	if (self.spawnflags & WEAPON_BIG2)
 	{
+		if (!self.mdl_body && world.s_lg_mdl) self.mdl_body = world.s_lg_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_shell2.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1159,6 +1201,7 @@ void() item_shells =
 	}
 	else
 	{
+		if (!self.mdl_body && world.s_sm_mdl) self.mdl_body = world.s_sm_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_shell1.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1198,6 +1241,7 @@ void() item_spikes =
 
 	if (self.spawnflags & WEAPON_BIG2)
 	{
+		if (!self.mdl_body && world.n_lg_mdl) self.mdl_body = world.n_lg_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_nails2.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1216,6 +1260,8 @@ void() item_spikes =
 	}
 	else
 	{
+	
+		if (!self.mdl_body && world.n_sm_mdl) self.mdl_body = world.n_sm_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_nails1.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1253,6 +1299,8 @@ void() item_rockets =
 
 	if (self.spawnflags & WEAPON_BIG2)
 	{
+	
+		if (!self.mdl_body && world.r_lg_mdl) self.mdl_body = world.r_lg_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_rock2.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1270,6 +1318,7 @@ void() item_rockets =
 	}
 	else
 	{
+		if (!self.mdl_body && world.r_sm_mdl) self.mdl_body = world.r_sm_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_rock1.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1310,6 +1359,7 @@ void() item_cells =
 
 	if (self.spawnflags & WEAPON_BIG2)
 	{
+		if (!self.mdl_body && world.c_lg_mdl) self.mdl_body = world.c_lg_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_cells2.mdl"); // models courtesy Lunaran -- dumptruck_ds
@@ -1328,6 +1378,7 @@ void() item_cells =
 	}
 	else
 	{
+		if (!self.mdl_body && world.c_sm_mdl) self.mdl_body = world.c_sm_mdl;
 		if (world.style)
 			{
 				precache_body_model ("progs/a_mdls/m_cells2.mdl"); // models courtesy Lunaran -- dumptruck_ds

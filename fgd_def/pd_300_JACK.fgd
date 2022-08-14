@@ -103,10 +103,10 @@
 [
 	mdl_body(string) : "Path to custom body model"
 ]
-@baseclass = CustomMdlsSkin
+@baseclass studio() = CustomMdlsSkin
 [
 skin(integer) : "Skin index (default 0)"
-mdl_body(string) : "Path to custom body model"
+mdl_body(studio) : "Path to custom body model"
 ]
 @baseclass = CustomMdlsAmmo
 [
@@ -214,6 +214,13 @@ state(choices) =
 
 //____TW_EDIT____
 @PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to a targeted info_monster_spawnpoint (make sure both entities are close together or overlapping). Choose Style via dropdown. Style 2 set to 1 overrides Style and chooses a random monster. Default time between spawns is 5 seconds. Setting Berserk to 1 skips most pain animations. Can only use default health, models and sounds." [
+  spawnflags(flags) =
+		[
+		1: "Reset after completion" : 0
+		2: "Don't spawn angry" : 0
+		4: "Don't add to count" : 0
+		32: "Silent spawn" : 0
+		]
   style(Choices) = [
     1 : "Dog (Default)"
 	2 : "Grunt"
@@ -272,8 +279,7 @@ state(choices) =
 	cnt(integer): "Page number"
 ]
 
-@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave :
-"Saves the game when triggered by a player. Never appears in multiplayer.
+@PointClass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : "Saves the game when triggered by a player. Never appears in multiplayer.
 the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb."
 [
 	message(string) : "Change save filename" : "auto"
@@ -401,20 +407,12 @@ item_health_vial : "Small vial of health (default 5)"
 @BaseClass base(NonRespawnableItem) size(-16 -16 -24, 16 16 32) =
 	Key []
 // @PointClass base(Key) model({ "path": ":progs/w_s_key.mdl" }) =
-@PointClass base(Key, CustomMdlsSkin) model(
-	{{
-		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_s_key.mdl" , "skin" : skin}
-	}}
-) = item_key1 : "Silver key" [
+@PointClass base(Key, CustomMdlsSkin) studio("progs/w_s_key.mdl") = item_key1 : "Silver key" [
 	keyname(string) : "Custom name for the key when picked up, e.g. 'silver eyekey'"
 ]
 
 // @PointClass base(Key) model({ "path": ":progs/w_g_key.mdl" }) =
-@PointClass base(Key, CustomMdlsSkin) model(
-	{{
-		mdl_body -> {"path" : mdl_body, "skin" : skin}, {"path": ":progs/w_g_key.mdl" , "skin" : skin}
-	}}
-) = item_key2 : "Gold key" [
+@PointClass base(Key, CustomMdlsSkin) studio("progs/w_s_key.mdl") = item_key2 : "Gold key" [
 	keyname(string) : "Custom name for the key when picked up, e.g. 'gold eyekey'"
 ]
 
@@ -461,7 +459,7 @@ The 'keyname' value is used both for the pickup message and to associate the key
 //axe not used in this version
 //@PointClass base(Weapon) studio("progs/g_axe.mdl") =
 //	weapon_axe : "Axe" []
-@PointClass base(Weapon) studio({ "path": ":progs/g_shotgu.mdl" }) =
+@PointClass base(Weapon) studio("progs/g_shotgu.mdl") =
 	weapon_shotgun : "Shotgun"[]
 @PointClass base(Weapon) studio("progs/g_shot.mdl") =
 	weapon_supershotgun : "Double-barrelled shotgun" []
@@ -1873,8 +1871,7 @@ If the target entity changes its default behavior when 'targetname' is set (such
 	delay(integer) : "Delay before trigger"
 	message(string) : "Message"
 ]
-@SolidClass base(Appearflags, Targetname) = func_train :
-"Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+@SolidClass base(Appearflags, Targetname) = func_train : "Trains are moving platforms that players, monsters and items can ride on. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
 Use path_corner as targets.
 If given a targetname, it'll only start moving after triggered.
 path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
@@ -1913,8 +1910,7 @@ The flags above are mutually exclusive and will cause an objerror when selected 
 ]
 
 
-@PointClass base(Targetname) studio({ "path" : mdl, "skin" : skin, "frame" : first_frame}) = misc_modeltrain :
-"Trains are moving platforms that players can ride. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
+@PointClass base(Targetname) studio(mdl) = misc_modeltrain :"Trains are moving platforms that players can ride. The target's origin specifies the min point of the train at each corner. The train spawns at the first target it is pointing at.
 Use path_corner as targets.
 If given a targetname, it'll only start moving after triggered.
 path_corners with a 'wait -1' value will stop the train. Trigger the func_train again to resume its path.
@@ -1977,8 +1973,7 @@ Spawnflags:
 	]
 ]
 
-@PointClass base(Appearflags, Targetname) color(0 255 255) size(16 16 16) = path_corner :
-"Waypoint for trains and walking monsters.
+@PointClass base(Appearflags, Targetname) color(0 255 255) size(16 16 16) = path_corner : "Waypoint for trains and walking monsters.
 Check each field's description for more details.
 "
 [
@@ -2069,10 +2064,17 @@ spawnflags(Flags) =
 		2 : "Episode 2" : 0
 		4 : "Episode 3" : 0
 		8 : "Episode 4" : 0
+		16 : "Reverse functionality" : 0
 	]
 ]
 
-@SolidClass = func_bossgate : "Boss gate" []
+@SolidClass = func_bossgate : "Boss gate"
+[
+	spawnflags(Flags) =
+	[
+		16 : "Reverse functionality" : 0
+	]
+]
 
 //
 // triggers
@@ -2239,7 +2241,19 @@ spawnflags(Flags) =
 ]
 @PointClass size(16 16 16) = misc_noisemaker : "Debug entity: continuously plays enforcer sounds" []
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
+@PointClass base(Appearflags, Targetname, TriggerWait) = misc_infight : "Makes 'target' monster angry at 'target2'.
 
+By default, the infighting doesn't start mutually, that is, 'target2' monster will only get mad back at 'target' after it's been attacked.
+
+If you want to make them angry at each other instantly, you can set the spawnflag 'Mutual hate'."
+[
+	target(target_destination) : "The monster who will get angry."
+	target2(target_destination) : "Who target will get angry at."
+	spawnflags(flags) = [ 
+		1: "Mutual hate" : 0
+		2: "Keep player as activator" : 0
+		 ]
+]
 @PointClass base(Appearflags, Targetname) = trigger_changetarget : "Changes the target field on an entity.
 
 'message' is the value of the new target.
@@ -2292,8 +2306,7 @@ Acts as a smoothly blending portal between two zones of different fog. Sets the 
 	angle(integer) : "Axis of motion of blend (points toward end values)"
 ]
 
-@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog :
-"Trigger: Sets a fog.
+@SolidClass base(Appearflags, Targetname, FogShift, TriggerWait) = trigger_fog : "Trigger: Sets a fog.
 Smoothly blends client's currently applied fog to this value over time.
 
 - both standard fog and skyfog can be changed at the same time. If you want one of them to not be changed, just set its density to 0 (or keep undeclared). To clear them, set density to -1.
@@ -2306,8 +2319,7 @@ Smoothly blends client's currently applied fog to this value over time.
 	delay(string) : "Pause before starting blend"
 ]
 
-@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend :
-"Target: Fog Blend
+@PointClass base(Appearflags, Targetname, Target, FogShift) color(128 128 50) = target_fogblend : "Target: Fog Blend
 Activator's fog will toggle between fog_color/fog_density and fog_color2/fog_density2 values, smoothly blending it over time.
 If you check the 'one-way' spawnflag, it'll only blend over to fog_color2/fog_density2 - unless you check the 'reverse' flag as well, which will make it blend only to fog_color/fog_density.
 Checking 'All clients' will affect all connected players.
@@ -2327,8 +2339,7 @@ Checking 'All clients' will affect all connected players.
 ]
 
 
-@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_textstory :
-"Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
+@SolidClass base(Appearflags, Targetname, TriggerWait) = trigger_textstory : "Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
@@ -2348,8 +2359,7 @@ You can set it to be show the message only when the player is facing a certain a
 	]
 ]
 
-@PointClass base(Appearflags, Targetname, Message) = target_textstory :
-"Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
+@PointClass base(Appearflags, Targetname, Message) = target_textstory : "Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
 
 Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
 
@@ -2945,7 +2955,7 @@ spawnflags(flags) =
 		2048 : "2048"
 	]
 	_shadowlightradius(float) : "Sets the radius." : "300"
-	_color(color) : "Light color" : "1.0 1.0 1.0"
+	_color(color255) : "Light color" : "1.0 1.0 1.0"
 	_shadowlightconeangle(float) : "Sets the outer cone angle if this light is a spot light." : "45"
 	_shadowlightstyle(choices) : "Appearance" : "0" = [
 		0 : "Normal"

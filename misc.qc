@@ -996,7 +996,10 @@ void() func_illusionary =
 	makestatic (self);
 };
 
-/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4
+
+float GATE_REVERSE = 16; // For func_episodegate and func_bossgate appear when player has all runes
+
+/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4 REVERSE_FUNCTIONALITY
 This bmodel will appear if the episode has allready been completed, so players can't reenter it.
 */
 void() func_episodegate =
@@ -1004,9 +1007,17 @@ void() func_episodegate =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if (!(serverflags & self.spawnflags))
-		return;			// can still enter episode
-
+	if (self.spawnflags & GATE_REVERSE)
+	{
+		self.spawnflags = self.spawnflags - GATE_REVERSE; // this is to avoid a possible issue with sigil_touch2
+		if (serverflags & self.spawnflags)
+			return;			// Haven't gotten rune yet
+	}
+	else
+	{
+		if (!(serverflags & self.spawnflags))
+			return;			// can still enter episode
+	}
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
 	self.solid = SOLID_BSP;
@@ -1014,7 +1025,7 @@ void() func_episodegate =
 	setmodel (self, self.model);
 };
 
-/*QUAKED func_bossgate (0 .5 .8) ?
+/*QUAKED func_bossgate (0 .5 .8) ? X X X X REVERSE_FUNCTIONALITY
 This bmodel appears unless players have all of the episode sigils.
 */
 void() func_bossgate =
@@ -1022,8 +1033,18 @@ void() func_bossgate =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	if ( (serverflags & 15) == 15)
-		return;		// all episodes completed
+	if (self.spawnflags & GATE_REVERSE)
+	{
+		if (!((serverflags & 15) == 15))
+		{
+			return;  // not all complete
+		}
+	}
+	else
+	{
+		if ( (serverflags & 15) == 15 )
+			return;		// all episodes completed
+	}
 	self.angles = '0 0 0';
 	self.movetype = MOVETYPE_PUSH;	// so it doesn't get pushed by anything
 	self.solid = SOLID_BSP;
@@ -1276,9 +1297,11 @@ target = monster that gets mad
 target2 = who target1 will be angry at
 
 spawnflag 1 = mutual hate, both targets get angry at each other instantly
+spawnflag 2 = maintain activator, makes it so the player that triggers the infighting sees centerprints triggered by it
 */
 
 float INFIGHT_MUTUAL = 1;
+float INFIGHT_PLAYER_ACTIVATION = 2;
 
 void(entity t1, entity t2) make_angry_at =
 {
@@ -1298,24 +1321,66 @@ void() misc_infight_use =
 {
 	local entity	t1, t2;
 
-	t1 = find(world, targetname, self.target);
-	t2 = find(world, targetname, self.target2);
+	for (t1 = world; (t1 = find(t1, targetname, self.target)); )
+    {
+      for (t2 = world; (t2 = find(t2, targetname, self.target2)); )
+      {
+  //  t1 = find(world, targetname, self.target);
+  //  t2 = find(world, targetname, self.target2);
 
-	if (!t1)
-	{
-		dprint("[misc_infight] Cannot find target\n");
-		return;
+    	if (!t1)
+    	{
+          dprint("[trigger_infight] Cannot find target, checking targetname2\n");
+          t1 = find(world, targetname2, self.target);
+    	}
+        if (!t1)
+    	{
+   		  dprint("[trigger_infight] Cannot find target, checking targetname3\n");
+   		  t1 = find(world, targetname3, self.target);
+   		}
+    	if (!t1)
+    	{
+          dprint("[trigger_infight] Cannot find target, checking targetname4\n");
+          t1 = find(world, targetname4, self.target);
+        }
+    	if (!t1)
+    	{
+          dprint("[trigger_infight] Cannot find target, exhausted all targetnames\n");
+          return;
+    	}
+    	if (!t2)
+    	{
+          dprint("[trigger_infight] Cannot find target2 checking targetname2\n");
+          t2 = find(world, targetname2, self.target2);
+    	}
+    	if (!t2)
+    	{
+          dprint("[trigger_infight] Cannot find target2 checking targetname3\n");
+          t2 = find(world, targetname3, self.target2);
+    	}
+    	if (!t2)
+    	{
+          dprint("[trigger_infight] Cannot find target2 checking targetname4\n");
+          t2 = find(world, targetname4, self.target2);
+    	}
+    	if (!t2)
+    	{
+          dprint("[trigger_infight] Cannot find target2, exhausted all targetnames\n");
+          return;
+    	}
+
+		make_angry_at(t1, t2);
+
+		if (self.spawnflags & INFIGHT_PLAYER_ACTIVATION)
+      	{
+          t1.infight_activator = activator;
+          t2.infight_activator = activator;
+      	}
+
+		if (self.spawnflags & INFIGHT_MUTUAL)
+		  make_angry_at(t2, t1);
+	  }
 	}
-	if (!t2)
-	{
-		dprint("[misc_infight] Cannot find target2\n");
-		return;
-	}
-
-	make_angry_at(t1, t2);
-
-	if (self.spawnflags & INFIGHT_MUTUAL)
-		make_angry_at(t2, t1);
 };
 
 void() misc_infight =
