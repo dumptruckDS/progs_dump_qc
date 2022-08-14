@@ -53,8 +53,23 @@
 	fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 	sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
 	skyfog_density(float) : "Skyfog Density" : "0.5" : "How much fog is applied to skybrushes (def 0.5). Set to -1 to disable."
-
 	skip_id1_overrides(integer) : "Skip ID1 Overrides" : 0 : "Disable hardcoded map features like intermissions and E1M8 gravity. 0 will keep the ID1 checks, anything else will disable them."
+	h_vial_mdl(string) : "Global health vial model" :  : "Use this field to replace all vials with this model"
+	h_25_mdl(string) : "Global health box model" :  : "Use this field to replace all vials with this model"
+	h_15_mdl(string) : "Global rotten health box model" :  : "Use this field to replace all rotten health boxes with this model"
+	h_mega_mdl(string) : "Global Megahealth model" :  : "Use this field to replace all Megahealths with this model"
+	s_sm_mdl(string) : "Global shell box model" :  : "Use this field to replace all shell boxes with this model"
+	s_lg_mdl(string) : "Global large shell box model" :  : "Use this field to replace all large shell boxes with this model"
+	n_sm_mdl(string) : "Global spike box model" :  : "Use this field to replace all spike boxes with this model"
+	n_lg_mdl(string) : "Global large spike box model" :  : "Use this field to replace all large spike boxes with this model"
+	r_sm_mdl(string) : "Global rocket box model" :  : "Use this field to replace all rocket boxes with this model"
+	r_lg_mdl(string) : "Global large rocket box model" :  : "Use this field to replace all large rocket boxes with this model"
+	c_sm_mdl(string) : "Global cell box model" :  : "Use this field to replace all cell boxes with this model"
+	c_lg_mdl(string) : "Global large cell box model" :  : "Use this field to replace all large cell boxes with this model"
+	a_shr_mdl(string) : "Global armor shard model" :  : "Use this field to replace all armor shards with this model"
+	a_grn_mdl(string) : "Global Green Armor model" :  : "Use this field to replace all Green Armors with this model"
+	a_ylw_mdl(string) : "Global Yellow Armor model" :  : "Use this field to replace all Yellow Armors with this model"
+	a_red_mdl(string) : "Global Red Armor model" :  : "Use this field to replace all Red Armors with this model"
 ]
 
 //
@@ -2249,7 +2264,7 @@ If you want to make them angry at each other instantly, you can set the spawnfla
 [
 	target(target_destination) : "The monster who will get angry."
 	target2(target_destination) : "Who target will get angry at."
-	spawnflags(flags) = [ 
+	spawnflags(flags) = [
 		1: "Mutual hate" : 0
 		2: "Keep player as activator" : 0
 		 ]

@@ -585,6 +585,24 @@ fog_density(string) : "Fog Density example = (0.05)"
 fog_color(string) : "Fog Color R/G/B example = (0.3 0.3 0.3)"
 
 sky(string) : "Sky Texture" :  : "Must have compatible skybox textures in gfx/env folder."
+
+h_vial_mdl(string) : "Global health vial model" :  : "Use this field to replace all vials with this model"
+h_25_mdl(string) : "Global health box model" :  : "Use this field to replace all vials with this model"
+h_15_mdl(string) : "Global rotten health box model" :  : "Use this field to replace all rotten health boxes with this model"
+h_mega_mdl(string) : "Global Megahealth model" :  : "Use this field to replace all Megahealths with this model"
+s_sm_mdl(string) : "Global shell box model" :  : "Use this field to replace all shell boxes with this model"
+s_lg_mdl(string) : "Global large shell box model" :  : "Use this field to replace all large shell boxes with this model"
+n_sm_mdl(string) : "Global spike box model" :  : "Use this field to replace all spike boxes with this model"
+n_lg_mdl(string) : "Global large spike box model" :  : "Use this field to replace all large spike boxes with this model"
+r_sm_mdl(string) : "Global rocket box model" :  : "Use this field to replace all rocket boxes with this model"
+r_lg_mdl(string) : "Global large rocket box model" :  : "Use this field to replace all large rocket boxes with this model"
+c_sm_mdl(string) : "Global cell box model" :  : "Use this field to replace all cell boxes with this model"
+c_lg_mdl(string) : "Global large cell box model" :  : "Use this field to replace all large cell boxes with this model"
+a_shr_mdl(string) : "Global armor shard model" :  : "Use this field to replace all armor shards with this model"
+a_grn_mdl(string) : "Global Green Armor model" :  : "Use this field to replace all Green Armors with this model"
+a_ylw_mdl(string) : "Global Yellow Armor model" :  : "Use this field to replace all Yellow Armors with this model"
+a_red_mdl(string) : "Global Red Armor model" :  : "Use this field to replace all Red Armors with this model"
+
 */
 /*QUAKED info_intermission (1 0.5 0.5) (-12 -12 -12) (12 12 12) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
@@ -3087,11 +3105,8 @@ Can set Berserk to 1 to skip most pain animations.
 
 Can only use default health, models and sounds.
 */
-/*
-//////////////////////
-// end dumptruck_ds //
-// start Kex lights //
-//////////////////////
+
+/*QUAKED KexDynamicLight (.75 0 .75) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 @BaseClass size(-8 -8 -8, 8 8 8) color(255 128 0) base(Target) = KexDynamicLight : "Dynamic KEX light" [
 	_shadowlight(integer) : "If set to 1, the engine will spawn a per-pixel light that cast shadows from the entity's origin when the level is loaded" : 0
 	_shadowlightintensity(float) : "Intensity scalar for the light." : "1.0"
