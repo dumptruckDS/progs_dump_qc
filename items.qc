@@ -2338,6 +2338,7 @@ void() item_backpack_message =
 	remove(self);
 	self = other;
 	bound_other_ammo();
+	self.weapon = W_BestWeapon();
 	W_SetCurrentAmmo ();
 
 };
