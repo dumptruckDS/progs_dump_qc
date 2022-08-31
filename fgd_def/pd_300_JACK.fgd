@@ -714,6 +714,10 @@ snd_pain(string) : "Path to custom pain sound" : "Path to custom pain sound"
 snd_sight(string) : "Path to custom sight sound" : "Path to custom sight sound"
 snd_attack(string) : "Path to custom attack sound" : "Path to custom attack sound"
 snd_move(string) : "Path to custom rising and lowering sound" : "Path to custom rising and lowering sound"
+spawnflags(Flags) =
+[
+2 : "No Lava Splash Effect" : 0
+]
 ]
 
 //____TW_EDIT____

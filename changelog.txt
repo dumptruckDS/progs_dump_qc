@@ -60,6 +60,7 @@
 * Added light_sprite_flame (dumptruck_ds)
 * Added missing spawnflags to fog entities (dumptruck_ds)
 * item_health_vial will over heal player and rot like Megahealth (dumptruck_ds)
+* Added NO_LAVASPLASH spawflag to boss2 (dumptruck_ds)
 
 2.0.1 March 2021
 
