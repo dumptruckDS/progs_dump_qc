@@ -1275,77 +1275,6 @@ _color(color255) : "Light color"
 			4 : "Silent"
 		]
 	]
-// //
-// // lights
-// //
-// //dumptruck_ds
-// @baseclass color(255 255 40) = Light [
-// 	light(integer) : "Brightness" : 300
-// 	wait(integer) : "Fade distance multiplier" : 1
-// 	delay(choices) : "Attenuation" =
-// 	[
-// 		0 : "Linear falloff (Default)"
-// 		1 : "Inverse distance falloff"
-// 		2 : "Inverse distance squared"
-// 		3 : "No falloff"
-// 		4 : "Local minlight"
-// 		5 : "Inverse distance squared B"
-// 	]
-// 	mangle(string) : "Spotlight angle"
-// 	style(Choices) : "Appearance" : 0 =
-// 	[
-// 		0 : "Normal"
-// 		10: "Fluorescent flicker"
-// 		2 : "Slow, strong pulse"
-// 		11: "Slow pulse, noblack"
-// 		5 : "Gentle pulse"
-// 		1 : "Flicker A"
-// 		6 : "Flicker B"
-// 		3 : "Candle A"
-// 		7 : "Candle B"
-// 		8 : "Candle C"
-// 		4 : "Fast strobe"
-// 		9 : "Slow strobe"
-// 	]
-// ]
-// //dumptruck_ds end
-// @PointClass size(-8 -8 -8, 8 8 8) flags(Light) base(Targetname, Target, Light) iconsprite("sprites/light.spr") =
-// 	light : "Invisible lightsource"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -8, 8 8 8) flags(Light) base(Targetname, Light) iconsprite("sprites/light.spr") =
-// 	light_fluoro : "Fluorescent light"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -8, 8 8 8) flags(Light) base(Targetname, Light) iconsprite("sprites/light.spr") =
-// 	light_fluorospark : "Sparking fluorescent light"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -8, 8 8 8) flags(Light) base(Targetname, Light) sprite("progs/s_light.spr") =
-// 	light_globe : "Globe light" []
-// @PointClass size(-10 -10 -12, 12 12 18) offset(0 0 12) base(Targetname, Light) studio("progs/flame2.mdl") sequence(1) =
-// 	light_flame_large_yellow : "Large yellow flame" []
-// @PointClass size(-10 -10 -12, 12 12 18) offset(0 0 12) base(Targetname, Light) studio("progs/flame2.mdl") sequence(0) =
-// 	light_flame_small_yellow : "Small yellow flame"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) studio("progs/candle.mdl") = //dumptruck_ds
-// 	light_candle : "Candle"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-10 -10 -12, 12 12 18) offset(0 0 12) base(Targetname, Light) studio("progs/flame2.mdl") sequence(0) =
-// 	light_flame_small_white : "Small white flame"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
-// 	]
-// @PointClass size(-10 -10 -20, 10 10 20) offset(0 0 20) base(Targetname, Light) studio("progs/flame.mdl") =
-// 	light_torch_small_walltorch : "Small walltorch" []
-
 //
 // misc
 //
@@ -1781,6 +1710,7 @@ dmg(integer) : "Damage" : 100
 	delay(integer) : "Starting time delay defualt = 0, -1 = random"
 	style(integer) : "If set to 1, starts off and waits for trigger"
 	mdl(string) : "Path to mdl file"
+	skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
 	spawnflags(flags) =
 	[
 		2 : "BOB_COLLISION (default)" : 2

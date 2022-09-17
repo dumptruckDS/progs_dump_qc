@@ -1263,6 +1263,11 @@ Sphere globe light.
 Can't be toggled.
 See the "light" entity for a full description.
 */
+/*QUAKED light_sprite_flame (0 1 0) (-8 -8 0) (8 8 76) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+Large animated flame
+Can't be toggled.
+See the "light" entity for a full description.
+*/
 /*QUAKED light_torch_small_walltorch (0 .5 0) (-10 -10 -20) (10 10 20) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 {	model ("progs/flame.mdl");	}
 Short wall torch
@@ -2622,6 +2627,45 @@ distance(integer) : "Length of blend distance (defaults to size of trigger)"
 angle(integer) : "Axis of motion of blend (points toward end values)"
 
 */
+/*QUAKED trigger_textstory (.5 .5 .5) ? SILENT NO_BACKGROUND_FADE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
+Trigger to show long centerprint texts. Message remains on screen while player is inside the trigger volume. Can have custom sounds, or be made silent.
+
+Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+
+Use 'fade_amt` to set the background fade to a custom value (default is 160).
+
+You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch yaw 0' format)."
+
+mangle(string) : "Central view angle" : : "Central point of the viewcone, in 'pitch yaw 0' format"
+view_ofs(string) : "Maximum angle offset" : : "Angle offsets from the central viewcone point in each direction, in 'pitch yaw 0' format"
+message(string) : "Message" : : "Message to show on-screen."
+noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
+noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+fade_amt(float) : "Set a custom black level for background fade" : "160"
+spawnflags(flags) = [
+1: "Silent"
+2: "No background fade"
+*/
+/*QUAKED target_textstory (0 1 0) (-8 -8 -8) (8 8 8) SILENT NO_BACKGROUND_FADE X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+
+"Trigger to show long centerprint texts. Message remains on screen for the duration of 'wait'. Can have custom sounds, or be made silent.
+
+Horizontal space is limited to 40 characters, so you must place linefeeds (\n) into your text.
+
+Use 'fade_amt` to set the background fade to a custom value (default is 160).
+
+You can set it to be show the message only when the player is facing a certain angle within the trigger. Set the central angle with 'mangle', and the maximum angle offset with 'view_ofs' (both in 'pitch yaw 0' format)."
+
+wait(integer) : "Message duration" : 5
+message(string) : "Message" : : "Message to show on-screen."
+noise1(string) : "Activate sound" : "misc/talk.wav" : "Gets played when the message is shown. Use 'misc/talk.wav' for the default centerprint beep."
+noise2(string) : "Deactivate sound" : : "Played when the message fades away."
+fade_amt(float) : "Set a custom black level for background fade" : "160"
+spawnflags(flags) = [
+1: "Silent"
+2: "No background fade"
+*/
 
 /*QUAKED ltrail_start (0 1 0) (-8 -8 -8) (8 8 8) LT_TOGGLE START_ON X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 
@@ -3018,10 +3062,12 @@ STARTOFF : Starts off and waits for trigger - DISABLED, Ripped out ESTATE System
 A SOLID bmodel that gently moves back and forth
 */
 /*QUAKED misc_bob (0 0.5 0.8) (-8 -8 -8) (8 8 8) X BOB_COLLISION BOB_NONSOLID X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-{
-	model ({"path" : mdl, "skin" : skin, "frame": frame});
-}
+
 Same as func_bob but uses a custom model instead of a brush. Use the mdl key to set the path of the model.
+
+model - path to model in progs directory
+
+skin(integer) Skin index (default 0) Use this when your custom model has more than one skin to select
 */
 /*QUAKED func_fall2 (0 .5 .8) ? X X X FALL_BREAKABLE FALL_SOLID X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Falling brush by RennyC

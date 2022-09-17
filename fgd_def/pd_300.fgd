@@ -24,26 +24,6 @@
 // worldspawn
 //
 
-// @SolidClass = worldspawn : "World entity"
-// [
-// 	message(string) : "Text on entering the world"
-// 	worldtype(choices) : "Ambience" : 0 =
-// 	[
-// 		0 : "Medieval"
-// 		1 : "Metal (runic)"
-// 		2 : "Base"
-// 	]
-// 	sounds(integer) : "CD track to play" : 0
-// 	light(integer) : "Ambient light"
-// 	_sunlight(integer) : "Sunlight"
-// 	_sun_mangle(string) : "Sun mangle (Yaw pitch roll)"
-// 	reset_items(choices) : "Reset the player's inventory on spawn" : 0 =
-// 	[
-// 		0 : "Don't reset the player's inventory"
-// 		1 : "Reset to shotgun, axe, and 25 shells"
-// 		2 : "Reset to axe only"
-// 	]
-// ]
 @SolidClass = worldspawn : "World entity"
 [
 	message(string) : "Level name"
@@ -1404,85 +1384,6 @@ spawnflags(Flags) =
 // END OF NEW ERICW TOOLS BRUSH ENTITIES	//
 //											//
 //											//
-
-
-// //
-// // lights
-// //
-//
-// @baseclass color(255 255 40) = Light [
-// 	light(integer) : "Brightness" : 300
-// 	wait(integer) : "Fade distance multiplier" : 1
-// 	delay(choices) : "Attenuation" =
-// 	[
-// 		0 : "Linear falloff (Default)"
-// 		1 : "Inverse distance falloff"
-// 		2 : "Inverse distance squared"
-// 		3 : "No falloff"
-// 		4 : "Local minlight"
-// 		5 : "Inverse distance squared B"
-// 	]
-// 	mangle(string) : "Spotlight angle"
-// 	style(Choices) : "Appearance" : 0 =
-// 	[
-// 		0 : "Normal"
-// 		10: "Fluorescent flicker"
-// 		2 : "Slow, strong pulse"
-// 		11: "Slow pulse, noblack"
-// 		5 : "Gentle pulse"
-// 		1 : "Flicker A"
-// 		6 : "Flicker B"
-// 		3 : "Candle A"
-// 		7 : "Candle B"
-// 		8 : "Candle C"
-// 		4 : "Fast strobe"
-// 		9 : "Slow strobe"
-// 	]
-// ]
-//
-// @PointClass size(-8 -8 -8, 8 8 8) base(Light, Target, Targetname) =
-// 	light : "Invisible light source"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -8, 8 8 8) base(Light, Target, Targetname) =
-// 	light_fluoro : "Fluorescent light"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -8, 8 8 8) base(Light, Target, Targetname) =
-// 	light_fluorospark : "Sparking fluorescent light"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -8, 8 8 8) base(Appearflags, Light, Target, Targetname) =
-// 	light_globe : "Globe light"
-// 	[
-// 		spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame2.mdl" }) =
-// 	light_flame_large_yellow : "Large yellow flame"
-// 	[
-// 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-8 -8 -12, 8 8 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/candle.mdl" }) = //dumptruck_ds
-// 	light_candle : "Candle"
-// 	[
-// 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame2.mdl" }) =
-// 	light_flame_small_yellow : "Small yellow flame"
-// 	[
-// 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame2.mdl" }) =
-// 	light_flame_small_white : "Small white flame"
-// 	[
-// 		// spawnflags(Flags) = [ 1 : "Start off" : 0 ]
-// 	]
-// @PointClass size(-4 -4 -12, 4 4 20) base(Appearflags, Light, Target, Targetname) model({ "path": ":progs/flame.mdl" }) =
-// 	light_torch_small_walltorch : "Small walltorch" []
-//
 //
 // misc
 //
@@ -1997,6 +1898,7 @@ dmg is the amount of damage to cause when touched."
 	delay(integer) : "Starting time delay defualt = 0, -1 = random"
 	style(integer) : "If set to 1, starts off and waits for trigger"
 	mdl(string) : "Path to mdl file"
+	skin(integer) : "Skin index (default 0)" : : "Skin index (default 0) Use this when your custom model has more than one skin to select"
 	spawnflags(flags) =
 	[
 		2 : "BOB_COLLISION (default)" : 2
