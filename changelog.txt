@@ -64,6 +64,8 @@
 * item_health_vial will over heal player and rot like Megahealth (dumptruck_ds)
 * Added NO_LAVASPLASH spawnflag to boss2 (dumptruck_ds)
 * Fixed error in item_backpack (dumptruck_ds)
+* Added new spawnflags to func_bossgate and func_episodegate that reverse their
+  functionality (ILike80sRock)
 
 2.0.1 March 2021 (unreleased)
 

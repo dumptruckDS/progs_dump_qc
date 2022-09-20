@@ -529,7 +529,7 @@ worldtype(choices) : "Ambience" : 0 =
 1 : "Runic (metal)"
 2 : "Present (base)"
 
-sounds(integer) : "CD track to play" : 0
+sounds(integer) : "Music track to play" : 0
 
 light(integer) : "Ambient light" : 0 : "Set a global minimum light level of 'n' across the whole map. This is an easy way to eliminate completely dark areas of the level, however you may lose some contrast as a result, so use with care. Default 0"
 
@@ -841,6 +841,21 @@ Any object touching this will be hurt
 set dmg to damage amount
 defalt dmg = 5
 */
+/*QUAKED misc_infight (0 0.5 0) (-8 -8 -8) (8 8 8) MUTUAL_HATE KEEP_PLAYER_AS_ACTIVATOR X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+"Makes 'target' monster angry at 'target2'.
+
+By default, the infighting doesn't start mutually, that is, 'target2' monster will only get mad back at 'target' after it's been attacked.
+
+If you want to make them angry at each other instantly, you can set the spawnflag 'Mutual hate'."
+
+target(target_destination) : "The monster who will get angry."
+target2(target_destination) : "Who target will get angry at."
+
+spawnflags(flags)
+1: "Mutual hate" : 0
+2: "Keep player as activator" : 0
+
+*/
 /*QUAKED trigger_push (.5 .5 .5) ? PUSH_ONCE X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Pushes the player
 */
@@ -1087,10 +1102,10 @@ effects = Add a visual effect to an entity
 /*QUAKED func_illusionary (0 .5 .8) ? X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 A simple entity that looks solid but lets you walk through it.
 */
-/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4
+/*QUAKED func_episodegate (0 .5 .8) ? E1 E2 E3 E4 REVERSE_FUNCTIONALITY X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This bmodel will appear if the episode has allready been completed, so players can't reenter it.
 */
-/*QUAKED func_bossgate (0 .5 .8) ?
+/*QUAKED func_bossgate (0 .5 .8) ? X X X X REVERSE_FUNCTIONALITY X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 This bmodel appears unless players have all of the episode sigils.
 */
 /*QUAKED ambient_suck_wind (0 0.780 0.117) (-10 -10 -8) (10 10 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
@@ -3124,8 +3139,15 @@ Default behavior allows anyone to activate func_fall2 on touch ONLY
 
 Able to .target other entities, including other func_fall2s
 */
-/*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) X X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
+/*QUAKED func_monster_spawner (.75 0 .75) (-8 -8 -8) (8 8 8) RESET_AFTER_COMPLETION DONT_SPAWN_ANGRY DONT_ADD_TO_COUNT X X SILENT_SPAWN X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
 Spawns monsters to targeted info_monster_spawnpoint (make sure both entities are close together or overlapping)
+
+spawnflags(flags) =
+
+1: "Reset after completion" : 0
+2: "Don't spawn angry" : 0
+4: "Don't add to count" : 0
+32: "Silent spawn" : 0
 
 Choose Style
 • 1 (Dog (Default)

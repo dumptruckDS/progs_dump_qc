@@ -34,7 +34,7 @@
 		1 : "Runic (metal)"
 		2 : "Present (base)"
 	]
-	sounds(integer) : "CD track to play" : 0
+	sounds(integer) : "Music track to play" : 0
 	light(integer) : "Ambient light" : 0 : "Set a global minimum light level of 'n' across the whole map. This is an easy way to eliminate completely dark areas of the level, however you may lose some contrast as a result, so use with care. Default 0"
 	reset_items(choices) : "Reset the player's inventory on spawn" : 0 =
 	[
