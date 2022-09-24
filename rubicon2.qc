@@ -499,14 +499,22 @@ void () func_breakable = {
 		|| self.style == 22 || self.style == 23)
 		if !(self.noise1)
 	{
+		precache_sound("break/stones1.wav");
 		precache_sound("break/bricks1.wav");
+		if (random() > 0.6) // wood only randomized
 		self.noise1 = "break/bricks1.wav";
+		else
+		self.noise1 = "break/stones1.wav";
 	}
 	if (self.style == 25 || self.style == 26 || self.style == 27 || self.style == 28 || self.style == 29 || self.style == 30)
 		if !(self.noise1)
 	{
 		precache_sound("break/stones1.wav");
+		precache_sound("break/bricks1.wav");
+		if (random() > 0.6) // wood only randomized
 		self.noise1 = "break/stones1.wav";
+		else
+		self.noise1 = "break/bricks1.wav";
 	}
 	// else
 	// 	(self.noise1 = "blob/hit1.wav");

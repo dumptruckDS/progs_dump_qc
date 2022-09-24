@@ -246,7 +246,9 @@ state(choices) =
 @baseclass base(Appearflags, Fog) size(-16 -16 -24, 16 16 32)
 	color(0 255 0) model({ "path": ":progs/player.mdl" , "frame": 120}) = PlayerClassAlt []
 @baseclass base(Appearflags) size(-64 -64 -24, 64 64 32)
-color(206 18 18) model({ "path": ":progs/teleport.mdl" }) = MonsterClass []
+color(206 18 18) model(
+	{{
+		mdl_body -> {"path": mdl_body, "skin" : skin}, {"path": "progs/teleport.mdl","skin" : 1} }}) = MonsterClass []
 
 @PointClass color(206 18 18) base(OneTarget, OneTargetname, Berserk, Appearflags) = func_monster_spawner : "Spawns monsters to targeted info_monster_spawnpoint (make sure both entities are close together or overlapping)
 
@@ -326,7 +328,9 @@ NOTE when a trigger_teleport has a targetname it must be triggered to operate, s
 	mangle(string) : "Camera angle (Pitch Yaw Roll)"
 ]
 
-@PointClass = info_intermissiontext : "Intermission Text"
+@PointClass = info_intermissiontext : "Intermission Text
+
+See the `prefab_info_intermissiontext` sample map and refer to the manual for setup."
 [
 	message(string): "Text to show on intermission screen"
 	cnt(integer): "Page number"
@@ -546,7 +550,7 @@ the bprint tends to stomp any other prints on screen in most quake clients, so u
 // @PointClass base(Key) model({ "path": ":progs/pd_w_key.mdl", "skin": 1 }) =
 @PointClass base(Key) model(
 	{{
-        mdl -> {"path" : mdl, "skin" : skin}, {"path": "progs/pd_w_key.mdl" , "skin" : skin}
+        mdl -> {"path" : mdl, "skin" : skin}, {"path": "progs/pd_r_key.mdl" , "skin" : 25}
     }}
 ) = item_key_custom :
 "A customizable key item.
@@ -1076,6 +1080,7 @@ spawnflags(Flags) =
 
 @PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/demon.mdl","skin" : skin, "frame" : 53}) = monster_dead_demon : "Demon Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1085,6 +1090,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/shambler.mdl","skin" : skin, "frame" : 93}) = monster_dead_shambler : "Shambler Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1094,6 +1100,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/soldier.mdl","skin" : skin, "frame" : 28}) = monster_dead_army : "Soldier Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1104,6 +1111,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-32 -32 -24, 32 32 40) studio({ "path": ":progs/dog.mdl","skin" : skin, "frame" : 16}) = monster_dead_dog : "Dog Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1113,6 +1121,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/enforcer.mdl","skin" : skin, "frame" : 54}) = monster_dead_enforcer : "Enforcer Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1123,6 +1132,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/ogre.mdl","skin" : skin, "frame" : 135}) = monster_dead_ogre : "Ogre Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1133,6 +1143,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/knight.mdl","skin" : skin, "frame" : 96}) = monster_dead_knight : "Knight Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1143,6 +1154,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/hknight.mdl","skin" : skin, "frame" : 62}) = monster_dead_hell_knight : "Hellknight Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1152,6 +1164,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-32 -32 -24, 32 32 64) studio({ "path": ":progs/shalrath.mdl","skin" : skin, "frame" : 22}) = monster_dead_shalrath : "Shalrath Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1161,6 +1174,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 40) studio({ "path": ":progs/wizard.mdl","skin" : skin, "frame" : 53}) = monster_dead_wizard : "Scrag Corpse" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1170,6 +1184,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 49}) = player_dead_axe: "Player Corpse Axe" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1179,6 +1194,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 102}) = player_dead_on_side: "Player Corpse on Side" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
@@ -1188,6 +1204,7 @@ spawnflags(Flags) =
 ]
 @PointClass base(Appearflags) size(-16 -16 -24, 16 16 32) studio({ "path": ":progs/player.mdl","skin" : skin, "frame" : 84}) = player_dead_face_down: "Player Corpse Face Down" //dumptruck_ds
 [
+angles(integer)
 targetname(string)
 spawnflags(Flags) =
 [
