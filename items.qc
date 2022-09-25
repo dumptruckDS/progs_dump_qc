@@ -244,7 +244,7 @@ void() item_health =
 
 	self.touch = health_touch;
 
-	
+
 
 	if (self.spawnflags & H_ROTTEN)
 	{
@@ -1178,7 +1178,7 @@ void() item_shells =
 
 	self.touch = ammo_touch;
 
-	
+
 
 	if (self.spawnflags & WEAPON_BIG2)
 	{
@@ -1260,7 +1260,7 @@ void() item_spikes =
 	}
 	else
 	{
-	
+
 		if (!self.mdl_body && world.n_sm_mdl) self.mdl_body = world.n_sm_mdl;
 		if (world.style)
 			{
@@ -1299,7 +1299,7 @@ void() item_rockets =
 
 	if (self.spawnflags & WEAPON_BIG2)
 	{
-	
+
 		if (!self.mdl_body && world.r_lg_mdl) self.mdl_body = world.r_lg_mdl;
 		if (world.style)
 			{
@@ -2338,7 +2338,6 @@ void() item_backpack_message =
 	remove(self);
 	self = other;
 	bound_other_ammo();
-	self.weapon = W_BestWeapon();
 	W_SetCurrentAmmo ();
 
 };
