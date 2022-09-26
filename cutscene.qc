@@ -224,6 +224,7 @@ local   string  val;
     c.classname     = "player";
     cutscene = 0;       // Cutscene OFF
     stuffcmd (c, "-forward\n");
+    stuffcmd (c, "-strafe\n");
 
 // Look for any CVARSET entities to restore old cvars that
 // were changed for the cut-scene
@@ -274,6 +275,7 @@ void() look_ahead =
     self.velocity = self.mangle;
     self.fixangle = 1;
     cvar_set ("viewsize", "120");        //keep screen maximized
+
     if (self.delay == 0)
     {
         local   vector  looky;
@@ -483,6 +485,7 @@ local   vector  looky;
     cvar_set ("viewsize", "120");     //Full screen
     // PM:  Vision sets 'v_idlescale' for swaying screen.  Not in Drake!
     stuffcmd (self, "sizedown\nsizeup\n");   //hack-fix for GLquake
+    stuffcmd (self, "+strafe\n");
 
     setorigin (self, self.enemy.origin);
 
