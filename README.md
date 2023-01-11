@@ -1,8 +1,9 @@
 # progs_dump_qc
-This is the most current version of progs_dump .qc source.
+THIS REPOSITORY HAS BEEN REPLACED. It is being kept for historical reasons.
 
-Then latest official release is version 3.0.0. which can be downloaded here:
-http://www.quaketastic.com/files/single_player/mods/progs_dump_devkit_v300.zip
+Please see https://github.com/progs-dump-dev/progs_dump for further development.
+
+---
 
 Changes from version 2.0.0 to 3.0.0
 
