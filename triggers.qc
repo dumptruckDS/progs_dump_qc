@@ -261,47 +261,59 @@ void() trigger_secret =
 	trigger_multiple ();
 };
 
-//=============================================================================
+/*
+==============================================================================
 
+Added custom message options for trigger_counter.
+-- rijuma
+
+==============================================================================
+*/
 
 void() counter_use =
 {
 	if (self.estate != STATE_ACTIVE) return;
 
-	self.count = self.count - 1;
-	if (self.count < 0)
-		return;
+	// Is self.count is 0 or less, this was already done. Ignore.
+	if (self.count <= 0) return;
 
-	if (self.count != 0)
-	{
-		if (activator.classname == "player"
-		&& (self.spawnflags & SPAWNFLAG_NOMESSAGE) == 0)
-		{
-			if (self.count >= 4)
-				centerprint (activator, "There are more to go...");
-			else if (self.count == 3)
-				centerprint (activator, "Only 3 more to go...");
-			else if (self.count == 2)
-				centerprint (activator, "Only 2 more to go...");
-			else
-				centerprint (activator, "Only 1 more to go...");
-		}
-		return;
+	
+	
+	self.count = self.count - 1;
+	
+	// Check conditions for showing message
+	local float showMessage = (activator.classname == "player" && (self.spawnflags & SPAWNFLAG_NOMESSAGE) == 0);
+	
+	// If the count reaches 0, we trigger the event.
+	if (self.count == 0) {
+		if (showMessage)
+			centerprint (activator, self.message_complete);
+
+		self.enemy = activator;
+		return multi_trigger ();
 	}
 
-	if (activator.classname == "player"
-	&& (self.spawnflags & SPAWNFLAG_NOMESSAGE) == 0)
-		centerprint(activator, "Sequence completed!");
-	self.enemy = activator;
-	multi_trigger ();
+	// Otherwise, more activations remain, so let's handle that.
+
+	// If there's no message, then nothing to do here.
+	if (!showMessage) return;
+
+	// First we check if we want to tell exactly how many attempts we have left or not.
+	// If the remaining count is greater than count_more, we do use message_more.
+	// Use count_more = -1 to Never use message_more (Always use message_count).
+	if (self.count_more != -1 && self.count > self.count_more)
+	 return centerprint (activator, template_string(self.message_more, ftos(self.count)));
+
+	// If only one remains, we check if we have a custom message for this case, otherwise we use the template.
+	if (self.count == 1 && self.message_one)
+		return centerprint (activator, self.message_one);
+	
+	// We use the message_count string.
+	centerprint (activator, template_string(self.message_count, ftos(self.count)));
 };
 
 /*QUAKED trigger_counter (.5 .5 .5) ? nomessage X X X X X X X NOT_ON_EASY NOT_ON_NORMAL NOT_ON_HARD_OR_NIGHTMARE NOT_IN_DEATHMATCH NOT_IN_COOP NOT_IN_SINGLEPLAYER X NOT_ON_HARD_ONLY NOT_ON_NIGHTMARE_ONLY
-
 Acts as an intermediary for an action that takes multiple inputs.
-
-If nomessage is not set, t will print "1 more.. " etc when triggered and "sequence complete" when finished.
-
 After the counter has been triggered "count" times (default 2), it will fire all of it's targets and remove itself.
 */
 void() trigger_counter =
@@ -309,11 +321,34 @@ void() trigger_counter =
 	if (SUB_Inhibit ())  // new spawnflags for all entities -- iw
 		return;
 
-	self.wait = -1;
+	self.use = counter_use;
+
+	self.wait = -1; // This disables wait for some reason, I've removed it from the .fgd/.def file. Maybe a TODO check for this functionality?
+
+	// Default values
 	if (!self.count)
 		self.count = 2;
 
-	self.use = counter_use;
+	if (!self.message_complete) {
+		// Retro compatible with the message parameter.
+		if (self.message) 
+			self.message_complete = self.message;
+		else
+			self.message_complete = "Sequence completed!";
+	}
+
+	// Clear deprecated message parameter.
+	self.message = "";
+
+	if (!self.message_count)
+		self.message_count = strcat ("Only ", TEMPLATE_TOKEN, " more to go...");
+
+	if (!self.message_more)
+		self.message_more = "There are more to go...";
+
+	if (!self.count_more)
+		self.count_more = 3;
+
 };
 
 /*

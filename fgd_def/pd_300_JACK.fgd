@@ -2171,12 +2171,21 @@ spawnflags(Flags) =
 	height(integer) : "Jump Height" : 200
 	spawnflags(flags) = [ 8: "Start Off (toggles)" : 0 ] //dumptruck_ds
 ]
-@PointClass base(Appearflags, Target, Targetname) = trigger_counter : "Trigger: Counter"
+@PointClass base(Appearflags, Target, Targetname) = trigger_counter : "Trigger: Counter
+
+message_complete: Message to show when the sequence is complete.
+message_more: Message to show when there are more to go. Using % within the message will show the remaining count
+message_count: Message to specify the remaining count. Using % within the message will show the remaining count.
+message_one (optional): Custom message when only one remains. Defaults to 'message_count' behavior.
+count_more: If more than this quantity remains, 'message_more' is used. -1 to ignore 'message_more' logic."
 [
 	spawnflags(flags) = [ 1: "No Message" : 0 ]
 	count(integer) : "Count before trigger" : 2
-	delay (integer) : "Delay"
-	message(string) : "Message"
+	message_complete(string) : "Message on sequence completed" : "Sequence completed!"
+	message_more(string) : "Message to show when there are more to go. Use % for the remaining count." : "There are more to go..."
+	message_count(string) : "Message to specify the remaining count. Use % for the remaining count." : "Only % more to go..."
+	message_one(string) : "Custom message when there's only one more to go (optional)"
+	count_more(integer) : "If more than this quantity remains, 'message_more' will be shown. Use -1 to always show the count." : 3
 ]
 @SolidClass base(Angle, Appearflags, Targetname, TriggerWait) = trigger_push : "Trigger: Push"
 [

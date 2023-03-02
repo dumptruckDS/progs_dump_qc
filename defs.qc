@@ -566,6 +566,12 @@ float	AS_TURRET		= 5;
 //
 .float		count;			// for counting triggers
 
+// For trigger_count
+.string		message_more;		// Use for "There are more to go..."
+.string		message_complete;	// Use for "Sequence completed!"
+.string		message_count;		// Use for "Only % more to go..."
+.string		message_one;		// Use for "Only 1 more to go..."
+.float		count_more;			// If more than this value remains, 'message_more' is used. -1 to never.
 
 //
 // plats / doors / buttons

@@ -2,6 +2,7 @@
 #pragma autoproto
 
 defs.qc //added fields, see comments for details
+string_lib.qc // String handling functions
 newflags.qc //new spawnflags for all entities
 math.qc // Code by Joshua Skelton
 utility.qc
